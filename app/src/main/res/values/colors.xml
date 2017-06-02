@@ -6,7 +6,7 @@
 
 
     <!--need to check later-->
-    <color name="divider_line">#AAAAAA</color>
+    <color name="divider_line">#EEEEEE</color>
     <color name="transparent">#00000000</color>
     <color name="white">#FFFFFF</color>
 
@@ -37,7 +37,8 @@
     <color name="lightBlueTwo">#90caf9</color>
     <color name="lightblue">#64AFF2</color>
     <color name="paleOliveGreen">#aed581</color>
-    <color name="whiteFour">#F5F5F5</color>
+    <color name="whiteFour">#FFFFFF</color>
+    <color name="whiteFive">#FAFAFA</color>
     <color name="greyishBrown">#424242</color>
     <color name="dusk">#425877</color>
     <color name="black">#222222</color>

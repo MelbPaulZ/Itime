@@ -1,0 +1,143 @@
+{
+    "android_gradle_plugin_version": "2.3.2",
+    "apk_path": "/Users/Paul/programming/Android/Itime/app/build/outputs/apk/app-debug.apk",
+    "apt": {
+        "app": {
+            "aptArgs": [
+                "-Aandroid.databinding.artifactType=APPLICATION",
+                "-Aandroid.databinding.printEncodedErrors=0",
+                "-Aandroid.databinding.minApi=19",
+                "-Aandroid.databinding.isTestVariant=0",
+                "-Aandroid.databinding.enableDebugLogs=0",
+                "-Aandroid.databinding.sdkDir=/Users/Paul/Library/Android/sdk",
+                "-Aandroid.databinding.bindingBuildFolder=/Users/Paul/programming/Android/Itime/app/build/intermediates/data-binding-compiler/debug",
+                "-Aandroid.databinding.enableForTests=0",
+                "-Aandroid.databinding.modulePackage=org.unimelb.itime",
+                "-Aandroid.databinding.generationalFileOutDir=/Users/Paul/programming/Android/Itime/app/build/intermediates/bundles/debug/data-binding",
+                "-Aandroid.databinding.xmlOutDir=/Users/Paul/programming/Android/Itime/app/build/intermediates/data-binding-info/debug"
+            ],
+            "aptOutput": "/Users/Paul/programming/Android/Itime/app/build/generated/source/apt/debug",
+            "disableDiscovery": false,
+            "enabled": true,
+            "processor": null,
+            "processorPath": "/Users/Paul/.android/build-cache/845600efce1829a9754efc4de0ba2d306e49ee53/output/jars/classes.jar:/Users/Paul/Library/Android/sdk/extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.2/constraint-layout-solver-1.0.2.jar:/Users/Paul/.android/build-cache/c0b4d10390c3c48dec11665b94ea5d2cc4093413/output/jars/classes.jar:/Users/Paul/.android/build-cache/79e8bae9632e9c18ebf904581d6dec4126f8e7dd/output/jars/classes.jar:/Users/Paul/.gradle/caches/modules-2/files-2.1/com.hannesdorfmann.mosby/mvp-common/2.0.1/d75c9c5577143f3cf3fd63f61526a551f910b56f/mvp-common-2.0.1.jar:/Users/Paul/.android/build-cache/fbb562e2cdb518126d860d38dff8cafd1ecee54a/output/jars/classes.jar:/Users/Paul/.android/build-cache/509bd6c33721e541de8d61d9bb42d175f3276947/output/jars/classes.jar:/Users/Paul/.android/build-cache/b6ee2956e06a9da05796ab401f07a0a92e03db44/output/jars/classes.jar:/Users/Paul/.android/build-cache/cc50bfd73c4e5a0b2075010488411b4719c9372b/output/jars/classes.jar:/Users/Paul/.android/build-cache/8fcb2f517e5260810535539fdec802ef86eb4c17/output/jars/classes.jar:/Users/Paul/.android/build-cache/ba6027532e9beb03f327d008fb1e542282aeee05/output/jars/classes.jar:/Users/Paul/.android/build-cache/748eae5012f868e90a34b2465b3620b8e7d5fde8/output/jars/classes.jar:/Users/Paul/.android/build-cache/34527a1db08d0298742fd537eefc10a5ceb42096/output/jars/classes.jar:/Users/Paul/.android/build-cache/60cc46907e02abe14d27240aa6b9fdf04ac42398/output/jars/classes.jar:/Users/Paul/.android/build-cache/fd88d7a9deab57d728d1129e1383680220c04c7d/output/jars/classes.jar:/Users/Paul/.android/build-cache/7d05fc6e039fde43d7cc593ccbbe1b45a3fd17f4/output/jars/classes.jar:/Users/Paul/.android/build-cache/7d1f8d3713a7ead176dd3e123b2a262f7b77581e/output/jars/classes.jar:/Users/Paul/.android/build-cache/5cfe65296477cda8efff27739f3d2ebd35f513a3/output/jars/classes.jar:/Users/Paul/.android/build-cache/f95d2b52e4d4460563e8b186646ae230eca6712c/output/jars/classes.jar:/Users/Paul/.android/build-cache/023cdeb02837ed20fda3c46fa718f4a89df5c739/output/jars/classes.jar:/Users/Paul/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.3.1/support-annotations-25.3.1.jar:/Users/Paul/.gradle/caches/modules-2/files-2.1/com.android.databinding/baseLibrary/2.3.2/64d8dd1d16035a16928e74269b7b66af9a229f02/baseLibrary-2.3.2.jar:/Users/Paul/.android/build-cache/bd8b435945577d717c407a56935d90a8bb81f45a/output/jars/classes.jar:/Users/Paul/.gradle/caches/modules-2/files-2.1/com.android.databinding/compiler/2.3.2/c7125acfcb525b30fef7ee8bfecb0f7695931303/compiler-2.3.2.jar:/Users/Paul/.gradle/caches/modules-2/files-2.1/com.googlecode.juniversalchardet/juniversalchardet/1.0.3/cd49678784c46aa8789c060538e0154013bb421b/juniversalchardet-1.0.3.jar"
+        }
+    },
+    "apt_libraries": {
+        "dagger": false,
+        "butterknife": false
+    },
+    "auto_dependency": true,
+    "build_cache_dir": "/Users/Paul/programming/Android/Itime/app/build/freeline",
+    "build_directory": "/Users/Paul/programming/Android/Itime/app/build",
+    "build_script": "./gradlew :app:assembleDebug",
+    "build_script_work_directory": "",
+    "build_tools_directory": "/Users/Paul/Library/Android/sdk/build-tools/25.0.2",
+    "build_tools_version": "25.0.2",
+    "check_sources_md5": [
+        
+    ],
+    "compile_sdk_directory": "/Users/Paul/Library/Android/sdk/platforms/android-25",
+    "compile_sdk_version": "android-25",
+    "databinding": [
+        {
+            "isLibrary": false,
+            "minSdkVersion": 19,
+            "name": "app",
+            "packageName": "org.unimelb.itime"
+        }
+    ],
+    "databinding_compiler_jar": "/Users/Paul/.gradle/caches/modules-2/files-2.1/com.android.databinding/compiler/2.3.2/c7125acfcb525b30fef7ee8bfecb0f7695931303/compiler-2.3.2.jar",
+    "databinding_modules": [
+        "app"
+    ],
+    "debug_package": "org.unimelb.itime",
+    "exclude_dep_res_paths": [
+        
+    ],
+    "extra_dep_res_paths": [
+        
+    ],
+    "freeline_cache_dir": "/Users/Paul/programming/Android/Itime",
+    "freeline_gradle_plugin_version": "0.8.7",
+    "ignore_resource_ids": [
+        "avd_hide_password_1",
+        "avd_hide_password_2",
+        "avd_hide_password_3",
+        "avd_show_password_1",
+        "avd_show_password_2",
+        "avd_show_password_3"
+    ],
+    "java_home": "/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home",
+    "launcher": "org.unimelb.itime.ui.activity.MainActivity",
+    "main_assets_directory": [
+        "/Users/Paul/programming/Android/Itime/app/src/debug/assets",
+        "/Users/Paul/programming/Android/Itime/app/src/main/assets"
+    ],
+    "main_jniLibs_directory": [
+        "/Users/Paul/programming/Android/Itime/app/src/debug/jniLibs",
+        "/Users/Paul/programming/Android/Itime/app/src/main/jniLibs"
+    ],
+    "main_jni_directory": [
+        "/Users/Paul/programming/Android/Itime/app/src/debug/jni",
+        "/Users/Paul/programming/Android/Itime/app/src/main/jni"
+    ],
+    "main_manifest_path": "/Users/Paul/programming/Android/Itime/app/src/main/AndroidManifest.xml",
+    "main_project_dir": "app",
+    "main_project_name": "app",
+    "main_r_path": "/Users/Paul/programming/Android/Itime/app/build/generated/source/r/debug/R.java",
+    "main_res_directory": [
+        "/Users/Paul/programming/Android/Itime/app/src/debug/res",
+        "/Users/Paul/programming/Android/Itime/app/src/main/res"
+    ],
+    "main_src_directory": [
+        "/Users/Paul/programming/Android/Itime/app/src/debug/java",
+        "/Users/Paul/programming/Android/Itime/app/src/main/java"
+    ],
+    "module_dependencies": {
+        "app": [
+            
+        ]
+    },
+    "modules": [
+        {
+            "name": "app",
+            "path": "/Users/Paul/programming/Android/Itime/app"
+        }
+    ],
+    "package": "org.unimelb.itime",
+    "product_flavor": "",
+    "project_source_sets": {
+        "app": {
+            "main_assets_directory": [
+                "/Users/Paul/programming/Android/Itime/app/src/debug/assets",
+                "/Users/Paul/programming/Android/Itime/app/src/main/assets"
+            ],
+            "main_jniLibs_directory": [
+                "/Users/Paul/programming/Android/Itime/app/src/debug/jniLibs",
+                "/Users/Paul/programming/Android/Itime/app/src/main/jniLibs"
+            ],
+            "main_jni_directory": [
+                "/Users/Paul/programming/Android/Itime/app/src/debug/jni",
+                "/Users/Paul/programming/Android/Itime/app/src/main/jni"
+            ],
+            "main_manifest_path": "/Users/Paul/programming/Android/Itime/app/src/main/AndroidManifest.xml",
+            "main_res_directory": [
+                "/Users/Paul/programming/Android/Itime/app/src/debug/res",
+                "/Users/Paul/programming/Android/Itime/app/src/main/res"
+            ],
+            "main_src_directory": [
+                "/Users/Paul/programming/Android/Itime/app/src/debug/java",
+                "/Users/Paul/programming/Android/Itime/app/src/main/java"
+            ]
+        }
+    },
+    "project_type": "gradle",
+    "retrolambda": {
+        
+    },
+    "root_dir": "/Users/Paul/programming/Android/Itime",
+    "sdk_directory": "/Users/Paul/Library/Android/sdk",
+    "use_jdk8": true,
+    "use_system_gradle": false
+}

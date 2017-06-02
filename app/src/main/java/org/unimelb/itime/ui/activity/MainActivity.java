@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.ui.fragment.FragmentEventCreate;
+import org.unimelb.itime.ui.fragment.FragmentEventRepeat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,7 +14,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentEventCreate fragmentEventCreate = new FragmentEventCreate();
-        getSupportFragmentManager().beginTransaction().add(R.id.frag_container,fragmentEventCreate).commit();
+        FragmentEventRepeat fragmentEventRepeat = new FragmentEventRepeat();
+        getSupportFragmentManager().beginTransaction().add(R.id.frag_container, fragmentEventRepeat).commit();
+//        FragmentEventCreate fragmentEventCreate = new FragmentEventCreate();
+//        getSupportFragmentManager().beginTransaction().add(R.id.frag_container,fragmentEventCreate).commit();
     }
 }

@@ -16,4 +16,17 @@
     <string name="note_toolbar_btn">Note</string>
     <string name="url_toolbar_btn">URL</string>
     <string name="repeat_toolbar_btn">Repeat</string>
+
+    <!--repeats-->
+    <string name="event_no_repeat">Does Not Repeat</string>
+    <string name="event_repeat_everyday">Everyday</string>
+    <string name="event_repeat_every_week">Every Week</string>
+    <string name="event_repeat_every_two_weeks">Every Two Weeks</string>
+    <string name="event_repeat_every_month">Every Month</string>
+    <string name="event_repeat_every_year">Every Year</string>
+    <string name="event_repeat_custom">Custom</string>
+    <string name="event_repeat_end_repeat">End Repeat</string>
+    <string name="event_repeat_never">Never</string>
+    <string name="event_repeat_title">Repeat</string>
+    <string name="event_repeat_toolbar_done">Done</string>
 </resources>

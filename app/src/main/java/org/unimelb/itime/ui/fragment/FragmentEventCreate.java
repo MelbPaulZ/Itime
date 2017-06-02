@@ -39,6 +39,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         toolbarViewModel = new ToolbarViewModel();
         toolbarViewModel.setTitle(getString(R.string.new_event_toolbar_title));
         toolbarViewModel.setRightText(getString(R.string.new_event_toolbar_next));
+        toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_close));
         binding.setToolbarvm(toolbarViewModel);
 
     }

@@ -2,6 +2,7 @@ package org.unimelb.itime.ui.viewmodel;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.graphics.drawable.Drawable;
 
 import com.android.databinding.library.baseAdapters.BR;
 
@@ -13,6 +14,7 @@ public class ToolbarViewModel extends BaseObservable {
 
     private String title;
     private String rightText;
+    private Drawable leftIcon;
 
     @Bindable
     public String getTitle() {
@@ -34,4 +36,13 @@ public class ToolbarViewModel extends BaseObservable {
         notifyPropertyChanged(BR.rightText);
     }
 
+    @Bindable
+    public Drawable getLeftIcon() {
+        return leftIcon;
+    }
+
+    public void setLeftIcon(Drawable leftIcon) {
+        this.leftIcon = leftIcon;
+        notifyPropertyChanged(BR.leftIcon);
+    }
 }
