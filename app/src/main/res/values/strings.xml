@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Itime</string>
+
+    <!--add string here-->
+    <string name="event_invitees_title">Invitees</string>
+    <string name="event_title_hint">Enter Event Title</string>
+    <string name="event_duration_title">Duration</string>
+    <string name="event_add_timeslot">Add a timeslot</string>
+    <string name="event_location_hint">No Location</string>
+    <string name="event_calendars_title">Calendars</string>
+    <string name="new_event_toolbar_title">New Event</string>
+    <string name="new_event_toolbar_next">Next</string>
+
+    <!--Event buttons-->
+    <string name="photos_toolbar_btn">Photos</string>
+    <string name="note_toolbar_btn">Note</string>
+    <string name="url_toolbar_btn">URL</string>
+    <string name="repeat_toolbar_btn">Repeat</string>
+</resources>

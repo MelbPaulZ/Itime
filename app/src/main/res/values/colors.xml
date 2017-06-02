@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <!--need to check later-->
+    <color name="divider_line">#AAAAAA</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <!--add color below-->
+    <color name="cell_name">#000000</color>
+    <color name="cell_value">#C7C7CD</color>
+    <color name="dialog_btn_blue">#0076ff</color>
+
+    <!--new color standards-->
+    <color name="warmGrey">#9E9E9E</color>
+    <color name="tangerine">#FF9700</color>
+    <color name="pinkishGrey">#BDBDBD</color>
+    <color name="greyishTwo">#B9B9B9</color>
+    <color name="blackTwo">#030303</color>
+    <color name="blush">#ef9a9a</color>
+    <color name="warmGreyTwo">#757575</color>
+    <color name="brownishGreyTwo">#6d6d6d</color>
+    <color name="brownishGrey">#6d6d6d</color>
+    <color name="whiteThree">#fafafa</color>
+    <color name="whiteTwo">#e0e0e0</color>
+    <color name="brightBlue">#0076ff</color>
+    <color name="twilightBlue">#06457f</color>
+    <color name="booger">#8bc34a</color>
+    <color name="paleGrey">#f8f8fb</color>
+    <color name="greyish">#b2b2b2</color>
+    <color name="warmPink">#f65966</color>
+    <color name="steel">#8e8e93</color>
+    <color name="lightBlueTwo">#90caf9</color>
+    <color name="lightblue">#64AFF2</color>
+    <color name="paleOliveGreen">#aed581</color>
+    <color name="whiteFour">#F5F5F5</color>
+    <color name="greyishBrown">#424242</color>
+    <color name="dusk">#425877</color>
+    <color name="black">#222222</color>
+
+</resources>

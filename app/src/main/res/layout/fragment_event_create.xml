@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ClosableBaseLinearLayout="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="toolbarvm"
+            type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.EventCreateViewModel"/>
+    </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/toolbar"
+                bind:vm="@{toolbarvm}"/>
+
+            <!--Invitee-->
+            <RelativeLayout
+                style="@style/ItimeRelativeCell"
+                android:background="@drawable/bg_divider_bottom">
+
+                <ImageView
+                    style="@style/ItimeCellLeftIcon"
+                    android:background="@drawable/icon_event_invitee" />
+
+                <TextView
+                    style="@style/itimeCellTitle"
+                    android:text="@string/event_invitees_title" />
+
+
+                <TextView
+                    style="@style/itimeCellRightContent"
+                    android:text="6" />
+
+                <ImageView style="@style/ItimeDisclosure" />
+            </RelativeLayout>
+
+            <!--Title-->
+            <RelativeLayout
+                style="@style/ItimeRelativeCell"
+                android:background="@drawable/bg_divider_bottom">
+
+                <ImageView
+                    style="@style/ItimeCellLeftIcon"
+                    android:background="@drawable/icon_event_title" />
+
+                <EditText
+                    style="@style/itimeCellEdit"
+                    android:hint="@string/event_title_hint" />
+            </RelativeLayout>
+
+            <!--Duration-->
+            <RelativeLayout
+                style="@style/ItimeRelativeCell"
+                android:background="@drawable/bg_divider_bottom">
+
+                <ImageView
+                    style="@style/ItimeCellLeftIcon"
+                    android:background="@drawable/icon_event_duration" />
+
+                <TextView
+                    style="@style/itimeCellTitle"
+                    android:text="@string/event_duration_title" />
+
+                <TextView
+                    style="@style/itimeCellRightContent"
+                    android:text="1 hour" />
+
+                <TextView style="@style/ItimeDisclosure" />
+
+            </RelativeLayout>
+
+            <!--Add a timeslot-->
+            <RelativeLayout
+                style="@style/ItimeRelativeCell"
+                android:background="@drawable/bg_divider_bottom">
+
+                <ImageView
+                    style="@style/ItimeCellLeftIcon"
+                    android:background="@drawable/icon_event_timeslots" />
+
+                <TextView
+                    style="@style/itimeCellTitle"
+                    android:text="@string/event_add_timeslot" />
+
+                <TextView style="@style/ItimeDisclosure" />
+            </RelativeLayout>
+
+            <!--Location-->
+            <RelativeLayout
+                style="@style/ItimeRelativeCell"
+                android:background="@drawable/bg_divider_bottom">
+
+                <ImageView
+                    style="@style/ItimeCellLeftIcon"
+                    android:background="@drawable/icon_event_location" />
+
+                <TextView
+                    style="@style/itimeCellTitle"
+                    android:text="@string/event_location_hint"
+                    android:textColor="@color/whiteTwo"/>
+
+                <TextView style="@style/ItimeDisclosure" />
+
+            </RelativeLayout>
+
+            <!--Calendars-->
+            <RelativeLayout
+                style="@style/ItimeRelativeCell"
+                android:background="@drawable/bg_divider_bottom">
+
+                <ImageView
+                    style="@style/ItimeCellLeftIcon"
+                    android:background="@drawable/icon_event_calendars" />
+
+                <TextView
+                    style="@style/itimeCellTitle"
+                    android:text="@string/event_calendars_title" />
+
+                <TextView
+                    style="@style/itimeCellRightContent"
+                    android:text="ITime" />
+
+                <TextView style="@style/ItimeDisclosure" />
+
+            </RelativeLayout>
+
+            <com.developer.paul.closabledatabindingview.closablelayouts.ClosableRowLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical"
+                ClosableBaseLinearLayout:closableItems="@{vm.rowItems}"
+                ClosableBaseLinearLayout:orderHashMap="@{vm.orderHashMap}" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="45dp"
+                android:background="@color/white">
+
+                <com.developer.paul.closabledatabindingview.closablelayouts.ClosableButtonLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true"
+                    ClosableBaseLinearLayout:closableItems="@{vm.buttonItems}"
+                    ClosableBaseLinearLayout:orderHashMap="@{vm.orderHashMap}" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</layout>
