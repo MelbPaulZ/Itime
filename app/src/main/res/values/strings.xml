@@ -29,4 +29,6 @@
     <string name="event_repeat_never">Never</string>
     <string name="event_repeat_title">Repeat</string>
     <string name="event_repeat_toolbar_done">Done</string>
+    <string name="event_end_repeat">End Repeat</string>
+    <string name="event_end_repeat_on_date">On Date</string>
 </resources>

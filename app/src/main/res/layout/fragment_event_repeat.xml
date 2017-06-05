@@ -26,5 +26,24 @@
         bind:items="@{vm.items}"
         bind:itemBinding="@{vm.itemBinding}"/>
 
+    <RelativeLayout
+        android:layout_marginTop="35dp"
+        style="@style/ItimeRelativeCell"
+        android:layout_height="44dp"
+        android:background="@drawable/bg_divider_top_bottom"
+        android:onClick="@{vm.onClickEndRepeat()}">
+        <TextView
+            style="@style/itimeCellTitle"
+            android:layout_marginStart="16dp"
+            android:text="@string/event_repeat_end_repeat"/>
+
+        <TextView
+            style="@style/itimeCellRightContent"
+            android:text="Never"/>
+        <TextView
+            style="@style/ItimeDisclosure" />
+
+    </RelativeLayout>
+
 </LinearLayout>
 </layout>

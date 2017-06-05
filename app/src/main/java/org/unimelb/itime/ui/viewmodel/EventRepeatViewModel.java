@@ -6,6 +6,7 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.databinding.library.baseAdapters.BR;
 
@@ -69,6 +70,15 @@ public class EventRepeatViewModel extends BaseObservable {
         for (int i = 0; i < items.size()-1; i++){
             items.get(i).setIconVisibility(View.GONE);
         }
+    }
+
+    public View.OnClickListener onClickEndRepeat(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        };
     }
 
 
