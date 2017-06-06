@@ -6,7 +6,7 @@
             type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
         <variable
             name="vm"
-            type="org.unimelb.itime.ui.viewmodel.EventRepeatViewModel"/>
+            type="org.unimelb.itime.ui.viewmodel.event.EventRepeatViewModel"/>
         <import type="org.unimelb.itime.manager.NonScrollLinearLayoutManager"/>
     </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

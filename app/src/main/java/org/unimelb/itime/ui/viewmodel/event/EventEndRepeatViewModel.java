@@ -1,4 +1,4 @@
-package org.unimelb.itime.ui.viewmodel;
+package org.unimelb.itime.ui.viewmodel.event;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;

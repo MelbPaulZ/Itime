@@ -1,4 +1,4 @@
-package org.unimelb.itime.ui.mvpview;
+package org.unimelb.itime.ui.mvpview.event;
 
 import org.unimelb.itime.base.ItimeBaseMvpView;
 

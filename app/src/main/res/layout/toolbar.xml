@@ -35,6 +35,9 @@
             android:text="@{vm.rightText}"
             android:textSize="17sp" />
 
+        <TextView
+            style="@style/itime_bottom_divider_line" />
+
 
     </RelativeLayout>
 </layout>

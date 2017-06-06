@@ -42,5 +42,6 @@
     <color name="greyishBrown">#424242</color>
     <color name="dusk">#425877</color>
     <color name="black">#222222</color>
+    <color name="azure">#0089ff</color>
 
 </resources>

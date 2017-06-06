@@ -1,4 +1,4 @@
-package org.unimelb.itime.ui.fragment;
+package org.unimelb.itime.ui.fragment.event;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.databinding.FragmentEventRepeatBinding;
-import org.unimelb.itime.ui.mvpview.EventRepeatMvpView;
+import org.unimelb.itime.ui.mvpview.event.EventRepeatMvpView;
 import org.unimelb.itime.ui.presenter.EventRepeatPresenter;
-import org.unimelb.itime.ui.viewmodel.EventRepeatViewModel;
+import org.unimelb.itime.ui.viewmodel.event.EventRepeatViewModel;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 
 /**

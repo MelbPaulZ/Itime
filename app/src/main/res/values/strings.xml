@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">Itime</string>
 
+    <!--toolbar string-->
+    <string name="toolbar_done">Done</string>
+    <string name="toolbar_custom">Custom</string>
+    <string name="toolbar_cancel">Cancel</string>
+    <string name="toolbar_url">URL</string>
+    <string name="toolbar_note">Note</string>
+
+
+
     <!--add string here-->
     <string name="event_invitees_title">Invitees</string>
     <string name="event_title_hint">Enter Event Title</string>
@@ -31,4 +40,17 @@
     <string name="event_repeat_toolbar_done">Done</string>
     <string name="event_end_repeat">End Repeat</string>
     <string name="event_end_repeat_on_date">On Date</string>
+    <string name="event_repeat_frequency">Frequency</string>
+    <string name="event_repeat_daily">Daily</string>
+    <string name="event_custom_repeat_every">Every</string>
+    <string name="event_custom_repeat_day">Day</string>
+    <string name="event_custom_repeat_week">Week</string>
+    <string name="event_custom_repeat_month">Month</string>
+    <string name="event_custom_repeat_Annually">Annually</string>
+    <string name="event_custom_wheel_daily">Daily</string>
+    <string name="event_custom_wheel_weekly">Weekly</string>
+    <string name="event_custom_wheel_monthly">Monthly</string>
+    <string name="event_custom_wheel_annually">Annually</string>
+
+
 </resources>

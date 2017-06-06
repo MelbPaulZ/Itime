@@ -8,7 +8,7 @@
             type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
         <variable
             name="vm"
-            type="org.unimelb.itime.ui.viewmodel.EventCreateViewModel"/>
+            type="org.unimelb.itime.ui.viewmodel.event.EventCreateViewModel"/>
     </data>
     <ScrollView
         android:layout_width="match_parent"

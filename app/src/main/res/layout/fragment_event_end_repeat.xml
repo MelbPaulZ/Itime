@@ -6,7 +6,7 @@
             type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
         <variable
             name="vm"
-            type="org.unimelb.itime.ui.viewmodel.EventEndRepeatViewModel"/>
+            type="org.unimelb.itime.ui.viewmodel.event.EventEndRepeatViewModel"/>
     </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
@@ -21,12 +21,15 @@
         style="@style/ItimeRelativeCell"
         android:layout_height="44dp"
         android:onClick="@{vm.onClickNever()}"
-        android:background="@drawable/bg_divider_top">
+        android:background="@color/white">
         <TextView
             style="@style/itimeCellTitle"
             android:layout_marginStart="16dp"
             android:text="@string/event_repeat_never"
             />
+
+        <TextView
+            style="@style/itime_top_divider_line" />
 
         <TextView
             android:layout_marginStart="16dp"

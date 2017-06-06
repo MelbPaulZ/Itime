@@ -1,17 +1,14 @@
-package org.unimelb.itime.ui.viewmodel;
+package org.unimelb.itime.ui.viewmodel.event;
 
 import android.databinding.BaseObservable;
-import android.databinding.Bindable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.android.databinding.library.baseAdapters.BR;
 
 import org.unimelb.itime.R;
-import org.unimelb.itime.ui.mvpview.EventRepeatMvpView;
+import org.unimelb.itime.ui.mvpview.event.EventRepeatMvpView;
 import org.unimelb.itime.ui.presenter.EventRepeatPresenter;
 
 import me.tatarka.bindingcollectionadapter2.ItemBinding;

@@ -1,4 +1,4 @@
-package org.unimelb.itime.ui.fragment;
+package org.unimelb.itime.ui.fragment.event;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -11,9 +11,9 @@ import android.widget.DatePicker;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.databinding.FragmentEventEndRepeatBinding;
-import org.unimelb.itime.ui.mvpview.EventEndRepeatMvpView;
+import org.unimelb.itime.ui.mvpview.event.EventEndRepeatMvpView;
 import org.unimelb.itime.ui.presenter.LocalPresenter;
-import org.unimelb.itime.ui.viewmodel.EventEndRepeatViewModel;
+import org.unimelb.itime.ui.viewmodel.event.EventEndRepeatViewModel;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 
 import java.util.Calendar;
@@ -31,7 +31,6 @@ public class FragmentEventEndRepeat extends ItimeBaseFragment<EventEndRepeatMvpV
     public LocalPresenter<EventEndRepeatMvpView> createPresenter() {
         return new LocalPresenter<>(getContext());
     }
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

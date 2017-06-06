@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="toolbarVM"
+            type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar"
+        bind:vm="toolbarVM"/>
+
+    <RelativeLayout
+        style="@style/ItimeRelativeCell44"
+        android:background="@drawable/bg_divider_bottom">
+
+        <ImageView
+            style="@style/ItimeCellLeftIcon"
+            android:background="@drawable/icon_event_note"/>
+
+        <EditText
+            style="@style/itimeCellEdit" />
+
+    </RelativeLayout>
+
+</LinearLayout>
+</layout>

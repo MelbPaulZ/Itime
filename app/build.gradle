@@ -43,4 +43,7 @@ dependencies {
     //databinding
     compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:2.1.0'
     compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:2.1.0'
+
+    //other libraries
+    compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
 }
