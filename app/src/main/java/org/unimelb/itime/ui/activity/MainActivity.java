@@ -1,7 +1,6 @@
 package org.unimelb.itime.ui.activity;
 
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
@@ -9,8 +8,7 @@ import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseActivity;
-import org.unimelb.itime.ui.fragment.event.FragmentEventCreateNote;
-import org.unimelb.itime.ui.fragment.event.FragmentEventCreateUrl;
+import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
 
 public class MainActivity extends ItimeBaseActivity {
 
@@ -19,14 +17,14 @@ public class MainActivity extends ItimeBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentEventCreateNote fragment = new FragmentEventCreateNote();
+//        FragmentEventCreateNote fragment = new FragmentEventCreateNote();
 //        FragmentEventCreateUrl fragment = new FragmentEventCreateUrl();
 //        FragmentEventRepeatCustom fragment = new FragmentEventRepeatCustom();
 //        FragmentEventEndRepeat fragment = new FragmentEventEndRepeat();
 //        FragmentEventRepeat fragment = new FragmentEventRepeat();
-        getSupportFragmentManager().beginTransaction().add(R.id.frag_container, fragment).commit();
-//        FragmentEventCreate fragmentEventCreate = new FragmentEventCreate();
-//        getSupportFragmentManager().beginTransaction().add(R.id.frag_container,fragmentEventCreate).commit();
+//        getSupportFragmentManager().beginTransaction().add(R.id.frag_container, fragment).commit();
+        FragmentEventCreate fragmentEventCreate = new FragmentEventCreate();
+        getSupportFragmentManager().beginTransaction().add(R.id.frag_container,fragmentEventCreate, FragmentEventCreate.class.getSimpleName()).commit();
     }
 
     @NonNull

@@ -10,4 +10,7 @@ import com.hannesdorfmann.mosby.mvp.MvpView;
 
 public abstract class ItimeBaseFragment<V extends MvpView, P extends MvpPresenter<V>> extends MvpFragment<V, P> {
 
+    public ItimeBaseActivity getBaseActivity(){
+        return (ItimeBaseActivity) getActivity();
+    }
 }

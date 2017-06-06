@@ -4,6 +4,10 @@
         <variable
             name="toolbarVM"
             type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
+
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.event.EventCreateNoteViewModel"/>
     </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
@@ -22,6 +26,7 @@
 
         <EditText
             style="@style/itimeCellEdit"
+            android:text="@={vm.event.note}"
             android:hint="@string/event_note_hint"/>
 
     </RelativeLayout>

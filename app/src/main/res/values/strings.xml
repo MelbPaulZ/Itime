@@ -8,7 +8,8 @@
     <string name="toolbar_url">URL</string>
     <string name="toolbar_note">Note</string>
 
-
+    <!--Event-->
+    <string name="event">Event</string>
 
     <!--add string here-->
     <string name="event_invitees_title">Invitees</string>
