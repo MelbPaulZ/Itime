@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
+import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.databinding.FragmentEventCreateUrlBinding;
 import org.unimelb.itime.ui.mvpview.event.EventCreateUrlMvpView;
 import org.unimelb.itime.ui.presenter.LocalPresenter;
@@ -19,7 +20,7 @@ import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
  * Created by Paul on 6/6/17.
  */
 
-public class FragmentEventCreateUrl extends ItimeBaseFragment<EventCreateUrlMvpView, LocalPresenter<EventCreateUrlMvpView>>{
+public class FragmentEventCreateUrl extends ItimeBaseFragment<EventCreateUrlMvpView, LocalPresenter<EventCreateUrlMvpView>> implements ToolbarInterface{
 
     private FragmentEventCreateUrlBinding binding;
     private EventCreateUrlViewModel vm;
@@ -44,11 +45,21 @@ public class FragmentEventCreateUrl extends ItimeBaseFragment<EventCreateUrlMvpV
         vm = new EventCreateUrlViewModel(getPresenter());
         binding.setVm(vm);
 
-        toolbarViewModel = new ToolbarViewModel();
+        toolbarViewModel = new ToolbarViewModel<>(this);
         toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarViewModel.setTitle(getString(R.string.toolbar_url));
         toolbarViewModel.setRightText(getString(R.string.toolbar_done));
         binding.setToolbarVM(toolbarViewModel);
+
+    }
+
+    @Override
+    public void onNext() {
+
+    }
+
+    @Override
+    public void onBack() {
 
     }
 }

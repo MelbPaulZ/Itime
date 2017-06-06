@@ -10,7 +10,7 @@
     android:layout_height="match_parent">
 
     <include layout="@layout/toolbar"
-        bind:vm="toolbarVM"/>
+        bind:vm="@{toolbarVM}"/>
 
     <RelativeLayout
         style="@style/ItimeRelativeCell44"
@@ -21,7 +21,8 @@
             android:background="@drawable/icon_event_note"/>
 
         <EditText
-            style="@style/itimeCellEdit" />
+            style="@style/itimeCellEdit"
+            android:hint="@string/event_note_hint"/>
 
     </RelativeLayout>
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
+import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.databinding.FragmentEventCreateBinding;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
@@ -20,7 +21,7 @@ import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
  */
 
 public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, EventCreatePresenter<EventCreateMvpView>>
-        implements EventCreateMvpView {
+        implements EventCreateMvpView, ToolbarInterface{
     private FragmentEventCreateBinding binding;
     private EventCreateViewModel vm;
     private ToolbarViewModel toolbarViewModel;
@@ -36,7 +37,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         vm = new EventCreateViewModel(getPresenter());
         binding.setVm(vm);
 
-        toolbarViewModel = new ToolbarViewModel();
+        toolbarViewModel = new ToolbarViewModel<>(this);
         toolbarViewModel.setTitle(getString(R.string.new_event_toolbar_title));
         toolbarViewModel.setRightText(getString(R.string.new_event_toolbar_next));
         toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_close));
@@ -52,5 +53,14 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         return binding.getRoot();
     }
 
+    @Override
+    public void onNext() {
+
+    }
+
+    @Override
+    public void onBack() {
+
+    }
 }
 

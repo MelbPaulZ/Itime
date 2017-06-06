@@ -52,5 +52,8 @@
     <string name="event_custom_wheel_monthly">Monthly</string>
     <string name="event_custom_wheel_annually">Annually</string>
 
+    <!--hint-->
+    <string name="event_note_hint">Note</string>
+
 
 </resources>

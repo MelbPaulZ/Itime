@@ -1,24 +1,42 @@
 package org.unimelb.itime.ui.activity;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
+import com.hannesdorfmann.mosby.mvp.MvpPresenter;
+
 import org.unimelb.itime.R;
+import org.unimelb.itime.base.ItimeBaseActivity;
+import org.unimelb.itime.ui.fragment.event.FragmentEventCreateNote;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreateUrl;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ItimeBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentEventCreateUrl fragment = new FragmentEventCreateUrl();
+        FragmentEventCreateNote fragment = new FragmentEventCreateNote();
+//        FragmentEventCreateUrl fragment = new FragmentEventCreateUrl();
 //        FragmentEventRepeatCustom fragment = new FragmentEventRepeatCustom();
 //        FragmentEventEndRepeat fragment = new FragmentEventEndRepeat();
 //        FragmentEventRepeat fragment = new FragmentEventRepeat();
         getSupportFragmentManager().beginTransaction().add(R.id.frag_container, fragment).commit();
 //        FragmentEventCreate fragmentEventCreate = new FragmentEventCreate();
 //        getSupportFragmentManager().beginTransaction().add(R.id.frag_container,fragmentEventCreate).commit();
+    }
+
+    @NonNull
+    @Override
+    public MvpPresenter createPresenter() {
+        return new MvpBasePresenter();
+    }
+
+    @Override
+    protected int getFragmentContainerId() {
+        return R.id.frag_container;
     }
 }

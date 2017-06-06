@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
+import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.databinding.FragmentEventRepeatBinding;
 import org.unimelb.itime.ui.mvpview.event.EventRepeatMvpView;
 import org.unimelb.itime.ui.presenter.EventRepeatPresenter;
@@ -19,7 +20,7 @@ import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
  * Created by Paul on 2/6/17.
  */
 
-public class FragmentEventRepeat extends ItimeBaseFragment<EventRepeatMvpView, EventRepeatPresenter<EventRepeatMvpView>>{
+public class FragmentEventRepeat extends ItimeBaseFragment<EventRepeatMvpView, EventRepeatPresenter<EventRepeatMvpView>> implements ToolbarInterface{
     private FragmentEventRepeatBinding binding;
     private ToolbarViewModel toolbarViewModel;
     private EventRepeatViewModel vm;
@@ -36,7 +37,7 @@ public class FragmentEventRepeat extends ItimeBaseFragment<EventRepeatMvpView, E
         super.onActivityCreated(savedInstanceState);
 
         vm = new EventRepeatViewModel(getPresenter());
-        toolbarViewModel = new ToolbarViewModel();
+        toolbarViewModel = new ToolbarViewModel(this);
 
         toolbarViewModel.setTitle(getString(R.string.event_repeat_title));
         toolbarViewModel.setRightText(getString(R.string.event_repeat_toolbar_done));
@@ -54,4 +55,13 @@ public class FragmentEventRepeat extends ItimeBaseFragment<EventRepeatMvpView, E
     }
 
 
+    @Override
+    public void onNext() {
+
+    }
+
+    @Override
+    public void onBack() {
+
+    }
 }

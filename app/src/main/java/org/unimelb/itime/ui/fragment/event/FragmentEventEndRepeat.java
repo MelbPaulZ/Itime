@@ -10,6 +10,7 @@ import android.widget.DatePicker;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
+import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.databinding.FragmentEventEndRepeatBinding;
 import org.unimelb.itime.ui.mvpview.event.EventEndRepeatMvpView;
 import org.unimelb.itime.ui.presenter.LocalPresenter;
@@ -22,7 +23,7 @@ import java.util.Calendar;
  * Created by Paul on 5/6/17.
  */
 
-public class FragmentEventEndRepeat extends ItimeBaseFragment<EventEndRepeatMvpView, LocalPresenter<EventEndRepeatMvpView>> {
+public class FragmentEventEndRepeat extends ItimeBaseFragment<EventEndRepeatMvpView, LocalPresenter<EventEndRepeatMvpView>> implements ToolbarInterface{
     private FragmentEventEndRepeatBinding binding;
     private EventEndRepeatViewModel vm;
     private ToolbarViewModel toolbarViewModel;
@@ -38,7 +39,7 @@ public class FragmentEventEndRepeat extends ItimeBaseFragment<EventEndRepeatMvpV
         vm = new EventEndRepeatViewModel(getPresenter());
         binding.setVm(vm);
 
-        toolbarViewModel = new ToolbarViewModel();
+        toolbarViewModel = new ToolbarViewModel<>(this);
         toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarViewModel.setTitle(getString(R.string.event_end_repeat));
         toolbarViewModel.setRightText(getString(R.string.event_repeat_toolbar_done));
@@ -61,5 +62,15 @@ public class FragmentEventEndRepeat extends ItimeBaseFragment<EventEndRepeatMvpV
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_end_repeat, container, false);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onNext() {
+
+    }
+
+    @Override
+    public void onBack() {
+
     }
 }
