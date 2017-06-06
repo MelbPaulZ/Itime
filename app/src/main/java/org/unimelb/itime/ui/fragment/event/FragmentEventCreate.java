@@ -13,6 +13,7 @@ import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.databinding.FragmentEventCreateBinding;
+import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.viewmodel.event.EventCreateViewModel;
@@ -103,7 +104,8 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     @Override
     public void toNote(Event event) {
         FragmentEventCreateNote fragment = new FragmentEventCreateNote();
-        fragment.setEvent(event);
+        Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
+        fragment.setEvent(cpyEvent);
         getBaseActivity().openFragment(fragment);
     }
 

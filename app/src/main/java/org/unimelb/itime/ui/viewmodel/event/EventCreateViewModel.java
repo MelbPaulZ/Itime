@@ -73,7 +73,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         }
     }
 
-    private void removeItem(List<? extends ClosableItem> items, String name){
+    private void removeItem(ObservableList<? extends ClosableItem> items, String name){
         ClosableItem closableItem = null;
         for (ClosableItem item: items){
             if (item.getItemName().equals(name)){
@@ -84,9 +84,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         if (closableItem==null){
             return;
         }
-        items.remove(name);
-        notifyPropertyChanged(BR.buttonItems);
-        notifyPropertyChanged(BR.rowItems);
+        items.remove(closableItem);
     }
 
 
@@ -223,7 +221,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
 
 
 
-    /*  add buttons */
+    /*  update buttons */
 
     private void addButton(String name){
         if (isContainBtn(name)){
@@ -273,7 +271,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
 
 
 
-    /*  add rows */
+    /*  update rows */
 
     private void addRepeatToRow(){
         if (containRow(getString(R.string.repeat_toolbar_btn))){
@@ -422,7 +420,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     }
 
     /**
-     * add row to rowItems
+     * update row to rowItems
      * @param rowName
      * @param icon
      * @param text

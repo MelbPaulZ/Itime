@@ -10,7 +10,7 @@
     <color name="transparent">#00000000</color>
     <color name="white">#FFFFFF</color>
 
-    <!--add color below-->
+    <!--update color below-->
     <color name="cell_name">#000000</color>
     <color name="cell_value">#C7C7CD</color>
     <color name="dialog_btn_blue">#0076ff</color>

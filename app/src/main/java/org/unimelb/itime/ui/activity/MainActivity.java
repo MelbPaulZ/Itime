@@ -22,7 +22,7 @@ public class MainActivity extends ItimeBaseActivity {
 //        FragmentEventRepeatCustom fragment = new FragmentEventRepeatCustom();
 //        FragmentEventEndRepeat fragment = new FragmentEventEndRepeat();
 //        FragmentEventRepeat fragment = new FragmentEventRepeat();
-//        getSupportFragmentManager().beginTransaction().add(R.id.frag_container, fragment).commit();
+//        getSupportFragmentManager().beginTransaction().update(R.id.frag_container, fragment).commit();
         FragmentEventCreate fragmentEventCreate = new FragmentEventCreate();
         getSupportFragmentManager().beginTransaction().add(R.id.frag_container,fragmentEventCreate, FragmentEventCreate.class.getSimpleName()).commit();
     }

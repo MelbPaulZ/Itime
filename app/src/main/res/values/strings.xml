@@ -11,7 +11,7 @@
     <!--Event-->
     <string name="event">Event</string>
 
-    <!--add string here-->
+    <!--update string here-->
     <string name="event_invitees_title">Invitees</string>
     <string name="event_title_hint">Enter Event Title</string>
     <string name="event_duration_title">Duration</string>
