@@ -12,6 +12,7 @@ import com.aigestudio.wheelpicker.WheelPicker;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.databinding.FragmentEventRepeatCustomBinding;
 import org.unimelb.itime.ui.mvpview.event.EventRepeatCustomMvpView;
 import org.unimelb.itime.ui.presenter.LocalPresenter;
@@ -30,6 +31,7 @@ public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCust
     private FragmentEventRepeatCustomBinding binding;
     private ToolbarViewModel toolbarViewModel;
     private EventRepeatCustomViewModel vm;
+    private Event event;
 
     @Override
     public LocalPresenter<EventRepeatCustomMvpView> createPresenter() {
@@ -49,6 +51,7 @@ public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCust
 
         vm = new EventRepeatCustomViewModel(getPresenter());
         vm.setFrequencyString(getWheelData().get(0));
+        vm.setEvent(event);
         binding.setVm(vm);
 
         toolbarViewModel = new ToolbarViewModel<>(this);
@@ -86,13 +89,17 @@ public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCust
         return strings;
     }
 
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
     @Override
     public void onNext() {
-
+        getFragmentManager().popBackStack();
     }
 
     @Override
     public void onBack() {
-
+        getFragmentManager().popBackStack();
     }
 }

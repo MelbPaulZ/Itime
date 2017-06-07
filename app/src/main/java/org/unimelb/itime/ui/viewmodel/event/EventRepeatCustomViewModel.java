@@ -5,6 +5,7 @@ import android.databinding.Bindable;
 
 import com.android.databinding.library.baseAdapters.BR;
 
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.ui.presenter.LocalPresenter;
 
 /**
@@ -16,9 +17,20 @@ public class EventRepeatCustomViewModel extends BaseObservable {
 
     private String frequencyString;
     private String gapString;
+    private Event event;
 
     public EventRepeatCustomViewModel(LocalPresenter presenter) {
         this.presenter = presenter;
+    }
+
+    @Bindable
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+        notifyPropertyChanged(BR.event);
     }
 
     @Bindable

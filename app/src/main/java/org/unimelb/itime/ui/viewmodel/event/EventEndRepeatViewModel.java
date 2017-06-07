@@ -8,6 +8,7 @@ import android.widget.DatePicker;
 
 import com.android.databinding.library.baseAdapters.BR;
 
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.ui.presenter.LocalPresenter;
 
 /**
@@ -18,10 +19,21 @@ public class EventEndRepeatViewModel extends BaseObservable {
     private LocalPresenter presenter;
     private int neverCheckVisibility;
     private int onDateCheckVisibility;
+    private Event event;
 
     public EventEndRepeatViewModel(LocalPresenter presenter) {
         this.presenter = presenter;
         init();
+    }
+
+    @Bindable
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+        notifyPropertyChanged(BR.event);
     }
 
     @Bindable

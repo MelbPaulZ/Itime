@@ -68,6 +68,9 @@ public class RepeatLineViewModel extends BaseObservable {
                         onClickCallBack.beforeOnClick(RepeatLineViewModel.this);
                     }
                 }else{
+                    if (onClickCallBack!=null){
+                        onClickCallBack.onClickCustom();
+                    }
                     Toast.makeText(v.getContext(), "custom", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -80,6 +83,7 @@ public class RepeatLineViewModel extends BaseObservable {
 
     public interface OnClickCallBack{
         void beforeOnClick(RepeatLineViewModel repeatLineViewModel);
+        void onClickCustom();
     }
 
 }

@@ -4,8 +4,12 @@ import android.databinding.Bindable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.bigkoo.alertview.AlertView;
+import com.bigkoo.alertview.OnItemClickListener;
 import com.developer.paul.closabledatabindingview.closableItem.ButtonItem;
 import com.developer.paul.closabledatabindingview.closableItem.RowItem;
 
@@ -18,6 +22,7 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,8 +34,8 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
 
     private EventCreatePresenter presenter;
     private HashMap<String, Integer> orderHashMap = new HashMap<>();
-    private ObservableList<ButtonItem> buttonItems = new ObservableArrayList<>();
-    private ObservableList<RowItem> rowItems = new ObservableArrayList<>();
+    private List<ButtonItem> buttonItems = new ArrayList<>();
+    private List<RowItem> rowItems = new ArrayList<>();
     private Event event;
     private EventCreateMvpView mvpView;
 
@@ -46,13 +51,31 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         orderHashMap.put(getString(R.string.url_toolbar_btn),2);
         orderHashMap.put(getString(R.string.repeat_toolbar_btn),3);
 
-
         buttonItems.add(createButtonItem(getString(R.string.photos_toolbar_btn)));
         buttonItems.add(createButtonItem(getString(R.string.note_toolbar_btn)));
         buttonItems.add(createButtonItem(getString(R.string.url_toolbar_btn)));
         buttonItems.add(createButtonItem(getString(R.string.repeat_toolbar_btn)));
+        notifyPropertyChanged(BR.buttonItems);
+    }
 
-        setButtonItems(buttonItems);
+    @Bindable
+    public List<ButtonItem> getButtonItems() {
+        return buttonItems;
+    }
+
+    public void setButtonItems(List<ButtonItem> buttonItems) {
+        this.buttonItems = buttonItems;
+        notifyPropertyChanged(BR.buttonItems);
+    }
+
+    @Bindable
+    public List<RowItem> getRowItems() {
+        return rowItems;
+    }
+
+    public void setRowItems(List<RowItem> rowItems) {
+        this.rowItems = rowItems;
+        notifyPropertyChanged(BR.rowItems);
     }
 
     /**
@@ -68,12 +91,24 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         }
 
         if (!event.getUrl().equals("")){
-            addUrlToRow();
+            addUrlToRow(event.getUrl());
             removeItem(buttonItems,getString(R.string.url_toolbar_btn));
+        }else{
+            addButton(getString(R.string.url_toolbar_btn));
+            removeItem(rowItems, getString(R.string.url_toolbar_btn));
         }
+
+
+        notifyPropertyChanged(BR.rowItems);
+        notifyPropertyChanged(BR.buttonItems);
     }
 
-    private void removeItem(ObservableList<? extends ClosableItem> items, String name){
+    /**
+     * Use this method to remove Item from items.
+     * @param items
+     * @param name
+     */
+    private void removeItem(List<? extends ClosableItem> items, String name){
         ClosableItem closableItem = null;
         for (ClosableItem item: items){
             if (item.getItemName().equals(name)){
@@ -100,25 +135,6 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     }
 
     @Bindable
-    public ObservableList<ButtonItem> getButtonItems() {
-        return buttonItems;
-    }
-
-    public void setButtonItems(ObservableList<ButtonItem> buttonItems) {
-        this.buttonItems = buttonItems;
-        notifyPropertyChanged(BR.buttonItems);
-    }
-
-    @Bindable
-    public ObservableList<RowItem> getRowItems() {
-        return rowItems;
-    }
-
-    public void setRowItems(ObservableList<RowItem> rowItems) {
-        this.rowItems = rowItems;
-    }
-
-    @Bindable
     public Event getEvent() {
         return event;
     }
@@ -129,6 +145,10 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         notifyPropertyChanged(BR.event);
     }
 
+    /**
+     *
+     * @return
+     */
     public View.OnClickListener onClickInvitees(){
         return new View.OnClickListener() {
             @Override
@@ -223,6 +243,10 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
 
     /*  update buttons */
 
+    /**
+     * Use this method to add Button
+     * @param name
+     */
     private void addButton(String name){
         if (isContainBtn(name)){
             return;
@@ -231,50 +255,26 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         notifyPropertyChanged(BR.buttonItems);
     }
 
-    public View.OnClickListener addPhotoButton(){
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addButton(getString(R.string.photos_toolbar_btn));
-            }
-        };
-    }
-
-
-
-    public View.OnClickListener addNoteButton(){
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addButton(getString(R.string.note_toolbar_btn));
-            }
-        };
-    }
-
-    public View.OnClickListener addUrlButton(){
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addButton(getString(R.string.url_toolbar_btn));
-            }
-        };
-    }
-
-    public View.OnClickListener addRepeatButton(){
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addButton(getString(R.string.repeat_toolbar_btn));
-            }
-        };
-    }
-
-
 
     /*  update rows */
 
-    private void addRepeatToRow(){
+
+
+
+    /**
+     * This method update row text
+     */
+    private void updateRow(String itemName, String text){
+        RowItem item = findRowItem(itemName);
+        if (item!=null){
+            item.setText(text);
+            notifyPropertyChanged(BR.rowItems);
+        }
+    }
+
+    private void addRepeatToRow(String text){
         if (containRow(getString(R.string.repeat_toolbar_btn))){
+            updateRow(getString(R.string.repeat_toolbar_btn), text);
             return;
         }
         View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -288,72 +288,54 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         View.OnClickListener onDeleteListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addRepeatButton().onClick(v);
+                addButton(getString(R.string.repeat_toolbar_btn));
             }
         };
 
         addInList(getString(R.string.repeat_toolbar_btn),
                 presenter.getContext().getResources().getDrawable(R.drawable.icon_event_repeat),
                 getString(R.string.repeat_toolbar_btn), onClickListener, onDeleteListener);
+        notifyPropertyChanged(BR.rowItems);
     }
 
-
-    public View.OnClickListener addRepeatRow(){
-        return new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-               addRepeatToRow();
-            }
-        };
-    }
-
-    private void addNoteToRow(){
-        addNoteToRow(getString(R.string.note_toolbar_btn));
-    }
-
+    /**
+     * when click note button, add note to row,
+     * when click this view, goto note page
+     * when click close icon, reset event note to ""
+     * @param text
+     */
     private void addNoteToRow(String text){
         if (containRow(getString(R.string.note_toolbar_btn))){
-            RowItem item = findRowItem(getString(R.string.note_toolbar_btn));
-            if (item!=null){
-                item.setText(text);
-                notifyPropertyChanged(BR.rowItems);
-            }
+            updateRow(getString(R.string.note_toolbar_btn), text);
             return;
         }
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickNote().onClick(v);
+                if (mvpView!=null){
+                    mvpView.toNote(event);
+                }
             }
         };
 
         View.OnClickListener onDeleteListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addNoteButton().onClick(v);
+                addButton(getString(R.string.note_toolbar_btn));
+                event.setNote("");
+                setEvent(event);
             }
         };
         addInList(getString(R.string.note_toolbar_btn),
                 presenter.getContext().getResources().getDrawable(R.drawable.icon_event_toolbar_note),
                 text, onClickListener, onDeleteListener);
+        notifyPropertyChanged(BR.rowItems);
     }
 
 
-
-    public View.OnClickListener addNoteRow(){
-        return new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if (mvpView!=null) {
-                    mvpView.toNote(event);
-                }
-                addNoteToRow();
-            }
-        };
-    }
-
-    private void addUrlToRow(){
+    private void addUrlToRow(String text){
         if (containRow(getString(R.string.url_toolbar_btn))){
+            updateRow(getString(R.string.url_toolbar_btn), text);
             return;
         }
         View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -367,20 +349,32 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         View.OnClickListener onDeleteListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addUrlButton().onClick(v);
+                addButton(getString(R.string.url_toolbar_btn));
             }
         };
 
         addInList(getString(R.string.url_toolbar_btn), presenter.getContext().getResources().getDrawable(R.drawable.icon_event_toolbar_url), getString(R.string.url_toolbar_btn), onClickListener, onDeleteListener);
+        notifyPropertyChanged(BR.rowItems);
     }
 
-    public View.OnClickListener addUrlRow(){
-        return new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                addUrlToRow();
-            }
-        };
+    private String[] getMessages(){
+        return new String[]{getString(R.string.action_sheet_take_photo), getString(R.string.action_sheet_choose_from_photos)};
+    }
+
+    private void photoActionSheetPopup(){
+        new AlertView.Builder().setContext(presenter.getContext())
+                .setStyle(AlertView.Style.ActionSheet)
+                .setCancelText(getString(R.string.action_sheet_cancel))
+                .setOthers(getMessages())
+                .setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Object o, int position) {
+                        Toast.makeText(presenter.getContext(), position + "", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .build()
+                .setCancelable(true)
+                .show();
     }
 
     private void addPhotoToRow(){
@@ -390,43 +384,36 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickPhoto().onClick(v);
+                photoActionSheetPopup();
             }
         };
 
         View.OnClickListener onDeleteListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addPhotoButton().onClick(v);
+                addButton(getString(R.string.photos_toolbar_btn));
             }
         };
         addInList(getString(R.string.photos_toolbar_btn),
                 presenter.getContext().getResources().getDrawable(R.drawable.icon_event_photo),
                 getString(R.string.photos_toolbar_btn), onClickListener, onDeleteListener);
+        notifyPropertyChanged(BR.rowItems);
 
     }
 
-    public View.OnClickListener addPhotoRow(){
-        return new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                addPhotoToRow();
-            }
-        };
-    }
 
     private String getString(int stringId){
         return presenter.getContext().getString(stringId);
     }
-
-    /**
-     * update row to rowItems
-     * @param rowName
-     * @param icon
-     * @param text
-     * @param onClickListener
-     * @param onDeleteListener
-     */
+//
+//    /**
+//     * update row to rowItems
+//     * @param rowName
+//     * @param icon
+//     * @param text
+//     * @param onClickListener
+//     * @param onDeleteListener
+//     */
     private void addInList(String rowName, Drawable icon, String text,
                            View.OnClickListener onClickListener, View.OnClickListener onDeleteListener){
         RowItem rowItem = new RowItem();
@@ -484,7 +471,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             return createButtonItem(name, presenter.getContext().getResources().getDrawable(R.drawable.icon_event_toolbar_photo), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    addPhotoRow().onClick(v);
+                    photoActionSheetPopup();
                 }
             });
         }
@@ -493,7 +480,9 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             return createButtonItem(name, presenter.getContext().getResources().getDrawable(R.drawable.icon_event_toolbar_note),new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    addNoteRow().onClick(v);
+                    if(mvpView!=null){
+                        mvpView.toNote(event);
+                    }
                 }
             });
         }
@@ -502,7 +491,9 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             return createButtonItem(name, presenter.getContext().getResources().getDrawable(R.drawable.icon_event_toolbar_url),new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    addUrlRow().onClick(v);
+                    if (mvpView!=null){
+                        mvpView.toUrl(event);
+                    }
                 }
             });
         }
@@ -511,7 +502,9 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             return createButtonItem(name, presenter.getContext().getResources().getDrawable(R.drawable.icon_event_toolbar_repeat),new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    addRepeatRow().onClick(v);
+                    if (mvpView!=null){
+                        mvpView.toRepeat(event);
+                    }
                 }
             });
         }

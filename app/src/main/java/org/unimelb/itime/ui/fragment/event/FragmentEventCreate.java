@@ -112,12 +112,16 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     @Override
     public void toUrl(Event event) {
         FragmentEventCreateUrl fragment = new FragmentEventCreateUrl();
+        Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
+        fragment.setEvent(cpyEvent);
         getBaseActivity().openFragment(fragment);
     }
 
     @Override
     public void toRepeat(Event event) {
         FragmentEventRepeat fragment = new FragmentEventRepeat();
+        Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
+        fragment.setEvent(cpyEvent);
         getBaseActivity().openFragment(fragment);
     }
 }

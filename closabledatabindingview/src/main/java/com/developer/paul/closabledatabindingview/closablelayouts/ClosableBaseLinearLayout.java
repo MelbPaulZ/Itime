@@ -3,12 +3,15 @@ package com.developer.paul.closabledatabindingview.closablelayouts;
 import android.content.Context;
 import android.databinding.BindingMethod;
 import android.databinding.BindingMethods;
+import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.developer.paul.closabledatabindingview.closableItem.RowItem;
 import com.developer.paul.closabledatabindingview.interfaces.ClosableFactory;
 import com.developer.paul.closabledatabindingview.interfaces.ClosableItem;
 import com.developer.paul.closabledatabindingview.utils.ClosableDataBindingUtil;
@@ -25,10 +28,10 @@ import java.util.List;
         @BindingMethod(type = ClosableBaseLinearLayout.class, attribute = "ClosableBaseLinearLayout:orderHashMap", method = "setOrderHash"),
         @BindingMethod(type = ClosableBaseLinearLayout.class, attribute = "ClosableBaseLinearLayout:closableItems", method = "setList")
 })
-public abstract class ClosableBaseLinearLayout extends LinearLayout {
+public abstract class ClosableBaseLinearLayout<T extends ClosableItem> extends LinearLayout {
     protected ClosableFactory closableFactory;
     protected HashMap<String, Integer> orderHash;
-    protected List<? extends ClosableItem> originList;
+    protected List<T> originList;
 
 
     public ClosableBaseLinearLayout(Context context) {
@@ -43,10 +46,12 @@ public abstract class ClosableBaseLinearLayout extends LinearLayout {
 
     private void init(){
         orderHash = new HashMap<>();
-        originList = new ArrayList<>();
+        originList = new ObservableArrayList<>();
+
         closableFactory = getFactory();
         closableFactory.setOnDeleteListener(onDeleteListener());
     }
+
 
     private OnClickListener onDeleteListener(){
         return new View.OnClickListener() {
@@ -87,15 +92,13 @@ public abstract class ClosableBaseLinearLayout extends LinearLayout {
     }
 
 
-    public void setList(ObservableList<? extends ClosableItem> tList){
+    public void setList(List<T> tList){
         ClosableDataBindingUtil.sortClosableItem(orderHash, tList);
-        if (originList.size() > tList.size()){
-            // item has been deleted
-            ClosableItem item = findRemoveItem(originList, tList);
-            ClosableRelativeLayout btnLayout = closableFactory.create(item);// find this view
-            removeView(btnLayout); // remove this from parent
-        }
         originList = tList;
+        if (originList.size()!=getChildCount()){
+            // means list has changed, need to redraw view
+            removeAllViews();
+        }
         for (ClosableItem item: tList){
             update(item);
         }

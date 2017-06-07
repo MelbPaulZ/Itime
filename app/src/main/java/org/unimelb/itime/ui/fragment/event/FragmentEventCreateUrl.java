@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.databinding.FragmentEventCreateUrlBinding;
 import org.unimelb.itime.ui.mvpview.event.EventCreateUrlMvpView;
 import org.unimelb.itime.ui.presenter.LocalPresenter;
@@ -25,6 +26,7 @@ public class FragmentEventCreateUrl extends ItimeBaseFragment<EventCreateUrlMvpV
     private FragmentEventCreateUrlBinding binding;
     private EventCreateUrlViewModel vm;
     private ToolbarViewModel toolbarViewModel;
+    private Event event;
 
     @Override
     public LocalPresenter<EventCreateUrlMvpView> createPresenter() {
@@ -43,6 +45,7 @@ public class FragmentEventCreateUrl extends ItimeBaseFragment<EventCreateUrlMvpV
         super.onActivityCreated(savedInstanceState);
 
         vm = new EventCreateUrlViewModel(getPresenter());
+        vm.setEvent(event);
         binding.setVm(vm);
 
         toolbarViewModel = new ToolbarViewModel<>(this);
@@ -53,13 +56,19 @@ public class FragmentEventCreateUrl extends ItimeBaseFragment<EventCreateUrlMvpV
 
     }
 
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
     @Override
     public void onNext() {
-
+        FragmentEventCreate fragment = (FragmentEventCreate) getFragmentManager().findFragmentByTag(FragmentEventCreate.class.getSimpleName());
+        fragment.setEvent(event);
+        getFragmentManager().popBackStack();
     }
 
     @Override
     public void onBack() {
-
+        getFragmentManager().popBackStack();
     }
 }

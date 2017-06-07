@@ -24,6 +24,7 @@
 
         <EditText
             style="@style/itimeCellEdit"
+            android:text="@={vm.event.url}"
             />
     </RelativeLayout>
 

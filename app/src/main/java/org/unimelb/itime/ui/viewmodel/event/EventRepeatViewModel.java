@@ -1,6 +1,7 @@
 package org.unimelb.itime.ui.viewmodel.event;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.View;
 import com.android.databinding.library.baseAdapters.BR;
 
 import org.unimelb.itime.R;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.ui.mvpview.event.EventRepeatMvpView;
 import org.unimelb.itime.ui.presenter.EventRepeatPresenter;
 
@@ -19,12 +21,26 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
 public class EventRepeatViewModel extends BaseObservable {
     private EventRepeatPresenter<EventRepeatMvpView> presenter;
+    private EventRepeatMvpView mvpView;
     public ObservableList<RepeatLineViewModel> items = new ObservableArrayList<>();
     public ItemBinding<RepeatLineViewModel> itemBinding = ItemBinding.of(BR.repeatItem, R.layout.row_repeat);
 
+    private Event event;
+
     public EventRepeatViewModel(EventRepeatPresenter<EventRepeatMvpView> presenter) {
         this.presenter = presenter;
+        this.mvpView = presenter.getView();
         init();
+    }
+
+    @Bindable
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+        notifyPropertyChanged(BR.event);
     }
 
     private void init(){
@@ -56,6 +72,13 @@ public class EventRepeatViewModel extends BaseObservable {
                         repeatLineViewModel.setIconVisibility(View.VISIBLE);
                     }
                 }
+
+                @Override
+                public void onClickCustom() {
+                    if(mvpView!=null){
+                        mvpView.toCustomRepeat(event);
+                    }
+                }
             });
         }
     }
@@ -73,7 +96,9 @@ public class EventRepeatViewModel extends BaseObservable {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (mvpView!=null){
+                    mvpView.toEndRepeat(event);
+                }
             }
         };
     }

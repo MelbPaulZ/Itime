@@ -56,5 +56,11 @@
     <!--hint-->
     <string name="event_note_hint">Note</string>
 
+    <!--Action sheet-->
+    <string name="action_sheet_cancel">Cancel</string>
+    <string name="action_sheet_take_photo">Take Photo</string>
+    <string name="action_sheet_choose_from_photos">Choose From Photos</string>
+    
+
 
 </resources>

@@ -126,7 +126,8 @@ public class ClosableButtonLinearLayout extends ClosableBaseLinearLayout {
             // update Touch Area
             TextView touchView = new TextView(getContext());
             touchView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-            touchView.setOnClickListener(getCloseOnClickListener(buttonItem));
+//            touchView.setOnClickListener(getCloseOnClickListener(buttonItem));
+            touchView.setOnClickListener(buttonItem.getOnClickListener()); // here, when click button, only call item's clickListener
             layout.addView(touchView);
         }
 
