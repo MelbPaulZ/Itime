@@ -95,7 +95,7 @@ public abstract class ClosableBaseLinearLayout<T extends ClosableItem> extends L
     public void setList(List<T> tList){
         ClosableDataBindingUtil.sortClosableItem(orderHash, tList);
         originList = tList;
-        if (originList.size()!=getChildCount()){
+        if (originList.size()<getChildCount()){
             // means list has changed, need to redraw view
             removeAllViews();
         }

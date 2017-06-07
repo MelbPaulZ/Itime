@@ -60,7 +60,8 @@
             <!--Duration-->
             <RelativeLayout
                 style="@style/ItimeRelativeCell"
-                android:background="@drawable/bg_divider_bottom">
+                android:background="@drawable/bg_divider_bottom"
+                android:onClick="@{vm.onClickDuration()}">
 
                 <ImageView
                     style="@style/ItimeCellLeftIcon"
@@ -115,7 +116,8 @@
             <!--Calendars-->
             <RelativeLayout
                 style="@style/ItimeRelativeCell"
-                android:background="@drawable/bg_divider_bottom">
+                android:background="@drawable/bg_divider_bottom"
+                android:onClick="@{vm.onClickCalendars()}">
 
                 <ImageView
                     style="@style/ItimeCellLeftIcon"

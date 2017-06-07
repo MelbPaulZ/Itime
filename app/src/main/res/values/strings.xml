@@ -7,9 +7,27 @@
     <string name="toolbar_cancel">Cancel</string>
     <string name="toolbar_url">URL</string>
     <string name="toolbar_note">Note</string>
+    <string name="toolbar_calendars">Calendars</string>
 
     <!--Event-->
     <string name="event">Event</string>
+
+
+    <!--Timeslots-->
+
+    <!--Duration-->
+    <string name="event_create_duration">Duration</string>
+    <string name="duration_15_minutes">15 minutes</string>
+    <string name="duration_30_minutes">30 minutes</string>
+    <string name="duration_45_minutes">45 minutes</string>
+    <string name="duration_1_hour">1 hour</string>
+    <string name="duration_2_hours">2 hours</string>
+    <string name="duration_6_hours">6 hours</string>
+    <string name="duration_all_day">All Day</string>
+
+    <!--Calendar-->
+    <string name="event_calnedar_itime_calendars">ITIME CALENDARS</string>
+
 
     <!--update string here-->
     <string name="event_invitees_title">Invitees</string>

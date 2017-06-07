@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.event.EventCreateCalendarsViewModel"/>
+
+        <variable
+            name="toolbarVM"
+            type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
+        <import type="org.unimelb.itime.manager.NonScrollLinearLayoutManager"/>
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar" bind:vm="@{toolbarVM}"/>
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="@string/event_calnedar_itime_calendars"
+        android:textColor="@color/warmGrey"
+        android:textSize="12sp"
+        android:gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:background="@color/transparent"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        bind:layoutManager="@{NonScrollLinearLayoutManager.linear(context)}"
+        bind:items="@{vm.items}"
+        bind:itemBinding="@{vm.itemBinding}"
+        />
+
+
+</LinearLayout>
+</layout>

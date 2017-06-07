@@ -163,7 +163,9 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (mvpView!=null){
+                    mvpView.toDuration(event);
+                }
             }
         };
     }
@@ -191,42 +193,13 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-            }
-        };
-    }
-
-    public View.OnClickListener onClickPhoto(){
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        };
-    }
-
-
-    public View.OnClickListener onClickNote(){
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mvpView!=null) {
-                    mvpView.toNote(event);
+                if (mvpView!=null){
+                    mvpView.toCalendars(event);
                 }
             }
         };
     }
 
-    public View.OnClickListener onClickUrl(){
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mvpView!=null) {
-                    mvpView.toUrl(event);
-                }
-            }
-        };
-    }
 
     public View.OnClickListener onClickRepeat(){
         return new View.OnClickListener() {
@@ -341,8 +314,9 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickUrl().onClick(v);
-
+                if (mvpView!=null){
+                    mvpView.toUrl(event);
+                }
             }
         };
 
@@ -350,6 +324,8 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             @Override
             public void onClick(View v) {
                 addButton(getString(R.string.url_toolbar_btn));
+                event.setUrl("");
+                setEvent(event);
             }
         };
 

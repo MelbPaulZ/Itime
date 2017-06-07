@@ -11,5 +11,7 @@ public interface EventCreateMvpView extends ItimeBaseMvpView {
     void toNote(Event event);
     void toUrl(Event event);
     void toRepeat(Event event);
+    void toDuration(Event event);
+    void toCalendars(Event event);
 }
 

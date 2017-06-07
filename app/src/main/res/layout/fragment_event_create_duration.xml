@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.event.EventCreateDurationViewModel"/>
+        <variable
+            name="toolbarVM"
+            type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
+    </data>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/event_create_duration_title"
+        layout="@layout/toolbar" bind:vm="@{toolbarVM}"/>
+
+    <RelativeLayout
+        android:layout_below="@id/event_create_duration_title"
+        style="@style/ItimeRelativeCell44"
+        android:background="@drawable/bg_divider_bottom">
+        <ImageView
+            style="@style/ItimeCellLeftIcon"
+            android:background="@drawable/icon_event_duration_hl"
+            />
+
+        <TextView
+            style="@style/itimeCellTitle"
+            android:text="@string/event_create_duration"/>
+
+        <TextView
+            style="@style/itimeCellRightContent"
+            android:text="@{vm.duration}"/>
+
+
+    </RelativeLayout>
+
+    <com.aigestudio.wheelpicker.WheelPicker
+        android:id="@+id/duration_wheel_picker"
+        android:layout_width="match_parent"
+        android:layout_height="216dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"/>
+
+
+</RelativeLayout>
+</layout>

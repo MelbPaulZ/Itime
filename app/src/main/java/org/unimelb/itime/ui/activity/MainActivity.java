@@ -8,7 +8,10 @@ import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseActivity;
+import org.unimelb.itime.ui.fragment.event.FragmentEventCalendar;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
+import org.unimelb.itime.ui.fragment.event.FragmentEventCreateDuration;
+import org.unimelb.itime.ui.fragment.event.FragmentEventRepeat;
 
 public class MainActivity extends ItimeBaseActivity {
 
@@ -22,9 +25,11 @@ public class MainActivity extends ItimeBaseActivity {
 //        FragmentEventRepeatCustom fragment = new FragmentEventRepeatCustom();
 //        FragmentEventEndRepeat fragment = new FragmentEventEndRepeat();
 //        FragmentEventRepeat fragment = new FragmentEventRepeat();
-//        getSupportFragmentManager().beginTransaction().update(R.id.frag_container, fragment).commit();
-        FragmentEventCreate fragmentEventCreate = new FragmentEventCreate();
-        getSupportFragmentManager().beginTransaction().add(R.id.frag_container,fragmentEventCreate, FragmentEventCreate.class.getSimpleName()).commit();
+//        FragmentEventCreateDuration fragment = new FragmentEventCreateDuration();
+//        FragmentEventCalendar fragment = new FragmentEventCalendar();
+//        getSupportFragmentManager().beginTransaction().add(R.id.frag_container, fragment).commit();
+        FragmentEventCreate fragment = new FragmentEventCreate();
+        getSupportFragmentManager().beginTransaction().add(R.id.frag_container,fragment, FragmentEventCreate.class.getSimpleName()).commit();
     }
 
     @NonNull
