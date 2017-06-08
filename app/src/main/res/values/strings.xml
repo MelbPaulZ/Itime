@@ -62,14 +62,19 @@
     <string name="event_repeat_frequency">Frequency</string>
     <string name="event_repeat_daily">Daily</string>
     <string name="event_custom_repeat_every">Every</string>
-    <string name="event_custom_repeat_day">Day</string>
-    <string name="event_custom_repeat_week">Week</string>
-    <string name="event_custom_repeat_month">Month</string>
+    <string name="event_custom_repeat_day">day</string>
+    <string name="event_custom_repeat_week">week</string>
+    <string name="event_custom_repeat_month">month</string>
     <string name="event_custom_repeat_Annually">Annually</string>
     <string name="event_custom_wheel_daily">Daily</string>
     <string name="event_custom_wheel_weekly">Weekly</string>
     <string name="event_custom_wheel_monthly">Monthly</string>
     <string name="event_custom_wheel_annually">Annually</string>
+    <string name="event_custom_wheel_year">year</string>
+    <string name="event_custom_wheel_days">days</string>
+    <string name="event_custom_wheel_weeks">weeks</string>
+    <string name="event_custom_wheel_months">months</string>
+    <string name="event_custom_wheel_years">years</string>
 
     <!--hint-->
     <string name="event_note_hint">Note</string>

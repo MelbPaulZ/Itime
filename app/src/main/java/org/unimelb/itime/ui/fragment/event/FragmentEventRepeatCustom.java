@@ -32,6 +32,8 @@ public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCust
     private ToolbarViewModel toolbarViewModel;
     private EventRepeatCustomViewModel vm;
     private Event event;
+    private WheelPicker wheelPicker, freqWheelPicker;
+    private List<String> dayStrings, weekStrings, monthStrings, yearStrings, singRepeats, pluralRepeats;
 
     @Override
     public LocalPresenter<EventRepeatCustomMvpView> createPresenter() {
@@ -48,9 +50,11 @@ public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCust
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initWheel();
 
         vm = new EventRepeatCustomViewModel(getPresenter());
-        vm.setFrequencyString(getWheelData().get(0));
+        vm.setGapString((String) freqWheelPicker.getData().get(0));
+        vm.setFrequencyString((String) wheelPicker.getData().get(0));
         vm.setEvent(event);
         binding.setVm(vm);
 
@@ -60,33 +64,131 @@ public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCust
         toolbarViewModel.setRightText(getString(R.string.toolbar_done));
         binding.setToolbarVM(toolbarViewModel);
 
-        initWheel();
 
     }
 
 
     private void initWheel(){
-        WheelPicker wheelPicker = (WheelPicker) getActivity().findViewById(R.id.repeat_wheel_picker);
-        wheelPicker.setData(getWheelData());
+        // day, week, month ..
+        wheelPicker = (WheelPicker) getActivity().findViewById(R.id.repeat_wheel_picker);
+        wheelPicker.setData(getRepeatSingle());
         wheelPicker.setSelectedItemTextColor(getResources().getColor(R.color.azure));
-        wheelPicker.setItemTextSize(SizeUtil.dip2px(getContext(), 20));
+        wheelPicker.setItemTextSize(SizeUtil.dip2px(getContext(), 16));
         wheelPicker.setVisibleItemCount(5);
+        wheelPicker.setIndicatorSize(2);
+        wheelPicker.setIndicator(true);
+        wheelPicker.setIndicatorColor(getResources().getColor(R.color.divider_line));
         wheelPicker.setOnItemSelectedListener(new WheelPicker.OnItemSelectedListener() {
             @Override
             public void onItemSelected(WheelPicker picker, Object data, int position) {
-                vm.setFrequencyString(getWheelData().get(position));
+                if (position == 0){
+                    freqWheelPicker.setData(getWheelDays());
+                }
+
+                if (position == 1){
+                    freqWheelPicker.setData(getWheelWeeks());
+                }
+
+                if (position == 2){
+                    freqWheelPicker.setData(getWheelMonths());
+                }
+
+                if (position == 3){
+                    freqWheelPicker.setData(getWheelYears());
+                }
+                // update title
+                vm.setFrequencyString((String) wheelPicker.getData().get(position));
+                vm.setGapString((String) freqWheelPicker.getData().get(freqWheelPicker.getSelectedItemPosition()));
+            }
+        });
+
+
+        // 1,2,3,4,5....
+        freqWheelPicker = (WheelPicker) getActivity().findViewById(R.id.repeat_wheel_picker_freq);
+        freqWheelPicker.setData(getWheelDays());
+        freqWheelPicker.setSelectedItemTextColor(getResources().getColor(R.color.azure));
+        freqWheelPicker.setItemTextSize(SizeUtil.dip2px(getContext(), 16));
+        freqWheelPicker.setVisibleItemCount(5);
+        freqWheelPicker.setIndicatorSize(2);
+        freqWheelPicker.setIndicator(true);
+        freqWheelPicker.setIndicatorColor(getResources().getColor(R.color.divider_line));
+        freqWheelPicker.setOnItemSelectedListener(new WheelPicker.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(WheelPicker picker, Object data, int position) {
+                if (position==0){
+                    wheelPicker.setData(getRepeatSingle());
+                }else{
+                    if (wheelPicker.getData().equals(getRepeatSingle())){
+                        wheelPicker.setData(getRepeatPlural());
+                    }
+                }
+                vm.setGapString((String) freqWheelPicker.getData().get(position));
+                vm.setFrequencyString((String) wheelPicker.getData().get(wheelPicker.getSelectedItemPosition()));
             }
         });
 
     }
 
-    private List<String> getWheelData(){
-        List<String> strings = new ArrayList<>();
-        strings.add(getString(R.string.event_custom_wheel_daily));
-        strings.add(getString(R.string.event_custom_wheel_weekly));
-        strings.add(getString(R.string.event_custom_wheel_monthly));
-        strings.add(getString(R.string.event_custom_wheel_annually));
-        return strings;
+    private List<String> getRepeatSingle(){
+        if (singRepeats==null) {
+            singRepeats = new ArrayList<>();
+            singRepeats.add(getString(R.string.event_custom_repeat_day));
+            singRepeats.add(getString(R.string.event_custom_repeat_week));
+            singRepeats.add(getString(R.string.event_custom_repeat_month));
+            singRepeats.add(getString(R.string.event_repeat_every_year));
+        }
+        return singRepeats;
+    }
+
+    private List<String> getRepeatPlural(){
+        if (pluralRepeats == null){
+            pluralRepeats = new ArrayList<>();
+            pluralRepeats.add(getString(R.string.event_custom_wheel_days));
+            pluralRepeats.add(getString(R.string.event_custom_wheel_weeks));
+            pluralRepeats.add(getString(R.string.event_custom_wheel_months));
+            pluralRepeats.add(getString(R.string.event_custom_wheel_years));
+        }
+        return pluralRepeats;
+    }
+
+    private List<String> getWheelDays(){
+        if (dayStrings==null) {
+            dayStrings = new ArrayList<>();
+            for (int i = 1; i <= 99; i++) {
+                dayStrings.add(i + "");
+            }
+        }
+        return dayStrings;
+    }
+
+    private List<String> getWheelWeeks(){
+        if (weekStrings==null) {
+            weekStrings = new ArrayList<>();
+            for (int i = 1; i <= 52; i++) {
+                weekStrings.add(i + "");
+            }
+        }
+        return weekStrings;
+    }
+
+    private List<String> getWheelMonths(){
+        if (monthStrings==null){
+            monthStrings = new ArrayList<>();
+            for (int i = 1 ; i <= 36; i++){
+                monthStrings.add(i + "");
+            }
+        }
+        return monthStrings;
+    }
+
+    private List<String> getWheelYears(){
+        if (yearStrings == null){
+            yearStrings = new ArrayList<>();
+            for (int i = 1; i <= 30; i++){
+                yearStrings.add(i + "");
+            }
+        }
+        return yearStrings;
     }
 
     public void setEvent(Event event) {

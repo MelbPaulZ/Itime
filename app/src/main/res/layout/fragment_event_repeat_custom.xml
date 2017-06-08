@@ -30,10 +30,23 @@
             android:layout_marginStart="16dp"
             android:text="@string/event_repeat_frequency"/>
 
+        <!--day, week, month, year-->
         <TextView
+            android:id="@+id/event_repeat_custom_freq"
             style="@style/itimeCellRightContent"
             android:layout_marginRight="15dp"
             android:text="@{vm.frequencyString}"/>
+
+        <!--1,2,3,4,5....-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/pinkishGrey"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/event_repeat_custom_freq"
+            android:layout_marginRight="5dp"
+            android:text="@{vm.gapString}"/>
+
 
         <TextView
             style="@style/itime_bottom_divider_line"
@@ -45,34 +58,29 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="150dp">
-        <com.aigestudio.wheelpicker.WheelPicker
-            android:id="@+id/repeat_wheel_picker"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="@color/white"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <com.aigestudio.wheelpicker.WheelPicker
+                android:id="@+id/repeat_wheel_picker_freq"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:background="@color/white"/>
+            <com.aigestudio.wheelpicker.WheelPicker
+                android:id="@+id/repeat_wheel_picker"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:background="@color/white"/>
+        </LinearLayout>
+
         <TextView
             style="@style/itime_bottom_divider_line"
             android:layout_marginStart="16dp"/>
     </RelativeLayout>
 
-
-    <!--every-->
-    <RelativeLayout
-        style="@style/ItimeRelativeCell"
-        android:layout_height="44dp"
-        android:background="@color/white">
-
-        <TextView
-            style="@style/itimeCellTitle"
-            android:layout_marginStart="16dp"
-            android:text="@string/event_custom_repeat_every"
-            />
-
-        <TextView
-            style="@style/itimeCellRightContent"
-            android:text="@string/event_custom_repeat_day"/>
-
-    </RelativeLayout>
 
 
 
