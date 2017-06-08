@@ -8,6 +8,7 @@
     <string name="toolbar_url">URL</string>
     <string name="toolbar_note">Note</string>
     <string name="toolbar_calendars">Calendars</string>
+    <string name="toolbar_location">Location</string>
 
     <!--Event-->
     <string name="event">Event</string>
@@ -28,6 +29,11 @@
     <!--Calendar-->
     <string name="event_calnedar_itime_calendars">ITIME CALENDARS</string>
 
+
+    <!--Location-->
+    <string name="location">Location</string>
+    <string name="location_nearby">NEARBY</string>
+    <string name="location_recent">RECENT</string>
 
     <!--update string here-->
     <string name="event_invitees_title">Invitees</string>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.event.EventLocationViewModel"/>
+
+        <variable
+            name="toolbarVM"
+            type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
+        
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers"/>
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar" bind:vm="@{toolbarVM}"/>
+
+    <!--Location edittext-->
+    <RelativeLayout
+        style="@style/ItimeRelativeCell44"
+        android:background="@color/white">
+
+        <ImageView
+            style="@style/ItimeCellLeftIcon"
+            android:background="@drawable/icon_event_location_hl"/>
+
+        <EditText
+            style="@style/itimeCellEdit"
+            android:text="@={vm.location}"/>
+        
+        <ImageView
+            style="@style/itimeCellRightIcon"
+            android:visibility="@{vm.getHasLocationVisibility(vm.location)}"
+            android:onClick="@{vm.onClickClean()}"
+            android:background="@drawable/icon_event_closecell"/>
+
+        <TextView
+            style="@style/itime_bottom_divider_line" />
+        
+    </RelativeLayout>
+
+    <!--No location-->
+    <RelativeLayout
+        style="@style/ItimeRelativeCell44"
+        android:animateLayoutChanges="true"
+        android:visibility="@{vm.getNoLocationVisibility(vm.location)}"
+        android:background="@drawable/bg_divider_bottom">
+
+        <!--No location show-->
+        <TextView
+            style="@style/itimeCellTitle"
+            android:layout_marginStart="16dp"
+            android:text="@string/event_location_hint"/>
+
+
+        <ImageView
+            style="@style/itimeCellRightIcon"
+            android:background="@drawable/icon_event_checkmark_blue"/>
+
+    </RelativeLayout>
+
+    <!--no location, show nearby and recent-->
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="@{vm.getNoLocationVisibility(vm.location)}"
+        app:layoutManager="@{LayoutManagers.linear()}"
+        android:overScrollMode="never"
+        app:items="@{vm.locationRows}"
+        app:itemBinding="@{vm.onItemBind}"
+        />
+
+
+    <!--has location, show searched result-->
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="@{vm.getHasLocationVisibility(vm.location)}"
+        app:layoutManager="@{LayoutManagers.linear()}"
+        android:overScrollMode="never"
+        app:items="@{vm.searchedLocationRows}"
+        app:itemBinding="@{vm.searchedLocationItemBinding}"
+        />
+
+
+</LinearLayout>
+</layout>

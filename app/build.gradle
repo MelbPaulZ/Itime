@@ -31,6 +31,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
+
     // add dependecies following
     //mvp
     compile 'com.hannesdorfmann.mosby:mvp:2.0.1'
@@ -40,9 +41,14 @@ dependencies {
 
     //gson
     compile 'com.google.code.gson:gson:2.7'
+
+    //picasso
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
     //databinding
     compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:2.1.0'
     compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:2.1.0'
+
     //other libraries
     compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
     compile project(':closabledatabindingview')

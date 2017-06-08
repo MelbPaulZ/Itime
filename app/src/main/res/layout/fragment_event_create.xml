@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ClosableBaseLinearLayout="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/tools">
     <data>
         <variable
@@ -35,6 +36,19 @@
                     style="@style/itimeCellTitle"
                     android:text="@string/event_invitees_title" />
 
+                <org.unimelb.itime.widget.PileupView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:pileup_ratio="0.5"
+                    app:pileup_maxNum="3"
+                    app:pileup_imageSize="14dp"
+                    app:pileup_images="@{vm.mockAvatorLists}"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="44dp"
+                    android:id="@+id/pileup_avatars"
+                    />
+
 
                 <TextView
                     style="@style/itimeCellRightContent"
@@ -52,9 +66,10 @@
                     style="@style/ItimeCellLeftIcon"
                     android:background="@drawable/icon_event_title" />
 
-                <EditText
-                    style="@style/itimeCellEdit"
-                    android:hint="@string/event_title_hint" />
+                <TextView
+                    style="@style/itimeCellTitle"
+                    android:textColor="@color/whiteTwo"
+                    android:text="@{vm.getTitleString(vm.event)}" />
             </RelativeLayout>
 
             <!--Duration-->

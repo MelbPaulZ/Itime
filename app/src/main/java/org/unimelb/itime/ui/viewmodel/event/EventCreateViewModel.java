@@ -39,10 +39,14 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     private Event event;
     private EventCreateMvpView mvpView;
 
+    private List<String> mockAvatorLists = new ArrayList<>();
+
     public EventCreateViewModel(EventCreatePresenter presenter) {
         this.presenter = presenter;
         mvpView = (EventCreateMvpView) presenter.getView();
         init();
+
+        mockData();
     }
 
     private void init(){
@@ -56,6 +60,26 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         buttonItems.add(createButtonItem(getString(R.string.url_toolbar_btn)));
         buttonItems.add(createButtonItem(getString(R.string.repeat_toolbar_btn)));
         notifyPropertyChanged(BR.buttonItems);
+    }
+
+    private void mockData(){
+        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
+        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
+        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
+    }
+
+    @Bindable
+    public List<String> getMockAvatorLists() {
+        return mockAvatorLists;
+    }
+
+
+
+    public String getTitleString(Event event){
+        if (event.getTitle().equals("")){
+            return presenter.getContext().getString(R.string.event_title_hint);
+        }
+        return event.getTitle();
     }
 
     @Bindable

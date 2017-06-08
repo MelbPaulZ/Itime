@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="locationRowVm"
+            type="org.unimelb.itime.ui.viewmodel.event.EventLocationViewModel.LocationRowViewModel"/>
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        style="@style/ItimeRelativeCell"
+        android:background="@color/whiteFour">
+        
+        <TextView
+            android:id="@+id/location_string1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10.5dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:maxLength="348"
+            android:text="@{locationRowVm.str1}"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_below="@id/location_string1"
+            android:textSize="11sp"
+            android:textColor="@color/warmGrey"
+            android:maxLines="1"
+            android:maxLength="348"
+            android:ellipsize="end"
+            android:text="@{locationRowVm.str2}"
+            />
+
+        <TextView
+            android:layout_marginStart="16dp"
+            style="@style/itime_bottom_divider_line" />
+        
+    </RelativeLayout>
+
+
+</LinearLayout>
+</layout>

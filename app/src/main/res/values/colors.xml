@@ -9,6 +9,7 @@
     <color name="divider_line">#EEEEEE</color>
     <color name="transparent">#00000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="grey">#808080</color>
 
     <!--update color below-->
     <color name="cell_name">#000000</color>
