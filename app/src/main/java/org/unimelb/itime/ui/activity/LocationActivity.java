@@ -21,7 +21,6 @@ public class LocationActivity extends ItimeBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
-
         init();
     }
 
@@ -29,8 +28,9 @@ public class LocationActivity extends ItimeBaseActivity {
         Intent intent = getIntent();
         String location = intent.getStringExtra(getString(R.string.location));
 
-
-        location="";// TODO: 8/6/17 delete when not testing
+        if (location==null) {
+            location = "";// TODO: 8/6/17 delete when not testing
+        }
         FragmentEventLocation fragmentEventLocation = new FragmentEventLocation();
         fragmentEventLocation.setLocation(location);
 

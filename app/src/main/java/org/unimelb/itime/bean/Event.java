@@ -10,6 +10,7 @@ public class Event implements Serializable{
     private String title="";
     private String note="";
     private String url="";
+    private String location="";
 
     public String getTitle() {
         return title;
@@ -33,5 +34,13 @@ public class Event implements Serializable{
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

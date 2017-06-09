@@ -1,6 +1,7 @@
 package com.developer.paul.closabledatabindingview.closablelayouts;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -106,8 +107,9 @@ public class ClosableRowLinearLayout extends ClosableBaseLinearLayout{
             ClosableRelativeLayout rowLayout = new ClosableRelativeLayout(getContext());
             rowLayout.setBackground(getResources().getDrawable(R.drawable.bg_divider_bottom));
             int height = ClosableDataBindingUtil.dxTodp(getContext(), ROW_HEIGHT);
-            rowLayout.setLayoutParams(new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, height));
+            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            rowLayout.setLayoutParams(lp);
+            rowLayout.setMinimumHeight(height);
             rowLayout.setClosableItem(rowItem);
             return rowLayout;
         }
@@ -118,7 +120,7 @@ public class ClosableRowLinearLayout extends ClosableBaseLinearLayout{
             int iconSize = ClosableDataBindingUtil.dxTodp(getContext(), ICON_SIZE);
             RelativeLayout.LayoutParams iconLp = new RelativeLayout.LayoutParams(
                     iconSize, iconSize);
-            iconLp.addRule(RelativeLayout.CENTER_VERTICAL);
+            iconLp.topMargin = ClosableDataBindingUtil.dxTodp(getContext(), 20);
             iconLp.leftMargin = ClosableDataBindingUtil.dxTodp(getContext(), 14);
             iconView.setLayoutParams(iconLp);
             rowRelativeLayout.addView(iconView);
@@ -128,12 +130,15 @@ public class ClosableRowLinearLayout extends ClosableBaseLinearLayout{
             TextView displayText = new TextView(getContext());
             displayText.setText(text);
             displayText.setTextSize(16);
+            displayText.setTextColor(Color.parseColor("#030303"));
             displayText.setMinWidth(ClosableDataBindingUtil.dxTodp(getContext(), 157));
             displayText.setOnClickListener(leftClickListener);
+            displayText.setMaxWidth(ClosableDataBindingUtil.dxTodp(getContext(), 280));
             RelativeLayout.LayoutParams textLp = new RelativeLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
             );
             textLp.leftMargin = ClosableDataBindingUtil.dxTodp(getContext(), TEXT_LEFT_MARGIN);
+            textLp.bottomMargin = ClosableDataBindingUtil.dxTodp(getContext(), 20);
             textLp.addRule(RelativeLayout.CENTER_VERTICAL);
             displayText.setLayoutParams(textLp);
             rowRelativeLayout.addView(displayText);

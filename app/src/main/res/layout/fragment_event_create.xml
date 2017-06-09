@@ -113,7 +113,8 @@
             <!--Location-->
             <RelativeLayout
                 style="@style/ItimeRelativeCell"
-                android:background="@drawable/bg_divider_bottom">
+                android:background="@drawable/bg_divider_bottom"
+                android:onClick="@{vm.onClickLocation()}">
 
                 <ImageView
                     style="@style/ItimeCellLeftIcon"
@@ -121,7 +122,7 @@
 
                 <TextView
                     style="@style/itimeCellTitle"
-                    android:text="@string/event_location_hint"
+                    android:text="@{vm.getLocationString(vm.event)}"
                     android:textColor="@color/whiteTwo"/>
 
                 <TextView style="@style/ItimeDisclosure" />
@@ -155,8 +156,9 @@
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
                 android:orientation="vertical"
+                ClosableBaseLinearLayout:orderHashMap="@{vm.orderHashMap}"
                 ClosableBaseLinearLayout:closableItems="@{vm.rowItems}"
-                ClosableBaseLinearLayout:orderHashMap="@{vm.orderHashMap}" />
+                 />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -168,8 +170,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:animateLayoutChanges="true"
+                    ClosableBaseLinearLayout:orderHashMap="@{vm.orderHashMap}"
                     ClosableBaseLinearLayout:closableItems="@{vm.buttonItems}"
-                    ClosableBaseLinearLayout:orderHashMap="@{vm.orderHashMap}" />
+                    />
             </RelativeLayout>
 
         </LinearLayout>

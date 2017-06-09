@@ -79,6 +79,7 @@ public class EventLocationViewModel extends ItimeBaseViewModel {
             @Override
             public void onClick(View v) {
                 setLocation("");
+                closeKeyBoard(v);
             }
         };
     }
@@ -108,6 +109,7 @@ public class EventLocationViewModel extends ItimeBaseViewModel {
     public class LocationRowViewModel extends BaseObservable{
         private String str1;
         private String str2;
+
 
         public LocationRowViewModel(String str1, String str2) {
             this.str1 = str1;

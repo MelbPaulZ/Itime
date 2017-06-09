@@ -15,7 +15,8 @@
     </style>
 
     <style name="ItimeRelativeCell44" parent="ItimeRelativeCell">
-        <item name="android:layout_height">44dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">44dp</item>
     </style>
 
     <style name="ItimeCellLeftIcon">
@@ -38,6 +39,10 @@
     <style name="itimeCellEdit" parent="itimeCellTitle">
         <item name="android:background">@color/transparent</item>
         <item name="android:minWidth">191dp</item>
+        <item name="android:maxLength">286</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
         <item name="android:layout_marginEnd">40dp</item>
     </style>
 

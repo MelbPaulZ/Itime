@@ -1,5 +1,7 @@
 package org.unimelb.itime.ui.fragment.event;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -45,7 +47,7 @@ implements ToolbarInterface{
         vm.setLocation(location);
         binding.setVm(vm);
 
-        toolbarViewModel= new ToolbarViewModel(this);
+        toolbarViewModel= new ToolbarViewModel<>(this);
         toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarViewModel.setTitle(getString(R.string.toolbar_location));
         toolbarViewModel.setRightText(getString(R.string.toolbar_done));
@@ -63,11 +65,17 @@ implements ToolbarInterface{
 
     @Override
     public void onNext() {
-
+        Intent intent = new Intent();
+        intent.putExtra(getString(R.string.location), location);
+        getActivity().setResult(Activity.RESULT_OK, intent);
+        getActivity().finish();
+        getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 
     @Override
     public void onBack() {
-
+        getActivity().setResult(Activity.RESULT_CANCELED);
+        getActivity().finish();
+        getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 }

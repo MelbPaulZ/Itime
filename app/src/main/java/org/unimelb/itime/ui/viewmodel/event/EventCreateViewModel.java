@@ -54,6 +54,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         orderHashMap.put(getString(R.string.note_toolbar_btn), 1);
         orderHashMap.put(getString(R.string.url_toolbar_btn),2);
         orderHashMap.put(getString(R.string.repeat_toolbar_btn),3);
+        notifyPropertyChanged(BR.orderHashMap);
 
         buttonItems.add(createButtonItem(getString(R.string.photos_toolbar_btn)));
         buttonItems.add(createButtonItem(getString(R.string.note_toolbar_btn)));
@@ -66,6 +67,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
         mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
         mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
+
     }
 
     @Bindable
@@ -80,6 +82,14 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             return presenter.getContext().getString(R.string.event_title_hint);
         }
         return event.getTitle();
+    }
+
+    public String getLocationString(Event event){
+        if (event.getLocation().equals("")){
+            return getString(R.string.event_location_hint);
+        }else{
+            return event.getLocation();
+        }
     }
 
     @Bindable
@@ -208,7 +218,9 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (mvpView!=null){
+                    mvpView.toLocation(event);
+                }
             }
         };
     }

@@ -1,5 +1,8 @@
 package org.unimelb.itime.ui.fragment.event;
 
+import android.app.Activity;
+import android.app.Instrumentation;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +17,7 @@ import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.databinding.FragmentEventCreateBinding;
 import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.ui.activity.LocationActivity;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.viewmodel.event.EventCreateViewModel;
@@ -29,6 +33,8 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     private EventCreateViewModel vm;
     private ToolbarViewModel toolbarViewModel;
     private Event event;
+
+    public final static int REQ_LOCATION = 1001;
 
     @Override
     public EventCreatePresenter<EventCreateMvpView> createPresenter() {
@@ -75,6 +81,8 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
 
     private void mockEvent(){
         event = new Event();
+        event.setNote("asdasdasfh ahsiduahiu daisfia gsfiya gidadis hidf gaiy gfaifgsdidsac ai viasu i ufiwf asis aigsiag fisagiasfg iasdc bisayd ufygfiaf i ib");
+
     }
 
     public void setEvent(Event event) {
@@ -139,6 +147,23 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
         getBaseActivity().openFragment(fragment);
+    }
+
+    @Override
+    public void toLocation(Event event) {
+        Intent intent = new Intent(getActivity(), LocationActivity.class);
+        intent.putExtra(getString(R.string.location), "");
+        startActivityForResult(intent, REQ_LOCATION);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==REQ_LOCATION && resultCode == Activity.RESULT_OK){
+            String location = data.getStringExtra(getString(R.string.location));
+            event.setLocation(location);
+            setEvent(event);
+        }
     }
 }
 
