@@ -84,6 +84,14 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         return event.getTitle();
     }
 
+    public int getTitleColor(Event event){
+        if (event.getTitle().equals("")){
+            return presenter.getContext().getResources().getColor(R.color.whiteTwo);
+        }else{
+            return presenter.getContext().getResources().getColor(R.color.black);
+        }
+    }
+
     public String getLocationString(Event event){
         if (event.getLocation().equals("")){
             return getString(R.string.event_location_hint);
@@ -347,7 +355,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             }
         };
         addInList(getString(R.string.note_toolbar_btn),
-                presenter.getContext().getResources().getDrawable(R.drawable.icon_event_toolbar_note),
+                presenter.getContext().getResources().getDrawable(R.drawable.icon_event_note),
                 text, onClickListener, onDeleteListener);
         notifyPropertyChanged(BR.rowItems);
     }
@@ -376,7 +384,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             }
         };
 
-        addInList(getString(R.string.url_toolbar_btn), presenter.getContext().getResources().getDrawable(R.drawable.icon_event_toolbar_url), getString(R.string.url_toolbar_btn), onClickListener, onDeleteListener);
+        addInList(getString(R.string.url_toolbar_btn), presenter.getContext().getResources().getDrawable(R.drawable.icon_event_url), getString(R.string.url_toolbar_btn), onClickListener, onDeleteListener);
         notifyPropertyChanged(BR.rowItems);
     }
 

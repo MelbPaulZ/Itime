@@ -66,6 +66,8 @@ public class FragmentEventCreateTitle extends ItimeBaseFragment<EventCreateTitle
 
     @Override
     public void onNext() {
+        FragmentEventCreate fragment = (FragmentEventCreate) getFragmentManager().findFragmentByTag(FragmentEventCreate.class.getSimpleName());
+        fragment.setEvent(event);
         getFragmentManager().popBackStack();
     }
 

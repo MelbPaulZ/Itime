@@ -69,7 +69,7 @@
 
                 <TextView
                     style="@style/itimeCellTitle"
-                    android:textColor="@color/whiteTwo"
+                    android:textColor="@{vm.getTitleColor(vm.event)}"
                     android:text="@{vm.getTitleString(vm.event)}" />
             </RelativeLayout>
 
