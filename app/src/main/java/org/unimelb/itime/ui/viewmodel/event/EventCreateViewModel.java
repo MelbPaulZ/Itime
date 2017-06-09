@@ -204,6 +204,17 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         };
     }
 
+    public View.OnClickListener onClickTitle(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mvpView!=null){
+                    mvpView.toTitle(event);
+                }
+            }
+        };
+    }
+
 
     public View.OnClickListener onClickTimeslot(){
         return new View.OnClickListener() {

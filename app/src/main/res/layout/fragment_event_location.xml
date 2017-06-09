@@ -25,7 +25,7 @@
     <!--Location edittext-->
     <RelativeLayout
         style="@style/ItimeRelativeCell44"
-        android:background="@color/white"
+        android:background="@drawable/bg_divider_bottom"
         >
 
         <ImageView
@@ -43,8 +43,6 @@
             android:onClick="@{vm.onClickClean()}"
             android:background="@drawable/icon_event_closecell"/>
 
-        <TextView
-            style="@style/itime_bottom_divider_line" />
         
     </RelativeLayout>
 

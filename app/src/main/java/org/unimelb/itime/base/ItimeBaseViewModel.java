@@ -3,9 +3,11 @@ package org.unimelb.itime.base;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.BindingAdapter;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 /**
  * Created by Paul on 2/6/17.
@@ -17,6 +19,11 @@ public class ItimeBaseViewModel extends BaseObservable {
     @BindingAdapter("android:onFocusChange")
     public static void setOnFocusChangeListener(View view, View.OnFocusChangeListener onFocusChangeListener){
         view.setOnFocusChangeListener(onFocusChangeListener);
+    }
+
+    @BindingAdapter("android:onEditTextChange")
+    public static void setOnEditTextCchangeListener(EditText editText, TextWatcher textWatcher){
+        editText.addTextChangedListener(textWatcher);
     }
 
     public View.OnFocusChangeListener onInputEditFocusChange(){
