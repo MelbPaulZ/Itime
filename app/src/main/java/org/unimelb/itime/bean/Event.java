@@ -1,22 +1,332 @@
 package org.unimelb.itime.bean;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.NotNull;
+import org.greenrobot.greendao.annotation.Property;
+import org.greenrobot.greendao.annotation.ToMany;
+import org.unimelb.itime.util.rulefactory.RuleInterface;
+import org.unimelb.itime.util.rulefactory.RuleModel;
+
 import java.io.Serializable;
+import java.util.List;
+
+import david.itimecalendar.calendar.listeners.ITimeEventInterface;
+import david.itimecalendar.calendar.listeners.ITimeInviteeInterface;
 
 /**
  * Created by Paul on 6/6/17.
  */
 
-public class Event implements Serializable{
-    private String title="";
-    private String note="";
-    private String url="";
+@Entity
+public class Event implements ITimeEventInterface<Event>, Serializable, Cloneable, RuleInterface, ITimeComparable<Event> {
+    @Id
+    private String eventUid;
+    // for other calendars
+    private String eventId;
+    private String recurringEventUid;
+    // for other calendars
+    private String recurringEventId;
+    private String calendarUid;
+    private String iCalUID;
+    private String hostUserUid; // add by paul
+    private String summary;
+    private String url;
+    private String location = "";
+    private String locationNote;
+    private double locationLatitude;
+    private double locationLongitude;
+    private String note;
+    private boolean isAllDay;
+    private int showLevel;
 
-    public String getTitle() {
-        return title;
+
+    private transient String[] recurrence = {};
+
+    private String photo = "[]";
+
+    @ToMany(referencedJoinProperty = "eventUid")
+    private List<TimeSlot> timeslots = null;
+
+    // later delete
+    private transient long repeatEndsTime;
+    private transient boolean isHost;
+    private transient boolean highlighted;
+
+    public RuleModel getRule() {
+        return rule;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    @Override
+    public Event clone() {
+        Event event = null;
+        try
+        {
+            event = (Event) super.clone();
+        } catch (CloneNotSupportedException e){
+            e.printStackTrace();
+        }
+        return event;
+    }
+
+    public void setRule(RuleModel rule) {
+        this.rule = rule;
+    }
+
+    private transient RuleModel rule;
+
+    @Property
+    @NotNull
+    private long startTime;
+    @Property
+    @NotNull
+    private long endTime;
+    @Property
+    @NotNull
+    private int eventType;
+    @Property
+    @NotNull
+    private String display;
+
+
+    public Event() {
+    }
+
+    @Override
+    public void setTitle(String summary) {
+        this.summary = summary;
+    }
+
+    @Override
+    public String getTitle() {
+        return this.summary;
+    }
+
+    @Override
+    public void setHighLighted(boolean hightlighted) {
+        this.highlighted = hightlighted;
+    }
+
+    @Override
+    public boolean isHighlighted() {
+        return this.highlighted;
+    }
+
+    @Override
+    public void setIsAllDay(boolean isAllDay) {
+        this.isAllDay = isAllDay;
+    }
+
+    @Override
+    public boolean isAllDay() {
+        return this.isAllDay;
+    }
+
+    @Override
+    public int isShownInCalendar() {
+        return 0;
+    }
+
+    public void setEventId(String id){ this.eventUid = id;}
+
+    public void setStartTime(long startTime){ this.startTime = startTime; }
+
+    public void setEndTime(long endTime){ this.endTime = endTime; }
+
+    public String getEventUid(){ return eventUid; }
+
+    public long getStartTime(){return startTime;}
+
+    public long getEndTime(){return endTime;}
+
+    public void setDisplayEventType(int eventType) {
+        this.eventType = eventType;
+    }
+
+    public int getDisplayEventType() {
+        return eventType;
+    }
+
+    public String getDisplayStatus() {
+        return display;
+    }
+
+    public void setDisplayStatus(String display) {
+        this.display = display;
+    }
+
+    public int getDuration(){
+        return (int)((endTime - startTime) /(1000*60));
+    }
+
+    public long getDurationMilliseconds(){
+        return (endTime - startTime);
+    }
+
+    @Override
+    public int compareTo(Event event) {
+        long selfStartTime = this.getStartTime();
+        long cmpTgtStartTime = event.getStartTime();
+        int result = selfStartTime < cmpTgtStartTime ? -1 : 1;
+
+        if (result == -1){
+            return result;
+        }else {
+            return selfStartTime == cmpTgtStartTime ? 0 : 1;
+        }
+    }
+
+    public void setEventUid(String eventUid) {
+        this.eventUid = eventUid;
+    }
+
+    @Override
+    public String getLocation() {
+        return location;
+    }
+
+    @Override
+    public List<? extends ITimeInviteeInterface> getDisplayInvitee() {
+        return null;
+    }
+
+
+    @Override
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
+     * Entity must attached to an entity context.
+     */
+
+    public String getUrl() {
+        return this.url;
+    }
+
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+
+    public String getSummary() {
+        return this.summary;
+    }
+
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+
+    public String[] getRecurrence() {
+        return this.recurrence;
+    }
+
+
+    public void setRecurrence(String[] recurrence) {
+        this.recurrence = recurrence;
+    }
+
+
+    public String getICalUID() {
+        return this.iCalUID;
+    }
+
+
+    public void setICalUID(String iCalUID) {
+        this.iCalUID = iCalUID;
+    }
+
+
+    public String getCalendarUid() {
+        return this.calendarUid;
+    }
+
+
+    public void setCalendarUid(String calendarUid) {
+        this.calendarUid = calendarUid;
+    }
+
+
+    public String getRecurringEventId() {
+        return this.recurringEventId;
+    }
+
+
+    public void setRecurringEventId(String recurringEventId) {
+        this.recurringEventId = recurringEventId;
+    }
+
+
+    public String getRecurringEventUid() {
+        return this.recurringEventUid;
+    }
+
+
+    public void setRecurringEventUid(String recurringEventUid) {
+        this.recurringEventUid = recurringEventUid;
+    }
+
+
+    public String getEventId() {
+        return this.eventId;
+    }
+
+    public String getiCalUID() {
+        return iCalUID;
+    }
+
+    public void setiCalUID(String iCalUID) {
+        this.iCalUID = iCalUID;
+    }
+
+
+
+    public String getLocationNote() {
+        return locationNote;
+    }
+
+    public void setLocationNote(String locationNote) {
+        this.locationNote = locationNote;
+    }
+
+    public double getLocationLatitude() {
+        return locationLatitude;
+    }
+
+    public void setLocationLatitude(double locationLatitude) {
+        this.locationLatitude = locationLatitude;
+    }
+
+    public double getLocationLongitude() {
+        return locationLongitude;
+    }
+
+    public void setLocationLongitude(double locationLongitude) {
+        this.locationLongitude = locationLongitude;
+    }
+
+
+    public long getRepeatEndsTime() {
+        return repeatEndsTime;
+    }
+
+    public void setRepeatEndsTime(long repeatEndsTime) {
+        this.repeatEndsTime = repeatEndsTime;
+    }
+
+
+    public void setTimeslots(List<TimeSlot> timeslots) {
+        this.timeslots = timeslots;
+    }
+
+    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    public synchronized void resetTimeslots() {
+        timeslots = null;
     }
 
     public String getNote() {
@@ -27,11 +337,68 @@ public class Event implements Serializable{
         this.note = note;
     }
 
-    public String getUrl() {
-        return url;
+    public boolean hasTimeslots(){
+        return timeslots!=null;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public boolean isHost() {
+        return isHost;
+    }
+
+    public void setHost(boolean host) {
+        isHost = host;
+    }
+
+    public String getHostUserUid() {
+        return hostUserUid;
+    }
+
+    public void setHostUserUid(String hostUserUid) {
+        this.hostUserUid = hostUserUid;
+    }
+
+
+    public String getPhoto() {
+        return this.photo;
+    }
+
+
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+
+    public int getEventType() {
+        return this.eventType;
+    }
+
+    public void setEventType(int eventType) {
+        this.eventType = eventType;
+    }
+
+    public String getDisplay() {
+        return this.display;
+    }
+
+    public void setDisplay(String display) {
+        this.display = display;
+    }
+
+    public boolean getIsAllDay() {
+        return this.isAllDay;
+    }
+
+    @Override
+    public boolean iTimeEquals(Event obj2) {
+        return this.getEventUid().equals(obj2.getEventUid());
+    }
+
+    public int getShowLevel() {
+        return showLevel;
+    }
+
+    public void setShowLevel(int showLevel) {
+        this.showLevel = showLevel;
     }
 }

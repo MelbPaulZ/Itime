@@ -10,7 +10,7 @@ import david.itimecalendar.calendar.listeners.ITimeTimeSlotInterface;
 /**
  * Created by Paul on 10/09/2016.
  */
-public class Timeslot implements ITimeTimeSlotInterface<Timeslot>,Serializable {
+public class TimeSlot implements ITimeTimeSlotInterface<TimeSlot>,Serializable {
     public final static String STATUS_CREATING = "creating";
     public final static String STATUS_PENDING = "pending";
     public final static String STATUS_ACCEPTED = "accepted";
@@ -161,7 +161,7 @@ public class Timeslot implements ITimeTimeSlotInterface<Timeslot>,Serializable {
     }
 
     @Override
-    public int compareTo(@NonNull Timeslot o) {
+    public int compareTo(@NonNull TimeSlot o) {
         long selfStartTime = this.getStartTime();
         long cmpTgtStartTime = o.getStartTime();
         int result = selfStartTime < cmpTgtStartTime ? -1 : 1;
