@@ -1,0 +1,53 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="page_text_size">16sp</dimen>
+    <dimen name="page_blank_row_height">40dp</dimen>
+    <dimen name="text_size_15dp">15sp</dimen>
+    <dimen name="size_7.5dp">7.5dp</dimen>
+
+    <dimen name="margin_tiny">4dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_large">32dp</dimen>
+    <dimen name="margin_huge">64dp</dimen>
+
+    <dimen name="hide">0dp</dimen>
+    <dimen name="wrap_content">-2dp</dimen>
+
+    <dimen name="padding_10">10dp</dimen>
+    <dimen name="padding_5">5dp</dimen>
+    <!-- Semantic definitions -->
+
+    <dimen name="horizontal_page_margin">@dimen/margin_medium</dimen>
+    <dimen name="vertical_page_margin">@dimen/margin_medium</dimen>
+    <dimen name="duration_bar">300dp</dimen>
+    <dimen name="timeslot_weekview_partly">200dp</dimen>
+    <dimen name="timeslot_weekview_allshow">460dp</dimen>
+    <dimen name="subtitle_14dp">14dp</dimen>
+
+    <dimen name="font_big">17sp</dimen>
+    <dimen name="font_normal">14sp</dimen>
+    <dimen name="font_small_old">12sp</dimen>
+    <dimen name="font_tiny_old">10sp</dimen>
+    <dimen name="font_extra">18sp</dimen>
+    <!--<dimen name="font_huge_old">20sp</dimen>-->
+    <dimen name="font_huge_plus">22sp</dimen>
+    <dimen name="font_extra_plus">24sp</dimen>
+    <dimen name="divider_width">1px</dimen>
+    <dimen name="title_height">44dp</dimen>
+
+    <dimen name="toolbar_height">46dp</dimen>
+
+    <!--After revision, final version of text sizes-->
+    <dimen name="font_huge">24sp</dimen>
+    <dimen name="font_large">17sp</dimen>
+    <dimen name="font_middle">15sp</dimen>
+    <dimen name="font_small">14sp</dimen>
+    <dimen name="font_tiny">13sp</dimen>
+    <dimen name="design_bottom_sheet_peek_height_min">150dp</dimen>
+
+</resources>

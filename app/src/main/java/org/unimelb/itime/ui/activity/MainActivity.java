@@ -8,6 +8,7 @@ import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseActivity;
+import org.unimelb.itime.ui.fragment.calendar.FragmentCalendar;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCalendar;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreateDuration;
@@ -28,7 +29,9 @@ public class MainActivity extends ItimeBaseActivity {
 //        FragmentEventCreateDuration fragment = new FragmentEventCreateDuration();
 //        FragmentEventCalendar fragment = new FragmentEventCalendar();
 //        getSupportFragmentManager().beginTransaction().add(R.id.frag_container, fragment).commit();
-        FragmentEventCreate fragment = new FragmentEventCreate();
+//        FragmentEventCreate fragment = new FragmentEventCreate();
+//        getSupportFragmentManager().beginTransaction().add(R.id.frag_container,fragment, FragmentEventCreate.class.getSimpleName()).commit();        FragmentEventCreate fragment = new FragmentEventCreate();
+        FragmentCalendar fragment = new FragmentCalendar();
         getSupportFragmentManager().beginTransaction().add(R.id.frag_container,fragment, FragmentEventCreate.class.getSimpleName()).commit();
     }
 

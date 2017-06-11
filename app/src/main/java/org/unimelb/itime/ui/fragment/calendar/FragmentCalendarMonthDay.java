@@ -9,9 +9,11 @@ import android.view.ViewGroup;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
+import org.unimelb.itime.util.EventUtil;
 
 import david.itimecalendar.calendar.listeners.ITimeEventInterface;
 import david.itimecalendar.calendar.mudules.monthview.DayViewBody;
@@ -65,12 +67,15 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
 
         @Override
         public boolean isDraggable(DraggableEventView draggableEventView) {
-            return false;
+            return true;
         }
 
         @Override
         public void onEventCreate(DraggableEventView draggableEventView) {
-
+            Event event = EventUtil.getNewEvent();
+            event.setStartTime(draggableEventView.getStartTimeM());
+            event.setEndTime(draggableEventView.getEndTimeM());
+            eventManager.addEvent(event);
         }
 
         @Override
@@ -90,7 +95,9 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
 
         @Override
         public void onEventDragDrop(DraggableEventView draggableEventView) {
-
+            Event event = (Event) draggableEventView.getEvent();
+            event.setStartTime(draggableEventView.getStartTimeM());
+            event.setEndTime(draggableEventView.getEndTimeM());
         }
 
         @Override

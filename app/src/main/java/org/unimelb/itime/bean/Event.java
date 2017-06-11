@@ -21,22 +21,22 @@ import david.itimecalendar.calendar.listeners.ITimeInviteeInterface;
 @Entity
 public class Event implements ITimeEventInterface<Event>, Serializable, Cloneable, RuleInterface, ITimeComparable<Event> {
     @Id
-    private String eventUid;
+    private String eventUid = "";
     // for other calendars
     private String eventId;
-    private String recurringEventUid;
+    private String recurringEventUid = "";
     // for other calendars
-    private String recurringEventId;
-    private String calendarUid;
-    private String iCalUID;
-    private String hostUserUid; // add by paul
-    private String summary;
-    private String url;
+    private String recurringEventId = "";
+    private String calendarUid = "";
+    private String iCalUID = "";
+    private String hostUserUid = ""; // add by paul
+    private String summary = "";
+    private String url = "";
     private String location = "";
-    private String locationNote;
+    private String locationNote = "";
     private double locationLatitude;
     private double locationLongitude;
-    private String note;
+    private String note = "";
     private boolean isAllDay;
     private int showLevel;
 
@@ -86,7 +86,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     private int eventType;
     @Property
     @NotNull
-    private String display;
+    private String display = "";
 
 
     public Event() {
@@ -362,12 +362,9 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         return this.photo;
     }
 
-
-
     public void setPhoto(String photo) {
         this.photo = photo;
     }
-
 
     public int getEventType() {
         return this.eventType;

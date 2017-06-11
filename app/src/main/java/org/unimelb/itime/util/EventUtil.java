@@ -2,6 +2,7 @@ package org.unimelb.itime.util;
 
 import android.support.annotation.Nullable;
 
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.ITimeComparable;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.TimeZone;
+import java.util.UUID;
 
 /**
  * Created by yuhaoliu on 10/06/2017.
@@ -92,5 +94,13 @@ public class EventUtil {
         result.setTime(cal.getTimeInMillis());
 
         return result;
+    }
+
+    public static Event getNewEvent(){
+        Event event = new Event();
+        event.setTitle("New Event");
+        event.setShowLevel(1);
+        event.setEventUid(UUID.randomUUID().toString());
+        return event;
     }
 }
