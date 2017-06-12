@@ -37,6 +37,17 @@
             android:onClick="@{vm.onCLickRight()}"
             android:textSize="17sp" />
 
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="14dp"-->
+            <!--android:textColor="@drawable/selector_toolbar_right"-->
+            <!--android:text="@{vm.rightText}"-->
+            <!--android:onClick="@{vm.onCLickRight()}"-->
+            <!--android:textSize="17sp" />-->
+
         <TextView
             style="@style/itime_bottom_divider_line" />
 
