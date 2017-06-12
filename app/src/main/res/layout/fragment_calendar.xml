@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="calendarVM"
+            type="org.unimelb.itime.ui.viewmodel.MainCalendarViewModel"/>
+    </data>
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Toolbar -->
+        <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:background="@color/white">
+
+            <FrameLayout
+                android:id="@+id/nav_hamburger_frame"
+                android:layout_width="49dp"
+                android:layout_height="49dp"
+                android:onClick="@{calendarVM.threeLineOnClickListener}">
+
+                <TextView
+                    android:id="@+id/nav_hamburger"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/nav_calendar_hamburger" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center|center_horizontal"
+                android:gravity="center"
+                android:text="@{calendarVM.toolbarTitle}"
+                android:textColor="@color/brownishGreyTwo"
+                android:textSize="@dimen/font_large"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <!-- Calendar-->
+        <FrameLayout
+            android:id="@+id/calendar_framelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="49dp"
+            />
+
+        <!-- Menu-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="@{calendarVM.onOutsideClicked()}"
+            android:visibility="@{calendarVM.showSpinnerMenu ? View.VISIBLE : View.GONE}">
+            <!--spinner menu-->
+            <org.unimelb.itime.widget.ITimeListView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="48dp"
+                android:background="@drawable/bg_shadow"
+                android:footerDividersEnabled="false"
+                android:paddingEnd="9dp"
+                android:paddingStart="9dp"
+                android:visibility="@{calendarVM.showSpinnerMenu ? View.VISIBLE : View.GONE}"
+                app:itemView="@{calendarVM.menuItemView}"
+                app:items="@{calendarVM.menuItems}"
+                app:onItemClickListener="@{calendarVM.onMenuSpinnerClicked}" />
+        </FrameLayout>
+    </FrameLayout>
+</layout>

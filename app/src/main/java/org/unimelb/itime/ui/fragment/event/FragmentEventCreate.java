@@ -18,6 +18,7 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.databinding.FragmentEventCreateBinding;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.activity.LocationActivity;
+import org.unimelb.itime.ui.fragment.calendar.FragmentCalendarTimeslot;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.viewmodel.event.EventCreateViewModel;
@@ -161,6 +162,12 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         FragmentEventCreateTitle fragment = new FragmentEventCreateTitle();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
+        getBaseActivity().openFragment(fragment);
+    }
+
+    @Override
+    public void toTimeslot(Event event) {
+        FragmentCalendarTimeslot fragment = new FragmentCalendarTimeslot();
         getBaseActivity().openFragment(fragment);
     }
 

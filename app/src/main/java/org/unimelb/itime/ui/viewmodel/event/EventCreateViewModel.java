@@ -228,7 +228,9 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (mvpView!=null){
+                    mvpView.toTimeslot(event);
+                }
             }
         };
     }

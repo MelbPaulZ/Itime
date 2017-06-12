@@ -116,6 +116,15 @@ public class EventLocationViewModel extends ItimeBaseViewModel {
             this.str2 = str2;
         }
 
+        public View.OnClickListener onClickLocation(){
+            return new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setLocation(str1);
+                }
+            };
+        }
+
         @Bindable
         public String getStr1() {
             return str1;

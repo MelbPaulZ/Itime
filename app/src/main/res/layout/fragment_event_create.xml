@@ -98,7 +98,8 @@
             <!--Add a timeslot-->
             <RelativeLayout
                 style="@style/ItimeRelativeCell"
-                android:background="@drawable/bg_divider_bottom">
+                android:background="@drawable/bg_divider_bottom"
+                android:onClick="@{vm.onClickTimeslot()}">
 
                 <ImageView
                     style="@style/ItimeCellLeftIcon"

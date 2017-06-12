@@ -10,12 +10,14 @@
     <string name="toolbar_calendars">Calendars</string>
     <string name="toolbar_location">Location</string>
     <string name="toolbar_event">Event</string>
+    <string name="toolbar_timeslots">Timeslots</string>
 
     <!--Event-->
     <string name="event">Event</string>
 
 
     <!--Timeslots-->
+
 
 
     <!--Title-->
@@ -95,7 +97,10 @@
     <string name="action_sheet_cancel">Cancel</string>
     <string name="action_sheet_take_photo">Take Photo</string>
     <string name="action_sheet_choose_from_photos">Choose From Photos</string>
-    
+
+    <string name="day">Day</string>
+    <string name="week">Week</string>
+    <string name="agenda">Agenda</string>
 
 
 </resources>
