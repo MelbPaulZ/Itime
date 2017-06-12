@@ -96,9 +96,9 @@ public class EventManager {
         return instance;
     }
 
-    public static EventManager getInstance(){
-        return instance;
-    }
+//    public static EventManager getInstance(){
+//        return instance;
+//    }
 
     public EventsPackage getEventsPackage(){
         return eventsPackage;

@@ -18,6 +18,7 @@ import org.unimelb.itime.ui.presenter.CalendarPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import david.itimecalendar.calendar.mudules.monthview.DayViewBody;
@@ -36,11 +37,18 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
     private EventManager eventManager;
     private TimeSlotView timeSlotView;
     private ToolbarViewModel toolbarVM;
+    //For TESTING
+    ArrayList<TimeSlot> slots = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        root = inflater.inflate(R.layout.fragment_calendar_timeslot, container, false);
+        /**
+         * For TESTING
+         */
+        initSlots(slots);
+        /*****/
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_calendar_timeslot, container, false);
 
         eventManager = EventManager.getInstance(getContext());
@@ -77,12 +85,8 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
 
     private void initView(){
         timeSlotView = (TimeSlotView) binding.getRoot().findViewById(R.id.timeslot_view);
-        //Set the data source with format of ITimeEventPackageInterface
-        //ITimeEventPackageInterface is composed by two parts:
-        //  1: regular events. 2: repeated events.
-        timeSlotView.setEventPackage(eventManager.getEventsPackage());
         timeSlotView.enableTimeSlot();
-        timeSlotView.setOnTimeSlotListener(new TimeslotViewBodyListener());
+        timeSlotView.setEventPackage(eventManager.getEventsPackage());
         timeSlotView.setOnTimeslotDurationChangedListener(new TimeSlotView.OnTimeslotDurationChangedListener() {
             @Override
             public void onTimeslotDurationChanged(long duration) {
@@ -95,8 +99,13 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
                 }
             }
         });
+        timeSlotView.setOnTimeSlotListener(new TimeslotViewBodyListener());
         timeSlotView.setTimeslotDurationItems(initList());
 
+        for (TimeSlot slot:slots
+                ) {
+            timeSlotView.addTimeSlot(slot);
+        }
     }
 
     private class TimeslotViewBodyListener implements DayViewBody.OnViewBodyTimeSlotListener{
@@ -183,5 +192,22 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
         }
 
         return list;
+    }
+
+    private void initSlots(ArrayList<TimeSlot> slots){
+        Calendar cal = Calendar.getInstance();
+        long startTime = cal.getTimeInMillis();
+        long duration = 3*3600*1000;
+        long dayInterval = 24 * 3600 * 1000;
+        for (int i = 0; i < 10; i++) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(startTime);
+            slot.setEndTime(startTime+duration);
+            slot.setIsSystemSuggested(1);
+            slot.setIsAllDay(i == 2);
+            slots.add(slot);
+
+            startTime += dayInterval;
+        }
     }
 }
