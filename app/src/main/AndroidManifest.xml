@@ -28,6 +28,12 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.activity.EventCreateActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
+
         <activity android:name=".ui.activity.LocationActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize">

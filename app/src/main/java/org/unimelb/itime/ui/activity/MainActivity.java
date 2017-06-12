@@ -31,12 +31,12 @@ public class MainActivity extends ItimeBaseActivity {
 //        FragmentEventCreateDuration fragment = new FragmentEventCreateDuration();
 //        FragmentEventCalendar fragment = new FragmentEventCalendar();
 //        getSupportFragmentManager().beginTransaction().add(R.id.frag_container, fragment).commit();
-        FragmentEventCreate fragment = new FragmentEventCreate();
+//        FragmentEventCreate fragment = new FragmentEventCreate();
 //        FragmentEventCreateTitle fragment = new FragmentEventCreateTitle();
 //        fragment.setEvent(new Event());
 //        FragmentEventCreate fragment = new FragmentEventCreate();
 //        getSupportFragmentManager().beginTransaction().add(R.id.frag_container,fragment, FragmentEventCreate.class.getSimpleName()).commit();        FragmentEventCreate fragment = new FragmentEventCreate();
-//        FragmentCalendar fragment = new FragmentCalendar();
+        FragmentCalendar fragment = new FragmentCalendar();
         getSupportFragmentManager().beginTransaction().add(R.id.frag_container,fragment, FragmentEventCreate.class.getSimpleName()).commit();
     }
 

@@ -1,5 +1,6 @@
 package org.unimelb.itime.ui.fragment.calendar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.ui.activity.EventCreateActivity;
+import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
 import org.unimelb.itime.util.EventUtil;
@@ -72,10 +75,19 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
 
         @Override
         public void onEventCreate(DraggableEventView draggableEventView) {
-            Event event = EventUtil.getNewEvent();
-            event.setStartTime(draggableEventView.getStartTimeM());
-            event.setEndTime(draggableEventView.getEndTimeM());
-            eventManager.addEvent(event);
+//            Event event = EventUtil.getNewEvent();
+//            event.setStartTime(draggableEventView.getStartTimeM());
+//            event.setEndTime(draggableEventView.getEndTimeM());
+//            eventManager.addEvent(event);
+
+            Intent intent = new Intent(getActivity(), EventCreateActivity.class);
+            startActivity(intent);
+
+
+
+
+
+
         }
 
         @Override
