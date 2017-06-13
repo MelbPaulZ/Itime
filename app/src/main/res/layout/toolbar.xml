@@ -14,8 +14,12 @@
         android:background="@drawable/toolbar_divider_bottom">
 
         <ImageView
-            style="@style/ItimeCellLeftIcon"
-            android:background="@{vm.leftIcon}"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="6dp"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@{vm.leftIcon}"
             android:onClick="@{vm.onClickLeft()}"/>
 
         <TextView
@@ -31,7 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="14dp"
+            android:padding="10dp"
+            android:layout_marginRight="4dp"
             android:textColor="@color/black"
             android:text="@{vm.rightText}"
             android:onClick="@{vm.onCLickRight()}"
