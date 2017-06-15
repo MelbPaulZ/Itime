@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="toolbarVM"
+            type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.event.EventCreateAlertViewModel"/>
+        <import type="org.unimelb.itime.manager.NonScrollLinearLayoutManager"/>
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteFive">
+    <include layout="@layout/toolbar" bind:vm="@{toolbarVM}"/>
+
+    <RelativeLayout
+        android:layout_marginTop="30dp"
+        style="@style/ItimeRelativeCell44"
+        android:layout_height="44dp"
+        android:background="@color/white"
+        android:onClick="@{vm.onClickNone()}">
+        <TextView
+            style="@style/itimeCellTitle"
+            android:layout_marginStart="16dp"
+            android:text="@string/event_alert_none"/>
+
+        <ImageView
+            style="@style/itimeCellRightIcon"
+            android:background="@drawable/icon_event_checkmark_blue"
+            android:visibility="@{vm.getNoneTickVisibility(vm.alerts)}"/>
+
+        <TextView
+            style="@style/itime_top_divider_line" />
+
+        <TextView
+            style="@style/itime_bottom_divider_line" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_marginTop="30dp"
+        style="@style/itime_bottom_divider_line" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bind:layoutManager="@{NonScrollLinearLayoutManager.linear(context)}"
+        bind:items="@{vm.alerts}"
+        bind:itemBinding="@{vm.itemBinding}"
+        />
+
+
+
+</LinearLayout>
+</layout>

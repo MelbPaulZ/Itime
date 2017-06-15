@@ -15,20 +15,20 @@
     <include layout="@layout/toolbar" bind:vm="@{toolbarVM}"/>
 
     <!--Title-->
-    <RelativeLayout
-        style="@style/ItimeRelativeCell"
-        android:background="@drawable/bg_divider_bottom"
-        android:onClick="@{vm.onClickTitle()}">
+    <!--<RelativeLayout-->
+        <!--style="@style/ItimeRelativeCell"-->
+        <!--android:background="@drawable/bg_divider_bottom"-->
+        <!--android:onClick="@{vm.onClickTitle()}">-->
 
-        <ImageView
-            style="@style/ItimeCellLeftIcon"
-            android:background="@drawable/icon_event_title" />
+        <!--<ImageView-->
+            <!--style="@style/ItimeCellLeftIcon"-->
+            <!--android:background="@drawable/icon_event_title" />-->
 
-        <TextView
-            style="@style/itimeCellTitle"
-            android:textColor="@{vm.getTitleColor(vm.event)}"
-            android:text="@{vm.getTitleString(vm.event)}" />
-    </RelativeLayout>
+        <!--<TextView-->
+            <!--style="@style/itimeCellTitle"-->
+            <!--android:textColor="@{vm.getTitleColor(vm.event)}"-->
+            <!--android:text="@{vm.getTitleString(vm.event)}" />-->
+    <!--</RelativeLayout>-->
 
 
 
