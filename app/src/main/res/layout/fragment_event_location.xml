@@ -35,6 +35,7 @@
         <EditText
             style="@style/itimeCellEdit"
             android:onFocusChange="@{vm.onInputEditFocusChange}"
+            android:onEditTextChange="@{vm.locationInputWatcher}"
             android:text="@={vm.location}"/>
         
         <ImageView

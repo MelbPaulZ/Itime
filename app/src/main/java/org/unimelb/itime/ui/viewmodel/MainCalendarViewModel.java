@@ -15,7 +15,7 @@ import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import me.tatarka.bindingcollectionadapter.ItemView;
+import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
 /**
  * Created by yinchuandong on 9/08/2016.
@@ -28,7 +28,7 @@ public class MainCalendarViewModel extends ItimeBaseViewModel{
     private boolean showSpinnerMenu;
 
     private ArrayList<SpinnerWrapper> menuItems = new ArrayList<>();
-    private ItemView menuItemView = ItemView.of(BR.wrapper, R.layout.listview_simple_menu_dropdown_item);
+    private ItemBinding<SpinnerWrapper> menuItemView = ItemBinding.of(BR.wrapper, R.layout.listview_simple_menu_dropdown_item);
     private AdapterView.OnItemClickListener onMenuSpinnerClicked;
 
 
@@ -75,7 +75,7 @@ public class MainCalendarViewModel extends ItimeBaseViewModel{
     }
 
     @Bindable
-    public ItemView getMenuItemView() {
+    public ItemBinding<SpinnerWrapper> getMenuItemView() {
         return menuItemView;
     }
 

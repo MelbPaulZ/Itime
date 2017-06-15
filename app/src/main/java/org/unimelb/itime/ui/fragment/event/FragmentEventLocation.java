@@ -7,6 +7,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +15,24 @@ import android.view.ViewGroup;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.AutocompletePrediction;
+import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.databinding.FragmentEventLocationBinding;
+import org.unimelb.itime.ui.mvpview.ItimeTaskInterface;
 import org.unimelb.itime.ui.mvpview.event.EventLocationMvpView;
 import org.unimelb.itime.ui.presenter.EventLocationPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.event.EventLocationViewModel;
+import org.unimelb.itime.util.LocationUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pub.devrel.easypermissions.EasyPermissions;
@@ -35,12 +44,14 @@ import pub.devrel.easypermissions.EasyPermissions;
  */
 
 public class FragmentEventLocation extends ItimeBaseFragment<EventLocationMvpView, EventLocationPresenter<EventLocationMvpView>>
-implements ToolbarInterface, EasyPermissions.PermissionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+implements ToolbarInterface, EventLocationMvpView, GoogleApiClient.OnConnectionFailedListener{
 
     private String location;
     private FragmentEventLocationBinding binding;
     private ToolbarViewModel toolbarViewModel;
     private EventLocationViewModel vm;
+    private String TAG = "FragmentEventLocation";
+    private EventLocationPresenter.PlaceAutoCompleteAdapter mAdapter;
 
 
 
@@ -52,21 +63,45 @@ implements ToolbarInterface, EasyPermissions.PermissionCallbacks, GoogleApiClien
 
     @Override
     public EventLocationPresenter<EventLocationMvpView> createPresenter() {
-
-        initGoogleApiClient(mGoogleApiClient);
+        initGoogleApiClient();
         return new EventLocationPresenter<>(getContext(), mGoogleApiClient);
     }
 
-    private void initGoogleApiClient(GoogleApiClient mGoogleApiClient){
+    private void initGoogleApiClient(){
         mGoogleApiClient = new GoogleApiClient.Builder(getContext())
                 .enableAutoManage(getActivity(), 0 /* clientId */,this )
                 .addApi(LocationServices.API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .addApi(Places.GEO_DATA_API)
                 .build();
+    }
+
+    private void initAutoCompleteAdapter(){
+        mAdapter = new EventLocationPresenter.PlaceAutoCompleteAdapter(getContext(), mGoogleApiClient, getLocationBounds(), null);
+        mAdapter.setMvpView(this);
+        getPresenter().setmAdapter(mAdapter);
+    }
+
+    private LatLngBounds getLocationBounds(){
+        return new LatLngBounds(new LatLng(LocationUtil.mLatitude - 0.1, LocationUtil.mLongitude - 0.1),
+                new LatLng(LocationUtil.mLatitude + 0.1 , LocationUtil.mLongitude + 0.1));
+    }
+
+    private void recordLocation(double latitude, double longitude){
+        LocationUtil.mLatitude = latitude;
+        LocationUtil.mLongitude = longitude;
+
+    }
+
+    private void updateAdapterBound(double latitude, double longitude){
+        mAdapter.setBounds(new LatLngBounds(new LatLng(latitude-0.1, longitude-0.1), new LatLng(latitude+0.1, latitude+0.1)));
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        initAutoCompleteAdapter();
 
         vm = new EventLocationViewModel(getPresenter());
         vm.setLocation(location);
@@ -91,7 +126,7 @@ implements ToolbarInterface, EasyPermissions.PermissionCallbacks, GoogleApiClien
     @Override
     public void onNext() {
         Intent intent = new Intent();
-        intent.putExtra(getString(R.string.location), location);
+        intent.putExtra(getString(R.string.location), vm.getLocation());
         getActivity().setResult(Activity.RESULT_OK, intent);
         getActivity().finish();
         getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
@@ -105,17 +140,41 @@ implements ToolbarInterface, EasyPermissions.PermissionCallbacks, GoogleApiClien
     }
 
     @Override
-    public void onPermissionsGranted(int requestCode, List<String> perms) {
-
-    }
-
-    @Override
-    public void onPermissionsDenied(int requestCode, List<String> perms) {
-
-    }
-
-    @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onCurrentLocationSuccess(PlaceLikelihoodBuffer placeLikelihoods) {
+        vm.setPlaceLikelihoods(placeLikelihoods);
+        if (placeLikelihoods.getCount()==0){
+            return;
+        }
+        double lat = placeLikelihoods.get(0).getPlace().getLatLng().latitude;
+        double lon = placeLikelihoods.get(0).getPlace().getLatLng().longitude;
+        recordLocation(lat, lon);
+        updateAdapterBound(lat, lon);
+    }
+
+
+    @Override
+    public void onCurrentLocationFailed(String errorMsg) {
+
+    }
+
+    @Override
+    public void onAutoCompletePlaces(ArrayList<AutocompletePrediction> predictions) {
+        vm.setSearchResults(predictions);
+    }
+
+
+    @Override
+    public void onTaskError(int task) {
+
+    }
+
+    @Override
+    public void onTaskSuccess(int task) {
 
     }
 }
