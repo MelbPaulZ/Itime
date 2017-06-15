@@ -45,4 +45,6 @@
     <color name="black">#222222</color>
     <color name="azure">#0089ff</color>
 
+    <color name="textBlue">#0076FF</color>
+    <color name="grey_one">#6D6D6D</color>
 </resources>

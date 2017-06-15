@@ -19,9 +19,9 @@ import org.unimelb.itime.ui.presenter.CalendarPresenter;
 import org.unimelb.itime.util.EventUtil;
 
 import david.itimecalendar.calendar.listeners.ITimeEventInterface;
-import david.itimecalendar.calendar.mudules.monthview.DayViewBody;
-import david.itimecalendar.calendar.mudules.monthview.MonthView;
-import david.itimecalendar.calendar.unitviews.DraggableEventView;
+import david.itimecalendar.calendar.ui.monthview.DayViewBody;
+import david.itimecalendar.calendar.ui.monthview.MonthView;
+import david.itimecalendar.calendar.ui.unitviews.DraggableEventView;
 import david.itimecalendar.calendar.util.MyCalendar;
 
 /**

@@ -12,14 +12,18 @@ import android.widget.AdapterView;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.SpinnerWrapper;
 import org.unimelb.itime.databinding.FragmentCalendarBinding;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
 import org.unimelb.itime.ui.viewmodel.MainCalendarViewModel;
+import org.unimelb.itime.util.EventUtil;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by yuhaoliu on 8/06/2017.
@@ -38,6 +42,11 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        /**
+         * For Testing
+         */
+        initData();
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_calendar, container, false);
         eventManager = EventManager.getInstance(getContext());
         return binding.getRoot();
@@ -92,7 +101,7 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
                 showCalendar(weekFragment);
                 break;
             case 2:
-                showCalendar(agendaFragment);
+//                showCalendar(agendaFragment);
                 break;
             default:
                 showCalendar(monthDayFragment);
@@ -141,5 +150,33 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
         weekFragment = new FragmentCalendarWeekDay();
         agendaFragment = new FragmentCalendarAgenda();
         getFragmentManager().beginTransaction().add(R.id.calendar_framelayout, monthDayFragment).commit();
+    }
+
+    /**
+     * For TESTING
+     */
+    private void initData() {
+        Calendar calendar = Calendar.getInstance();
+        List<Event> events = new ArrayList<>();
+        int[] type = {0, 1, 2};
+        int[] status = {0, 1};
+        long allDayInterval = (24 * 3600 * 1000);
+        long interval = (3600 * 1000);
+        long startTime = calendar.getTimeInMillis();
+        long endTime;
+        for (int i = 1; i < 20; i++) {
+            endTime = startTime + interval;
+            Event event = EventUtil.getNewEvent();
+            event.setIsAllDay(i%2 == 0);
+            event.setDisplayEventType(1);
+            event.setDisplayStatus("#63ADF2|slash|icon_normal");
+            event.setLocation("here");
+            event.setStartTime(startTime);
+            event.setEndTime(endTime);
+            events.add(event);
+
+            startTime = startTime + allDayInterval;
+            EventManager.getInstance(getContext()).addEvent(event);
+        }
     }
 }

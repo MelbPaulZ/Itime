@@ -1,43 +1,50 @@
 package org.unimelb.itime.ui.activity;
 
+import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
+import com.hannesdorfmann.mosby.mvp.MvpFragment;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseActivity;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.databinding.ActivityMainBinding;
+import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.ui.fragment.EmptyFragment;
 import org.unimelb.itime.ui.fragment.calendar.FragmentCalendar;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCalendar;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreateDuration;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreateTitle;
 import org.unimelb.itime.ui.fragment.event.FragmentEventRepeat;
+import org.unimelb.itime.ui.mvpview.MainTabBarView;
+import org.unimelb.itime.ui.viewmodel.MainTabBarViewModel;
 
-public class MainActivity extends ItimeBaseActivity {
+public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
 
+    private MvpFragment[] tagFragments;
+    private EventManager eventManager;
+
+    private ActivityMainBinding binding;
+    private MainTabBarViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        viewModel = new MainTabBarViewModel(this);
+        viewModel.setUnReadNum(0+"");
 
-//        FragmentEventCreateNote fragment = new FragmentEventCreateNote();
-//        FragmentEventCreateUrl fragment = new FragmentEventCreateUrl();
-//        FragmentEventRepeatCustom fragment = new FragmentEventRepeatCustom();
-//        FragmentEventEndRepeat fragment = new FragmentEventEndRepeat();
-//        FragmentEventRepeat fragment = new FragmentEventRepeat();
-//        FragmentEventCreateDuration fragment = new FragmentEventCreateDuration();
-//        FragmentEventCalendar fragment = new FragmentEventCalendar();
-//        getSupportFragmentManager().beginTransaction().add(R.id.frag_container, fragment).commit();
-//        FragmentEventCreate fragment = new FragmentEventCreate();
-//        FragmentEventCreateTitle fragment = new FragmentEventCreateTitle();
-//        fragment.setEvent(new Event());
-//        FragmentEventCreate fragment = new FragmentEventCreate();
-//        getSupportFragmentManager().beginTransaction().add(R.id.frag_container,fragment, FragmentEventCreate.class.getSimpleName()).commit();        FragmentEventCreate fragment = new FragmentEventCreate();
-        FragmentCalendar fragment = new FragmentCalendar();
-        getSupportFragmentManager().beginTransaction().add(R.id.frag_container,fragment, FragmentEventCreate.class.getSimpleName()).commit();
+        eventManager = EventManager.getInstance(getApplicationContext());
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding.setTabBarVM(viewModel);
+        init();
     }
 
     @NonNull
@@ -49,5 +56,36 @@ public class MainActivity extends ItimeBaseActivity {
     @Override
     protected int getFragmentContainerId() {
         return R.id.frag_container;
+    }
+
+    private void init(){
+        tagFragments = new MvpFragment[4];
+        tagFragments[0] = new FragmentCalendar();
+        tagFragments[1] = new EmptyFragment();
+        tagFragments[2] = new EmptyFragment();
+        tagFragments[3] = new EmptyFragment();
+
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.frag_container, tagFragments[0]);
+        fragmentTransaction.add(R.id.frag_container, tagFragments[1]);
+        fragmentTransaction.add(R.id.frag_container, tagFragments[2]);
+        fragmentTransaction.add(R.id.frag_container, tagFragments[3]);
+
+        fragmentTransaction.commit();
+        showFragmentById(0);
+    }
+
+    @Override
+    public void showFragmentById(int pageId) {
+        fragmentTransaction = fragmentManager.beginTransaction();
+        for (int i = 0; i < tagFragments.length; i++){
+            if (pageId == i){
+                fragmentTransaction.show(tagFragments[i]);
+            }else{
+                fragmentTransaction.hide(tagFragments[i]);
+            }
+        }
+        fragmentTransaction.commit();
     }
 }

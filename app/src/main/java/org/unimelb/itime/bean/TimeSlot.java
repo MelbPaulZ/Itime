@@ -27,10 +27,9 @@ public class TimeSlot implements ITimeTimeSlotInterface<TimeSlot>,Serializable {
     private int rejectedNum; //
     private int pendingNum; //
     private int isConfirmed; //
-    private int isSystemSuggested; //
+    private int isSystemSuggested; // 1 -> true
     private String inviteeUid = "";
     private boolean isAllDay = false;
-
 
     @Override
     public void setStartTime(long l) {
@@ -172,4 +171,9 @@ public class TimeSlot implements ITimeTimeSlotInterface<TimeSlot>,Serializable {
             return selfStartTime == cmpTgtStartTime ? 0 : 1;
         }
     }
+
+    public void setAllDay(boolean allDay) {
+        isAllDay = allDay;
+    }
+
 }
