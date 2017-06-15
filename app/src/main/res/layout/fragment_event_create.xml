@@ -125,7 +125,7 @@
                 <TextView
                     style="@style/itimeCellTitle"
                     android:text="@{vm.getLocationString(vm.event)}"
-                    android:textColor="@color/whiteTwo"/>
+                    android:textColor="@{vm.getLocationColor(vm.event)}"/>
 
                 <TextView style="@style/ItimeDisclosure" />
 

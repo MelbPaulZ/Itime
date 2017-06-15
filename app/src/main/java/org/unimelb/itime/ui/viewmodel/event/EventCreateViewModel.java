@@ -92,6 +92,14 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         }
     }
 
+    public int getLocationColor(Event event){
+        if (event.getLocation().equals("")){
+            return presenter.getContext().getResources().getColor(R.color.whiteTwo);
+        }else{
+            return presenter.getContext().getResources().getColor(R.color.black);
+        }
+    }
+
     public String getLocationString(Event event){
         if (event.getLocation().equals("")){
             return getString(R.string.event_location_hint);

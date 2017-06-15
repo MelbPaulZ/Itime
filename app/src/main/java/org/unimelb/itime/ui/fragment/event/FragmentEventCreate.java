@@ -154,7 +154,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     @Override
     public void toLocation(Event event) {
         Intent intent = new Intent(getActivity(), LocationActivity.class);
-        intent.putExtra(getString(R.string.location), "");
+        intent.putExtra(getString(R.string.location), event.getLocation());
         startActivityForResult(intent, REQ_LOCATION);
     }
 
