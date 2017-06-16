@@ -20,7 +20,7 @@ import org.unimelb.itime.ui.viewmodel.event.EventCreateAlertViewModel;
  * Created by Paul on 15/6/17.
  */
 
-public class EventCreateAlertFragment extends ItimeBaseFragment<EventCreateAlertMvpView, LocalPresenter<EventCreateAlertMvpView>> implements ToolbarInterface{
+public class FragmentEventCreateAlert extends ItimeBaseFragment<EventCreateAlertMvpView, LocalPresenter<EventCreateAlertMvpView>> implements ToolbarInterface{
 
     private FragmentEventAlertBinding binding;
     private EventCreateAlertViewModel vm;
@@ -56,11 +56,11 @@ public class EventCreateAlertFragment extends ItimeBaseFragment<EventCreateAlert
 
     @Override
     public void onNext() {
-
+        getFragmentManager().popBackStack();
     }
 
     @Override
     public void onBack() {
-
+        getFragmentManager().popBackStack();
     }
 }

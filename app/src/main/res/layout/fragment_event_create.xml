@@ -156,8 +156,8 @@
             <com.developer.paul.closabledatabindingview.closablelayouts.ClosableRowLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:animateLayoutChanges="true"
                 android:orientation="vertical"
+                android:animateLayoutChanges="true"
                 ClosableBaseLinearLayout:orderHashMap="@{vm.orderHashMap}"
                 ClosableBaseLinearLayout:closableItems="@{vm.rowItems}"
                  />
@@ -166,7 +166,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="45dp"
-                android:background="@color/white">
+                android:background="@color/whiteFour">
 
                 <com.developer.paul.closabledatabindingview.closablelayouts.ClosableButtonLinearLayout
                     android:layout_width="match_parent"

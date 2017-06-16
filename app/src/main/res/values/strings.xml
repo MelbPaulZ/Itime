@@ -12,6 +12,7 @@
     <string name="toolbar_event">Event</string>
     <string name="toolbar_timeslots">Timeslots</string>
     <string name="toolbar_alert">Alert</string>
+    <string name="toolbar_save">Save</string>
 
     <!--Event-->
     <string name="event">Event</string>
@@ -55,6 +56,7 @@
     <string name="new_event_toolbar_next">Next</string>
 
     <!--Event buttons-->
+    <string name="alert_toolbar_btn">Alert</string>
     <string name="photos_toolbar_btn">Photos</string>
     <string name="note_toolbar_btn">Note</string>
     <string name="url_toolbar_btn">URL</string>
@@ -105,6 +107,12 @@
 
     <!--hint-->
     <string name="event_note_hint">Note</string>
+
+    <!--all day-->
+    <string name="all_day">All Day</string>
+
+    <!--solo select time-->
+    <string name="solo_time_arrow">→</string>
 
     <!--Action sheet-->
     <string name="action_sheet_cancel">Cancel</string>

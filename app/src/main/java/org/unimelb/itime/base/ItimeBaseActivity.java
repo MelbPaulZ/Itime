@@ -18,6 +18,8 @@ import org.unimelb.itime.R;
 public abstract class ItimeBaseActivity<V extends MvpView, P extends MvpBasePresenter<V>> extends MvpActivity<V, P> {
 
     FragmentManager fragmentManager;
+    private Fragment curFragment;
+
 
     public void openFragment(Fragment fragment) {
         openFragment(fragment, null, true);
@@ -32,10 +34,14 @@ public abstract class ItimeBaseActivity<V extends MvpView, P extends MvpBasePres
         if(bundle != null){
             fragment.setArguments(bundle);
         }
+
+        if (fragment instanceof ItimeBaseFragment){
+            ((ItimeBaseFragment)fragment).setFrom(curFragment);
+        }
+
         FragmentTransaction t = fragmentManager.beginTransaction();
         t.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         t.replace(getFragmentContainerId(), fragment, fragment.getClass().getSimpleName());
-
         if(isAddedToStack){
             t.addToBackStack(fragment.getClass().getSimpleName());
         }
@@ -52,12 +58,23 @@ public abstract class ItimeBaseActivity<V extends MvpView, P extends MvpBasePres
         if (bundle!=null) {
             fragment.setArguments(bundle);
         }
+
         FragmentTransaction t = fragmentManager.beginTransaction();
         t.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         t.replace(getFragmentContainerId(), fragment);
         t.commit();
         fragmentManager.executePendingTransactions();
     }
+
+    public void setCurFragment(Fragment curFragment) {
+        this.curFragment = curFragment;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
 
     protected abstract int getFragmentContainerId();
 }

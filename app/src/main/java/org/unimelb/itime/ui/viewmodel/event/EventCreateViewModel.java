@@ -32,14 +32,14 @@ import java.util.List;
 
 public class EventCreateViewModel extends ItimeBaseViewModel{
 
-    private EventCreatePresenter presenter;
+    protected EventCreatePresenter presenter;
     private HashMap<String, Integer> orderHashMap = new HashMap<>();
     private List<ButtonItem> buttonItems = new ArrayList<>();
     private List<RowItem> rowItems = new ArrayList<>();
-    private Event event;
-    private EventCreateMvpView mvpView;
+    protected Event event;
+    protected EventCreateMvpView mvpView;
 
-    private List<String> mockAvatorLists = new ArrayList<>();
+    protected List<String> mockAvatorLists = new ArrayList<>();
 
     public EventCreateViewModel(EventCreatePresenter presenter) {
         this.presenter = presenter;
@@ -131,7 +131,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     /**
      * Every time event attributes change, this method will be called
      */
-    private void resetButtonsAndRows(){
+    protected void resetButtonsAndRows(){
         if (!event.getNote().equals("")){
             addNoteToRow(event.getNote());
             removeItem(buttonItems,getString(R.string.note_toolbar_btn));
@@ -149,7 +149,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         }
 
 
-        notifyPropertyChanged(BR.rowItems);
+//        notifyPropertyChanged(BR.rowItems);
         notifyPropertyChanged(BR.buttonItems);
     }
 
@@ -367,7 +367,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         addInList(getString(R.string.note_toolbar_btn),
                 presenter.getContext().getResources().getDrawable(R.drawable.icon_event_note),
                 text, onClickListener, onDeleteListener);
-        notifyPropertyChanged(BR.rowItems);
+//        notifyPropertyChanged(BR.rowItems);
     }
 
 
@@ -394,8 +394,8 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             }
         };
 
-        addInList(getString(R.string.url_toolbar_btn), presenter.getContext().getResources().getDrawable(R.drawable.icon_event_url), getString(R.string.url_toolbar_btn), onClickListener, onDeleteListener);
-        notifyPropertyChanged(BR.rowItems);
+        addInList(getString(R.string.url_toolbar_btn), presenter.getContext().getResources().getDrawable(R.drawable.icon_event_url), text, onClickListener, onDeleteListener);
+//        notifyPropertyChanged(BR.rowItems);
     }
 
     private String[] getMessages(){
@@ -443,7 +443,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     }
 
 
-    private String getString(int stringId){
+    protected String getString(int stringId){
         return presenter.getContext().getString(stringId);
     }
 //
@@ -507,7 +507,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
      * @param name
      * @return
      */
-    private ButtonItem createButtonItem(String name){
+    protected ButtonItem createButtonItem(String name){
         if (name.equals(getString(R.string.photos_toolbar_btn))){
             return createButtonItem(name, presenter.getContext().getResources().getDrawable(R.drawable.icon_event_toolbar_photo), new View.OnClickListener() {
                 @Override
@@ -552,7 +552,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         return null;
     }
 
-    private ButtonItem createButtonItem(String name, Drawable drawable, View.OnClickListener onClickListener){
+    protected ButtonItem createButtonItem(String name, Drawable drawable, View.OnClickListener onClickListener){
         ButtonItem btnItem = new ButtonItem();
         btnItem.setItemName(name);
         btnItem.setIcon(drawable);
