@@ -47,4 +47,19 @@
 
     <color name="textBlue">#0076FF</color>
     <color name="grey_one">#6D6D6D</color>
+
+    <color name="mask_cover">#3c3c3c3c</color>
+    <color name="shadow_onblack">#000</color>
+    <color name="shadow_onwhite">#ccc</color>
+    <color name="divider_detail">#eee</color>
+    <color name="brand_bg_mainlight">#EDF5FF</color>
+    <color name="brand_main_pressed">#077EF1</color>
+    <color name="brand_main">#0089FF</color>
+    <color name="brand_warning">#F45B69</color>
+    <color name="brand_warninglightbg">#FFF6F7</color>
+    <color name="text_detail_label">#BBBBBB</color>
+    <color name="text_detail_votebtndisable">#89C5FF</color>
+    <color name="text_body">#222</color>
+
+    <color name="lightGrey">#EFEFEF</color>
 </resources>

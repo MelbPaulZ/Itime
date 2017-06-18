@@ -14,7 +14,19 @@
 
     <!--Event-->
     <string name="event">Event</string>
-
+    <string name="event_detail_header_hosted_by">Hosted by</string>
+    <string name="event_detail_header_invitees">invitees</string>
+    <string name="event_detail_location">Location</string>
+    <string name="event_detail_note">Note</string>
+    <string name="event_detail_note_read_all">Read All</string>
+    <string name="event_detail_url">URL</string>
+    <string name="event_detail_photo">Photo</string>
+    <string name="event_detail_calendar">Calendar</string>
+    <string name="event_detail_all_invitees">All Invitees</string>
+    <string name="event_detail_replied">Replied</string>
+    <string name="event_detail_cant_go">Can\'t go</string>
+    <string name="event_detail_no_reply">No Reply</string>
+    <string name="create_event_itime_contact_title">iTime Contacts</string>
 
     <!--Timeslots-->
 
