@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupWindow;
 
 import com.developer.paul.closabledatabindingview.closableItem.ButtonItem;
 
@@ -18,6 +19,7 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.databinding.FragmentEventPrivateCreateBinding;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.activity.LocationActivity;
+import org.unimelb.itime.ui.fragment.component.FragmentEventTimeFragment;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
@@ -184,6 +186,11 @@ implements EventCreateMvpView, ToolbarInterface{
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
         getBaseActivity().openFragment(fragment);
+    }
+
+    @Override
+    public void showPopupDialog() {
+
     }
 
     @Override

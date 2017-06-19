@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.component.EventTimeViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/whiteFour"
+        android:orientation="vertical">
+
+        <!--title: start and end-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/whiteFour"
+            android:orientation="horizontal">
+            <!--start time-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="@{vm.onClickStart()}">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/event_time_picker_start"
+                    android:textColor="@{vm.getStartTimeColor(vm.selectTime)}"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="20dp"
+                    android:background="@{vm.getStartTimeColor(vm.selectTime)}" />
+            </RelativeLayout>
+
+            <!--end time-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="@{vm.onClickEnd()}">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/event_time_picker_end"
+                    android:textColor="@{vm.getEndTimeColor(vm.selectTime)}"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:background="@{vm.getEndTimeColor(vm.selectTime)}" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <!--date picker-->
+        <com.github.sundeepk.compactcalendarview.ITimeTimeslotCalendar xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/compactcalendar_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/whiteFour"
+            app:compactCalendarBackgroundColor="#FFFFFF"
+            app:compactCalendarCurrentDayBackgroundColor="#E57373"
+            app:compactCalendarCurrentSelectedDayBackgroundColor="@color/calendar_today"
+            app:compactCalendarMultiEventIndicatorColor="#fff"
+            app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="false"
+            app:compactCalendarTargetHeight="220dp"
+            app:compactCalendarTextColor="#000000"
+            app:compactCalendarTextSize="12sp"
+            app:itimeTimeslotCircleColor="#1677FB"
+            app:itimeTimeslotTextColor="#FFFFFF" />
+
+        <TextView style="@style/itime_bottom_divider_line"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"/>
+
+        <!--Time picker-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp">
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="160dp"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
+
+                <com.aigestudio.wheelpicker.WheelPicker
+                    android:id="@+id/event_hour_wheel_picker"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_weight="1"
+                    android:paddingTop="2dp" />
+
+                <com.aigestudio.wheelpicker.WheelPicker
+                    android:id="@+id/event_minute_wheel_picker"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_weight="1"
+                    android:paddingTop="2dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text=":"
+                android:textColor="@color/azure"
+                android:textSize="16sp" />
+        </RelativeLayout>
+        
+        
+        <TextView style="@style/itime_bottom_divider_line"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"/>
+
+        <!-- bottom buttons-->
+        <LinearLayout
+            style="@style/ItimeRelativeCell44"
+            android:background="@color/whiteFour">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/clearBlue"
+                    android:layout_centerInParent="true"
+                    android:text="@string/cancel"
+                    android:textSize="16sp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/clearBlue"
+                    android:layout_centerInParent="true"
+                    android:text="@string/toolbar_save"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+        
+        
+    </LinearLayout>
+    
+    
+
+
+
+</layout>

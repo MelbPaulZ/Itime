@@ -28,6 +28,27 @@ public class EventCreatePrivateViewModel extends EventCreateViewModel {
         getButtonItems().add(buttonItem);
     }
 
+    public View.OnClickListener onClickStartTime(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mvpView!=null){
+                    mvpView.showPopupDialog();
+                }
+            }
+        };
+    }
+
+    public View.OnClickListener onClickEndTime(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mvpView!=null){
+                    mvpView.showPopupDialog();
+                }
+            }
+        };
+    }
 
 
     @Override

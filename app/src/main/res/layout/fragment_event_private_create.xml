@@ -9,229 +9,284 @@
             name="toolbarVM"
             type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
     </data>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
 
-    <include layout="@layout/toolbar" bind:vm="@{toolbarVM}"/>
 
-    <!--Title-->
     <RelativeLayout
-        style="@style/ItimeRelativeCell"
-        android:background="@drawable/bg_divider_bottom"
-        android:onClick="@{vm.onClickTitle()}">
-
-        <ImageView
-            style="@style/ItimeCellLeftIcon"
-            android:background="@drawable/icon_event_title" />
-
-        <TextView
-            style="@style/itimeCellTitle"
-            android:textColor="@{vm.getTitleColor(vm.event)}"
-            android:text="@{vm.getTitleString(vm.event)}" />
-    </RelativeLayout>
-
-    <!--All day-->
-    <RelativeLayout
-        style="@style/ItimeRelativeCell"
-        android:background="@color/whiteFour">
-
-        <ImageView
-            style="@style/ItimeCellLeftIcon"
-            android:background="@drawable/icon_event_duration"/>
-        <!--todo change this icon-->
-
-        <TextView
-            style="@style/itimeCellTitle"
-            android:text="@string/all_day"/>
-
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="14dp"
-            android:onSwitchChange="@{vm.onAlldayChangeListener}"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"/>
-
-    </RelativeLayout>
-
-    <!--all day start and end-->
-    <RelativeLayout
-        style="@style/ItimeRelativeCell44"
-        android:background="@color/whiteFour"
-        android:visibility="@{vm.getAllDayVisibility(vm.event)}">
-        <TextView
-            android:id="@+id/solo_all_day_start"
-            android:layout_width="wrap_content"
-            android:minWidth="104dp"
-            android:layout_height="19dp"
-            android:text="FRI, 25 MAR"
-            android:textSize="16sp"
-            android:textColor="@color/blackTwo"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="45dp"/>
-
-        <TextView
-            android:id="@+id/solo_all_day_time_arrow"
-            android:layout_width="17dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/solo_all_day_start"
-            android:layout_marginStart="14dp"
-            android:textSize="17sp"
-            android:textColor="@color/black"
-            android:text="@string/solo_time_arrow"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="19dp"
-            android:minWidth="104dp"
-            android:text="SAT, 26 MAR"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:layout_toEndOf="@id/solo_all_day_time_arrow"
-            android:layout_marginStart="35dp"
-            android:layout_centerVertical="true"
-            />
-        
-    </RelativeLayout>
-
-    
-    <!--Time picker-->
-    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/private_event_parent_rl"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:visibility="@{vm.getNotAllDayVisibility(vm.event)}"
-        android:background="@color/whiteFour">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
-        <!--start date-->
-        <TextView
-            android:id="@+id/solo_start_date"
-            android:layout_width="100dp"
-            android:layout_height="17dp"
-            android:layout_marginStart="45dp"
-            android:textSize="14sp"
-            android:textColor="@color/blackTwo"
-            android:text="SAT, 25 MAR" />
-        
-        <!--start time-->
-        <TextView
-            android:id="@+id/solo_start_time"
-            android:layout_width="100dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="45dp"
-            android:textSize="32sp"
-            android:textColor="@color/blackTwo"
-            android:text="13:00"
-            android:layout_below="@+id/solo_start_date"
-            />
+        <!--background-->
+        <LinearLayout
+            android:orientation="vertical" android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+        <include layout="@layout/toolbar" bind:vm="@{toolbarVM}"/>
 
-        <TextView
-            android:id="@+id/solo_time_arrow"
-            android:layout_width="17dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/solo_start_time"
-            android:layout_marginStart="18dp"
-            android:textSize="17sp"
-            android:textColor="@color/black"
-            android:text="@string/solo_time_arrow"
-            />
+        <!--Title-->
+        <RelativeLayout
+            style="@style/ItimeRelativeCell"
+            android:background="@drawable/bg_divider_bottom"
+            android:onClick="@{vm.onClickTitle()}">
 
-        <TextView
-            android:id="@+id/solo_end_time"
-            android:layout_width="wrap_content"
-            android:layout_height="17dp"
-            android:layout_toRightOf="@id/solo_start_date"
-            android:layout_marginStart="70dp"
-            android:textSize="14sp"
-            android:textColor="@color/blackTwo"
-            android:text="SAT, 25 MAR" />
+            <ImageView
+                style="@style/ItimeCellLeftIcon"
+                android:background="@drawable/icon_event_title" />
 
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="38dp"
-            android:layout_toRightOf="@id/solo_start_time"
-            android:layout_marginStart="70dp"
-            android:textSize="32sp"
-            android:textColor="@color/blackTwo"
-            android:text="15:00"
-            android:layout_below="@id/solo_end_time"
-            />
+            <TextView
+                style="@style/itimeCellTitle"
+                android:textColor="@{vm.getTitleColor(vm.event)}"
+                android:text="@{vm.getTitleString(vm.event)}" />
+        </RelativeLayout>
 
-        <TextView
-            style="@style/itime_bottom_divider_line" />
+        <!--All day-->
+        <RelativeLayout
+            style="@style/ItimeRelativeCell"
+            android:background="@color/whiteFour">
 
-    </RelativeLayout>
+            <ImageView
+                style="@style/ItimeCellLeftIcon"
+                android:background="@drawable/icon_event_duration"/>
+            <!--todo change this icon-->
 
-    <!--Location-->
-    <RelativeLayout
-        style="@style/ItimeRelativeCell"
-        android:background="@drawable/bg_divider_bottom"
-        android:onClick="@{vm.onClickLocation()}">
+            <TextView
+                style="@style/itimeCellTitle"
+                android:text="@string/all_day"/>
 
-        <ImageView
-            style="@style/ItimeCellLeftIcon"
-            android:background="@drawable/icon_event_location" />
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="14dp"
+                android:onSwitchChange="@{vm.onAlldayChangeListener}"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"/>
 
-        <TextView
-            style="@style/itimeCellTitle"
-            android:text="@{vm.getLocationString(vm.event)}"
-            android:textColor="@{vm.getLocationColor(vm.event)}"/>
+        </RelativeLayout>
 
-        <TextView style="@style/ItimeDisclosure" />
+        <!--all day start and end-->
+        <RelativeLayout
+            style="@style/ItimeRelativeCell44"
+            android:background="@color/whiteFour"
+            android:layout_height="54dp"
+            android:visibility="@{vm.getAllDayVisibility(vm.event)}">
 
-    </RelativeLayout>
+            <!--clickable area extends-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="@{vm.onClickStartTime()}"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="@{vm.onClickEndTime()}"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/solo_all_day_start"
+                android:layout_width="wrap_content"
+                android:minWidth="104dp"
+                android:layout_height="19dp"
+                android:text="FRI, 25 MAR"
+                android:textSize="16sp"
+                android:textColor="@color/blackTwo"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="45dp"/>
+
+            <TextView
+                android:id="@+id/solo_all_day_time_arrow"
+                android:layout_width="17dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/solo_all_day_start"
+                android:layout_marginStart="14dp"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:text="@string/solo_time_arrow"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:minWidth="104dp"
+                android:text="SAT, 26 MAR"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_toEndOf="@id/solo_all_day_time_arrow"
+                android:layout_marginStart="35dp"
+                android:layout_centerVertical="true"
+                />
+
+        </RelativeLayout>
 
 
-    <!--Calenddars-->
-    <RelativeLayout
-        style="@style/ItimeRelativeCell"
-        android:background="@drawable/bg_divider_bottom"
-        android:onClick="@{vm.onClickCalendars()}">
+        <!--Time picker-->
 
-        <ImageView
-            style="@style/ItimeCellLeftIcon"
-            android:background="@drawable/icon_event_calendars" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:visibility="@{vm.getNotAllDayVisibility(vm.event)}"
+            android:background="@color/whiteFour">
 
-        <TextView
-            style="@style/itimeCellTitle"
-            android:text="@string/event_calendars_title" />
+            <!--clickable area extends-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-        <TextView
-            style="@style/itimeCellRightContent"
-            android:text="ITime" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="@{vm.onClickStartTime()}"
+                    android:layout_weight="1"/>
 
-        <TextView style="@style/ItimeDisclosure" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="@{vm.onClickEndTime()}"
+                    android:layout_weight="1"/>
 
-    </RelativeLayout>
+            </LinearLayout>
 
-    <com.developer.paul.closabledatabindingview.closablelayouts.ClosableRowLinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:orientation="vertical"
-        ClosableBaseLinearLayout:orderHashMap="@{vm.orderHashMap}"
-        ClosableBaseLinearLayout:closableItems="@{vm.rowItems}"
-        />
+            <!--start date-->
+            <TextView
+                android:id="@+id/solo_start_date"
+                android:layout_width="100dp"
+                android:layout_height="17dp"
+                android:layout_marginStart="45dp"
+                android:textSize="14sp"
+                android:textColor="@color/blackTwo"
+                android:text="SAT, 25 MAR" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:background="@color/whiteFour">
+            <!--start time-->
+            <TextView
+                android:id="@+id/solo_start_time"
+                android:layout_width="100dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="45dp"
+                android:textSize="32sp"
+                android:textColor="@color/blackTwo"
+                android:text="13:00"
+                android:layout_below="@+id/solo_start_date"
+                />
 
-        <com.developer.paul.closabledatabindingview.closablelayouts.ClosableButtonLinearLayout
+            <TextView
+                android:id="@+id/solo_time_arrow"
+                android:layout_width="17dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/solo_start_time"
+                android:layout_marginStart="18dp"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:text="@string/solo_time_arrow"
+                />
+
+            <TextView
+                android:id="@+id/solo_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:layout_toRightOf="@id/solo_start_date"
+                android:layout_marginStart="70dp"
+                android:textSize="14sp"
+                android:textColor="@color/blackTwo"
+                android:text="SAT, 25 MAR" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="38dp"
+                android:layout_toRightOf="@id/solo_start_time"
+                android:layout_marginStart="70dp"
+                android:textSize="32sp"
+                android:textColor="@color/blackTwo"
+                android:text="15:00"
+                android:layout_below="@id/solo_end_time"
+                />
+
+            <TextView
+                style="@style/itime_bottom_divider_line" />
+
+        </RelativeLayout>
+
+        <!--Location-->
+        <RelativeLayout
+            style="@style/ItimeRelativeCell"
+            android:background="@drawable/bg_divider_bottom"
+            android:onClick="@{vm.onClickLocation()}">
+
+            <ImageView
+                style="@style/ItimeCellLeftIcon"
+                android:background="@drawable/icon_event_location" />
+
+            <TextView
+                style="@style/itimeCellTitle"
+                android:text="@{vm.getLocationString(vm.event)}"
+                android:textColor="@{vm.getLocationColor(vm.event)}"/>
+
+            <TextView style="@style/ItimeDisclosure" />
+
+        </RelativeLayout>
+
+
+        <!--Calenddars-->
+        <RelativeLayout
+            style="@style/ItimeRelativeCell"
+            android:background="@drawable/bg_divider_bottom"
+            android:onClick="@{vm.onClickCalendars()}">
+
+            <ImageView
+                style="@style/ItimeCellLeftIcon"
+                android:background="@drawable/icon_event_calendars" />
+
+            <TextView
+                style="@style/itimeCellTitle"
+                android:text="@string/event_calendars_title" />
+
+            <TextView
+                style="@style/itimeCellRightContent"
+                android:text="ITime" />
+
+            <TextView style="@style/ItimeDisclosure" />
+
+        </RelativeLayout>
+
+        <com.developer.paul.closabledatabindingview.closablelayouts.ClosableRowLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
+            android:orientation="vertical"
             ClosableBaseLinearLayout:orderHashMap="@{vm.orderHashMap}"
-            ClosableBaseLinearLayout:closableItems="@{vm.buttonItems}"
+            ClosableBaseLinearLayout:closableItems="@{vm.rowItems}"
             />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:background="@color/whiteFour">
+
+            <com.developer.paul.closabledatabindingview.closablelayouts.ClosableButtonLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                ClosableBaseLinearLayout:orderHashMap="@{vm.orderHashMap}"
+                ClosableBaseLinearLayout:closableItems="@{vm.buttonItems}"
+                />
+        </RelativeLayout>
+        </LinearLayout>
+
     </RelativeLayout>
 
 
-</LinearLayout>
+
 </layout>

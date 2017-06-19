@@ -20,6 +20,7 @@
     <color name="warmGrey">#9E9E9E</color>
     <color name="tangerine">#FF9700</color>
     <color name="pinkishGrey">#BDBDBD</color>
+    <color name="pinkishGreyTwo">#BDBDBD</color>
     <color name="greyishTwo">#B9B9B9</color>
     <color name="blackTwo">#030303</color>
     <color name="blush">#ef9a9a</color>
@@ -47,4 +48,5 @@
 
     <color name="textBlue">#0076FF</color>
     <color name="grey_one">#6D6D6D</color>
+    <color name="clearBlue">#178BFB</color>
 </resources>

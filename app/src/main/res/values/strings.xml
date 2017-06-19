@@ -105,6 +105,10 @@
     <string name="event_alert_2_days_before">2 days before</string>
     <string name="event_alert_1_week_before">1 week before</string>
 
+    <!--Event Time-->
+    <string name="event_time_picker_start">Start</string>
+    <string name="event_time_picker_end">End</string>
+
     <!--hint-->
     <string name="event_note_hint">Note</string>
 
