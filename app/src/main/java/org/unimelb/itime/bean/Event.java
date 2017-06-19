@@ -114,12 +114,12 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     public Event() {
     }
 
-    @Generated(hash = 1447292580)
+    @Generated(hash = 796061809)
     public Event(String eventUid, String eventId, String recurringEventUid, String recurringEventId, String calendarUid,
-                 String iCalUID, String hostUserUid, String summary, String url, String location, String locationNote,
-                 double locationLatitude, double locationLongitude, String note, boolean isAllDay, int showLevel, String coverPhoto,
-                 List<Invitee> invitees, List<PhotoUrl> photos, List<TimeSlot> timeslots, long startTime, long endTime, int eventType,
-                 @NotNull String display) {
+            String iCalUID, String hostUserUid, String summary, String url, String location, String locationNote,
+            double locationLatitude, double locationLongitude, String note, boolean isAllDay, int showLevel, String coverPhoto,
+            int alert, List<Invitee> invitees, List<PhotoUrl> photos, List<TimeSlot> timeslots, long startTime, long endTime,
+            int eventType, @NotNull String display) {
         this.eventUid = eventUid;
         this.eventId = eventId;
         this.recurringEventUid = recurringEventUid;
@@ -137,9 +137,9 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.isAllDay = isAllDay;
         this.showLevel = showLevel;
         this.coverPhoto = coverPhoto;
+        this.alert = alert;
         this.invitees = invitees;
         this.photos = photos;
-        this.alert = alert;
         this.timeslots = timeslots;
         this.startTime = startTime;
         this.endTime = endTime;
