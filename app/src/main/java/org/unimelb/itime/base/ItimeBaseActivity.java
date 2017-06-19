@@ -77,7 +77,6 @@ public abstract class ItimeBaseActivity<V extends MvpView, P extends MvpBasePres
         fragmentManager.executePendingTransactions();
     }
 
-<<<<<<< HEAD
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
@@ -130,9 +129,9 @@ public abstract class ItimeBaseActivity<V extends MvpView, P extends MvpBasePres
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
 
-=======
     public void setCurFragment(Fragment curFragment) {
         this.curFragment = curFragment;
     }
@@ -140,7 +139,6 @@ public abstract class ItimeBaseActivity<V extends MvpView, P extends MvpBasePres
     @Override
     protected void onResume() {
         super.onResume();
->>>>>>> 26866848536c5eee9ca784984fc2b868fa5a02ee
     }
 
 

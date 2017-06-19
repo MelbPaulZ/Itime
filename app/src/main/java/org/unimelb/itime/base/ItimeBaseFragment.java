@@ -6,11 +6,8 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-<<<<<<< HEAD
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-=======
->>>>>>> 26866848536c5eee9ca784984fc2b868fa5a02ee
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -30,11 +27,8 @@ public abstract class ItimeBaseFragment<V extends MvpView, P extends MvpPresente
     public ItimeBaseActivity getBaseActivity(){
         return (ItimeBaseActivity) getActivity();
     }
-
-<<<<<<< HEAD
     protected ItimeBaseActivity baseActivity;
     protected ProgressDialog progressDialog;
-=======
     public Fragment getFrom() {
         return from;
     }
@@ -42,13 +36,6 @@ public abstract class ItimeBaseFragment<V extends MvpView, P extends MvpPresente
     public void setFrom(Fragment from) {
         this.from = from;
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        getBaseActivity().setCurFragment(this);
-    }
->>>>>>> 26866848536c5eee9ca784984fc2b868fa5a02ee
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -65,6 +52,7 @@ public abstract class ItimeBaseFragment<V extends MvpView, P extends MvpPresente
     @Override
     public void onResume(){
         super.onResume();
+        getBaseActivity().setCurFragment(this);
     }
 
     protected void showDialog(String title, String msg){
