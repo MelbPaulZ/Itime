@@ -376,11 +376,11 @@
                         android:paddingLeft="@dimen/s2"
                         android:paddingRight="@dimen/s2"
                         android:orientation="horizontal"
-                        android:background="@drawable/bg_top_cornor_bluelight">
+                        android:background="@{contentVM.bottomSheetHeaderDrawable}">
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_body"
+                            android:textColor="@{contentVM.showTimeSlotSheet? @color/text_body : @color/brand_main}"
                             android:textSize="@dimen/font_large"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="1"
@@ -448,7 +448,10 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/s2"
                         android:paddingLeft="@dimen/s2"
-                        android:background="@color/white"/>
+                        android:background="@color/white"
+                        app:layoutManager="@{contentVM.timeSlotLayoutManager}"
+                        app:items = "@{contentVM.timeSlotsItems}"
+                        app:itemBinding="@{contentVM.timeSlotItemBinding}"/>
 
                     <!--buttons part-->
                     <LinearLayout
@@ -463,6 +466,7 @@
                         android:textColor="@color/brand_warning"
                         android:text="@string/create_event_icannotgoatalltimeslots"
                         android:gravity="center"
+                        android:textSize="@dimen/font_large"
                         android:background="@drawable/selector_warning_button"
                         android:onClick="@{contentVM.onCantGoAllClick()}"
                         android:visibility="@{contentVM.showCantGoVoteButton?View.VISIBLE:View.GONE}"
@@ -476,6 +480,7 @@
                         android:background="@drawable/bg_bottom_cornor_bluelight"
                         android:text="@{contentVM.submitBtnString}"
                         android:gravity="center"
+                        android:textSize="@dimen/font_large"
                         android:visibility="@{contentVM.showSubmitVoteDisableButton?View.VISIBLE:View.GONE}"
                         />
 
@@ -486,6 +491,7 @@
                         android:textColor="@color/white"
                         android:text="@{contentVM.submitBtnString}"
                         android:gravity="center"
+                        android:textSize="@dimen/font_large"
                         android:background="@drawable/selector_brand_blue_bottom_button"
                         android:onClick="@{contentVM.onSubmitVoteClick()}"
                         android:visibility="@{contentVM.showSubmitVoteButton?View.VISIBLE:View.GONE}"
@@ -498,6 +504,7 @@
                             android:textColor="@color/white"
                             android:text="@string/create_event_confirm"
                             android:gravity="center"
+                            android:textSize="@dimen/font_large"
                             android:background="@drawable/selector_brand_blue_bottom_button"
                             android:onClick="@{contentVM.onConfirmClick()}"
                             android:visibility="@{contentVM.showConfirmVoteButton?View.VISIBLE:View.GONE}"

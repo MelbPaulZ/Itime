@@ -1,11 +1,15 @@
 package org.unimelb.itime.ui.viewmodel.event;
 
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -28,6 +32,8 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.tatarka.bindingcollectionadapter2.ItemBinding;
+
 /**
  * Created by Paul on 4/09/2016.
  */
@@ -48,13 +54,23 @@ public class EventDetailViewModel extends BaseObservable{
     private List<String> avatarList = new ArrayList<>();
     private String calendarType = "";
     private List<TimeSlot> timeSlots;
-    private List<TimeSlot> selectedTimeSlots = new ArrayList<TimeSlot>();
+    private List<TimeSlot> selectedTimeSlots = new ArrayList<>();
+    private List<EventDetailTimeslotViewModel> timeSlotsItems;
     private boolean showTimeSlotSheet = true;
 
     private boolean showConfirmVoteButton;
     private boolean showCantGoVoteButton;
     private boolean showSubmitVoteButton;
     private boolean showSubmitVoteDisableButton;
+
+    private ObjectAnimator bottomSheetHeaderShowAnimator;
+    private ObjectAnimator bottomSheetHeaderHideAnimator;
+    private static int ANIMATOR_DURATION = 300;
+    private LayerDrawable bottomSheetHeaderDrawable;
+
+    public Drawable getBottomSheetHeaderDrawable(){
+        return bottomSheetHeaderDrawable;
+    }
 
     @Bindable
     public boolean isShowSubmitVoteDisableButton() {
@@ -108,6 +124,11 @@ public class EventDetailViewModel extends BaseObservable{
 
     public void setShowTimeSlotSheet(boolean showTimeSlotSheet) {
         this.showTimeSlotSheet = showTimeSlotSheet;
+        if(showTimeSlotSheet){
+            bottomSheetHeaderDrawable.getDrawable(1).setAlpha(0);
+        }else{
+            bottomSheetHeaderDrawable.getDrawable(1).setAlpha(255);
+        }
         notifyPropertyChanged(BR.showTimeSlotSheet);
         notifyPropertyChanged(BR.bottomSheetMask);
     }
@@ -149,11 +170,41 @@ public class EventDetailViewModel extends BaseObservable{
 
                 if(newStatus == ScalableLayout.STATUS_HIDE){
                     setShowTimeSlotSheet(false);
+                    bottomSheetHeaderHideAnimator.start();
                 }else{
                     setShowTimeSlotSheet(true);
+                    bottomSheetHeaderShowAnimator.start();
                 }
             }
         };
+    }
+
+
+
+    public RecyclerView.LayoutManager getTimeSlotLayoutManager(){
+        return new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+    }
+
+    public ItemBinding<EventDetailTimeslotViewModel> getTimeSlotItemBinding(){
+        return ItemBinding.of(BR.vm, R.layout.item_event_detail_timeslot);
+    }
+
+    public List<EventDetailTimeslotViewModel> getTimeSlotsItems() {
+        return timeSlotsItems;
+    }
+
+    public void setTimeSlotsItems(List<EventDetailTimeslotViewModel> timeSlotsItems) {
+        this.timeSlotsItems = timeSlotsItems;
+    }
+
+    private void generateTimeSlotItems(){
+        List<EventDetailTimeslotViewModel> timeSlotsItems = new ArrayList<>();
+        for(TimeSlot timeSlot:event.getTimeslots()){
+            EventDetailTimeslotViewModel vm = new EventDetailTimeslotViewModel();
+            vm.setTimeSlot(timeSlot);
+            timeSlotsItems.add(vm);
+        }
+        setTimeSlotsItems(timeSlotsItems);
     }
 
     public View.OnClickListener getOnTimeSlotSheetClickListener(){
@@ -181,6 +232,7 @@ public class EventDetailViewModel extends BaseObservable{
 
     public void setTimeSlots(List<TimeSlot> timeSlots) {
         this.timeSlots = timeSlots;
+        generateTimeSlotItems();
         notifyPropertyChanged(BR.timeSlots);
     }
 
@@ -334,6 +386,14 @@ public class EventDetailViewModel extends BaseObservable{
 //        this.wrapperTimeSlotList = new ArrayList<>();
         alertTimes = AppUtil.getDefaultAlertMins();
         mvpView = presenter.getView();
+        init();
+    }
+
+    private void init(){
+        bottomSheetHeaderDrawable = (LayerDrawable) context.getResources().getDrawable(R.drawable.bg_timeslot_vote_sheet_top);
+        Drawable blueDrawable = bottomSheetHeaderDrawable.getDrawable(1);
+        bottomSheetHeaderShowAnimator = ObjectAnimator.ofInt(blueDrawable, "alpha", 255, 0).setDuration(ANIMATOR_DURATION);
+        bottomSheetHeaderHideAnimator = ObjectAnimator.ofInt(blueDrawable, "alpha", 0, 255).setDuration(ANIMATOR_DURATION);
     }
 
     public Context getContext() {
@@ -506,6 +566,7 @@ public class EventDetailViewModel extends BaseObservable{
         setCalendarType("iTime");
         setTimeSlots(event.getTimeslots());
         selectedTimeSlots.clear();
+        setShowTimeSlotSheet(true);
         setTimeSlotBottomSheetButtonVisibilities();
         notifyPropertyChanged(BR.submitBtnString);
 //        setCalendarType(CalendarUtil.getInstance(context).getCalendarName(event));
