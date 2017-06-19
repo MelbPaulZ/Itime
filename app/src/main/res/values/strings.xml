@@ -11,6 +11,8 @@
     <string name="toolbar_location">Location</string>
     <string name="toolbar_event">Event</string>
     <string name="toolbar_timeslots">Timeslots</string>
+    <string name="toolbar_alert">Alert</string>
+    <string name="toolbar_save">Save</string>
 
     <!--Event-->
     <string name="event">Event</string>
@@ -70,6 +72,7 @@
     <string name="new_event_toolbar_next">Next</string>
 
     <!--Event buttons-->
+    <string name="alert_toolbar_btn">Alert</string>
     <string name="photos_toolbar_btn">Photos</string>
     <string name="note_toolbar_btn">Note</string>
     <string name="url_toolbar_btn">URL</string>
@@ -106,8 +109,26 @@
     <string name="event_custom_wheel_months">months</string>
     <string name="event_custom_wheel_years">years</string>
 
+    <!--alert-->
+    <string name="event_alert_none">None</string>
+    <string name="event_alert_at_time">At time of event</string>
+    <string name="event_alert_5_minutes_before">5 minutes before</string>
+    <string name="event_alert_15_minutes_before">15 minutes before</string>
+    <string name="event_alert_30_minutes_before">30 minutes before</string>
+    <string name="event_alert_1_hour_before">1 hour before</string>
+    <string name="event_alert_2_hours_before">2 hours before</string>
+    <string name="event_alert_1_day_before">1 day before</string>
+    <string name="event_alert_2_days_before">2 days before</string>
+    <string name="event_alert_1_week_before">1 week before</string>
+
     <!--hint-->
     <string name="event_note_hint">Note</string>
+
+    <!--all day-->
+    <string name="all_day">All Day</string>
+
+    <!--solo select time-->
+    <string name="solo_time_arrow">→</string>
 
     <!--Action sheet-->
     <string name="action_sheet_cancel">Cancel</string>

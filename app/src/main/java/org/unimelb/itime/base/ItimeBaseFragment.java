@@ -6,8 +6,11 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+<<<<<<< HEAD
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+=======
+>>>>>>> 26866848536c5eee9ca784984fc2b868fa5a02ee
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -22,12 +25,30 @@ import com.zhy.m.permission.MPermissions;
 
 public abstract class ItimeBaseFragment<V extends MvpView, P extends MvpPresenter<V>> extends MvpFragment<V, P> {
 
+    private Fragment from;
+
     public ItimeBaseActivity getBaseActivity(){
         return (ItimeBaseActivity) getActivity();
     }
 
+<<<<<<< HEAD
     protected ItimeBaseActivity baseActivity;
     protected ProgressDialog progressDialog;
+=======
+    public Fragment getFrom() {
+        return from;
+    }
+
+    public void setFrom(Fragment from) {
+        this.from = from;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getBaseActivity().setCurFragment(this);
+    }
+>>>>>>> 26866848536c5eee9ca784984fc2b868fa5a02ee
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

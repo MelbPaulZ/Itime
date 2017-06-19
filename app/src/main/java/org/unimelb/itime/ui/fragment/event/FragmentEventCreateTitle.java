@@ -3,6 +3,7 @@ package org.unimelb.itime.ui.fragment.event;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,8 +67,13 @@ public class FragmentEventCreateTitle extends ItimeBaseFragment<EventCreateTitle
 
     @Override
     public void onNext() {
-        FragmentEventCreate fragment = (FragmentEventCreate) getFragmentManager().findFragmentByTag(FragmentEventCreate.class.getSimpleName());
-        fragment.setEvent(event);
+
+        Fragment fragment = getFrom();
+        if (fragment instanceof FragmentEventCreate){
+            ((FragmentEventCreate)fragment).setEvent(event);
+        }else if (fragment instanceof FragmentEventPrivateCreate){
+            ((FragmentEventPrivateCreate)fragment).setEvent(event);
+        }
         getFragmentManager().popBackStack();
     }
 

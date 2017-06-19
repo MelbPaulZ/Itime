@@ -58,6 +58,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     private boolean isAllDay;
     private int showLevel;
     private String coverPhoto = "";
+    private int alert; // mins
     private transient String[] recurrence = {};
 
     @Convert(converter = Event.InviteeConverter.class, columnType = String.class)
@@ -138,6 +139,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.coverPhoto = coverPhoto;
         this.invitees = invitees;
         this.photos = photos;
+        this.alert = alert;
         this.timeslots = timeslots;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -471,6 +473,13 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         return this.timeslots;
     }
 
+    public int getAlert() {
+        return alert;
+    }
+
+    public void setAlert(int alert) {
+        this.alert = alert;
+    }
 
     public static class TimeslotConverter implements PropertyConverter<List<TimeSlot> , String> {
         Gson gson = new Gson();

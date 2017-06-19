@@ -25,6 +25,8 @@ import org.unimelb.itime.R;
 public abstract class ItimeBaseActivity<V extends MvpView, P extends MvpBasePresenter<V>> extends MvpActivity<V, P> {
 
     FragmentManager fragmentManager;
+    private Fragment curFragment;
+
 
     public void clearFragmentStack(){
         getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -43,10 +45,14 @@ public abstract class ItimeBaseActivity<V extends MvpView, P extends MvpBasePres
         if(bundle != null){
             fragment.setArguments(bundle);
         }
+
+        if (fragment instanceof ItimeBaseFragment){
+            ((ItimeBaseFragment)fragment).setFrom(curFragment);
+        }
+
         FragmentTransaction t = fragmentManager.beginTransaction();
         t.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         t.replace(getFragmentContainerId(), fragment, fragment.getClass().getSimpleName());
-
         if(isAddedToStack){
             t.addToBackStack(fragment.getClass().getSimpleName());
         }
@@ -63,6 +69,7 @@ public abstract class ItimeBaseActivity<V extends MvpView, P extends MvpBasePres
         if (bundle!=null) {
             fragment.setArguments(bundle);
         }
+
         FragmentTransaction t = fragmentManager.beginTransaction();
         t.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         t.replace(getFragmentContainerId(), fragment);
@@ -70,6 +77,7 @@ public abstract class ItimeBaseActivity<V extends MvpView, P extends MvpBasePres
         fragmentManager.executePendingTransactions();
     }
 
+<<<<<<< HEAD
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
@@ -124,6 +132,15 @@ public abstract class ItimeBaseActivity<V extends MvpView, P extends MvpBasePres
         super.onCreate(savedInstanceState);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+=======
+    public void setCurFragment(Fragment curFragment) {
+        this.curFragment = curFragment;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+>>>>>>> 26866848536c5eee9ca784984fc2b868fa5a02ee
     }
 
 
