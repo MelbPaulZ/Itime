@@ -33,9 +33,9 @@ import java.util.List;
 public class EventCreateViewModel extends ItimeBaseViewModel{
 
     protected EventCreatePresenter presenter;
-    private HashMap<String, Integer> orderHashMap = new HashMap<>();
-    private List<ButtonItem> buttonItems = new ArrayList<>();
-    private List<RowItem> rowItems = new ArrayList<>();
+    protected HashMap<String, Integer> orderHashMap = new HashMap<>();
+    protected List<ButtonItem> buttonItems = new ArrayList<>();
+    protected List<RowItem> rowItems = new ArrayList<>();
     protected Event event;
     protected EventCreateMvpView mvpView;
 
@@ -158,7 +158,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
      * @param items
      * @param name
      */
-    private void removeItem(List<? extends ClosableItem> items, String name){
+    protected void removeItem(List<? extends ClosableItem> items, String name){
         ClosableItem closableItem = null;
         for (ClosableItem item: items){
             if (item.getItemName().equals(name)){
@@ -285,7 +285,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
      * Use this method to add Button
      * @param name
      */
-    private void addButton(String name){
+    protected void addButton(String name){
         if (isContainBtn(name)){
             return;
         }
@@ -302,7 +302,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     /**
      * This method update row text
      */
-    private void updateRow(String itemName, String text){
+    protected void updateRow(String itemName, String text){
         RowItem item = findRowItem(itemName);
         if (item!=null){
             item.setText(text);
@@ -447,15 +447,15 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         return presenter.getContext().getString(stringId);
     }
 //
-//    /**
-//     * update row to rowItems
-//     * @param rowName
-//     * @param icon
-//     * @param text
-//     * @param onClickListener
-//     * @param onDeleteListener
-//     */
-    private void addInList(String rowName, Drawable icon, String text,
+    /**
+     * update row to rowItems
+     * @param rowName
+     * @param icon
+     * @param text
+     * @param onClickListener
+     * @param onDeleteListener
+     */
+    protected void addInList(String rowName, Drawable icon, String text,
                            View.OnClickListener onClickListener, View.OnClickListener onDeleteListener){
         RowItem rowItem = new RowItem();
         rowItem.setItemName(rowName);
@@ -467,11 +467,11 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         notifyPropertyChanged(BR.rowItems);
     }
 
-    private boolean containRow(String rowName){
+    protected boolean containRow(String rowName){
         return isIn(rowName, rowItems);
     }
 
-    private boolean isContainBtn(String buttonName){
+    protected boolean isContainBtn(String buttonName){
         return isIn(buttonName, buttonItems);
     }
 

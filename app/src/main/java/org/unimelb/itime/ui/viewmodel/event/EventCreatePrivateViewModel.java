@@ -26,8 +26,9 @@ public class EventCreatePrivateViewModel extends EventCreateViewModel {
     private void init(){
         ButtonItem buttonItem = createButtonItem(getString(R.string.alert_toolbar_btn));
         getButtonItems().add(buttonItem);
-
     }
+
+
 
     @Override
     protected ButtonItem createButtonItem(String name) {
@@ -35,12 +36,69 @@ public class EventCreatePrivateViewModel extends EventCreateViewModel {
             return createButtonItem(name, presenter.getContext().getResources().getDrawable(R.drawable.icon_event_toolbar_alert), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    if (mvpView!=null){
+                        mvpView.toAlert(event);
+                    }
                 }
             });
         }
         return super.createButtonItem(name);
     }
+
+    @Override
+    protected void resetButtonsAndRows() {
+        super.resetButtonsAndRows();
+        if (event.getAlert()!=0){
+            addAlertToRow(event.getAlert()+"");
+            removeItem(buttonItems, getString(R.string.alert_toolbar_btn));
+        }else{
+            addButton(getString(R.string.alert_toolbar_btn));
+            removeItem(rowItems, getString(R.string.alert_toolbar_btn));
+        }
+    }
+
+    @Override
+    protected void addButton(String name) {
+        super.addButton(name);
+        if (name.equals(getString(R.string.alert_toolbar_btn))){
+            if (isContainBtn(name)){
+                return;
+            }
+            ButtonItem buttonItem = createButtonItem(getString(R.string.alert_toolbar_btn));
+            getButtonItems().add(buttonItem);
+        }
+
+    }
+
+    private void addAlertToRow(String alertString){
+        if (containRow(getString(R.string.alert_toolbar_btn))){
+            updateRow(getString(R.string.alert_toolbar_btn), alertString);
+            return;
+        }
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mvpView!=null){
+                    mvpView.toAlert(event);
+                }
+            }
+        };
+
+        View.OnClickListener onDeleteListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addButton(getString(R.string.alert_toolbar_btn));
+                event.setAlert(0);
+                setEvent(event);
+            }
+        };
+
+        addInList(getString(R.string.alert_toolbar_btn),
+                presenter.getContext().getResources().getDrawable(R.drawable.icon_event_toolbar_alert),
+                alertString, onClickListener, onDeleteListener);
+    }
+
+
 
     @Override
     protected ButtonItem createButtonItem(String name, Drawable drawable, View.OnClickListener onClickListener) {

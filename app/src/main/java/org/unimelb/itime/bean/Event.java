@@ -48,6 +48,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     private String note = "";
     private boolean isAllDay;
     private int showLevel;
+    private int alert; // mins
 
 
     private transient String[] recurrence = {};
@@ -101,11 +102,11 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     public Event() {
     }
 
-    @Generated(hash = 788008659)
+    @Generated(hash = 1588880091)
     public Event(String eventUid, String eventId, String recurringEventUid, String recurringEventId, String calendarUid,
             String iCalUID, String hostUserUid, String summary, String url, String location, String locationNote,
-            double locationLatitude, double locationLongitude, String note, boolean isAllDay, int showLevel, String photo,
-            List<TimeSlot> timeslots, long startTime, long endTime, int eventType, @NotNull String display) {
+            double locationLatitude, double locationLongitude, String note, boolean isAllDay, int showLevel, int alert,
+            String photo, List<TimeSlot> timeslots, long startTime, long endTime, int eventType, @NotNull String display) {
         this.eventUid = eventUid;
         this.eventId = eventId;
         this.recurringEventUid = recurringEventUid;
@@ -122,6 +123,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.note = note;
         this.isAllDay = isAllDay;
         this.showLevel = showLevel;
+        this.alert = alert;
         this.photo = photo;
         this.timeslots = timeslots;
         this.startTime = startTime;
@@ -440,6 +442,13 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         return this.timeslots;
     }
 
+    public int getAlert() {
+        return alert;
+    }
+
+    public void setAlert(int alert) {
+        this.alert = alert;
+    }
 
     public static class TimeslotConverter implements PropertyConverter<List<TimeSlot> , String> {
         Gson gson = new Gson();
@@ -454,4 +463,6 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
             return gson.toJson(entityProperty);
         }
     }
+
+
 }

@@ -1,5 +1,6 @@
 package org.unimelb.itime.ui.fragment.event;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -175,5 +176,23 @@ implements EventCreateMvpView, ToolbarInterface{
     @Override
     public void toTimeslot(Event event) {
         // solo event no need
+    }
+
+    @Override
+    public void toAlert(Event event) {
+        FragmentEventCreateAlert fragment = new FragmentEventCreateAlert();
+        Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
+        fragment.setEvent(cpyEvent);
+        getBaseActivity().openFragment(fragment);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==REQ_LOCATION && resultCode == Activity.RESULT_OK){
+            String location = data.getStringExtra(getString(R.string.location));
+            event.setLocation(location);
+            setEvent(event);
+        }
     }
 }

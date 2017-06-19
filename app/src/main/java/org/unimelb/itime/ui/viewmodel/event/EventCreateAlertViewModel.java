@@ -8,6 +8,7 @@ import android.view.View;
 import com.android.databinding.library.baseAdapters.BR;
 
 import org.unimelb.itime.R;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.ui.presenter.LocalPresenter;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class EventCreateAlertViewModel extends BaseObservable {
     private LocalPresenter presenter;
     private List<RepeatLineViewModel> alerts = new ArrayList<>();
     public ItemBinding<RepeatLineViewModel> itemBinding = ItemBinding.of(BR.repeatItem, R.layout.row_repeat);
+    private Event event;
 
 
     public EventCreateAlertViewModel(LocalPresenter presenter) {
@@ -54,6 +56,14 @@ public class EventCreateAlertViewModel extends BaseObservable {
             });
             alerts.add(repeatLineViewModel);
         }
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     public View.OnClickListener onClickNone(){

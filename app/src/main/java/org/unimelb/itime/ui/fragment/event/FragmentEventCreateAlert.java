@@ -3,6 +3,7 @@ package org.unimelb.itime.ui.fragment.event;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.databinding.FragmentEventAlertBinding;
 import org.unimelb.itime.ui.mvpview.event.EventCreateAlertMvpView;
 import org.unimelb.itime.ui.presenter.LocalPresenter;
@@ -25,6 +27,7 @@ public class FragmentEventCreateAlert extends ItimeBaseFragment<EventCreateAlert
     private FragmentEventAlertBinding binding;
     private EventCreateAlertViewModel vm;
     private ToolbarViewModel toolbarVM;
+    private Event event;
 
     @Override
     public LocalPresenter<EventCreateAlertMvpView> createPresenter() {
@@ -35,6 +38,7 @@ public class FragmentEventCreateAlert extends ItimeBaseFragment<EventCreateAlert
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         vm = new EventCreateAlertViewModel(getPresenter());
+        vm.setEvent(event);
         binding.setVm(vm);
 
         toolbarVM = new ToolbarViewModel(this);
@@ -43,6 +47,10 @@ public class FragmentEventCreateAlert extends ItimeBaseFragment<EventCreateAlert
         toolbarVM.setRightText(getString(R.string.new_event_toolbar_next));
         binding.setToolbarVM(toolbarVM);
 
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     @Nullable
@@ -56,6 +64,11 @@ public class FragmentEventCreateAlert extends ItimeBaseFragment<EventCreateAlert
 
     @Override
     public void onNext() {
+        Fragment fragment = getFrom();
+        if (fragment instanceof FragmentEventPrivateCreate){
+            event.setAlert(60);
+            ((FragmentEventPrivateCreate) fragment).setEvent(event);
+        }
         getFragmentManager().popBackStack();
     }
 

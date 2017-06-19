@@ -37,8 +37,8 @@ public class TestActivity extends ItimeBaseActivity {
         setContentView(R.layout.activity_test);
 
 //        FragmentEventCreateAlert fragment = new FragmentEventCreateAlert();
-//        FragmentEventPrivateCreate fragment = new FragmentEventPrivateCreate();
-        FragmentEventCreate fragment = new FragmentEventCreate();
+        FragmentEventPrivateCreate fragment = new FragmentEventPrivateCreate();
+//        FragmentEventCreate fragment = new FragmentEventCreate();
         getSupportFragmentManager().beginTransaction().add(getFragmentContainerId(), fragment).commit();
     }
 }

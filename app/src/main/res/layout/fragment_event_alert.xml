@@ -19,7 +19,7 @@
         android:layout_marginTop="30dp"
         style="@style/ItimeRelativeCell44"
         android:layout_height="44dp"
-        android:background="@color/white"
+        android:background="@color/whiteFour"
         android:onClick="@{vm.onClickNone()}">
         <TextView
             style="@style/itimeCellTitle"
