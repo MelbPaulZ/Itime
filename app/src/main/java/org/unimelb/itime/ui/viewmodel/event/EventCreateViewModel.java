@@ -6,6 +6,7 @@ import android.databinding.ObservableList;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.bigkoo.alertview.AlertView;
@@ -68,6 +69,28 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
         mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
 
+    }
+
+    public CompoundButton.OnCheckedChangeListener onAlldayChangeListener(){
+        return new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    event.setIsAllDay(true);
+                }else{
+                    event.setIsAllDay(false);
+                }
+                setEvent(event);
+            }
+        };
+    }
+
+    public int getAllDayVisibility(Event event){
+        return event.isAllDay()? View.VISIBLE:View.GONE;
+    }
+
+    public int getNotAllDayVisibility(Event event){
+        return event.isAllDay()? View.GONE:View.VISIBLE;
     }
 
     @Bindable

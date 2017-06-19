@@ -50,15 +50,60 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="14dp"
+            android:onSwitchChange="@{vm.onAlldayChangeListener}"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"/>
 
     </RelativeLayout>
+
+    <!--all day start and end-->
+    <RelativeLayout
+        style="@style/ItimeRelativeCell44"
+        android:background="@color/whiteFour"
+        android:visibility="@{vm.getAllDayVisibility(vm.event)}">
+        <TextView
+            android:id="@+id/solo_all_day_start"
+            android:layout_width="wrap_content"
+            android:minWidth="104dp"
+            android:layout_height="19dp"
+            android:text="FRI, 25 MAR"
+            android:textSize="16sp"
+            android:textColor="@color/blackTwo"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="45dp"/>
+
+        <TextView
+            android:id="@+id/solo_all_day_time_arrow"
+            android:layout_width="17dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/solo_all_day_start"
+            android:layout_marginStart="14dp"
+            android:textSize="17sp"
+            android:textColor="@color/black"
+            android:text="@string/solo_time_arrow"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:minWidth="104dp"
+            android:text="SAT, 26 MAR"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_toEndOf="@id/solo_all_day_time_arrow"
+            android:layout_marginStart="35dp"
+            android:layout_centerVertical="true"
+            />
+        
+    </RelativeLayout>
+
     
     <!--Time picker-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="72dp"
+        android:visibility="@{vm.getNotAllDayVisibility(vm.event)}"
         android:background="@color/whiteFour">
 
         <!--start date-->
