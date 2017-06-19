@@ -55,4 +55,6 @@
     <dimen name="s2">10dp</dimen>
     <dimen name="s3">5dp</dimen>
 
+    <dimen name="normal_corner_radius">4dp</dimen>
+
 </resources>

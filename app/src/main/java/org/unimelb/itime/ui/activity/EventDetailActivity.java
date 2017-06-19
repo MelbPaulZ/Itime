@@ -12,6 +12,7 @@ import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.PhotoUrl;
+import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
 import org.unimelb.itime.ui.fragment.event.FragmentEventDetail;
 
@@ -79,6 +80,16 @@ public class EventDetailActivity extends ItimeBaseActivity{
             photos.add(photoUrl);
         }
         event.setPhotos(photos);
+        event.setUrl("https://www.google.com.au/");
+
+        List<TimeSlot> timeSlots = new ArrayList<>();
+        for(int i=0;i<5;i++){
+            TimeSlot timeSlot = new TimeSlot();
+            timeSlot.setEndTime(System.currentTimeMillis());
+            timeSlot.setStartTime(System.currentTimeMillis());
+            timeSlots.add(timeSlot);
+        }
+        event.setTimeslots(timeSlots);
         return event;
     }
 

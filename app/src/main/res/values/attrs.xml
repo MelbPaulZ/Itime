@@ -24,4 +24,12 @@
         <attr name="collapseheaderbar_inviteeCount" format="integer"/>
     </declare-styleable>
 
+    <declare-styleable name ="ScalableLayout">
+        <attr name ="scalablelayout_expandheight" format="dimension"/>
+        <attr name ="scalablelayout_hideheight" format="dimension"/>
+        <attr name ="scalablelayout_collapseheight" format="dimension"/>
+        <attr name ="scalablelayout_onStatusChange" format="reference"/>
+        <attr name="scalablelayout_status" format="integer"/>
+    </declare-styleable>
+
 </resources>

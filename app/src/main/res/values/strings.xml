@@ -27,6 +27,10 @@
     <string name="event_detail_cant_go">Can\'t go</string>
     <string name="event_detail_no_reply">No Reply</string>
     <string name="create_event_itime_contact_title">iTime Contacts</string>
+    <string name="create_event_choosetimeslots">Choose Timeslots</string>
+    <string name="create_event_view_in_calendar">View in calendar</string>
+    <string name="create_event_icannotgoatalltimeslots">I can\'t go at all timeslots</string>
+    <string name="create_event_submit_vote">Submit Vote</string>
 
     <!--Timeslots-->
 

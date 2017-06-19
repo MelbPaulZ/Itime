@@ -4,21 +4,26 @@ package org.unimelb.itime.ui.viewmodel.event;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.databinding.library.baseAdapters.BR;
 
+import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.PhotoUrl;
+import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.ui.mvpview.event.EventDetailMvpView;
 import org.unimelb.itime.ui.presenter.event.EventDetailPresenter;
 import org.unimelb.itime.util.AppUtil;
 import org.unimelb.itime.widget.PhotoViewLayout;
+import org.unimelb.itime.widget.ScalableLayout;
 import org.unimelb.itime.widget.popupmenu.PopupMenu;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +46,77 @@ public class EventDetailViewModel extends BaseObservable{
     private List<PopupMenu.Item> menuItems;
     private List<String> avatarList = new ArrayList<>();
     private String calendarType = "";
+    private List<TimeSlot> timeSlots;
+    private List<TimeSlot> selectedTimeSlots = new ArrayList<TimeSlot>();
+    private boolean showTimeSlotSheet = true;
+
+    @Bindable
+    public boolean isShowTimeSlotSheet() {
+        return showTimeSlotSheet;
+    }
+
+    public void setShowTimeSlotSheet(boolean showTimeSlotSheet) {
+        this.showTimeSlotSheet = showTimeSlotSheet;
+        notifyPropertyChanged(BR.showTimeSlotSheet);
+        notifyPropertyChanged(BR.bottomSheetMask);
+    }
+
+    public ScalableLayout.OnStatusChangeListener getOnStatusChangeListener(){
+        return new ScalableLayout.OnStatusChangeListener() {
+            @Override
+            public void onStatusChange(ScalableLayout layout, int oldStatus, int newStatus) {
+                if(newStatus == ScalableLayout.STATUS_HIDE){
+                    setShowTimeSlotSheet(false);
+                }else{
+                    setShowTimeSlotSheet(true);
+                }
+            }
+        };
+    }
+
+    public View.OnClickListener getOnTimeSlotSheetClickListener(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setShowTimeSlotSheet(!isShowTimeSlotSheet());
+            }
+        };
+    }
+
+    @Bindable
+    public int getBottomSheetMask(){
+        if(showTimeSlotSheet){
+            return R.color.mask_cover;
+        }else{
+            return R.color.transparent;
+        }
+    }
+
+    @Bindable
+    public List<TimeSlot> getTimeSlots() {
+        return timeSlots;
+    }
+
+    public void setTimeSlots(List<TimeSlot> timeSlots) {
+        this.timeSlots = timeSlots;
+        notifyPropertyChanged(BR.timeSlots);
+    }
+
+    @Bindable
+    public List<TimeSlot> getSelectedTimeSlots() {
+        return selectedTimeSlots;
+    }
+
+    public void setSelectedTimeSlots(List<TimeSlot> selectedTimeSlots) {
+        this.selectedTimeSlots = selectedTimeSlots;
+        notifyPropertyChanged(BR.selectedTimeSlots);
+    }
+
+    @Bindable
+    public String getSubmitBtnString() {
+        return context.getResources().getString(R.string.create_event_submit_vote)
+                +" ("+selectedTimeSlots.size()+"/"+timeSlots.size()+")";
+    }
 
     @Bindable
     public String getCalendarType() {
@@ -345,6 +421,10 @@ public class EventDetailViewModel extends BaseObservable{
             photos.add(invitee.getPhoto());
         }
         setAvatarList(photos);
+        setCalendarType("iTime");
+        setTimeSlots(event.getTimeslots());
+        selectedTimeSlots.clear();
+        notifyPropertyChanged(BR.submitBtnString);
 //        setCalendarType(CalendarUtil.getInstance(context).getCalendarName(event));
     }
 
@@ -447,4 +527,6 @@ public class EventDetailViewModel extends BaseObservable{
 //        this.timeslotItemView = timeslotItemView;
 //        notifyPropertyChanged(BR.timeslotItemView);
 //    }
+
+
 }

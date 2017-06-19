@@ -5,6 +5,7 @@
     <data>
         <import type="android.view.View" />
         <import type="org.unimelb.itime.bean.Event"/>
+        <import type="org.unimelb.itime.widget.ScalableLayout"/>
 
         <variable
             name="contentVM"
@@ -348,5 +349,136 @@
                         </RelativeLayout>
     </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+                <!--bottomsheet-->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@{contentVM.bottomSheetMask}">
+                <org.unimelb.itime.widget.ScalableLayout
+                    android:orientation="vertical" android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/s3"
+                    android:layout_marginRight="@dimen/s3"
+                    android:layout_gravity="bottom"
+                    app:scalablelayout_onStatusChange="@{contentVM.onStatusChangeListener}"
+                    app:scalablelayout_hideheight="55dp"
+                    app:scalablelayout_collapseheight="600dp"
+                    app:scalablelayout_expandheight="800dp"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/standard_detail_cell_height"
+                        android:paddingLeft="@dimen/s2"
+                        android:paddingRight="@dimen/s2"
+                        android:orientation="horizontal"
+                        android:background="@color/brand_bg_mainlight">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_body"
+                            android:textSize="@dimen/font_large"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:text="@string/create_event_choosetimeslots"
+                            android:layout_marginLeft="4dp" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/bg_cornor_border_blue">
+                            <View
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/create_event_view_in_calendar"
+                                android:textSize="@dimen/font_tiny"
+                                android:textColor="@color/brand_main"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginRight="8dp"/>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginRight="4dp"
+                            android:onClick="@{contentVM.onTimeSlotSheetClickListener}"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/standard_detail_cell_height"
+                        android:layout_marginRight="@dimen/s2"
+                        android:layout_marginLeft="@dimen/s2"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical"
+                        android:background="@color/white">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_body"
+                            android:textSize="@dimen/font_large"
+                            android:layout_weight="1"
+                            android:text="Repeat Every Week"
+                            android:layout_marginLeft="4dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_body"
+                            android:textSize="@dimen/font_large"
+                            android:layout_weight="1"
+                            android:text="Until 04:00 pm WED, 20 JUL"
+                            android:layout_marginLeft="4dp" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/s2"
+                        android:layout_marginRight="@dimen/s2"
+                        android:background="@color/white"/>
+
+                    <!--buttons part-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                    <!--Can't go-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/standard_detail_cell_height"
+                        android:textColor="@color/brand_warning"
+                        android:text="@string/create_event_icannotgoatalltimeslots"
+                        android:gravity="center"
+                        android:background="@drawable/selector_warning_button"
+                        />
+
+                    <!--submit disabled-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/standard_detail_cell_height"
+                        android:textColor="@color/brand_main"
+                        android:background="@color/brand_bg_mainlight"
+                        android:text="@{contentVM.submitBtnString}"
+                        android:gravity="center"
+                        />
+
+                    <!--submit able-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/standard_detail_cell_height"
+                        android:textColor="@color/white"
+                        android:text="@{contentVM.submitBtnString}"
+                        android:gravity="center"
+                        android:background="@drawable/selector_brand_blue_button"
+                        />
+                    </LinearLayout>
+                </org.unimelb.itime.widget.ScalableLayout>
+                </FrameLayout>
     </android.support.design.widget.CoordinatorLayout>
 </layout>
