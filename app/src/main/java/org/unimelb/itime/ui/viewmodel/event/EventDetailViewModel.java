@@ -4,6 +4,7 @@ package org.unimelb.itime.ui.viewmodel.event;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
@@ -50,6 +51,56 @@ public class EventDetailViewModel extends BaseObservable{
     private List<TimeSlot> selectedTimeSlots = new ArrayList<TimeSlot>();
     private boolean showTimeSlotSheet = true;
 
+    private boolean showConfirmVoteButton;
+    private boolean showCantGoVoteButton;
+    private boolean showSubmitVoteButton;
+    private boolean showSubmitVoteDisableButton;
+
+    @Bindable
+    public boolean isShowSubmitVoteDisableButton() {
+        return showSubmitVoteDisableButton;
+    }
+
+    public void setShowSubmitVoteDisableButton(boolean showSubmitVoteDisableButton) {
+        this.showSubmitVoteDisableButton = showSubmitVoteDisableButton;
+        notifyPropertyChanged(BR.showSubmitVoteDisableButton);
+    }
+
+    @Bindable
+    public boolean isShowConfirmVoteButton() {
+        return showConfirmVoteButton;
+    }
+
+    public void setShowConfirmVoteButton(boolean showConfirmVoteButton) {
+        this.showConfirmVoteButton = showConfirmVoteButton;
+        notifyPropertyChanged(BR.showConfirmVoteButton);
+
+    }
+
+    @Bindable
+    public boolean isShowCantGoVoteButton() {
+        return showCantGoVoteButton;
+    }
+
+    public void setShowCantGoVoteButton(boolean showCantGoVoteButton) {
+        this.showCantGoVoteButton = showCantGoVoteButton;
+        notifyPropertyChanged(BR.showCantGoVoteButton);
+    }
+
+    @Bindable
+    public boolean isShowSubmitVoteButton() {
+        return showSubmitVoteButton;
+    }
+
+    public void setShowSubmitVoteButton(boolean showSubmitVoteButton) {
+        this.showSubmitVoteButton = showSubmitVoteButton;
+        notifyPropertyChanged(BR.showSubmitVoteButton);
+    }
+
+    private void setTimeSlotBottomSheetButtonVisibilities(){
+        setShowConfirmVoteButton(true);
+    }
+
     @Bindable
     public boolean isShowTimeSlotSheet() {
         return showTimeSlotSheet;
@@ -61,10 +112,41 @@ public class EventDetailViewModel extends BaseObservable{
         notifyPropertyChanged(BR.bottomSheetMask);
     }
 
+    public View.OnClickListener onSubmitVoteClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        };
+    }
+
+    public View.OnClickListener onConfirmClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        };
+    }
+
+    public View.OnClickListener onCantGoAllClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        };
+    }
+
     public ScalableLayout.OnStatusChangeListener getOnStatusChangeListener(){
         return new ScalableLayout.OnStatusChangeListener() {
             @Override
             public void onStatusChange(ScalableLayout layout, int oldStatus, int newStatus) {
+                if(newStatus==ScalableLayout.STATUS_SCROLL){
+                    return;
+                }
+
                 if(newStatus == ScalableLayout.STATUS_HIDE){
                     setShowTimeSlotSheet(false);
                 }else{
@@ -84,11 +166,11 @@ public class EventDetailViewModel extends BaseObservable{
     }
 
     @Bindable
-    public int getBottomSheetMask(){
+    public Drawable getBottomSheetMask(){
         if(showTimeSlotSheet){
-            return R.color.mask_cover;
+            return new ColorDrawable(context.getResources().getColor(R.color.mask_cover));
         }else{
-            return R.color.transparent;
+            return new ColorDrawable(context.getResources().getColor(R.color.transparent));
         }
     }
 
@@ -424,6 +506,7 @@ public class EventDetailViewModel extends BaseObservable{
         setCalendarType("iTime");
         setTimeSlots(event.getTimeslots());
         selectedTimeSlots.clear();
+        setTimeSlotBottomSheetButtonVisibilities();
         notifyPropertyChanged(BR.submitBtnString);
 //        setCalendarType(CalendarUtil.getInstance(context).getCalendarName(event));
     }

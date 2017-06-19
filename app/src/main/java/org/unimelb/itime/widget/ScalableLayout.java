@@ -3,6 +3,7 @@ package org.unimelb.itime.widget;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.databinding.BindingMethod;
 import android.databinding.BindingMethods;
 import android.support.v4.view.ViewCompat;
@@ -12,6 +13,10 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import org.unimelb.itime.R;
+
+import java.util.ArrayList;
 
 /**
  * Created by Qiushuo Huang on 2017/5/2.
@@ -64,6 +69,7 @@ public class ScalableLayout extends LinearLayout{
 
     public ScalableLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        doAttrs(context, attrs, defStyleAttr);
         init();
     }
 
@@ -73,8 +79,21 @@ public class ScalableLayout extends LinearLayout{
     }
 
     public ScalableLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        super(context, attrs, 0);
+        doAttrs(context, attrs, 0);
         init();
+    }
+
+    private void doAttrs(Context context, AttributeSet attrs, int defStyleAttr){
+        TypedArray arr = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ScalableLayout, defStyleAttr, 0);
+        try {
+            hideHeight =  arr.getDimensionPixelSize(R.styleable.ScalableLayout_scalablelayout_hideheight, hideHeight);
+            collapseHeight = arr.getDimensionPixelSize(R.styleable.ScalableLayout_scalablelayout_collapseheight, collapseHeight);
+            expandHeight = arr.getDimensionPixelSize(R.styleable.ScalableLayout_scalablelayout_expandheight, expandHeight);
+            Log.e("s","");
+        } finally {
+            arr.recycle();
+        }
     }
 
     private void init(){
@@ -585,6 +604,7 @@ public class ScalableLayout extends LinearLayout{
 
     public void setHideHeight(int hideHeight) {
         this.hideHeight = hideHeight;
+        Log.e("hideHeight",hideHeight+"");
     }
 
     public OnStatusChangeListener getOnStatusChangeListener() {

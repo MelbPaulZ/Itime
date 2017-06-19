@@ -35,6 +35,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:scrollbarStyle="insideOverlay"
+                    android:paddingBottom="@dimen/standard_detail_cell_height"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                     <!--background-->
@@ -353,7 +354,10 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@{contentVM.bottomSheetMask}">
+                    android:background="@color/mask_cover"
+                    android:onClick="@{contentVM.onTimeSlotSheetClickListener}"
+                    android:visibility="@{contentVM.showTimeSlotSheet?View.VISIBLE:View.GONE}"
+                    />
                 <org.unimelb.itime.widget.ScalableLayout
                     android:orientation="vertical" android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -364,6 +368,7 @@
                     app:scalablelayout_hideheight="55dp"
                     app:scalablelayout_collapseheight="600dp"
                     app:scalablelayout_expandheight="800dp"
+                    app:scalablelayout_status="@{contentVM.showTimeSlotSheet?ScalableLayout.STATUS_COLLAPSE:ScalableLayout.STATUS_HIDE}"
                     >
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -371,7 +376,7 @@
                         android:paddingLeft="@dimen/s2"
                         android:paddingRight="@dimen/s2"
                         android:orientation="horizontal"
-                        android:background="@color/brand_bg_mainlight">
+                        android:background="@drawable/bg_top_cornor_bluelight">
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -409,14 +414,16 @@
                             android:onClick="@{contentVM.onTimeSlotSheetClickListener}"/>
                     </LinearLayout>
 
+                    <!--Repeat part-->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="@dimen/standard_detail_cell_height"
-                        android:layout_marginRight="@dimen/s2"
-                        android:layout_marginLeft="@dimen/s2"
+                        android:paddingRight="@dimen/s2"
+                        android:paddingLeft="@dimen/s2"
                         android:orientation="vertical"
                         android:gravity="center_vertical"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:visibility="gone">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -439,15 +446,16 @@
                     <android.support.v7.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/s2"
-                        android:layout_marginRight="@dimen/s2"
+                        android:paddingRight="@dimen/s2"
+                        android:paddingLeft="@dimen/s2"
                         android:background="@color/white"/>
 
                     <!--buttons part-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_marginBottom="@dimen/s3">
                     <!--Can't go-->
                     <TextView
                         android:layout_width="match_parent"
@@ -456,6 +464,8 @@
                         android:text="@string/create_event_icannotgoatalltimeslots"
                         android:gravity="center"
                         android:background="@drawable/selector_warning_button"
+                        android:onClick="@{contentVM.onCantGoAllClick()}"
+                        android:visibility="@{contentVM.showCantGoVoteButton?View.VISIBLE:View.GONE}"
                         />
 
                     <!--submit disabled-->
@@ -463,9 +473,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/standard_detail_cell_height"
                         android:textColor="@color/brand_main"
-                        android:background="@color/brand_bg_mainlight"
+                        android:background="@drawable/bg_bottom_cornor_bluelight"
                         android:text="@{contentVM.submitBtnString}"
                         android:gravity="center"
+                        android:visibility="@{contentVM.showSubmitVoteDisableButton?View.VISIBLE:View.GONE}"
                         />
 
                     <!--submit able-->
@@ -475,10 +486,23 @@
                         android:textColor="@color/white"
                         android:text="@{contentVM.submitBtnString}"
                         android:gravity="center"
-                        android:background="@drawable/selector_brand_blue_button"
+                        android:background="@drawable/selector_brand_blue_bottom_button"
+                        android:onClick="@{contentVM.onSubmitVoteClick()}"
+                        android:visibility="@{contentVM.showSubmitVoteButton?View.VISIBLE:View.GONE}"
                         />
+
+                        <!--confirm-->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/standard_detail_cell_height"
+                            android:textColor="@color/white"
+                            android:text="@string/create_event_confirm"
+                            android:gravity="center"
+                            android:background="@drawable/selector_brand_blue_bottom_button"
+                            android:onClick="@{contentVM.onConfirmClick()}"
+                            android:visibility="@{contentVM.showConfirmVoteButton?View.VISIBLE:View.GONE}"
+                            />
                     </LinearLayout>
                 </org.unimelb.itime.widget.ScalableLayout>
-                </FrameLayout>
     </android.support.design.widget.CoordinatorLayout>
 </layout>
