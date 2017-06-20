@@ -116,7 +116,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         FragmentEventCreateNote fragment = new FragmentEventCreateNote();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
-        getBaseActivity().openFragment(fragment);
+        getBaseActivity().openFragmentBottomUp(fragment);
     }
 
     @Override
@@ -124,7 +124,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         FragmentEventCreateUrl fragment = new FragmentEventCreateUrl();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
-        getBaseActivity().openFragment(fragment);
+        getBaseActivity().openFragmentBottomUp(fragment);
     }
 
     @Override
@@ -132,7 +132,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         FragmentEventRepeat fragment = new FragmentEventRepeat();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
-        getBaseActivity().openFragment(fragment);
+        getBaseActivity().openFragmentBottomUp(fragment);
     }
 
     @Override
