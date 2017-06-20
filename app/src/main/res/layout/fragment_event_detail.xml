@@ -12,6 +12,9 @@
             type="org.unimelb.itime.ui.viewmodel.event.EventDetailViewModel" />
 
     </data>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
             <android.support.design.widget.CoordinatorLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -45,6 +48,7 @@
                         android:orientation="vertical"
                         >
 
+                        <!--vote part-->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -183,7 +187,61 @@
                         </LinearLayout>
 
                         <include layout="@layout/line"/>
+                        <!--time part-->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/time_part"
+                            android:layout_marginTop="@dimen/s1"
+                            android:paddingRight="@dimen/s1"
+                            android:paddingLeft="@dimen/s1"
+                            android:visibility="@{contentVM.eventTimeString.empty?View.GONE:View.VISIBLE}"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/event_detail_time"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentLeft="true"
+                                android:id="@+id/time_title"
+                                android:textSize="@dimen/font_tiny"
+                                android:textColor="@color/pinkishGrey"/>
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{contentVM.eventTimeString}"
+                                android:layout_below="@id/time_title"
+                                android:layout_alignParentLeft="true"
+                                android:id="@+id/time_text"
+                                android:textSize="@dimen/font_large"
+                                android:layout_marginTop="@dimen/s2"
+                                android:maxWidth="234.5dp"
+                                android:textColor="@color/text_body"/>
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:id="@+id/time_icon"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentLeft="true"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/time_text"
+                                android:background="@drawable/bg_cornor_rec_lightblue"
+                                android:paddingTop="@dimen/s3"
+                                android:paddingBottom="@dimen/s3"
+                                android:paddingLeft="@dimen/s2"
+                                android:paddingRight="@dimen/s2"
+                                android:visibility="@{contentVM.alertString.empty?View.GONE:View.VISIBLE}"
+                                android:text="@{contentVM.alertString}"
+                                android:textColor="@color/brand_main"
+                                android:layout_marginTop="@dimen/s2"/>
+                        </RelativeLayout>
+
+                        <!--location part-->
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -350,166 +408,169 @@
                         </RelativeLayout>
     </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-                <!--bottomsheet-->
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/mask_cover"
-                    android:onClick="@{contentVM.onTimeSlotSheetClickListener}"
-                    android:visibility="@{contentVM.showTimeSlotSheet?View.VISIBLE:View.GONE}"
-                    />
-                <org.unimelb.itime.widget.ScalableLayout
-                    android:orientation="vertical" android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/s3"
-                    android:layout_marginRight="@dimen/s3"
-                    android:layout_gravity="bottom"
-                    app:scalablelayout_onStatusChange="@{contentVM.onStatusChangeListener}"
-                    app:scalablelayout_hideheight="55dp"
-                    app:scalablelayout_collapseheight="600dp"
-                    app:scalablelayout_expandheight="800dp"
-                    app:scalablelayout_status="@{contentVM.showTimeSlotSheet?ScalableLayout.STATUS_COLLAPSE:ScalableLayout.STATUS_HIDE}"
-                    >
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/standard_detail_cell_height"
-                        android:paddingLeft="@dimen/s2"
-                        android:paddingRight="@dimen/s2"
-                        android:orientation="horizontal"
-                        android:background="@{contentVM.bottomSheetHeaderDrawable}">
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:textColor="@{contentVM.showTimeSlotSheet? @color/text_body : @color/brand_main}"
-                            android:textSize="@dimen/font_large"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:text="@string/create_event_choosetimeslots"
-                            android:layout_marginLeft="4dp" />
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:layout_gravity="center_vertical"
-                            android:background="@drawable/bg_cornor_border_blue">
-                            <View
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/create_event_view_in_calendar"
-                                android:textSize="@dimen/font_tiny"
-                                android:textColor="@color/brand_main"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginRight="8dp"/>
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginRight="4dp"
-                            android:onClick="@{contentVM.onTimeSlotSheetClickListener}"/>
-                    </LinearLayout>
-
-                    <!--Repeat part-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/standard_detail_cell_height"
-                        android:paddingRight="@dimen/s2"
-                        android:paddingLeft="@dimen/s2"
-                        android:orientation="vertical"
-                        android:gravity="center_vertical"
-                        android:background="@color/white"
-                        android:visibility="gone">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/text_body"
-                            android:textSize="@dimen/font_large"
-                            android:layout_weight="1"
-                            android:text="Repeat Every Week"
-                            android:layout_marginLeft="4dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/text_body"
-                            android:textSize="@dimen/font_large"
-                            android:layout_weight="1"
-                            android:text="Until 04:00 pm WED, 20 JUL"
-                            android:layout_marginLeft="4dp" />
-                    </LinearLayout>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="@dimen/s2"
-                        android:paddingLeft="@dimen/s2"
-                        android:background="@color/white"
-                        app:layoutManager="@{contentVM.timeSlotLayoutManager}"
-                        app:items = "@{contentVM.timeSlotsItems}"
-                        app:itemBinding="@{contentVM.timeSlotItemBinding}"/>
-
-                    <!--buttons part-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginBottom="@dimen/s3">
-                    <!--Can't go-->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/standard_detail_cell_height"
-                        android:textColor="@color/brand_warning"
-                        android:text="@string/create_event_icannotgoatalltimeslots"
-                        android:gravity="center"
-                        android:textSize="@dimen/font_large"
-                        android:background="@drawable/selector_warning_button"
-                        android:onClick="@{contentVM.onCantGoAllClick()}"
-                        android:visibility="@{contentVM.showCantGoVoteButton?View.VISIBLE:View.GONE}"
-                        />
-
-                    <!--submit disabled-->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/standard_detail_cell_height"
-                        android:textColor="@color/brand_main"
-                        android:background="@drawable/bg_bottom_cornor_bluelight"
-                        android:text="@{contentVM.submitBtnString}"
-                        android:gravity="center"
-                        android:textSize="@dimen/font_large"
-                        android:visibility="@{contentVM.showSubmitVoteDisableButton?View.VISIBLE:View.GONE}"
-                        />
-
-                    <!--submit able-->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/standard_detail_cell_height"
-                        android:textColor="@color/white"
-                        android:text="@{contentVM.submitBtnString}"
-                        android:gravity="center"
-                        android:textSize="@dimen/font_large"
-                        android:background="@drawable/selector_brand_blue_bottom_button"
-                        android:onClick="@{contentVM.onSubmitVoteClick()}"
-                        android:visibility="@{contentVM.showSubmitVoteButton?View.VISIBLE:View.GONE}"
-                        />
-
-                        <!--confirm-->
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/standard_detail_cell_height"
-                            android:textColor="@color/white"
-                            android:text="@string/create_event_confirm"
-                            android:gravity="center"
-                            android:textSize="@dimen/font_large"
-                            android:background="@drawable/selector_brand_blue_bottom_button"
-                            android:onClick="@{contentVM.onConfirmClick()}"
-                            android:visibility="@{contentVM.showConfirmVoteButton?View.VISIBLE:View.GONE}"
-                            />
-                    </LinearLayout>
-                </org.unimelb.itime.widget.ScalableLayout>
     </android.support.design.widget.CoordinatorLayout>
+
+    <!--bottomsheet-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/mask_cover"
+        android:onClick="@{contentVM.onTimeSlotSheetClickListener}"
+        android:visibility="@{contentVM.showTimeSlotSheet?View.VISIBLE:View.GONE}"
+        />
+    <org.unimelb.itime.widget.ScalableLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/s3"
+        android:layout_marginRight="@dimen/s3"
+        android:layout_gravity="bottom"
+        app:scalablelayout_onStatusChange="@{contentVM.onStatusChangeListener}"
+        app:scalablelayout_hideheight="55dp"
+        app:scalablelayout_collapseheight="300dp"
+        app:scalablelayout_expandheight="800dp"
+        app:scalablelayout_status="@{contentVM.bottomSheetStatus}"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_detail_cell_height"
+            android:paddingLeft="@dimen/s2"
+            android:paddingRight="@dimen/s2"
+            android:orientation="horizontal"
+            android:background="@{contentVM.bottomSheetHeaderDrawable}">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@{contentVM.showTimeSlotSheet? @color/text_body : @color/brand_main}"
+                android:textSize="@dimen/font_large"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="@string/create_event_choosetimeslots"
+                android:layout_marginLeft="4dp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bg_cornor_border_blue">
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/create_event_view_in_calendar"
+                    android:textSize="@dimen/font_tiny"
+                    android:textColor="@color/brand_main"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="8dp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="4dp"
+                android:onClick="@{contentVM.onTimeSlotSheetClickListener}"/>
+        </LinearLayout>
+
+        <!--Repeat part-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_detail_cell_height"
+            android:paddingRight="@dimen/s2"
+            android:paddingLeft="@dimen/s2"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:background="@color/white"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_body"
+                android:textSize="@dimen/font_large"
+                android:layout_weight="1"
+                android:text="Repeat Every Week"
+                android:layout_marginLeft="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_body"
+                android:textSize="@dimen/font_large"
+                android:layout_weight="1"
+                android:text="Until 04:00 pm WED, 20 JUL"
+                android:layout_marginLeft="4dp" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingRight="@dimen/s2"
+            android:paddingLeft="@dimen/s2"
+            android:background="@color/white"
+            android:layout_weight="1"
+            app:layoutManager="@{contentVM.timeSlotLayoutManager}"
+            app:items = "@{contentVM.timeSlotsItems}"
+            app:itemBinding="@{contentVM.timeSlotItemBinding}"/>
+
+        <!--buttons part-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="@dimen/s3">
+            <!--Can't go-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_detail_cell_height"
+                android:textColor="@color/brand_warning"
+                android:text="@string/create_event_icannotgoatalltimeslots"
+                android:gravity="center"
+                android:textSize="@dimen/font_large"
+                android:background="@drawable/selector_warning_button"
+                android:onClick="@{contentVM.onCantGoAllClick()}"
+                android:visibility="@{contentVM.showCantGoVoteButton?View.VISIBLE:View.GONE}"
+                />
+
+            <!--submit disabled-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_detail_cell_height"
+                android:textColor="@color/brand_main"
+                android:background="@drawable/bg_bottom_cornor_bluelight"
+                android:text="@{contentVM.submitBtnString}"
+                android:gravity="center"
+                android:textSize="@dimen/font_large"
+                android:visibility="@{contentVM.showSubmitVoteDisableButton?View.VISIBLE:View.GONE}"
+                />
+
+            <!--submit able-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_detail_cell_height"
+                android:textColor="@color/white"
+                android:text="@{contentVM.submitBtnString}"
+                android:gravity="center"
+                android:textSize="@dimen/font_large"
+                android:background="@drawable/selector_brand_blue_bottom_button"
+                android:onClick="@{contentVM.onSubmitVoteClick()}"
+                android:visibility="@{contentVM.showSubmitVoteButton?View.VISIBLE:View.GONE}"
+                />
+
+            <!--confirm-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_detail_cell_height"
+                android:textColor="@color/white"
+                android:text="@string/create_event_confirm"
+                android:gravity="center"
+                android:textSize="@dimen/font_large"
+                android:background="@drawable/selector_brand_blue_bottom_button"
+                android:onClick="@{contentVM.onConfirmClick()}"
+                android:visibility="@{contentVM.showConfirmVoteButton?View.VISIBLE:View.GONE}"
+                />
+        </LinearLayout>
+    </org.unimelb.itime.widget.ScalableLayout>
+    </FrameLayout>
 </layout>

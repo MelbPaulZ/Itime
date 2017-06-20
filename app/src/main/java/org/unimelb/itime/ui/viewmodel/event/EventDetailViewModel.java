@@ -45,9 +45,10 @@ public class EventDetailViewModel extends BaseObservable{
     private boolean showEventDetailTips = false;
     private boolean showTips = false;
     private int[] alertTimes;
-    private String alertString = null;
+    private String alertString = "";
     private Invitee host;
     private String coverImg="";
+    private String eventTimeString;
     private int toolbarCollapseColor=0;
     private PopupMenu.OnItemClickListener onMenuClickListener;
     private List<PopupMenu.Item> menuItems;
@@ -67,6 +68,31 @@ public class EventDetailViewModel extends BaseObservable{
     private ObjectAnimator bottomSheetHeaderHideAnimator;
     private static int ANIMATOR_DURATION = 300;
     private LayerDrawable bottomSheetHeaderDrawable;
+    private int bottomSheetStatus;
+
+    @Bindable
+    public String getEventTimeString() {
+        return eventTimeString;
+    }
+
+    public void setEventTimeString(String eventTimeString) {
+        this.eventTimeString = eventTimeString;
+        notifyPropertyChanged(BR.eventTimeString);
+    }
+
+    private void generateEventTimeString(){
+        setEventTimeString("01:00 pm WED, 20 July → \n02:00 pm WED, 21 July");
+    }
+
+    @Bindable
+    public int getBottomSheetStatus() {
+        return bottomSheetStatus;
+    }
+
+    public void setBottomSheetStatus(int bottomSheetStatus) {
+        this.bottomSheetStatus = bottomSheetStatus;
+        notifyPropertyChanged(BR.bottomSheetStatus);
+    }
 
     public Drawable getBottomSheetHeaderDrawable(){
         return bottomSheetHeaderDrawable;
@@ -125,9 +151,9 @@ public class EventDetailViewModel extends BaseObservable{
     public void setShowTimeSlotSheet(boolean showTimeSlotSheet) {
         this.showTimeSlotSheet = showTimeSlotSheet;
         if(showTimeSlotSheet){
-            bottomSheetHeaderDrawable.getDrawable(1).setAlpha(0);
+            bottomSheetHeaderShowAnimator.start();
         }else{
-            bottomSheetHeaderDrawable.getDrawable(1).setAlpha(255);
+            bottomSheetHeaderHideAnimator.start();
         }
         notifyPropertyChanged(BR.showTimeSlotSheet);
         notifyPropertyChanged(BR.bottomSheetMask);
@@ -169,11 +195,13 @@ public class EventDetailViewModel extends BaseObservable{
                 }
 
                 if(newStatus == ScalableLayout.STATUS_HIDE){
-                    setShowTimeSlotSheet(false);
-                    bottomSheetHeaderHideAnimator.start();
+                    if(isShowTimeSlotSheet()) {
+                        setShowTimeSlotSheet(false);
+                    }
                 }else{
-                    setShowTimeSlotSheet(true);
-                    bottomSheetHeaderShowAnimator.start();
+                    if(!isShowTimeSlotSheet()){
+                        setShowTimeSlotSheet(true);
+                    }
                 }
             }
         };
@@ -211,7 +239,13 @@ public class EventDetailViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setShowTimeSlotSheet(!isShowTimeSlotSheet());
+                if(showTimeSlotSheet){
+                    setShowTimeSlotSheet(false);
+                    setBottomSheetStatus(ScalableLayout.STATUS_HIDE);
+                } else{
+                    setShowTimeSlotSheet(true);
+                    setBottomSheetStatus(ScalableLayout.STATUS_COLLAPSE);
+                }
             }
         };
     }
@@ -568,6 +602,8 @@ public class EventDetailViewModel extends BaseObservable{
         selectedTimeSlots.clear();
         setShowTimeSlotSheet(true);
         setTimeSlotBottomSheetButtonVisibilities();
+        generateEventTimeString();
+        setAlertString("Alert 15 minutes before");
         notifyPropertyChanged(BR.submitBtnString);
 //        setCalendarType(CalendarUtil.getInstance(context).getCalendarName(event));
     }

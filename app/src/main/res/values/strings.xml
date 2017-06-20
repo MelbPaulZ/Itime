@@ -19,6 +19,7 @@
     <string name="event_detail_header_hosted_by">Hosted by</string>
     <string name="event_detail_header_invitees">invitees</string>
     <string name="event_detail_location">Location</string>
+    <string name="event_detail_time">Time</string>
     <string name="event_detail_note">Note</string>
     <string name="event_detail_note_read_all">Read All</string>
     <string name="event_detail_url">URL</string>

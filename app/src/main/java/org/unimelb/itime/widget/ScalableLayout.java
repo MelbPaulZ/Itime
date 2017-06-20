@@ -203,14 +203,14 @@ public class ScalableLayout extends LinearLayout{
         moveCount+=y;
         setInternalStatus(STATUS_SCROLL);
         int height = getHeight();
-        int scroll = getScrollY();
+        int scroll = (int) getTranslationY();
         if(height>collapseHeight){
             scale(y);
         }else if(height == collapseHeight && y>0 && scroll==0){
             scale(y);
         }else if(height == collapseHeight && y<0 && scroll==0){
             scroll(y);
-        }else if(scroll<0){
+        }else if(scroll>0){
             scroll(y);
         }
     }
@@ -231,14 +231,15 @@ public class ScalableLayout extends LinearLayout{
     }
 
     private void scroll(int y) {
-        int h = getScrollY() + y;
+        y = -y;
+        int h = (int) (getTranslationY() + y);
 
-        if(h<=hideHeight-collapseHeight){
-            scrollTo(0, hideHeight-collapseHeight);
-        } else if(h<=0) {
-            scrollBy(0, y);
-        } else if (h>0){
-            scrollTo(0,0);
+        if(h>=collapseHeight-hideHeight){
+            setTranslationY(collapseHeight-hideHeight);
+        } else if(h>=0) {
+            setTranslationY(getTranslationY()+y);
+        } else if (h<0){
+            setTranslationY(0);
             scale(h);
         }
     }
@@ -375,9 +376,9 @@ public class ScalableLayout extends LinearLayout{
     }
 
     private ObjectAnimator getShowAnimator(){
-        int start = getScrollY();
+        int start = (int) getTranslationY();
         int end = 0;
-        int time = (end-start)>0?(end-start)/ velocity:0;
+        int time = (start-end)>0?(start-end)/ velocity:0;
         ObjectAnimator animator = ObjectAnimator.ofInt(this, "scroll", start, end).setDuration(time);
         animator.addListener(new Animator.AnimatorListener() {
             @Override
@@ -405,10 +406,11 @@ public class ScalableLayout extends LinearLayout{
     }
 
     private ObjectAnimator getHideAnimator(){
-        int start = getScrollY();
-        int end = -(collapseHeight-hideHeight);
-        int time = (start-end)/ velocity;
-        ObjectAnimator animator = ObjectAnimator.ofInt(this, "scroll", start, end).setDuration(time);
+        int start = (int)getTranslationY();
+        int end = collapseHeight-hideHeight;
+        int time = Math.max((end-start)/ velocity, 0);
+
+        ObjectAnimator animator = ObjectAnimator.ofFloat(this, "translationY", start, end).setDuration(time);
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
@@ -435,7 +437,7 @@ public class ScalableLayout extends LinearLayout{
     }
 
     public void setScroll(int y){
-        this.scrollTo(0, y);
+        setTranslationY(y);
     }
 
     public void setHeight(int height){
@@ -513,7 +515,7 @@ public class ScalableLayout extends LinearLayout{
     private void setExpandToHide(int y){
         y = -y;
         int height = getHeight();
-        int scroll = getScrollY();
+        int scroll = (int) getTranslationY();
         if(height>=collapseHeight && scroll==0){
             scale(y-lastOffset);
         }else{
@@ -525,11 +527,11 @@ public class ScalableLayout extends LinearLayout{
 
     private void setHideToExpand (int offset) {
         int height = getHeight();
-        int scroll = getScrollY();
+        int scroll = (int) getTranslationY();
         int y = offset-lastOffset;
-        if(scroll+y<=0){
+        if(scroll+y>=0){
             scroll(y);
-        }else if(scroll<0 && scroll+y>0){
+        }else if(scroll>0 && scroll+y<0){
             scroll(0-scroll);
             scale(y+scroll);
         }else{
