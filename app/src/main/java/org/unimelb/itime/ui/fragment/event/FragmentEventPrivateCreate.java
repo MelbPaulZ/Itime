@@ -1,16 +1,15 @@
 package org.unimelb.itime.ui.fragment.event;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.PopupWindow;
-
-import com.developer.paul.closabledatabindingview.closableItem.ButtonItem;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
@@ -19,15 +18,13 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.databinding.FragmentEventPrivateCreateBinding;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.activity.LocationActivity;
-import org.unimelb.itime.ui.fragment.component.FragmentEventTimeFragment;
+import org.unimelb.itime.ui.fragment.component.FragmentEventTime;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.event.EventCreatePrivateViewModel;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import static org.unimelb.itime.ui.fragment.event.FragmentEventCreate.REQ_LOCATION;
 
@@ -190,7 +187,13 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void showPopupDialog() {
+        Fragment pre = getFragmentManager().findFragmentByTag("dialog");
+        if (pre!=null) {
+            getFragmentManager().beginTransaction().remove(pre);
+        }
+        FragmentEventTime newFragment = new FragmentEventTime();
 
+        newFragment.show(getFragmentManager(), "dialog");
     }
 
     @Override

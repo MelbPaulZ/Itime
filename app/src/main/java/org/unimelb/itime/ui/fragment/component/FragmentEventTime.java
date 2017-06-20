@@ -1,24 +1,23 @@
 package org.unimelb.itime.ui.fragment.component;
 
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import com.aigestudio.wheelpicker.WheelPicker;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.ITimeTimeslotCalendar;
-import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
-import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
 import org.unimelb.itime.R;
-import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.databinding.FragmentEventTimeBinding;
+import org.unimelb.itime.ui.mvpview.component.Cancellable;
 import org.unimelb.itime.ui.viewmodel.component.EventTimeViewModel;
 import org.unimelb.itime.util.SizeUtil;
 
@@ -31,7 +30,7 @@ import java.util.List;
  * Created by Paul on 19/6/17.
  */
 
-public class FragmentEventTimeFragment extends DialogFragment{
+public class FragmentEventTime extends DialogFragment implements Cancellable{
 
     private FragmentEventTimeBinding binding;
     private EventTimeViewModel vm;
@@ -45,17 +44,34 @@ public class FragmentEventTimeFragment extends DialogFragment{
         if (binding==null){
             binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_time, container, false);
         }
+
+        setDialogPosition();
+
+        getDialog().setCanceledOnTouchOutside(true);
         return binding.getRoot();
     }
+
+    private void setDialogPosition(){
+        Window window = getDialog().getWindow();
+        window.setGravity(Gravity.BOTTOM | Gravity.LEFT);
+
+//        WindowManager.LayoutParams params = window.getAttributes();
+//        params.y = SizeUtil.dip2px(getContext(),60);
+//        window.setAttributes(params);
+
+        // need to set a background so this window can show properly
+        window.setBackgroundDrawable(getResources().getDrawable(R.drawable.triangle));
+    }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        vm = new EventTimeViewModel(getActivity());
+        vm = new EventTimeViewModel(getActivity(),this);
         binding.setVm(vm);
 
-        ITimeTimeslotCalendar datePicker = (ITimeTimeslotCalendar) getActivity().findViewById(R.id.compactcalendar_view);
+        ITimeTimeslotCalendar datePicker = (ITimeTimeslotCalendar) binding.getRoot().findViewById(R.id.compactcalendar_view);
         datePicker.setBodyListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(Date date) {
@@ -68,7 +84,7 @@ public class FragmentEventTimeFragment extends DialogFragment{
             }
         });
 
-        hourPicker = (WheelPicker) getActivity().findViewById(R.id.event_hour_wheel_picker);
+        hourPicker = (WheelPicker) binding.getRoot().findViewById(R.id.event_hour_wheel_picker);
         hourPicker.setSelectedItemTextColor(getResources().getColor(R.color.azure));
         hourPicker.setItemTextSize(SizeUtil.dip2px(getActivity(), 16));
         hourPicker.setVisibleItemCount(5);
@@ -82,7 +98,7 @@ public class FragmentEventTimeFragment extends DialogFragment{
         });
 
 
-        minutePicker = (WheelPicker) getActivity().findViewById(R.id.event_minute_wheel_picker);
+        minutePicker = (WheelPicker) binding.getRoot().findViewById(R.id.event_minute_wheel_picker);
         minutePicker.setSelectedItemTextColor(getResources().getColor(R.color.azure));
         minutePicker.setItemTextSize(SizeUtil.dip2px(getActivity(), 16));
         minutePicker.setVisibleItemCount(5);
@@ -120,5 +136,15 @@ public class FragmentEventTimeFragment extends DialogFragment{
             }
         }
         return minutes;
+    }
+
+    @Override
+    public void cancel() {
+        dismiss();
+    }
+
+    @Override
+    public void save() {
+        dismiss();
     }
 }

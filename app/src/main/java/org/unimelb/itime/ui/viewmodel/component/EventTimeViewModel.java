@@ -8,6 +8,7 @@ import android.view.View;
 
 import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
+import org.unimelb.itime.ui.mvpview.component.Cancellable;
 
 /**
  * Created by Paul on 19/6/17.
@@ -18,10 +19,12 @@ public class EventTimeViewModel extends BaseObservable{
     private Context context;
     public static int EVENT_TIME_START_TIME = 1;
     public static int EVENT_TIME_END_TIME = 2;
+    private Cancellable cancellable;
 
-    public EventTimeViewModel(Context context) {
+    public EventTimeViewModel(Context context, Cancellable cancellable) {
         this.selectTime = EVENT_TIME_START_TIME;
         this.context = context;
+        this.cancellable = cancellable;
     }
 
     @Bindable
@@ -61,4 +64,28 @@ public class EventTimeViewModel extends BaseObservable{
             }
         };
     }
+
+    public View.OnClickListener onClickCancel(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (cancellable!=null){
+                    cancellable.cancel();
+                }
+            }
+        };
+    }
+
+    public View.OnClickListener onClickSave(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (cancellable!=null){
+                    cancellable.save();
+                }
+            }
+        };
+    }
+
+
 }

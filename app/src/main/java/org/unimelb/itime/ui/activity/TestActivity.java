@@ -2,15 +2,13 @@ package org.unimelb.itime.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseActivity;
-import org.unimelb.itime.ui.fragment.component.FragmentEventTimeFragment;
-import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
+import org.unimelb.itime.ui.fragment.component.FragmentEventTime;
 import org.unimelb.itime.ui.fragment.event.FragmentEventPrivateCreate;
 
 /**
@@ -38,9 +36,9 @@ public class TestActivity extends ItimeBaseActivity {
         setContentView(R.layout.activity_test);
 
 //        FragmentEventCreateAlert fragment = new FragmentEventCreateAlert();
-//        FragmentEventPrivateCreate fragment = new FragmentEventPrivateCreate();
+        FragmentEventPrivateCreate fragment = new FragmentEventPrivateCreate();
 //        FragmentEventCreate fragment = new FragmentEventCreate();
-        FragmentEventTimeFragment fragment = new FragmentEventTimeFragment();
+//        FragmentEventTime fragment = new FragmentEventTime();
         getSupportFragmentManager().beginTransaction().add(getFragmentContainerId(), fragment).commit();
     }
 }
