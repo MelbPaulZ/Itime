@@ -241,7 +241,7 @@
                                 android:layout_marginTop="@dimen/s2"/>
                         </RelativeLayout>
 
-                        <!--location part-->
+                        <!--locationString1 part-->
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -263,7 +263,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@{contentVM.event.location}"
+                                android:text="@{contentVM.event.location.locationString1}"
                                 android:layout_below="@id/location_title"
                                 android:layout_alignParentLeft="true"
                                 android:id="@+id/location_text"

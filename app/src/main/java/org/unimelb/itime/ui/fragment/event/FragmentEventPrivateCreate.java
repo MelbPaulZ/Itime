@@ -15,6 +15,7 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.Location;
 import org.unimelb.itime.databinding.FragmentEventPrivateCreateBinding;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.activity.LocationActivity;
@@ -160,7 +161,7 @@ implements EventCreateMvpView, ToolbarInterface{
     @Override
     public void toLocation(Event event) {
         Intent intent = new Intent(getActivity(), LocationActivity.class);
-        intent.putExtra(getString(R.string.location), event.getLocation());
+        intent.putExtra(getString(R.string.location_string1), event.getLocation().getLocationString1());
         startActivityForResult(intent, REQ_LOCATION);
     }
 
@@ -200,9 +201,13 @@ implements EventCreateMvpView, ToolbarInterface{
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==REQ_LOCATION && resultCode == Activity.RESULT_OK){
-            String location = data.getStringExtra(getString(R.string.location));
+            String locationString1 = data.getStringExtra(getString(R.string.location_string1));
+            String locationString2 = data.getStringExtra(getString(R.string.location_string2));
+            Location location = new Location();
+            location.setLocationString1(locationString1);
+            location.setLocationString2(locationString2);
             event.setLocation(location);
-            setEvent(event);
+            vm.setEvent(event);
         }
     }
 }

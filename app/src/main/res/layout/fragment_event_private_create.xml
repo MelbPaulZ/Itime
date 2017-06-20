@@ -16,13 +16,13 @@
         android:id="@+id/private_event_parent_rl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/whiteFive">
 
         <!--background-->
         <LinearLayout
             android:orientation="vertical" android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white">
+            android:background="@color/whiteFive">
         <include layout="@layout/toolbar" bind:vm="@{toolbarVM}"/>
 
         <!--Title-->
@@ -228,10 +228,38 @@
                 style="@style/ItimeCellLeftIcon"
                 android:background="@drawable/icon_event_location" />
 
+            <!--no locationString1 show-->
             <TextView
                 style="@style/itimeCellTitle"
-                android:text="@{vm.getLocationString(vm.event)}"
-                android:textColor="@{vm.getLocationColor(vm.event)}"/>
+                android:visibility="@{vm.getLocationHintVisibility(vm.event)}"
+                android:text="@string/event_location_hint"
+                android:textColor="@color/whiteTwo"/>
+
+
+            <!--locationString1 string 1-->
+            <TextView
+                android:visibility="@{vm.getLocationStringVisibility(vm.event)}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.event.location.locationString1}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="45dp"
+                />
+
+            <TextView
+                android:visibility="@{vm.getLocationStringVisibility(vm.event)}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.event.location.locationString2}"
+                android:layout_alignParentBottom="true"
+                android:textColor="@color/warmGrey"
+                android:textSize="11sp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="45dp"/>
+
+
 
             <TextView style="@style/ItimeDisclosure" />
 

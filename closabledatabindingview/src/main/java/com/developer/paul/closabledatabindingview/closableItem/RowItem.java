@@ -15,6 +15,8 @@ public class RowItem implements ClosableItem {
     private String text;
     private View.OnClickListener clickListener;
     private View.OnClickListener onDeleteClickListener;
+    private RowCreateInterface rowCreateInterface;
+
 
     @Override
     public String getItemName() {
@@ -59,5 +61,18 @@ public class RowItem implements ClosableItem {
 
     public void setOnDeleteClickListener(View.OnClickListener onDeleteClickListener) {
         this.onDeleteClickListener = onDeleteClickListener;
+    }
+
+    public RowCreateInterface getRowCreateInterface() {
+        return rowCreateInterface;
+    }
+
+    public void setRowCreateInterface(RowCreateInterface rowCreateInterface) {
+        this.rowCreateInterface = rowCreateInterface;
+    }
+
+    public interface RowCreateInterface{
+        View onCreateMiddleView(RowItem rowItem);
+        void updateClosableView(RowItem rowItem);
     }
 }

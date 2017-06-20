@@ -26,7 +26,7 @@ public class LocationActivity extends ItimeBaseActivity {
 
     private void init(){
         Intent intent = getIntent();
-        String location = intent.getStringExtra(getString(R.string.location));
+        String location = intent.getStringExtra(getString(R.string.location_string1));
 
         if (location==null) {
             location = "";// TODO: 8/6/17 delete when not testing

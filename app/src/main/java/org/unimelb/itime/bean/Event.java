@@ -50,7 +50,8 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     private String hostUserUid = ""; // add by paul
     private String summary = "";
     private String url = "";
-    private String location = "";
+    @Convert(converter = Event.LocationConverter.class, columnType = String.class)
+    private Location location = new Location();
     private String locationNote = "";
     private double locationLatitude;
     private double locationLongitude;
@@ -112,14 +113,15 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
 
     public Event() {
+
     }
 
-    @Generated(hash = 796061809)
+    @Generated(hash = 1998270945)
     public Event(String eventUid, String eventId, String recurringEventUid, String recurringEventId, String calendarUid,
-            String iCalUID, String hostUserUid, String summary, String url, String location, String locationNote,
-            double locationLatitude, double locationLongitude, String note, boolean isAllDay, int showLevel, String coverPhoto,
-            int alert, List<Invitee> invitees, List<PhotoUrl> photos, List<TimeSlot> timeslots, long startTime, long endTime,
-            int eventType, @NotNull String display) {
+            String iCalUID, String hostUserUid, String summary, String url, Location location, String locationNote,
+            double locationLatitude, double locationLongitude, String note, boolean isAllDay, int showLevel,
+            String coverPhoto, int alert, List<Invitee> invitees, List<PhotoUrl> photos, List<TimeSlot> timeslots,
+            long startTime, long endTime, int eventType, @NotNull String display) {
         this.eventUid = eventUid;
         this.eventId = eventId;
         this.recurringEventUid = recurringEventUid;
@@ -146,6 +148,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.eventType = eventType;
         this.display = display;
     }
+
 
     public List<Invitee> getInvitees() {
         return invitees;
@@ -461,11 +464,11 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.showLevel = showLevel;
     }
 
-    public String getLocation() {
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 
@@ -519,6 +522,20 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
         @Override
         public String convertToDatabaseValue(List<Invitee> entityProperty) {
+            return gson.toJson(entityProperty);
+        }
+    }
+
+    public static class LocationConverter implements PropertyConverter<Location, String>{
+        Gson gson = new Gson();
+        @Override
+        public Location convertToEntityProperty(String databaseValue) {
+            Location location = gson.fromJson(databaseValue, Location.class);
+            return location;
+        }
+
+        @Override
+        public String convertToDatabaseValue(Location entityProperty) {
             return gson.toJson(entityProperty);
         }
     }

@@ -50,12 +50,12 @@ set "proguardExec=proguard.bat"
 set "proguard=%PROGUARD_HOME%\bin\%proguardExec%"
 
 if exist "%proguard%" goto proguardOk
-REM set proguard location for the SDK case
+REM set proguard locationString1 for the SDK case
     set "PROGUARD_HOME=%~dp0\..\..\tools\proguard"
     set "proguard=%PROGUARD_HOME%\bin\%proguardExec%"
 
 if exist "%proguard%" goto proguardOk
-REM set proguard location for the Android tree case
+REM set proguard locationString1 for the Android tree case
     set "PROGUARD_HOME=%~dp0\..\..\..\..\external\proguard"
     set "proguard=%PROGUARD_HOME%\bin\%proguardExec%"
 
