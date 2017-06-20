@@ -1,7 +1,6 @@
 package org.unimelb.itime.ui.fragment.event;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
