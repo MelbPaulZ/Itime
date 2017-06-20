@@ -8,13 +8,13 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Property;
-import org.greenrobot.greendao.annotation.ToMany;
 import org.greenrobot.greendao.converter.PropertyConverter;
 import org.unimelb.itime.util.rulefactory.RuleInterface;
 import org.unimelb.itime.util.rulefactory.RuleModel;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import david.itimecalendar.calendar.listeners.ITimeEventInterface;
@@ -29,6 +29,15 @@ import org.greenrobot.greendao.annotation.Generated;
 public class Event implements ITimeEventInterface<Event>, Serializable, Cloneable, RuleInterface, ITimeComparable<Event> {
 
     private static final long serialVersionUID = -7635944932445335914L;
+
+    public static final String STATUS_PENDING = "pending";
+    public static final String STATUS_UPDATING = "updating";
+    public static final String STATUS_CONFIRMED = "confirmed";
+    public static final String STATUS_CANCELLED = "cancelled";
+
+    public static final String TYPE_GROUP = "group";
+    public static final String TYPE_SOLO = "solo";
+
     @Id
     private String eventUid = "";
     // for other calendars
@@ -48,12 +57,15 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     private String note = "";
     private boolean isAllDay;
     private int showLevel;
+    private String coverPhoto = "";
     private int alert; // mins
-
-
     private transient String[] recurrence = {};
 
-    private String photo = "[]";
+    @Convert(converter = Event.InviteeConverter.class, columnType = String.class)
+    private List<Invitee> invitees = new ArrayList<>();
+
+    @Convert(converter = Event.PhotoUrlConverter.class , columnType = String.class)
+    private List<PhotoUrl> photos = new ArrayList<>();
 
     @Convert(converter = Event.TimeslotConverter.class , columnType = String.class)
     private List<TimeSlot> timeslots = null;
@@ -102,11 +114,12 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     public Event() {
     }
 
-    @Generated(hash = 1588880091)
+    @Generated(hash = 796061809)
     public Event(String eventUid, String eventId, String recurringEventUid, String recurringEventId, String calendarUid,
             String iCalUID, String hostUserUid, String summary, String url, String location, String locationNote,
-            double locationLatitude, double locationLongitude, String note, boolean isAllDay, int showLevel, int alert,
-            String photo, List<TimeSlot> timeslots, long startTime, long endTime, int eventType, @NotNull String display) {
+            double locationLatitude, double locationLongitude, String note, boolean isAllDay, int showLevel, String coverPhoto,
+            int alert, List<Invitee> invitees, List<PhotoUrl> photos, List<TimeSlot> timeslots, long startTime, long endTime,
+            int eventType, @NotNull String display) {
         this.eventUid = eventUid;
         this.eventId = eventId;
         this.recurringEventUid = recurringEventUid;
@@ -123,13 +136,31 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.note = note;
         this.isAllDay = isAllDay;
         this.showLevel = showLevel;
+        this.coverPhoto = coverPhoto;
         this.alert = alert;
-        this.photo = photo;
+        this.invitees = invitees;
+        this.photos = photos;
         this.timeslots = timeslots;
         this.startTime = startTime;
         this.endTime = endTime;
         this.eventType = eventType;
         this.display = display;
+    }
+
+    public List<Invitee> getInvitees() {
+        return invitees;
+    }
+
+    public void setInvitees(List<Invitee> invitees) {
+        this.invitees = invitees;
+    }
+
+    public String getCoverPhoto() {
+        return coverPhoto;
+    }
+
+    public void setCoverPhoto(String coverPhoto) {
+        this.coverPhoto = coverPhoto;
     }
 
     @Override
@@ -389,12 +420,12 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     }
 
 
-    public String getPhoto() {
-        return this.photo;
+    public List<PhotoUrl> getPhotos() {
+        return this.photos;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setPhotos(List<PhotoUrl> photos) {
+        this.photos = photos;
     }
 
     public int getEventType() {
@@ -464,5 +495,31 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         }
     }
 
+    public static class PhotoUrlConverter implements PropertyConverter<List<PhotoUrl> , String>{
+        Gson gson = new Gson();
+        @Override
+        public List<PhotoUrl> convertToEntityProperty(String databaseValue) {
+            Type listType = new TypeToken<List<PhotoUrl>>() {}.getType();
+            return gson.fromJson(databaseValue, listType);
+        }
 
+        @Override
+        public String convertToDatabaseValue(List<PhotoUrl> entityProperty) {
+            return gson.toJson(entityProperty);
+        }
+    }
+
+    public static class InviteeConverter implements PropertyConverter<List<Invitee> , String>{
+        Gson gson = new Gson();
+        @Override
+        public List<Invitee> convertToEntityProperty(String databaseValue) {
+            Type listType = new TypeToken<List<Invitee>>() {}.getType();
+            return gson.fromJson(databaseValue, listType);
+        }
+
+        @Override
+        public String convertToDatabaseValue(List<Invitee> entityProperty) {
+            return gson.toJson(entityProperty);
+        }
+    }
 }
