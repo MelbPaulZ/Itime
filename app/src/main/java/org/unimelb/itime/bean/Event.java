@@ -62,6 +62,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     private int alert; // mins
     private transient String[] recurrence = {};
     private String greeting = "";
+    private int duration = 0;
 
     @Convert(converter = Event.InviteeConverter.class, columnType = String.class)
     private List<Invitee> invitees = new ArrayList<>();
@@ -117,11 +118,11 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
     }
 
-    @Generated(hash = 1553574951)
+    @Generated(hash = 2053313273)
     public Event(String eventUid, String eventId, String recurringEventUid, String recurringEventId, String calendarUid,
             String iCalUID, String hostUserUid, String summary, String url, Location location, String locationNote,
             double locationLatitude, double locationLongitude, String note, boolean isAllDay, int showLevel,
-            String coverPhoto, int alert, String greeting, List<Invitee> invitees, List<PhotoUrl> photos,
+            String coverPhoto, int alert, String greeting, int duration, List<Invitee> invitees, List<PhotoUrl> photos,
             List<TimeSlot> timeslots, long startTime, long endTime, int eventType, @NotNull String display) {
         this.eventUid = eventUid;
         this.eventId = eventId;
@@ -142,6 +143,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.coverPhoto = coverPhoto;
         this.alert = alert;
         this.greeting = greeting;
+        this.duration = duration;
         this.invitees = invitees;
         this.photos = photos;
         this.timeslots = timeslots;
@@ -231,7 +233,11 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     }
 
     public int getDuration(){
-        return (int)((endTime - startTime) /(1000*60));
+        return duration;
+    }
+
+    public void setDuration(int duration){
+        this.duration = duration;
     }
 
     public long getDurationMilliseconds(){

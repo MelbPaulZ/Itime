@@ -1,7 +1,9 @@
 package org.unimelb.itime.util;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
 
+import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.ITimeComparable;
 
@@ -102,5 +104,69 @@ public class EventUtil {
         event.setShowLevel(1);
         event.setEventUid(UUID.randomUUID().toString());
         return event;
+    }
+
+    public static int durationString2Int(Context context, String duration){
+        if (duration.equals(context.getString(R.string.duration_15_minutes))){
+            return 15;
+        }
+
+        if (duration.equals(context.getString(R.string.duration_30_minutes))){
+            return 30;
+        }
+
+        if (duration.equals(context.getString(R.string.duration_45_minutes))){
+            return 45;
+        }
+
+        if (duration.equals(context.getString(R.string.duration_1_hour))){
+            return 60;
+        }
+
+        if (duration.equals(context.getString(R.string.duration_2_hours))){
+            return 120;
+        }
+
+        if (duration.equals(context.getString(R.string.duration_6_hours))){
+            return 360;
+        }
+
+        if (duration.equals(context.getString(R.string.duration_all_day))){
+            return 1440;
+        }
+
+        return -1;
+    }
+
+    public static String durationInt2String(Context context, int duration){
+        if (duration==15){
+            return context.getString(R.string.duration_15_minutes);
+        }
+
+        if (duration==30){
+            return context.getString(R.string.duration_30_minutes);
+        }
+
+        if (duration == 45){
+            return context.getString(R.string.duration_45_minutes);
+        }
+
+        if (duration == 60){
+            return context.getString(R.string.duration_1_hour);
+        }
+
+        if (duration == 120){
+            return context.getString(R.string.duration_2_hours);
+        }
+
+        if (duration == 360){
+            return context.getString(R.string.duration_6_hours);
+        }
+
+        if (duration == 1440){
+            return context.getString(R.string.duration_all_day);
+        }
+
+        return "N/A";
     }
 }

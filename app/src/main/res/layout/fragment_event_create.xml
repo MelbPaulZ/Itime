@@ -89,7 +89,7 @@
 
                 <TextView
                     style="@style/itimeCellRightContent"
-                    android:text="1 hour" />
+                    android:text="@{vm.getDurationString(vm.event)}" />
 
                 <TextView style="@style/ItimeDisclosure" />
 

@@ -22,6 +22,7 @@ import org.unimelb.itime.base.ItimeBaseViewModel;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
+import org.unimelb.itime.util.EventUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -133,6 +134,10 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
 
     public int getLocationStringVisibility(Event event){
         return getLocationHintVisibility(event) == View.VISIBLE? View.GONE: View.VISIBLE;
+    }
+
+    public String getDurationString(Event event){
+        return EventUtil.durationInt2String(presenter.getContext(), event.getDuration()==0? 60 : event.getDuration());
     }
 
 
