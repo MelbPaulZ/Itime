@@ -131,7 +131,7 @@ implements EventCreateMvpView, ToolbarInterface{
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-
+                        getActivity().finish();
                     }
                 })
                 .show();

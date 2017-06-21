@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--<iclude layout="@layout/toolbar" bind:vm="@{toolbarVM}"/>-->
+        <include layout="@layout/toolbar" bind:vm="@{toolbarVM}"/>
 
         <david.itimecalendar.calendar.ui.weekview.TimeSlotView
             android:layout_width="match_parent"

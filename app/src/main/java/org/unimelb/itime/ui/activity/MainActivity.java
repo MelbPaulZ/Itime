@@ -1,5 +1,6 @@
 package org.unimelb.itime.ui.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
@@ -93,12 +94,16 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
 
     @Override
     public void gotoCreateMeeting() {
-        Toast.makeText(this, "meeting", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, EventCreateActivity.class);
+        intent.putExtra(getString(R.string.event_type), getString(R.string.event_type_group));
+        startActivity(intent);
     }
 
     @Override
     public void gotoCreateEvent() {
-        Toast.makeText(this, "event", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, EventCreateActivity.class);
+        intent.putExtra(getString(R.string.event_type), getString(R.string.event_type_solo));
+        startActivity(intent);
     }
 
 

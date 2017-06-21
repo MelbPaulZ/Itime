@@ -108,6 +108,12 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
         }
     }
 
+    private int selectCount = 0;
+    private int total = 7;
+
+    private void updateTitle(){
+        toolbarVM.setTitle(String.format(getString(R.string.toolbar_timeslots_select), selectCount, total));
+    }
     private class TimeslotViewBodyListener implements DayViewBody.OnViewBodyTimeSlotListener{
         @Override
         public void onAllDayRcdTimeslotClick(long dayBeginMilliseconds) {
@@ -116,6 +122,8 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
             //ensure set the start time correctly, otherwise it cannot be shown
             newSlot.setStartTime(dayBeginMilliseconds);
             timeSlotView.addTimeSlot(newSlot);
+            selectCount++;
+            updateTitle();
         }
 
         @Override
@@ -129,6 +137,9 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
             newSlot.setStartTime(draggableTimeSlotView.getNewStartTime());
             newSlot.setEndTime(draggableTimeSlotView.getNewEndTime());
             timeSlotView.addTimeSlot(newSlot);
+            selectCount++;
+            updateTitle();
+
         }
 
         @Override
@@ -144,6 +155,10 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
             newSlot.setStartTime(v.getWrapper().getTimeSlot().getStartTime());
             newSlot.setEndTime(v.getWrapper().getTimeSlot().getEndTime());
             timeSlotView.addTimeSlot(newSlot);
+            selectCount++;
+            updateTitle();
+
+
         }
 
         @Override
@@ -171,6 +186,9 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
         @Override
         public void onTimeSlotDelete(DraggableTimeSlotView draggableTimeSlotView) {
             timeSlotView.removeTimeslot(draggableTimeSlotView.getWrapper());
+            selectCount--;
+            updateTitle();
+
         }
 
     }
