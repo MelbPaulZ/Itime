@@ -61,6 +61,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     private String coverPhoto = "";
     private int alert; // mins
     private transient String[] recurrence = {};
+    private String greeting = "";
 
     @Convert(converter = Event.InviteeConverter.class, columnType = String.class)
     private List<Invitee> invitees = new ArrayList<>();
@@ -116,12 +117,12 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
     }
 
-    @Generated(hash = 1998270945)
+    @Generated(hash = 1553574951)
     public Event(String eventUid, String eventId, String recurringEventUid, String recurringEventId, String calendarUid,
             String iCalUID, String hostUserUid, String summary, String url, Location location, String locationNote,
             double locationLatitude, double locationLongitude, String note, boolean isAllDay, int showLevel,
-            String coverPhoto, int alert, List<Invitee> invitees, List<PhotoUrl> photos, List<TimeSlot> timeslots,
-            long startTime, long endTime, int eventType, @NotNull String display) {
+            String coverPhoto, int alert, String greeting, List<Invitee> invitees, List<PhotoUrl> photos,
+            List<TimeSlot> timeslots, long startTime, long endTime, int eventType, @NotNull String display) {
         this.eventUid = eventUid;
         this.eventId = eventId;
         this.recurringEventUid = recurringEventUid;
@@ -140,6 +141,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.showLevel = showLevel;
         this.coverPhoto = coverPhoto;
         this.alert = alert;
+        this.greeting = greeting;
         this.invitees = invitees;
         this.photos = photos;
         this.timeslots = timeslots;
@@ -148,7 +150,6 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.eventType = eventType;
         this.display = display;
     }
-
 
     public List<Invitee> getInvitees() {
         return invitees;
@@ -482,6 +483,14 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
     public void setAlert(int alert) {
         this.alert = alert;
+    }
+
+    public String getGreeting() {
+        return greeting;
+    }
+
+    public void setGreeting(String greeting) {
+        this.greeting = greeting;
     }
 
     public static class TimeslotConverter implements PropertyConverter<List<TimeSlot> , String> {

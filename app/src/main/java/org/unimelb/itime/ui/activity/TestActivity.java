@@ -8,7 +8,10 @@ import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseActivity;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.ui.fragment.component.FragmentEventTime;
+import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
+import org.unimelb.itime.ui.fragment.event.FragmentEventGreeting;
 import org.unimelb.itime.ui.fragment.event.FragmentEventPrivateCreate;
 
 /**
@@ -36,9 +39,10 @@ public class TestActivity extends ItimeBaseActivity {
         setContentView(R.layout.activity_test);
 
 //        FragmentEventCreateAlert fragment = new FragmentEventCreateAlert();
-        FragmentEventPrivateCreate fragment = new FragmentEventPrivateCreate();
-//        FragmentEventCreate fragment = new FragmentEventCreate();
+//        FragmentEventPrivateCreate fragment = new FragmentEventPrivateCreate();
+        FragmentEventCreate fragment = new FragmentEventCreate();
 //        FragmentEventTime fragment = new FragmentEventTime();
+//        FragmentEventGreeting fragment = new FragmentEventGreeting();
         getSupportFragmentManager().beginTransaction().add(getFragmentContainerId(), fragment).commit();
     }
 }
