@@ -11,6 +11,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -24,11 +25,11 @@ import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.ui.mvpview.event.EventDetailMvpView;
 import org.unimelb.itime.ui.presenter.event.EventDetailPresenter;
 import org.unimelb.itime.util.AppUtil;
+import org.unimelb.itime.widget.OnRecyclerItemClickListener;
 import org.unimelb.itime.widget.PhotoViewLayout;
 import org.unimelb.itime.widget.ScalableLayout;
 import org.unimelb.itime.widget.popupmenu.PopupMenu;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,17 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
  * Created by Paul on 4/09/2016.
  */
 public class EventDetailViewModel extends BaseObservable{
+    public static final int STATUS_NEED_VOTE = 1;
+    public static final int STATUS_VOTED = 2;
+    public static final int STATUS_NEED_CONFIRM = 3;
+    public static final int STATUS_NEED_CONFIRMED = 4;
+    public static final int STATUS_NEED_REVOTE = 5;
+    public static final int STATUS_GOING = 6;
+    public static final int STATUS_NOT_GOING = 7;
+    public static final int STATUS_CANCELED = 8;
+    public static final int STATUS_EXPIRED = 9;
+    private boolean archived = false;
+
     private EventDetailPresenter<EventDetailMvpView> presenter;
     private Event event;
     private EventDetailMvpView mvpView;
@@ -58,6 +70,7 @@ public class EventDetailViewModel extends BaseObservable{
     private List<TimeSlot> selectedTimeSlots = new ArrayList<>();
     private List<EventDetailTimeslotViewModel> timeSlotsItems;
     private boolean showTimeSlotSheet = true;
+    private int status = STATUS_NEED_VOTE;
 
     private boolean showConfirmVoteButton;
     private boolean showCantGoVoteButton;
@@ -69,6 +82,57 @@ public class EventDetailViewModel extends BaseObservable{
     private static int ANIMATOR_DURATION = 300;
     private LayerDrawable bottomSheetHeaderDrawable;
     private int bottomSheetStatus;
+
+    @Bindable
+    public boolean isArchived() {
+        return archived;
+    }
+
+    public void setArchived(boolean archived) {
+        this.archived = archived;
+        notifyPropertyChanged(BR.archived);
+    }
+
+    @Bindable
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+        notifyPropertyChanged(BR.status);
+    }
+
+    public OnRecyclerItemClickListener.OnItemClickListener onTimeSlotClick(){
+        return new OnRecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int i) {
+                EventDetailTimeslotViewModel vm = timeSlotsItems.get(i);
+                Toast.makeText(context, i+"", Toast.LENGTH_SHORT).show();
+                if(vm.isSelected()){
+                    vm.setSelected(false);
+                    selectedTimeSlots.remove(vm.getTimeSlot());
+                }else{
+                    if(vm.isOutdated()){
+                        Toast.makeText(context, context.getString(R.string.event_detail_thetimeslotisoutdated), Toast.LENGTH_SHORT).show();
+                    }else {
+                        vm.setSelected(true);
+                        selectedTimeSlots.add(vm.getTimeSlot());
+                        if (vm.isConflict()) {
+                            Toast.makeText(context, context.getString(R.string.event_detail_youmayhaveconfilict), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+                notifyPropertyChanged(BR.selectedTimeSlots);
+                notifyPropertyChanged(BR.submitBtnString);
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                onItemClick(view, position);
+            }
+        };
+    }
 
     @Bindable
     public String getEventTimeString() {
@@ -228,7 +292,7 @@ public class EventDetailViewModel extends BaseObservable{
     private void generateTimeSlotItems(){
         List<EventDetailTimeslotViewModel> timeSlotsItems = new ArrayList<>();
         for(TimeSlot timeSlot:event.getTimeslots()){
-            EventDetailTimeslotViewModel vm = new EventDetailTimeslotViewModel();
+            EventDetailTimeslotViewModel vm = new EventDetailTimeslotViewModel(context);
             vm.setTimeSlot(timeSlot);
             timeSlotsItems.add(vm);
         }
@@ -282,7 +346,7 @@ public class EventDetailViewModel extends BaseObservable{
 
     @Bindable
     public String getSubmitBtnString() {
-        return context.getResources().getString(R.string.create_event_submit_vote)
+        return context.getResources().getString(R.string.event_detail_submit_vote)
                 +" ("+selectedTimeSlots.size()+"/"+timeSlots.size()+")";
     }
 

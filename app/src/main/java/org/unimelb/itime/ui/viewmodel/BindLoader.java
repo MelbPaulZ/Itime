@@ -6,6 +6,7 @@ import android.databinding.BaseObservable;
 import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.squareup.picasso.Picasso;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.PhotoUrl;
+import org.unimelb.itime.widget.OnRecyclerItemClickListener;
 
 import java.io.File;
 
@@ -78,6 +80,12 @@ public class BindLoader extends BaseObservable {
     @BindingAdapter("bind:onItemClickListener")
     public static void setOnItemClickListener(ListView view, AdapterView.OnItemClickListener listener){
         view.setOnItemClickListener(listener);
+    }
+
+    @BindingAdapter("bind:onItemClickListener")
+    public static void setOnRecyclerItemClickListener(RecyclerView view, OnRecyclerItemClickListener.OnItemClickListener listener){
+        OnRecyclerItemClickListener onRecyclerItemClickListener = new OnRecyclerItemClickListener(view, listener);
+        view.addOnItemTouchListener(onRecyclerItemClickListener);
     }
 
     @BindingAdapter("bind:onPageChangeListener")

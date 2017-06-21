@@ -38,7 +38,6 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:scrollbarStyle="insideOverlay"
-                    android:paddingBottom="@dimen/standard_detail_cell_height"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                     <!--background-->
@@ -223,8 +222,9 @@
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:id="@+id/time_icon"
+                                android:src="@drawable/icon_details_viewincalendar"
                                 android:layout_alignParentTop="true"
-                                android:layout_alignParentLeft="true"/>
+                                android:layout_alignParentRight="true"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -276,8 +276,9 @@
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:id="@+id/location_icon"
+                                android:src="@drawable/icon_details_location"
                                 android:layout_alignParentTop="true"
-                                android:layout_alignParentLeft="true"/>
+                                android:layout_alignParentRight="true"/>
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -406,11 +407,16 @@
                                 android:textSize="@dimen/font_large"
                                 android:textColor="@color/text_body"/>
                         </RelativeLayout>
+
+                        <!--place holder-->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="130dp"/>
     </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.CoordinatorLayout>
 
-    <!--bottomsheet-->
+    <!--timeslotSheet-->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -429,6 +435,7 @@
         app:scalablelayout_collapseheight="300dp"
         app:scalablelayout_expandheight="800dp"
         app:scalablelayout_status="@{contentVM.bottomSheetStatus}"
+        android:visibility="@{(contentVM.status == contentVM.STATUS_NEED_VOTE) || (contentVM.status == contentVM.STATUS_NEED_CONFIRM) ? View.VISIBLE:View.GONE}"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -444,7 +451,7 @@
                 android:textSize="@dimen/font_large"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="@string/create_event_choosetimeslots"
+                android:text="@string/event_detail_choosetimeslots"
                 android:layout_marginLeft="4dp" />
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -456,11 +463,12 @@
                     android:layout_height="20dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"/>
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/icon_details_viewincalendar_small"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/create_event_view_in_calendar"
+                    android:text="@string/event_detail_view_in_calendar"
                     android:textSize="@dimen/font_tiny"
                     android:textColor="@color/brand_main"
                     android:layout_gravity="center_vertical"
@@ -471,7 +479,9 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginRight="4dp"
-                android:onClick="@{contentVM.onTimeSlotSheetClickListener}"/>
+                android:onClick="@{contentVM.onTimeSlotSheetClickListener}"
+                android:background="@drawable/icon_details_loadmore"
+                android:layout_gravity="center_vertical"/>
         </LinearLayout>
 
         <!--Repeat part-->
@@ -510,9 +520,10 @@
             android:paddingLeft="@dimen/s2"
             android:background="@color/white"
             android:layout_weight="1"
-            app:layoutManager="@{contentVM.timeSlotLayoutManager}"
             app:items = "@{contentVM.timeSlotsItems}"
-            app:itemBinding="@{contentVM.timeSlotItemBinding}"/>
+            app:itemBinding="@{contentVM.timeSlotItemBinding}"
+            app:onItemClickListener="@{contentVM.onTimeSlotClick}"
+            app:layoutManager="@{contentVM.timeSlotLayoutManager}"/>
 
         <!--buttons part-->
         <LinearLayout
@@ -525,12 +536,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/standard_detail_cell_height"
                 android:textColor="@color/brand_warning"
-                android:text="@string/create_event_icannotgoatalltimeslots"
+                android:text="@string/event_detail_icannotgoatalltimeslots"
                 android:gravity="center"
                 android:textSize="@dimen/font_large"
                 android:background="@drawable/selector_warning_button"
                 android:onClick="@{contentVM.onCantGoAllClick()}"
-                android:visibility="@{contentVM.showCantGoVoteButton?View.VISIBLE:View.GONE}"
+                android:visibility="@{contentVM.status == contentVM.STATUS_NEED_VOTE?View.VISIBLE:View.GONE}"
                 />
 
             <!--submit disabled-->
@@ -542,7 +553,7 @@
                 android:text="@{contentVM.submitBtnString}"
                 android:gravity="center"
                 android:textSize="@dimen/font_large"
-                android:visibility="@{contentVM.showSubmitVoteDisableButton?View.VISIBLE:View.GONE}"
+                android:visibility="@{(contentVM.status == contentVM.STATUS_NEED_VOTE &amp; contentVM.selectedTimeSlots.empty)?View.VISIBLE:View.GONE}"
                 />
 
             <!--submit able-->
@@ -555,7 +566,7 @@
                 android:textSize="@dimen/font_large"
                 android:background="@drawable/selector_brand_blue_bottom_button"
                 android:onClick="@{contentVM.onSubmitVoteClick()}"
-                android:visibility="@{contentVM.showSubmitVoteButton?View.VISIBLE:View.GONE}"
+                android:visibility="@{(contentVM.status == contentVM.STATUS_NEED_VOTE) &amp; (!contentVM.selectedTimeSlots.empty)?View.VISIBLE:View.GONE}"
                 />
 
             <!--confirm-->
@@ -563,14 +574,128 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/standard_detail_cell_height"
                 android:textColor="@color/white"
-                android:text="@string/create_event_confirm"
+                android:text="@string/event_detail_confirm"
                 android:gravity="center"
                 android:textSize="@dimen/font_large"
                 android:background="@drawable/selector_brand_blue_bottom_button"
                 android:onClick="@{contentVM.onConfirmClick()}"
-                android:visibility="@{contentVM.showConfirmVoteButton?View.VISIBLE:View.GONE}"
+                android:visibility="@{contentVM.status == contentVM.STATUS_NEED_CONFIRM?View.VISIBLE:View.GONE}"
                 />
         </LinearLayout>
     </org.unimelb.itime.widget.ScalableLayout>
+
+        <!--Revote Sheet-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/s3"
+            android:orientation="vertical"
+            android:visibility="@{contentVM.status == contentVM.STATUS_NEED_REVOTE ? View.VISIBLE:View.GONE}"
+            android:layout_gravity="bottom"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_detail_cell_height"
+                android:textColor="@color/brand_warning"
+                android:text="@string/event_detail_icantgo"
+                android:gravity="center"
+                android:textSize="@dimen/font_large"
+                android:background="@drawable/selector_warning_button"
+                android:onClick="@{contentVM.onConfirmClick()}"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_detail_cell_height"
+                android:textColor="@color/white"
+                android:text="@string/event_detail_Going"
+                android:gravity="center"
+                android:textSize="@dimen/font_large"
+                android:background="@drawable/selector_brand_blue_bottom_button"
+                android:onClick="@{contentVM.onConfirmClick()}"
+                />
+        </LinearLayout>
+
+        <!--Status bar-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_detail_cell_height"
+            android:visibility="@{contentVM.status == contentVM.STATUS_GOING || contentVM.status == contentVM.STATUS_NOT_GOING? View.VISIBLE:View.GONE}"
+            android:background="@color/white"
+            android:paddingLeft="@dimen/s1"
+            android:paddingRight="@dimen/s1"
+            android:layout_gravity="bottom"
+            >
+            <include layout="@layout/line"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:textSize="@dimen/font_large"
+                android:textColor="@color/text_body"
+                android:text="@string/event_detail_youare"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/font_large"
+                android:textColor="@{contentVM.status == contentVM.STATUS_NOT_GOING ? @color/brand_warning : @color/text_detail_label}"
+                android:text="@string/event_detail_Going"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/s1"
+                android:layout_alignParentRight="true"
+                android:id="@+id/status_notgoing_textview"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/font_large"
+                android:textColor="@{contentVM.status == contentVM.STATUS_GOING ? @color/brand_main : @color/text_detail_label}"
+                android:text="@string/event_detail_Going"
+                android:textStyle="bold"
+                android:layout_marginRight="@dimen/s1"
+                android:layout_toLeftOf="@id/status_notgoing_textview"/>
+
+        </RelativeLayout>
+
+        <!--statusbar archive part-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_detail_cell_height"
+            android:visibility="@{contentVM.status == contentVM.STATUS_CANCELED || contentVM.status == contentVM.STATUS_EXPIRED? View.VISIBLE:View.GONE}"
+            android:background="@color/white"
+            android:paddingLeft="@dimen/s1"
+            android:paddingRight="@dimen/s1"
+            android:layout_gravity="bottom"
+            >
+            <include layout="@layout/line"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:textSize="@dimen/font_large"
+                android:textColor="@color/text_body"
+                android:text="@{contentVM.status == contentVM.STATUS_CANCELED ? @string/event_detail_eventcanceled : @string/event_detail_invitationexpired}"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/font_large"
+                android:textColor="@{contentVM.archived ? @color/text_detail_label :@color/brand_main }"
+                android:text="@{contentVM.archived ? @string/event_detail_archived : @string/event_detail_archived}"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/s1"
+                android:layout_alignParentRight="true" />
+
+
+        </RelativeLayout>
     </FrameLayout>
+
+
 </layout>

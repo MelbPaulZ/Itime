@@ -240,7 +240,7 @@ public class ScalableLayout extends LinearLayout{
             setTranslationY(getTranslationY()+y);
         } else if (h<0){
             setTranslationY(0);
-            scale(h);
+            scale(-h);
         }
     }
 
