@@ -4,11 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.GravityEnum;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
@@ -117,7 +122,19 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void onBack() {
+        new MaterialDialog.Builder(getContext())
+                .content(R.string.event_create_cancel_dialog_content)
+                .contentColor(getResources().getColor(R.color.black))
+                .contentGravity(GravityEnum.CENTER)
+                .negativeText(R.string.event_dialog_discard)
+                .positiveText(R.string.event_dialog_keep_editing)
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 
+                    }
+                })
+                .show();
     }
 
     @Override

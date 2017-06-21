@@ -135,7 +135,7 @@ public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCust
             singRepeats.add(getString(R.string.event_custom_repeat_day));
             singRepeats.add(getString(R.string.event_custom_repeat_week));
             singRepeats.add(getString(R.string.event_custom_repeat_month));
-            singRepeats.add(getString(R.string.event_repeat_every_year));
+            singRepeats.add(getString(R.string.event_custom_wheel_year));
         }
         return singRepeats;
     }

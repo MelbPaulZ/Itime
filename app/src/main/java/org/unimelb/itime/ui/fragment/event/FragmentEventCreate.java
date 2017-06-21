@@ -103,7 +103,10 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
 
     @Override
     public void onNext() {
-        Toast.makeText(getContext(), "todo", Toast.LENGTH_SHORT).show();
+        FragmentEventGreeting fragment = new FragmentEventGreeting();
+        Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
+        fragment.setEvent(cpyEvent);
+        getBaseActivity().openFragment(fragment);
     }
 
     @Override
