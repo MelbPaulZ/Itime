@@ -224,7 +224,7 @@
                                 android:id="@+id/time_icon"
                                 android:src="@drawable/icon_details_viewincalendar"
                                 android:layout_alignParentTop="true"
-                                android:layout_alignParentLeft="true"/>
+                                android:layout_alignParentRight="true"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -278,7 +278,7 @@
                                 android:id="@+id/location_icon"
                                 android:src="@drawable/icon_details_location"
                                 android:layout_alignParentTop="true"
-                                android:layout_alignParentLeft="true"/>
+                                android:layout_alignParentRight="true"/>
                         </RelativeLayout>
 
                         <RelativeLayout

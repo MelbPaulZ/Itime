@@ -47,6 +47,8 @@
     <string name="event_detail_invitationexpired">Invitation Expired</string>
     <string name="event_detail_icantgo">I can\'t go</string>
     <string name="event_detail_youare">You are:</string>
+    <string name="event_create_inviteothers">Invite Others</string>
+    <string name="event_create_onlymyself">Only Myself</string>
 
     <!--Timeslots-->
 

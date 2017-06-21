@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.widget.Toast;
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.hannesdorfmann.mosby.mvp.MvpFragment;
@@ -39,6 +40,7 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new MainTabBarViewModel(this);
+        viewModel.setContext(getApplicationContext());
         viewModel.setUnReadNum(0+"");
 
         eventManager = EventManager.getInstance(getApplicationContext());
@@ -88,4 +90,16 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         }
         fragmentTransaction.commit();
     }
+
+    @Override
+    public void gotoCreateMeeting() {
+        Toast.makeText(this, "meeting", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void gotoCreateEvent() {
+        Toast.makeText(this, "event", Toast.LENGTH_SHORT).show();
+    }
+
+
 }

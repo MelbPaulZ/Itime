@@ -99,4 +99,7 @@ dependencies {
 
     //dependent material design
     compile 'com.afollestad.material-dialogs:core:0.9.4.5'
+
+    //photo blur
+//    compile 'com.unimelb.itime:paulcasso:1.0.1'
 }
