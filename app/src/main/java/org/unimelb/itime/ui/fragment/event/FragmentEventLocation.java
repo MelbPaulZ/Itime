@@ -3,11 +3,9 @@ package org.unimelb.itime.ui.fragment.event;
 import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +23,6 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.databinding.FragmentEventLocationBinding;
-import org.unimelb.itime.ui.mvpview.ItimeTaskInterface;
 import org.unimelb.itime.ui.mvpview.event.EventLocationMvpView;
 import org.unimelb.itime.ui.presenter.EventLocationPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
@@ -33,10 +30,6 @@ import org.unimelb.itime.ui.viewmodel.event.EventLocationViewModel;
 import org.unimelb.itime.util.LocationUtil;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import pub.devrel.easypermissions.EasyPermissions;
-
 
 
 /**
@@ -104,7 +97,7 @@ implements ToolbarInterface, EventLocationMvpView, GoogleApiClient.OnConnectionF
         initAutoCompleteAdapter();
 
         vm = new EventLocationViewModel(getPresenter());
-        vm.setLocation(location);
+        vm.setLocationString1(location);
         binding.setVm(vm);
 
         toolbarViewModel= new ToolbarViewModel<>(this);
@@ -126,7 +119,8 @@ implements ToolbarInterface, EventLocationMvpView, GoogleApiClient.OnConnectionF
     @Override
     public void onNext() {
         Intent intent = new Intent();
-        intent.putExtra(getString(R.string.location), vm.getLocation());
+        intent.putExtra(getString(R.string.location_string1), vm.getLocationString1());
+        intent.putExtra(getString(R.string.location_string2), vm.getLocationString2());
         getActivity().setResult(Activity.RESULT_OK, intent);
         getActivity().finish();
         getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
@@ -165,6 +159,11 @@ implements ToolbarInterface, EventLocationMvpView, GoogleApiClient.OnConnectionF
     @Override
     public void onAutoCompletePlaces(ArrayList<AutocompletePrediction> predictions) {
         vm.setSearchResults(predictions);
+    }
+
+    @Override
+    public void onChooseLocation(String location1, String location2) {
+        onNext();
     }
 
 

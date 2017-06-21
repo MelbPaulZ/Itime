@@ -70,8 +70,7 @@ public class EventDetailActivity extends ItimeBaseActivity{
         event.setNote("Width 670 ,margin left&right 20. Just bring whatever foods you like. I’ll take ca whatever foods you like. I’ll take care of all the tools.\n" +
                 "Just bring whatever foods you like. I’ll take care of all the tools. Just bring whatever foods you like. I’ll take care of all the tools. Just bring whatever foods you like. I’ll take care of all the tools. \n" +
                 "are of all the tools. Just bring whatever foods you like. I’ll take care of all the tools. Just bring whatever foods you like. I’ll take care of all the tools.");
-        event.setLocation("Main Yarra Trail loooooooooong\n" +
-                "Line 2 1232");
+
 
         List<PhotoUrl> photos = new ArrayList<>();
         for(int i = 0;i<6;i++){

@@ -2,30 +2,24 @@ package org.unimelb.itime.ui.viewmodel.event;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.databinding.ObservableArrayList;
-import android.databinding.ObservableList;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 
 import com.android.databinding.library.baseAdapters.BR;
-import com.developer.paul.itimerecycleviewgroup.LogUtil;
 import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceLikelihood;
 import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
 
 import org.unimelb.itime.R;
-import org.unimelb.itime.adapter.MyRecyclerViewAdapter;
 import org.unimelb.itime.base.ItimeBaseViewModel;
 import org.unimelb.itime.ui.mvpview.event.EventLocationMvpView;
 import org.unimelb.itime.ui.presenter.EventLocationPresenter;
-import org.unimelb.itime.util.LocationUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -44,12 +38,15 @@ public class EventLocationViewModel extends ItimeBaseViewModel {
 
     private int nearbyLocationNum = 3;
 
-    private String location;
+    private String locationString1;
+    private String locationString2;
     private PlaceLikelihoodBuffer placeLikelihoods;
 
     private EventLocationPresenter<EventLocationMvpView> presenter;
+    private EventLocationMvpView mvpView;
+    private String currentSearchLocation;
 
-    // this is for no location use
+    // this is for no locationString1 use
     private List<LocationRowViewModel> locationRows = new ArrayList<>();
     private OnItemBind<LocationRowViewModel> onItemBind = new OnItemBind<LocationRowViewModel>() {
         @Override
@@ -63,13 +60,13 @@ public class EventLocationViewModel extends ItimeBaseViewModel {
     };
 
 
-    //this is for has location use
+    //this is for has locationString1 use
     private List<LocationRowViewModel> searchedLocationRows = new ArrayList<>();
     public ItemBinding<LocationRowViewModel> searchedLocationItemBinding = ItemBinding.of(BR.locationRowVm, R.layout.row_location_content);
 
 
 
-    // get new current location
+    // get new current locationString1
     public void setPlaceLikelihoods(PlaceLikelihoodBuffer placeLikelihoods) {
         this.placeLikelihoods = placeLikelihoods;
         List<PlaceLikelihood> topLists = findTopLikelihoods(placeLikelihoods);
@@ -80,7 +77,7 @@ public class EventLocationViewModel extends ItimeBaseViewModel {
 
         List<LocationRowViewModel> locationRowViewModels = new ArrayList<>();
         if (topList.size()==0){
-            // no nearby location fetched
+            // no nearby locationString1 fetched
             return;
         }
 
@@ -123,6 +120,7 @@ public class EventLocationViewModel extends ItimeBaseViewModel {
 
     public EventLocationViewModel(EventLocationPresenter<EventLocationMvpView> presenter) {
         this.presenter = presenter;
+        mvpView = presenter.getView();
         mockData();
     }
 
@@ -140,6 +138,7 @@ public class EventLocationViewModel extends ItimeBaseViewModel {
 
             @Override
             public void afterTextChanged(Editable s) {
+                currentSearchLocation = s.toString();
                 if (s.length()>0) {
                     presenter.filterLocation(s.toString());
                 }
@@ -197,6 +196,7 @@ public class EventLocationViewModel extends ItimeBaseViewModel {
 
     public void setSearchResults(ArrayList<AutocompletePrediction> predictions){
         List<LocationRowViewModel> searchedRstList = new ArrayList<>();
+        searchedRstList.add(new LocationRowViewModel(currentSearchLocation, presenter.getContext().getString(R.string.location_custom_location), TYPE_NEARBY));
         for (AutocompletePrediction autocompletePrediction: predictions){
             searchedRstList.add(new LocationRowViewModel((String)autocompletePrediction.getPrimaryText(null), (String)autocompletePrediction.getSecondaryText(null),TYPE_NEARBY));
         }
@@ -225,7 +225,7 @@ public class EventLocationViewModel extends ItimeBaseViewModel {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setLocation("");
+                setLocationString1("");
                 closeKeyBoard(v);
             }
         };
@@ -244,13 +244,21 @@ public class EventLocationViewModel extends ItimeBaseViewModel {
     }
 
     @Bindable
-    public String getLocation() {
-        return location;
+    public String getLocationString1() {
+        return locationString1;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-        notifyPropertyChanged(BR.location);
+    public void setLocationString1(String locationString1) {
+        this.locationString1 = locationString1;
+        notifyPropertyChanged(BR.locationString1);
+    }
+
+    public String getLocationString2() {
+        return locationString2;
+    }
+
+    public void setLocationString2(String locationString2) {
+        this.locationString2 = locationString2;
     }
 
     public class LocationRowViewModel extends BaseObservable{
@@ -269,7 +277,11 @@ public class EventLocationViewModel extends ItimeBaseViewModel {
             return new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setLocation(str1);
+                    setLocationString1(str1);
+                    setLocationString2(str2);
+                    if (mvpView!=null){
+                        mvpView.onChooseLocation(str1, str2);
+                    }
                 }
             };
         }

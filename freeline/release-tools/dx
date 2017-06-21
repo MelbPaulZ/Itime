@@ -38,13 +38,13 @@ jarfile=dx.jar
 libdir="freeline/release-tools"
 
 if [ ! -r "$libdir/$jarfile" ]; then
-    # set dx.jar location for the SDK case
+    # set dx.jar locationString1 for the SDK case
     libdir="$libdir/lib"
 fi
 
 
 if [ ! -r "$libdir/$jarfile" ]; then
-    # set dx.jar location for the Android tree case
+    # set dx.jar locationString1 for the Android tree case
     libdir=`dirname "$progdir"`/framework
 fi
 

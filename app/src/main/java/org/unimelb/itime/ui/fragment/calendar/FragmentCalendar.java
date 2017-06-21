@@ -13,6 +13,7 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.Location;
 import org.unimelb.itime.bean.SpinnerWrapper;
 import org.unimelb.itime.databinding.FragmentCalendarBinding;
 import org.unimelb.itime.manager.EventManager;
@@ -170,7 +171,7 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
             event.setIsAllDay(i%2 == 0);
             event.setDisplayEventType(1);
             event.setDisplayStatus("#63ADF2|slash|icon_normal");
-            event.setLocation("here");
+            event.setLocation(new Location());
             event.setStartTime(startTime);
             event.setEndTime(endTime);
             events.add(event);

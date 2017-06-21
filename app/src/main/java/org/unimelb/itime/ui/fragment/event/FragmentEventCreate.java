@@ -16,6 +16,7 @@ import org.unimelb.itime.base.ItimeBaseActivity;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.Location;
 import org.unimelb.itime.databinding.FragmentEventCreateBinding;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.activity.LocationActivity;
@@ -89,7 +90,6 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
 
     public void setEvent(Event event) {
         this.event = event;
-        vm.setEvent(event);
     }
 
     @Nullable
@@ -116,7 +116,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         FragmentEventCreateNote fragment = new FragmentEventCreateNote();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
-        getBaseActivity().openFragment(fragment);
+        getBaseActivity().openFragmentBottomUp(fragment);
     }
 
     @Override
@@ -124,7 +124,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         FragmentEventCreateUrl fragment = new FragmentEventCreateUrl();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
-        getBaseActivity().openFragment(fragment);
+        getBaseActivity().openFragmentBottomUp(fragment);
     }
 
     @Override
@@ -132,7 +132,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         FragmentEventRepeat fragment = new FragmentEventRepeat();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
-        getBaseActivity().openFragment(fragment);
+        getBaseActivity().openFragmentBottomUp(fragment);
     }
 
     @Override
@@ -154,7 +154,8 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     @Override
     public void toLocation(Event event) {
         Intent intent = new Intent(getActivity(), LocationActivity.class);
-        intent.putExtra(getString(R.string.location), event.getLocation());
+        intent.putExtra(getString(R.string.location_string1), event.getLocation().getLocationString1());
+        intent.putExtra(getString(R.string.location_string2), event.getLocation().getLocationString2());
         startActivityForResult(intent, REQ_LOCATION);
     }
 
@@ -178,12 +179,21 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     }
 
     @Override
+    public void showPopupDialog() {
+        
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==REQ_LOCATION && resultCode == Activity.RESULT_OK){
-            String location = data.getStringExtra(getString(R.string.location));
+            String locationString1 = data.getStringExtra(getString(R.string.location_string1));
+            String locationString2 = data.getStringExtra(getString(R.string.location_string2));
+            Location location = new Location();
+            location.setLocationString1(locationString1);
+            location.setLocationString2(locationString2);
             event.setLocation(location);
-            setEvent(event);
+            vm.setEvent(event);
         }
     }
 

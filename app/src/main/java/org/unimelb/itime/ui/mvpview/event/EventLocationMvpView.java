@@ -16,4 +16,5 @@ public interface EventLocationMvpView extends ItimeBaseMvpView, ItimeTaskInterfa
     void onCurrentLocationSuccess(PlaceLikelihoodBuffer placeLikelihoods);
     void onCurrentLocationFailed(String errorMsg);
     void onAutoCompletePlaces(ArrayList<AutocompletePrediction> predictions);
+    void onChooseLocation(String location1, String location2);
 }

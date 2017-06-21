@@ -71,9 +71,12 @@
 
 
     <!--Location-->
-    <string name="location">Location</string>
+    <string name="locationString1">Location</string>
     <string name="location_nearby">NEARBY</string>
     <string name="location_recent">RECENT</string>
+    <string name="location_string1">location_string1</string>
+    <string name="location_string2">location_string2</string>
+    <string name="location_custom_location">Custom Location</string>
 
     <!--update string here-->
     <string name="event_invitees_title">Invitees</string>
@@ -134,6 +137,10 @@
     <string name="event_alert_1_day_before">1 day before</string>
     <string name="event_alert_2_days_before">2 days before</string>
     <string name="event_alert_1_week_before">1 week before</string>
+
+    <!--Event Time-->
+    <string name="event_time_picker_start">Start</string>
+    <string name="event_time_picker_end">End</string>
 
     <!--hint-->
     <string name="event_note_hint">Note</string>

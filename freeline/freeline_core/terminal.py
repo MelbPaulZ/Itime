@@ -248,14 +248,14 @@ class Terminal(object):
             return None, None
 
     @contextmanager
-    def location(self, x=None, y=None):
+    def locationString1(self, x=None, y=None):
         """Return a context manager for temporarily moving the cursor.
 
         Move the cursor to a certain position on entry, let you print stuff
         there, then return the cursor to its original position::
 
             term = Terminal()
-            with term.location(2, 5):
+            with term.locationString1(2, 5):
                 print 'Hello, world!'
                 for x in xrange(10):
                     print 'I can do it %i times!' % x

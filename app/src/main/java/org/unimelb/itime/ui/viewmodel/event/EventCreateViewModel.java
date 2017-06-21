@@ -6,6 +6,7 @@ import android.databinding.ObservableList;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.bigkoo.alertview.AlertView;
@@ -70,6 +71,28 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
 
     }
 
+    public CompoundButton.OnCheckedChangeListener onAlldayChangeListener(){
+        return new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    event.setIsAllDay(true);
+                }else{
+                    event.setIsAllDay(false);
+                }
+                setEvent(event);
+            }
+        };
+    }
+
+    public int getAllDayVisibility(Event event){
+        return event.isAllDay()? View.VISIBLE:View.GONE;
+    }
+
+    public int getNotAllDayVisibility(Event event){
+        return event.isAllDay()? View.GONE:View.VISIBLE;
+    }
+
     @Bindable
     public List<String> getMockAvatorLists() {
         return mockAvatorLists;
@@ -100,13 +123,20 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         }
     }
 
-    public String getLocationString(Event event){
-        if (event.getLocation().equals("")){
-            return getString(R.string.event_location_hint);
-        }else{
-            return event.getLocation();
+    public int getLocationHintVisibility(Event event){
+        if (event.getLocation().getLocationString1().equals("") &&
+                event.getLocation().getLocationString2().equals("")){
+            return View.VISIBLE;
         }
+        return View.GONE;
     }
+
+    public int getLocationStringVisibility(Event event){
+        return getLocationHintVisibility(event) == View.VISIBLE? View.GONE: View.VISIBLE;
+    }
+
+
+
 
     @Bindable
     public List<ButtonItem> getButtonItems() {
@@ -437,7 +467,17 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         };
         addInList(getString(R.string.photos_toolbar_btn),
                 presenter.getContext().getResources().getDrawable(R.drawable.icon_event_photo),
-                getString(R.string.photos_toolbar_btn), onClickListener, onDeleteListener);
+                getString(R.string.photos_toolbar_btn), onClickListener, onDeleteListener, new RowItem.RowCreateInterface() {
+                    @Override
+                    public View onCreateMiddleView(RowItem rowItem) {
+                        return null; // TODO: 20/6/17 photo layout view
+                    }
+
+                    @Override
+                    public void updateClosableView(RowItem rowItem) {
+                        
+                    }
+                });
         notifyPropertyChanged(BR.rowItems);
 
     }
@@ -457,15 +497,26 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
      */
     protected void addInList(String rowName, Drawable icon, String text,
                            View.OnClickListener onClickListener, View.OnClickListener onDeleteListener){
+        addInList(rowName, icon, text, onClickListener, onDeleteListener, null);
+    }
+
+    protected void addInList(String rowName, Drawable icon, String text,
+                             View.OnClickListener onClickListener, View.OnClickListener onDeleteListener,
+                             RowItem.RowCreateInterface rowCreateInterface){
         RowItem rowItem = new RowItem();
         rowItem.setItemName(rowName);
         rowItem.setIcon(icon);
         rowItem.setText(text);
         rowItem.setClickListener(onClickListener);
         rowItem.setOnDeleteClickListener(onDeleteListener);
+        if (rowCreateInterface!=null){
+            rowItem.setRowCreateInterface(rowCreateInterface);
+        }
         rowItems.add(rowItem);
         notifyPropertyChanged(BR.rowItems);
     }
+
+
 
     protected boolean containRow(String rowName){
         return isIn(rowName, rowItems);

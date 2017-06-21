@@ -36,25 +36,25 @@
             style="@style/itimeCellEdit"
             android:onFocusChange="@{vm.onInputEditFocusChange}"
             android:onEditTextChange="@{vm.locationInputWatcher}"
-            android:text="@={vm.location}"/>
+            android:text="@={vm.locationString1}"/>
         
         <ImageView
             style="@style/itimeCellRightIcon"
-            android:visibility="@{vm.getHasLocationVisibility(vm.location)}"
+            android:visibility="@{vm.getHasLocationVisibility(vm.locationString1)}"
             android:onClick="@{vm.onClickClean()}"
             android:background="@drawable/icon_event_closecell"/>
 
         
     </RelativeLayout>
 
-    <!--No location-->
+    <!--No locationString1-->
     <RelativeLayout
         style="@style/ItimeRelativeCell44"
         android:animateLayoutChanges="true"
-        android:visibility="@{vm.getNoLocationVisibility(vm.location)}"
+        android:visibility="@{vm.getNoLocationVisibility(vm.locationString1)}"
         android:background="@drawable/bg_divider_bottom">
 
-        <!--No location show-->
+        <!--No locationString1 show-->
         <TextView
             style="@style/itimeCellTitle"
             android:layout_marginStart="16dp"
@@ -67,11 +67,11 @@
 
     </RelativeLayout>
 
-    <!--no location, show nearby and recent-->
+    <!--no locationString1, show nearby and recent-->
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="@{vm.getNoLocationVisibility(vm.location)}"
+        android:visibility="@{vm.getNoLocationVisibility(vm.locationString1)}"
         app:layoutManager="@{LayoutManagers.linear()}"
         android:overScrollMode="never"
         app:items="@{vm.locationRows}"
@@ -79,11 +79,11 @@
         />
 
 
-    <!--has location, show searched result-->
+    <!--has locationString1, show searched result-->
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="@{vm.getHasLocationVisibility(vm.location)}"
+        android:visibility="@{vm.getHasLocationVisibility(vm.locationString1)}"
         app:layoutManager="@{LayoutManagers.linear()}"
         android:overScrollMode="never"
         app:items="@{vm.searchedLocationRows}"

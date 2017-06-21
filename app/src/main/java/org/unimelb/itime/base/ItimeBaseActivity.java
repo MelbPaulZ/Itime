@@ -40,7 +40,22 @@ public abstract class ItimeBaseActivity<V extends MvpView, P extends MvpBasePres
         openFragment(fragment, bundle, true);
     }
 
+    public void openFragmentBottomUp(Fragment fragment){
+        openFragmentBottomUp(fragment, null, true);
+    }
+
+    public void openFragmentBottomUp(Fragment fragment, Bundle bundle, boolean isAddedToStack){
+        openFragmentWithAnimation(fragment, bundle, isAddedToStack,
+                R.anim.slide_in_bottom, R.anim.slide_out_up, R.anim.slide_in_top, R.anim.slide_out_bottom);
+    }
+
     public void openFragment(Fragment fragment, Bundle bundle, boolean isAddedToStack){
+        openFragmentWithAnimation(fragment, bundle, isAddedToStack,
+                R.anim.slide_in_right, R.anim.slide_out_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+    }
+
+    private void openFragmentWithAnimation(Fragment fragment, Bundle bundle, boolean isAddedToStack,
+                                           int enter, int exit, int popEnter, int popExit){
         fragmentManager = getSupportFragmentManager();
         if(bundle != null){
             fragment.setArguments(bundle);
@@ -51,7 +66,7 @@ public abstract class ItimeBaseActivity<V extends MvpView, P extends MvpBasePres
         }
 
         FragmentTransaction t = fragmentManager.beginTransaction();
-        t.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        t.setCustomAnimations(enter, exit, popEnter, popExit);
         t.replace(getFragmentContainerId(), fragment, fragment.getClass().getSimpleName());
         if(isAddedToStack){
             t.addToBackStack(fragment.getClass().getSimpleName());
@@ -65,13 +80,25 @@ public abstract class ItimeBaseActivity<V extends MvpView, P extends MvpBasePres
     }
 
     public void backFragment(Fragment fragment, Bundle bundle){
+        backFragmentWithAnimation(fragment, null, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+    }
+
+    public void backFragmentBottomUp(Fragment fragment){
+        backFragment(fragment, null);
+    }
+
+    public void backFragmentButtomUp(Fragment fragment, Bundle bundle){
+        backFragmentWithAnimation(fragment, null, R.anim.slide_in_top, R.anim.slide_out_bottom);
+    }
+
+    private void backFragmentWithAnimation(Fragment fragment, Bundle bundle, int enter, int exit){
         fragmentManager = getSupportFragmentManager();
         if (bundle!=null) {
             fragment.setArguments(bundle);
         }
 
         FragmentTransaction t = fragmentManager.beginTransaction();
-        t.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        t.setCustomAnimations(enter, exit);
         t.replace(getFragmentContainerId(), fragment);
         t.commit();
         fragmentManager.executePendingTransactions();
