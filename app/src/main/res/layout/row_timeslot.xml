@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="timeslotVM"
+            type="org.unimelb.itime.ui.viewmodel.event.TimeslotLineViewModel"/>
+    </data>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="45dp">
+    
+    <ImageView
+        android:layout_width="4dp"
+        android:layout_height="4dp"
+        android:background="@drawable/itime_event_dot"
+        android:layout_marginStart="47dp"
+        android:layout_centerVertical="true"/>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="6.5dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="@{timeslotVM.getTimeString(timeslotVM.timeslot)}"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="65dp"
+        android:layout_marginBottom="5.5dp"
+        android:layout_alignParentBottom="true"
+        android:textSize="11sp"
+        android:textColor="@color/warmGrey"
+        android:text="@{timeslotVM.getDateString(timeslotVM.timeslot)}"/>
+
+</RelativeLayout>
+</layout>

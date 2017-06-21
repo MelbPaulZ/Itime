@@ -3,6 +3,7 @@ package org.unimelb.itime.ui.fragment.calendar;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,11 @@ import android.view.ViewGroup;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.databinding.FragmentCalendarTimeslotBinding;
 import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
@@ -38,6 +41,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
     private EventManager eventManager;
     private TimeSlotView timeSlotView;
     private ToolbarViewModel toolbarVM;
+    private Event event;
     //For TESTING
     ArrayList<TimeSlot> slots = new ArrayList<>();
 
@@ -62,6 +66,9 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
         return new CalendarPresenter<>(getContext());
     }
 
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -76,6 +83,11 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
 
     @Override
     public void onNext() {
+        Fragment fragment = getFrom();
+        if (fragment instanceof FragmentEventCreate){
+            event.setTimeslots(selectedTimeslots);
+            ((FragmentEventCreate) fragment).setEvent(event);
+        }
         getFragmentManager().popBackStack();
     }
 

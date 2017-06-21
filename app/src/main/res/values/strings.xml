@@ -55,7 +55,11 @@
     <string name="event_create_onlymyself">Only Myself</string>
 
     <!--Timeslots-->
-
+    <string name="event_candidate_timeslots">%1$d Candidate Timeslots: </string>
+    <!--12:00 -> 14:00 -->
+    <string name="event_timeslot_single_time">%1$s:%2$s → %3$s:%4$s</string>
+    <!--WED, 20 JUL-->
+    <string name="event_timeslot_single_day">%1$s, %2$s %3$s</string>
 
 
     <!--Title-->

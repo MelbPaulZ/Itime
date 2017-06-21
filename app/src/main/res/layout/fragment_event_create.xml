@@ -10,6 +10,7 @@
         <variable
             name="vm"
             type="org.unimelb.itime.ui.viewmodel.event.EventCreateViewModel"/>
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers"/>
     </data>
     <ScrollView
         android:layout_width="match_parent"
@@ -100,6 +101,7 @@
             <RelativeLayout
                 style="@style/ItimeRelativeCell"
                 android:background="@drawable/bg_divider_bottom"
+                android:visibility="@{vm.getAddTimeslotVisibility(vm.event)}"
                 android:onClick="@{vm.onClickTimeslot()}">
 
                 <ImageView
@@ -112,6 +114,59 @@
 
                 <TextView style="@style/ItimeDisclosure" />
             </RelativeLayout>
+
+            <!--Display timeslots-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{vm.getTimeslotsVisibility(vm.event)}"
+                >
+                <LinearLayout
+                    android:id="@+id/timeslot_linearlayout"
+                    style="@style/ItimeRelativeCell"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_divider_bottom"
+                    android:onClick="@{vm.onClickTimeslot()}">
+
+                    <RelativeLayout
+                        style="@style/ItimeRelativeCell"
+                        android:layout_height="45dp">
+                        <ImageView
+                            style="@style/ItimeCellLeftIcon"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/icon_event_timeslots" />
+
+                        <TextView
+                            style="@style/itimeCellTitle"
+                            android:text="@{vm.getTimeslotsString(vm.event)}" />
+                    </RelativeLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layoutManager="@{LayoutManagers.linear()}"
+                        android:overScrollMode="never"
+                        app:items="@{vm.timeslots}"
+                        app:itemBinding="@{vm.onItemBind}"
+                        />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@+id/timeslot_linearlayout"
+                    android:layout_alignLeft="@+id/timeslot_linearlayout"
+                    android:layout_alignTop="@+id/timeslot_linearlayout"
+                    android:layout_alignBottom="@+id/timeslot_linearlayout"
+                    android:onClick="@{vm.onClickTimeslot()}">
+                    <TextView
+                        style="@style/ItimeDisclosure" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+
 
             <!--Location-->
             <RelativeLayout
