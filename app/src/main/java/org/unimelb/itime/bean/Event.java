@@ -59,7 +59,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     private boolean isAllDay;
     private int showLevel;
     private String coverPhoto = "";
-    private int reminder; // mins
+    private int reminder = -1; // mins
     private transient String[] recurrence = {};
     private String greeting = "";
     private int duration = 0;
@@ -121,6 +121,44 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
     public Event() {
 
+    }
+
+    @Generated(hash = 1263159417)
+    public Event(String eventUid, String eventId, String recurringEventUid, String recurringEventId, String calendarUid,
+            String iCalUID, String hostUserUid, String summary, String url, Location location, String locationNote,
+            double locationLatitude, double locationLongitude, String note, boolean isAllDay, int showLevel,
+            String coverPhoto, int reminder, String greeting, int duration, List<Invitee> invitees, List<PhotoUrl> photos,
+            List<TimeSlot> timeslots, long startTime, long endTime, int eventType, @NotNull String display, TZoneTime start,
+            TZoneTime end) {
+        this.eventUid = eventUid;
+        this.eventId = eventId;
+        this.recurringEventUid = recurringEventUid;
+        this.recurringEventId = recurringEventId;
+        this.calendarUid = calendarUid;
+        this.iCalUID = iCalUID;
+        this.hostUserUid = hostUserUid;
+        this.summary = summary;
+        this.url = url;
+        this.location = location;
+        this.locationNote = locationNote;
+        this.locationLatitude = locationLatitude;
+        this.locationLongitude = locationLongitude;
+        this.note = note;
+        this.isAllDay = isAllDay;
+        this.showLevel = showLevel;
+        this.coverPhoto = coverPhoto;
+        this.reminder = reminder;
+        this.greeting = greeting;
+        this.duration = duration;
+        this.invitees = invitees;
+        this.photos = photos;
+        this.timeslots = timeslots;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.eventType = eventType;
+        this.display = display;
+        this.start = start;
+        this.end = end;
     }
 
 
@@ -468,6 +506,22 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
     public void setGreeting(String greeting) {
         this.greeting = greeting;
+    }
+
+    public TZoneTime getStart() {
+        return this.start;
+    }
+
+    public void setStart(TZoneTime start) {
+        this.start = start;
+    }
+
+    public TZoneTime getEnd() {
+        return this.end;
+    }
+
+    public void setEnd(TZoneTime end) {
+        this.end = end;
     }
 
     public static class TimeslotConverter implements PropertyConverter<List<TimeSlot> , String> {

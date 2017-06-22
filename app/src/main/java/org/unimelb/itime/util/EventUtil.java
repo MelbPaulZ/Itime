@@ -215,4 +215,38 @@ public class EventUtil {
         }
         return "N/A";
     }
+
+    public static int reminderStringToInt(Context context, String reminderString){
+        if (reminderString.equals(context.getString(R.string.event_alert_none))){
+            return -1;
+        }
+        if (reminderString.equals(context.getString(R.string.event_alert_at_time))){
+            return 0;
+        }
+        if (reminderString.equals(context.getString(R.string.event_alert_5_minutes_before))){
+            return 5;
+        }
+        if (reminderString.equals(context.getString(R.string.event_alert_15_minutes_before))){
+            return 15;
+        }
+        if (reminderString.equals(context.getString(R.string.event_alert_30_minutes_before))){
+            return 30;
+        }
+        if (reminderString.equals(context.getString(R.string.event_alert_1_hour_before))){
+            return 60;
+        }
+        if (reminderString.equals(context.getString(R.string.event_alert_2_hours_before))){
+            return 120;
+        }
+        if (reminderString.equals(context.getString(R.string.event_alert_1_day_before))){
+            return 1440;
+        }
+        if (reminderString.equals(context.getString(R.string.event_alert_2_days_before))){
+            return 2880;
+        }
+        if (reminderString.equals(context.getString(R.string.event_alert_1_week_before))){
+            return 10080;
+        }
+        return -100;
+    }
 }

@@ -8,6 +8,7 @@ import com.developer.paul.closabledatabindingview.closableItem.ButtonItem;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
+import org.unimelb.itime.util.EventUtil;
 
 import java.util.HashMap;
 
@@ -69,8 +70,8 @@ public class EventCreatePrivateViewModel extends EventCreateViewModel {
     @Override
     protected void resetButtonsAndRows() {
         super.resetButtonsAndRows();
-        if (event.getReminder()!=0){
-            addAlertToRow(event.getReminder()+"");
+        if (event.getReminder()!=-1){
+            addAlertToRow(EventUtil.reminderIntToString(presenter.getContext(), event.getReminder()));
             removeItem(buttonItems, getString(R.string.alert_toolbar_btn));
         }else{
             addButton(getString(R.string.alert_toolbar_btn));
@@ -109,7 +110,7 @@ public class EventCreatePrivateViewModel extends EventCreateViewModel {
             @Override
             public void onClick(View v) {
                 addButton(getString(R.string.alert_toolbar_btn));
-                event.setReminder(0);
+                event.setReminder(-1);
                 setEvent(event);
             }
         };
