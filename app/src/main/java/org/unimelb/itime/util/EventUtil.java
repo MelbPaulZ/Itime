@@ -8,6 +8,7 @@ import android.util.SparseArray;
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.ITimeComparable;
+import org.unimelb.itime.util.rulefactory.FrequencyEnum;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -266,6 +267,53 @@ public class EventUtil {
             return 10080;
         }
         return -100;
+    }
+
+
+    public static String[] getRepeatFreqStr(){
+        return new String[]{"Daily","Weekly","Monthly","Annually"};
+    }
+
+    public static String[] getRepeatIntervalStr(){
+        return new String[] {"1","2","3","4","5","6","7","8","9","10"};
+    }
+
+    public static FrequencyEnum getFreqEnum(String code){
+        final String[] values = getRepeatFreqStr();
+
+        if (code.equals(values[0])){
+            return FrequencyEnum.DAILY;
+        }else if(code.equals(values[1])){
+            return FrequencyEnum.WEEKLY;
+        }else if(code.equals(values[2])){
+            return FrequencyEnum.MONTHLY;
+        }else if(code.equals(values[3])){
+            return FrequencyEnum.YEARLY;
+        }
+
+        return null;
+    }
+
+    public static String getRepeatStrByFreq(FrequencyEnum frequencyEnum){
+        final String[] values = getRepeatFreqStr();
+
+        if (frequencyEnum == null){
+            return values[0];
+        }
+
+        switch (frequencyEnum){
+            case DAILY:
+                return values[0];
+            case WEEKLY:
+                return values[1];
+            case MONTHLY:
+                return values[2];
+            case YEARLY:
+                return values[3];
+
+        }
+
+        return "UnKnow";
     }
 
 

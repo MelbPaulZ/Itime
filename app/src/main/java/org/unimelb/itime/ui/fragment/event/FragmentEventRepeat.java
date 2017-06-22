@@ -42,7 +42,7 @@ public class FragmentEventRepeat extends ItimeBaseFragment<EventRepeatMvpView, E
 
         vm = new EventRepeatViewModel(getPresenter());
         vm.setEvent(event);
-        toolbarViewModel = new ToolbarViewModel(this);
+        toolbarViewModel = new ToolbarViewModel<>(this);
 
         toolbarViewModel.setTitle(getString(R.string.event_repeat_title));
         toolbarViewModel.setRightText(getString(R.string.event_repeat_toolbar_done));
@@ -50,7 +50,6 @@ public class FragmentEventRepeat extends ItimeBaseFragment<EventRepeatMvpView, E
 
         binding.setVm(vm);
         binding.setToolbarvm(toolbarViewModel);
-
 
     }
 

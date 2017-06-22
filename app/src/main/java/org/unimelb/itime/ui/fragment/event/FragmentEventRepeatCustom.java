@@ -3,6 +3,7 @@ package org.unimelb.itime.ui.fragment.event;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import org.unimelb.itime.ui.presenter.LocalPresenter;
 import org.unimelb.itime.ui.viewmodel.event.EventRepeatCustomViewModel;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.util.SizeUtil;
+import org.unimelb.itime.util.rulefactory.FrequencyEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,6 +101,7 @@ public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCust
                 // update title
                 vm.setFrequencyString((String) wheelPicker.getData().get(position));
                 vm.setGapString((String) freqWheelPicker.getData().get(freqWheelPicker.getSelectedItemPosition()));
+                updateRepeatType(position);
             }
         });
 
@@ -124,9 +127,33 @@ public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCust
                 }
                 vm.setGapString((String) freqWheelPicker.getData().get(position));
                 vm.setFrequencyString((String) wheelPicker.getData().get(wheelPicker.getSelectedItemPosition()));
+                updateInterval(position);
+
             }
         });
 
+    }
+
+    private void updateRepeatType(int position){
+        if (position == 0){
+            event.getRule().setFrequencyEnum(FrequencyEnum.DAILY);
+        }
+        if (position == 1){
+            event.getRule().setFrequencyEnum(FrequencyEnum.WEEKLY);
+        }
+        if (position == 2){
+            event.getRule().setFrequencyEnum(FrequencyEnum.MONTHLY);
+        }
+        if (position == 3){
+            event.getRule().setFrequencyEnum(FrequencyEnum.YEARLY);
+        }
+        event.setRecurrence(event.getRule().getRecurrence());
+
+    }
+
+    private void updateInterval(int position){
+        event.getRule().setInterval(position+1);
+        event.setRecurrence(event.getRule().getRecurrence());
     }
 
     private List<String> getRepeatSingle(){
@@ -197,6 +224,8 @@ public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCust
 
     @Override
     public void onNext() {
+        // // TODO: 22/6/17 go back to event create page
+
         getFragmentManager().popBackStack();
     }
 

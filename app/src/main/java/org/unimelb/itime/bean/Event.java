@@ -1,6 +1,7 @@
 package org.unimelb.itime.bean;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
 import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.greendao.annotation.Convert;
@@ -98,7 +99,8 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.rule = rule;
     }
 
-    private transient RuleModel rule;
+    @Expose(serialize = true, deserialize = true)
+    private transient RuleModel rule = new RuleModel(this);
 
     @Property
     @NotNull
