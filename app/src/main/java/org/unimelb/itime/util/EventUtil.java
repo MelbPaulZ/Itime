@@ -2,16 +2,20 @@ package org.unimelb.itime.util;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.util.SparseArray;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.ITimeComparable;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.TimeZone;
 import java.util.UUID;
@@ -21,6 +25,7 @@ import java.util.UUID;
  */
 
 public class EventUtil {
+    private static String TAG = "EventUtil";
     public final static long allDayMilliseconds = 24 * 60 * 60 * 1000;
 
     public static Calendar getBeginOfDayCalendar(Calendar cal) {
@@ -175,11 +180,24 @@ public class EventUtil {
 
     public static String HOUR_MIN = "kk:mm";
     public static String WEEK_DAY_MONTH = "EEE, dd MMM";
+    public static String TIME_ZONE_PATTERN = "yyyy-MM-dd'T'HH:mm:ssz";
+
     public static String getFormatTimeString(long time, String format){
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(time);
         SimpleDateFormat fmt = new SimpleDateFormat(format);
         return fmt.format(c.getTime());
+    }
+
+    public static Date parseTimeZoneToDate(String dateTime) {
+        Date date = null;
+        try {
+            date = new SimpleDateFormat(TIME_ZONE_PATTERN).parse(dateTime);
+        } catch (ParseException e) {
+            Log.i(TAG, "timeZoneToDate: parse error " + dateTime);
+        }
+        return date;
+
     }
 
     public static String reminderIntToString(Context context, int reminder){
@@ -249,4 +267,6 @@ public class EventUtil {
         }
         return -100;
     }
+
+
 }

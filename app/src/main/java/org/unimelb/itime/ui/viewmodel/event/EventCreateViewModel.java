@@ -26,6 +26,7 @@ import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.util.EventUtil;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -95,6 +96,26 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
 
     public int getNotAllDayVisibility(Event event){
         return event.isAllDay()? View.GONE:View.VISIBLE;
+    }
+
+    public String getEventStartDate(Event event){
+        Date d = EventUtil.parseTimeZoneToDate(event.getStart().getDateTime());
+        return EventUtil.getFormatTimeString(d.getTime(), EventUtil.WEEK_DAY_MONTH);
+    }
+
+    public String getEventEndDate(Event event){
+        Date d = EventUtil.parseTimeZoneToDate(event.getEnd().getDateTime());
+        return EventUtil.getFormatTimeString(d.getTime(), EventUtil.WEEK_DAY_MONTH);
+    }
+
+    public String getEventStartTime(Event event){
+        Date d = EventUtil.parseTimeZoneToDate(event.getStart().getDateTime());
+        return EventUtil.getFormatTimeString(d.getTime(), EventUtil.HOUR_MIN);
+    }
+
+    public String getEventEndTime(Event event){
+        Date d = EventUtil.parseTimeZoneToDate(event.getEnd().getDateTime());
+        return EventUtil.getFormatTimeString(d.getTime(), EventUtil.HOUR_MIN);
     }
 
     @Bindable

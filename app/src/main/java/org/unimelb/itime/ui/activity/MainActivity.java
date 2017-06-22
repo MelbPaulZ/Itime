@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
@@ -27,6 +28,9 @@ import org.unimelb.itime.ui.fragment.event.FragmentEventCreateTitle;
 import org.unimelb.itime.ui.fragment.event.FragmentEventRepeat;
 import org.unimelb.itime.ui.mvpview.MainTabBarView;
 import org.unimelb.itime.ui.viewmodel.MainTabBarViewModel;
+import org.unimelb.itime.util.EventUtil;
+
+import java.util.Date;
 
 public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
     private FragmentManager fragmentManager;
@@ -77,6 +81,7 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
 
         fragmentTransaction.commit();
         showFragmentById(0);
+
     }
 
     @Override

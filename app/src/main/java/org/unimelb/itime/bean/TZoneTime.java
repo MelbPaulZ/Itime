@@ -10,6 +10,14 @@ public class TZoneTime implements Serializable{
     private String dateTime = "";
     private String timeZone = "";
 
+    public TZoneTime() {
+    }
+
+    public TZoneTime(String dateTime, String timeZone) {
+        this.dateTime = dateTime;
+        this.timeZone = timeZone;
+    }
+
     public String getDateTime() {
         return dateTime;
     }
