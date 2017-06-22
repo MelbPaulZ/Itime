@@ -7,6 +7,7 @@ import android.databinding.Bindable;
 import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.TimeSlot;
+import org.unimelb.itime.util.EventUtil;
 
 /**
  * Created by Paul on 21/6/17.
@@ -31,18 +32,18 @@ public class TimeslotLineViewModel extends BaseObservable {
         notifyPropertyChanged(BR.timeslot);
     }
 
-    public String getTimeString(TimeSlot timeslot){
-        String startHour = "12";
-        String startMin = "00";
-        String endHour = "13";
-        String endMin = "30";
-        return String.format(context.getString(R.string.event_timeslot_single_time), startHour, startMin, endHour, endMin);
+    public String getStartTimeString(TimeSlot timeslot){
+        String hourMin = EventUtil.getFormatTimeString(timeslot.getStartTime(), EventUtil.HOUR_MIN);
+        return String.format(context.getString(R.string.event_timeslot_single_start_time), hourMin);
+    }
+
+    public String getEndTimeString(TimeSlot timeSlot){
+        String hourMin = EventUtil.getFormatTimeString(timeSlot.getEndTime(), "kk:mm");
+        return String.format(context.getString(R.string.event_timeslot_single_end_time), hourMin);
     }
 
     public String getDateString(TimeSlot timeslot){
-        String dayOfWeek = "WED";
-        String dateOfMonth = "20";
-        String month = "JUL";
-        return String.format(context.getString(R.string.event_timeslot_single_day), dayOfWeek, dateOfMonth, month);
+        String dateString = EventUtil.getFormatTimeString(timeslot.getStartTime(), EventUtil.WEEK_DAY_MONTH);
+        return String.format(context.getString(R.string.event_timeslot_single_day), dateString);
     }
 }

@@ -7,6 +7,8 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.ITimeComparable;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -167,6 +169,50 @@ public class EventUtil {
             return context.getString(R.string.duration_all_day);
         }
 
+        return "N/A";
+    }
+
+
+    public static String HOUR_MIN = "kk:mm";
+    public static String WEEK_DAY_MONTH = "EEE, dd MMM";
+    public static String getFormatTimeString(long time, String format){
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(time);
+        SimpleDateFormat fmt = new SimpleDateFormat(format);
+        return fmt.format(c.getTime());
+    }
+
+    public static String reminderIntToString(Context context, int reminder){
+        if (reminder == -1){
+            return context.getString(R.string.event_alert_none);
+        }
+        if (reminder == 0){
+            return context.getString(R.string.event_alert_at_time);
+        }
+        if (reminder == 5){
+            return context.getString(R.string.event_alert_5_minutes_before);
+        }
+        if (reminder == 15){
+            return context.getString(R.string.event_alert_15_minutes_before);
+        }
+        if (reminder == 30){
+            return context.getString(R.string.event_alert_30_minutes_before);
+        }
+        if (reminder == 60){
+            return context.getString(R.string.event_alert_1_hour_before);
+        }
+        if (reminder == 120){
+            return context.getString(R.string.event_alert_2_hours_before);
+        }
+        if (reminder == 1440){
+            return context.getString(R.string.event_alert_1_day_before);
+        }
+        if (reminder == 2880){
+            return context.getString(R.string.event_alert_2_days_before);
+        }
+        if (reminder == 10080){
+            return context.getString(R.string.event_alert_1_week_before);
+        }
         return "N/A";
     }
 }

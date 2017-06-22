@@ -69,8 +69,8 @@ public class EventCreatePrivateViewModel extends EventCreateViewModel {
     @Override
     protected void resetButtonsAndRows() {
         super.resetButtonsAndRows();
-        if (event.getAlert()!=0){
-            addAlertToRow(event.getAlert()+"");
+        if (event.getReminder()!=0){
+            addAlertToRow(event.getReminder()+"");
             removeItem(buttonItems, getString(R.string.alert_toolbar_btn));
         }else{
             addButton(getString(R.string.alert_toolbar_btn));
@@ -109,7 +109,7 @@ public class EventCreatePrivateViewModel extends EventCreateViewModel {
             @Override
             public void onClick(View v) {
                 addButton(getString(R.string.alert_toolbar_btn));
-                event.setAlert(0);
+                event.setReminder(0);
                 setEvent(event);
             }
         };

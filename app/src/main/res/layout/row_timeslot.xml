@@ -17,13 +17,35 @@
         android:layout_centerVertical="true"/>
     
     <TextView
+        android:id="@+id/timeslot_string1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="65dp"
         android:layout_marginTop="6.5dp"
         android:textSize="16sp"
         android:textColor="@color/black"
-        android:text="@{timeslotVM.getTimeString(timeslotVM.timeslot)}"
+        android:text="@{timeslotVM.getStartTimeString(timeslotVM.timeslot)}"
+        />
+
+    <ImageView
+        android:id="@+id/timeslot_arrow"
+        android:layout_width="17dp"
+        android:layout_height="20dp"
+        android:background="@drawable/icon_event_arrow"
+        android:layout_toEndOf="@id/timeslot_string1"
+        android:layout_marginTop="6.5dp"
+        android:layout_marginStart="5dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{timeslotVM.getEndTimeString(timeslotVM.timeslot)}"
+        android:layout_toEndOf="@id/timeslot_arrow"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="6.5dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
         />
 
     <TextView

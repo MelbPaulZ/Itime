@@ -59,7 +59,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     private boolean isAllDay;
     private int showLevel;
     private String coverPhoto = "";
-    private int alert; // mins
+    private int reminder; // mins
     private transient String[] recurrence = {};
     private String greeting = "";
     private int duration = 0;
@@ -102,7 +102,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
     @Property
     @NotNull
-    private long startTime;
+    private long startTime; // TODO: 22/6/17  change to starts
     @Property
     @NotNull
     private long endTime;
@@ -113,45 +113,16 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     @NotNull
     private String display = "";
 
+    @Convert(converter = Event.TZoneTimeConverter.class, columnType = String.class)
+    private TZoneTime start = new TZoneTime();
+
+    @Convert(converter = Event.TZoneTimeConverter.class, columnType = String.class)
+    private TZoneTime end = new TZoneTime();
 
     public Event() {
 
     }
 
-    @Generated(hash = 2053313273)
-    public Event(String eventUid, String eventId, String recurringEventUid, String recurringEventId, String calendarUid,
-            String iCalUID, String hostUserUid, String summary, String url, Location location, String locationNote,
-            double locationLatitude, double locationLongitude, String note, boolean isAllDay, int showLevel,
-            String coverPhoto, int alert, String greeting, int duration, List<Invitee> invitees, List<PhotoUrl> photos,
-            List<TimeSlot> timeslots, long startTime, long endTime, int eventType, @NotNull String display) {
-        this.eventUid = eventUid;
-        this.eventId = eventId;
-        this.recurringEventUid = recurringEventUid;
-        this.recurringEventId = recurringEventId;
-        this.calendarUid = calendarUid;
-        this.iCalUID = iCalUID;
-        this.hostUserUid = hostUserUid;
-        this.summary = summary;
-        this.url = url;
-        this.location = location;
-        this.locationNote = locationNote;
-        this.locationLatitude = locationLatitude;
-        this.locationLongitude = locationLongitude;
-        this.note = note;
-        this.isAllDay = isAllDay;
-        this.showLevel = showLevel;
-        this.coverPhoto = coverPhoto;
-        this.alert = alert;
-        this.greeting = greeting;
-        this.duration = duration;
-        this.invitees = invitees;
-        this.photos = photos;
-        this.timeslots = timeslots;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.eventType = eventType;
-        this.display = display;
-    }
 
     public List<Invitee> getInvitees() {
         return invitees;
@@ -483,12 +454,12 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         return this.timeslots;
     }
 
-    public int getAlert() {
-        return alert;
+    public int getReminder() {
+        return reminder;
     }
 
-    public void setAlert(int alert) {
-        this.alert = alert;
+    public void setReminder(int reminder) {
+        this.reminder = reminder;
     }
 
     public String getGreeting() {
@@ -551,6 +522,20 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
         @Override
         public String convertToDatabaseValue(Location entityProperty) {
+            return gson.toJson(entityProperty);
+        }
+    }
+
+    public static class TZoneTimeConverter implements PropertyConverter<TZoneTime, String>{
+        Gson gson = new Gson();
+        @Override
+        public TZoneTime convertToEntityProperty(String databaseValue) {
+            TZoneTime tZoneTime = gson.fromJson(databaseValue, TZoneTime.class);
+            return tZoneTime;
+        }
+
+        @Override
+        public String convertToDatabaseValue(TZoneTime entityProperty) {
             return gson.toJson(entityProperty);
         }
     }
