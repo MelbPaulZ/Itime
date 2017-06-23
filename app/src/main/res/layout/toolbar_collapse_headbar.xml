@@ -74,6 +74,7 @@
             android:id="@+id/inviteeCount"
             android:layout_centerHorizontal="true"/>
     </RelativeLayout>
+
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -127,8 +128,8 @@
                 android:ellipsize="end"/>
             <!--status icon-->
             <ImageView
-                android:layout_width="44dp"
-                android:layout_height="44dp"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/icon_details_mute_statusbar" />
             <!--right imageview-->
@@ -138,7 +139,6 @@
                 android:layout_width="44dp"
                 android:layout_height="44dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="@dimen/s2"
                 android:src="@drawable/icon_details_edit_white"
                 android:background="?android:attr/selectableItemBackground"
                 android:id="@+id/edit_icon" />

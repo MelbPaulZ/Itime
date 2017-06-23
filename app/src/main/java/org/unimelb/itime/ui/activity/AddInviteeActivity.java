@@ -8,41 +8,36 @@ import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseActivity;
-import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Invitee;
-import org.unimelb.itime.bean.Location;
 import org.unimelb.itime.bean.PhotoUrl;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
+import org.unimelb.itime.ui.fragment.event.FragmentEventCreateAddInvitee;
 import org.unimelb.itime.ui.fragment.event.FragmentEventDetail;
+import org.unimelb.itime.ui.viewmodel.event.EventCreateAddInviteeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Qiushuo Huang on 2017/6/18.
+ * Created by Qiushuo Huang on 2017/6/21.
  */
 
-public class EventDetailActivity extends ItimeBaseActivity{
+public class AddInviteeActivity extends ItimeBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_create);
 
-        FragmentEventDetail fragment = new FragmentEventDetail();
-        fragment.setData(getEvent());
+        FragmentEventCreateAddInvitee fragment = new FragmentEventCreateAddInvitee();
         getSupportFragmentManager().beginTransaction().add(R.id.frag_container_event_create,fragment, FragmentEventCreate.class.getSimpleName()).commit();
     }
 
     public Event getEvent(){
         Event event = new Event();
         event.setTitle("Garden Together MEL");
-        Location location = new Location();
-        location.setLocationString1("Main Yarra Trail loooooooooong Line 2 1232");
-        location.setLocationString2("Main Yarra Trail loooooooooong Line 2 1232");
-        event.setLocation(location);
         event.setCoverPhoto("http://s1.dwstatic.com/group1/M00/DA/29/7cb28a3fcf4e3c10459ecbdb89bc409e.jpg");
         event.setHost(true);
         event.setHostUserUid("1");

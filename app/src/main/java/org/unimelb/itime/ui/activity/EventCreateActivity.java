@@ -10,6 +10,7 @@ import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseActivity;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
+import org.unimelb.itime.ui.fragment.event.FragmentEventCreateAddInvitee;
 import org.unimelb.itime.ui.fragment.event.FragmentEventPrivateCreate;
 
 /**
@@ -26,7 +27,7 @@ public class EventCreateActivity extends ItimeBaseActivity {
         String type = getIntent().getStringExtra(getString(R.string.event_type));
         Fragment fragment;
         if (type!=null && type.equals(getString(R.string.event_type_group))){
-            fragment = new FragmentEventCreate();
+            fragment = new FragmentEventCreateAddInvitee();
         }else{
             fragment = new FragmentEventPrivateCreate();
         }
