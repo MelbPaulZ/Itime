@@ -86,13 +86,14 @@ public class FragmentEventCreateAddContact extends ItimeBaseFragment<EventCreate
 
     @Override
     public void onBack() {
-
+        getBaseActivity().onBackPressed();
     }
 
     @Override
     public void onNext() {
         invitees.clear();
         invitees.addAll(viewModel.getSelectedInvitee());
+        onBack();
     }
 
     @Override

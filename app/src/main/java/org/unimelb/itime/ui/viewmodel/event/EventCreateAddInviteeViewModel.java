@@ -2,17 +2,29 @@ package org.unimelb.itime.ui.viewmodel.event;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 import android.view.View;
 
+import org.unimelb.itime.BR;
+import org.unimelb.itime.R;
+import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.ui.mvpview.event.EventCreateAddInviteeMvpView;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
+import org.unimelb.itime.widget.OnRecyclerItemClickListener;
+import org.unimelb.itime.widget.listview.UserInfoViewModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
 /**
  * Created by Qiushuo Huang on 2017/6/22.
@@ -24,10 +36,59 @@ public class EventCreateAddInviteeViewModel extends BaseObservable {
     private EventCreateAddInviteeMvpView mvpView;
     private Event event;
     private List<Invitee> invitees = new ArrayList<>();
+    private ObservableList<UserInfoViewModel> inviteeItems = new ObservableArrayList<>();
     private ToolbarViewModel toolbarViewModel;
 
     public ToolbarViewModel getToolbarViewModel() {
         return toolbarViewModel;
+    }
+
+    public void loadData(){
+        generateInviteeItems(invitees);
+    }
+
+    @Bindable
+    public ObservableList<UserInfoViewModel> getInviteeItems() {
+        return inviteeItems;
+    }
+
+    public void setInviteeItems(ObservableList<UserInfoViewModel> inviteeItems) {
+        this.inviteeItems = inviteeItems;
+        notifyPropertyChanged(BR.inviteeItems);
+    }
+
+    private void generateInviteeItems(List<Invitee> invitees){
+        inviteeItems.clear();
+
+        for(Invitee invitee: invitees){
+            UserInfoViewModel<Invitee> vm = new UserInfoViewModel<>();
+            vm.setData(invitee);
+            vm.setSelect(true);
+            inviteeItems.add(vm);
+        }
+    }
+
+
+    public OnRecyclerItemClickListener.OnItemClickListener getOnItemClick(){
+        return new OnRecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                UserInfoViewModel<Invitee> invitee = inviteeItems.get(position);
+                if(invitees.contains(invitee.getData())){
+                    invitees.remove(invitee.getData());
+                    inviteeItems.remove(invitee);
+                }
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                onItemClick(view, position);
+            }
+        };
+    }
+
+    public ItemBinding getItemBinding(){
+        return ItemBinding.of(com.android.databinding.library.baseAdapters.BR.viewModel, R.layout.listview_selectable_user_item);
     }
 
     public void setToolbarViewModel(ToolbarViewModel toolbarViewModel) {

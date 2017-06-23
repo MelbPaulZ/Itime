@@ -35,7 +35,7 @@ public class UserInfoViewModel<T> extends BaseObservable {
     private SpannableString secondInfo;
     private int matchColor = Color.parseColor("#0089FF");
     private boolean showSecondInfo;
-    private String matchStr;
+    private String matchStr = "";
     private String photo;
     private boolean match = false;
 
@@ -179,7 +179,7 @@ public class UserInfoViewModel<T> extends BaseObservable {
     }
 
     public String getMatchStr(){
-        return "";
+        return matchStr;
     }
 
     public void setMatchStr(String matchStr) {

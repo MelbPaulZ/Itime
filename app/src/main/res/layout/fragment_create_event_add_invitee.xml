@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+        <import type="android.view.View"/>
         <variable
             name="toolbarVM"
             type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel" />
@@ -14,7 +16,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/fragment_background">
-        <include layout="@layout/toolbar" bind:vm="@{toolbarVM}"/>
+        <include layout="@layout/toolbar" app:vm="@{toolbarVM}"/>
         
         <RelativeLayout
             android:layout_width="match_parent"
@@ -45,5 +47,27 @@
                 android:layout_alignParentRight="true"
                 android:onClick="@{vm.onAddClick()}"/>
         </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:text="@string/event_create_recent_invitee"
+            android:textSize="@dimen/font_tiny"
+            android:textColor="@color/warmGrey"
+            android:visibility="@{vm.inviteeItems.empty?View.GONE:View.VISIBLE}"
+            android:gravity="center_vertical"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:items="@{vm.inviteeItems}"
+            app:itemBinding="@{vm.itemBinding}"
+            app:onItemClickListener="@{vm.onItemClick}"
+            app:layoutManager="@{LayoutManagers.linear()}"
+            android:visibility="@{vm.inviteeItems.empty?View.GONE:View.VISIBLE}"
+            />
     </LinearLayout>
 </layout>

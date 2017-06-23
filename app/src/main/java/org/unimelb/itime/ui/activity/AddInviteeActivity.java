@@ -32,6 +32,7 @@ public class AddInviteeActivity extends ItimeBaseActivity {
         setContentView(R.layout.activity_event_create);
 
         FragmentEventCreateAddInvitee fragment = new FragmentEventCreateAddInvitee();
+        fragment.setEvent(new Event());
         getSupportFragmentManager().beginTransaction().add(R.id.frag_container_event_create,fragment, FragmentEventCreate.class.getSimpleName()).commit();
     }
 

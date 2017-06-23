@@ -43,20 +43,35 @@ public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreate
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        contentVM = new EventCreateAddInviteeViewModel(getPresenter());
-        toolbarVM = new ToolbarViewModel(this);
-        toolbarVM.setLeftIcon(getResources().getDrawable(R.drawable.icon_event_closecell));
-        toolbarVM.setRightText(getString(R.string.new_event_toolbar_next));
-        toolbarVM.setRightEnable(false);
-        toolbarVM.setTitle(getString(R.string.event_create_addinvitee));
 
-        contentVM.setToolbarViewModel(toolbarVM);
-        event = new Event();
-        contentVM.setMvpView(this);
-        contentVM.setContext(getContext());
-        contentVM.setEvent(event);
+        if(toolbarVM==null) {
+            toolbarVM = new ToolbarViewModel(this);
+            toolbarVM.setLeftIcon(getResources().getDrawable(R.drawable.icon_event_closecell));
+            toolbarVM.setRightText(getString(R.string.new_event_toolbar_next));
+            toolbarVM.setRightEnable(false);
+            toolbarVM.setTitle(getString(R.string.event_create_addinvitee));
+        }
+
+        if(contentVM==null) {
+            contentVM = new EventCreateAddInviteeViewModel(getPresenter());
+            contentVM.setToolbarViewModel(toolbarVM);
+            contentVM.setMvpView(this);
+            contentVM.setContext(getContext());
+            contentVM.setEvent(event);
+        }
+
         binding.setToolbarVM(toolbarVM);
         binding.setVm(contentVM);
+    }
+
+    public void setEvent(Event event){
+        this.event = event;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        contentVM.loadData();
     }
 
     @Override

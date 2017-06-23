@@ -73,9 +73,10 @@
             android:text="@string/event_create_recent_invitee"
             android:textSize="@dimen/font_tiny"
             android:textColor="@color/warmGrey"
-            android:visibility="@{vm.searching?View.GONE:View.VISIBLE}"/>
+            android:visibility="@{vm.searching || vm.recent.empty?View.GONE:View.VISIBLE}"
+            android:gravity="center_vertical"/>
 
-        <android.support.v7.widget.RecyclerView
+        <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -83,18 +84,17 @@
             app:itemBinding="@{vm.itemBinding}"
             app:onItemClickListener="@{vm.onRecentItemClick}"
             android:visibility="@{vm.searching?View.GONE:View.VISIBLE}"
-            app:layoutManager="@{LayoutManagers.linear()}"
             />
 
-        <android.support.v7.widget.RecyclerView
+        <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:items="@{vm.results}"
             app:itemBinding="@{vm.itemBinding}"
-            app:onItemClickListener="@{vm.onSearchItemClick}"
+            app:onItemClickListener="@{vm.onRecentItemClick}"
             android:visibility="@{vm.searching?View.VISIBLE:View.GONE}"
-            app:layoutManager="@{LayoutManagers.linear()}"
+
             />
     </LinearLayout>
 </layout>

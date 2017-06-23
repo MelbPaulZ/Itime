@@ -8,6 +8,7 @@ import android.databinding.ObservableList;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.android.databinding.library.baseAdapters.BR;
 
@@ -152,11 +153,11 @@ public class EventCreateSearchInviteeViewModel extends BaseObservable {
         }
     }
 
-    public OnRecyclerItemClickListener.OnItemClickListener getOnSearchItemClick(){
-        return new OnRecyclerItemClickListener.OnItemClickListener() {
+    public AdapterView.OnItemClickListener getOnSearchItemClick(){
+        return new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
-                UserInfoViewModel<Contact> contact = results.get(position);
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                UserInfoViewModel<Contact> contact = results.get(i);
                 boolean contain = false;
                 for(Invitee invitee: invitees){
                     if(invitee.getUserUid().equals(contact.getData().getUserUid())){
@@ -171,39 +172,29 @@ public class EventCreateSearchInviteeViewModel extends BaseObservable {
                 if(mvpView!=null){
                     mvpView.goBack();
                 }
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-                onItemClick(view, position);
             }
         };
     }
 
-    public OnRecyclerItemClickListener.OnItemClickListener getOnRecentItemClick(){
-        return new OnRecyclerItemClickListener.OnItemClickListener() {
+    public AdapterView.OnItemClickListener getOnRecentItemClick(){
+        return new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
-                UserInfoViewModel<Contact> contact = recent.get(position);
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                UserInfoViewModel<Contact> contact = recent.get(i);
                 boolean contain = false;
-                for(Invitee invitee: invitees){
-                    if(invitee.getUserUid().equals(contact.getData().getUserUid())){
+                for (Invitee invitee : invitees) {
+                    if (invitee.getUserUid().equals(contact.getData().getUserUid())) {
                         invitees.remove(invitee);
-                        contain=true;
+                        contain = true;
                         break;
                     }
                 }
-                if(!contain) {
+                if (!contain) {
                     invitees.add(0, contactToInvitee(contact.getData()));
                 }
-                if(mvpView!=null){
+                if (mvpView != null) {
                     mvpView.goBack();
                 }
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-                onItemClick(view, position);
             }
         };
     }
