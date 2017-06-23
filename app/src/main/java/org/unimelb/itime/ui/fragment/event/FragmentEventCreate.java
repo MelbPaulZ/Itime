@@ -1,18 +1,21 @@
 package org.unimelb.itime.ui.fragment.event;
 
 import android.app.Activity;
-import android.app.Instrumentation;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.GravityEnum;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.unimelb.itime.R;
-import org.unimelb.itime.base.ItimeBaseActivity;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
@@ -21,6 +24,7 @@ import org.unimelb.itime.databinding.FragmentEventCreateBinding;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.activity.LocationActivity;
 import org.unimelb.itime.ui.fragment.calendar.FragmentCalendarTimeslot;
+import org.unimelb.itime.ui.fragment.component.FragmentEventTime;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.viewmodel.event.EventCreateViewModel;
@@ -48,18 +52,14 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState==null) {
-            if (event==null) {
-                firstLoad();
-            }else{
-                reLoadPage();
-            }
+            init();
         }else{
             // rotate screen
             event = (Event) savedInstanceState.getSerializable(getString(R.string.event));
         }
     }
 
-    private void firstLoad(){
+    private void init(){
         mockEvent();
         vm = new EventCreateViewModel(getPresenter());
         vm.setEvent(event);
@@ -70,10 +70,6 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         toolbarViewModel.setRightText(getString(R.string.new_event_toolbar_next));
         toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_close));
         binding.setToolbarvm(toolbarViewModel);
-    }
-
-    private void reLoadPage(){
-        vm.setEvent(event);
     }
 
     @Override
@@ -109,7 +105,19 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
 
     @Override
     public void onBack() {
-        getActivity().finish();
+        new MaterialDialog.Builder(getContext())
+                .content(R.string.event_create_cancel_dialog_content)
+                .contentColor(getResources().getColor(R.color.black))
+                .contentGravity(GravityEnum.CENTER)
+                .negativeText(R.string.event_dialog_discard)
+                .positiveText(R.string.event_dialog_keep_editing)
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        getActivity().finish();
+                    }
+                })
+                .show();
     }
 
     @Override
@@ -184,7 +192,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
 
     @Override
     public void showPopupDialog() {
-        
+
     }
 
     @Override
