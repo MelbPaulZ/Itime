@@ -226,7 +226,7 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     }
 
     public void viewChange() {
-//        EventITimeContactsFragment fragment = new EventITimeContactsFragment();
+//        FragmentEventCreateAddContact fragment = new FragmentEventCreateAddContact();
 //        fragment.setEvent(event);
 //        getBaseActivity().openFragment(fragment);
     }

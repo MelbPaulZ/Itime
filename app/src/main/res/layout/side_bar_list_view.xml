@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="contentVM"
+            type="org.unimelb.itime.widget.listview.SideBarListViewModel"/>
+    </data>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <org.unimelb.itime.widget.listview.SideBar
+            android:id="@+id/sidrbar"
+            android:layout_width="20dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/white"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sortedContactListView"
+            android:layout_toStartOf="@id/sidrbar"
+            app:items = "@{contentVM.items}"
+            app:itemBinding="@{contentVM.itemBinding}"
+            app:onItemClickListener="@{contentVM.onItemClickListener}"
+            app:layoutManager="@{contentVM.layoutManager}"/>
+            <!--android:background="@color/white"/>-->
+
+        <TextView
+            android:id="@+id/dialog"
+            android:layout_width="80.0dip"
+            android:layout_height="80.0dip"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_letter_board"
+            android:textColor="@color/white"
+            android:textSize="30.0dip"
+            android:gravity="center"
+            android:visibility="invisible" />
+    </RelativeLayout>
+</layout>

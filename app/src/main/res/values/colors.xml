@@ -27,7 +27,7 @@
     <color name="warmGreyTwo">#757575</color>
     <color name="brownishGreyTwo">#6d6d6d</color>
     <color name="brownishGrey">#6d6d6d</color>
-    <color name="whiteThree">#fafafa</color>
+    <color name="whiteThree">#eeeeee</color>
     <color name="whiteTwo">#e0e0e0</color>
     <color name="brightBlue">#0076ff</color>
     <color name="twilightBlue">#06457f</color>
@@ -63,6 +63,7 @@
     <color name="text_detail_label">#BBBBBB</color>
     <color name="text_detail_votebtndisable">#89C5FF</color>
     <color name="text_body">#222</color>
+    <color name="fragment_background">#fafafa</color>
 
     <color name="lightGrey">#EFEFEF</color>
 </resources>

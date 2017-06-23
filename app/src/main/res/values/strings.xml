@@ -52,6 +52,10 @@
     <string name="event_create_inviteothers">Invite Others</string>
     <string name="event_create_onlymyself">Only Myself</string>
 
+    <!--Event Create Add Invitee-->
+    <string name="event_create_addinvitee">Add Invitee</string>
+    <string name="event_create_addinvitee_typeemailhere">Type Email here</string>
+    <string name="event_create_itimecontacts">iTime Contacts</string>
     <!--Timeslots-->
 
 

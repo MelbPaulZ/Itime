@@ -20,7 +20,7 @@ import david.itimecalendar.calendar.listeners.ITimeInviteeInterface;
 /**
  * Created by yuhaoliu on 10/09/2016.
  */
-public class Invitee implements ITimeInviteeInterface, Serializable, Parcelable {
+public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, Serializable, Parcelable {
     private static final long serialVersionUID = -7635944932445335913L;
 
     public final static String STATUS_NEEDSACTION = "needsAction";
@@ -117,6 +117,21 @@ public class Invitee implements ITimeInviteeInterface, Serializable, Parcelable 
     @Override
     public String getName() {
         return getAliasName();
+    }
+
+    @Override
+    public String getShowPhoto() {
+        return getPhoto();
+    }
+
+    @Override
+    public String getShowName() {
+        return getName();
+    }
+
+    @Override
+    public String getSecondInfo() {
+        return userId;
     }
 
     @Override

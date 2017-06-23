@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout >
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="contentVM"
+            type="org.unimelb.itime.ui.viewmodel.event.EventCreateAddContactViewModel"/>
+        <variable
+            name="toolbarVM"
+            type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/fragment_background"
+        android:fitsSystemWindows="true">
+
+        <include layout="@layout/toolbar"
+            app:vm="@{toolbarVM}"/>
+
+        <org.unimelb.itime.widget.listview.SideBarListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sortListView"
+            app:items="@{contentVM.contacts}"
+            app:itemBinding="@{contentVM.itemBinding}"
+            app:onItemClickListener="@{contentVM.onItemClickListener}"
+            />
+    </LinearLayout>
+</layout>

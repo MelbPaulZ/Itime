@@ -478,7 +478,8 @@
             <View
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginRight="4dp"
+                android:layout_marginLeft="@dimen/s3"
+                android:layout_marginRight="@dimen/s3"
                 android:onClick="@{contentVM.onTimeSlotSheetClickListener}"
                 android:background="@drawable/icon_details_loadmore"
                 android:layout_gravity="center_vertical"/>

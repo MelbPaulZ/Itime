@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="org.unimelb.itime.widget.listview.UserInfoViewModel"/>
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="?android:attr/selectableItemBackground">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:orientation="horizontal"
+            android:id="@+id/firstLetterLayout"
+            android:background="@color/paleGrey"
+            android:visibility="@{viewModel.showFirstLetter?View.VISIBLE:View.GONE}">
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:textSize="@dimen/font_large"
+                android:textColor="@color/black"
+                android:text="@{viewModel.sortLetter}"
+                />
+        </FrameLayout>
+
+        <TextView style="@style/itime_top_divider_line"
+            android:visibility="@{viewModel.showFirstLetter?View.GONE:View.VISIBLE}"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="55.5dp"
+            >
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="15dp"
+                android:layout_weight="1">
+                <include layout="@layout/listview_user_info_part"
+                    app:viewModel="@{viewModel}"/>
+            </FrameLayout>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@{viewModel.select?@drawable/icon_event_deleteinvitee:@drawable/icon_event_addinvitee}"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="16dp"
+                android:id="@+id/selectImageView"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</layout>
+
