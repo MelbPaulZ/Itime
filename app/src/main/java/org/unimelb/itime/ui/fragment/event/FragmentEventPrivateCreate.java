@@ -161,6 +161,7 @@ implements EventCreateMvpView, ToolbarInterface{
         FragmentEventRepeat fragment = new FragmentEventRepeat();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
+        fragment.setTargetFragment(this, -100);
         getBaseActivity().openFragmentBottomUp(fragment);
     }
 

@@ -133,6 +133,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         FragmentEventRepeat fragment = new FragmentEventRepeat();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
+        fragment.setTargetFragment(this, -100); // TODO: 23/6/17 change -100
         getBaseActivity().openFragmentBottomUp(fragment);
     }
 

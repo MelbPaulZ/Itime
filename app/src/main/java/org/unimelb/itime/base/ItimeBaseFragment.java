@@ -68,6 +68,7 @@ public abstract class ItimeBaseFragment<V extends MvpView, P extends MvpPresente
 //                }).show();
     }
 
+
 //    protected me.fesky.library.widget.ios.AlertDialog getCustomisedDialog(){
 //        return new me.fesky.library.widget.ios.AlertDialog(getActivity())
 //                .builder();
@@ -134,6 +135,10 @@ public abstract class ItimeBaseFragment<V extends MvpView, P extends MvpPresente
         if (progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
+    }
+
+    protected void cleanAllStack(){
+        getFragmentManager().popBackStack();
     }
 
     public void cleanStack(){

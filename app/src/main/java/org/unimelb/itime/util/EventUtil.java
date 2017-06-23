@@ -8,6 +8,9 @@ import android.util.SparseArray;
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.ITimeComparable;
+import org.unimelb.itime.util.rulefactory.FrequencyEnum;
+import org.unimelb.itime.util.rulefactory.RuleFactory;
+import org.unimelb.itime.util.rulefactory.RuleModel;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -267,6 +270,91 @@ public class EventUtil {
         }
         return -100;
     }
+
+
+    public static String[] getRepeatFreqStr(){
+        return new String[]{"Daily","Weekly","Monthly","Annually"};
+    }
+
+    public static String[] getRepeatIntervalStr(){
+        return new String[] {"1","2","3","4","5","6","7","8","9","10"};
+    }
+
+    public static FrequencyEnum getFreqEnum(String code){
+        final String[] values = getRepeatFreqStr();
+
+        if (code.equals(values[0])){
+            return FrequencyEnum.DAILY;
+        }else if(code.equals(values[1])){
+            return FrequencyEnum.WEEKLY;
+        }else if(code.equals(values[2])){
+            return FrequencyEnum.MONTHLY;
+        }else if(code.equals(values[3])){
+            return FrequencyEnum.YEARLY;
+        }
+
+        return null;
+    }
+
+    public static String getRepeatStrByFreq(FrequencyEnum frequencyEnum){
+        final String[] values = getRepeatFreqStr();
+
+        if (frequencyEnum == null){
+            return values[0];
+        }
+
+        switch (frequencyEnum){
+            case DAILY:
+                return values[0];
+            case WEEKLY:
+                return values[1];
+            case MONTHLY:
+                return values[2];
+            case YEARLY:
+                return values[3];
+
+        }
+
+        return "UnKnow";
+    }
+
+    /**
+     * This get Repeat String methods return the message that should be displayed on screen
+     */
+    public static String getRepeatString(Context context, Event event) {
+        Date d = parseTimeZoneToDate(event.getStart().getDateTime());
+        String dayOfWeek = getFormatTimeString(d.getTime(), "EEE");
+        FrequencyEnum frequencyEnum = event.getRule().getFrequencyEnum();
+        int interval = event.getRule().getInterval();
+
+        // for event detail and edit event, the frequencyEnum will be null,
+        // but the recurrence is not null, so need to get the frequenceEnum from the recurrence
+        if (frequencyEnum==null){
+            RuleModel ruleModel = RuleFactory.getInstance().getRuleModel(event);
+            event.setRule(ruleModel);
+            frequencyEnum = ruleModel.getFrequencyEnum();
+            interval = event.getRule().getInterval();
+        }
+
+        // when view event details, the fraquencyEnum will be null
+        if (frequencyEnum == null){
+            return "None";
+        }
+
+        switch (frequencyEnum){
+            case DAILY:
+                return String.format(context.getString(R.string.repeat_everyday_cus),interval==1?"":" "+interval+" ");
+            case WEEKLY:
+                return String.format(context.getString(R.string.repeat_everyweek_cus),interval==1?" ":" "+interval+" ",dayOfWeek);
+            case MONTHLY:
+                return String.format(context.getString(R.string.repeat_every_month_cus),interval==1?" ":" "+interval+" ");
+            case YEARLY:
+                return String.format(context.getString(R.string.repeat_every_year_cus),interval==1?" ":" "+interval+" ");
+            default:
+                return String.format(context.getString(R.string.event_no_repeat));
+        }
+    }
+
 
 
 }

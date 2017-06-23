@@ -1,6 +1,7 @@
 package org.unimelb.itime.bean;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
 import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.greendao.annotation.Convert;
@@ -60,9 +61,11 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     private int showLevel;
     private String coverPhoto = "";
     private int reminder = -1; // mins
-    private transient String[] recurrence = {};
     private String greeting = "";
     private int duration = 0;
+
+    @Convert(converter = RecurrenceConverter.class, columnType = String.class)
+    private String[] recurrence = {};
 
     @Convert(converter = Event.InviteeConverter.class, columnType = String.class)
     private List<Invitee> invitees = new ArrayList<>();
@@ -98,7 +101,8 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.rule = rule;
     }
 
-    private transient RuleModel rule;
+    @Expose(serialize = true, deserialize = true)
+    private transient RuleModel rule = new RuleModel(this);
 
     @Property
     @NotNull
@@ -123,13 +127,13 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
     }
 
-    @Generated(hash = 1263159417)
+    @Generated(hash = 543621742)
     public Event(String eventUid, String eventId, String recurringEventUid, String recurringEventId, String calendarUid,
             String iCalUID, String hostUserUid, String summary, String url, Location location, String locationNote,
             double locationLatitude, double locationLongitude, String note, boolean isAllDay, int showLevel,
-            String coverPhoto, int reminder, String greeting, int duration, List<Invitee> invitees, List<PhotoUrl> photos,
-            List<TimeSlot> timeslots, long startTime, long endTime, int eventType, @NotNull String display, TZoneTime start,
-            TZoneTime end) {
+            String coverPhoto, int reminder, String greeting, int duration, String[] recurrence, List<Invitee> invitees,
+            List<PhotoUrl> photos, List<TimeSlot> timeslots, long startTime, long endTime, int eventType,
+            @NotNull String display, TZoneTime start, TZoneTime end) {
         this.eventUid = eventUid;
         this.eventId = eventId;
         this.recurringEventUid = recurringEventUid;
@@ -150,6 +154,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.reminder = reminder;
         this.greeting = greeting;
         this.duration = duration;
+        this.recurrence = recurrence;
         this.invitees = invitees;
         this.photos = photos;
         this.timeslots = timeslots;
@@ -160,7 +165,6 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.start = start;
         this.end = end;
     }
-
 
     public List<Invitee> getInvitees() {
         return invitees;
@@ -590,6 +594,19 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
         @Override
         public String convertToDatabaseValue(TZoneTime entityProperty) {
+            return gson.toJson(entityProperty);
+        }
+    }
+
+    public static class RecurrenceConverter implements PropertyConverter<String[], String>{
+        Gson gson = new Gson();
+        @Override
+        public String[] convertToEntityProperty(String databaseValue) {
+            return gson.fromJson(databaseValue, String[].class);
+        }
+
+        @Override
+        public String convertToDatabaseValue(String[] entityProperty) {
             return gson.toJson(entityProperty);
         }
     }
