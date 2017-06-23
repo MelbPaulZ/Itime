@@ -25,6 +25,7 @@ import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.util.EventUtil;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -264,6 +265,14 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             removeItem(rowItems, getString(R.string.url_toolbar_btn));
         }
 
+        if (event.getRecurrence()!=null && event.getRecurrence().length>0){
+            addRepeatToRow(EventUtil.getRepeatString(presenter.getContext(), event));
+            removeItem(buttonItems, getString(R.string.repeat_toolbar_btn));
+        }else{
+            addButton(getString(R.string.repeat_toolbar_btn));
+            removeItem(rowItems, getString(R.string.repeat_toolbar_btn));
+        }
+
 
 //        notifyPropertyChanged(BR.rowItems);
         notifyPropertyChanged(BR.buttonItems);
@@ -449,7 +458,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
 
         addInList(getString(R.string.repeat_toolbar_btn),
                 presenter.getContext().getResources().getDrawable(R.drawable.icon_event_repeat),
-                getString(R.string.repeat_toolbar_btn), onClickListener, onDeleteListener);
+                text, onClickListener, onDeleteListener);
         notifyPropertyChanged(BR.rowItems);
     }
 

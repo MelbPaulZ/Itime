@@ -3,6 +3,8 @@ package org.unimelb.itime.ui.fragment.event;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -224,9 +226,16 @@ public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCust
 
     @Override
     public void onNext() {
-        // // TODO: 22/6/17 go back to event create page
+        Fragment fragment = getTargetFragment();
+        if (fragment instanceof FragmentEventCreate){
+            ((FragmentEventCreate) fragment).setEvent(event);
+            getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
-        getFragmentManager().popBackStack();
+        }else if (fragment instanceof FragmentEventPrivateCreate){
+            ((FragmentEventPrivateCreate) fragment).setEvent(event);
+            getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+        getBaseActivity().backFragmentBottomUp(fragment);
     }
 
     @Override

@@ -84,6 +84,7 @@ public class FragmentEventRepeat extends ItimeBaseFragment<EventRepeatMvpView, E
         FragmentEventRepeatCustom fragmentEventRepeatCustom = new FragmentEventRepeatCustom();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragmentEventRepeatCustom.setEvent(cpyEvent);
+        fragmentEventRepeatCustom.setTargetFragment(getTargetFragment(), -100);
         getBaseActivity().openFragment(fragmentEventRepeatCustom);
     }
 
