@@ -206,6 +206,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="5dp"
                     android:textSize="10sp"
+                    android:layout_centerHorizontal="true"
                     android:tag="tab_text"
                     android:selected="@{tabBarVM.tabSelectedArr[3]}"
                     android:textColor="@drawable/selector_tab_text_color"

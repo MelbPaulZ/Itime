@@ -15,6 +15,8 @@
     <string name="toolbar_save">Save</string>
     <string name="toolbar_greeting">Greetings</string>
     <string name="toolbar_send">Send</string>
+    <string name="toolbar_next">Next</string>
+    <string name="toolbar_timeslots_select">%1$d/%2$d Timeslots</string>
 
     <!--Event-->
     <string name="event">Event</string>
@@ -57,7 +59,12 @@
     <string name="event_create_addinvitee_typeemailhere">Type Email here</string>
     <string name="event_create_itimecontacts">iTime Contacts</string>
     <!--Timeslots-->
-
+    <string name="event_candidate_timeslots">%1$d Candidate Timeslots: </string>
+    <!--12:00 -> 14:00 -->
+    <string name="event_timeslot_single_start_time">%1$s</string>
+    <string name="event_timeslot_single_end_time">%1$s</string>
+    <!--WED, 20 JUL-->
+    <string name="event_timeslot_single_day">%1$s</string>
 
 
     <!--Title-->
@@ -181,4 +188,9 @@
     <string name="tab_contact">Contact</string>
     <string name="tab_message">Message</string>
     <string name="tab_setting">Setting</string>
+
+    <!--bundle only inner pass use-->
+    <string name="event_type">event type</string>
+    <string name="event_type_solo">event type solo</string>
+    <string name="event_type_group">event type group</string>
 </resources>

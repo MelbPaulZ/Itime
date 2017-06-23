@@ -3,6 +3,7 @@ package org.unimelb.itime.ui.viewmodel.event;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
 
 import com.android.databinding.library.baseAdapters.BR;
@@ -10,6 +11,7 @@ import com.android.databinding.library.baseAdapters.BR;
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.ui.presenter.LocalPresenter;
+import org.unimelb.itime.util.EventUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +37,7 @@ public class EventCreateAlertViewModel extends BaseObservable {
 
 
     private void init(){
-        for (String alert: getAlertStrings()){
+        for (final String alert: getAlertStrings()){
             RepeatLineViewModel repeatLineViewModel = new RepeatLineViewModel(alert, View.GONE,
                     getDrawableById(R.drawable.icon_event_checkmark_blue), true);
             repeatLineViewModel.setOnClickCallBack(new RepeatLineViewModel.OnClickCallBack() {
@@ -46,6 +48,10 @@ public class EventCreateAlertViewModel extends BaseObservable {
                         resetAllClick();
                         // then click this current line
                         repeatLineViewModel.setIconVisibility(View.VISIBLE);
+
+                        // index
+                        String text = repeatLineViewModel.getRepeatText();
+                        updateEventReminder(text);
                     }
                 }
 
@@ -56,6 +62,10 @@ public class EventCreateAlertViewModel extends BaseObservable {
             });
             alerts.add(repeatLineViewModel);
         }
+    }
+
+    private void updateEventReminder(String chooseString){
+        event.setReminder(EventUtil.reminderStringToInt(presenter.getContext(), chooseString));
     }
 
     public Event getEvent() {
@@ -71,6 +81,7 @@ public class EventCreateAlertViewModel extends BaseObservable {
             @Override
             public void onClick(View v) {
                 resetAllClick();
+                updateEventReminder(presenter.getContext().getString(R.string.event_alert_none));
             }
         };
     }

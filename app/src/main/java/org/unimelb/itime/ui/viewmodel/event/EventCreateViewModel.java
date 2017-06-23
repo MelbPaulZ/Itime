@@ -20,12 +20,17 @@ import com.developer.paul.closabledatabindingview.interfaces.ClosableItem;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseViewModel;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
+import org.unimelb.itime.util.EventUtil;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
 /**
  * Created by Paul on 2/6/17.
@@ -93,6 +98,26 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         return event.isAllDay()? View.GONE:View.VISIBLE;
     }
 
+    public String getEventStartDate(Event event){
+        Date d = EventUtil.parseTimeZoneToDate(event.getStart().getDateTime());
+        return EventUtil.getFormatTimeString(d.getTime(), EventUtil.WEEK_DAY_MONTH);
+    }
+
+    public String getEventEndDate(Event event){
+        Date d = EventUtil.parseTimeZoneToDate(event.getEnd().getDateTime());
+        return EventUtil.getFormatTimeString(d.getTime(), EventUtil.WEEK_DAY_MONTH);
+    }
+
+    public String getEventStartTime(Event event){
+        Date d = EventUtil.parseTimeZoneToDate(event.getStart().getDateTime());
+        return EventUtil.getFormatTimeString(d.getTime(), EventUtil.HOUR_MIN);
+    }
+
+    public String getEventEndTime(Event event){
+        Date d = EventUtil.parseTimeZoneToDate(event.getEnd().getDateTime());
+        return EventUtil.getFormatTimeString(d.getTime(), EventUtil.HOUR_MIN);
+    }
+
     @Bindable
     public List<String> getMockAvatorLists() {
         return mockAvatorLists;
@@ -135,8 +160,68 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         return getLocationHintVisibility(event) == View.VISIBLE? View.GONE: View.VISIBLE;
     }
 
+    public String getDurationString(Event event){
+        return EventUtil.durationInt2String(presenter.getContext(), event.getDuration()==0? 60 : event.getDuration());
+    }
+
+    public int getAddTimeslotVisibility(Event event){
+        return event.getTimeslots()==null || event.getTimeslots().size()==0? View.VISIBLE:View.GONE;
+    }
+
+    public int getTimeslotsVisibility(Event event){
+        return getAddTimeslotVisibility(event) == View.VISIBLE? View.GONE : View.VISIBLE;
+    }
+
+    public String getTimeslotsString(Event event){
+        if (event.getTimeslots()==null){
+            return "";
+        }
+        return String.format(presenter.getContext().getString(R.string.event_candidate_timeslots), event.getTimeslots().size());
+    }
 
 
+    /** Timeslot parts
+     * **/
+
+
+    private List<TimeslotLineViewModel> timeslots = new ArrayList<>();
+    private ItemBinding<TimeslotLineViewModel> onItemBind = ItemBinding.of(BR.timeslotVM, R.layout.row_timeslot);
+
+    @Bindable
+    public List<TimeslotLineViewModel> getTimeslots() {
+        return timeslots;
+    }
+
+    public void setTimeslots(List<TimeslotLineViewModel> timeslots) {
+        this.timeslots = timeslots;
+        notifyPropertyChanged(BR.timeslots);
+    }
+
+    @Bindable
+    public ItemBinding<TimeslotLineViewModel> getOnItemBind() {
+        return onItemBind;
+    }
+
+    public void setOnItemBind(ItemBinding<TimeslotLineViewModel> onItemBind) {
+        this.onItemBind = onItemBind;
+        notifyPropertyChanged(BR.onItemBind);
+    }
+
+
+    private void resetTimeslots(){
+        if (event.getTimeslots()==null||event.getTimeslots().size()==0){
+            return;
+        }
+        List<TimeslotLineViewModel> timeslotLineViewModels = new ArrayList<>();
+        for (TimeSlot timeSlot: event.getTimeslots()){
+            timeslotLineViewModels.add(new TimeslotLineViewModel(presenter.getContext(), timeSlot));
+        }
+        setTimeslots(timeslotLineViewModels);
+
+    }
+
+    /** End
+     * **/
 
     @Bindable
     public List<ButtonItem> getButtonItems() {
@@ -157,6 +242,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         this.rowItems = rowItems;
         notifyPropertyChanged(BR.rowItems);
     }
+
 
     /**
      * Every time event attributes change, this method will be called
@@ -222,6 +308,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     public void setEvent(Event event) {
         this.event = event;
         resetButtonsAndRows();
+        resetTimeslots();
         notifyPropertyChanged(BR.event);
     }
 

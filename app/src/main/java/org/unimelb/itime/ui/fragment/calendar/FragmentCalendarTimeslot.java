@@ -3,6 +3,7 @@ package org.unimelb.itime.ui.fragment.calendar;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,11 @@ import android.view.ViewGroup;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.databinding.FragmentCalendarTimeslotBinding;
 import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
@@ -26,6 +29,7 @@ import david.itimecalendar.calendar.ui.unitviews.DraggableTimeSlotView;
 import david.itimecalendar.calendar.ui.unitviews.RecommendedSlotView;
 import david.itimecalendar.calendar.ui.weekview.TimeSlotView;
 import david.itimecalendar.calendar.util.MyCalendar;
+import david.itimecalendar.calendar.wrapper.WrapperTimeSlot;
 
 /**
  * Created by yuhaoliu on 8/06/2017.
@@ -37,6 +41,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
     private EventManager eventManager;
     private TimeSlotView timeSlotView;
     private ToolbarViewModel toolbarVM;
+    private Event event;
     //For TESTING
     ArrayList<TimeSlot> slots = new ArrayList<>();
 
@@ -61,6 +66,9 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
         return new CalendarPresenter<>(getContext());
     }
 
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -75,6 +83,11 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
 
     @Override
     public void onNext() {
+        Fragment fragment = getFrom();
+        if (fragment instanceof FragmentEventCreate){
+            event.setTimeslots(selectedTimeslots);
+            ((FragmentEventCreate) fragment).setEvent(event);
+        }
         getFragmentManager().popBackStack();
     }
 
@@ -108,6 +121,14 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
         }
     }
 
+    private int selectCount = 0;
+    private int total = 7;
+
+    private List<TimeSlot> selectedTimeslots = new ArrayList<>();
+
+    private void updateTitle(){
+        toolbarVM.setTitle(String.format(getString(R.string.toolbar_timeslots_select), selectCount, total));
+    }
     private class TimeslotViewBodyListener implements DayViewBody.OnViewBodyTimeSlotListener{
         @Override
         public void onAllDayRcdTimeslotClick(long dayBeginMilliseconds) {
@@ -116,6 +137,10 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
             //ensure set the start time correctly, otherwise it cannot be shown
             newSlot.setStartTime(dayBeginMilliseconds);
             timeSlotView.addTimeSlot(newSlot);
+
+            selectCount++;
+            selectedTimeslots.add(newSlot);
+            updateTitle();
         }
 
         @Override
@@ -129,6 +154,11 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
             newSlot.setStartTime(draggableTimeSlotView.getNewStartTime());
             newSlot.setEndTime(draggableTimeSlotView.getNewEndTime());
             timeSlotView.addTimeSlot(newSlot);
+
+            selectedTimeslots.add(newSlot);
+            selectCount++;
+            updateTitle();
+
         }
 
         @Override
@@ -144,6 +174,12 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
             newSlot.setStartTime(v.getWrapper().getTimeSlot().getStartTime());
             newSlot.setEndTime(v.getWrapper().getTimeSlot().getEndTime());
             timeSlotView.addTimeSlot(newSlot);
+
+            selectCount++;
+            selectedTimeslots.add(newSlot);
+            updateTitle();
+
+
         }
 
         @Override
@@ -171,6 +207,10 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
         @Override
         public void onTimeSlotDelete(DraggableTimeSlotView draggableTimeSlotView) {
             timeSlotView.removeTimeslot(draggableTimeSlotView.getWrapper());
+
+            selectCount--;
+            updateTitle();
+            selectedTimeslots.remove(draggableTimeSlotView.getTimeslot());
         }
 
     }

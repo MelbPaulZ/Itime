@@ -1,13 +1,21 @@
 package org.unimelb.itime.util;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.util.SparseArray;
 
+import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.ITimeComparable;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.TimeZone;
 import java.util.UUID;
@@ -17,6 +25,7 @@ import java.util.UUID;
  */
 
 public class EventUtil {
+    private static String TAG = "EventUtil";
     public final static long allDayMilliseconds = 24 * 60 * 60 * 1000;
 
     public static Calendar getBeginOfDayCalendar(Calendar cal) {
@@ -103,4 +112,161 @@ public class EventUtil {
         event.setEventUid(UUID.randomUUID().toString());
         return event;
     }
+
+    public static int durationString2Int(Context context, String duration){
+        if (duration.equals(context.getString(R.string.duration_15_minutes))){
+            return 15;
+        }
+
+        if (duration.equals(context.getString(R.string.duration_30_minutes))){
+            return 30;
+        }
+
+        if (duration.equals(context.getString(R.string.duration_45_minutes))){
+            return 45;
+        }
+
+        if (duration.equals(context.getString(R.string.duration_1_hour))){
+            return 60;
+        }
+
+        if (duration.equals(context.getString(R.string.duration_2_hours))){
+            return 120;
+        }
+
+        if (duration.equals(context.getString(R.string.duration_6_hours))){
+            return 360;
+        }
+
+        if (duration.equals(context.getString(R.string.duration_all_day))){
+            return 1440;
+        }
+
+        return -1;
+    }
+
+    public static String durationInt2String(Context context, int duration){
+        if (duration==15){
+            return context.getString(R.string.duration_15_minutes);
+        }
+
+        if (duration==30){
+            return context.getString(R.string.duration_30_minutes);
+        }
+
+        if (duration == 45){
+            return context.getString(R.string.duration_45_minutes);
+        }
+
+        if (duration == 60){
+            return context.getString(R.string.duration_1_hour);
+        }
+
+        if (duration == 120){
+            return context.getString(R.string.duration_2_hours);
+        }
+
+        if (duration == 360){
+            return context.getString(R.string.duration_6_hours);
+        }
+
+        if (duration == 1440){
+            return context.getString(R.string.duration_all_day);
+        }
+
+        return "N/A";
+    }
+
+
+    public static String HOUR_MIN = "kk:mm";
+    public static String WEEK_DAY_MONTH = "EEE, dd MMM";
+    public static String TIME_ZONE_PATTERN = "yyyy-MM-dd'T'HH:mm:ssz";
+
+    public static String getFormatTimeString(long time, String format){
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(time);
+        SimpleDateFormat fmt = new SimpleDateFormat(format);
+        return fmt.format(c.getTime());
+    }
+
+    public static Date parseTimeZoneToDate(String dateTime) {
+        Date date = null;
+        try {
+            date = new SimpleDateFormat(TIME_ZONE_PATTERN).parse(dateTime);
+        } catch (ParseException e) {
+            Log.i(TAG, "timeZoneToDate: parse error " + dateTime);
+        }
+        return date;
+
+    }
+
+    public static String reminderIntToString(Context context, int reminder){
+        if (reminder == -1){
+            return context.getString(R.string.event_alert_none);
+        }
+        if (reminder == 0){
+            return context.getString(R.string.event_alert_at_time);
+        }
+        if (reminder == 5){
+            return context.getString(R.string.event_alert_5_minutes_before);
+        }
+        if (reminder == 15){
+            return context.getString(R.string.event_alert_15_minutes_before);
+        }
+        if (reminder == 30){
+            return context.getString(R.string.event_alert_30_minutes_before);
+        }
+        if (reminder == 60){
+            return context.getString(R.string.event_alert_1_hour_before);
+        }
+        if (reminder == 120){
+            return context.getString(R.string.event_alert_2_hours_before);
+        }
+        if (reminder == 1440){
+            return context.getString(R.string.event_alert_1_day_before);
+        }
+        if (reminder == 2880){
+            return context.getString(R.string.event_alert_2_days_before);
+        }
+        if (reminder == 10080){
+            return context.getString(R.string.event_alert_1_week_before);
+        }
+        return "N/A";
+    }
+
+    public static int reminderStringToInt(Context context, String reminderString){
+        if (reminderString.equals(context.getString(R.string.event_alert_none))){
+            return -1;
+        }
+        if (reminderString.equals(context.getString(R.string.event_alert_at_time))){
+            return 0;
+        }
+        if (reminderString.equals(context.getString(R.string.event_alert_5_minutes_before))){
+            return 5;
+        }
+        if (reminderString.equals(context.getString(R.string.event_alert_15_minutes_before))){
+            return 15;
+        }
+        if (reminderString.equals(context.getString(R.string.event_alert_30_minutes_before))){
+            return 30;
+        }
+        if (reminderString.equals(context.getString(R.string.event_alert_1_hour_before))){
+            return 60;
+        }
+        if (reminderString.equals(context.getString(R.string.event_alert_2_hours_before))){
+            return 120;
+        }
+        if (reminderString.equals(context.getString(R.string.event_alert_1_day_before))){
+            return 1440;
+        }
+        if (reminderString.equals(context.getString(R.string.event_alert_2_days_before))){
+            return 2880;
+        }
+        if (reminderString.equals(context.getString(R.string.event_alert_1_week_before))){
+            return 10080;
+        }
+        return -100;
+    }
+
+
 }

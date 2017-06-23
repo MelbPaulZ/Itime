@@ -66,7 +66,6 @@ public class FragmentEventCreateAlert extends ItimeBaseFragment<EventCreateAlert
     public void onNext() {
         Fragment fragment = getFrom();
         if (fragment instanceof FragmentEventPrivateCreate){
-            event.setAlert(60);
             ((FragmentEventPrivateCreate) fragment).setEvent(event);
         }
         getFragmentManager().popBackStack();

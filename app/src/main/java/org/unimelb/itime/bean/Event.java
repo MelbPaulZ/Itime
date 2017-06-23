@@ -59,9 +59,10 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     private boolean isAllDay;
     private int showLevel;
     private String coverPhoto = "";
-    private int alert; // mins
+    private int reminder = -1; // mins
     private transient String[] recurrence = {};
     private String greeting = "";
+    private int duration = 0;
 
     @Convert(converter = Event.InviteeConverter.class, columnType = String.class)
     private List<Invitee> invitees = new ArrayList<>();
@@ -101,7 +102,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
     @Property
     @NotNull
-    private long startTime;
+    private long startTime; // TODO: 22/6/17  change to starts
     @Property
     @NotNull
     private long endTime;
@@ -112,17 +113,23 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     @NotNull
     private String display = "";
 
+    @Convert(converter = Event.TZoneTimeConverter.class, columnType = String.class)
+    private TZoneTime start = new TZoneTime();
+
+    @Convert(converter = Event.TZoneTimeConverter.class, columnType = String.class)
+    private TZoneTime end = new TZoneTime();
 
     public Event() {
 
     }
 
-    @Generated(hash = 1553574951)
+    @Generated(hash = 1263159417)
     public Event(String eventUid, String eventId, String recurringEventUid, String recurringEventId, String calendarUid,
             String iCalUID, String hostUserUid, String summary, String url, Location location, String locationNote,
             double locationLatitude, double locationLongitude, String note, boolean isAllDay, int showLevel,
-            String coverPhoto, int alert, String greeting, List<Invitee> invitees, List<PhotoUrl> photos,
-            List<TimeSlot> timeslots, long startTime, long endTime, int eventType, @NotNull String display) {
+            String coverPhoto, int reminder, String greeting, int duration, List<Invitee> invitees, List<PhotoUrl> photos,
+            List<TimeSlot> timeslots, long startTime, long endTime, int eventType, @NotNull String display, TZoneTime start,
+            TZoneTime end) {
         this.eventUid = eventUid;
         this.eventId = eventId;
         this.recurringEventUid = recurringEventUid;
@@ -140,8 +147,9 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.isAllDay = isAllDay;
         this.showLevel = showLevel;
         this.coverPhoto = coverPhoto;
-        this.alert = alert;
+        this.reminder = reminder;
         this.greeting = greeting;
+        this.duration = duration;
         this.invitees = invitees;
         this.photos = photos;
         this.timeslots = timeslots;
@@ -149,7 +157,10 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.endTime = endTime;
         this.eventType = eventType;
         this.display = display;
+        this.start = start;
+        this.end = end;
     }
+
 
     public List<Invitee> getInvitees() {
         return invitees;
@@ -231,7 +242,11 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     }
 
     public int getDuration(){
-        return (int)((endTime - startTime) /(1000*60));
+        return duration;
+    }
+
+    public void setDuration(int duration){
+        this.duration = duration;
     }
 
     public long getDurationMilliseconds(){
@@ -477,12 +492,12 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         return this.timeslots;
     }
 
-    public int getAlert() {
-        return alert;
+    public int getReminder() {
+        return reminder;
     }
 
-    public void setAlert(int alert) {
-        this.alert = alert;
+    public void setReminder(int reminder) {
+        this.reminder = reminder;
     }
 
     public String getGreeting() {
@@ -491,6 +506,22 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
     public void setGreeting(String greeting) {
         this.greeting = greeting;
+    }
+
+    public TZoneTime getStart() {
+        return this.start;
+    }
+
+    public void setStart(TZoneTime start) {
+        this.start = start;
+    }
+
+    public TZoneTime getEnd() {
+        return this.end;
+    }
+
+    public void setEnd(TZoneTime end) {
+        this.end = end;
     }
 
     public static class TimeslotConverter implements PropertyConverter<List<TimeSlot> , String> {
@@ -545,6 +576,20 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
         @Override
         public String convertToDatabaseValue(Location entityProperty) {
+            return gson.toJson(entityProperty);
+        }
+    }
+
+    public static class TZoneTimeConverter implements PropertyConverter<TZoneTime, String>{
+        Gson gson = new Gson();
+        @Override
+        public TZoneTime convertToEntityProperty(String databaseValue) {
+            TZoneTime tZoneTime = gson.fromJson(databaseValue, TZoneTime.class);
+            return tZoneTime;
+        }
+
+        @Override
+        public String convertToDatabaseValue(TZoneTime entityProperty) {
             return gson.toJson(entityProperty);
         }
     }

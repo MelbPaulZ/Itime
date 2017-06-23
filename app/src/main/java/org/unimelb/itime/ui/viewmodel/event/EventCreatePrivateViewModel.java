@@ -2,13 +2,17 @@ package org.unimelb.itime.ui.viewmodel.event;
 
 import android.databinding.BaseObservable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
 
 import com.developer.paul.closabledatabindingview.closableItem.ButtonItem;
 
 import org.unimelb.itime.R;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
+import org.unimelb.itime.util.EventUtil;
 
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -51,6 +55,8 @@ public class EventCreatePrivateViewModel extends EventCreateViewModel {
     }
 
 
+
+
     @Override
     protected ButtonItem createButtonItem(String name) {
         if (name.equals(getString(R.string.alert_toolbar_btn))){
@@ -69,8 +75,8 @@ public class EventCreatePrivateViewModel extends EventCreateViewModel {
     @Override
     protected void resetButtonsAndRows() {
         super.resetButtonsAndRows();
-        if (event.getAlert()!=0){
-            addAlertToRow(event.getAlert()+"");
+        if (event.getReminder()!=-1){
+            addAlertToRow(EventUtil.reminderIntToString(presenter.getContext(), event.getReminder()));
             removeItem(buttonItems, getString(R.string.alert_toolbar_btn));
         }else{
             addButton(getString(R.string.alert_toolbar_btn));
@@ -109,7 +115,7 @@ public class EventCreatePrivateViewModel extends EventCreateViewModel {
             @Override
             public void onClick(View v) {
                 addButton(getString(R.string.alert_toolbar_btn));
-                event.setAlert(0);
+                event.setReminder(-1);
                 setEvent(event);
             }
         };
@@ -118,7 +124,6 @@ public class EventCreatePrivateViewModel extends EventCreateViewModel {
                 presenter.getContext().getResources().getDrawable(R.drawable.icon_event_toolbar_alert),
                 alertString, onClickListener, onDeleteListener);
     }
-
 
 
     @Override
