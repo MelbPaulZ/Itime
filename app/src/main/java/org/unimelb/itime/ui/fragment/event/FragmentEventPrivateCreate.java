@@ -98,6 +98,7 @@ implements EventCreateMvpView, ToolbarInterface{
         toolbarVM.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarVM.setTitle(getString(R.string.new_event));
         toolbarVM.setRightText(getString(R.string.toolbar_save));
+        toolbarVM.setRightEnable(true);
         binding.setToolbarVM(toolbarVM);
     }
 

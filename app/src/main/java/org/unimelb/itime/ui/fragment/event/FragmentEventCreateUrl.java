@@ -53,6 +53,7 @@ public class FragmentEventCreateUrl extends ItimeBaseFragment<EventCreateUrlMvpV
         toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarViewModel.setTitle(getString(R.string.toolbar_url));
         toolbarViewModel.setRightText(getString(R.string.toolbar_done));
+        toolbarViewModel.setRightEnable(true);
         binding.setToolbarVM(toolbarViewModel);
 
     }

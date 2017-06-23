@@ -66,6 +66,7 @@ public class FragmentEventCreateDuration extends ItimeBaseFragment<EventCreateDu
         toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarViewModel.setTitle(getString(R.string.event_create_duration));
         toolbarViewModel.setRightText(getString(R.string.toolbar_next));
+        toolbarViewModel.setRightEnable(true);
         binding.setToolbarVM(toolbarViewModel);
 
         WheelPicker durationWheelPicker = (WheelPicker) getActivity().findViewById(R.id.duration_wheel_picker);

@@ -453,6 +453,8 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             @Override
             public void onClick(View v) {
                 addButton(getString(R.string.repeat_toolbar_btn));
+                event.setRecurrence(new String[]{});
+                setEvent(event);
             }
         };
 
