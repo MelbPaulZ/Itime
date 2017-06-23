@@ -84,7 +84,6 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
 
     private void mockEvent(){
         event = new Event();
-
     }
 
     public void setEvent(Event event) {

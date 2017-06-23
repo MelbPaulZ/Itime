@@ -26,6 +26,8 @@ public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreate
         implements EventCreateAddInviteeMvpView, ToolbarInterface {
 
     private FragmentCreateEventAddInviteeBinding binding;
+    private FragmentEventCreate fragmentEventCreate;
+    private FragmentEventCreateSearchInvitee fragmentSearchInvitee;
     private Event event;
     private EventCreateAddInviteeViewModel contentVM;
     private ToolbarViewModel toolbarVM;
@@ -64,7 +66,11 @@ public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreate
 
     @Override
     public void onNext() {
-
+        if(fragmentEventCreate==null){
+            fragmentEventCreate = new FragmentEventCreate();
+        }
+        fragmentEventCreate.setEvent(event);
+        getBaseActivity().openFragment(fragmentEventCreate);
     }
 
     @Override
@@ -84,6 +90,11 @@ public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreate
 
     @Override
     public void gotoSearch() {
-
+        if(fragmentSearchInvitee==null){
+            fragmentSearchInvitee = new FragmentEventCreateSearchInvitee();
+        }
+        fragmentSearchInvitee.setInviteeList(contentVM.getInvitees());
+        fragmentSearchInvitee.setEvent(event);
+        getBaseActivity().openFragment(fragmentSearchInvitee);
     }
 }

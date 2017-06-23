@@ -3,6 +3,7 @@ package org.unimelb.itime.widget.listview;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
@@ -32,10 +33,11 @@ public class UserInfoViewModel<T> extends BaseObservable {
     private String sortLetter;
     private SpannableString name;
     private SpannableString secondInfo;
-    private int matchColor;
+    private int matchColor = Color.parseColor("#0089FF");
     private boolean showSecondInfo;
     private String matchStr;
     private String photo;
+    private boolean match = false;
 
     @Bindable
     public String getPhoto() {
@@ -194,5 +196,17 @@ public class UserInfoViewModel<T> extends BaseObservable {
     public void setSecondInfo(SpannableString secondInfo) {
         this.secondInfo = secondInfo;
         notifyPropertyChanged(BR.secondInfo);
+    }
+
+    //请保证传入的是全小写字符串
+    public boolean tryMatch(String matchStr){
+        setMatchStr("");
+        if(info.getShowName().toLowerCase().contains(matchStr)
+                || info.getSecondInfo().toLowerCase().contains(matchStr)
+                || pinyin.toLowerCase().contains(matchStr)){
+            setMatchStr(matchStr);
+            return true;
+        }
+        return false;
     }
 }

@@ -58,6 +58,7 @@
     <string name="event_create_addinvitee">Add Invitee</string>
     <string name="event_create_addinvitee_typeemailhere">Type Email here</string>
     <string name="event_create_itimecontacts">iTime Contacts</string>
+    <string name="event_create_recent_invitee">RECENT</string>
     <!--Timeslots-->
     <string name="event_candidate_timeslots">%1$d Candidate Timeslots: </string>
     <!--12:00 -> 14:00 -->

@@ -11,16 +11,12 @@ import com.android.databinding.library.baseAdapters.BR;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Contact;
-import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.ui.mvpview.event.EventCreateAddContactMvpView;
-import org.unimelb.itime.ui.mvpview.event.EventCreateAddInviteeMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.widget.OnRecyclerItemClickListener;
 import org.unimelb.itime.widget.listview.UserInfoViewModel;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
