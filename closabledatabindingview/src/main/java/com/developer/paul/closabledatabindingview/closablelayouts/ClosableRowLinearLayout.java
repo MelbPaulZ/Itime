@@ -70,8 +70,13 @@ public class ClosableRowLinearLayout extends ClosableBaseLinearLayout{
             ClosableRelativeLayout row = rowHashMap.get(rowItem);
             if (row==null){
                 ClosableRelativeLayout rowRelativeLayout = getRelativeLayout(rowItem);
+                if (rowItem.getRowCreateInterface()!=null){
+                    View v = rowItem.getRowCreateInterface().onCreateMiddleView(rowItem);
+                    addCustomMidView(v, rowRelativeLayout, rowItem.getClickListener());
+                }else {
+                    addDisplayText(rowItem.getText(), rowRelativeLayout, rowItem.getClickListener());
+                }
                 addIconView(rowItem.getIcon(), rowRelativeLayout);
-                addDisplayText(rowItem.getText(), rowRelativeLayout, rowItem.getClickListener());
                 addClosableView(rowRelativeLayout, rowItem.getOnDeleteClickListener());
                 rowHashMap.put(rowItem, rowRelativeLayout);
                 row = rowRelativeLayout;
@@ -82,8 +87,14 @@ public class ClosableRowLinearLayout extends ClosableBaseLinearLayout{
         @Override
         public void updateClosableView(RowItem rowItem) {
             ClosableRelativeLayout row = rowHashMap.get(rowItem);
-            TextView t = (TextView) row.getChildAt(1); // TODO: 6/6/17 change later
-            t.setText(rowItem.getText());
+            View v = row.getChildAt(0);  // TODO: 6/6/17 change later
+            if (rowItem.getRowCreateInterface()!=null){
+                rowItem.getRowCreateInterface().updateClosableView(rowItem);
+            }else {
+                if (v instanceof TextView) {
+                    ((TextView) v).setText(rowItem.getText());
+                }
+            }
         }
 
         @Override
@@ -100,6 +111,18 @@ public class ClosableRowLinearLayout extends ClosableBaseLinearLayout{
         @Override
         public void setOnDeleteListener(OnClickListener onDeleteListener) {
             this.onDeleteListener = onDeleteListener;
+        }
+
+        private void addCustomMidView(View v, RelativeLayout rowRelativeLayout, OnClickListener leftClickListener){
+            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            lp.leftMargin = ClosableDataBindingUtil.dxTodp(getContext(), TEXT_LEFT_MARGIN);
+            lp.bottomMargin = ClosableDataBindingUtil.dxTodp(getContext(), 20);
+            lp.addRule(RelativeLayout.CENTER_VERTICAL);
+            v.setLayoutParams(lp);
+            v.setOnClickListener(leftClickListener);
+            rowRelativeLayout.addView(v);
         }
 
 

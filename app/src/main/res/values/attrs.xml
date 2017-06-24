@@ -13,4 +13,37 @@
         <attr name="border_outside_color" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="CollapseHeadBar">
+        <attr name="collapseheaderbar_name" format="string"/>
+        <attr name="collapseheaderbar_title" format="string"/>
+        <attr name="collapseheaderbar_avatar" format="string"/>
+        <attr name="collapseheaderbar_backgroundimg" format="string"/>
+        <attr name="collapseheaderbar_onLeftClick" format="reference"/>
+        <attr name="collapseheaderbar_onMenuItemClick" format="reference"/>
+        <attr name="collapseheaderbar_menuItems" format="reference"/>
+        <attr name="collapseheaderbar_inviteeCount" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name ="ScalableLayout">
+        <attr name ="scalablelayout_expandheight" format="dimension"/>
+        <attr name ="scalablelayout_hideheight" format="dimension"/>
+        <attr name ="scalablelayout_collapseheight" format="dimension"/>
+        <attr name ="scalablelayout_onStatusChange" format="reference"/>
+        <attr name="scalablelayout_status" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="ITimeShootMenu">
+        <attr name="shoot_collapseIcon" format="reference"/>
+        <attr name="shoot_expandIcon" format = "reference"/>
+        <attr name="shoot_buttonSize" format="dimension"/>
+        <attr name="shoot_expandDirection" format="enum">
+            <enum name="up" value="0"/>
+            <enum name="down" value="1"/>
+            <enum name="left" value="2"/>
+            <enum name="right" value="3"/>
+        </attr>
+        <attr name="shoot_itemSpacing" format="dimension"/>
+        <attr name="shoot_buttonBottomMargin" format="dimension"/>
+    </declare-styleable>
+
 </resources>

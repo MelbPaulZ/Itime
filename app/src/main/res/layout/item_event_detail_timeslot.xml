@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<data>
+    <variable
+        name="vm"
+        type="org.unimelb.itime.ui.viewmodel.event.EventDetailTimeslotViewModel"/>
+</data>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/standard_detail_cell_height"
+    android:background="?android:attr/selectableItemBackground">
+    <View
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="@dimen/s2"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/icon"
+        android:background="@{vm.icon}"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:layout_toRightOf="@id/icon">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_body"
+            android:textSize="@dimen/font_large"
+            android:text="@{vm.firstTimeRow}"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_detail_label"
+            android:textSize="@dimen/font_large"
+            android:text="@{vm.secondTimeRow}"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginLeft="@dimen/s3"
+        android:textColor="@color/text_detail_label"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/rightLabel"
+        android:background="@drawable/icon_event_disclosure"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{vm.inviteeCount}"
+        android:textSize="@dimen/font_small"
+        android:textColor="@color/text_detail_label"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/s3"
+        android:id="@+id/inviteeCount"
+        android:layout_toLeftOf="@id/rightLabel"/>
+
+    <org.unimelb.itime.widget.PileupView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:pileup_ratio="0.5"
+        app:pileup_maxNum="3"
+        app:pileup_imageSize="14dp"
+        app:pileup_images="@{vm.inviteePhotos}"
+        android:layout_centerVertical="true"
+        android:id="@+id/pileup_avatars"
+        android:layout_marginRight="@dimen/s3"
+        android:layout_toLeftOf="@id/inviteeCount"
+        />
+
+
+</RelativeLayout>
+
+</layout>

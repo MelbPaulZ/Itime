@@ -3,6 +3,7 @@ package org.unimelb.itime.ui.fragment.event;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,15 +42,16 @@ public class FragmentEventRepeat extends ItimeBaseFragment<EventRepeatMvpView, E
 
         vm = new EventRepeatViewModel(getPresenter());
         vm.setEvent(event);
-        toolbarViewModel = new ToolbarViewModel(this);
+        toolbarViewModel = new ToolbarViewModel<>(this);
 
         toolbarViewModel.setTitle(getString(R.string.event_repeat_title));
         toolbarViewModel.setRightText(getString(R.string.event_repeat_toolbar_done));
         toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
+        toolbarViewModel.setRightEnable(true);
+
 
         binding.setVm(vm);
         binding.setToolbarvm(toolbarViewModel);
-
 
     }
 
@@ -65,8 +67,12 @@ public class FragmentEventRepeat extends ItimeBaseFragment<EventRepeatMvpView, E
 
     @Override
     public void onNext() {
-        FragmentEventCreate fragment = (FragmentEventCreate) getFragmentManager().findFragmentByTag(FragmentEventCreate.class.getSimpleName());
-        fragment.setEvent(event);
+        Fragment fragment = getFrom();
+        if (fragment instanceof FragmentEventCreate){
+            ((FragmentEventCreate)fragment).setEvent(event);
+        }else if (fragment instanceof FragmentEventPrivateCreate){
+            ((FragmentEventPrivateCreate)fragment).setEvent(event);
+        }
         getFragmentManager().popBackStack();
     }
 
@@ -80,6 +86,7 @@ public class FragmentEventRepeat extends ItimeBaseFragment<EventRepeatMvpView, E
         FragmentEventRepeatCustom fragmentEventRepeatCustom = new FragmentEventRepeatCustom();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragmentEventRepeatCustom.setEvent(cpyEvent);
+        fragmentEventRepeatCustom.setTargetFragment(getTargetFragment(), -100);
         getBaseActivity().openFragment(fragmentEventRepeatCustom);
     }
 

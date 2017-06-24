@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="note"
+            type="String"/>
+    </data>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="55dp"
+    android:layout_marginBottom="55dp"
+    android:background="@drawable/bg_corner_border"
+    >
+<LinearLayout
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/event_detail_note"
+        android:textSize="@dimen/font_tiny"
+        android:textColor="@color/pinkishGrey"
+        android:includeFontPadding="false"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@{note}"
+        android:id="@+id/note_text"
+        android:textSize="@dimen/font_big"
+        android:textColor="@color/black"/>
+
+</LinearLayout>
+</ScrollView>
+</layout>

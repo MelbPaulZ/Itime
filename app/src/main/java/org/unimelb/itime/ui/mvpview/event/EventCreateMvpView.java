@@ -16,5 +16,7 @@ public interface EventCreateMvpView extends ItimeBaseMvpView {
     void toLocation(Event event);
     void toTitle(Event event);
     void toTimeslot(Event event);
+    void toAlert(Event event);
+    void showPopupDialog();
 }
 

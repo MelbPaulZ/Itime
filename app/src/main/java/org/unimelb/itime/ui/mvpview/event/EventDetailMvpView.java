@@ -1,0 +1,25 @@
+package org.unimelb.itime.ui.mvpview.event;
+
+import org.unimelb.itime.base.ItimeCommonMvpView;
+import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.TimeSlot;
+import org.unimelb.itime.ui.mvpview.TaskBasedMvpView;
+
+import java.util.List;
+
+/**
+ * Created by Paul on 4/09/2016.
+ */
+public interface EventDetailMvpView extends TaskBasedMvpView<List<Event>>, ItimeCommonMvpView {
+    void viewInCalendar();
+    void viewInviteeResponse(TimeSlot timeSlot);
+    void gotoGridView();
+    void toResponse();
+    void createEventFromThisTemplate(Event event);
+    void proposeNewTimeslots(Event event);
+    void viewUserProfile(String userUid);
+    void onViewGoingInvitees();
+    void openUrl(String url);
+    void showAllNote();
+
+}

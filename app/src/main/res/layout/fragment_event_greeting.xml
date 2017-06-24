@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.event.EventGreetingViewModel"/>
+        <variable
+            name="toolbarVM"
+            type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar" bind:vm="@{toolbarVM}"/>
+
+    <!--first part-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="138dp"
+        android:background="@color/whiteFour">
+        
+        <ImageView
+            android:layout_width="49dp"
+            android:layout_height="52dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/icon_event_greetings"/>
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:text="@string/event_greeting_title"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+        <TextView
+            style="@style/itime_bottom_divider_line" />
+
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="150dp"
+        android:background="@color/whiteFive">
+        <EditText
+            android:id="@+id/greeting_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/event_greeting_hint"
+            android:textColorHint="@color/whiteTwo"
+            android:background="@color/transparent"
+            android:onEditTextChange="@{vm.onGreetingChangeListener()}"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/greeting_edit_text"
+            android:layout_marginTop="55dp"
+            android:layout_marginEnd="7dp"
+            android:text="@{vm.getWordCountString(vm.event)}"
+            android:textColor="@{vm.getWordCountTextColor(vm.event)}"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>
+</layout>

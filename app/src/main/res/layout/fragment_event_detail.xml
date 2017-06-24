@@ -1,0 +1,702 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <import type="org.unimelb.itime.bean.Event"/>
+        <import type="org.unimelb.itime.widget.ScalableLayout"/>
+
+        <variable
+            name="contentVM"
+            type="org.unimelb.itime.ui.viewmodel.event.EventDetailViewModel" />
+
+    </data>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+            <android.support.design.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/page_bg"
+                >
+                <org.unimelb.itime.widget.CollapseHeadBar
+                    android:id="@+id/app_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="225dp"
+                    android:fitsSystemWindows="true"
+                    app:collapseheaderbar_avatar="@{contentVM.host.photo}"
+                    app:collapseheaderbar_name="@{contentVM.host.aliasName}"
+                    app:collapseheaderbar_title="@{contentVM.event.title}"
+                    app:collapseheaderbar_menuItems="@{contentVM.menuItems}"
+                    app:collapseheaderbar_onMenuItemClick="@{contentVM.onMenuClickListener}"
+                    >
+                </org.unimelb.itime.widget.CollapseHeadBar>
+
+                <android.support.v4.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:scrollbarStyle="insideOverlay"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                    <!--background-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+
+                        <!--vote part-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:paddingRight="@dimen/s1"
+                            android:paddingLeft="@dimen/s1"
+                            android:elevation="5dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/event_detail_all_invitees"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textSize="@dimen/font_tiny"
+                                    android:textColor="@color/pinkishGrey"
+                                    android:id="@+id/all_invitee_title"
+                                    android:includeFontPadding="false"
+                                    android:layout_marginBottom="10dp"/>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_gravity="center_horizontal">
+                                <org.unimelb.itime.widget.PileupView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:pileup_ratio="0.5"
+                                    app:pileup_maxNum="3"
+                                    app:pileup_imageSize="14dp"
+                                    app:pileup_images="@{contentVM.avatarList}"
+                                    android:layout_gravity="center_vertical"
+                                    android:id="@+id/pileup_avatars"
+                                    android:layout_marginRight="5dp"
+                                    />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="100"
+                                    android:textColor="@color/black"
+                                    android:includeFontPadding="false"
+                                    android:textSize="@dimen/font_big" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="1px"
+                                android:layout_height="match_parent"
+                                android:background="@color/divider_line"
+                                android:layout_marginLeft="@dimen/s1"
+                                android:layout_marginRight="@dimen/s2"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/event_detail_replied"
+                                    android:textSize="@dimen/font_tiny"
+                                    android:textColor="@color/pinkishGrey"
+                                    android:layout_marginBottom="@dimen/s2"
+                                    android:includeFontPadding="false"
+                                    android:layout_gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/font_big"
+                                    android:includeFontPadding="false"
+                                    android:layout_gravity="center_horizontal"
+                                    />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/event_detail_cant_go"
+                                    android:textSize="@dimen/font_tiny"
+                                    android:textColor="@color/pinkishGrey"
+                                    android:layout_marginBottom="@dimen/s2"
+                                    android:includeFontPadding="false"
+                                    android:layout_gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/font_big"
+                                    android:includeFontPadding="false"
+                                    android:layout_gravity="center_horizontal"
+                                    />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/event_detail_no_reply"
+                                    android:textSize="@dimen/font_tiny"
+                                    android:textColor="@color/pinkishGrey"
+                                    android:layout_marginBottom="@dimen/s2"
+                                    android:includeFontPadding="false"
+                                    android:layout_gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/font_big"
+                                    android:includeFontPadding="false"
+                                    android:layout_gravity="center_horizontal"
+                                    />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <include layout="@layout/line"/>
+                        <!--time part-->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/time_part"
+                            android:layout_marginTop="@dimen/s1"
+                            android:paddingRight="@dimen/s1"
+                            android:paddingLeft="@dimen/s1"
+                            android:visibility="@{contentVM.eventTimeString.empty?View.GONE:View.VISIBLE}"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/event_detail_time"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentLeft="true"
+                                android:id="@+id/time_title"
+                                android:textSize="@dimen/font_tiny"
+                                android:textColor="@color/pinkishGrey"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{contentVM.eventTimeString}"
+                                android:layout_below="@id/time_title"
+                                android:layout_alignParentLeft="true"
+                                android:id="@+id/time_text"
+                                android:textSize="@dimen/font_large"
+                                android:layout_marginTop="@dimen/s2"
+                                android:maxWidth="234.5dp"
+                                android:textColor="@color/text_body"/>
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:id="@+id/time_icon"
+                                android:src="@drawable/icon_details_viewincalendar"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentRight="true"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/time_text"
+                                android:background="@drawable/bg_cornor_rec_lightblue"
+                                android:paddingTop="@dimen/s3"
+                                android:paddingBottom="@dimen/s3"
+                                android:paddingLeft="@dimen/s2"
+                                android:paddingRight="@dimen/s2"
+                                android:visibility="@{contentVM.alertString.empty?View.GONE:View.VISIBLE}"
+                                android:text="@{contentVM.alertString}"
+                                android:textColor="@color/brand_main"
+                                android:layout_marginTop="@dimen/s2"/>
+                        </RelativeLayout>
+
+                        <!--locationString1 part-->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/location_part"
+                            android:layout_marginTop="@dimen/s1"
+                            android:paddingRight="@dimen/s1"
+                            android:paddingLeft="@dimen/s1"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/event_detail_location"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentLeft="true"
+                                android:id="@+id/location_title"
+                                android:textSize="@dimen/font_tiny"
+                                android:textColor="@color/pinkishGrey"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{contentVM.event.location.locationString1}"
+                                android:layout_below="@id/location_title"
+                                android:layout_alignParentLeft="true"
+                                android:id="@+id/location_text"
+                                android:textSize="@dimen/font_large"
+                                android:layout_marginTop="@dimen/s2"
+                                android:maxWidth="234.5dp"
+                                android:textColor="@color/text_body"/>
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:id="@+id/location_icon"
+                                android:src="@drawable/icon_details_location"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentRight="true"/>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/s1"
+                            android:id="@+id/note_part"
+                            android:paddingRight="@dimen/s1"
+                            android:paddingLeft="@dimen/s1"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/event_detail_note"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentLeft="true"
+                                android:id="@+id/note_title"
+                                android:textSize="@dimen/font_tiny"
+                                android:textColor="@color/pinkishGrey"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@{contentVM.event.note}"
+                                android:layout_below="@id/note_title"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginTop="@dimen/s2"
+                                android:id="@+id/note_text"
+                                android:textSize="@dimen/font_large"
+                                android:textColor="@color/text_body"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/event_detail_note_read_all"
+                                android:textColor="@color/brand_main"
+                                android:textSize="@dimen/font_small"
+                                android:layout_below="@id/note_text"
+                                android:onClick="@{contentVM.onAllNoteClick()}"/>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/s1"
+                            android:id="@+id/url_part"
+                            android:visibility="@{contentVM.event.url.empty? View.GONE: View.VISIBLE}"
+                            android:onClick="@{contentVM.onClickUrl()}"
+                            android:paddingRight="@dimen/s1"
+                            android:paddingLeft="@dimen/s1"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/event_detail_url"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentLeft="true"
+                                android:id="@+id/url_title"
+                                android:textSize="@dimen/font_tiny"
+                                android:textColor="@color/text_detail_label"/>
+
+                            <TextView
+                                android:layout_marginTop="@dimen/s2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@{contentVM.event.url}"
+                                android:layout_below="@id/url_title"
+                                android:layout_alignParentLeft="true"
+                                android:id="@+id/url_text"
+                                android:textSize="@dimen/font_small"
+                                android:textColor="@color/brand_main"/>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/s1"
+                            android:id="@+id/photo_part"
+                            android:visibility="@{contentVM.event.photos.size()!=0? View.VISIBLE: View.GONE}"
+                            android:paddingRight="@dimen/s1"
+                            android:paddingLeft="@dimen/s1"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/event_detail_photo"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentLeft="true"
+                                android:id="@+id/photo_title"
+                                android:textSize="@dimen/font_tiny"
+                                android:textColor="@color/text_detail_label"/>
+                            <org.unimelb.itime.widget.PhotoViewLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:photoUrls = "@{contentVM.photoUrls}"
+                                app:imageClickListener = "@{contentVM.imageClickListener}"
+                                android:layout_marginTop="@dimen/s1"/>
+                        </RelativeLayout>
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/s1"
+                            android:id="@+id/calendar_part"
+                            android:paddingRight="@dimen/s1"
+                            android:paddingLeft="@dimen/s1"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/event_detail_calendar"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentLeft="true"
+                                android:id="@+id/calendar_title"
+                                android:textSize="@dimen/font_tiny"
+                                android:textColor="@color/text_detail_label"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@{contentVM.calendarType}"
+                                android:layout_below="@id/calendar_title"
+                                android:layout_marginTop="@dimen/s2"
+                                android:layout_alignParentLeft="true"
+                                android:id="@+id/calendar_text"
+                                android:textSize="@dimen/font_large"
+                                android:textColor="@color/text_body"/>
+                        </RelativeLayout>
+
+                        <!--place holder-->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="130dp"/>
+    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
+
+    <!--timeslotSheet-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/mask_cover"
+        android:onClick="@{contentVM.onTimeSlotSheetClickListener}"
+        android:visibility="@{contentVM.showTimeSlotSheet?View.VISIBLE:View.GONE}"
+        />
+    <org.unimelb.itime.widget.ScalableLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/s3"
+        android:layout_marginRight="@dimen/s3"
+        android:layout_gravity="bottom"
+        app:scalablelayout_onStatusChange="@{contentVM.onStatusChangeListener}"
+        app:scalablelayout_hideheight="55dp"
+        app:scalablelayout_collapseheight="300dp"
+        app:scalablelayout_expandheight="800dp"
+        app:scalablelayout_status="@{contentVM.bottomSheetStatus}"
+        android:visibility="@{(contentVM.status == contentVM.STATUS_NEED_VOTE) || (contentVM.status == contentVM.STATUS_NEED_CONFIRM) ? View.VISIBLE:View.GONE}"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_detail_cell_height"
+            android:paddingLeft="@dimen/s2"
+            android:paddingRight="@dimen/s2"
+            android:orientation="horizontal"
+            android:background="@{contentVM.bottomSheetHeaderDrawable}">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@{contentVM.showTimeSlotSheet? @color/text_body : @color/brand_main}"
+                android:textSize="@dimen/font_large"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="@string/event_detail_choosetimeslots"
+                android:layout_marginLeft="4dp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bg_cornor_border_blue">
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/icon_details_viewincalendar_small"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/event_detail_view_in_calendar"
+                    android:textSize="@dimen/font_tiny"
+                    android:textColor="@color/brand_main"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="8dp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="@dimen/s3"
+                android:layout_marginRight="@dimen/s3"
+                android:onClick="@{contentVM.onTimeSlotSheetClickListener}"
+                android:background="@drawable/icon_details_loadmore"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+
+        <!--Repeat part-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_detail_cell_height"
+            android:paddingRight="@dimen/s2"
+            android:paddingLeft="@dimen/s2"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:background="@color/white"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_body"
+                android:textSize="@dimen/font_large"
+                android:layout_weight="1"
+                android:text="Repeat Every Week"
+                android:layout_marginLeft="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_body"
+                android:textSize="@dimen/font_large"
+                android:layout_weight="1"
+                android:text="Until 04:00 pm WED, 20 JUL"
+                android:layout_marginLeft="4dp" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingRight="@dimen/s2"
+            android:paddingLeft="@dimen/s2"
+            android:background="@color/white"
+            android:layout_weight="1"
+            app:items = "@{contentVM.timeSlotsItems}"
+            app:itemBinding="@{contentVM.timeSlotItemBinding}"
+            app:onItemClickListener="@{contentVM.onTimeSlotClick}"
+            app:layoutManager="@{contentVM.timeSlotLayoutManager}"/>
+
+        <!--buttons part-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="@dimen/s3">
+            <!--Can't go-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_detail_cell_height"
+                android:textColor="@color/brand_warning"
+                android:text="@string/event_detail_icannotgoatalltimeslots"
+                android:gravity="center"
+                android:textSize="@dimen/font_large"
+                android:background="@drawable/selector_warning_button"
+                android:onClick="@{contentVM.onCantGoAllClick()}"
+                android:visibility="@{contentVM.status == contentVM.STATUS_NEED_VOTE?View.VISIBLE:View.GONE}"
+                />
+
+            <!--submit disabled-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_detail_cell_height"
+                android:textColor="@color/brand_main"
+                android:background="@drawable/bg_bottom_cornor_bluelight"
+                android:text="@{contentVM.submitBtnString}"
+                android:gravity="center"
+                android:textSize="@dimen/font_large"
+                android:visibility="@{(contentVM.status == contentVM.STATUS_NEED_VOTE &amp; contentVM.selectedTimeSlots.empty)?View.VISIBLE:View.GONE}"
+                />
+
+            <!--submit able-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_detail_cell_height"
+                android:textColor="@color/white"
+                android:text="@{contentVM.submitBtnString}"
+                android:gravity="center"
+                android:textSize="@dimen/font_large"
+                android:background="@drawable/selector_brand_blue_bottom_button"
+                android:onClick="@{contentVM.onSubmitVoteClick()}"
+                android:visibility="@{(contentVM.status == contentVM.STATUS_NEED_VOTE) &amp; (!contentVM.selectedTimeSlots.empty)?View.VISIBLE:View.GONE}"
+                />
+
+            <!--confirm-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_detail_cell_height"
+                android:textColor="@color/white"
+                android:text="@string/event_detail_confirm"
+                android:gravity="center"
+                android:textSize="@dimen/font_large"
+                android:background="@drawable/selector_brand_blue_bottom_button"
+                android:onClick="@{contentVM.onConfirmClick()}"
+                android:visibility="@{contentVM.status == contentVM.STATUS_NEED_CONFIRM?View.VISIBLE:View.GONE}"
+                />
+        </LinearLayout>
+    </org.unimelb.itime.widget.ScalableLayout>
+
+        <!--Revote Sheet-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/s3"
+            android:orientation="vertical"
+            android:visibility="@{contentVM.status == contentVM.STATUS_NEED_REVOTE ? View.VISIBLE:View.GONE}"
+            android:layout_gravity="bottom"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_detail_cell_height"
+                android:textColor="@color/brand_warning"
+                android:text="@string/event_detail_icantgo"
+                android:gravity="center"
+                android:textSize="@dimen/font_large"
+                android:background="@drawable/selector_warning_button"
+                android:onClick="@{contentVM.onConfirmClick()}"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_detail_cell_height"
+                android:textColor="@color/white"
+                android:text="@string/event_detail_Going"
+                android:gravity="center"
+                android:textSize="@dimen/font_large"
+                android:background="@drawable/selector_brand_blue_bottom_button"
+                android:onClick="@{contentVM.onConfirmClick()}"
+                />
+        </LinearLayout>
+
+        <!--Status bar-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_detail_cell_height"
+            android:visibility="@{contentVM.status == contentVM.STATUS_GOING || contentVM.status == contentVM.STATUS_NOT_GOING? View.VISIBLE:View.GONE}"
+            android:background="@color/white"
+            android:paddingLeft="@dimen/s1"
+            android:paddingRight="@dimen/s1"
+            android:layout_gravity="bottom"
+            >
+            <include layout="@layout/line"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:textSize="@dimen/font_large"
+                android:textColor="@color/text_body"
+                android:text="@string/event_detail_youare"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/font_large"
+                android:textColor="@{contentVM.status == contentVM.STATUS_NOT_GOING ? @color/brand_warning : @color/text_detail_label}"
+                android:text="@string/event_detail_Going"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/s1"
+                android:layout_alignParentRight="true"
+                android:id="@+id/status_notgoing_textview"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/font_large"
+                android:textColor="@{contentVM.status == contentVM.STATUS_GOING ? @color/brand_main : @color/text_detail_label}"
+                android:text="@string/event_detail_Going"
+                android:textStyle="bold"
+                android:layout_marginRight="@dimen/s1"
+                android:layout_toLeftOf="@id/status_notgoing_textview"/>
+
+        </RelativeLayout>
+
+        <!--statusbar archive part-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_detail_cell_height"
+            android:visibility="@{contentVM.status == contentVM.STATUS_CANCELED || contentVM.status == contentVM.STATUS_EXPIRED? View.VISIBLE:View.GONE}"
+            android:background="@color/white"
+            android:paddingLeft="@dimen/s1"
+            android:paddingRight="@dimen/s1"
+            android:layout_gravity="bottom"
+            >
+            <include layout="@layout/line"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:textSize="@dimen/font_large"
+                android:textColor="@color/text_body"
+                android:text="@{contentVM.status == contentVM.STATUS_CANCELED ? @string/event_detail_eventcanceled : @string/event_detail_invitationexpired}"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/font_large"
+                android:textColor="@{contentVM.archived ? @color/text_detail_label :@color/brand_main }"
+                android:text="@{contentVM.archived ? @string/event_detail_archived : @string/event_detail_archived}"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/s1"
+                android:layout_alignParentRight="true" />
+
+
+        </RelativeLayout>
+    </FrameLayout>
+
+
+</layout>

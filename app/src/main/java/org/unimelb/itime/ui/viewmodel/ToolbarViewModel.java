@@ -20,6 +20,8 @@ public class ToolbarViewModel<V extends ToolbarInterface> extends BaseObservable
     private String rightText;
     private Drawable leftIcon;
     private int rightTextColor;
+    private boolean leftEnable;
+    private boolean rightEnable;
 
     private V view;
 
@@ -35,6 +37,27 @@ public class ToolbarViewModel<V extends ToolbarInterface> extends BaseObservable
     public void setTitle(String title) {
         this.title = title;
         notifyPropertyChanged(BR.title);
+    }
+
+    @Bindable
+    public boolean isLeftEnable() {
+        return leftEnable;
+
+    }
+
+    public void setLeftEnable(boolean leftEnable) {
+        this.leftEnable = leftEnable;
+        notifyPropertyChanged(BR.leftEnable);
+    }
+
+    @Bindable
+    public boolean isRightEnable() {
+        return rightEnable;
+    }
+
+    public void setRightEnable(boolean rightEnable) {
+        this.rightEnable = rightEnable;
+        notifyPropertyChanged(BR.rightEnable);
     }
 
     @Bindable

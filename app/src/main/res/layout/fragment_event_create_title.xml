@@ -24,7 +24,7 @@
 
     <RelativeLayout
         style="@style/ItimeRelativeCell44"
-        android:background="@color/white">
+        android:background="@color/whiteFour">
         <ImageView
             style="@style/ItimeCellLeftIcon"
             android:background="@drawable/icon_event_title_hl"/>

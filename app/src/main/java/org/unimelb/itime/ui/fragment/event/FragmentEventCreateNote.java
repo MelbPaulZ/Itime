@@ -3,6 +3,7 @@ package org.unimelb.itime.ui.fragment.event;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ public class FragmentEventCreateNote extends ItimeBaseFragment<EventCreateUrlMvp
         toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarViewModel.setTitle(getString(R.string.toolbar_note));
         toolbarViewModel.setRightText(getString(R.string.toolbar_done));
+        toolbarViewModel.setRightEnable(true);
         binding.setToolbarVM(toolbarViewModel);
     }
 
@@ -62,8 +64,12 @@ public class FragmentEventCreateNote extends ItimeBaseFragment<EventCreateUrlMvp
 
     @Override
     public void onNext() {
-        FragmentEventCreate fragment = (FragmentEventCreate) getFragmentManager().findFragmentByTag(FragmentEventCreate.class.getSimpleName());
-        fragment.setEvent(event);
+        Fragment fragment = getFrom();
+        if (fragment instanceof FragmentEventCreate){
+            ((FragmentEventCreate)fragment).setEvent(event);
+        }else if (fragment instanceof FragmentEventPrivateCreate){
+            ((FragmentEventPrivateCreate)fragment).setEvent(event);
+        }
         getFragmentManager().popBackStack();
     }
 

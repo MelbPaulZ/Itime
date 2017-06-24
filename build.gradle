@@ -20,6 +20,7 @@ buildscript {
 
         // green dao
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
+
     }
 }
 
@@ -32,12 +33,17 @@ allprojects {
 //            url "http://mvn.leancloud.cn/nexus/content/repositories/releases"
             url "http://mvn.leancloud.cn/nexus/content/repositories/public"
         }
+//        maven {
+////            url "http://mvn.leancloud.cn/nexus/content/repositories/releases"
+//            url "http://146.118.101.148/repository/paulcasso/"
+//        }
     }
     dependencies{
         repositories{
             maven { url 'http://146.118.101.148/repository/itime/'}
         }
     }
+
 }
 
 task clean(type: Delete) {

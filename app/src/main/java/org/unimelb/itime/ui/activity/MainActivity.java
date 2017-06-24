@@ -1,11 +1,14 @@
 package org.unimelb.itime.ui.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.hannesdorfmann.mosby.mvp.MvpFragment;
@@ -25,6 +28,9 @@ import org.unimelb.itime.ui.fragment.event.FragmentEventCreateTitle;
 import org.unimelb.itime.ui.fragment.event.FragmentEventRepeat;
 import org.unimelb.itime.ui.mvpview.MainTabBarView;
 import org.unimelb.itime.ui.viewmodel.MainTabBarViewModel;
+import org.unimelb.itime.util.EventUtil;
+
+import java.util.Date;
 
 public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
     private FragmentManager fragmentManager;
@@ -39,6 +45,7 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new MainTabBarViewModel(this);
+        viewModel.setContext(getApplicationContext());
         viewModel.setUnReadNum(0+"");
 
         eventManager = EventManager.getInstance(getApplicationContext());
@@ -74,6 +81,7 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
 
         fragmentTransaction.commit();
         showFragmentById(0);
+
     }
 
     @Override
@@ -88,4 +96,20 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         }
         fragmentTransaction.commit();
     }
+
+    @Override
+    public void gotoCreateMeeting() {
+        Intent intent = new Intent(this, EventCreateActivity.class);
+        intent.putExtra(getString(R.string.event_type), getString(R.string.event_type_group));
+        startActivity(intent);
+    }
+
+    @Override
+    public void gotoCreateEvent() {
+        Intent intent = new Intent(this, EventCreateActivity.class);
+        intent.putExtra(getString(R.string.event_type), getString(R.string.event_type_solo));
+        startActivity(intent);
+    }
+
+
 }

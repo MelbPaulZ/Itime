@@ -74,7 +74,7 @@
                 android:paddingEnd="9dp"
                 android:paddingStart="9dp"
                 android:visibility="@{calendarVM.showSpinnerMenu ? View.VISIBLE : View.GONE}"
-                app:itemView="@{calendarVM.menuItemView}"
+                app:itemBinding="@{calendarVM.menuItemView}"
                 app:items="@{calendarVM.menuItems}"
                 app:onItemClickListener="@{calendarVM.onMenuSpinnerClicked}" />
         </FrameLayout>

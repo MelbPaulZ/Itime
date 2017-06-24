@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Switch;
 
 /**
  * Created by Paul on 2/6/17.
@@ -24,6 +25,11 @@ public class ItimeBaseViewModel extends BaseObservable {
     @BindingAdapter("android:onEditTextChange")
     public static void setOnEditTextCchangeListener(EditText editText, TextWatcher textWatcher){
         editText.addTextChangedListener(textWatcher);
+    }
+
+    @BindingAdapter("android:onSwitchChange")
+    public static void setOnSwitchChangeListener(Switch s, Switch.OnCheckedChangeListener listener){
+        s.setOnCheckedChangeListener(listener);
     }
 
     public View.OnFocusChangeListener onInputEditFocusChange(){

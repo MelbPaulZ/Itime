@@ -46,6 +46,7 @@ public class FragmentEventEndRepeat extends ItimeBaseFragment<EventEndRepeatMvpV
         toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarViewModel.setTitle(getString(R.string.event_end_repeat));
         toolbarViewModel.setRightText(getString(R.string.event_repeat_toolbar_done));
+        toolbarViewModel.setRightEnable(true);
         binding.setToolbarVM(toolbarViewModel);
 
         final DatePicker datePicker = (DatePicker) getActivity().findViewById(R.id.date_picker);

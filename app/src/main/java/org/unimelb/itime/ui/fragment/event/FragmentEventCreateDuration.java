@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import org.unimelb.itime.ui.mvpview.event.EventCreateDurationMvpView;
 import org.unimelb.itime.ui.presenter.LocalPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.event.EventCreateDurationViewModel;
+import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.util.SizeUtil;
 
 import java.util.ArrayList;
@@ -57,13 +59,14 @@ public class FragmentEventCreateDuration extends ItimeBaseFragment<EventCreateDu
         super.onActivityCreated(savedInstanceState);
 
         vm = new EventCreateDurationViewModel(getPresenter());
-        vm.setDuration(getDurationData().get(3));
+        vm.setDuration(event.getDuration()==0? getDurationData().get(3): EventUtil.durationInt2String(getContext(), event.getDuration()));
         binding.setVm(vm);
 
         toolbarViewModel = new ToolbarViewModel<>(this);
         toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarViewModel.setTitle(getString(R.string.event_create_duration));
-        toolbarViewModel.setRightText(getString(R.string.toolbar_done));
+        toolbarViewModel.setRightText(getString(R.string.toolbar_next));
+        toolbarViewModel.setRightEnable(true);
         binding.setToolbarVM(toolbarViewModel);
 
         WheelPicker durationWheelPicker = (WheelPicker) getActivity().findViewById(R.id.duration_wheel_picker);
@@ -72,7 +75,7 @@ public class FragmentEventCreateDuration extends ItimeBaseFragment<EventCreateDu
         durationWheelPicker.setData(getDurationData());
         durationWheelPicker.setItemTextSize(SizeUtil.dip2px(getContext(), 16));
         durationWheelPicker.setCyclic(true);
-        durationWheelPicker.setSelectedItemPosition(3); // // TODO: 8/6/17 change to follow event
+        durationWheelPicker.setSelectedItemPosition(event.getDuration()==0? 3:getDurationData().indexOf(EventUtil.durationInt2String(getContext(), event.getDuration()))); // // TODO: 8/6/17 change to follow event
         durationWheelPicker.setIndicator(true);
         durationWheelPicker.setIndicatorColor(getResources().getColor(R.color.divider_line));
         durationWheelPicker.setIndicatorSize(2);
@@ -103,6 +106,11 @@ public class FragmentEventCreateDuration extends ItimeBaseFragment<EventCreateDu
 
     @Override
     public void onNext() {
+        Fragment fragment = getFrom();
+        if (fragment instanceof FragmentEventCreate){
+            event.setDuration(EventUtil.durationString2Int(getContext(), vm.getDuration()));
+            ((FragmentEventCreate) fragment).setEvent(event);
+        }
         getFragmentManager().popBackStack();
     }
 
