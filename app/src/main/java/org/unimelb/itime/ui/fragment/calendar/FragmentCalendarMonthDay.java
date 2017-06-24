@@ -82,12 +82,6 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
 
             Intent intent = new Intent(getActivity(), EventCreateActivity.class);
             startActivity(intent);
-
-
-
-
-
-
         }
 
         @Override
@@ -116,5 +110,10 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
         public void onAllDayEventClick(ITimeEventInterface iTimeEventInterface) {
 
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }
