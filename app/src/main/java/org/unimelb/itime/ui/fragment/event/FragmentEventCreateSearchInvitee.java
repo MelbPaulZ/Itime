@@ -34,8 +34,8 @@ public class FragmentEventCreateSearchInvitee  extends ItimeBaseFragment<EventCr
     private FragmentEventCreateSearchInviteeBinding binding;
     private Event event;
     private EventCreateSearchInviteeViewModel contentVM;
-    private FragmentEventCreateAddContact addContactFragment;
     private List<Invitee> inviteeList = new ArrayList<>();
+    private FragmentEventCreateAddContact addContactFragment;
 
     @Nullable
     @Override
@@ -80,6 +80,16 @@ public class FragmentEventCreateSearchInvitee  extends ItimeBaseFragment<EventCr
     @Override
     public void goBack() {
         getBaseActivity().onBackPressed();
+    }
+
+    @Override
+    public void gotoAddContact() {
+        if(addContactFragment==null){
+            addContactFragment = new FragmentEventCreateAddContact();
+        }
+        addContactFragment.setInvitees(contentVM.getInvitees());
+        addContactFragment.setEvent(contentVM.getEvent());
+        getBaseActivity().openFragment(addContactFragment, null, false);
     }
 
     public void setEvent(Event event) {

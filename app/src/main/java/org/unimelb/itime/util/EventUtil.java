@@ -364,6 +364,7 @@ public class EventUtil {
         Invitee invitee = new Invitee();
         invitee.setAliasPhoto(contact.getAliasPhoto());
         invitee.setAliasName(contact.getAliasName());
+        invitee.setUserId(contact.getUserDetail().getUserId());
         invitee.setUserUid(contact.getUserUid());
         invitee.setEventUid(event.getEventUid());
         return invitee;

@@ -112,7 +112,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
 
     @Override
     public void onBack() {
-        new MaterialDialog.Builder(getContext())
+        getDialogBuidler()
                 .content(R.string.event_create_cancel_dialog_content)
                 .contentColor(getResources().getColor(R.color.black))
                 .contentGravity(GravityEnum.CENTER)

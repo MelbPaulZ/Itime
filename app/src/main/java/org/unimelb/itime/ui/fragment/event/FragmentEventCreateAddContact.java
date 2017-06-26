@@ -71,7 +71,7 @@ public class FragmentEventCreateAddContact extends ItimeBaseFragment<EventCreate
         toolbarViewModel = new ToolbarViewModel<>(this);
         toolbarViewModel.setLeftIcon(getContext().getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarViewModel.setTitle(getString(R.string.event_create_itimecontacts));
-        toolbarViewModel.setRightEnable(false);
+        toolbarViewModel.setRightEnable(true);
         toolbarViewModel.setRightText(getString(R.string.toolbar_done));
         binding.setToolbarVM(toolbarViewModel);
     }

@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Itime</string>
 
+    <!--dialog string-->
+
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
     <!--toolbar string-->
     <string name="toolbar_done">Done</string>
     <string name="toolbar_custom">Custom</string>
@@ -59,6 +63,9 @@
     <string name="event_create_addinvitee_typeemailhere">Type Email here</string>
     <string name="event_create_itimecontacts">iTime Contacts</string>
     <string name="event_create_recent_invitee">RECENT</string>
+    <string name="event_create_peopleinvited">PEOPLE INVITEED</string>
+    <string name="event_create_allowthemtoseeeachothervote">Allow them to see each other\'s votes</string>
+
     <!--Timeslots-->
     <string name="event_candidate_timeslots">%1$d Candidate Timeslots: </string>
     <!--12:00 -> 14:00 -->

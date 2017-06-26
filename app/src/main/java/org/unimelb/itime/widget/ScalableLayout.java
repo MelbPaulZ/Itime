@@ -128,11 +128,11 @@ public class ScalableLayout extends LinearLayout{
                          if(deltaY<0 || ViewCompat.canScrollVertically(getRecyclerView(), -1)) {
                             intercepted = false;
                         }else{
-                             return true;
+                             intercepted = true;
                          }
                     }
                     else{
-                        return true;
+                        intercepted = true;
                     }
                 }else {
                     intercepted = false;

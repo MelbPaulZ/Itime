@@ -69,6 +69,7 @@ public class EventCreateAddContactViewModel extends BaseObservable{
         for(Invitee invitee:invitees){
             if(contactMap.get(invitee.getUserUid())!=null){
                 contactMap.get(invitee.getUserUid()).setSelect(true);
+                selectedList.add(contactMap.get(invitee.getUserUid()).getData());
             }
         }
     }

@@ -38,6 +38,23 @@ public class EventCreateAddInviteeViewModel extends BaseObservable {
     private List<Invitee> invitees = new ArrayList<>();
     private ObservableList<UserInfoViewModel> inviteeItems = new ObservableArrayList<>();
     private ToolbarViewModel toolbarViewModel;
+    private boolean canSeeEachOther = true;
+
+    @Bindable
+    public boolean isCanSeeEachOther() {
+        return event.getInviteeVisibility()==Event.CAN_SEE_EACH_OTHER;
+    }
+
+
+    public void setCanSeeEachOther(boolean canSeeEachOther) {
+        this.canSeeEachOther = canSeeEachOther;
+        if(canSeeEachOther){
+            event.setInviteeVisibility(Event.CAN_SEE_EACH_OTHER);
+        }else{
+            event.setInviteeVisibility(Event.CANNOT_SEE_EACH_OTHER);
+        }
+        notifyPropertyChanged(com.android.databinding.library.baseAdapters.BR.canSeeEachOther);
+    }
 
     public ToolbarViewModel getToolbarViewModel() {
         return toolbarViewModel;
