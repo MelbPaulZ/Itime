@@ -4,10 +4,13 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+
+import com.developer.paul.itimerecycleviewgroup.ITimeRecycleViewGroup;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
@@ -31,6 +34,7 @@ import java.util.List;
  */
 
 public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, CalendarPresenter<CalendarMvpView>> implements ToolbarInterface {
+    private static final String TAG = "lifecycle";
     private EventManager eventManager;
     private FragmentCalendarBinding binding;
 
@@ -43,11 +47,6 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        /**
-         * For Testing
-         */
-        initData();
-
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_calendar, container, false);
         eventManager = EventManager.getInstance(getContext());
         return binding.getRoot();
@@ -99,7 +98,7 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
                 showCalendar(monthDayFragment);
                 break;
             case 1:
-                showCalendar(weekFragment);
+//                showCalendar(weekFragment);
                 break;
             case 2:
 //                showCalendar(agendaFragment);
@@ -145,59 +144,34 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
         getFragmentManager().beginTransaction().replace(R.id.calendar_framelayout, fragment).commit();
     }
 
-
     public void initCalendars(){
         monthDayFragment = new FragmentCalendarMonthDay();
-        weekFragment = new FragmentCalendarWeekDay();
-        agendaFragment = new FragmentCalendarAgenda();
+//        weekFragment = new FragmentCalendarWeekDay();
+//        agendaFragment = new FragmentCalendarAgenda();
         getFragmentManager().beginTransaction().add(R.id.calendar_framelayout, monthDayFragment).commit();
-    }
-
-    /**
-     * For TESTING
-     */
-    private void initData() {
-        Calendar calendar = Calendar.getInstance();
-        List<Event> events = new ArrayList<>();
-        int[] type = {0, 1, 2};
-        int[] status = {0, 1};
-        long allDayInterval = (24 * 3600 * 1000);
-        long interval = (3600 * 1000);
-        long startTime = calendar.getTimeInMillis();
-        long endTime;
-        for (int i = 1; i < 20; i++) {
-            endTime = startTime + interval;
-            Event event = EventUtil.getNewEvent();
-            event.setIsAllDay(i%2 == 0);
-            event.setDisplayEventType(1);
-            event.setDisplayStatus("#63ADF2|slash|icon_normal");
-            event.setLocation(new Location());
-            event.setStartTime(startTime);
-            event.setEndTime(endTime);
-            events.add(event);
-
-            startTime = startTime + allDayInterval;
-            EventManager.getInstance(getContext()).addEvent(event);
-        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        Log.i(TAG, "onStart: " + "FragmentCalendar");
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        Log.i(TAG, "onResume: " + "FragmentCalendar");
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        Log.i(TAG, "onPause: " + "FragmentCalendar");
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        Log.i(TAG, "onPause: " + "FragmentCalendar");
     }
 }

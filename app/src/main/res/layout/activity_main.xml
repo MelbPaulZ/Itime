@@ -33,7 +33,7 @@
             android:background="@drawable/bg_divider_top"
             android:paddingTop="1dp"
             >
-
+            <!--meetings-->
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
@@ -42,28 +42,58 @@
                 android:onClick="@{tabBarVM.onTabBarClick(0)}"
                 >
                 <TextView
-                    android:id="@+id/calendar_icon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
                     android:tag="tab_icon"
                     android:selected="@{tabBarVM.tabSelectedArr[0]}"
-                    android:background="@drawable/selector_tab_calendar"/>
-
+                    android:background="@drawable/selector_tab_inbox"
+                    />
                 <TextView
-                    android:id="@+id/main_tab_calendar_tv"
+                    android:id="@+id/main_tab_inbox_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/tab_message"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="5dp"
-                    android:text="@string/tab_calendar"
                     android:layout_centerHorizontal="true"
-                    android:textSize="10sp"
-                    android:tag="tab_text"
                     android:selected="@{tabBarVM.tabSelectedArr[0]}"
                     android:textColor="@drawable/selector_tab_text_color"
+                    android:textSize="10sp"
                     />
+
+                <!--add in last, for bring to front-->
+                <View
+                    android:id="@+id/anchor"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_centerInParent="true" />
+
+                <!--请勿删除-->
+                <!--<TextSwitcher-->
+                <!--android:layout_width="23dp"-->
+                <!--android:layout_height="23dp"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:textSize="12sp"-->
+                <!--android:text="8"-->
+                <!--android:layout_toRightOf="@id/anchor"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:gravity="center"-->
+                <!--android:background="@drawable/icon_notice_number"/>-->
+
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="10sp"
+                    android:textColor="@color/white"
+                    android:text="@{tabBarVM.unReadNum}"
+                    android:visibility="@{tabBarVM.visible}"
+                    android:layout_toRightOf="@id/anchor"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center"
+                    android:background="@drawable/icon_notice_number"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -120,6 +150,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
 
+            <!--calendar-->
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
@@ -128,58 +159,28 @@
                 android:onClick="@{tabBarVM.onTabBarClick(2)}"
                 >
                 <TextView
+                    android:id="@+id/calendar_icon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
                     android:tag="tab_icon"
                     android:selected="@{tabBarVM.tabSelectedArr[2]}"
-                    android:background="@drawable/selector_tab_inbox"
-                    />
+                    android:background="@drawable/selector_tab_calendar"/>
+
                 <TextView
-                    android:id="@+id/main_tab_inbox_tv"
+                    android:id="@+id/main_tab_calendar_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tab_message"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="5dp"
+                    android:text="@string/tab_calendar"
                     android:layout_centerHorizontal="true"
+                    android:textSize="10sp"
+                    android:tag="tab_text"
                     android:selected="@{tabBarVM.tabSelectedArr[2]}"
                     android:textColor="@drawable/selector_tab_text_color"
-                    android:textSize="10sp"
                     />
-
-                <!--add in last, for bring to front-->
-                <View
-                    android:id="@+id/anchor"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_centerInParent="true" />
-
-                <!--请勿删除-->
-                <!--<TextSwitcher-->
-                <!--android:layout_width="23dp"-->
-                <!--android:layout_height="23dp"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:textSize="12sp"-->
-                <!--android:text="8"-->
-                <!--android:layout_toRightOf="@id/anchor"-->
-                <!--android:layout_alignParentTop="true"-->
-                <!--android:gravity="center"-->
-                <!--android:background="@drawable/icon_notice_number"/>-->
-
-                <TextView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_centerHorizontal="true"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:text="@{tabBarVM.unReadNum}"
-                    android:visibility="@{tabBarVM.visible}"
-                    android:layout_toRightOf="@id/anchor"
-                    android:layout_alignParentTop="true"
-                    android:gravity="center"
-                    android:background="@drawable/icon_notice_number"/>
             </RelativeLayout>
 
             <RelativeLayout
