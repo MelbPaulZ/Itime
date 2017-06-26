@@ -58,6 +58,7 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
         toolbarVM.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarVM.setTitle(getString(R.string.toolbar_greeting));
         toolbarVM.setRightText(getString(R.string.toolbar_send));
+        toolbarVM.setRightEnable(true);
         binding.setToolbarVM(toolbarVM);
     }
 

@@ -54,6 +54,7 @@ public class FragmentEventCreateNote extends ItimeBaseFragment<EventCreateUrlMvp
         toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarViewModel.setTitle(getString(R.string.toolbar_note));
         toolbarViewModel.setRightText(getString(R.string.toolbar_done));
+        toolbarViewModel.setRightEnable(true);
         binding.setToolbarVM(toolbarViewModel);
     }
 

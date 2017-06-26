@@ -1,10 +1,7 @@
 package org.unimelb.itime.ui.viewmodel.event;
 
 import android.databinding.Bindable;
-import android.databinding.ObservableArrayList;
-import android.databinding.ObservableList;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Toast;
@@ -453,6 +450,8 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             @Override
             public void onClick(View v) {
                 addButton(getString(R.string.repeat_toolbar_btn));
+                event.setRecurrence(new String[]{});
+                setEvent(event);
             }
         };
 

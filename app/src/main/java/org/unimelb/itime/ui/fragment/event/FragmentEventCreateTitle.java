@@ -57,6 +57,7 @@ public class FragmentEventCreateTitle extends ItimeBaseFragment<EventCreateTitle
         toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarViewModel.setTitle(getString(R.string.toolbar_event));
         toolbarViewModel.setRightText(getString(R.string.toolbar_done));
+        toolbarViewModel.setRightEnable(true);
         binding.setToolbarVM(toolbarViewModel);
 
     }

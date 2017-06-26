@@ -60,16 +60,26 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     }
 
     private void init(){
-        mockEvent();
-        vm = new EventCreateViewModel(getPresenter());
-        vm.setEvent(event);
-        binding.setVm(vm);
+        if (vm==null) {
+            mockEvent();
+            vm = new EventCreateViewModel(getPresenter());
+            vm.setEvent(event);
+            binding.setVm(vm);
+            toolbarViewModel = new ToolbarViewModel<>(this);
+            toolbarViewModel.setTitle(getString(R.string.new_event_toolbar_title));
+            toolbarViewModel.setRightText(getString(R.string.new_event_toolbar_next));
+            toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_close));
+            toolbarViewModel.setRightEnable(true);
+            binding.setToolbarvm(toolbarViewModel);
+        }else{
+            vm.setEvent(event);
+        }
+    }
 
-        toolbarViewModel = new ToolbarViewModel<>(this);
-        toolbarViewModel.setTitle(getString(R.string.new_event_toolbar_title));
-        toolbarViewModel.setRightText(getString(R.string.new_event_toolbar_next));
-        toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_close));
-        binding.setToolbarvm(toolbarViewModel);
+    private void mockEvent(){
+        event= new Event();
+        event.getStart().setDateTime("2017-05-23T12:25:00+10:00");
+        event.getEnd().setDateTime("2017-05-23T13:25:00+10:00");
     }
 
     @Override
@@ -78,9 +88,6 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         outState.putSerializable(getString(R.string.event), event);
     }
 
-    private void mockEvent(){
-        event = new Event();
-    }
 
     public void setEvent(Event event) {
         this.event = event;
@@ -191,7 +198,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     }
 
     @Override
-    public void showPopupDialog() {
+    public void showPopupDialog(int startOrEnd) {
 
     }
 

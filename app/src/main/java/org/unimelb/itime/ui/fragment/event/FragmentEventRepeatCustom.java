@@ -66,8 +66,8 @@ public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCust
         toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarViewModel.setTitle(getString(R.string.event_repeat_custom));
         toolbarViewModel.setRightText(getString(R.string.toolbar_done));
+        toolbarViewModel.setRightEnable(true);
         binding.setToolbarVM(toolbarViewModel);
-
 
     }
 
@@ -149,11 +149,16 @@ public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCust
         if (position == 3){
             event.getRule().setFrequencyEnum(FrequencyEnum.YEARLY);
         }
+
         event.setRecurrence(event.getRule().getRecurrence());
 
     }
 
     private void updateInterval(int position){
+        // give a default value for FrequencyEnum
+        if (event.getRule().getFrequencyEnum()==null){
+            event.getRule().setFrequencyEnum(FrequencyEnum.DAILY);
+        }
         event.getRule().setInterval(position+1);
         event.setRecurrence(event.getRule().getRecurrence());
     }
@@ -229,11 +234,10 @@ public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCust
         Fragment fragment = getTargetFragment();
         if (fragment instanceof FragmentEventCreate){
             ((FragmentEventCreate) fragment).setEvent(event);
-            getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
+            getFragmentManager().popBackStack(FragmentEventCreate.class.getSimpleName(), 0);
         }else if (fragment instanceof FragmentEventPrivateCreate){
             ((FragmentEventPrivateCreate) fragment).setEvent(event);
-            getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            getFragmentManager().popBackStack(FragmentEventPrivateCreate.class.getSimpleName(), 0 );
         }
         getBaseActivity().backFragmentBottomUp(fragment);
     }

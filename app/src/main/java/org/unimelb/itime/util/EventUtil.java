@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.util.SparseArray;
 
+import com.google.api.client.util.DateTime;
+
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Event;
@@ -186,7 +188,7 @@ public class EventUtil {
 
     public static String HOUR_MIN = "kk:mm";
     public static String WEEK_DAY_MONTH = "EEE, dd MMM";
-    public static String TIME_ZONE_PATTERN = "yyyy-MM-dd'T'HH:mm:ssz";
+    public static String TIME_ZONE_PATTERN = "yyyy-MM-dd'T'HH:mm:ssZZZZZ";
 
     public static String getFormatTimeString(long time, String format){
         Calendar c = Calendar.getInstance();

@@ -10,6 +10,7 @@ import com.developer.paul.closabledatabindingview.closableItem.ButtonItem;
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
+import org.unimelb.itime.ui.viewmodel.component.EventTimeViewModel;
 import org.unimelb.itime.util.EventUtil;
 
 import java.util.Date;
@@ -37,7 +38,7 @@ public class EventCreatePrivateViewModel extends EventCreateViewModel {
             @Override
             public void onClick(View v) {
                 if (mvpView!=null){
-                    mvpView.showPopupDialog();
+                    mvpView.showPopupDialog(EventTimeViewModel.EVENT_TIME_START_TIME);
                 }
             }
         };
@@ -48,7 +49,7 @@ public class EventCreatePrivateViewModel extends EventCreateViewModel {
             @Override
             public void onClick(View v) {
                 if (mvpView!=null){
-                    mvpView.showPopupDialog();
+                    mvpView.showPopupDialog(EventTimeViewModel.EVENT_TIME_END_TIME);
                 }
             }
         };

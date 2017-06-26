@@ -50,10 +50,11 @@ public class FragmentEventCalendar extends ItimeBaseFragment<EventCreateCalendar
         vm.setEvent(event);
         binding.setVm(vm);
 
-        toolbarViewModel = new ToolbarViewModel(this);
+        toolbarViewModel = new ToolbarViewModel<>(this);
         toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarViewModel.setTitle(getString(R.string.toolbar_calendars));
         toolbarViewModel.setRightText(getString(R.string.toolbar_done));
+        toolbarViewModel.setRightEnable(true);
         binding.setToolbarVM(toolbarViewModel);
     }
 
