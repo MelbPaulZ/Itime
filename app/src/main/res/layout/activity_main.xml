@@ -43,13 +43,13 @@
                 >
                 <TextView
                     android:id="@+id/calendar_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="43dp"
+                    android:layout_height="28dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
                     android:tag="tab_icon"
                     android:selected="@{tabBarVM.tabSelectedArr[0]}"
-                    android:background="@drawable/selector_tab_calendar"/>
+                    android:background="@drawable/selector_tab_meetings"/>
 
                 <TextView
                     android:id="@+id/main_tab_calendar_tv"
@@ -57,12 +57,12 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="5dp"
-                    android:text="@string/tab_calendar"
+                    android:text="@string/tab_mettings"
                     android:layout_centerHorizontal="true"
-                    android:textSize="10sp"
+                    android:textSize="9sp"
                     android:tag="tab_text"
                     android:selected="@{tabBarVM.tabSelectedArr[0]}"
-                    android:textColor="@drawable/selector_tab_text_color"
+                    android:textColor="@color/text_body"
                     />
             </RelativeLayout>
 
@@ -74,24 +74,24 @@
                 android:onClick="@{tabBarVM.onTabBarClick(1)}"
                 >
                 <TextView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="43dp"
+                    android:layout_height="28dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
                     android:tag="tab_icon"
                     android:selected="@{tabBarVM.tabSelectedArr[1]}"
-                    android:background="@drawable/selector_tab_contact"/>
+                    android:background="@drawable/selector_tab_activities"/>
                 <TextView
                     android:id="@+id/main_tab_contact_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tab_contact"
+                    android:text="@string/tab_activities"
                     android:selected="@{tabBarVM.tabSelectedArr[1]}"
-                    android:textColor="@drawable/selector_tab_text_color"
+                    android:textColor="@color/text_body"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="5dp"
                     android:layout_centerHorizontal="true"
-                    android:textSize="10sp"
+                    android:textSize="9sp"
                     android:tag="tab_text"
                     />
                 <!--add in last, for bring to front-->
@@ -104,7 +104,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_centerHorizontal="true"
-                    android:textSize="10sp"
+                    android:textSize="9sp"
                     android:textColor="@color/white"
                     android:text='@{tabBarVM.unReadFriendRequest+""}'
                     android:visibility="@{tabBarVM.unReadFriendRequest==0?View.GONE:View.VISIBLE}"
@@ -116,9 +116,8 @@
 
             <!--placeholder-->
             <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_width="63dp"
+                android:layout_height="match_parent" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -128,25 +127,25 @@
                 android:onClick="@{tabBarVM.onTabBarClick(2)}"
                 >
                 <TextView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="43dp"
+                    android:layout_height="28dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
                     android:tag="tab_icon"
                     android:selected="@{tabBarVM.tabSelectedArr[2]}"
-                    android:background="@drawable/selector_tab_inbox"
+                    android:background="@drawable/selector_tab_calendar"
                     />
                 <TextView
                     android:id="@+id/main_tab_inbox_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tab_message"
+                    android:text="@string/tab_calendar"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="5dp"
                     android:layout_centerHorizontal="true"
                     android:selected="@{tabBarVM.tabSelectedArr[2]}"
-                    android:textColor="@drawable/selector_tab_text_color"
-                    android:textSize="10sp"
+                    android:textColor="@color/text_body"
+                    android:textSize="9sp"
                     />
 
                 <!--add in last, for bring to front-->
@@ -172,7 +171,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_centerHorizontal="true"
-                    android:textSize="10sp"
+                    android:textSize="9sp"
                     android:textColor="@color/white"
                     android:text="@{tabBarVM.unReadNum}"
                     android:visibility="@{tabBarVM.visible}"
@@ -190,26 +189,26 @@
                 android:onClick="@{tabBarVM.onTabBarClick(3)}"
                 >
                 <TextView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="43dp"
+                    android:layout_height="28dp"
                     android:tag="tab_icon"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
                     android:selected="@{tabBarVM.tabSelectedArr[3]}"
-                    android:background="@drawable/selector_tab_setting"
+                    android:background="@drawable/selector_tab_contacts"
                     />
                 <TextView
                     android:id="@+id/main_tab_setting_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tab_setting"
+                    android:text="@string/tab_contacts"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="5dp"
-                    android:textSize="10sp"
+                    android:textSize="9sp"
                     android:layout_centerHorizontal="true"
                     android:tag="tab_text"
                     android:selected="@{tabBarVM.tabSelectedArr[3]}"
-                    android:textColor="@drawable/selector_tab_text_color"
+                    android:textColor="@color/text_body"
                     />
             </RelativeLayout>
 

@@ -67,7 +67,6 @@ public abstract class ItimeBaseFragment<V extends MvpView, P extends MvpPresente
                 .contentColor(getResources().getColor(R.color.black))
                 .contentGravity(GravityEnum.CENTER)
                 .title(title)
-                .negativeText(R.string.dialog_cancel)
                 .positiveText(R.string.dialog_ok)
                 .show();
     }

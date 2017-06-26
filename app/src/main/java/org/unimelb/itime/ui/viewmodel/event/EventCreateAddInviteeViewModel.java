@@ -45,6 +45,10 @@ public class EventCreateAddInviteeViewModel extends BaseObservable {
         return event.getInviteeVisibility()==Event.CAN_SEE_EACH_OTHER;
     }
 
+    public void nextEnable(boolean enable){
+        toolbarViewModel.setRightEnable(enable);
+    }
+
 
     public void setCanSeeEachOther(boolean canSeeEachOther) {
         this.canSeeEachOther = canSeeEachOther;
@@ -83,6 +87,8 @@ public class EventCreateAddInviteeViewModel extends BaseObservable {
             vm.setSelect(true);
             inviteeItems.add(vm);
         }
+
+        nextEnable(!inviteeItems.isEmpty());
     }
 
 
@@ -95,6 +101,7 @@ public class EventCreateAddInviteeViewModel extends BaseObservable {
                     invitees.remove(invitee.getData());
                     inviteeItems.remove(invitee);
                 }
+                nextEnable(!inviteeItems.isEmpty());
             }
 
             @Override
