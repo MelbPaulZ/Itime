@@ -25,14 +25,15 @@ import java.util.List;
  */
 
 public class AddInviteeActivity extends ItimeBaseActivity {
-
+    Event event = new Event();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_create);
 
         FragmentEventCreateAddInvitee fragment = new FragmentEventCreateAddInvitee();
-        fragment.setEvent(new Event());
+        event.setEventUid("1");
+        fragment.setEvent(event);
         getSupportFragmentManager().beginTransaction().add(R.id.frag_container_event_create,fragment, FragmentEventCreate.class.getSimpleName()).commit();
     }
 
@@ -90,6 +91,7 @@ public class AddInviteeActivity extends ItimeBaseActivity {
             timeSlots.add(timeSlot);
         }
         event.setTimeslots(timeSlots);
+        event.setEventUid("1");
         return event;
     }
 

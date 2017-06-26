@@ -226,7 +226,7 @@ public Contact(String userUid, String contactUid, int relationship, int ratingVi
     }
 
     public String getAliasPhoto() {
-        return getUserDetail().getPhoto();
+        return aliasPhoto;
     }
 
     public void setAliasPhoto(String aliasPhoto) {

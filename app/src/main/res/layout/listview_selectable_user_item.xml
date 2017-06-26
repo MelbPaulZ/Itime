@@ -49,11 +49,12 @@
             </FrameLayout>
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@{viewModel.select?@drawable/icon_event_deleteinvitee:@drawable/icon_event_addinvitee}"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="16dp"
+                android:layout_marginLeft="@dimen/s2"
+                android:layout_marginRight="@dimen/s2"
                 android:id="@+id/selectImageView"
                 />
         </LinearLayout>
