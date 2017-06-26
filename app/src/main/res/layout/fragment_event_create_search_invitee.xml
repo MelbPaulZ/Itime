@@ -46,13 +46,25 @@
                 />
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="5dp"
                 android:src="@drawable/icon_event_closecell"
                 android:layout_marginRight="@dimen/s2"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:onClick="@{vm.onClearClick()}"/>
+                android:onClick="@{vm.onClearClick()}"
+                android:visibility="@{vm.searching?View.VISIBLE:View.GONE}"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/icon_event_contactlist"
+                android:layout_marginRight="@dimen/s2"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:onClick="@{vm.onContactClick()}"
+                android:visibility="@{vm.searching?View.GONE:View.VISIBLE}"/>
 
             <!--<ImageView-->
                 <!--android:layout_width="30dp"-->
@@ -85,14 +97,13 @@
             app:onItemClickListener="@{vm.onRecentItemClick}"
             android:visibility="@{vm.searching?View.GONE:View.VISIBLE}"
             />
-
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:items="@{vm.results}"
             app:itemBinding="@{vm.itemBinding}"
-            app:onItemClickListener="@{vm.onRecentItemClick}"
+            app:onItemClickListener="@{vm.onSearchItemClick}"
             android:visibility="@{vm.searching?View.VISIBLE:View.GONE}"
 
             />

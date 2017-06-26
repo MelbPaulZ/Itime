@@ -65,7 +65,7 @@ implements EventCreateMvpView, ToolbarInterface{
         super.onActivityCreated(savedInstanceState);
 
         if (savedInstanceState==null) {
-            if (event==null) {
+            if (vm==null) {
                 firstLoad();
             }else{
                 reLoadPage();
@@ -86,12 +86,12 @@ implements EventCreateMvpView, ToolbarInterface{
     }
 
     private void firstLoad(){
-        mockEvent();
+        if (event==null) {
+            mockEvent();
+        }
 
         vm = new EventCreatePrivateViewModel(getPresenter(), getOrderHashMap());
         vm.setEvent(event);
-
-
         binding.setVm(vm);
 
         toolbarVM = new ToolbarViewModel<>(this);
@@ -208,13 +208,21 @@ implements EventCreateMvpView, ToolbarInterface{
     }
 
     @Override
-    public void showPopupDialog() {
+    public void showPopupDialog(int startOrEnd) {
         Fragment pre = getFragmentManager().findFragmentByTag("dialog");
         if (pre!=null) {
             getFragmentManager().beginTransaction().remove(pre);
         }
         FragmentEventTime newFragment = new FragmentEventTime();
-
+        newFragment.setEvent(event);
+        newFragment.setFirstShowStartOrEnd(startOrEnd);
+        newFragment.setItimeDialogSaveCallBack(new FragmentEventTime.ItimeDialogSaveCallBack() {
+            @Override
+            public void onSave(Event event) {
+                FragmentEventPrivateCreate.this.event = event;
+                vm.setEvent(event);
+            }
+        });
         newFragment.show(getFragmentManager(), "dialog");
     }
 

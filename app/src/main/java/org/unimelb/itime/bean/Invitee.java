@@ -28,6 +28,7 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
     public final static String STATUS_DECLINED = "declined";
     public final static String USER_STATUS_ACTIVATED = "activated";
     public final static String USER_STATUS_UNACTIVATED = "unactivated";
+    public final static String DEFAULT_NO_USER_UID = "-1";
 
 
     private String eventUid = "";

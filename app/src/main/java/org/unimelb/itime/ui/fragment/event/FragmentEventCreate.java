@@ -65,7 +65,6 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
             vm = new EventCreateViewModel(getPresenter());
             vm.setEvent(event);
             binding.setVm(vm);
-
             toolbarViewModel = new ToolbarViewModel<>(this);
             toolbarViewModel.setTitle(getString(R.string.new_event_toolbar_title));
             toolbarViewModel.setRightText(getString(R.string.new_event_toolbar_next));
@@ -113,7 +112,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
 
     @Override
     public void onBack() {
-        new MaterialDialog.Builder(getContext())
+        getDialogBuidler()
                 .content(R.string.event_create_cancel_dialog_content)
                 .contentColor(getResources().getColor(R.color.black))
                 .contentGravity(GravityEnum.CENTER)
@@ -199,7 +198,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     }
 
     @Override
-    public void showPopupDialog() {
+    public void showPopupDialog(int startOrEnd) {
 
     }
 

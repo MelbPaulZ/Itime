@@ -69,7 +69,11 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
 
     private void init(){
         tagFragments = new MvpFragment[4];
+<<<<<<< HEAD
         tagFragments[0] = new FragmentMeeting();
+=======
+        tagFragments[0] = new EmptyFragment();
+>>>>>>> 72d5ab4be748b08ec31110b5e437ea65ceac4a50
         tagFragments[1] = new EmptyFragment();
         tagFragments[2] = new FragmentCalendar();
         tagFragments[3] = new EmptyFragment();

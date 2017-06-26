@@ -39,10 +39,18 @@ public class TestActivity extends ItimeBaseActivity {
         setContentView(R.layout.activity_test);
 
 //        FragmentEventCreateAlert fragment = new FragmentEventCreateAlert();
-//        FragmentEventPrivateCreate fragment = new FragmentEventPrivateCreate();
-        FragmentEventCreate fragment = new FragmentEventCreate();
+        FragmentEventPrivateCreate fragment = new FragmentEventPrivateCreate();
+//        FragmentEventCreate fragment = new FragmentEventCreate();
 //        FragmentEventTime fragment = new FragmentEventTime();
+        fragment.setEvent(getMockEvent());
 //        FragmentEventGreeting fragment = new FragmentEventGreeting();
         getSupportFragmentManager().beginTransaction().add(getFragmentContainerId(), fragment).commit();
+    }
+
+    private Event getMockEvent(){
+        Event event = new Event();
+        event.getStart().setDateTime("2017-05-23T12:25:00+10:00");
+        event.getEnd().setDateTime("2017-05-23T13:25:00+10:00");
+        return event;
     }
 }

@@ -18,6 +18,7 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.ui.mvpview.event.EventCreateSearchInviteeMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
+import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.widget.OnRecyclerItemClickListener;
 import org.unimelb.itime.widget.listview.UserInfoViewModel;
 
@@ -44,12 +45,24 @@ public class EventCreateSearchInviteeViewModel extends BaseObservable {
     private String searchStr = "";
     private Event event;
 
+
     public View.OnClickListener onBackClick(){
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(mvpView!=null){
                     mvpView.goBack();
+                }
+            }
+        };
+    }
+
+    public View.OnClickListener onContactClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mvpView!=null){
+                    mvpView.gotoAddContact();
                 }
             }
         };
@@ -167,7 +180,7 @@ public class EventCreateSearchInviteeViewModel extends BaseObservable {
                     }
                 }
                 if(!contain) {
-                    invitees.add(0, contactToInvitee(contact.getData()));
+                    invitees.add(0, EventUtil.generateInvitee(event, contact.getData()));
                 }
                 if(mvpView!=null){
                     mvpView.goBack();
@@ -190,21 +203,13 @@ public class EventCreateSearchInviteeViewModel extends BaseObservable {
                     }
                 }
                 if (!contain) {
-                    invitees.add(0, contactToInvitee(contact.getData()));
+                    invitees.add(0, EventUtil.generateInvitee(event, contact.getData()));
                 }
                 if (mvpView != null) {
                     mvpView.goBack();
                 }
             }
         };
-    }
-
-    private Invitee contactToInvitee(Contact contact){
-        Invitee invitee = new Invitee();
-        invitee.setAliasPhoto(contact.getAliasPhoto());
-        invitee.setAliasName(contact.getAliasName());
-        invitee.setUserUid(contact.getUserUid());
-        return invitee;
     }
 
     public EventCreateSearchInviteeViewModel(EventCreatePresenter presenter) {
@@ -257,5 +262,9 @@ public class EventCreateSearchInviteeViewModel extends BaseObservable {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public Event getEvent() {
+        return event;
     }
 }

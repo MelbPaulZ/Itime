@@ -11,10 +11,12 @@ import com.android.databinding.library.baseAdapters.BR;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Contact;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.ui.mvpview.event.EventCreateAddContactMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
+import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.widget.OnRecyclerItemClickListener;
 import org.unimelb.itime.widget.listview.UserInfoViewModel;
 import java.util.ArrayList;
@@ -36,6 +38,17 @@ public class EventCreateAddContactViewModel extends BaseObservable{
     private ObservableList<UserInfoViewModel> contacts = new ObservableArrayList<>();
     private List<Contact> selectedList = new ArrayList<>();
     private ToolbarViewModel toolbarViewModel;
+    private Event event;
+
+    @Bindable
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+        notifyPropertyChanged(BR.event);
+    }
 
     public void loadData(){
         List<Contact> contactList = presenter.getContacts();
@@ -56,6 +69,7 @@ public class EventCreateAddContactViewModel extends BaseObservable{
         for(Invitee invitee:invitees){
             if(contactMap.get(invitee.getUserUid())!=null){
                 contactMap.get(invitee.getUserUid()).setSelect(true);
+                selectedList.add(contactMap.get(invitee.getUserUid()).getData());
             }
         }
     }
@@ -82,11 +96,8 @@ public class EventCreateAddContactViewModel extends BaseObservable{
     }
 
     private Invitee contactToInvitee(Contact contact){
-        Invitee invitee = new Invitee();
-        invitee.setAliasPhoto(contact.getAliasPhoto());
-        invitee.setAliasName(contact.getAliasName());
-        invitee.setUserUid(contact.getUserUid());
-        return invitee;
+
+        return EventUtil.generateInvitee(event, contact);
     }
 
     public ToolbarViewModel getToolbarViewModel() {

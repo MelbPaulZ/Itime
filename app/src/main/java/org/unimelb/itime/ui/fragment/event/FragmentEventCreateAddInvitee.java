@@ -2,10 +2,15 @@ package org.unimelb.itime.ui.fragment.event;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.GravityEnum;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
@@ -90,7 +95,19 @@ public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreate
 
     @Override
     public void onBack() {
-
+       getDialogBuidler()
+                .content(R.string.event_create_cancel_dialog_content)
+                .contentColor(getResources().getColor(R.color.black))
+                .contentGravity(GravityEnum.CENTER)
+                .negativeText(R.string.event_dialog_discard)
+                .positiveText(R.string.event_dialog_keep_editing)
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        getBaseActivity().onBackPressed();
+                    }
+                })
+                .show();
     }
 
 
@@ -100,6 +117,8 @@ public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreate
             addContactFragment = new FragmentEventCreateAddContact();
         }
         addContactFragment.setInvitees(contentVM.getInvitees());
+        Event event = contentVM.getEvent();
+        addContactFragment.setEvent(contentVM.getEvent());
         getBaseActivity().openFragment(addContactFragment);
     }
 
@@ -109,7 +128,7 @@ public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreate
             fragmentSearchInvitee = new FragmentEventCreateSearchInvitee();
         }
         fragmentSearchInvitee.setInviteeList(contentVM.getInvitees());
-        fragmentSearchInvitee.setEvent(event);
+        fragmentSearchInvitee.setEvent(contentVM.getEvent());
         getBaseActivity().openFragment(fragmentSearchInvitee);
     }
 }

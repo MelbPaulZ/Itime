@@ -35,7 +35,15 @@ public class FragmentEventCreateAddContact extends ItimeBaseFragment<EventCreate
     private EventCreateAddContactViewModel viewModel;
     private ToolbarViewModel toolbarViewModel;
     private List<Invitee> invitees;
+    private Event event;
 
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -58,11 +66,12 @@ public class FragmentEventCreateAddContact extends ItimeBaseFragment<EventCreate
         viewModel = new EventCreateAddContactViewModel(getPresenter());
         viewModel.setInvitees(new ArrayList<>(invitees));
         viewModel.loadData();
+        viewModel.setEvent(event);
         binding.setContentVM(viewModel);
         toolbarViewModel = new ToolbarViewModel<>(this);
         toolbarViewModel.setLeftIcon(getContext().getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarViewModel.setTitle(getString(R.string.event_create_itimecontacts));
-        toolbarViewModel.setRightEnable(false);
+        toolbarViewModel.setRightEnable(true);
         toolbarViewModel.setRightText(getString(R.string.toolbar_done));
         binding.setToolbarVM(toolbarViewModel);
     }

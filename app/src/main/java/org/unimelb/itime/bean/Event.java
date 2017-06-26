@@ -39,6 +39,9 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     public static final String TYPE_GROUP = "group";
     public static final String TYPE_SOLO = "solo";
 
+    public static final int CAN_SEE_EACH_OTHER = 1;
+    public static final int CANNOT_SEE_EACH_OTHER = 0;
+
     @Id
     private String eventUid = "";
     // for other calendars
@@ -80,6 +83,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     private transient long repeatEndsTime;
     private transient boolean isHost;
     private transient boolean highlighted;
+    private int inviteeVisibility = 1; // default 1 = visible to each other, 0 = invisible
 
     public RuleModel getRule() {
         return rule;
@@ -127,13 +131,13 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
     }
 
-    @Generated(hash = 543621742)
+    @Generated(hash = 359872304)
     public Event(String eventUid, String eventId, String recurringEventUid, String recurringEventId, String calendarUid,
             String iCalUID, String hostUserUid, String summary, String url, Location location, String locationNote,
             double locationLatitude, double locationLongitude, String note, boolean isAllDay, int showLevel,
             String coverPhoto, int reminder, String greeting, int duration, String[] recurrence, List<Invitee> invitees,
-            List<PhotoUrl> photos, List<TimeSlot> timeslots, long startTime, long endTime, int eventType,
-            @NotNull String display, TZoneTime start, TZoneTime end) {
+            List<PhotoUrl> photos, List<TimeSlot> timeslots, int inviteeVisibility, long startTime, long endTime,
+            int eventType, @NotNull String display, TZoneTime start, TZoneTime end) {
         this.eventUid = eventUid;
         this.eventId = eventId;
         this.recurringEventUid = recurringEventUid;
@@ -158,12 +162,21 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.invitees = invitees;
         this.photos = photos;
         this.timeslots = timeslots;
+        this.inviteeVisibility = inviteeVisibility;
         this.startTime = startTime;
         this.endTime = endTime;
         this.eventType = eventType;
         this.display = display;
         this.start = start;
         this.end = end;
+    }
+
+    public int getInviteeVisibility() {
+        return inviteeVisibility;
+    }
+
+    public void setInviteeVisibility(int inviteeVisibility) {
+        this.inviteeVisibility = inviteeVisibility;
     }
 
     public List<Invitee> getInvitees() {

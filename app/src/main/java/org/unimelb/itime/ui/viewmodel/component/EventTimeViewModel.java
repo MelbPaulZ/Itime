@@ -8,7 +8,11 @@ import android.view.View;
 
 import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
+import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.ui.mvpview.ItimeDialogShowChangeInterface;
 import org.unimelb.itime.ui.mvpview.component.Cancellable;
+
+import java.util.Calendar;
 
 /**
  * Created by Paul on 19/6/17.
@@ -20,16 +24,27 @@ public class EventTimeViewModel extends BaseObservable{
     public static int EVENT_TIME_START_TIME = 1;
     public static int EVENT_TIME_END_TIME = 2;
     private Cancellable cancellable;
+    private ItimeDialogShowChangeInterface itimeDialogShowChangeInterface;
+    private Event event;
 
-    public EventTimeViewModel(Context context, Cancellable cancellable) {
+    public EventTimeViewModel(Context context, Object views) {
         this.selectTime = EVENT_TIME_START_TIME;
         this.context = context;
-        this.cancellable = cancellable;
+        this.cancellable = (Cancellable) views;
+        this.itimeDialogShowChangeInterface = (ItimeDialogShowChangeInterface) views;
     }
 
     @Bindable
     public int getSelectTime() {
         return selectTime;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     public void setSelectTime(int selectTime) {
@@ -51,6 +66,9 @@ public class EventTimeViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (itimeDialogShowChangeInterface!=null){
+                    itimeDialogShowChangeInterface.onShowPage(EVENT_TIME_START_TIME);
+                }
                 setSelectTime(EVENT_TIME_START_TIME);
             }
         };
@@ -60,6 +78,9 @@ public class EventTimeViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (itimeDialogShowChangeInterface!=null){
+                    itimeDialogShowChangeInterface.onShowPage(EVENT_TIME_END_TIME);
+                }
                 setSelectTime(EVENT_TIME_END_TIME);
             }
         };
@@ -86,6 +107,5 @@ public class EventTimeViewModel extends BaseObservable{
             }
         };
     }
-
 
 }

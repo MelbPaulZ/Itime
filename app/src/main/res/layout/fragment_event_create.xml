@@ -215,6 +215,8 @@
                         android:layout_marginStart="45dp"
                         android:text="@{vm.event.location.locationString2}"
                         android:textColor="@color/warmGrey"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:textSize="11sp"
                         android:visibility="@{vm.getLocationStringVisibility(vm.event)}" />
 

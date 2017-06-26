@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -11,10 +12,15 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.GravityEnum;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.hannesdorfmann.mosby.mvp.MvpFragment;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby.mvp.MvpView;
 import com.zhy.m.permission.MPermissions;
+
+import org.unimelb.itime.R;
 
 /**
  * Created by Paul on 2/6/17.
@@ -56,16 +62,17 @@ public abstract class ItimeBaseFragment<V extends MvpView, P extends MvpPresente
     }
 
     protected void showDialog(String title, String msg){
-//        new me.fesky.library.widget.ios.AlertDialog(getActivity())
-//                .builder()
-//                .setTitle(title)
-//                .setMsg(msg)
-//                .setPositiveButton(getString(R.string.ok), new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//
-//                    }
-//                }).show();
+        new MaterialDialog.Builder(getContext())
+                .content(msg)
+                .contentColor(getResources().getColor(R.color.black))
+                .contentGravity(GravityEnum.CENTER)
+                .title(title)
+                .positiveText(R.string.dialog_ok)
+                .show();
+    }
+
+    protected MaterialDialog.Builder getDialogBuidler(){
+       return new MaterialDialog.Builder(getContext());
     }
 
 
