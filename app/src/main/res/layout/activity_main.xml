@@ -104,7 +104,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_centerHorizontal="true"
-                    android:textSize="9sp"
+                    android:textSize="10sp"
                     android:textColor="@color/white"
                     android:text='@{tabBarVM.unReadFriendRequest+""}'
                     android:visibility="@{tabBarVM.unReadFriendRequest==0?View.GONE:View.VISIBLE}"
@@ -171,7 +171,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_centerHorizontal="true"
-                    android:textSize="9sp"
+                    android:textSize="10sp"
                     android:textColor="@color/white"
                     android:text="@{tabBarVM.unReadNum}"
                     android:visibility="@{tabBarVM.visible}"
