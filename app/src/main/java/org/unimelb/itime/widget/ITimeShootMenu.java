@@ -210,11 +210,11 @@ public class ITimeShootMenu extends ViewGroup {
             invalidateSelf();
         }
 
-        public void setColor(int color){
-            this.color = color;
-            ColorDrawable drawable = (ColorDrawable) getDrawable(0);
-            drawable.setColor(color);
-        }
+//        public void setColor(int color){
+//            this.color = color;
+//            ColorDrawable drawable = (ColorDrawable) getDrawable(0);
+//            drawable.setColor(color);
+//        }
 
         public void setAlpha(int alpha){
 //            collapseDrawable.setAlpha(alpha);
@@ -622,7 +622,7 @@ public class ITimeShootMenu extends ViewGroup {
             mExpanded = savedState.mExpanded;
 
             if (mRotatingDrawable != null) {
-                mRotatingDrawable.setColor(currentColor);
+//                mRotatingDrawable.setColor(currentColor);
                 mRotatingDrawable.setRotation(mExpanded ? EXPANDED_PLUS_ROTATION : COLLAPSED_PLUS_ROTATION);
 
             }

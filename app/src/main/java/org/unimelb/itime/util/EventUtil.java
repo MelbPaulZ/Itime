@@ -6,8 +6,11 @@ import android.util.Log;
 import android.util.SparseArray;
 
 import org.unimelb.itime.R;
+import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.ITimeComparable;
+import org.unimelb.itime.bean.Invitee;
+import org.unimelb.itime.bean.User;
 import org.unimelb.itime.util.rulefactory.FrequencyEnum;
 import org.unimelb.itime.util.rulefactory.RuleFactory;
 import org.unimelb.itime.util.rulefactory.RuleModel;
@@ -355,6 +358,30 @@ public class EventUtil {
         }
     }
 
+    public static Invitee generateInvitee(Event event, Contact contact){
+        Invitee invitee = new Invitee();
+        invitee.setAliasPhoto(contact.getAliasPhoto());
+        invitee.setAliasName(contact.getAliasName());
+        invitee.setUserUid(contact.getUserUid());
+        invitee.setEventUid(event.getEventUid());
+        return invitee;
+    }
 
+    public static Invitee generateInvitee(Event event, User user){
+        Invitee invitee = new Invitee();
+        invitee.setAliasPhoto(user.getPhoto());
+        invitee.setAliasName(user.getPersonalAlias());
+        invitee.setUserUid(user.getUserUid());
+        invitee.setEventUid(event.getEventUid());
+        return invitee;
+    }
+
+    public static Invitee generateInvitee(Event event, String email){
+        Invitee invitee = new Invitee();
+        invitee.setAliasName(email);
+        invitee.setUserUid("-1");
+        invitee.setEventUid(event.getEventUid());
+        return invitee;
+    }
 
 }
