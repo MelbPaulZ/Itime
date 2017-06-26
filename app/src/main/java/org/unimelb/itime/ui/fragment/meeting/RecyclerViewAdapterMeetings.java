@@ -371,6 +371,9 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
 
     @Override
     public int getItemCount() {
+        if (mDataset == null){
+            return 0;
+        }
         return mDataset.size();
     }
 
