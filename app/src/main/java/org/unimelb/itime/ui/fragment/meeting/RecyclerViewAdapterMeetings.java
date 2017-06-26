@@ -1,6 +1,7 @@
 package org.unimelb.itime.ui.fragment.meeting;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Meeting;
+import org.unimelb.itime.databinding.MeetingInvitationItemDetailedBinding;
 
 import java.util.ArrayList;
 
@@ -24,6 +26,8 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
 
     public class InvitationDetailsViewHolder extends RecyclerView.ViewHolder {
         int position = 0;
+
+        MeetingInvitationItemDetailedBinding binding;
 
         SwipeLayout swipeLayout;
         View leftStatusBar;
@@ -49,6 +53,11 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
             initBg();
 
             swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
+        }
+
+        public InvitationDetailsViewHolder(MeetingInvitationItemDetailedBinding binding) {
+            this(binding.getRoot());
+            this.binding = binding;
         }
 
         private void initViews(){
@@ -298,15 +307,15 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder holder = null;
-
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         switch (viewType){
             case INVITATION_DETAILS:{
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.meeting_inviation_item_detailed, parent, false);
-                holder = new InvitationDetailsViewHolder(view);
+                MeetingInvitationItemDetailedBinding binding = DataBindingUtil.inflate(layoutInflater,R.layout.meeting_invitation_item_detailed,parent,false);
+                holder = new InvitationDetailsViewHolder(binding);
                 break;
             }
             case INVITATION_MESSAGE:{
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.meeting_inviation_item_message, parent, false);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.meeting_invitation_item_message, parent, false);
                 holder = new InvitationMessageViewHolder(view);
                 break;
             }
