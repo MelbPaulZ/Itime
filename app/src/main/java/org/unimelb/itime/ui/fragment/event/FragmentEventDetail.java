@@ -24,6 +24,7 @@ import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.mvpview.event.EventDetailMvpView;
 import org.unimelb.itime.ui.presenter.event.EventDetailPresenter;
 import org.unimelb.itime.ui.viewmodel.event.EventDetailViewModel;
+import org.unimelb.itime.widget.CollapseHeadBar;
 import org.unimelb.itime.widget.popupmenu.ModalPopupView;
 import org.unimelb.itime.widget.popupmenu.PopupMenu;
 
@@ -39,7 +40,8 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     private static final String SHOW_EVENT_DETAIL_TIPS = "event detail tips";
     private FragmentEventDetailBinding binding;
     private Event event;
-    FragmentEventDetailConfirm confirmFragment;
+    private FragmentEventDetailConfirm confirmFragment;
+    private CollapseHeadBar headBar;
 
     private EventDetailViewModel contentViewModel;
     // for displaying timeslots
@@ -157,9 +159,8 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     }
 
     private void initToolbar(){
-
-        contentViewModel.setOnMenuClickListener(getOnMenuItemClick());
-        contentViewModel.setMenuItems(getMenuList());
+        headBar = binding.appBar;
+        headBar.setViewModel(contentViewModel);
     }
 
 

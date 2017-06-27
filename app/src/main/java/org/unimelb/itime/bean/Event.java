@@ -36,6 +36,10 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     public static final String STATUS_CONFIRMED = "confirmed";
     public static final String STATUS_CANCELLED = "cancelled";
 
+    public static final int PINED = 1;
+    public static final int ARCHIVED = 1;
+    public static final int MUTED = 1;
+
     public static final String TYPE_GROUP = "group";
     public static final String TYPE_SOLO = "solo";
 
@@ -43,6 +47,10 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     public static final int CANNOT_SEE_EACH_OTHER = 0;
 
     @Id
+    private int archived;
+    private int pined;
+    private int muted;
+
     private String eventUid = "";
     // for other calendars
     private String eventId;
@@ -131,13 +139,53 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
     }
 
-    @Generated(hash = 359872304)
-    public Event(String eventUid, String eventId, String recurringEventUid, String recurringEventId, String calendarUid,
-            String iCalUID, String hostUserUid, String summary, String url, Location location, String locationNote,
-            double locationLatitude, double locationLongitude, String note, boolean isAllDay, int showLevel,
-            String coverPhoto, int reminder, String greeting, int duration, String[] recurrence, List<Invitee> invitees,
-            List<PhotoUrl> photos, List<TimeSlot> timeslots, int inviteeVisibility, long startTime, long endTime,
-            int eventType, @NotNull String display, TZoneTime start, TZoneTime end) {
+    public int getArchived() {
+        return archived;
+    }
+
+    public void setArchived(int archived) {
+        this.archived = archived;
+    }
+
+    public int getPined() {
+        return pined;
+    }
+
+    public void setPined(int pined) {
+        this.pined = pined;
+    }
+
+    public int getMuted() {
+        return muted;
+    }
+
+    public void setMuted(int muted) {
+        this.muted = muted;
+    }
+
+    public boolean isArchive(){
+        return archived == ARCHIVED;
+    }
+
+    public boolean isMute(){
+        return muted == MUTED;
+    }
+
+    public boolean isPine(){
+        return pined == PINED;
+    }
+
+    @Generated(hash = 1709463029)
+    public Event(int archived, int pined, int muted, String eventUid, String eventId, String recurringEventUid,
+            String recurringEventId, String calendarUid, String iCalUID, String hostUserUid, String summary, String url,
+            Location location, String locationNote, double locationLatitude, double locationLongitude, String note,
+            boolean isAllDay, int showLevel, String coverPhoto, int reminder, String greeting, int duration,
+            String[] recurrence, List<Invitee> invitees, List<PhotoUrl> photos, List<TimeSlot> timeslots,
+            int inviteeVisibility, long startTime, long endTime, int eventType, @NotNull String display, TZoneTime start,
+            TZoneTime end) {
+        this.archived = archived;
+        this.pined = pined;
+        this.muted = muted;
         this.eventUid = eventUid;
         this.eventId = eventId;
         this.recurringEventUid = recurringEventUid;

@@ -28,8 +28,6 @@
                     app:collapseheaderbar_avatar="@{contentVM.host.photo}"
                     app:collapseheaderbar_name="@{contentVM.host.aliasName}"
                     app:collapseheaderbar_title="@{contentVM.event.title}"
-                    app:collapseheaderbar_menuItems="@{contentVM.menuItems}"
-                    app:collapseheaderbar_onMenuItemClick="@{contentVM.onMenuClickListener}"
                     >
                 </org.unimelb.itime.widget.CollapseHeadBar>
 
