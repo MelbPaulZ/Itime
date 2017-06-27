@@ -4,11 +4,9 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.widget.Toast;
+import android.support.v7.widget.RecyclerView;
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.hannesdorfmann.mosby.mvp.MvpFragment;
@@ -17,20 +15,19 @@ import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseActivity;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.Location;
 import org.unimelb.itime.databinding.ActivityMainBinding;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.fragment.EmptyFragment;
+import org.unimelb.itime.ui.fragment.meeting.FragmentMeeting;
 import org.unimelb.itime.ui.fragment.calendar.FragmentCalendar;
-import org.unimelb.itime.ui.fragment.event.FragmentEventCalendar;
-import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
-import org.unimelb.itime.ui.fragment.event.FragmentEventCreateDuration;
-import org.unimelb.itime.ui.fragment.event.FragmentEventCreateTitle;
-import org.unimelb.itime.ui.fragment.event.FragmentEventRepeat;
 import org.unimelb.itime.ui.mvpview.MainTabBarView;
 import org.unimelb.itime.ui.viewmodel.MainTabBarViewModel;
 import org.unimelb.itime.util.EventUtil;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
     private FragmentManager fragmentManager;
@@ -49,6 +46,11 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         viewModel.setUnReadNum(0+"");
 
         eventManager = EventManager.getInstance(getApplicationContext());
+        /**
+         * for testing
+         */
+        initData();
+        // end of testing
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setTabBarVM(viewModel);
         init();
@@ -67,7 +69,7 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
 
     private void init(){
         tagFragments = new MvpFragment[4];
-        tagFragments[0] = new EmptyFragment();
+        tagFragments[0] = new FragmentMeeting();
         tagFragments[1] = new EmptyFragment();
         tagFragments[2] = new FragmentCalendar();
         tagFragments[3] = new EmptyFragment();
@@ -80,8 +82,7 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         fragmentTransaction.add(R.id.frag_container, tagFragments[3]);
 
         fragmentTransaction.commit();
-        showFragmentById(0);
-
+        showFragmentById(2);
     }
 
     @Override
@@ -111,5 +112,31 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         startActivity(intent);
     }
 
+    /**
+     * For TESTING
+     */
+    private void initData() {
+        Calendar calendar = Calendar.getInstance();
+        List<Event> events = new ArrayList<>();
+        int[] type = {0, 1, 2};
+        int[] status = {0, 1};
+        long allDayInterval = (24 * 3600 * 1000);
+        long interval = (3600 * 1000);
+        long startTime = calendar.getTimeInMillis();
+        long endTime;
+        for (int i = 1; i < 20; i++) {
+            endTime = startTime + interval;
+            Event event = EventUtil.getNewEvent();
+            event.setIsAllDay(i%2 == 0);
+            event.setDisplayEventType(1);
+            event.setDisplayStatus("#63ADF2|slash|icon_normal");
+            event.setLocation(new Location());
+            event.setStartTime(startTime);
+            event.setEndTime(endTime);
+            events.add(event);
 
+            startTime = startTime + allDayInterval;
+            EventManager.getInstance(getApplicationContext()).addEvent(event);
+        }
+    }
 }

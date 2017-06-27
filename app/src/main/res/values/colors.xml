@@ -66,4 +66,7 @@
     <color name="fragment_background">#fafafa</color>
 
     <color name="lightGrey">#EFEFEF</color>
+    <!--meeting-->
+    <color name="text_meetingtime">#BDBDBD</color>
+    <color name="text_indication">#BDBDBD</color>
 </resources>

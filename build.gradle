@@ -11,7 +11,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.2'
+        classpath 'com.android.tools.build:gradle:2.3.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -33,6 +33,7 @@ allprojects {
 //            url "http://mvn.leancloud.cn/nexus/content/repositories/releases"
             url "http://mvn.leancloud.cn/nexus/content/repositories/public"
         }
+
 //        maven {
 ////            url "http://mvn.leancloud.cn/nexus/content/repositories/releases"
 //            url "http://146.118.101.148/repository/paulcasso/"
@@ -40,7 +41,8 @@ allprojects {
     }
     dependencies{
         repositories{
-            maven { url 'http://146.118.101.148/repository/itime/'}
+//            maven { url 'http://146.118.101.148/repository/itime/'}
+            maven{ url 'http://maven.timegenii.com/repository/swipper/' }
         }
     }
 

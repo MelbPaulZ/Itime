@@ -3,6 +3,7 @@ package org.unimelb.itime.ui.fragment.calendar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import david.itimecalendar.calendar.util.MyCalendar;
  */
 
 public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView, CalendarPresenter<CalendarMvpView>> implements ToolbarInterface {
+    private static final String TAG = "lifecycle";
     private View root;
     private EventManager eventManager;
     private MonthView monthDayView;
@@ -83,12 +85,6 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
 
             Intent intent = new Intent(getActivity(), EventCreateActivity.class);
             startActivity(intent);
-
-
-
-
-
-
         }
 
         @Override
@@ -117,5 +113,29 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
         public void onAllDayEventClick(ITimeEventInterface iTimeEventInterface) {
 
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.i(TAG, "onStart: " + "FragmentCalendarMonthDay");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume: " + "FragmentCalendarMonthDay");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i(TAG, "onPause: " + "FragmentCalendarMonthDay");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.i(TAG, "onPause: " + "FragmentCalendarMonthDay");
     }
 }

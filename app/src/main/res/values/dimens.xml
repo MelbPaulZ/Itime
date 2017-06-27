@@ -58,4 +58,22 @@
     <dimen name="normal_corner_radius">4dp</dimen>
 
     <dimen name="fab_actions_spacing">16dp</dimen>
+
+    <!-- using -->
+    <dimen name="card_radius">4dp</dimen>
+    <!-- meeting menu-->
+    <dimen name="meeting_menu_icon_width">30dp</dimen>
+    <dimen name="meeting_menu_icon_height">30dp</dimen>
+    <dimen name="meeting_menu_icon_textsize">16sp</dimen>
+    <dimen name="meeting_menu_btn_width">60dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="card_margin">10dp</dimen>
+
+    <string name="pin">Pin</string>
+    <string name="mute">Mute</string>
+    <string name="archive">Archive</string>
+    <string name="vote">Vote</string>
+    <string name="meeting_tag_invitation">Invitation</string>
+    <string name="meeting_tag_hosting">Hosting</string>
+    <string name="meeting_tag_coming">Coming</string>
 </resources>
