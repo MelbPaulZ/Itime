@@ -475,13 +475,14 @@
                     android:layout_marginRight="8dp"/>
             </LinearLayout>
 
-            <View
+            <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="@dimen/s3"
                 android:layout_marginRight="@dimen/s3"
                 android:onClick="@{contentVM.onTimeSlotSheetClickListener}"
-                android:background="@drawable/icon_details_loadmore"
+                android:src="@drawable/icon_details_loadmore"
+                android:rotation="@{contentVM.showTimeSlotSheet?180:0}"
                 android:layout_gravity="center_vertical"/>
         </LinearLayout>
 

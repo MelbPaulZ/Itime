@@ -45,6 +45,7 @@ public class FragmentEventDetailConfirm extends ItimeBaseFragment<EventDetailCon
         contentViewModel = new EventDetailConfirmViewModel(getPresenter());
         contentViewModel.setEvent(event);
         contentViewModel.setTimeSlot(timeSlot);
+        contentViewModel.setMvpView(this);
         binding.setVm(contentViewModel);
         toolbarViewModel = new ToolbarViewModel<>(this);
 
