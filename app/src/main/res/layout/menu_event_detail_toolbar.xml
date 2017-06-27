@@ -23,12 +23,14 @@
 
         <!--mute-->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginRight="44dp"
             android:onClick="@{vm.onMuteClick()}"
-            android:visibility="@{vm.event.archive?View.GONE:View.VISIBLE}">
+            android:visibility="@{vm.event.archive?View.GONE:View.VISIBLE}"
+            android:gravity="center_horizontal"
+            android:layout_weight="1">
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -50,7 +52,9 @@
             android:orientation="vertical"
             android:layout_marginRight="44dp"
             android:onClick="@{vm.onPinClick()}"
-            android:visibility="@{vm.event.archive?View.GONE:View.VISIBLE}">
+            android:visibility="@{vm.event.archive?View.GONE:View.VISIBLE}"
+            android:gravity="center_horizontal"
+            android:layout_weight="1">
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -70,7 +74,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:onClick="@{vm.onArchiveClick()}">
+            android:onClick="@{vm.onArchiveClick()}"
+            android:gravity="center_horizontal"
+            android:layout_weight="1">
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
