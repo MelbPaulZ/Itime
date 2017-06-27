@@ -39,6 +39,7 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     private static final String SHOW_EVENT_DETAIL_TIPS = "event detail tips";
     private FragmentEventDetailBinding binding;
     private Event event;
+    FragmentEventDetailConfirm confirmFragment;
 
     private EventDetailViewModel contentViewModel;
     // for displaying timeslots
@@ -169,6 +170,14 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         getActivity().finish();
     }
 
+    public void gotoConfirm(TimeSlot timeSlot){
+        if(confirmFragment == null){
+            confirmFragment = new FragmentEventDetailConfirm();
+        }
+        confirmFragment.setEvent(event);
+        confirmFragment.setTimeSlot(timeSlot);
+        getBaseActivity().openFragment(confirmFragment);
+    }
 
     @Override
     public void viewInCalendar() {

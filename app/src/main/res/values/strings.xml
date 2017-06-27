@@ -55,8 +55,14 @@
     <string name="event_detail_invitationexpired">Invitation Expired</string>
     <string name="event_detail_icantgo">I can\'t go</string>
     <string name="event_detail_youare">You are:</string>
+    <string name="event_detail_peoplegoing">People going</string>
+    <string name="event_detail_setyouralert">Set your alert</string>
+    <string name="event_detail_youcannotchangeafterconfirmation">You cannot change timeslots after confirmation!</string>
+    <string name="event_detail_peoplenotgoing">People not going</string>
     <string name="event_create_inviteothers">Invite Others</string>
     <string name="event_create_onlymyself">Only Myself</string>
+    <string name="event_create_confirm_toolbar">Confirm</string>
+    <string name="event_create_confirm_done">Done</string>
 
     <!--Event Create Add Invitee-->
     <string name="event_create_addinvitee">Add Invitee</string>

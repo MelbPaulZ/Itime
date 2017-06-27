@@ -239,4 +239,19 @@ implements EventCreateMvpView, ToolbarInterface{
             vm.setEvent(event);
         }
     }
+
+    @Override
+    public void onTaskStart(int taskId) {
+
+    }
+
+    @Override
+    public void onTaskSuccess(int taskId, Object data) {
+
+    }
+
+    @Override
+    public void onTaskError(int taskId, Object data) {
+
+    }
 }

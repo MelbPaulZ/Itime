@@ -7,7 +7,9 @@ import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import org.unimelb.itime.base.ItimeBaseMvpView;
 import org.unimelb.itime.base.ItimeBasePresenter;
 import org.unimelb.itime.bean.Contact;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.User;
+import org.unimelb.itime.ui.mvpview.TaskBasedMvpView;
 import org.unimelb.itime.ui.mvpview.event.EventCreateAddInviteeMvpView;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
 
@@ -18,10 +20,19 @@ import java.util.List;
  * Created by Paul on 2/6/17.
  */
 
-public class EventCreatePresenter<V extends ItimeBaseMvpView> extends ItimeBasePresenter<V> {
+public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBasePresenter<V> {
+    public static final int TASK_EVENT_CONFIRM = 1;
+
 
     public EventCreatePresenter(Context context) {
         super(context);
+    }
+
+    public void confirmEvent(Event event){
+        //TODO
+        if(getView() !=null){
+            getView().onTaskSuccess(TASK_EVENT_CONFIRM, null);
+        }
     }
 
     public List<Contact> getContacts(){

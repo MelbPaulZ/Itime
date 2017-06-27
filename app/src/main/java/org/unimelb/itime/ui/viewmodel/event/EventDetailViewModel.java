@@ -70,7 +70,7 @@ public class EventDetailViewModel extends BaseObservable{
     private List<TimeSlot> selectedTimeSlots = new ArrayList<>();
     private List<EventDetailTimeslotViewModel> timeSlotsItems;
     private boolean showTimeSlotSheet = true;
-    private int status = STATUS_NEED_VOTE;
+    private int status = STATUS_NEED_CONFIRM;
 
     private boolean showConfirmVoteButton;
     private boolean showCantGoVoteButton;
@@ -236,7 +236,9 @@ public class EventDetailViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(mvpView!=null && !selectedTimeSlots.isEmpty()){
+                    mvpView.gotoConfirm(selectedTimeSlots.get(0));
+                }
             }
         };
     }

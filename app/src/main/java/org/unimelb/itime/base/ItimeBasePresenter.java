@@ -5,6 +5,8 @@ import android.content.Context;
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.hannesdorfmann.mosby.mvp.MvpView;
 
+import org.unimelb.itime.bean.Event;
+
 /**
  * Created by Paul on 2/6/17.
  */

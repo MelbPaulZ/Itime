@@ -574,11 +574,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/standard_detail_cell_height"
-                android:textColor="@color/white"
+                android:textColor="@{contentVM.selectedTimeSlots.empty?@color/brand_main:@color/white}"
                 android:text="@string/event_detail_confirm"
                 android:gravity="center"
                 android:textSize="@dimen/font_large"
-                android:background="@drawable/selector_brand_blue_bottom_button"
+                android:background="@{contentVM.selectedTimeSlots.empty?@drawable/bg_cornor_rec_lightblue:@drawable/selector_brand_blue_bottom_button}"
                 android:onClick="@{contentVM.onConfirmClick()}"
                 android:visibility="@{contentVM.status == contentVM.STATUS_NEED_CONFIRM?View.VISIBLE:View.GONE}"
                 />

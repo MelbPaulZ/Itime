@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.event.EventDetailConfirmViewModel"/>
+        <import type="android.view.View"/>
+        <variable
+            name="toolbarVM"
+            type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+<LinearLayout
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fragment_background">
+
+    <include layout="@layout/toolbar"
+        app:vm="@{toolbarVM}"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/white">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_detail_label"
+                android:textSize="@dimen/font_small"
+                android:layout_gravity="center_horizontal"
+                android:text="@{vm.startDate}"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:textColor="@color/text_body"
+                android:textSize="@dimen/font_extra_plus"
+                android:text="@{vm.startTime}"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_gravity="bottom"
+                android:textColor="@color/text_body"
+                android:gravity="center"
+                android:textSize="@dimen/font_large"
+                android:text="→"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_detail_label"
+                    android:textSize="@dimen/font_small"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@{vm.endDate}"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/text_body"
+                    android:gravity="center"
+                    android:textSize="@dimen/font_extra_plus"
+                    android:text="@{vm.endTime}"/>
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:visibility="@{vm.showRepeat?View.VISIBLE:View.GONE}">
+        <include layout="@layout/line"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/text_body"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/font_large"
+            android:text="@{vm.repeatTime+'\n'+vm.repeatUntil}"/>
+        <include layout="@layout/line"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_marginTop="30dp">
+        <include layout="@layout/line"/>
+        <RelativeLayout
+            style="@style/ItimeRelativeCell"
+            android:background="@drawable/bg_divider_bottom">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/brand_main"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/font_large"
+                android:layout_centerVertical="true"
+                android:text="@{String.valueOf(vm.goInvitees.size())}"
+                android:layout_marginLeft="@dimen/s1"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="@dimen/s3"
+                android:id="@+id/going_count"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_body"
+                android:textSize="@dimen/font_large"
+                android:layout_centerVertical="true"
+                android:text="@string/event_detail_peoplegoing"
+                android:layout_toRightOf="@id/going_count"/>
+
+            <org.unimelb.itime.widget.PileupView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:pileup_ratio="0.5"
+                app:pileup_maxNum="3"
+                app:pileup_imageSize="14dp"
+                app:pileup_images="@{vm.goInvitees}"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="35dp"
+                />
+
+            <ImageView style="@style/ItimeDisclosure" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/ItimeRelativeCell"
+            android:background="@drawable/bg_divider_bottom">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/brand_warning"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/font_large"
+                android:layout_centerVertical="true"
+                android:text="@{String.valueOf(vm.notGoInvitees.size())}"
+                android:layout_marginLeft="@dimen/s1"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="@dimen/s3"
+                android:id="@+id/not_going_count"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_body"
+                android:textSize="@dimen/font_large"
+                android:layout_centerVertical="true"
+                android:text="@string/event_detail_peoplenotgoing"
+                android:layout_toRightOf="@id/not_going_count"/>
+
+            <org.unimelb.itime.widget.PileupView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:pileup_ratio="0.5"
+                app:pileup_maxNum="3"
+                app:pileup_imageSize="14dp"
+                app:pileup_images="@{vm.notGoInvitees}"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="35dp"
+                />
+            <ImageView style="@style/ItimeDisclosure" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        style="@style/ItimeRelativeCell"
+        android:background="@drawable/bg_divider_bottom"
+        android:onClick="@{vm.onAlertClick()}"
+        android:layout_marginTop="30dp">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/s1"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="@dimen/s3"
+            android:src="@drawable/icon_event_toolbar_alert"
+            android:id="@+id/alertIcon"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_body"
+            android:textSize="@dimen/font_large"
+            android:layout_centerVertical="true"
+            android:text="@string/event_detail_setyouralert"
+            android:layout_toRightOf="@id/alertIcon"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_detail_label"
+            android:textSize="@dimen/font_large"
+            android:layout_centerVertical="true"
+            android:text="@{vm.altertTime}"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="35dp"
+            />
+
+        <ImageView style="@style/ItimeDisclosure" />
+    </RelativeLayout>
+</LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_tiny"
+                android:textColor="@color/brand_main"
+                android:text="@string/event_detail_youcannotchangeafterconfirmation"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/s2"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_detail_cell_height"
+                android:layout_margin="@dimen/s3"
+                android:background="@drawable/selector_brand_blue_button"
+                android:text="@string/event_create_confirm_done"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:onClick="@{vm.onConfirmClick()}"
+                android:textSize="@dimen/font_large"/>
+        </LinearLayout>
+    </FrameLayout>
+
+</layout>

@@ -335,7 +335,7 @@ public class EventLocationPresenter<V extends ItimeBaseMvpView> extends ItimeBas
                 final Status status = autocompletePredictions.getStatus();
                 if (!status.isSuccess()) {
                     if (mvpView!=null){
-                        mvpView.onTaskError(TASK_AUTOCOMPLETE_LOCATION);
+                        mvpView.onTaskError(TASK_AUTOCOMPLETE_LOCATION, null);
                     }
                     autocompletePredictions.release();
                     return null;
