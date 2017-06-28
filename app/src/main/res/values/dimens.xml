@@ -61,6 +61,7 @@
 
     <!-- using -->
     <dimen name="card_radius">4dp</dimen>
+    <dimen name="card_status_radius">9.5dp</dimen>
     <!-- meeting menu-->
     <dimen name="meeting_menu_icon_width">30dp</dimen>
     <dimen name="meeting_menu_icon_height">30dp</dimen>

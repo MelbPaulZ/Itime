@@ -82,7 +82,7 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         fragmentTransaction.add(R.id.frag_container, tagFragments[3]);
 
         fragmentTransaction.commit();
-        showFragmentById(2);
+        showFragmentById(0);
     }
 
     @Override

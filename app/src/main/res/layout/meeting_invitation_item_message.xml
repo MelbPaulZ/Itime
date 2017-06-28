@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
     <data>
+        <variable
+            name="vmMsg"
+            type="org.unimelb.itime.ui.viewmodel.meeting.MeetingInvitationMsgCardViewModel"/>
+        <variable
+            name="vmMenu1"
+            type="org.unimelb.itime.ui.viewmodel.meeting.MeetingMenu1ViewModel"/>
     </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -11,12 +19,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/swipe"
+            app:show_mode="lay_down"
             app:clickToClose="true"
             app:paddingEnd="@dimen/card_margin">
 
             <include layout="@layout/meeting_menu_1"
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
+                bind:vm="@{vmMenu1}"
                 android:id="@+id/swipe_menu"/>
 
             <FrameLayout
@@ -34,6 +44,7 @@
                     <include layout="@layout/meeting_invitation_info_message"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        bind:vm="@{vmMsg}"
                         android:id="@+id/invitation_card"/>
                 </android.support.v7.widget.CardView>
             </FrameLayout>

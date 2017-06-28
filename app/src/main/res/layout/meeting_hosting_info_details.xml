@@ -1,161 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@drawable/itime_round_corner_card_bg_bordered"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="18dp">
 
-    <!-- block status bar -->
-    <FrameLayout
+<layout>
+    <data>
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.meeting.MeetingHostingDetailCardViewModel"/>
+        <import type="android.view.View"/>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:background="@drawable/itime_round_corner_card_bg_bordered"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/reminder_text"
-            android:textSize="11sp"
-            android:textColor="@color/text_meetingtime"
-            android:gravity="center"
-            android:text="In 2d 2h"/>
+        android:layout_height="wrap_content"
+        android:padding="18dp">
+
+        <!-- block status bar -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/reminder_text"
+                android:textSize="11sp"
+                android:textColor="@color/text_meetingtime"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:text="@{vm.getReminderTimeStr}"/>
+            <!--status bar-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right|center_vertical"
+                android:visibility="@{vm.getStatusBlockVisibility}">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/icon_meetings_muted"
+                    android:layout_marginEnd="3dp"
+                    android:id="@+id/icon_pin"/>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/icon_meetings_muted"
+                    android:layout_marginEnd="3dp"
+                    android:id="@+id/icon_mute"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/event_status_block"
+                    android:visibility="@{vm.getEventStatusVisibility}">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="1.5dp"
+                        android:paddingStart="11dp"
+                        android:paddingEnd="11dp"
+                        android:layout_marginEnd="3dp"
+                        android:background="@drawable/itime_round_corner_card_status_bg_gray"
+                        android:id="@+id/event_repeated_text"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:text="@string/event_status_repeated"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="1.5dp"
+                        android:paddingStart="11dp"
+                        android:paddingEnd="11dp"
+                        android:background="@{vm.getEventStatusDrawable(context)}"
+                        android:id="@+id/event_status_text"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:text="@{vm.getEventStatusText(context)}"/>
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+        <!-- event detail block -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right|center_vertical">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/icon_meetings_muted"
-                android:layout_marginEnd="3dp"
-                android:id="@+id/icon_pin"/>
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/icon_meetings_muted"
-                android:layout_marginEnd="3dp"
-                android:id="@+id/icon_mute"/>
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/icon_meetings_muted"
-                android:layout_marginEnd="3dp"
-                android:id="@+id/icon_archive"/>
+            android:orientation="vertical">
+            <!-- title block-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="19sp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:id="@+id/title_text"
+                android:text="@{vm.getTitle}"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:id="@+id/greeting_text"
+                android:textSize="14sp"
+                android:text="@{vm.getGreeting}"
+                android:visibility='@{vm.getGreeting != null &amp;&amp; !vm.getGreeting.equals("") ? View.VISIBLE : View.GONE}'/>
+        </LinearLayout>
+        <!-- dash line -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="18dp"
+            android:src="@drawable/itime_meeting_card_dash"
+            android:layerType="software" />
+        <!-- event status bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:weightSum="3">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/event_status_block">
+                android:orientation="vertical"
+                android:layout_weight="1">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:background="@drawable/itime_round_corner_card_bg_bordered"
-                    android:id="@+id/event_status_text"
-                    android:textSize="14sp"
-                    android:text="Cancelled"/>
+                    android:textSize="13sp"
+                    android:textColor="@color/text_indication"
+                    android:gravity="center"
+                    android:text="@{vm.getLabelName_1}"
+                    android:id="@+id/label_1"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:text="@{vm.getLabelValue_1}"
+                    android:id="@+id/value_1"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_indication"
+                    android:gravity="center"
+                    android:text="@{vm.getLabelName_2}"
+                    android:id="@+id/label_2"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:text="@{vm.getLabelValue_2}"
+                    android:id="@+id/value_2"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_indication"
+                    android:gravity="center"
+                    android:text="@{vm.getLabelName_3}"
+                    android:id="@+id/label_3"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:text="@{vm.getLabelValue_3}"
+                    android:id="@+id/value_3"/>
             </LinearLayout>
         </LinearLayout>
-    </FrameLayout>
-    <!-- event detail block -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <!-- title block-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="19sp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:id="@+id/title_text"
-            android:text="Telstra Competition Discussion"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:id="@+id/grating_text"
-            android:textSize="14sp"
-            android:text="dwadwadwadwadwadawdwadwadwad dwadwadawdaw"/>
-
     </LinearLayout>
-    <!-- dash line -->
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="18dp"
-        android:src="@drawable/itime_meeting_card_dash"
-        android:layerType="software" />
-    <!-- event status bar -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:weightSum="3">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="13sp"
-                android:textColor="@color/text_indication"
-                android:gravity="center"
-                android:id="@+id/label_1"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:id="@+id/value_1"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="13sp"
-                android:textColor="@color/text_indication"
-                android:gravity="center"
-                android:id="@+id/label_2"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:id="@+id/value_2"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="13sp"
-                android:textColor="@color/text_indication"
-                android:gravity="center"
-                android:id="@+id/label_3"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:id="@+id/value_3"/>
-        </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+</layout>
+

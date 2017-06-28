@@ -1,80 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/itime_round_corner_card_bg_bordered"
-    android:padding="0.5dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <!-- right detail block -->
-    <LinearLayout
+<layout>
+    <data>
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.meeting.MeetingInvitationMsgCardViewModel"/>
+    </data>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@drawable/itime_round_corner_card_bg_bordered"
+        android:padding="0.5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/itime_round_corner_card_bg_tr_br"
-        android:id="@+id/info_container"
-        android:padding="10dp"
-        android:paddingBottom="27dp"
-        android:paddingTop="16dp"
-        android:layout_marginLeft="52dp"
-        android:orientation="vertical">
-        <!-- title block-->
-        <FrameLayout
+        android:layout_height="wrap_content">
+
+        <!-- right detail block -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/itime_round_corner_card_bg_tr_br"
+            android:id="@+id/info_container"
+            android:padding="10dp"
+            android:paddingBottom="27dp"
+            android:paddingTop="16dp"
+            android:layout_marginLeft="52dp"
+            android:orientation="vertical">
+            <!-- title block-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/updated_time_text"
+                    android:textColor="@color/text_meetingtime"
+                    android:layout_gravity="end"
+                    android:textSize="11sp"
+                    android:gravity="end"
+                    android:text="@{vm.getUpdatedTimeStr}"
+                    android:visibility="@{vm.updatedTimeVisibility}"/>
+            </FrameLayout>
+
             <TextView
-                android:layout_width="30dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/updated_time_text"
+                android:gravity="start"
+                android:id="@+id/title_text"
+                android:textStyle="bold"
+                android:textSize="19sp"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textColor="@color/text_meetingtime"
-                android:layout_gravity="end"
-                android:textSize="11sp"
-                android:gravity="end"
-                android:text="5:26"/>
-        </FrameLayout>
+                android:text="@{vm.getTitle}"/>
 
-        <TextView
-            android:layout_width="match_parent"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:textSize="19sp"
+                android:id="@+id/subTitle_text"
+                android:textColor="@color/text_meetingtime"
+                android:text="@{vm.getSubTitle}"/>
+        </LinearLayout>
+
+        <!-- left status bar-->
+        <LinearLayout
+            android:id="@+id/status_bar"
+            android:layout_width="52dp"
             android:layout_height="wrap_content"
-            android:gravity="start"
-            android:id="@+id/title_text"
-            android:textStyle="bold"
-            android:textSize="19sp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@color/text_meetingtime"
-            android:text="Telstra Competition Discussion"/>
+            android:layout_centerVertical="true"
+            android:layout_alignTop="@id/info_container"
+            android:layout_alignBottom="@id/info_container"
+            android:background="@drawable/itime_round_corner_card_bg_tl_bl"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/status_icon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@{vm.getIconSrc(context), default=@drawable/default_image}" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:textSize="19sp"
-            android:id="@+id/subTitle_text"
-            android:textColor="@color/text_meetingtime"
-            android:text="(25th May 2017)"/>
-    </LinearLayout>
-
-    <!-- left status bar-->
-    <LinearLayout
-        android:id="@+id/status_bar"
-        android:layout_width="52dp"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignTop="@id/info_container"
-        android:layout_alignBottom="@id/info_container"
-        android:background="@drawable/itime_round_corner_card_bg_tl_bl"
-        android:gravity="center"
-        android:orientation="vertical">
-        <ImageView
-            android:id="@+id/status_icon"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@drawable/icon_meetings_cancelled" />
-
-        <TextView
-            android:id="@+id/status_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:text="Cancelled" />
-    </LinearLayout>
-</RelativeLayout>
+            <TextView
+                android:id="@+id/icon_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="@{vm.getIconText}" />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>
