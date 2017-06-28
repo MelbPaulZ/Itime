@@ -28,11 +28,13 @@ import java.util.Iterator;
 import java.util.TimeZone;
 import java.util.UUID;
 
+import david.itimecalendar.calendar.util.BaseUtil;
+
 /**
  * Created by yuhaoliu on 10/06/2017.
  */
 
-public class EventUtil {
+public class EventUtil extends BaseUtil{
     private static String TAG = "EventUtil";
     public final static long allDayMilliseconds = 24 * 60 * 60 * 1000;
 
@@ -115,7 +117,7 @@ public class EventUtil {
 
     public static Event getNewEvent(){
         Event event = new Event();
-        event.setTitle("New Event");
+        event.setSummary("New Event");
         event.setShowLevel(1);
         event.setEventUid(UUID.randomUUID().toString());
         return event;

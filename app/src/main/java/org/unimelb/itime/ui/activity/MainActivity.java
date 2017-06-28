@@ -82,7 +82,7 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         fragmentTransaction.add(R.id.frag_container, tagFragments[3]);
 
         fragmentTransaction.commit();
-        showFragmentById(2);
+        showFragmentById(0);
     }
 
     @Override
@@ -127,9 +127,7 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         for (int i = 1; i < 20; i++) {
             endTime = startTime + interval;
             Event event = EventUtil.getNewEvent();
-            event.setIsAllDay(i%2 == 0);
-            event.setDisplayEventType(1);
-            event.setDisplayStatus("#63ADF2|slash|icon_normal");
+            event.setIsAllDay(i%2);
             event.setLocation(new Location());
             event.setStartTime(startTime);
             event.setEndTime(endTime);

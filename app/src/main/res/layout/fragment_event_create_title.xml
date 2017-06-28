@@ -32,7 +32,7 @@
         <EditText
             android:id="@+id/title_edit"
             style="@style/itimeCellEdit"
-            android:text="@={vm.event.title}"
+            android:text="@={vm.event.summary}"
             android:onEditTextChange="@{vm.onTitleChangeListener}"
             android:onFocusChange="@{vm.onInputEditFocusChange}"/>
 

@@ -28,6 +28,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import david.itimecalendar.calendar.listeners.ITimeEventInterface;
+import david.itimecalendar.calendar.util.BaseUtil;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
 /**
@@ -79,9 +81,9 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
-                    event.setIsAllDay(true);
+                    event.setIsAllDay(ITimeEventInterface.ALLDAY);
                 }else{
-                    event.setIsAllDay(false);
+                    event.setIsAllDay(ITimeEventInterface.NON_ALLDAY);
                 }
                 setEvent(event);
             }
@@ -89,11 +91,11 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     }
 
     public int getAllDayVisibility(Event event){
-        return event.isAllDay()? View.VISIBLE:View.GONE;
+        return EventUtil.isAllDay(event)? View.VISIBLE:View.GONE;
     }
 
     public int getNotAllDayVisibility(Event event){
-        return event.isAllDay()? View.GONE:View.VISIBLE;
+        return EventUtil.isAllDay(event)? View.GONE:View.VISIBLE;
     }
 
     public String getEventStartDate(Event event){
@@ -124,14 +126,14 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
 
 
     public String getTitleString(Event event){
-        if (event.getTitle().equals("")){
+        if (event.getSummary().equals("")){
             return presenter.getContext().getString(R.string.event_title_hint);
         }
-        return event.getTitle();
+        return event.getSummary();
     }
 
     public int getTitleColor(Event event){
-        if (event.getTitle().equals("")){
+        if (event.getSummary().equals("")){
             return presenter.getContext().getResources().getColor(R.color.whiteTwo);
         }else{
             return presenter.getContext().getResources().getColor(R.color.black);
