@@ -59,7 +59,7 @@ public class MeetingBaseCardViewModel extends BaseObservable {
     }
 
     public String getTitle(){
-        return meeting.getEvent().getTitle();
+        return meeting.getEvent().getSummary();
     }
 
     public String getGreeting(){
@@ -115,5 +115,13 @@ public class MeetingBaseCardViewModel extends BaseObservable {
 
     public boolean getSwipeEnable(){
         return mode != RecyclerViewAdapterMeetings.Mode.COMING;
+    }
+
+    public boolean isRepeated(){
+        if (meeting.getEvent().getRecurrence().length == 0){
+            return false;
+        }
+
+        return true;
     }
 }

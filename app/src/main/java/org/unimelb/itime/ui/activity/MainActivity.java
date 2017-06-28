@@ -127,7 +127,7 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         for (int i = 1; i < 20; i++) {
             endTime = startTime + interval;
             Event event = EventUtil.getNewEvent();
-            event.setIsAllDay(i%2);
+            event.setIsAllDay(i%2==0);
             event.setLocation(new Location());
             event.setStartTime(startTime);
             event.setEndTime(endTime);

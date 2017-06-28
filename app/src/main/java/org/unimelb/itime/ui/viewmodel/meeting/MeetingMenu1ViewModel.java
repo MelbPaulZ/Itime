@@ -71,7 +71,7 @@ public class MeetingMenu1ViewModel extends BaseObservable {
 
     public Drawable getPinIconSrc(Context context){
         return context.getResources().getDrawable(
-                meeting.getEvent().isAllDay() ?
+                meeting.getEvent().isPin() ?
                         R.drawable.icon_meetings_swipeleft_unpin
                         :
                         R.drawable.icon_meetings_swipeleft_pin);
@@ -79,7 +79,7 @@ public class MeetingMenu1ViewModel extends BaseObservable {
 
     public Drawable getMuteIconSrc(Context context){
         return context.getResources().getDrawable(
-                meeting.getEvent().isAllDay() ?
+                meeting.getEvent().isMute() ?
                         R.drawable.icon_meetings_swipeleft_unmute
                         :
                         R.drawable.icon_meetings_swipeleft_mute);
@@ -87,7 +87,7 @@ public class MeetingMenu1ViewModel extends BaseObservable {
 
     public Drawable getArchiveIconSrc(Context context){
         return context.getResources().getDrawable(
-                meeting.getEvent().isAllDay() ?
+                meeting.getEvent().isArchive() ?
                         R.drawable.icon_meetings_swipeleft_archive
                         :
                         R.drawable.icon_meetings_swipeleft_archive);
@@ -95,7 +95,7 @@ public class MeetingMenu1ViewModel extends BaseObservable {
 
     public String getPinIconText(Context context){
         return context.getResources().getString(
-                meeting.getEvent().isAllDay() ?
+                meeting.getEvent().isPin() ?
                         R.string.unpin
                         :
                         R.string.pin);
@@ -103,7 +103,7 @@ public class MeetingMenu1ViewModel extends BaseObservable {
 
     public String getMuteIconText(Context context){
         return context.getResources().getString(
-                meeting.getEvent().isAllDay() ?
+                meeting.getEvent().isMute() ?
                         R.string.unmute
                         :
                         R.string.mute);
@@ -111,7 +111,7 @@ public class MeetingMenu1ViewModel extends BaseObservable {
 
     public String getArchiveIconText(Context context){
         return context.getResources().getString(
-                meeting.getEvent().isAllDay() ?
+                meeting.getEvent().isArchive() ?
                         R.string.archive
                         :
                         R.string.archive);
