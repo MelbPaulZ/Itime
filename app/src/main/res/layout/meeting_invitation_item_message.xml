@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/swipe"
+            app:swipeEnabled="@{vmMsg.getSwipeEnable}"
             app:show_mode="lay_down"
             app:clickToClose="true"
             app:paddingEnd="@dimen/card_margin">

@@ -1,10 +1,13 @@
 package org.unimelb.itime.ui.viewmodel.meeting;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import org.unimelb.itime.BR;
+import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Meeting;
 
 /**
@@ -64,5 +67,53 @@ public class MeetingMenu1ViewModel extends BaseObservable {
     public void setMeeting(Meeting meeting) {
         this.meeting = meeting;
         notifyPropertyChanged(BR.meeting);
+    }
+
+    public Drawable getPinIconSrc(Context context){
+        return context.getResources().getDrawable(
+                meeting.getEvent().isAllDay() ?
+                        R.drawable.icon_meetings_swipeleft_unpin
+                        :
+                        R.drawable.icon_meetings_swipeleft_pin);
+    }
+
+    public Drawable getMuteIconSrc(Context context){
+        return context.getResources().getDrawable(
+                meeting.getEvent().isAllDay() ?
+                        R.drawable.icon_meetings_swipeleft_unmute
+                        :
+                        R.drawable.icon_meetings_swipeleft_mute);
+    }
+
+    public Drawable getArchiveIconSrc(Context context){
+        return context.getResources().getDrawable(
+                meeting.getEvent().isAllDay() ?
+                        R.drawable.icon_meetings_swipeleft_archive
+                        :
+                        R.drawable.icon_meetings_swipeleft_archive);
+    }
+
+    public String getPinIconText(Context context){
+        return context.getResources().getString(
+                meeting.getEvent().isAllDay() ?
+                        R.string.unpin
+                        :
+                        R.string.pin);
+    }
+
+    public String getMuteIconText(Context context){
+        return context.getResources().getString(
+                meeting.getEvent().isAllDay() ?
+                        R.string.unmute
+                        :
+                        R.string.mute);
+    }
+
+    public String getArchiveIconText(Context context){
+        return context.getResources().getString(
+                meeting.getEvent().isAllDay() ?
+                        R.string.archive
+                        :
+                        R.string.archive);
     }
 }

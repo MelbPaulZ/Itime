@@ -25,7 +25,7 @@
             android:orientation="vertical"
             >
             <ImageView
-                android:src="@drawable/icon_meetings_swipeleft_pin"
+                android:src="@{vm.getPinIconSrc(context)}"
                 android:layout_width="@dimen/meeting_menu_icon_width"
                 android:layout_height="@dimen/meeting_menu_icon_height"
                 android:background="@android:color/transparent"
@@ -34,7 +34,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/pin"
+                android:text="@{vm.getPinIconText(context)}"
                 android:textSize="@dimen/meeting_menu_icon_textsize"
                 android:gravity="center"/>
         </LinearLayout>
@@ -47,7 +47,7 @@
             android:orientation="vertical"
             >
             <ImageView
-                android:src="@drawable/icon_meetings_swipeleft_mute"
+                android:src="@{vm.getMuteIconSrc(context)}"
                 android:layout_width="@dimen/meeting_menu_icon_width"
                 android:layout_height="@dimen/meeting_menu_icon_height"
                 android:background="@android:color/transparent"
@@ -55,7 +55,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/mute"
+                android:text="@{vm.getMuteIconText(context)}"
                 android:gravity="center"
                 />
         </LinearLayout>
@@ -68,7 +68,7 @@
             android:orientation="vertical"
             >
             <ImageView
-                android:src="@drawable/icon_meetings_swipeleft_archive"
+                android:src="@{vm.getArchiveIconSrc(context)}"
                 android:layout_width="@dimen/meeting_menu_icon_width"
                 android:layout_height="@dimen/meeting_menu_icon_height"
                 android:background="@android:color/transparent"
@@ -76,7 +76,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/archive"
+                android:text="@{vm.getArchiveIconText(context)}"
                 android:gravity="center"
                 />
         </LinearLayout>

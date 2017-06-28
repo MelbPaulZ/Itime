@@ -25,7 +25,6 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
         INVITATION, HOSTING, COMING
     }
 
-
     public static final int INVITATION_DETAILS = 1;
     public static final int INVITATION_MESSAGE = 2;
     public static final int HOSTING_DETAILS = 3;
@@ -209,9 +208,5 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
 
     public void setOnMenuListener(OnMenuListener onMenuListener) {
         this.onMenuListener = onMenuListener;
-    }
-
-    private void setUpInvitationDetailView(InvitationDetailsViewHolder holder, Meeting data){
-//        holder.
     }
 }

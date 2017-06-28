@@ -113,4 +113,7 @@ public class MeetingBaseCardViewModel extends BaseObservable {
         return drawable;
     }
 
+    public boolean getSwipeEnable(){
+        return mode != RecyclerViewAdapterMeetings.Mode.COMING;
+    }
 }
