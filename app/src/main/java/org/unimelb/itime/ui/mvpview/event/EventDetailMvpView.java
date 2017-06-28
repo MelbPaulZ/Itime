@@ -5,6 +5,7 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.ui.mvpview.TaskBasedMvpView;
 
+import java.sql.Time;
 import java.util.List;
 
 /**
@@ -21,5 +22,6 @@ public interface EventDetailMvpView extends TaskBasedMvpView<List<Event>>, Itime
     void onViewGoingInvitees();
     void openUrl(String url);
     void showAllNote();
+    void gotoConfirm(TimeSlot timeSlot);
 
 }

@@ -217,5 +217,19 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     }
 
 
+    @Override
+    public void onTaskStart(int taskId) {
+
+    }
+
+    @Override
+    public void onTaskSuccess(int taskId, Object data) {
+
+    }
+
+    @Override
+    public void onTaskError(int taskId, Object data) {
+
+    }
 }
 

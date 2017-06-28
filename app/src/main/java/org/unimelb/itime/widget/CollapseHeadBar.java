@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.databinding.BindingMethod;
 import android.databinding.BindingMethods;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -16,6 +18,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,7 +26,10 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import org.unimelb.itime.R;
+import org.unimelb.itime.databinding.MenuEventDetailToolbarBinding;
+import org.unimelb.itime.ui.viewmodel.event.EventDetailViewModel;
 import org.unimelb.itime.util.SizeUtil;
+import org.unimelb.itime.widget.popupmenu.ModalPopupView;
 import org.unimelb.itime.widget.popupmenu.PopupMenu;
 
 import java.util.List;
@@ -82,8 +88,7 @@ public class CollapseHeadBar extends AppBarLayout {
     private TextView inviteeCountView;
     private View leftButton;
     private View rightButton;
-    private PopupMenu menu;
-    private PopupMenu.OnItemClickListener onItemClickListener;
+    private ModalPopupView menu;
     private int invieeCount;
 
     private String avatar="";
@@ -91,6 +96,7 @@ public class CollapseHeadBar extends AppBarLayout {
     private String title="";
     private String name="";
     private int collapseColor;
+    private EventDetailViewModel vm;
 
     public CollapseHeadBar(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -129,16 +135,7 @@ public class CollapseHeadBar extends AppBarLayout {
         leftButton = contentView.findViewById(R.id.leftButton);
         rightButton = contentView.findViewById(R.id.rightButton);
 
-        menu = new PopupMenu(getContext());
-        menu.setBackground(getResources().getDrawable(R.color.mask_cover));
-        menu.setOnItemClickListener(onItemClickListener);
-
-        rightButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                menu.showLocation(rightButton);
-            }
-        });
+        initMenu();
 
         setTitle(title);
         setName(name);
@@ -169,6 +166,20 @@ public class CollapseHeadBar extends AppBarLayout {
         }else
             Picasso.with(avatarView.getContext()).load(avatar).placeholder(R.drawable.invitee_selected_default_picture)
                     .error(R.drawable.invitee_selected_default_picture).resize(100,100).centerCrop().into(avatarView);
+    }
+
+    private void initMenu(){
+        menu = new ModalPopupView(getContext());
+        menu.setBackground(getResources().getDrawable(R.color.mask_cover));
+        MenuEventDetailToolbarBinding menuBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.menu_event_detail_toolbar, new FrameLayout(getContext()), false);
+        menuBinding.setVm(vm);
+        menu.setContentView(menuBinding.getRoot());
+        rightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                menu.showAtLocation(rightButton, 0, 10);
+            }
+        });
     }
 
     private void loadBackground(){
@@ -329,20 +340,6 @@ public class CollapseHeadBar extends AppBarLayout {
         }
     }
 
-
-    public void setOnMenuItemClickListener(PopupMenu.OnItemClickListener listener){
-        onItemClickListener = listener;
-        if(menu!=null){
-            menu.setOnItemClickListener(onItemClickListener);
-        }
-    }
-
-    public void setMenuItems(List<PopupMenu.Item> items){
-        this.items = items;
-        if(menu!=null)
-        menu.setItems(items);
-    }
-
     public void setInvieeCount(int invieeCount) {
         this.invieeCount = invieeCount;
         String countStr = "";
@@ -351,5 +348,10 @@ public class CollapseHeadBar extends AppBarLayout {
             inviteeCountView.setText(countStr);
             inviteeCountView.setVisibility(VISIBLE);
         }
+    }
+
+    public void setViewModel(EventDetailViewModel vm) {
+        this.vm = vm;
+
     }
 }

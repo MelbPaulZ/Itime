@@ -92,15 +92,20 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     private String coverPhoto = "";
     private int duration;
     private String greeting = "";
+    private boolean archive;
+    private boolean mute;
+    private boolean pin;
 
-    @Generated(hash = 123594769)
+
+    @Generated(hash = 1508319526)
     public Event(String id, String[] recurrence, String status, String summary, String description, String url,
             Location location, int reminder, String source, String eventUid, String calendarUid, String recurringEventUid,
             String host, String self, String hostUserUid, String userUid, String locationNote, String locationLatitude,
             String locationLongitude, String eventType, int inviteeVisibility, int freebusyAccess, int showLevel,
             int deleteLevel, String createdAt, String updatedAt, List<PhotoUrl> photos, int isAllDay, String extra,
             TZoneTime start, TZoneTime end, List<Invitee> invitees, List<TimeSlot> timeslots,
-            List<TimeslotInvitee> timeslotInvitees, String note, String coverPhoto, int duration, String greeting) {
+            List<TimeslotInvitee> timeslotInvitees, String note, String coverPhoto, int duration, String greeting,
+            boolean archive, boolean mute, boolean pin) {
         this.id = id;
         this.recurrence = recurrence;
         this.status = status;
@@ -139,11 +144,15 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.coverPhoto = coverPhoto;
         this.duration = duration;
         this.greeting = greeting;
+        this.archive = archive;
+        this.mute = mute;
+        this.pin = pin;
     }
 
     @Generated(hash = 344677835)
     public Event() {
     }
+
 
     @Override
     public Event clone() {
@@ -538,6 +547,42 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
     public void setGreeting(String greeting) {
         this.greeting = greeting;
+    }
+
+    public boolean getArchive() {
+        return this.archive;
+    }
+
+    public void setArchive(boolean archive) {
+        this.archive = archive;
+    }
+
+    public boolean isArchive() {
+        return archive;
+    }
+
+    public boolean isMute() {
+        return mute;
+    }
+
+    public void setMute(boolean mute) {
+        this.mute = mute;
+    }
+
+    public boolean isPin() {
+        return pin;
+    }
+
+    public void setPin(boolean pin) {
+        this.pin = pin;
+    }
+
+    public boolean getMute() {
+        return this.mute;
+    }
+
+    public boolean getPin() {
+        return this.pin;
     }
 
     public static class TimeslotConverter implements PropertyConverter<List<TimeSlot> , String> {

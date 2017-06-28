@@ -31,6 +31,7 @@ public class TimeSlot implements ITimeTimeSlotInterface<TimeSlot>,Serializable {
     private String inviteeUid = "";
     private boolean isAllDay = false;
 
+
     @Override
     public void setStartTime(long l) {
         this.startTime = l;
