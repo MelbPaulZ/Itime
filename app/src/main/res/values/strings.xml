@@ -222,4 +222,10 @@
     <string name="event_type">event type</string>
     <string name="event_type_solo">event type solo</string>
     <string name="event_type_group">event type group</string>
+    <string name="event_status_repeated">Repeated</string>
+
+    <!-- event status-->
+    <string name="event_status_pending">Pending</string>
+    <string name="event_status_cancel">Cancel</string>
+    <string name="event_status_Confirmed">Confirmed</string>
 </resources>

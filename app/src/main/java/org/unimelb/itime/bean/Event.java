@@ -74,7 +74,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     private String updatedAt = "";
     @Convert(converter = Event.PhotoUrlConverter.class , columnType = String.class)
     private List<PhotoUrl> photos = new ArrayList<>();
-    private int isAllDay;
+    private boolean isAllDay;
     private String extra;
     @Convert(converter = Event.TZoneTimeConverter.class, columnType = String.class)
     private TZoneTime start = new TZoneTime();
@@ -96,13 +96,17 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     private boolean mute;
     private boolean pin;
 
+    @Generated(hash = 344677835)
+    public Event() {
+    }
 
-    @Generated(hash = 1508319526)
+
+    @Generated(hash = 217194186)
     public Event(String id, String[] recurrence, String status, String summary, String description, String url,
             Location location, int reminder, String source, String eventUid, String calendarUid, String recurringEventUid,
             String host, String self, String hostUserUid, String userUid, String locationNote, String locationLatitude,
             String locationLongitude, String eventType, int inviteeVisibility, int freebusyAccess, int showLevel,
-            int deleteLevel, String createdAt, String updatedAt, List<PhotoUrl> photos, int isAllDay, String extra,
+            int deleteLevel, String createdAt, String updatedAt, List<PhotoUrl> photos, boolean isAllDay, String extra,
             TZoneTime start, TZoneTime end, List<Invitee> invitees, List<TimeSlot> timeslots,
             List<TimeslotInvitee> timeslotInvitees, String note, String coverPhoto, int duration, String greeting,
             boolean archive, boolean mute, boolean pin) {
@@ -147,10 +151,6 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.archive = archive;
         this.mute = mute;
         this.pin = pin;
-    }
-
-    @Generated(hash = 344677835)
-    public Event() {
     }
 
 
@@ -232,6 +232,16 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     @Override
     public boolean isHighlighted() {
         return false;
+    }
+
+    @Override
+    public void setIsAllDay(boolean isAllDay) {
+        this.isAllDay = isAllDay;
+    }
+
+    @Override
+    public boolean getIsAllDay() {
+        return this.isAllDay;
     }
 
     public void setSummary(String summary) {
@@ -423,17 +433,9 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.photos = photos;
     }
 
-    public int getIsAllDay() {
-        return isAllDay;
-    }
-
     @Override
     public int isShownInCalendar() {
         return 0;
-    }
-
-    public void setIsAllDay(int isAllDay) {
-        this.isAllDay = isAllDay;
     }
 
     public String getExtra() {

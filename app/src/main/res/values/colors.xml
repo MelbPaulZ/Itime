@@ -69,4 +69,5 @@
     <!--meeting-->
     <color name="text_meetingtime">#BDBDBD</color>
     <color name="text_indication">#BDBDBD</color>
+    <color name="card_status_repeated">#757575</color>
 </resources>

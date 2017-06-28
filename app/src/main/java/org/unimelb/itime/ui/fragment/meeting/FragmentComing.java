@@ -15,9 +15,15 @@ import android.widget.Toast;
 import com.daimajia.swipe.util.Attributes;
 
 import org.unimelb.itime.R;
+import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.Location;
+import org.unimelb.itime.bean.Meeting;
+import org.unimelb.itime.util.EventUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
 
@@ -28,7 +34,6 @@ import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
 public class FragmentComing extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerViewAdapterMeetings mAdapter;
-    private ArrayList<String> mDataSet;
     private Context context;
 
     @Nullable
@@ -45,9 +50,7 @@ public class FragmentComing extends Fragment {
         recyclerView.setItemAnimator(new FadeInLeftAnimator());
 
         // Adapter:
-        String[] adapterData = new String[]{"Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"};
-        mDataSet = new ArrayList<String>(Arrays.asList(adapterData));
-        mAdapter = new RecyclerViewAdapterMeetings(context, null);
+        mAdapter = new RecyclerViewAdapterMeetings(context, initData(), RecyclerViewAdapterMeetings.Mode.COMING);
         mAdapter.setOnMenuListener(new RecyclerViewAdapterMeetings.OnMenuListener<String>() {
             @Override
             public void onPin(String obj) {
@@ -95,4 +98,33 @@ public class FragmentComing extends Fragment {
             // Could hide open views here if you wanted. //
         }
     };
+
+    private List<Meeting> initData(){
+        List<Meeting> meetings = new ArrayList<>();
+
+        Calendar calendar = Calendar.getInstance();
+        List<Event> events = new ArrayList<>();
+        int[] type = {0, 1, 2};
+        int[] status = {0, 1};
+        long allDayInterval = (24 * 3600 * 1000);
+        long interval = (3600 * 1000);
+        long startTime = calendar.getTimeInMillis();
+        long endTime;
+        for (int i = 1; i < 20; i++) {
+            Meeting meeting = new Meeting();
+            endTime = startTime + interval;
+            Event event = EventUtil.getNewEvent();
+            event.setIsAllDay(i%2==0);
+            event.setLocation(new Location());
+            event.setStartTime(startTime);
+            event.setEndTime(endTime);
+            events.add(event);
+
+            startTime = startTime + allDayInterval;
+            meeting.setEvent(event);
+            meetings.add(meeting);
+        }
+
+        return meetings;
+    }
 }

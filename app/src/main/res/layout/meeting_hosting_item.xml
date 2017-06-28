@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
     <data>
+        <variable
+            name="vmDetail"
+            type="org.unimelb.itime.ui.viewmodel.meeting.MeetingHostingDetailCardViewModel"/>
+        <variable
+            name="vmMenu1"
+            type="org.unimelb.itime.ui.viewmodel.meeting.MeetingMenu1ViewModel"/>
+        <import type="android.view.View"/>
     </data>
 
     <LinearLayout
@@ -13,12 +21,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/swipe"
+            app:swipeEnabled="@{vmDetail.getSwipeEnable}"
+            app:show_mode="lay_down"
             app:clickToClose="true"
             >
 
             <include layout="@layout/meeting_menu_1"
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
+                bind:vm="@{vmMenu1}"
                 android:id="@+id/swipe_menu"/>
 
             <FrameLayout
@@ -36,12 +47,10 @@
                     <include layout="@layout/meeting_hosting_info_details"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
+                        bind:vm="@{vmDetail}"
                         android:id="@+id/hosting_card"/>
                 </android.support.v7.widget.CardView>
             </FrameLayout>
-
-
-
         </com.daimajia.swipe.SwipeLayout>
     </LinearLayout>
 </layout>

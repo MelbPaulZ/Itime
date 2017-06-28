@@ -81,9 +81,9 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
-                    event.setIsAllDay(ITimeEventInterface.ALLDAY);
+                    event.setIsAllDay(true);
                 }else{
-                    event.setIsAllDay(ITimeEventInterface.NON_ALLDAY);
+                    event.setIsAllDay(false);
                 }
                 setEvent(event);
             }
@@ -91,11 +91,11 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     }
 
     public int getAllDayVisibility(Event event){
-        return EventUtil.isAllDay(event)? View.VISIBLE:View.GONE;
+        return event.getIsAllDay()? View.VISIBLE:View.GONE;
     }
 
     public int getNotAllDayVisibility(Event event){
-        return EventUtil.isAllDay(event)? View.GONE:View.VISIBLE;
+        return event.getIsAllDay() ? View.GONE:View.VISIBLE;
     }
 
     public String getEventStartDate(Event event){

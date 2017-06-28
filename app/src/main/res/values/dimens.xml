@@ -61,6 +61,7 @@
 
     <!-- using -->
     <dimen name="card_radius">4dp</dimen>
+    <dimen name="card_status_radius">9.5dp</dimen>
     <!-- meeting menu-->
     <dimen name="meeting_menu_icon_width">30dp</dimen>
     <dimen name="meeting_menu_icon_height">30dp</dimen>
@@ -70,7 +71,9 @@
     <dimen name="card_margin">10dp</dimen>
 
     <string name="pin">Pin</string>
+    <string name="unpin">Unpin</string>
     <string name="mute">Mute</string>
+    <string name="unmute">Unmute</string>
     <string name="archive">Archive</string>
     <string name="vote">Vote</string>
     <string name="meeting_tag_invitation">Invitation</string>

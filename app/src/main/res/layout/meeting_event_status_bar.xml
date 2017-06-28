@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.meeting.MeetingBaseCardViewModel"/>
+        <import type="android.view.View"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/reminder_text"
+            android:layout_gravity="left|center_vertical"
+            android:gravity="left"
+            android:textSize="11sp"
+            android:textColor="#BDBDBD"
+            android:text="@{vm.getReminderTimeStr}"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="right|center_vertical"
+            android:visibility="@{vm.getStatusBlockVisibility}">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/icon_meetings_pinned"
+                android:layout_marginEnd="3dp"
+                android:visibility="@{vm.meeting.getEvent().isPin ? View.VISIBLE : View.GONE}"
+                android:id="@+id/icon_pin"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/icon_meetings_muted"
+                android:layout_marginEnd="3dp"
+                android:visibility="@{vm.meeting.getEvent().isMute ? View.VISIBLE : View.GONE}"
+                android:id="@+id/icon_mute"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/event_status_block"
+                android:visibility="@{vm.getEventStatusVisibility}">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="1.5dp"
+                    android:paddingStart="11dp"
+                    android:paddingEnd="11dp"
+                    android:layout_marginEnd="3dp"
+                    android:background="@drawable/itime_round_corner_card_status_bg_gray"
+                    android:id="@+id/event_repeated_text"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:visibility="@{vm.repeated ? View.VISIBLE : View.GONE}"
+                    android:text="@string/event_status_repeated"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="1.5dp"
+                    android:paddingStart="11dp"
+                    android:paddingEnd="11dp"
+                    android:textColor="@color/white"
+                    android:background="@{vm.getEventStatusDrawable(context)}"
+                    android:id="@+id/event_status_text"
+                    android:textSize="14sp"
+                    android:text="@{vm.getEventStatusText(context)}"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>
