@@ -48,7 +48,6 @@ public class EventDetailViewModel extends BaseObservable{
     public static final int STATUS_NOT_GOING = 7;
     public static final int STATUS_CANCELED = 8;
     public static final int STATUS_EXPIRED = 9;
-    private boolean archived = false;
 
     private EventDetailPresenter<EventDetailMvpView> presenter;
     private Event event;
@@ -70,7 +69,7 @@ public class EventDetailViewModel extends BaseObservable{
     private List<TimeSlot> selectedTimeSlots = new ArrayList<>();
     private List<EventDetailTimeslotViewModel> timeSlotsItems;
     private boolean showTimeSlotSheet = true;
-    private int status = STATUS_NEED_VOTE;
+    private int status = STATUS_NEED_CONFIRM;
 
     private boolean showConfirmVoteButton;
     private boolean showCantGoVoteButton;
@@ -85,12 +84,7 @@ public class EventDetailViewModel extends BaseObservable{
 
     @Bindable
     public boolean isArchived() {
-        return archived;
-    }
-
-    public void setArchived(boolean archived) {
-        this.archived = archived;
-        notifyPropertyChanged(BR.archived);
+        return event.isArchive();
     }
 
     @Bindable
@@ -236,7 +230,9 @@ public class EventDetailViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(mvpView!=null && !selectedTimeSlots.isEmpty()){
+                    mvpView.gotoConfirm(selectedTimeSlots.get(0));
+                }
             }
         };
     }
@@ -672,57 +668,6 @@ public class EventDetailViewModel extends BaseObservable{
 //        setCalendarType(CalendarUtil.getInstance(context).getCalendarName(event));
     }
 
-    //***********************************************************
-//    public int confirmVisibility(Event event) {
-//
-//        if (event.getEventType().equals(Event.TYPE_SOLO)) {
-//            return View.GONE;
-//        }
-//
-//        if(event.getDeleteLevel()>0){
-//            return View.GONE;
-//        }
-//
-//        if (event.getConfirmedCount()>0) {
-//            return View.VISIBLE;
-//        } else {
-//            return View.GONE;
-//        }
-//    }
-
-//    /**
-//     *
-//     * @param event
-//     * @return View.Visible if this is invitee and event is unconfirm
-//     */
-//    public int unconfirmVisibility(Event event) {
-//        if (event.getDeleteLevel()>0){
-//            return View.GONE;
-//        }
-//
-//        if (event.getConfirmedCount()>0){
-//            return View.GONE;
-//        }
-//
-//        if (isUserHostOfEvent(context, event)){
-//            return View.GONE;
-//        }
-//
-//        return View.VISIBLE;
-//    }
-
-//    public int unconfirmHostVisibility(Event event) {
-//
-//        if (event.getDeleteLevel()>0){
-//            return View.GONE;
-//        }
-//        if (event.getConfirmedCount()==0 && isUserHostOfEvent(context, event)){
-//            return View.VISIBLE;
-//        }
-//
-//        return View.GONE;
-//    }
-
     public int getLocationVisibility(Event event) {
         if (!event.getLocation().equals("")) {
             return View.VISIBLE;
@@ -739,38 +684,75 @@ public class EventDetailViewModel extends BaseObservable{
         }
     }
 
-    //***********************************************************
+    public View.OnClickListener onMuteClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        };
+    }
 
-//    /**
-//     * if solo event or not allow invitee to see each other, then return View.GONE else return View.VISIBLE
-//     * @return
-//     */
-//    @Bindable
-//    public int getInviteeVisibility() {
-//        if (!EventUtil.isGroupEvent(context, event)){
-//            return View.GONE;
-//        }
-//
-//        if (event.getDeleteLevel()>0){
-//            return View.GONE;
-//        }
-//
-//        if (event.getInviteeVisibility()==0 && !EventUtil.isUserHostOfEvent(context, event)){
-//            return View.GONE;
-//        }
-//        return View.VISIBLE;
-//    }
+    public View.OnClickListener onPinClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-//    @Bindable
-//    public ItemView getTimeslotItemView() {
-//        return timeslotItemView;
-//    }
-//
-//    public void setTimeslotItemView(ItemView timeslotItemView) {
-//        this.timeslotItemView = timeslotItemView;
-//        notifyPropertyChanged(BR.timeslotItemView);
-//    }
+            }
+        };
+    }
 
+    public View.OnClickListener onArchiveClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        };
+    }
+
+    public View.OnClickListener onShareClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        };
+    }
+
+    public View.OnClickListener onRemindClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        };
+    }
+
+    public View.OnClickListener onHistoryClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        };
+    }
+
+    public View.OnClickListener onDuplicateClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        };
+    }
+
+    public View.OnClickListener onDeleteClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        };
+    }
 }

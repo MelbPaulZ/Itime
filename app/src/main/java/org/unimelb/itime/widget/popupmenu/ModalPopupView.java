@@ -22,20 +22,16 @@ public class ModalPopupView {
     private Context context;
     private PopupWindow popupWindow;
     private View contentView;
-    private static final int DURATION = 200;
+    private static final int DURATION = 160;
     private AnimatorSet showAnimation;
     private AnimatorSet hideAnimation;
 
     private void generateAnimator(View view){
-        ObjectAnimator showXAnimator = ObjectAnimator.ofFloat(view, "scaleX", 0f, 1f);
-        ObjectAnimator showYAnimator = ObjectAnimator.ofFloat(view, "scaleY", 0f, 1f);
+        ObjectAnimator showXAnimator = ObjectAnimator.ofFloat(view, "alpha", 0, 1);
         showAnimation.play(showXAnimator);
-        showAnimation.play(showYAnimator);
 
-        ObjectAnimator hideXAnimator = ObjectAnimator.ofFloat(view, "scaleX", 1f, 0f);
-        ObjectAnimator hideYAnimator = ObjectAnimator.ofFloat(view, "scaleY", 1f, 0f);
+        ObjectAnimator hideXAnimator = ObjectAnimator.ofFloat(view, "alpha", 1, 0);
         hideAnimation.play(hideXAnimator);
-        hideAnimation.play(hideYAnimator);
 
         hideAnimation.addListener(new Animator.AnimatorListener() {
             @Override

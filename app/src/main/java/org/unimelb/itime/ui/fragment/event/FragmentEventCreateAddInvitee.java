@@ -117,7 +117,6 @@ public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreate
             addContactFragment = new FragmentEventCreateAddContact();
         }
         addContactFragment.setInvitees(contentVM.getInvitees());
-        Event event = contentVM.getEvent();
         addContactFragment.setEvent(contentVM.getEvent());
         getBaseActivity().openFragment(addContactFragment);
     }
@@ -130,5 +129,20 @@ public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreate
         fragmentSearchInvitee.setInviteeList(contentVM.getInvitees());
         fragmentSearchInvitee.setEvent(contentVM.getEvent());
         getBaseActivity().openFragment(fragmentSearchInvitee);
+    }
+
+    @Override
+    public void onTaskStart(int taskId) {
+
+    }
+
+    @Override
+    public void onTaskSuccess(int taskId, Object data) {
+
+    }
+
+    @Override
+    public void onTaskError(int taskId, Object data) {
+
     }
 }

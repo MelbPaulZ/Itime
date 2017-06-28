@@ -38,13 +38,13 @@ public class EventDetailActivity extends ItimeBaseActivity{
 
     public Event getEvent(){
         Event event = new Event();
-        event.setTitle("Garden Together MEL");
+        event.setSummary("Garden Together MEL");
         Location location = new Location();
         location.setLocationString1("Main Yarra Trail loooooooooong Line 2 1232");
         location.setLocationString2("Main Yarra Trail loooooooooong Line 2 1232");
         event.setLocation(location);
         event.setCoverPhoto("http://s1.dwstatic.com/group1/M00/DA/29/7cb28a3fcf4e3c10459ecbdb89bc409e.jpg");
-        event.setHost(true);
+        event.setHost("1");
         event.setHostUserUid("1");
 
         List<Invitee> invitees = new ArrayList<>();

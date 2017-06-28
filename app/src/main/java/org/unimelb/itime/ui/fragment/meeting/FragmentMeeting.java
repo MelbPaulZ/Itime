@@ -124,5 +124,30 @@ public class FragmentMeeting extends ItimeBaseFragment<CalendarMvpView, Calendar
         return mData;
     }
 
+    private void initData(){
+        List<Meeting> meetings = new ArrayList<>();
 
+        Calendar calendar = Calendar.getInstance();
+        List<Event> events = new ArrayList<>();
+        int[] type = {0, 1, 2};
+        int[] status = {0, 1};
+        long allDayInterval = (24 * 3600 * 1000);
+        long interval = (3600 * 1000);
+        long startTime = calendar.getTimeInMillis();
+        long endTime;
+        for (int i = 1; i < 20; i++) {
+            Meeting meeting = new Meeting();
+            endTime = startTime + interval;
+            Event event = EventUtil.getNewEvent();
+            event.setIsAllDay(i%2);
+            event.setLocation(new Location());
+            event.setStartTime(startTime);
+            event.setEndTime(endTime);
+            events.add(event);
+
+            startTime = startTime + allDayInterval;
+            meeting.setEvent(event);
+            meetings.add(meeting);
+        }
+    }
 }

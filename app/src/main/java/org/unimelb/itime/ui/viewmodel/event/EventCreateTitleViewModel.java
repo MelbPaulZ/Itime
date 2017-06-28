@@ -84,7 +84,7 @@ public class EventCreateTitleViewModel extends ItimeBaseViewModel {
     }
 
     public int getWordCountTextColor(Event event){
-        if(event.getTitle().length()>TITLE_COUNT_LIMIT - TITLE_WARNING_THRESHOLD){
+        if(event.getSummary().length()>TITLE_COUNT_LIMIT - TITLE_WARNING_THRESHOLD){
             return presenter.getContext().getResources().getColor(R.color.warmPink);
         }else{
             return presenter.getContext().getResources().getColor(R.color.pinkishGrey);
@@ -92,7 +92,7 @@ public class EventCreateTitleViewModel extends ItimeBaseViewModel {
     }
 
     public String getWordCountText(Event event){
-        return (TITLE_COUNT_LIMIT - event.getTitle().length()) + "";
+        return (TITLE_COUNT_LIMIT - event.getSummary().length()) + "";
     }
 
     @Bindable
@@ -122,7 +122,7 @@ public class EventCreateTitleViewModel extends ItimeBaseViewModel {
             return new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    event.setTitle(title);
+                    event.setSummary(title);
                     setEvent(event);
                 }
             };

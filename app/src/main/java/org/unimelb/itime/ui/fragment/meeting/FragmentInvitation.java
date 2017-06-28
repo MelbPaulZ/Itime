@@ -115,9 +115,7 @@ public class FragmentInvitation extends Fragment {
             Meeting meeting = new Meeting();
             endTime = startTime + interval;
             Event event = EventUtil.getNewEvent();
-            event.setIsAllDay(i%2 == 0);
-            event.setDisplayEventType(1);
-            event.setDisplayStatus("#63ADF2|slash|icon_normal");
+            event.setIsAllDay(i%2);
             event.setLocation(new Location());
             event.setStartTime(startTime);
             event.setEndTime(endTime);
