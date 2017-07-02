@@ -27,7 +27,10 @@
 
         <EditText
             style="@style/itimeCellEdit"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="0dp"
             android:text="@={vm.event.note}"
+            android:onInitialFocus="@{vm.requestFocus}"
             android:hint="@string/event_note_hint"/>
 
     </RelativeLayout>

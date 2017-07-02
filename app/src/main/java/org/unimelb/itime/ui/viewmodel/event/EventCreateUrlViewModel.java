@@ -16,6 +16,7 @@ public class EventCreateUrlViewModel extends BaseObservable{
 
     private LocalPresenter presenter;
     private Event event;
+    private boolean isInitFocus = true;
 
     public EventCreateUrlViewModel(LocalPresenter presenter) {
         this.presenter = presenter;
@@ -29,5 +30,10 @@ public class EventCreateUrlViewModel extends BaseObservable{
     public void setEvent(Event event) {
         this.event = event;
         notifyPropertyChanged(BR.event);
+    }
+
+    @Bindable
+    public boolean isInitFocus() {
+        return isInitFocus;
     }
 }

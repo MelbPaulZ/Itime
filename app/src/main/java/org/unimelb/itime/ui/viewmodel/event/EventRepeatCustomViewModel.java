@@ -1,7 +1,12 @@
 package org.unimelb.itime.ui.viewmodel.event;
 
+import android.animation.ValueAnimator;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.BindingAdapter;
+import android.databinding.ObservableBoolean;
+import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 
 import com.android.databinding.library.baseAdapters.BR;
 
@@ -18,6 +23,7 @@ public class EventRepeatCustomViewModel extends BaseObservable {
     private String frequencyString;
     private String gapString;
     private Event event;
+    private ObservableBoolean showWheelPicker;
 
     public EventRepeatCustomViewModel(LocalPresenter presenter) {
         this.presenter = presenter;
@@ -31,6 +37,16 @@ public class EventRepeatCustomViewModel extends BaseObservable {
     public void setEvent(Event event) {
         this.event = event;
         notifyPropertyChanged(BR.event);
+    }
+
+    @Bindable
+    public ObservableBoolean getShowWheelPicker() {
+        return showWheelPicker;
+    }
+
+    public void setShowWheelPicker(ObservableBoolean showWheelPicker) {
+        this.showWheelPicker = showWheelPicker;
+        notifyPropertyChanged(BR.showWheelPicker);
     }
 
     @Bindable
@@ -52,4 +68,35 @@ public class EventRepeatCustomViewModel extends BaseObservable {
         this.gapString = gapString;
         notifyPropertyChanged(BR.gapString);
     }
+
+    public View.OnClickListener onClickFrequency(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (showWheelPicker==null){
+                    showWheelPicker = new ObservableBoolean(true); // default show this wheelpicker
+                }
+                showWheelPicker.set(!getShowWheelPicker().get());
+                setShowWheelPicker(showWheelPicker);
+            }
+        };
+    }
+
+    @BindingAdapter({"android:isShow"})
+    public static void setOnHideShowAnimation(final View v, final ObservableBoolean isShow){
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(0, v.getHeight());
+        valueAnimator.setDuration(1000);
+        valueAnimator.setInterpolator(new DecelerateInterpolator());
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                if (isShow==null){
+                    return;
+                }
+                v.setTranslationY(isShow.get() ? -v.getHeight() + (Integer) animation.getAnimatedValue() : - (Integer) animation.getAnimatedValue());
+            }
+        });
+        valueAnimator.start();
+    }
+
 }

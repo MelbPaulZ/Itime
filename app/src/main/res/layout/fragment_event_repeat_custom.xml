@@ -8,56 +8,18 @@
             name="vm"
             type="org.unimelb.itime.ui.viewmodel.event.EventRepeatCustomViewModel"/>
     </data>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    
-    <include layout="@layout/toolbar"
-        bind:vm="@{toolbarVM}"/>
-
-    <!--Frequency-->
-    <RelativeLayout
-        android:layout_marginTop="30dp"
-        style="@style/ItimeRelativeCell"
-        android:layout_height="44dp"
-        android:background="@color/white">
-
-        <TextView
-            style="@style/itime_top_divider_line" />
-
-        <TextView
-            style="@style/itimeCellTitle"
-            android:layout_marginStart="16dp"
-            android:text="@string/event_custom_repeat_every"/>
-
-        <!--day, week, month, year-->
-        <TextView
-            android:id="@+id/event_repeat_custom_freq"
-            style="@style/itimeCellRightContent"
-            android:layout_marginRight="15dp"
-            android:text="@{vm.frequencyString}"/>
-
-        <!--1,2,3,4,5....-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/pinkishGrey"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/event_repeat_custom_freq"
-            android:layout_marginRight="5dp"
-            android:text="@{vm.gapString}"/>
-
-
-        <TextView
-            style="@style/itime_bottom_divider_line"
-            android:layout_marginStart="16dp"/>
-
-    </RelativeLayout>
+    android:layout_height="match_parent"
+    android:background="@color/whiteFive">
 
     <!--wheel picker-->
     <RelativeLayout
+        android:layout_below="@+id/custom_repeat_frequency"
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="150dp"
+        android:isShow="@{vm.showWheelPicker}"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -81,8 +43,57 @@
             android:layout_marginStart="16dp"/>
     </RelativeLayout>
 
+    <include
+        android:id="@+id/custom_repeat_title"
+        layout="@layout/toolbar"
+        bind:vm="@{toolbarVM}" />
+    
+    <TextView
+        android:id="@+id/blank_holder"
+        android:layout_below="@id/custom_repeat_title"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/whiteFive"/>
+
+    <!--Frequency-->
+    <RelativeLayout
+        android:id="@+id/custom_repeat_frequency"
+        android:layout_below="@+id/blank_holder"
+        style="@style/ItimeRelativeCell"
+        android:layout_height="44dp"
+        android:background="@color/white"
+        android:onClick="@{vm.onClickFrequency()}">
+
+        <TextView
+            style="@style/itime_top_divider_line" />
+
+        <TextView
+            style="@style/itimeCellTitle"
+            android:layout_marginStart="16dp"
+            android:text="@string/event_custom_repeat_every"/>
+
+        <!--day, week, month, year-->
+        <TextView
+            android:id="@+id/event_repeat_custom_freq"
+            style="@style/itimeCellRightContent"
+            android:layout_marginEnd="15dp"
+            android:text="@{vm.frequencyString}"/>
+
+        <!--1,2,3,4,5....-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/pinkishGrey"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/event_repeat_custom_freq"
+            android:layout_marginEnd="5dp"
+            android:text="@{vm.gapString}"/>
 
 
+        <TextView
+            style="@style/itime_bottom_divider_line"
+            android:layout_marginStart="16dp"/>
 
-</LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>
 </layout>

@@ -44,7 +44,7 @@ public class FragmentEventCreateAlert extends ItimeBaseFragment<EventCreateAlert
         toolbarVM = new ToolbarViewModel(this);
         toolbarVM.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarVM.setTitle(getString(R.string.toolbar_alert));
-        toolbarVM.setRightText(getString(R.string.new_event_toolbar_next));
+        toolbarVM.setRightText(getString(R.string.toolbar_done));
         toolbarVM.setRightEnable(true);
         binding.setToolbarVM(toolbarVM);
 
