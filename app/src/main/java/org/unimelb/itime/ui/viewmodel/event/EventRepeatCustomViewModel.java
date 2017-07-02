@@ -5,8 +5,13 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableBoolean;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import com.android.databinding.library.baseAdapters.BR;
 
@@ -69,17 +74,12 @@ public class EventRepeatCustomViewModel extends BaseObservable {
         notifyPropertyChanged(BR.gapString);
     }
 
-    public View.OnClickListener onClickFrequency(){
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (showWheelPicker==null){
-                    showWheelPicker = new ObservableBoolean(true); // default show this wheelpicker
-                }
-                showWheelPicker.set(!getShowWheelPicker().get());
-                setShowWheelPicker(showWheelPicker);
-            }
-        };
+    public void onClickFrequency(){
+        if (showWheelPicker==null){
+            showWheelPicker = new ObservableBoolean(true); // default show this wheelpicker
+        }
+        showWheelPicker.set(!getShowWheelPicker().get());
+        setShowWheelPicker(showWheelPicker);
     }
 
     @BindingAdapter({"android:isShow"})
@@ -98,5 +98,4 @@ public class EventRepeatCustomViewModel extends BaseObservable {
         });
         valueAnimator.start();
     }
-
 }

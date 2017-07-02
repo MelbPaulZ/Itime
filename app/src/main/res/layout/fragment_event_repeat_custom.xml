@@ -62,7 +62,7 @@
         style="@style/ItimeRelativeCell"
         android:layout_height="44dp"
         android:background="@color/white"
-        android:onClick="@{vm.onClickFrequency()}">
+        android:onClick="@{(v) -> vm.onClickFrequency()}">
 
         <TextView
             style="@style/itime_top_divider_line" />
