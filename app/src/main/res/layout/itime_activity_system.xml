@@ -1,42 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
-            name="vm"
-            type="org.unimelb.itime.ui.viewmodel.activity.ItimeActivitiesViewModel.ActivityMessageViewModel"/>
+            name="messageGroupViewModel"
+            type="org.unimelb.itime.ui.viewmodel.activity.ActivityMessageGroupViewModel" />
     </data>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/whiteFive">
 
-    <RelativeLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="51.5dp"
-        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:background="@color/whiteFive"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp">
-        
-        <ImageView
-            android:id="@+id/system_activity_icon"
-            style="@style/ItimeCellLeftIcon"
-            android:layout_marginStart="7dp"
-            android:background="@drawable/icon_event_title_hl"
-            />
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/system_activity_icon"
-            android:textColor="@color/deepskyblue"
-            android:text="Start uploading your profile today."
-            android:textSize="14sp"
-            />
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="@dimen/card_radius"
+            app:cardElevation="@dimen/card_elevation"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="51.5dp"
+                android:background="@color/whiteFour"
+                >
+
+                <ImageView
+                    android:id="@+id/system_activity_icon"
+                    style="@style/ItimeCellLeftIcon"
+                    android:layout_marginStart="7dp"
+                    android:background="@drawable/icon_activities_info" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@+id/system_activity_icon"
+                    android:text="Start uploading your profile today."
+                    android:textColor="@color/deepSkyBlue"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
 
     </RelativeLayout>
-
-</RelativeLayout>
 </layout>

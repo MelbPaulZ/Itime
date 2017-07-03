@@ -1,6 +1,13 @@
 package org.unimelb.itime.ui.viewmodel.activity;
 
+import android.databinding.Bindable;
+
+import com.android.databinding.library.baseAdapters.BR;
+
+import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseViewModel;
+import org.unimelb.itime.ui.mvpview.activity.ItimeActivitiesMvpView;
+import org.unimelb.itime.ui.presenter.activity.ItimeActivitiesPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,42 +21,27 @@ import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
 public class ItimeActivitiesViewModel extends ItimeBaseViewModel {
 
-    private List<ActivityMessageViewModel> messageGroups = new ArrayList<>();
-    public final OnItemBind<ActivityMessageViewModel> onItemBind = new OnItemBind<ActivityMessageViewModel>() {
-        @Override
-        public void onItemBind(ItemBinding itemBinding, int position, ActivityMessageViewModel item) {
+    private ItimeActivitiesPresenter<ItimeActivitiesMvpView> presenter;
 
+    private List<ActivityMessageGroupViewModel> messageGroups = new ArrayList<>();
+    public final OnItemBind<ActivityMessageGroupViewModel> onItemBind = new OnItemBind<ActivityMessageGroupViewModel>() {
+        @Override
+        public void onItemBind(ItemBinding itemBinding, int position, ActivityMessageGroupViewModel item) {
+            itemBinding.set(BR.messageGroupViewModel, item.isSystem()? R.layout.itime_activity_system : R.layout.itime_activity_meeting);
         }
     };
 
+    public ItimeActivitiesViewModel(ItimeActivitiesPresenter<ItimeActivitiesMvpView> presenter) {
+        this.presenter = presenter;
+    }
 
-    private class ActivityMessageViewModel{
-        private boolean isSystem;
-        private String user = "";
-        private String message = "";
+    @Bindable
+    public List<ActivityMessageGroupViewModel> getMessageGroups() {
+        return messageGroups;
+    }
 
-        public String getUser() {
-            return user;
-        }
-
-        public void setUser(String user) {
-            this.user = user;
-        }
-
-        public boolean isSystem() {
-            return isSystem;
-        }
-
-        public void setSystem(boolean system) {
-            isSystem = system;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
+    public void setMessageGroups(List<ActivityMessageGroupViewModel> messageGroups) {
+        this.messageGroups = messageGroups;
+        notifyPropertyChanged(BR.messageGroups);
     }
 }
