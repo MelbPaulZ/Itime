@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.activity.ItimeActivitiesViewModel.ActivityMessageViewModel"/>
+    </data>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/whiteFive">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="51.5dp"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp">
+        
+        <ImageView
+            android:id="@+id/system_activity_icon"
+            style="@style/ItimeCellLeftIcon"
+            android:layout_marginStart="7dp"
+            android:background="@drawable/icon_event_title_hl"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/system_activity_icon"
+            android:textColor="@color/deepskyblue"
+            android:text="Start uploading your profile today."
+            android:textSize="14sp"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>
+</layout>
