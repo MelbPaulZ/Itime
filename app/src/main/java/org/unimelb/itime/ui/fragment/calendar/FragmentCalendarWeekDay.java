@@ -14,6 +14,9 @@ import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
 
+import java.util.Date;
+
+import david.itimecalendar.calendar.listeners.ITimeCalendarWeekDayViewListener;
 import david.itimecalendar.calendar.listeners.ITimeEventInterface;
 import david.itimecalendar.calendar.ui.monthview.DayViewBody;
 import david.itimecalendar.calendar.ui.unitviews.DraggableEventView;
@@ -59,10 +62,15 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
         //ITimeEventPackageInterface is composed by two parts:
         //  1: regular events. 2: repeated events.
         weekView.setEventPackage(eventManager.getEventsPackage());
-        weekView.setOnBodyEventListener(new WeekViewBodyListener());
+        weekView.setITimeCalendarWeekDayViewListener(listener);
     }
 
-    private class WeekViewBodyListener implements DayViewBody.OnViewBodyEventListener{
+    private ITimeCalendarWeekDayViewListener listener = new ITimeCalendarWeekDayViewListener(){
+
+        @Override
+        public void onDateChanged(Date date) {
+
+        }
 
         @Override
         public boolean isDraggable(DraggableEventView draggableEventView) {
@@ -103,5 +111,5 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
         public void onAllDayEventClick(ITimeEventInterface iTimeEventInterface) {
 
         }
-    }
+    };
 }

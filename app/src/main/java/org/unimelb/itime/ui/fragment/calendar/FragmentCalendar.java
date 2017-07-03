@@ -98,7 +98,7 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
                 showCalendar(monthDayFragment);
                 break;
             case 1:
-//                showCalendar(weekFragment);
+                showCalendar(weekFragment);
                 break;
             case 2:
 //                showCalendar(agendaFragment);
@@ -146,8 +146,8 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
 
     public void initCalendars(){
         monthDayFragment = new FragmentCalendarMonthDay();
-//        weekFragment = new FragmentCalendarWeekDay();
-//        agendaFragment = new FragmentCalendarAgenda();
+        weekFragment = new FragmentCalendarWeekDay();
+        agendaFragment = new FragmentCalendarAgenda();
         getFragmentManager().beginTransaction().add(R.id.calendar_framelayout, monthDayFragment).commit();
     }
 

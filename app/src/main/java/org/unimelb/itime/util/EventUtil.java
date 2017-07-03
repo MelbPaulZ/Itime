@@ -25,6 +25,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.UUID;
 
@@ -389,4 +390,45 @@ public class EventUtil extends BaseUtil{
         return invitee;
     }
 
+    public static String getEventDateStr(Event event){
+        long time = event.getStartTime();
+        long currentDayTime = Calendar.getInstance().getTimeInMillis();
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(time);
+        String monthTh =  cal.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault());
+        String dayOfMonth = cal.get(Calendar.DAY_OF_MONTH) + "";
+        String dayOfWeek = cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()) + ",";
+        int type = getDatesRelationType(currentDayTime, time);
+        switch (type){
+            case 1:
+                dayOfWeek = "Tomorrow";
+                break;
+            case 0:
+                dayOfWeek = "Today";
+                break;
+            case -1:
+                dayOfWeek = "Yesterday";
+                break;
+            default:
+                break;
+        }
+
+        return dayOfWeek + " " + dayOfMonth + " " + monthTh;
+    }
+
+    public static int getDatesRelationType(long todayM, long currentDayM){
+        // -2 no relation, 1 tomorrow, 0 today, -1 yesterday
+        int type = -2;
+        int dayM = 24 * 60 * 60 * 1000;
+        long diff = (currentDayM - todayM);
+        if (diff >0 && diff <= dayM){
+            type = 1;
+        }else if(diff < 0 && diff >= -dayM){
+            type = -1;
+        }else if (diff == 0){
+            type = 0;
+        }
+
+        return type;
+    }
 }
