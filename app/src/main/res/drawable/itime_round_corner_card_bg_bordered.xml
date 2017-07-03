@@ -4,7 +4,7 @@
         android:radius="@dimen/card_radius"/>
     <stroke
         android:width="0.5dp"
-        android:color="@color/text_meetingtime" />
+        android:color="@color/meeting_border" />
 
     <solid android:color="@color/white" />
 

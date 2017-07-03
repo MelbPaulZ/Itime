@@ -16,8 +16,10 @@ import com.squareup.picasso.Picasso;
 
 import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.ui.fragment.meeting.RecyclerViewAdapterMeetings;
+import org.unimelb.itime.util.EventUtil;
 
 /**
  * Created by yuhaoliu on 27/06/2017.
@@ -104,6 +106,19 @@ public class MeetingBaseCardViewModel extends BaseObservable {
 
     public String getEventStatusText(Context context){
         return context.getResources().getString(R.string.event_status_pending);
+    }
+
+    public int getDateTextVisibility(){
+        if (mode == RecyclerViewAdapterMeetings.Mode.COMING){
+            return View.VISIBLE;
+        }
+
+        return View.GONE;
+    }
+
+    public String getDateText(){
+        Event event = meeting.getEvent();
+        return EventUtil.getEventDateStr(event);
     }
 
     public Drawable getEventStatusDrawable(Context context){

@@ -13,6 +13,9 @@ import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
 
+import java.util.Date;
+
+import david.itimecalendar.calendar.listeners.ITimeCalendarMonthAgendaViewListener;
 import david.itimecalendar.calendar.listeners.ITimeEventInterface;
 import david.itimecalendar.calendar.ui.agendaview.AgendaViewBody;
 import david.itimecalendar.calendar.ui.agendaview.MonthAgendaView;
@@ -56,13 +59,18 @@ public class FragmentCalendarAgenda extends ItimeBaseFragment<CalendarMvpView, C
         //ITimeEventPackageInterface is composed by two parts:
         //  1: regular events. 2: repeated events.
         agendaView.setDayEventMap(eventManager.getEventsPackage());
-        agendaView.setOnEventClickListener(new AgendaViewBodyListener());
+        agendaView.setITimeCalendarMonthAgendaViewListener(listener);
     }
 
-    private class AgendaViewBodyListener implements AgendaViewBody.OnEventClickListener{
+    private ITimeCalendarMonthAgendaViewListener listener = new ITimeCalendarMonthAgendaViewListener() {
+        @Override
+        public void onDateChanged(Date date) {
+
+        }
+
         @Override
         public void onEventClick(ITimeEventInterface iTimeEventInterface) {
 
         }
-    }
+    };
 }

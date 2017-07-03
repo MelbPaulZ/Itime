@@ -13,7 +13,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/meeting_date_bar"
+            bind:vm="@{vmDetail}" />
 
         <com.daimajia.swipe.SwipeLayout
             android:layout_width="match_parent"
@@ -39,8 +43,9 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="@android:color/transparent"
                     android:layout_gravity="center"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="@dimen/card_radius"
                     app:cardElevation="@dimen/card_elevation"
                     app:cardUseCompatPadding="true"
                     >

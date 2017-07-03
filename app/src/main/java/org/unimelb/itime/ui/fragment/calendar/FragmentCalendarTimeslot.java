@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.sundeepk.compactcalendarview.ITimeTimeslotCalendar;
+
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
@@ -22,8 +24,10 @@ import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import david.itimecalendar.calendar.listeners.ITimeCalendarTimeslotViewListener;
 import david.itimecalendar.calendar.ui.monthview.DayViewBody;
 import david.itimecalendar.calendar.ui.unitviews.DraggableTimeSlotView;
 import david.itimecalendar.calendar.ui.unitviews.RecommendedSlotView;
@@ -112,7 +116,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
                 }
             }
         });
-        timeSlotView.setOnTimeSlotListener(new TimeslotViewBodyListener());
+        timeSlotView.setITimeCalendarTimeslotViewListener(listener);
         timeSlotView.setTimeslotDurationItems(initList());
 
         for (TimeSlot slot:slots
@@ -129,7 +133,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
     private void updateTitle(){
         toolbarVM.setTitle(String.format(getString(R.string.toolbar_timeslots_select), selectCount, total));
     }
-    private class TimeslotViewBodyListener implements DayViewBody.OnViewBodyTimeSlotListener{
+    private ITimeCalendarTimeslotViewListener listener = new ITimeCalendarTimeslotViewListener(){
         @Override
         public void onAllDayRcdTimeslotClick(long dayBeginMilliseconds) {
             TimeSlot newSlot = new TimeSlot();
@@ -213,7 +217,11 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
             selectedTimeslots.remove(draggableTimeSlotView.getTimeslot());
         }
 
-    }
+        @Override
+        public void onDateChanged(Date date) {
+
+        }
+    };
 
     private List initList(){
         List<TimeSlotView.DurationItem> list= new ArrayList<>();
