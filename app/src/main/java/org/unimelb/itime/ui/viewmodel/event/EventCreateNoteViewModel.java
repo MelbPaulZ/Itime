@@ -1,6 +1,7 @@
 package org.unimelb.itime.ui.viewmodel.event;
 
 import android.databinding.Bindable;
+import android.databinding.Observable;
 
 import com.android.databinding.library.baseAdapters.BR;
 
@@ -16,6 +17,7 @@ public class EventCreateNoteViewModel extends ItimeBaseViewModel {
 
     private LocalPresenter presenter;
     private Event event;
+    private boolean requestFocus = true;
     public EventCreateNoteViewModel(LocalPresenter presenter) {
         this.presenter = presenter;
     }
@@ -29,4 +31,11 @@ public class EventCreateNoteViewModel extends ItimeBaseViewModel {
         this.event = event;
         notifyPropertyChanged(BR.event);
     }
+
+    @Bindable
+    public boolean getRequestFocus(){
+        return this.requestFocus;
+    }
+
+
 }
