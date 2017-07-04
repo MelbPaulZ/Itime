@@ -42,6 +42,7 @@
                         android:id="@+id/itime_activity_meeting_icon"
                         style="@style/ItimeCellLeftIcon"
                         android:layout_marginStart="7dp"
+                        android:visibility="@{messageGroupViewModel.getMuteVisibility(messageGroupViewModel.messageGroup)}"
                         android:background="@drawable/icon_meetings_muted" />
 
                     <TextView
@@ -49,8 +50,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="4dp"
-                        android:layout_toRightOf="@id/itime_activity_meeting_icon"
-                        android:text="Telstra Ccompetition Discussion" />
+                        android:layout_toEndOf="@id/itime_activity_meeting_icon"
+                        android:text="@{messageGroupViewModel.messageGroup.title}" />
 
                     <!--arrow-->
                     <ImageView
@@ -63,8 +64,12 @@
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@id/itime_activity_mute_red_dot"
+                        android:layout_toStartOf="@id/itime_activity_mute_red_dot"
+                        android:visibility="@{messageGroupViewModel.getUnNumberMuteDotVisibility(messageGroupViewModel.messageGroup)}"
                         android:background="@drawable/icon_badge_small" />
+
+                    <!--todo numbered dot-->
+
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView

@@ -16,6 +16,6 @@
         android:text="@string/activity_meeting_show_more"
         android:layout_centerInParent="true"
         android:textSize="14sp"
-        android:textColor="@color/deepskyblue"/>
+        android:textColor="@color/deepSkyBlue"/>
 </RelativeLayout>
 </layout>

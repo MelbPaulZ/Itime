@@ -6,6 +6,7 @@ import com.android.databinding.library.baseAdapters.BR;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseViewModel;
+import org.unimelb.itime.bean.MessageGroup;
 import org.unimelb.itime.ui.mvpview.activity.ItimeActivitiesMvpView;
 import org.unimelb.itime.ui.presenter.activity.ItimeActivitiesPresenter;
 
@@ -27,7 +28,13 @@ public class ItimeActivitiesViewModel extends ItimeBaseViewModel {
     public final OnItemBind<ActivityMessageGroupViewModel> onItemBind = new OnItemBind<ActivityMessageGroupViewModel>() {
         @Override
         public void onItemBind(ItemBinding itemBinding, int position, ActivityMessageGroupViewModel item) {
-            itemBinding.set(BR.messageGroupViewModel, item.isSystem()? R.layout.itime_activity_system : R.layout.itime_activity_meeting);
+            if (item.getMessageGroup().getType() == MessageGroup.TYPE_EVENT_MESSAGE_GROUP){
+                itemBinding.set(BR.messageGroupViewModel, R.layout.itime_activity_meeting);
+            }else if (item.getMessageGroup().getType() == MessageGroup.SYSTEM_MESSAGE_GROUP){
+                itemBinding.set(BR.messageGroupViewModel, R.layout.itime_activity_system);
+            }else{ // // TODO: 4/7/17 change later
+                itemBinding.set(BR.messageGroupViewModel, R.layout.itime_activity_meeting);
+            }
         }
     };
 

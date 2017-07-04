@@ -12,6 +12,7 @@ import android.widget.Toast;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
+import org.unimelb.itime.bean.MessageGroup;
 import org.unimelb.itime.databinding.FragmentItimeActivitiesBinding;
 import org.unimelb.itime.ui.mvpview.activity.ItimeActivitiesMvpView;
 import org.unimelb.itime.ui.presenter.activity.ItimeActivitiesPresenter;
@@ -63,11 +64,33 @@ public class ItimeActivitiesFragment extends ItimeBaseFragment<ItimeActivitiesMv
 
     private List<ActivityMessageGroupViewModel> getMessageViewGroups(){
         List<ActivityMessageGroupViewModel> activityMessageGroupViewModels = new ArrayList<>();
-        activityMessageGroupViewModels.add(new ActivityMessageGroupViewModel(true, "sys1", "sys message1"));
-        activityMessageGroupViewModels.add(new ActivityMessageGroupViewModel(false, "user1", "message1"));
-        activityMessageGroupViewModels.add(new ActivityMessageGroupViewModel(false, "user2", "message2"));
+        activityMessageGroupViewModels.add(new ActivityMessageGroupViewModel(getMockSystemMessageGroup()));
+        activityMessageGroupViewModels.add(new ActivityMessageGroupViewModel(getMockMeetingMessageGroup()));
+        activityMessageGroupViewModels.add(new ActivityMessageGroupViewModel(getMockMeetingMessageGroup()));
+        activityMessageGroupViewModels.add(new ActivityMessageGroupViewModel(getMockMeetingMessageGroup()));
+        activityMessageGroupViewModels.add(new ActivityMessageGroupViewModel(getMockMeetingMessageGroup()));
+        activityMessageGroupViewModels.add(new ActivityMessageGroupViewModel(getMockMeetingMessageGroup()));
+        activityMessageGroupViewModels.add(new ActivityMessageGroupViewModel(getMockSystemMessageGroup()));
         return activityMessageGroupViewModels;
     }
+
+    private MessageGroup getMockSystemMessageGroup(){
+        MessageGroup messageGroup = new MessageGroup();
+        messageGroup.setTitle("messageGroupMock");
+        messageGroup.setMute(true);
+        messageGroup.setType(MessageGroup.SYSTEM_MESSAGE_GROUP);
+        return messageGroup;
+    }
+
+    private int mockCount = 0;
+    private MessageGroup getMockMeetingMessageGroup(){
+        MessageGroup messageGroup = new MessageGroup();
+        messageGroup.setTitle("messageMeetingGroupMock");
+        messageGroup.setMute(mockCount++ % 2 == 0);
+        messageGroup.setType(MessageGroup.TYPE_EVENT_MESSAGE_GROUP);
+        return messageGroup;
+    }
+
 
 
 

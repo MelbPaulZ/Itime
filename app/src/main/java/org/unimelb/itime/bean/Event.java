@@ -438,6 +438,11 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         return 0;
     }
 
+    @Override
+    public String getLocationName() {
+        return location!=null? location.getLocationString1() : "";
+    }
+
     public String getExtra() {
         return extra;
     }
@@ -586,6 +591,8 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     public boolean getPin() {
         return this.pin;
     }
+
+
 
     public static class TimeslotConverter implements PropertyConverter<List<TimeSlot> , String> {
         Gson gson = new Gson();

@@ -15,6 +15,8 @@ import android.view.animation.LinearInterpolator;
 
 import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
+import org.unimelb.itime.bean.Message;
+import org.unimelb.itime.bean.MessageGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,24 +25,31 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
 public class ActivityMessageGroupViewModel extends BaseObservable {
-    private boolean isSystem;
-    private String user = "";
-    private String message = "";
+    private MessageGroup messageGroup;
+
+
     private ObservableBoolean showDetail = new ObservableBoolean(false);
 
-    public ActivityMessageGroupViewModel(boolean isSystem, String user, String message) {
-        this.isSystem = isSystem;
-        this.user = user;
-        this.message = message;
+    public ActivityMessageGroupViewModel(MessageGroup messageGroup) {
+        this.messageGroup = messageGroup;
         mockMessage();
     }
 
     private void mockMessage(){
-        messageGroups.add(new ActivityMessageViewModel("aaaa", "aaaa"));
-        messageGroups.add(new ActivityMessageViewModel("bbbb", "bbb"));
+        for (int i = 0 ; i <= 3; i ++){
+            messageGroups.add(new ActivityMessageViewModel(mockMessage(mockMsg[i])));
+        }
     }
 
-    private List<ActivityMessageViewModel> messageGroups = new ArrayList<>();
+    private Message mockMessage(String msg){
+        Message message = new Message();
+        message.setTitle(msg);
+        return message;
+    }
+
+    private String[] mockMsg = {"message1 title", "message2 title", "message3 title", "message4 title", "message5 title"};
+
+    private List<ActivityMessageViewModel> messageGroups = new ArrayList<>(); // maximum size 4
     public final OnItemBind<ActivityMessageViewModel> onItemBind = new OnItemBind<ActivityMessageViewModel>() {
         @Override
         public void onItemBind(ItemBinding itemBinding, int position, ActivityMessageViewModel item) {
@@ -93,8 +102,16 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
         return alphaAnimation;
     }
 
+    public int getMuteVisibility(MessageGroup messageGroup){
+        return messageGroup.isMute() ? View.VISIBLE : View.INVISIBLE;
+    }
+
     public int getDetailVisibility(boolean showDetail){
         return showDetail? View.VISIBLE : View.GONE;
+    }
+
+    public int getUnNumberMuteDotVisibility(MessageGroup messageGroup){
+        return messageGroup.isMute() ? View.VISIBLE : View.GONE;
     }
 
     public Drawable getIcon(Context context, boolean showDetail){
@@ -122,57 +139,30 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
     }
 
     @Bindable
-    public String getUser() {
-        return user;
+    public MessageGroup getMessageGroup() {
+        return messageGroup;
     }
 
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    @Bindable
-    public boolean isSystem() {
-        return isSystem;
-    }
-
-    public void setSystem(boolean system) {
-        isSystem = system;
-    }
-
-    @Bindable
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMessageGroup(MessageGroup messageGroup) {
+        this.messageGroup = messageGroup;
+        notifyPropertyChanged(BR.messageGroup);
     }
 
     public class ActivityMessageViewModel extends BaseObservable{
-        private String name;
-        private String title;
+        private Message message;
 
-        public ActivityMessageViewModel(String name, String title) {
-            this.name = name;
-            this.title = title;
+        public ActivityMessageViewModel(Message message) {
+            this.message = message;
         }
 
         @Bindable
-        public String getName() {
-            return name;
+        public Message getMessage() {
+            return message;
         }
 
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        @Bindable
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
+        public void setMessage(Message message) {
+            this.message = message;
+            notifyPropertyChanged(BR.message);
         }
     }
 
