@@ -9,11 +9,7 @@ import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseActivity;
 import org.unimelb.itime.bean.Event;
-import org.unimelb.itime.ui.fragment.activity.ItimeActivitiesFragment;
-import org.unimelb.itime.ui.fragment.component.FragmentEventTime;
-import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
-import org.unimelb.itime.ui.fragment.event.FragmentEventGreeting;
-import org.unimelb.itime.ui.fragment.event.FragmentEventPrivateCreate;
+import org.unimelb.itime.ui.fragment.activity.FragmentItimeActivities;
 
 /**
  * Created by Paul on 15/6/17.
@@ -45,7 +41,7 @@ public class TestActivity extends ItimeBaseActivity {
 //        FragmentEventTime fragment = new FragmentEventTime();
 //        fragment.setEvent(getMockEvent());
 //        FragmentEventGreeting fragment = new FragmentEventGreeting();
-        ItimeActivitiesFragment fragment = new ItimeActivitiesFragment();
+        FragmentItimeActivities fragment = new FragmentItimeActivities();
         getSupportFragmentManager().beginTransaction().add(getFragmentContainerId(), fragment).commit();
     }
 

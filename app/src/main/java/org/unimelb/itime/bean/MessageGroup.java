@@ -1,10 +1,12 @@
 package org.unimelb.itime.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Paul on 4/7/17.
  */
 
-public class MessageGroup {
+public class MessageGroup implements Serializable{
     public final static int TYPE_EVENT_MESSAGE_GROUP = 1;
     public final static int SYSTEM_MESSAGE_GROUP = 2;
     public final static int CHAT_MESSAGE = 3;

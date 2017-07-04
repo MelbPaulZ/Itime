@@ -17,6 +17,7 @@ import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Message;
 import org.unimelb.itime.bean.MessageGroup;
+import org.unimelb.itime.ui.mvpview.activity.ItimeActivitiesMvpView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
 public class ActivityMessageGroupViewModel extends BaseObservable {
     private MessageGroup messageGroup;
-
+    private ItimeActivitiesMvpView mvpView;
 
     private ObservableBoolean showDetail = new ObservableBoolean(false);
 
@@ -35,9 +36,22 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
         mockMessage();
     }
 
+    public void setMvpView(ItimeActivitiesMvpView mvpView) {
+        this.mvpView = mvpView;
+        updateMvpViewForSubviewmodels();
+    }
+
+    private void updateMvpViewForSubviewmodels(){
+        for (ActivityMessageViewModel msgViewModel : messageGroups){
+            msgViewModel.setMvpView(mvpView);
+        }
+    }
+
     private void mockMessage(){
         for (int i = 0 ; i <= 3; i ++){
-            messageGroups.add(new ActivityMessageViewModel(mockMessage(mockMsg[i])));
+            ActivityMessageViewModel v = new ActivityMessageViewModel(mockMessage(mockMsg[i]));
+            v.setMvpView(mvpView);
+            messageGroups.add(v);
         }
     }
 
@@ -147,24 +161,5 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
         this.messageGroup = messageGroup;
         notifyPropertyChanged(BR.messageGroup);
     }
-
-    public class ActivityMessageViewModel extends BaseObservable{
-        private Message message;
-
-        public ActivityMessageViewModel(Message message) {
-            this.message = message;
-        }
-
-        @Bindable
-        public Message getMessage() {
-            return message;
-        }
-
-        public void setMessage(Message message) {
-            this.message = message;
-            notifyPropertyChanged(BR.message);
-        }
-    }
-
 
 }

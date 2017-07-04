@@ -3,12 +3,13 @@
     <data>
         <variable
             name="messageViewGroup"
-            type="org.unimelb.itime.ui.viewmodel.activity.ActivityMessageGroupViewModel.ActivityMessageViewModel"/>
+            type="org.unimelb.itime.ui.viewmodel.activity.ActivityMessageViewModel"/>
     </data>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="37dp"
-    android:background="@color/whiteFive">
+    android:background="@color/whiteFive"
+    android:onClick="@{() -> messageViewGroup.onClickViewMore()}">
 
     <TextView
         android:layout_width="wrap_content"

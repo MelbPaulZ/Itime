@@ -7,4 +7,5 @@ import org.unimelb.itime.base.ItimeBaseMvpView;
  */
 
 public interface ItimeActivitiesMvpView extends ItimeBaseMvpView {
+    void onClickViewMore(int messageGroupUid);
 }

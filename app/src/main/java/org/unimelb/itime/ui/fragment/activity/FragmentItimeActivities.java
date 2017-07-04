@@ -1,9 +1,9 @@
 package org.unimelb.itime.ui.fragment.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +14,7 @@ import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.MessageGroup;
 import org.unimelb.itime.databinding.FragmentItimeActivitiesBinding;
+import org.unimelb.itime.ui.activity.ItimeActivitiesActivity;
 import org.unimelb.itime.ui.mvpview.activity.ItimeActivitiesMvpView;
 import org.unimelb.itime.ui.presenter.activity.ItimeActivitiesPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
@@ -27,7 +28,7 @@ import java.util.List;
  * Created by Paul on 3/7/17.
  */
 
-public class ItimeActivitiesFragment extends ItimeBaseFragment<ItimeActivitiesMvpView, ItimeActivitiesPresenter<ItimeActivitiesMvpView>>
+public class FragmentItimeActivities extends ItimeBaseFragment<ItimeActivitiesMvpView, ItimeActivitiesPresenter<ItimeActivitiesMvpView>>
         implements ItimeActivitiesMvpView, ToolbarInterface{
     private FragmentItimeActivitiesBinding binding;
     private ItimeActivitiesViewModel vm;
@@ -64,14 +65,24 @@ public class ItimeActivitiesFragment extends ItimeBaseFragment<ItimeActivitiesMv
 
     private List<ActivityMessageGroupViewModel> getMessageViewGroups(){
         List<ActivityMessageGroupViewModel> activityMessageGroupViewModels = new ArrayList<>();
-        activityMessageGroupViewModels.add(new ActivityMessageGroupViewModel(getMockSystemMessageGroup()));
-        activityMessageGroupViewModels.add(new ActivityMessageGroupViewModel(getMockMeetingMessageGroup()));
-        activityMessageGroupViewModels.add(new ActivityMessageGroupViewModel(getMockMeetingMessageGroup()));
-        activityMessageGroupViewModels.add(new ActivityMessageGroupViewModel(getMockMeetingMessageGroup()));
-        activityMessageGroupViewModels.add(new ActivityMessageGroupViewModel(getMockMeetingMessageGroup()));
-        activityMessageGroupViewModels.add(new ActivityMessageGroupViewModel(getMockMeetingMessageGroup()));
-        activityMessageGroupViewModels.add(new ActivityMessageGroupViewModel(getMockSystemMessageGroup()));
+        activityMessageGroupViewModels.add(getMockSystemMessageGroupViewModel());
+        activityMessageGroupViewModels.add(getMockEventMessageGroupViewModel());
+        activityMessageGroupViewModels.add(getMockEventMessageGroupViewModel());
+        activityMessageGroupViewModels.add(getMockSystemMessageGroupViewModel());
+        activityMessageGroupViewModels.add(getMockEventMessageGroupViewModel());
+        activityMessageGroupViewModels.add(getMockEventMessageGroupViewModel());
+        activityMessageGroupViewModels.add(getMockEventMessageGroupViewModel());
         return activityMessageGroupViewModels;
+    }
+
+    private ActivityMessageGroupViewModel getMockEventMessageGroupViewModel(){
+        ActivityMessageGroupViewModel messageGroupViewModel = new ActivityMessageGroupViewModel(getMockMeetingMessageGroup());
+        messageGroupViewModel.setMvpView(this);
+        return messageGroupViewModel;
+    }
+
+    private ActivityMessageGroupViewModel getMockSystemMessageGroupViewModel(){
+        return new ActivityMessageGroupViewModel(getMockSystemMessageGroup());
     }
 
     private MessageGroup getMockSystemMessageGroup(){
@@ -102,5 +113,16 @@ public class ItimeActivitiesFragment extends ItimeBaseFragment<ItimeActivitiesMv
     @Override
     public void onBack() {
 
+    }
+
+    // TODO: 4/7/17 implement this when has db
+    private MessageGroup getMessageGroupByUid(int messageGroupUid){
+        return null;
+    }
+    @Override
+    public void onClickViewMore(int messageGroupUid) {
+        Intent intent = new Intent(getActivity(), ItimeActivitiesActivity.class);
+        intent.putExtra(ItimeActivitiesActivity.ACTIVITIES_MEETING, getMessageGroupByUid(messageGroupUid));
+        startActivity(intent);
     }
 }
