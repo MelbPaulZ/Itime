@@ -15,8 +15,11 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/meeting_date_bar"
+            bind:vm="@{vmDetail}" />
+
         <com.daimajia.swipe.SwipeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,7 +48,6 @@
                     app:cardBackgroundColor="@android:color/transparent"
                     app:cardCornerRadius="@dimen/card_radius"
                     app:cardElevation="@dimen/card_elevation"
-                    app:cardUseCompatPadding="true"
                     >
                     <include layout="@layout/meeting_hosting_info_details"
                         android:layout_height="wrap_content"

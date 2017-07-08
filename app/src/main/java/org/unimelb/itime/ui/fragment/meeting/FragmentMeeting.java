@@ -30,16 +30,14 @@ import java.util.List;
  */
 
 public class FragmentMeeting extends ItimeBaseFragment<CalendarMvpView, CalendarPresenter<CalendarMvpView>> implements ToolbarInterface {
-    private EventManager eventManager;
     private FragmentMeetingBinding binding;
-
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_meeting, container, false);
-        eventManager = EventManager.getInstance(getContext());
         TabLayout tabLayout = (TabLayout) binding.getRoot().findViewById(R.id.tab_layout);
+
         tabLayout.addTab(tabLayout.newTab().setText(R.string.meeting_tag_invitation));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.meeting_tag_hosting));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.meeting_tag_coming));
@@ -117,6 +115,7 @@ public class FragmentMeeting extends ItimeBaseFragment<CalendarMvpView, Calendar
 
     private List<Fragment> initFragments(){
         List<Fragment> mData = new ArrayList<>();
+
         mData.add(new FragmentInvitation());
         mData.add(new FragmentHosting());
         mData.add(new FragmentComing());
@@ -124,30 +123,4 @@ public class FragmentMeeting extends ItimeBaseFragment<CalendarMvpView, Calendar
         return mData;
     }
 
-    private void initData(){
-        List<Meeting> meetings = new ArrayList<>();
-
-        Calendar calendar = Calendar.getInstance();
-        List<Event> events = new ArrayList<>();
-        int[] type = {0, 1, 2};
-        int[] status = {0, 1};
-        long allDayInterval = (24 * 3600 * 1000);
-        long interval = (3600 * 1000);
-        long startTime = calendar.getTimeInMillis();
-        long endTime;
-        for (int i = 1; i < 20; i++) {
-            Meeting meeting = new Meeting();
-            endTime = startTime + interval;
-            Event event = EventUtil.getNewEvent();
-            event.setIsAllDay(i%2==0);
-            event.setLocation(new Location());
-            event.setStartTime(startTime);
-            event.setEndTime(endTime);
-            events.add(event);
-
-            startTime = startTime + allDayInterval;
-            meeting.setEvent(event);
-            meetings.add(meeting);
-        }
-    }
 }

@@ -397,7 +397,7 @@ public class EventUtil extends BaseUtil{
         cal.setTimeInMillis(time);
         String monthTh =  cal.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault());
         String dayOfMonth = cal.get(Calendar.DAY_OF_MONTH) + "";
-        String dayOfWeek = cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()) + ",";
+        String dayOfWeek = cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault());
         int type = getDatesRelationType(currentDayTime, time);
         switch (type){
             case 1:
@@ -417,6 +417,8 @@ public class EventUtil extends BaseUtil{
     }
 
     public static int getDatesRelationType(long todayM, long currentDayM){
+        todayM = getDayBeginMilliseconds(todayM);
+        currentDayM = getDayBeginMilliseconds(currentDayM);
         // -2 no relation, 1 tomorrow, 0 today, -1 yesterday
         int type = -2;
         int dayM = 24 * 60 * 60 * 1000;

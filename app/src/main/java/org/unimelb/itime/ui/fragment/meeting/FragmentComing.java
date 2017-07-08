@@ -10,21 +10,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.daimajia.swipe.util.Attributes;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
-import org.unimelb.itime.bean.Location;
 import org.unimelb.itime.bean.Meeting;
+import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.util.EventUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
+import david.itimecalendar.calendar.listeners.ITimeEventInterface;
 import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
 
 /**
@@ -36,37 +36,37 @@ public class FragmentComing extends Fragment {
     private RecyclerViewAdapterMeetings mAdapter;
     private Context context;
 
+    private EventManager.EventsPackage eventsPackage;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.meeting_recyclerview, container, false);
         context = getContext();
-
+        eventsPackage = EventManager.getInstance(context).getEventsPackage();
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         // Layout Managers:
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-
         // Item Decorator:
         recyclerView.setItemAnimator(new FadeInLeftAnimator());
-
         // Adapter:
-        mAdapter = new RecyclerViewAdapterMeetings(context, initData(), RecyclerViewAdapterMeetings.Mode.COMING);
-        mAdapter.setOnMenuListener(new RecyclerViewAdapterMeetings.OnMenuListener<String>() {
-            @Override
-            public void onPin(String obj) {
-                Toast.makeText(context,obj + " P", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onMute(String obj) {
-                Toast.makeText(context,obj + " M", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onArchive(String obj) {
-                Toast.makeText(context,obj + " A", Toast.LENGTH_SHORT).show();
-            }
-        });
+        mAdapter = new RecyclerViewAdapterMeetings(context, getDisplayData(), RecyclerViewAdapterMeetings.Mode.COMING);
+//        mAdapter.setOnMenuListener(new RecyclerViewAdapterMeetings.OnMenuListener<String>() {
+//            @Override
+//            public void onPin(String obj) {
+//                Toast.makeText(context,obj + " P", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onMute(String obj) {
+//                Toast.makeText(context,obj + " M", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onArchive(String obj) {
+//                Toast.makeText(context,obj + " A", Toast.LENGTH_SHORT).show();
+//            }
+//        });
         mAdapter.setMode(Attributes.Mode.Single);
         recyclerView.setAdapter(mAdapter);
 
@@ -99,32 +99,51 @@ public class FragmentComing extends Fragment {
         }
     };
 
-    private List<Meeting> initData(){
-        List<Meeting> meetings = new ArrayList<>();
+    private List<Meeting> getDisplayData(){
+        long todayBegin = EventUtil.getDayBeginMilliseconds(Calendar.getInstance().getTimeInMillis());
 
-        Calendar calendar = Calendar.getInstance();
-        List<Event> events = new ArrayList<>();
-        int[] type = {0, 1, 2};
-        int[] status = {0, 1};
-        long allDayInterval = (24 * 3600 * 1000);
-        long interval = (3600 * 1000);
-        long startTime = calendar.getTimeInMillis();
-        long endTime;
-        for (int i = 1; i < 20; i++) {
-            Meeting meeting = new Meeting();
-            endTime = startTime + interval;
-            Event event = EventUtil.getNewEvent();
-            event.setIsAllDay(i%2==0);
-            event.setLocation(new Location());
-            event.setStartTime(startTime);
-            event.setEndTime(endTime);
-            events.add(event);
+//        Map<Long, List<ITimeEventInterface>> eventMap = new HashMap<>();
+        List<ITimeEventInterface> eventSet = new ArrayList<>();
 
-            startTime = startTime + allDayInterval;
-            meeting.setEvent(event);
-            meetings.add(meeting);
+        Map<Long, List<ITimeEventInterface>> regularMap = eventsPackage.getRegularEventDayMap();
+        Map<Long, List<ITimeEventInterface>> repeatedMap = eventsPackage.getRepeatedEventDayMap();
+
+        // extract regular events
+        for (Map.Entry<Long, List<ITimeEventInterface>> entry : regularMap.entrySet()) {
+            Long key = entry.getKey();
+            List<ITimeEventInterface> events = entry.getValue();
+            if (key >= todayBegin){
+                eventSet.addAll(events);
+//                if (eventMap.containsKey(key)){
+//                    eventMap.get(key).addAll(events);
+//                }else {
+//                    eventMap.put(key, events);
+//                }
+            }
+        }
+        // extract repeated events
+        for (Map.Entry<Long, List<ITimeEventInterface>> entry : repeatedMap.entrySet()) {
+            Long key = entry.getKey();
+            List<ITimeEventInterface> events = entry.getValue();
+            if (key >= todayBegin){
+                eventSet.addAll(events);
+//                if (eventMap.containsKey(key)){
+//                    eventMap.get(key).addAll(events);
+//                }else {
+//                    eventMap.put(key, events);
+//                }
+            }
         }
 
-        return meetings;
+        List<Meeting> meetingSet = new ArrayList<>();
+        for (ITimeEventInterface event:eventSet
+             ) {
+            Meeting meeting = new Meeting();
+            meeting.setEvent((Event) event);
+            meeting.setSysMsg("Coming");
+            meetingSet.add(meeting);
+        }
+
+        return meetingSet;
     }
 }

@@ -121,19 +121,23 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         int[] type = {0, 1, 2};
         int[] status = {0, 1};
         long allDayInterval = (24 * 3600 * 1000);
+        long halfDayInterval = (12 * 3600 * 1000);
         long interval = (3600 * 1000);
         long startTime = calendar.getTimeInMillis();
         long endTime;
         for (int i = 1; i < 20; i++) {
             endTime = startTime + interval;
             Event event = EventUtil.getNewEvent();
-            event.setIsAllDay(i%2==0);
+            event.setSummary("Telstra Competition Discussion");
+            event.setGreeting("“We need to discuss about the next step. Please come to the meeting  ” ");
+//            event.setIsAllDay(i%2==0);
+            event.setIsAllDay(false);
             event.setLocation(new Location());
             event.setStartTime(startTime);
             event.setEndTime(endTime);
             events.add(event);
 
-            startTime = startTime + allDayInterval;
+            startTime = startTime + halfDayInterval;
             EventManager.getInstance(getApplicationContext()).addEvent(event);
         }
     }

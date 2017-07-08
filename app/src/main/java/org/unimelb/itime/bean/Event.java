@@ -438,6 +438,14 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         return 0;
     }
 
+    @Override
+    public String getLocationName() {
+        if (location != null){
+            return location.getLocationString1();
+        }
+        return "";
+    }
+
     public String getExtra() {
         return extra;
     }

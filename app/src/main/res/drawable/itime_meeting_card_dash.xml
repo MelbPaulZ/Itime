@@ -3,7 +3,7 @@
     android:shape="line">
 
     <stroke
-        android:color="@color/text_meetingtime"
+        android:color="@color/meeting_dash"
         android:dashWidth="2.5dp"
         android:dashGap="2.5dp"
         android:width="0.5dp"/>

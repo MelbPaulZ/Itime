@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.meeting.MeetingHostingMsgCardViewModel"/>
+        <import type="android.view.View"/>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:background="@drawable/itime_round_corner_card_bg_bordered"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="18dp"
+        >
+
+        <!-- block status bar -->
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            bind:vm="@{vm}"
+            layout="@layout/meeting_event_status_bar"/>
+        <!-- event detail block -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="12dp">
+            <!-- title block-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="19sp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:id="@+id/title_text"
+                android:text="@{vm.getTitle}"
+                android:textColor="@color/text_body"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@{vm.subTitle}"
+                android:textSize="14sp"
+                android:textColor="@color/text_body"
+                android:gravity="center"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</layout>
+

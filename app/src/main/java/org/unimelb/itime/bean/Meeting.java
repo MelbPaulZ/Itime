@@ -1,12 +1,14 @@
 package org.unimelb.itime.bean;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by yuhaoliu on 26/06/2017.
  */
 
-public class Meeting {
+public class Meeting implements Comparable<Meeting>{
     Event event;
-    String sysMsg = "fuck u all";
+    String sysMsg = "Hanna Baker invite you to ";
 
     public Event getEvent() {
         return event;
@@ -22,5 +24,10 @@ public class Meeting {
 
     public void setSysMsg(String sysMsg) {
         this.sysMsg = sysMsg;
+    }
+
+    @Override
+    public int compareTo(@NonNull Meeting o) {
+        return event.compareTo(o.getEvent());
     }
 }

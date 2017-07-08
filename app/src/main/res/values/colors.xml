@@ -4,7 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-
+    <!-- APP background color-->
+    <color name="app_bg">#FAFAFA</color>
     <!--need to check later-->
     <color name="divider_line">#EEEEEE</color>
     <color name="transparent">#00000000</color>
@@ -67,7 +68,9 @@
 
     <color name="lightGrey">#EFEFEF</color>
     <!--meeting-->
+    <color name="meeting_bg">#F5F5F5</color>
     <color name="text_meetingtime">#BDBDBD</color>
+    <color name="meeting_dash">#bdbdbd</color>
     <color name="meeting_border">#eeeeee</color>
     <color name="text_indication">#BDBDBD</color>
     <color name="card_status_repeated">#757575</color>

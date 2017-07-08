@@ -13,19 +13,23 @@
         android:background="@drawable/itime_round_corner_card_bg_bordered"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="18dp">
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
 
         <!-- block status bar -->
         <include
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/meeting_host_block_status_height"
             bind:vm="@{vm}"
             layout="@layout/meeting_event_status_bar"/>
         <!-- event detail block -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="14dp">
             <!-- title block-->
             <TextView
                 android:layout_width="match_parent"
@@ -33,6 +37,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textSize="19sp"
+                android:textColor="@color/text_body"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:id="@+id/title_text"
@@ -43,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="10dp"
+                android:textColor="@color/text_body"
                 android:id="@+id/greeting_text"
                 android:textSize="14sp"
                 android:text="@{vm.getGreeting}"

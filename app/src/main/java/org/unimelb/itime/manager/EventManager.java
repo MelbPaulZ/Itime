@@ -555,7 +555,7 @@ public class EventManager {
         this.addEvent(event);
     }
 
-    private class EventsPackage implements ITimeEventPackageInterface {
+    public class EventsPackage implements ITimeEventPackageInterface {
         private Map<Long, List<ITimeEventInterface>> regularEventMap;
         private Map<Long, List<ITimeEventInterface>> repeatedEventMap;
 

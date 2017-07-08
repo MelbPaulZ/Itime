@@ -7,13 +7,13 @@
         <variable
             name="vm"
             type="org.unimelb.itime.ui.viewmodel.meeting.MeetingInvitationDetailCardViewModel" />
+        <import type="org.unimelb.itime.ui.viewmodel.meeting.MeetingBaseCardViewModel.PictureMode"/>
         <import type="android.view.View"/>
     </data>
 
     <RelativeLayout
         android:orientation="vertical"
         android:background="@drawable/itime_round_corner_card_bg_bordered"
-        android:padding="0.5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
@@ -36,6 +36,7 @@
                     android:id="@+id/profile_photo"
                     android:layout_alignParentStart="true"
                     app:imageUrl="@{vm.getProfilePhotoUrl}"
+                    app:pictureMode="@{PictureMode.CIRCLE}"
                     />
 
                 <TextView
@@ -43,10 +44,10 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/updated_time_text"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignBaseline="@id/profile_photo"
+                    android:layout_centerVertical="true"
                     android:gravity="right"
                     android:textSize="11sp"
-                    android:textColor="#BDBDBD"
+                    android:textColor="@color/text_body"
                     android:text="@{vm.getUpdatedTimeStr}"
                     android:visibility="@{vm.updatedTimeVisibility}"/>
 
@@ -54,11 +55,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/message_text"
+                    android:layout_marginStart="8dp"
                     android:gravity="left|center_vertical"
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@id/profile_photo"
                     android:layout_toStartOf="@id/updated_time_text"
                     android:textSize="14sp"
+                    android:textColor="@color/text_body"
                     android:text="@{vm.getSysMsg}"/>
 
             </RelativeLayout>
@@ -71,8 +74,9 @@
                 android:textStyle="bold"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="7.5dp"
                 android:id="@+id/title_text"
+                android:textColor="@color/text_body"
                 android:text="@{vm.getTitle}"/>
 
             <TextView
@@ -83,9 +87,9 @@
                 android:textSize="14sp"
                 android:layout_marginTop="8dp"
                 android:text="@{vm.getGreeting}"
+                android:textColor="@color/text_body"
+                android:layout_marginBottom="7.5dp"
                 android:visibility='@{vm.getGreeting != null &amp;&amp; !vm.getGreeting.equals("") ? View.VISIBLE : View.GONE}'/>
-
-
             <!-- block status bar -->
             <include
                 android:layout_width="match_parent"

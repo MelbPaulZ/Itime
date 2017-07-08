@@ -3,6 +3,7 @@ package org.unimelb.itime.ui.fragment.meeting;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -10,14 +11,17 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Meeting;
-import org.unimelb.itime.databinding.MeetingHostingItemBinding;
+import org.unimelb.itime.databinding.MeetingHostingItemDetailsBinding;
+import org.unimelb.itime.databinding.MeetingHostingItemMessageBinding;
 import org.unimelb.itime.databinding.MeetingInvitationItemDetailedBinding;
 import org.unimelb.itime.databinding.MeetingInvitationItemMessageBinding;
 import org.unimelb.itime.ui.viewmodel.meeting.MeetingHostingDetailCardViewModel;
+import org.unimelb.itime.ui.viewmodel.meeting.MeetingHostingMsgCardViewModel;
 import org.unimelb.itime.ui.viewmodel.meeting.MeetingInvitationDetailCardViewModel;
 import org.unimelb.itime.ui.viewmodel.meeting.MeetingInvitationMsgCardViewModel;
 import org.unimelb.itime.ui.viewmodel.meeting.MeetingMenu1ViewModel;
 
+import java.util.Collections;
 import java.util.List;
 
 public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerView.ViewHolder> {
@@ -28,6 +32,7 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
     public static final int INVITATION_DETAILS = 1;
     public static final int INVITATION_MESSAGE = 2;
     public static final int HOSTING_DETAILS = 3;
+    public static final int HOSTING_MESSAGE = 4;
 
     public class InvitationDetailsViewHolder extends RecyclerView.ViewHolder {
         MeetingInvitationItemDetailedBinding binding;
@@ -50,10 +55,20 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
     }
 
     public class HostingDetailsViewHolder extends RecyclerView.ViewHolder {
-        MeetingHostingItemBinding binding;
+        MeetingHostingItemDetailsBinding binding;
         int position = 0;
 
-        public HostingDetailsViewHolder(MeetingHostingItemBinding binding) {
+        public HostingDetailsViewHolder(MeetingHostingItemDetailsBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+    }
+
+    public class HostingMessageViewHolder extends RecyclerView.ViewHolder {
+        MeetingHostingItemMessageBinding binding;
+        int position = 0;
+
+        public HostingMessageViewHolder(MeetingHostingItemMessageBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
@@ -68,6 +83,14 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
         this.mContext = mContext;
         this.mDataset = mDataset;
         this.mode = mode;
+
+        switch (mode){
+            case COMING:
+                Collections.sort(mDataset);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -90,10 +113,17 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
                 break;
             }
             case HOSTING_DETAILS:{
-                MeetingHostingItemBinding binding = DataBindingUtil.inflate(layoutInflater,R.layout.meeting_hosting_item,parent,false);
+                MeetingHostingItemDetailsBinding binding = DataBindingUtil.inflate(layoutInflater,R.layout.meeting_hosting_item_details,parent,false);
                 holder = new HostingDetailsViewHolder(binding);
                 binding.setVmMenu1(new MeetingMenu1ViewModel());
                 binding.setVmDetail(new MeetingHostingDetailCardViewModel(mode));
+                break;
+            }
+            case HOSTING_MESSAGE:{
+                MeetingHostingItemMessageBinding binding = DataBindingUtil.inflate(layoutInflater,R.layout.meeting_hosting_item_message,parent,false);
+                holder = new HostingMessageViewHolder(binding);
+                binding.setVmMenu1(new MeetingMenu1ViewModel());
+                binding.setVmMsg(new MeetingHostingMsgCardViewModel(mode));
                 break;
             }
             default:
@@ -105,14 +135,18 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         int type = viewHolder.getItemViewType();
+        Log.i("adapter", "onBindViewHolder: " + position);
         final Meeting meeting = mDataset.get(position);
+
         switch (type){
             case INVITATION_DETAILS:{
                 InvitationDetailsViewHolder holder = (InvitationDetailsViewHolder) viewHolder;
                 holder.position = position;
 
                 final MeetingInvitationDetailCardViewModel detailViewModel = holder.binding.getVmDetail();
+                detailViewModel.setMeetings(mDataset);
                 detailViewModel.setMeeting(meeting);
+
 
                 final MeetingMenu1ViewModel menu1ViewModel = holder.binding.getVmMenu1();
                 menu1ViewModel.setMeeting(meeting);
@@ -122,6 +156,8 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
                         detailViewModel.setMeeting(meeting);
                     }
                 });
+
+                holder.binding.invalidateAll();
                 break;
             }
             case INVITATION_MESSAGE:{
@@ -129,6 +165,7 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
                 holder.position = position;
 
                 final MeetingInvitationMsgCardViewModel msgViewModel = holder.binding.getVmMsg();
+                msgViewModel.setMeetings(mDataset);
                 msgViewModel.setMeeting(meeting);
 
                 final MeetingMenu1ViewModel menu1ViewModel = holder.binding.getVmMenu1();
@@ -139,6 +176,8 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
                         msgViewModel.setMeeting(meeting);
                     }
                 });
+
+                holder.binding.invalidateAll();
                 break;
             }
             case HOSTING_DETAILS:{
@@ -146,6 +185,7 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
                 holder.position = position;
 
                 final MeetingHostingDetailCardViewModel msgViewModel = holder.binding.getVmDetail();
+                msgViewModel.setMeetings(mDataset);
                 msgViewModel.setMeeting(meeting);
 
                 final MeetingMenu1ViewModel menu1ViewModel = holder.binding.getVmMenu1();
@@ -156,6 +196,28 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
                         msgViewModel.setMeeting(meeting);
                     }
                 });
+
+                holder.binding.invalidateAll();
+                break;
+            }
+            case HOSTING_MESSAGE:{
+                HostingMessageViewHolder holder = (HostingMessageViewHolder) viewHolder;
+                holder.position = position;
+
+                final MeetingHostingMsgCardViewModel msgViewModel = holder.binding.getVmMsg();
+                msgViewModel.setMeetings(mDataset);
+                msgViewModel.setMeeting(meeting);
+
+                final MeetingMenu1ViewModel menu1ViewModel = holder.binding.getVmMenu1();
+                menu1ViewModel.setMeeting(meeting);
+                menu1ViewModel.setmOnMenuClick(new MeetingMenu1ViewModel.OnMenuClick() {
+                    @Override
+                    public void onDataChange() {
+                        msgViewModel.setMeeting(meeting);
+                    }
+                });
+
+                holder.binding.invalidateAll();
                 break;
             }
             default:
@@ -176,16 +238,20 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
     @Override
     public int getItemViewType(int position) {
 
-        if (position%3 == 0){
+        if (position%4 == 0){
             return  HOSTING_DETAILS;
         }
 
-        if (position%3 == 1){
-            return  INVITATION_MESSAGE;
+        if (position%4 == 1){
+            return  HOSTING_MESSAGE;
         }
 
-        if (position%3 == 2){
+        if (position%4 == 2){
             return  INVITATION_DETAILS;
+        }
+
+        if (position%4 == 3){
+            return  INVITATION_MESSAGE;
         }
 
         return -1;

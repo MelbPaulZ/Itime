@@ -69,6 +69,7 @@
     <dimen name="meeting_menu_btn_width">60dp</dimen>
     <dimen name="card_elevation">2dp</dimen>
     <dimen name="card_margin">10dp</dimen>
+    <dimen name="meeting_host_block_status_height">20dp</dimen>
 
     <string name="pin">Pin</string>
     <string name="unpin">Unpin</string>

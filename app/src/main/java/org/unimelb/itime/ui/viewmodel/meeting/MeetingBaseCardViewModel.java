@@ -8,11 +8,15 @@ import android.databinding.BindingAdapter;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.sax.RootElement;
+import android.support.annotation.Nullable;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
+import com.squareup.picasso.Transformation;
 
 import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
@@ -21,11 +25,18 @@ import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.ui.fragment.meeting.RecyclerViewAdapterMeetings;
 import org.unimelb.itime.util.EventUtil;
 
+import java.util.Calendar;
+import java.util.IllegalFormatCodePointException;
+import java.util.List;
+
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
+
 /**
  * Created by yuhaoliu on 27/06/2017.
  */
 
 public class MeetingBaseCardViewModel extends BaseObservable {
+    private List<Meeting> meetings;
     private Meeting meeting;
     protected RecyclerViewAdapterMeetings.Mode mode;
 
@@ -43,21 +54,25 @@ public class MeetingBaseCardViewModel extends BaseObservable {
         notifyPropertyChanged(BR.meeting);
     }
 
+    public void setMeetings(List<Meeting> meetings) {
+        this.meetings = meetings;
+    }
+
     public String getSysMsg(){
         return meeting.getSysMsg();
     }
 
     public Drawable getIconSrc(Context context){
-        // TODO: 27/06/2017 logics for icon
-        return context.getResources().getDrawable(R.drawable.icon_mute);
+        // TODO: 27/06/2017 logic for icon
+        return context.getResources().getDrawable(R.drawable.icon_meetings_vote);
     }
 
     public int getIconTextColor(){
-        return R.color.gray_color;
+        return R.color.white;
     }
 
     public String getIconText(){
-        return "Cancelled";
+        return "Vote";
     }
 
     public String getTitle(){
@@ -80,12 +95,24 @@ public class MeetingBaseCardViewModel extends BaseObservable {
         return "https://pmcdeadline2.files.wordpress.com/2016/06/angelababy.jpg";
     }
 
-    @BindingAdapter({"bind:imageUrl"})
-    public static void loadImage(ImageView view, String imageUrl) {
-        Picasso.with(view.getContext())
+    public enum PictureMode{
+        CIRCLE, DEFAULT
+    }
+
+//    @BindingAdapter({"bind:imageUrl"})
+    @BindingAdapter( value={"imageUrl", "pictureMode"}, requireAll=false)
+    public static void loadImage(ImageView view, String imageUrl, @Nullable PictureMode pictureMode) {
+        RequestCreator creator = Picasso.with(view.getContext())
                 .load(imageUrl)
-                .placeholder(R.drawable.default_image)
-                .into(view);
+                .placeholder(R.drawable.default_image);
+
+        if (pictureMode == null || pictureMode == PictureMode.DEFAULT){
+            // no transform
+        }else if (pictureMode == PictureMode.CIRCLE){
+            creator.transform(new CropCircleTransformation());
+        }
+
+        creator.into(view);
     }
 
     public int getStatusBlockVisibility(){
@@ -110,10 +137,32 @@ public class MeetingBaseCardViewModel extends BaseObservable {
 
     public int getDateTextVisibility(){
         if (mode == RecyclerViewAdapterMeetings.Mode.COMING){
-            return View.VISIBLE;
+            int index = meetings.indexOf(meeting);
+            if (index == 0){
+                return View.VISIBLE;
+            }
+
+            long dayBegin1 = EventUtil.getDayBeginMilliseconds(meetings.get(index - 1).getEvent().getStartTime());
+            long dayBegin2 = EventUtil.getDayBeginMilliseconds(meeting.getEvent().getStartTime());
+
+            if (dayBegin1 != dayBegin2){
+                return View.VISIBLE;
+            }
+
+            return View.GONE;
         }
 
         return View.GONE;
+    }
+
+    public int getDateTextColor(Context context){
+        long time = meeting.getEvent().getStartTime();
+        long currentDayTime = Calendar.getInstance().getTimeInMillis();
+        if (EventUtil.getDatesRelationType(currentDayTime, time) == 0){
+            return context.getResources().getColor(R.color.brand_main);
+        }
+
+        return context.getResources().getColor(R.color.black);
     }
 
     public String getDateText(){
