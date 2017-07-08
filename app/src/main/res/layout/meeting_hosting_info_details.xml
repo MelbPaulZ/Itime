@@ -21,7 +21,7 @@
         <!-- block status bar -->
         <include
             android:layout_width="match_parent"
-            android:layout_height="@dimen/meeting_host_block_status_height"
+            android:layout_height="@dimen/wrap_content"
             bind:vm="@{vm}"
             layout="@layout/meeting_event_status_bar"/>
         <!-- event detail block -->

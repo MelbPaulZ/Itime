@@ -21,6 +21,8 @@
     <string name="toolbar_send">Send</string>
     <string name="toolbar_next">Next</string>
     <string name="toolbar_timeslots_select">%1$d/%2$d Timeslots</string>
+    <string name="toolbar_activities">Activities</string>
+    <string name="toolbar_mute">Mute</string>
 
     <!--Event-->
     <string name="event">Event</string>
@@ -228,4 +230,7 @@
     <string name="event_status_pending">Pending</string>
     <string name="event_status_cancel">Cancel</string>
     <string name="event_status_Confirmed">Confirmed</string>
+
+    <!--activity-->
+    <string name="activity_meeting_show_more">show more…</string>
 </resources>

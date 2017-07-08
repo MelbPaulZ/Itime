@@ -25,8 +25,7 @@
             android:id="@+id/swipe"
             app:swipeEnabled="@{vmMsg.getSwipeEnable}"
             app:show_mode="lay_down"
-            app:clickToClose="true"
-            app:paddingEnd="@dimen/card_margin">
+            app:clickToClose="true">
 
             <include layout="@layout/meeting_menu_1"
                 android:layout_height="match_parent"
@@ -37,7 +36,10 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/card_margin">
+                android:layout_marginTop="@dimen/card_marginTB"
+                android:layout_marginBottom="@dimen/card_marginTB"
+                android:layout_marginLeft="@dimen/card_marginLR"
+                android:layout_marginRight="@dimen/card_marginLR">
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -45,7 +47,6 @@
                     app:cardBackgroundColor="@android:color/transparent"
                     app:cardCornerRadius="@dimen/card_radius"
                     app:cardElevation="@dimen/card_elevation"
-                    app:cardUseCompatPadding="true"
                     >
                     <include layout="@layout/meeting_invitation_info_message"
                         android:layout_width="match_parent"

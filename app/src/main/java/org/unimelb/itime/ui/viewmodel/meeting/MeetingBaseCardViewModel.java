@@ -84,7 +84,7 @@ public class MeetingBaseCardViewModel extends BaseObservable {
     }
 
     public String getUpdatedTimeStr(){
-        return "5:20";
+        return "5:20 pm";
     }
 
     public String getReminderTimeStr(){
@@ -173,7 +173,7 @@ public class MeetingBaseCardViewModel extends BaseObservable {
     public Drawable getEventStatusDrawable(Context context){
         GradientDrawable drawable = (GradientDrawable)context.getResources().getDrawable(R.drawable.itime_round_corner_card_status_bg);
         drawable.mutate();
-        drawable.setColor(context.getResources().getColor(R.color.AliceBlue));
+        drawable.setColor(context.getResources().getColor(R.color.brand_main));
         return drawable;
     }
 

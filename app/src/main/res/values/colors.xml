@@ -46,6 +46,7 @@
     <color name="dusk">#425877</color>
     <color name="black">#222222</color>
     <color name="azure">#0089ff</color>
+    <color name="deepSkyBlue">#0086FF</color>
 
     <color name="textBlue">#0076FF</color>
     <color name="grey_one">#6D6D6D</color>
@@ -61,11 +62,12 @@
     <color name="brand_main">#0089FF</color>
     <color name="brand_warning">#F45B69</color>
     <color name="brand_warninglightbg">#FFF6F7</color>
+    <color name="brand_highlight">#FFBA00</color>
+
     <color name="text_detail_label">#BBBBBB</color>
     <color name="text_detail_votebtndisable">#89C5FF</color>
     <color name="text_body">#222</color>
     <color name="fragment_background">#fafafa</color>
-
     <color name="lightGrey">#EFEFEF</color>
     <!--meeting-->
     <color name="meeting_bg">#F5F5F5</color>

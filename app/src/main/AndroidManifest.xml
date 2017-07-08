@@ -67,6 +67,13 @@
             <!--</intent-filter>-->
         </activity>
 
+
+        <activity android:name=".ui.activity.ItimeActivitiesActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
+
         <activity android:name=".ui.activity.TestActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan">

@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.RecyclerView;
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.hannesdorfmann.mosby.mvp.MvpFragment;
@@ -19,6 +18,7 @@ import org.unimelb.itime.bean.Location;
 import org.unimelb.itime.databinding.ActivityMainBinding;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.fragment.EmptyFragment;
+import org.unimelb.itime.ui.fragment.activity.FragmentItimeActivities;
 import org.unimelb.itime.ui.fragment.meeting.FragmentMeeting;
 import org.unimelb.itime.ui.fragment.calendar.FragmentCalendar;
 import org.unimelb.itime.ui.mvpview.MainTabBarView;
@@ -70,7 +70,7 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
     private void init(){
         tagFragments = new MvpFragment[4];
         tagFragments[0] = new FragmentMeeting();
-        tagFragments[1] = new EmptyFragment();
+        tagFragments[1] = new FragmentItimeActivities();
         tagFragments[2] = new FragmentCalendar();
         tagFragments[3] = new EmptyFragment();
 

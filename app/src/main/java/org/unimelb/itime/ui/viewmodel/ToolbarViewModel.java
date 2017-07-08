@@ -22,6 +22,8 @@ public class ToolbarViewModel<V extends ToolbarInterface> extends BaseObservable
     private int rightTextColor;
     private boolean leftEnable;
     private boolean rightEnable;
+    private Drawable rightIcon;
+    private int rightIconVisibility = View.GONE;
 
     private V view;
 
@@ -106,5 +108,25 @@ public class ToolbarViewModel<V extends ToolbarInterface> extends BaseObservable
                 view.onNext();
             }
         };
+    }
+
+    @Bindable
+    public Drawable getRightIcon() {
+        return rightIcon;
+    }
+
+    public void setRightIcon(Drawable rightIcon) {
+        this.rightIcon = rightIcon;
+        notifyPropertyChanged(BR.rightIcon);
+    }
+
+    @Bindable
+    public int getRightIconVisibility() {
+        return rightIconVisibility;
+    }
+
+    public void setRightIconVisibility(int rightIconVisibility) {
+        this.rightIconVisibility = rightIconVisibility;
+        notifyPropertyChanged(BR.rightIconVisibility);
     }
 }

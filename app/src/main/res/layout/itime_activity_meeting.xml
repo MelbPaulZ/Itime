@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="messageGroupViewModel"
+            type="org.unimelb.itime.ui.viewmodel.activity.ActivityMessageGroupViewModel" />
+
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/whiteFive"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="@dimen/card_radius"
+            app:cardElevation="@dimen/card_elevation">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/whiteFour">
+
+                <!--title part-->
+                <RelativeLayout
+                    android:id="@+id/itime_activity_meeting_title_part"
+                    android:layout_width="match_parent"
+                    android:layout_height="49dp"
+                    android:background="@color/whiteFour"
+                    android:onClick="@{() -> messageGroupViewModel.onChangeHideShow(activityMeetingDetails)}">
+
+                    <ImageView
+                        android:id="@+id/itime_activity_meeting_icon"
+                        style="@style/ItimeCellLeftIcon"
+                        android:layout_marginStart="7dp"
+                        android:visibility="@{messageGroupViewModel.getMuteVisibility(messageGroupViewModel.messageGroup)}"
+                        android:background="@drawable/icon_meetings_muted" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="4dp"
+                        android:layout_toEndOf="@id/itime_activity_meeting_icon"
+                        android:text="@{messageGroupViewModel.messageGroup.title}" />
+
+                    <!--arrow-->
+                    <ImageView
+                        android:id="@+id/itime_activity_mute_red_dot"
+                        style="@style/itimeCellRightIcon"
+                        android:background="@{messageGroupViewModel.getIcon(context, messageGroupViewModel.showDetail)}" />
+
+                    <!--red dot-->
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@id/itime_activity_mute_red_dot"
+                        android:visibility="@{messageGroupViewModel.getUnNumberMuteDotVisibility(messageGroupViewModel.messageGroup)}"
+                        android:background="@drawable/icon_badge_small" />
+
+                    <!--todo numbered dot-->
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/activity_meeting_details"
+                    android:visibility="@{messageGroupViewModel.getDetailVisibility(messageGroupViewModel.showDetail)}"
+                    android:background="@color/whiteFour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/itime_activity_meeting_title_part"
+                    app:itemBinding="@{messageGroupViewModel.onItemBind}"
+                    app:items="@{messageGroupViewModel.messageGroups}"
+                    app:layoutManager="@{LayoutManagers.linear()}" />
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+    </RelativeLayout>
+</layout>
