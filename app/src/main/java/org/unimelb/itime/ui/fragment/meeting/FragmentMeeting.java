@@ -1,5 +1,6 @@
 package org.unimelb.itime.ui.fragment.meeting;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import org.unimelb.itime.bean.Location;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.databinding.FragmentMeetingBinding;
 import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.ui.activity.SearchActivity;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
 import org.unimelb.itime.util.EventUtil;
@@ -36,6 +38,9 @@ public class FragmentMeeting extends ItimeBaseFragment<CalendarMvpView, Calendar
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_meeting, container, false);
+
+        binding.getRoot().findViewById(R.id.search_bar).setOnClickListener(onSearchClick());
+
         TabLayout tabLayout = (TabLayout) binding.getRoot().findViewById(R.id.tab_layout);
 
         tabLayout.addTab(tabLayout.newTab().setText(R.string.meeting_tag_invitation));
@@ -92,25 +97,15 @@ public class FragmentMeeting extends ItimeBaseFragment<CalendarMvpView, Calendar
 
     }
 
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
+    public View.OnClickListener onSearchClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // To search activity
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+            }
+        };
     }
 
     private List<Fragment> initFragments(){

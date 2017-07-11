@@ -61,24 +61,16 @@
 
     <!-- using -->
     <dimen name="card_radius">4dp</dimen>
-    <dimen name="card_status_radius">100dp</dimen>
+    <dimen name="card_status_radius">50dp</dimen>
     <!-- meeting menu-->
     <dimen name="meeting_menu_icon_width">30dp</dimen>
     <dimen name="meeting_menu_icon_height">30dp</dimen>
     <dimen name="meeting_menu_icon_textsize">16sp</dimen>
     <dimen name="meeting_menu_btn_width">60dp</dimen>
-    <dimen name="card_elevation">1dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
     <dimen name="card_marginTB">10dp</dimen>
     <dimen name="card_marginLR">5.5dp</dimen>
     <dimen name="meeting_host_block_status_height">20dp</dimen>
-
-    <string name="pin">Pin</string>
-    <string name="unpin">Unpin</string>
-    <string name="mute">Mute</string>
-    <string name="unmute">Unmute</string>
-    <string name="archive">Archive</string>
-    <string name="vote">Vote</string>
-    <string name="meeting_tag_invitation">Invitation</string>
-    <string name="meeting_tag_hosting">Hosting</string>
-    <string name="meeting_tag_coming">Coming</string>
+    <integer name="search_result_max_show_c">2</integer>
+    <integer name="search_result_max_show_c_disabled">-1</integer>
 </resources>

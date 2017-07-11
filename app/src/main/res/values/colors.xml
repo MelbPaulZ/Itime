@@ -76,4 +76,11 @@
     <color name="meeting_border">#eeeeee</color>
     <color name="text_indication">#BDBDBD</color>
     <color name="card_status_repeated">#757575</color>
+    <!-- search bar -->
+    <color name="search_bar_bg">#ffffff</color>
+    <color name="search_bar_result_body_text">#222222</color>
+    <color name="search_bar_result_sub_text">#bdbdbd</color>
+    <color name="search_bar_result_title">#9e9e9e</color>
+    <color name="search_bar_showmore">#0086ff</color>
+
 </resources>

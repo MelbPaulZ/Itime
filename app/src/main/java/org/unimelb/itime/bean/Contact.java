@@ -158,14 +158,6 @@ public Contact(String userUid, String contactUid, int relationship, int ratingVi
         return this.getUserDetail().getPhoto();
     }
 
-    public void setName(String s) {
-        this.setAliasName(s);
-    }
-
-    public String getName() {
-        return this.getAliasName();
-    }
-
     @Override
     public String getShowPhoto() {
         return aliasPhoto;

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +19,7 @@ import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.hannesdorfmann.mosby.mvp.MvpView;
 
 import org.unimelb.itime.R;
+import org.unimelb.itime.manager.DataGeneratorManager;
 
 /**
  * Created by Paul on 6/6/17.
@@ -26,6 +29,18 @@ public abstract class ItimeBaseActivity<V extends MvpView, P extends MvpBasePres
 
     FragmentManager fragmentManager;
     private Fragment curFragment;
+
+    /**
+     * Mock data here
+     * @param savedInstanceState
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //mock data
+        DataGeneratorManager.getInstance(getApplicationContext());
+    }
 
 
     public void clearFragmentStack(){
@@ -151,12 +166,6 @@ public abstract class ItimeBaseActivity<V extends MvpView, P extends MvpBasePres
             InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     public void setCurFragment(Fragment curFragment) {

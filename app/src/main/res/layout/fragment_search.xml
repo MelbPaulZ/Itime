@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fix_list="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.SearchViewModel"/>
+        <import type="android.view.View"/>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!-- search bar -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/search_bar_bg"
+            >
+            <TextView
+                style="@style/itime_bottom_divider_line"/>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="14dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_nav_back"
+                android:onClick="@{vm.onBackClick()}"
+                android:id="@+id/backIcon"/>
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="44dp"
+                android:hint="@string/searchbar_placeholder"
+                android:text="@={vm.searchStr}"
+                android:textSize="@dimen/font_large"
+                android:textColor="@color/text_body"
+                android:layout_marginLeft="@dimen/s2"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:layout_toRightOf="@id/backIcon"
+                app:textWatcher = "@{vm.onEdit}"
+                android:background="@null"
+                />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="5dp"
+                android:src="@drawable/icon_event_closecell"
+                android:layout_marginEnd="@dimen/s2"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:onClick="@{vm.onClearClick()}"
+                android:visibility="@{vm.searchStr.isEmpty?View.GONE:View.VISIBLE}"/>
+        </RelativeLayout>
+
+        <!-- search bar result text -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="16sp"
+            android:textColor="@color/search_bar_result_sub_text"
+            android:gravity="center"
+            android:text="@{vm.resultHint}"
+            android:visibility="@{vm.resultHint.isEmpty ? View.GONE:View.VISIBLE}"
+            />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{vm.searchStr.isEmpty ? View.GONE:View.VISIBLE}">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:tag="meeting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/search_bar_bg"
+                    android:orientation="vertical"
+                    android:visibility="@{vm.meetingVMsResult.size() == 0 ? View.GONE:View.VISIBLE}"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:paddingStart="14dp"
+                        android:paddingEnd="14dp"
+                        android:paddingTop="9.5dp"
+                        android:paddingBottom="9.5dp"
+                        android:textColor="@color/search_bar_result_title"
+                        android:text="@string/tab_mettings"
+                        android:visibility="@{vm.titleEnabled ? View.VISIBLE : View.GONE}"
+                        />
+                    <TextView
+                        style="@style/itime_bottom_divider_line"/>
+
+                    <org.unimelb.itime.widget.listview.FixSizeListView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        fix_list:maxShownC="@{vm.showMoreEnabled ? @integer/search_result_max_show_c : @integer/search_result_max_show_c_disabled}"
+                        app:items="@{vm.meetingVMsResult}"
+                        app:itemBinding="@{vm.meetingItemBinding}"
+                        />
+
+                    <TextView
+                        style="@style/itime_bottom_divider_line"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/search_bar_showmore"
+                        android:gravity="center"
+                        android:text="@string/search_showmore"
+                        android:visibility="@{(vm.showMoreEnabled &amp;&amp; (@integer/search_result_max_show_c &lt; vm.meetingVMsResult.size())) ? View.VISIBLE:View.GONE}"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:tag="solo_event"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/search_bar_bg"
+                    android:orientation="vertical"
+                    android:visibility="@{vm.soloEventVMsResult.size() == 0 ? View.GONE:View.VISIBLE}"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:paddingStart="14dp"
+                        android:paddingEnd="14dp"
+                        android:paddingTop="9.5dp"
+                        android:paddingBottom="9.5dp"
+                        android:textColor="@color/search_bar_result_title"
+                        android:text="@string/tab_soloevent"
+                        android:visibility="@{vm.titleEnabled ? View.VISIBLE : View.GONE}"
+                        />
+                    <TextView
+                        style="@style/itime_bottom_divider_line"/>
+
+                    <org.unimelb.itime.widget.listview.FixSizeListView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        fix_list:maxShownC="@{vm.showMoreEnabled ? @integer/search_result_max_show_c : @integer/search_result_max_show_c_disabled}"
+                        app:items="@{vm.soloEventVMsResult}"
+                        app:itemBinding="@{vm.soloEventItemBinding}"
+                        />
+
+                    <TextView
+                        style="@style/itime_bottom_divider_line"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/search_bar_showmore"
+                        android:gravity="center"
+                        android:text="@string/search_showmore"
+                        android:visibility="@{(vm.showMoreEnabled &amp;&amp; (@integer/search_result_max_show_c &lt; vm.soloEventVMsResult.size())) ? View.VISIBLE:View.GONE}"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:tag="contacts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/search_bar_bg"
+                    android:orientation="vertical"
+                    android:visibility="@{vm.contactsVMsResult.size() == 0 ? View.GONE:View.VISIBLE}"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:paddingStart="14dp"
+                        android:paddingEnd="14dp"
+                        android:paddingTop="9.5dp"
+                        android:paddingBottom="9.5dp"
+                        android:textColor="@color/search_bar_result_title"
+                        android:text="@string/tab_contacts"
+                        android:visibility="@{vm.titleEnabled ? View.VISIBLE : View.GONE}"
+                        />
+                    <TextView
+                        style="@style/itime_bottom_divider_line"/>
+
+                    <org.unimelb.itime.widget.listview.FixSizeListView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        fix_list:maxShownC="@{vm.showMoreEnabled ? @integer/search_result_max_show_c : @integer/search_result_max_show_c_disabled}"
+                        app:items="@{vm.contactsVMsResult}"
+                        app:itemBinding="@{vm.contactItemBinding}"
+                        />
+                    <TextView
+                        style="@style/itime_bottom_divider_line"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/search_bar_showmore"
+                        android:gravity="center"
+                        android:text="@string/search_showmore"
+                        android:visibility="@{(vm.showMoreEnabled &amp;&amp; (@integer/search_result_max_show_c &lt; vm.contactsVMsResult.size())) ? View.VISIBLE:View.GONE}"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</layout>

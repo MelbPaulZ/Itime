@@ -13,9 +13,13 @@ import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseActivity;
+import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Location;
+import org.unimelb.itime.bean.Meeting;
+import org.unimelb.itime.bean.User;
 import org.unimelb.itime.databinding.ActivityMainBinding;
+import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.fragment.EmptyFragment;
 import org.unimelb.itime.ui.fragment.activity.FragmentItimeActivities;
@@ -34,7 +38,6 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
     private FragmentTransaction fragmentTransaction;
 
     private MvpFragment[] tagFragments;
-    private EventManager eventManager;
 
     private ActivityMainBinding binding;
     private MainTabBarViewModel viewModel;
@@ -44,13 +47,6 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         viewModel = new MainTabBarViewModel(this);
         viewModel.setContext(getApplicationContext());
         viewModel.setUnReadNum(0+"");
-
-        eventManager = EventManager.getInstance(getApplicationContext());
-        /**
-         * for testing
-         */
-        initData();
-        // end of testing
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setTabBarVM(viewModel);
         init();
@@ -110,35 +106,5 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         Intent intent = new Intent(this, EventCreateActivity.class);
         intent.putExtra(getString(R.string.event_type), getString(R.string.event_type_solo));
         startActivity(intent);
-    }
-
-    /**
-     * For TESTING
-     */
-    private void initData() {
-        Calendar calendar = Calendar.getInstance();
-        List<Event> events = new ArrayList<>();
-        int[] type = {0, 1, 2};
-        int[] status = {0, 1};
-        long allDayInterval = (24 * 3600 * 1000);
-        long halfDayInterval = (12 * 3600 * 1000);
-        long interval = (3600 * 1000);
-        long startTime = calendar.getTimeInMillis();
-        long endTime;
-        for (int i = 1; i < 20; i++) {
-            endTime = startTime + interval;
-            Event event = EventUtil.getNewEvent();
-            event.setSummary("Telstra Competition Discussion");
-            event.setGreeting("“We need to discuss about the next step. Please come to the meeting  ” ");
-//            event.setIsAllDay(i%2==0);
-            event.setIsAllDay(false);
-            event.setLocation(new Location());
-            event.setStartTime(startTime);
-            event.setEndTime(endTime);
-            events.add(event);
-
-            startTime = startTime + halfDayInterval;
-            EventManager.getInstance(getApplicationContext()).addEvent(event);
-        }
     }
 }

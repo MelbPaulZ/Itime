@@ -46,4 +46,8 @@
         <attr name="shoot_buttonBottomMargin" format="dimension"/>
     </declare-styleable>
 
+    <declare-styleable name="FixSizeListView">
+        <attr name="max_show_c" format="integer"/>
+        <attr name="scroll_enable" format="boolean"/>
+    </declare-styleable>
 </resources>
