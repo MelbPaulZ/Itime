@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:bind="http://schemas.android.com/tools"
+<layout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -8,21 +8,53 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include layout="@layout/searchbar"/>
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tab_layout"
+        <!-- search bar -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="52.5dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:background="@color/white"
-            android:elevation="6dp"
-            android:minHeight="?attr/actionBarSize"
-            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-            app:tabIndicatorColor="@color/brightBlue"
-            app:tabTextColor="@color/gray"
-            app:tabSelectedTextColor="@color/black"
-            />
+            android:paddingTop="14dp"
+            android:elevation="6dp">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <org.unimelb.itime.widget.RoundImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="14.5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    app:smallAvatar='@{"http://avatar.csdn.net/A/9/C/1_waldmer.jpg"}' />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+                    <include layout="@layout/searchbar"/>
+                </FrameLayout>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="17dp"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/icon_meetings_archive"
+                    android:layout_centerVertical="true"
+                    />
+            </RelativeLayout>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TabBarStyle"
+                />
+        </LinearLayout>
+        <!-- meeting part -->
         <org.unimelb.itime.ui.fragment.meeting.CusSwipeViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"

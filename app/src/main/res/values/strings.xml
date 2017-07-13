@@ -248,5 +248,6 @@
     <string name="meeting_tag_invitation">Invitation</string>
     <string name="meeting_tag_hosting">Hosting</string>
     <string name="meeting_tag_coming">Coming</string>
+    <string name="search">Search</string>
 
 </resources>

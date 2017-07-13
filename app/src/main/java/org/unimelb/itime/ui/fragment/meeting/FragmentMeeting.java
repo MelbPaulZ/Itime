@@ -41,7 +41,7 @@ public class FragmentMeeting extends ItimeBaseFragment<CalendarMvpView, Calendar
 
         binding.getRoot().findViewById(R.id.search_bar).setOnClickListener(onSearchClick());
 
-        TabLayout tabLayout = (TabLayout) binding.getRoot().findViewById(R.id.tab_layout);
+        final TabLayout tabLayout = (TabLayout) binding.getRoot().findViewById(R.id.tab_layout);
 
         tabLayout.addTab(tabLayout.newTab().setText(R.string.meeting_tag_invitation));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.meeting_tag_hosting));
@@ -55,7 +55,7 @@ public class FragmentMeeting extends ItimeBaseFragment<CalendarMvpView, Calendar
         //must be 2, otherwise get performance issue
         viewPager.setOffscreenPageLimit(2);
         viewPager.setSwipeEnable(false);
-        viewPager.setSwipingDuration(300);
+        viewPager.setSwipingDuration(250);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

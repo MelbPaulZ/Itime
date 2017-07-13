@@ -6,6 +6,7 @@
             name="vm"
             type="org.unimelb.itime.ui.viewmodel.SearchViewModel"/>
         <import type="android.view.View"/>
+        <import type="org.unimelb.itime.bean.Meeting"/>
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -95,6 +96,7 @@
                         android:text="@string/tab_mettings"
                         android:visibility="@{vm.titleEnabled ? View.VISIBLE : View.GONE}"
                         />
+
                     <TextView
                         style="@style/itime_bottom_divider_line"/>
 
@@ -103,6 +105,7 @@
                         android:layout_height="wrap_content"
                         fix_list:maxShownC="@{vm.showMoreEnabled ? @integer/search_result_max_show_c : @integer/search_result_max_show_c_disabled}"
                         app:items="@{vm.meetingVMsResult}"
+                        app:onItemClickListener="@{vm.onMeetingResultItemClick}"
                         app:itemBinding="@{vm.meetingItemBinding}"
                         />
 
@@ -117,6 +120,7 @@
                         android:textColor="@color/search_bar_showmore"
                         android:gravity="center"
                         android:text="@string/search_showmore"
+                        android:onClick="@{vm.onMeetingShowMoreClick()}"
                         android:visibility="@{(vm.showMoreEnabled &amp;&amp; (@integer/search_result_max_show_c &lt; vm.meetingVMsResult.size())) ? View.VISIBLE:View.GONE}"
                         />
                 </LinearLayout>
@@ -150,6 +154,7 @@
                         android:layout_height="wrap_content"
                         fix_list:maxShownC="@{vm.showMoreEnabled ? @integer/search_result_max_show_c : @integer/search_result_max_show_c_disabled}"
                         app:items="@{vm.soloEventVMsResult}"
+                        app:onItemClickListener="@{vm.onEventResultItemClick}"
                         app:itemBinding="@{vm.soloEventItemBinding}"
                         />
 
@@ -164,6 +169,7 @@
                         android:textColor="@color/search_bar_showmore"
                         android:gravity="center"
                         android:text="@string/search_showmore"
+                        android:onClick="@{vm.onEventShowMoreClick()}"
                         android:visibility="@{(vm.showMoreEnabled &amp;&amp; (@integer/search_result_max_show_c &lt; vm.soloEventVMsResult.size())) ? View.VISIBLE:View.GONE}"
                         />
                 </LinearLayout>
@@ -197,6 +203,7 @@
                         android:layout_height="wrap_content"
                         fix_list:maxShownC="@{vm.showMoreEnabled ? @integer/search_result_max_show_c : @integer/search_result_max_show_c_disabled}"
                         app:items="@{vm.contactsVMsResult}"
+                        app:onItemClickListener="@{vm.onContactResultItemClick}"
                         app:itemBinding="@{vm.contactItemBinding}"
                         />
                     <TextView
@@ -210,6 +217,7 @@
                         android:textColor="@color/search_bar_showmore"
                         android:gravity="center"
                         android:text="@string/search_showmore"
+                        android:onClick="@{vm.onContactShowMoreClick()}"
                         android:visibility="@{(vm.showMoreEnabled &amp;&amp; (@integer/search_result_max_show_c &lt; vm.contactsVMsResult.size())) ? View.VISIBLE:View.GONE}"
                         />
                 </LinearLayout>

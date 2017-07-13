@@ -92,4 +92,16 @@
         <item name="android:layout_alignParentTop">true</item>
     </style>
 
+    <style name="TabBarStyle" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/TabLayoutTextStyle</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabSelectedTextColor">@color/black</item>
+        <item name="tabTextColor">@color/black</item>
+        <item name="tabIndicatorColor">@color/brightBlue</item>
+    </style>
+
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 </resources>

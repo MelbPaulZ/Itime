@@ -8,6 +8,7 @@ import android.databinding.ObservableList;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.android.databinding.library.baseAdapters.BR;
 
@@ -31,6 +32,7 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
  */
 
 public class SearchViewModel extends BaseObservable {
+
     private SearchMvpView mvpView;
     private SearchPresenter<SearchMvpView> presenter;
 
@@ -73,13 +75,68 @@ public class SearchViewModel extends BaseObservable {
         };
     }
 
-    public View.OnClickListener onItemClick(){
+    public AdapterView.OnItemClickListener onMeetingResultItemClick(){
+        return new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (mvpView == null) return;
+                    Meeting data = meetingVMsResult.get(i).getMeeting();
+                    mvpView.onMeetingClick(data);
+            }
+        };
+    }
+
+    public AdapterView.OnItemClickListener onEventResultItemClick(){
+        return new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (mvpView == null) return;
+                Event data = soloEventVMsResult.get(i).getEvent();
+                mvpView.onEventClick(data);
+            }
+        };
+    }
+
+    public AdapterView.OnItemClickListener onContactResultItemClick(){
+        return new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (mvpView == null) return;
+                Contact data = contactsVMsResult.get(i).getContact();
+                mvpView.onContactClick(data);
+            }
+        };
+    }
+
+    public View.OnClickListener onMeetingShowMoreClick(){
         return new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(mvpView!=null){
-                    mvpView.ToInviteeProfile();
-                }
+            public void onClick(View v) {
+                if (mvpView == null)return;
+                mvpView.onMeetingShowMoreClick(searchStr, meetingDataSet);
+            }
+        };
+    }
+
+    public View.OnClickListener onEventShowMoreClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mvpView == null)return;
+                mvpView.onEventShowMoreClick(searchStr, soloEventDataSet);
+            }
+        };
+    }
+
+    public View.OnClickListener onContactShowMoreClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mvpView == null)return;
+                mvpView.onContactShowMoreClick(searchStr, contactDataSet);
             }
         };
     }
@@ -115,8 +172,12 @@ public class SearchViewModel extends BaseObservable {
     /**
      * data filter functions
      */
-    private void search(){
+    public void search(){
         this.clearResults();
+
+        if (searchStr.isEmpty()){
+            return;
+        }
 
         String tmp = searchStr.toLowerCase();
 
@@ -210,14 +271,17 @@ public class SearchViewModel extends BaseObservable {
      */
     private void setMeetingVMs(List<MeetingInfoViewModel> meetingVMs) {
         this.meetingVMs = meetingVMs;
+        search();
     }
 
     private void setSoloEventVMs(List<EventInfoViewModel> soloEventVMs) {
         this.soloEventVMs = soloEventVMs;
+        search();
     }
 
     private void setContactsVMs(List<ContactInfoViewModel> contactsVMs) {
         this.contactsVMs = contactsVMs;
+        search();
     }
 
     /**

@@ -1,6 +1,5 @@
 package org.unimelb.itime.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
@@ -9,6 +8,9 @@ import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseActivity;
+import org.unimelb.itime.bean.Contact;
+import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.ui.fragment.FragmentSearch;
 
 /**
@@ -24,8 +26,10 @@ public class SearchActivity extends ItimeBaseActivity {
         init();
     }
 
+
     private void init(){
         FragmentSearch fragmentSearch = new FragmentSearch();
+        fragmentSearch.setScope(Meeting.class, Event.class, Contact.class);
         getSupportFragmentManager().beginTransaction().add(getFragmentContainerId(), fragmentSearch).commit();
     }
 
