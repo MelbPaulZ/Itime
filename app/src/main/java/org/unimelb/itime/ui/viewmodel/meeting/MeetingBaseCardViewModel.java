@@ -1,22 +1,17 @@
 package org.unimelb.itime.ui.viewmodel.meeting;
 
 import android.content.Context;
-import android.database.Observable;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.sax.RootElement;
 import android.support.annotation.Nullable;
-import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
-import com.squareup.picasso.Transformation;
 
 import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
@@ -26,7 +21,6 @@ import org.unimelb.itime.ui.fragment.meeting.RecyclerViewAdapterMeetings;
 import org.unimelb.itime.util.EventUtil;
 
 import java.util.Calendar;
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
@@ -59,7 +53,7 @@ public class MeetingBaseCardViewModel extends BaseObservable {
     }
 
     public String getSysMsg(){
-        return meeting.getSysMsg();
+        return meeting.getInfo();
     }
 
     public Drawable getIconSrc(Context context){

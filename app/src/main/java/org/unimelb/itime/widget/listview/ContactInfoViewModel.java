@@ -64,13 +64,4 @@ public class ContactInfoViewModel extends SpannableInfoViewModel {
     public SpannableString getTitleStr() {
         return changeMatchColor(contact.getAliasName(), getMatchStr());
     }
-
-    @Override
-    public boolean matched(String matchStr) {
-        return
-                alias.toLowerCase().contains(matchStr)
-                        || personalAlias.toLowerCase().contains(matchStr)
-                        || contact.getUserDetail().getUserId().toLowerCase().contains(matchStr);
-    }
-
 }

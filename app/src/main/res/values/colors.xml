@@ -5,7 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <!-- APP background color-->
-    <color name="app_bg">#FAFAFA</color>
+    <color name="app_bg">#FFFFFF</color>
     <!--need to check later-->
     <color name="divider_line">#EEEEEE</color>
     <color name="transparent">#00000000</color>

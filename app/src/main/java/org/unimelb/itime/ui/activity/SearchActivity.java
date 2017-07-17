@@ -12,6 +12,8 @@ import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.ui.fragment.FragmentSearch;
+import org.unimelb.itime.ui.mvpview.activity.SearchMvpView;
+import org.unimelb.itime.ui.presenter.SearchPresenter;
 
 /**
  * Created by yuhaoliu on 10/7/17.
@@ -24,12 +26,15 @@ public class SearchActivity extends ItimeBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         init();
+
     }
 
 
     private void init(){
+        SearchPresenter<SearchMvpView> presenter =  new SearchPresenter<>(getBaseContext());
         FragmentSearch fragmentSearch = new FragmentSearch();
-        fragmentSearch.setScope(Meeting.class, Event.class, Contact.class);
+        fragmentSearch.setPresenter(presenter);
+        fragmentSearch.setScope(SearchPresenter.Scope.MEETING,SearchPresenter.Scope.EVENT,SearchPresenter.Scope.CONTACT);
         getSupportFragmentManager().beginTransaction().add(getFragmentContainerId(), fragmentSearch).commit();
     }
 

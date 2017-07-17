@@ -6,7 +6,7 @@
             name="vm"
             type="org.unimelb.itime.ui.viewmodel.SearchViewModel"/>
         <import type="android.view.View"/>
-        <import type="org.unimelb.itime.bean.Meeting"/>
+        <import type="org.unimelb.itime.ui.fragment.FragmentSearch"/>
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -120,7 +120,7 @@
                         android:textColor="@color/search_bar_showmore"
                         android:gravity="center"
                         android:text="@string/search_showmore"
-                        android:onClick="@{vm.onMeetingShowMoreClick()}"
+                        android:onClick="@{vm.onShowMoreClick(FragmentSearch.TYPE_MEETING)}"
                         android:visibility="@{(vm.showMoreEnabled &amp;&amp; (@integer/search_result_max_show_c &lt; vm.meetingVMsResult.size())) ? View.VISIBLE:View.GONE}"
                         />
                 </LinearLayout>
@@ -169,7 +169,7 @@
                         android:textColor="@color/search_bar_showmore"
                         android:gravity="center"
                         android:text="@string/search_showmore"
-                        android:onClick="@{vm.onEventShowMoreClick()}"
+                        android:onClick="@{vm.onShowMoreClick(FragmentSearch.TYPE_EVENT)}"
                         android:visibility="@{(vm.showMoreEnabled &amp;&amp; (@integer/search_result_max_show_c &lt; vm.soloEventVMsResult.size())) ? View.VISIBLE:View.GONE}"
                         />
                 </LinearLayout>
@@ -217,7 +217,7 @@
                         android:textColor="@color/search_bar_showmore"
                         android:gravity="center"
                         android:text="@string/search_showmore"
-                        android:onClick="@{vm.onContactShowMoreClick()}"
+                        android:onClick="@{vm.onShowMoreClick(FragmentSearch.TYPE_CONTACT)}"
                         android:visibility="@{(vm.showMoreEnabled &amp;&amp; (@integer/search_result_max_show_c &lt; vm.contactsVMsResult.size())) ? View.VISIBLE:View.GONE}"
                         />
                 </LinearLayout>

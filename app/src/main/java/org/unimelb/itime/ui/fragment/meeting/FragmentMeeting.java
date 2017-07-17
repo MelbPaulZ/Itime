@@ -32,6 +32,7 @@ import java.util.List;
  */
 
 public class FragmentMeeting extends ItimeBaseFragment<CalendarMvpView, CalendarPresenter<CalendarMvpView>> implements ToolbarInterface {
+
     private FragmentMeetingBinding binding;
 
     @Nullable
@@ -117,5 +118,4 @@ public class FragmentMeeting extends ItimeBaseFragment<CalendarMvpView, Calendar
 
         return mData;
     }
-
 }

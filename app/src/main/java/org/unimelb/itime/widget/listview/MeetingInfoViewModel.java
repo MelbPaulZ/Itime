@@ -64,11 +64,4 @@ public class MeetingInfoViewModel extends SpannableInfoViewModel {
         this.timeStr = timeStr;
         notifyPropertyChanged(BR.timeStr);
     }
-
-    @Override
-    public boolean matched(String matchStr) {
-        return event.getSummary().toLowerCase().contains(matchStr)
-                || EventUtil.getEventDateStr(event).toLowerCase().contains(matchStr);
-    }
-
 }

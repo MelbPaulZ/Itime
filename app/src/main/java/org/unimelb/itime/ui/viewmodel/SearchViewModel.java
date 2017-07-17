@@ -2,9 +2,7 @@ package org.unimelb.itime.ui.viewmodel;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
-import android.databinding.ObservableList;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -21,6 +19,7 @@ import org.unimelb.itime.ui.presenter.SearchPresenter;
 import org.unimelb.itime.widget.listview.ContactInfoViewModel;
 import org.unimelb.itime.widget.listview.EventInfoViewModel;
 import org.unimelb.itime.widget.listview.MeetingInfoViewModel;
+import org.unimelb.itime.widget.listview.SpannableInfoViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,17 +35,9 @@ public class SearchViewModel extends BaseObservable {
     private SearchMvpView mvpView;
     private SearchPresenter<SearchMvpView> presenter;
 
-    private List<Meeting> meetingDataSet = new ArrayList<>();
-    private List<MeetingInfoViewModel> meetingVMs = new ArrayList<>();
-    private ObservableList<MeetingInfoViewModel> meetingVMsResult = new ObservableArrayList<>();
-
-    private List<Event> soloEventDataSet = new ArrayList<>();
-    private List<EventInfoViewModel> soloEventVMs = new ArrayList<>();
-    private ObservableList<EventInfoViewModel> soloEventVMsResult = new ObservableArrayList<>();
-
-    private List<Contact> contactDataSet = new ArrayList<>();
-    private List<ContactInfoViewModel> contactsVMs = new ArrayList<>();
-    private ObservableList<ContactInfoViewModel> contactsVMsResult = new ObservableArrayList<>();
+    private List<MeetingInfoViewModel> meetingVMsResult = new ArrayList<>();
+    private List<EventInfoViewModel> soloEventVMsResult = new ArrayList<>();
+    private List<ContactInfoViewModel> contactsVMsResult = new ArrayList<>();
 
     private String resultHint = "";
     private String searchStr = "";
@@ -111,32 +102,12 @@ public class SearchViewModel extends BaseObservable {
         };
     }
 
-    public View.OnClickListener onMeetingShowMoreClick(){
+    public View.OnClickListener onShowMoreClick(final int type){
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mvpView == null)return;
-                mvpView.onMeetingShowMoreClick(searchStr, meetingDataSet);
-            }
-        };
-    }
-
-    public View.OnClickListener onEventShowMoreClick(){
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mvpView == null)return;
-                mvpView.onEventShowMoreClick(searchStr, soloEventDataSet);
-            }
-        };
-    }
-
-    public View.OnClickListener onContactShowMoreClick(){
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mvpView == null)return;
-                mvpView.onContactShowMoreClick(searchStr, contactDataSet);
+                mvpView.onShowMoreClick(type, searchStr);
             }
         };
     }
@@ -164,45 +135,22 @@ public class SearchViewModel extends BaseObservable {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                search();
+                refreshResultHint();
+                clearResults();
+                presenter.search(searchStr);
             }
         };
     }
 
     /**
-     * data filter functions
+     * Change matched spannable string color
+     * @param vms ViewModel of results
      */
-    public void search(){
-        this.clearResults();
-
-        if (searchStr.isEmpty()){
-            return;
+    private void changeResultTextColor(List<? extends SpannableInfoViewModel> vms){
+        for (SpannableInfoViewModel vm:vms
+             ) {
+            vm.setMatchStr(searchStr);
         }
-
-        String tmp = searchStr.toLowerCase();
-
-        for(MeetingInfoViewModel vm: meetingVMs){
-            if(vm.tryMatch(tmp)){
-                meetingVMsResult.add(vm);
-            }
-        }
-        notifyPropertyChanged(BR.meetingVMsResult);
-
-        for(EventInfoViewModel vm: soloEventVMs){
-            if(vm.tryMatch(tmp)){
-                soloEventVMsResult.add(vm);
-            }
-        }
-        notifyPropertyChanged(BR.soloEventVMsResult);
-
-        for(ContactInfoViewModel vm: contactsVMs){
-            if(vm.tryMatch(tmp)){
-                contactsVMsResult.add(vm);
-            }
-        }
-        notifyPropertyChanged(BR.contactsVMsResult);
-
-        refreshResultHint();
     }
 
     private void refreshResultHint(){
@@ -234,54 +182,16 @@ public class SearchViewModel extends BaseObservable {
         return ItemBinding.of(BR.contactVM, R.layout.search_item_contact);
     }
 
-    /**
-     * Search Scope DataSet setter & getter
-     * @return
-     */
-    public List<Meeting> getMeetingDataSet() {
-        return meetingDataSet;
+    public void setMeetingSearchResult(List<Meeting> meetingSearchResult) {
+        this.setMeetingVMsResult(initMeetingsVM(meetingSearchResult));
     }
 
-    public void setMeetingDataSet(List<Meeting> meetingDataSet) {
-        this.meetingDataSet = meetingDataSet;
-        this.setMeetingVMs(initMeetingsVM(meetingDataSet));
+    public void setEventSearchResult(List<Event> eventSearchResult) {
+        this.setSoloEventVMsResult(initSoloEventsVM(eventSearchResult));
     }
 
-    public List<Event> getSoloEventDataSet() {
-        return soloEventDataSet;
-    }
-
-    public void setSoloEventDataSet(List<Event> soloEventDataSet) {
-        this.soloEventDataSet = soloEventDataSet;
-        this.setSoloEventVMs(initSoloEventsVM(soloEventDataSet));
-    }
-
-    public List<Contact> getContactDataSet() {
-        return contactDataSet;
-    }
-
-    public void setContactDataSet(List<Contact> contactDataSet) {
-        this.contactDataSet = contactDataSet;
-        this.setContactsVMs(initContactsVM(contactDataSet));
-    }
-
-    /**
-     * VM data set setter
-     * @param meetingVMs
-     */
-    private void setMeetingVMs(List<MeetingInfoViewModel> meetingVMs) {
-        this.meetingVMs = meetingVMs;
-        search();
-    }
-
-    private void setSoloEventVMs(List<EventInfoViewModel> soloEventVMs) {
-        this.soloEventVMs = soloEventVMs;
-        search();
-    }
-
-    private void setContactsVMs(List<ContactInfoViewModel> contactsVMs) {
-        this.contactsVMs = contactsVMs;
-        search();
+    public void setContactSearchResult(List<Contact> contactSearchResult) {
+        this.setContactsVMsResult(initContactsVM(contactSearchResult));
     }
 
     /**
@@ -325,7 +235,8 @@ public class SearchViewModel extends BaseObservable {
         return meetingVMsResult;
     }
 
-    public void setMeetingVMsResult(ObservableArrayList<MeetingInfoViewModel> meetingVMsResult) {
+    public void setMeetingVMsResult(List<MeetingInfoViewModel> meetingVMsResult) {
+        this.changeResultTextColor(meetingVMsResult);
         this.meetingVMsResult = meetingVMsResult;
         notifyPropertyChanged(BR.meetingVMsResult);
     }
@@ -335,7 +246,8 @@ public class SearchViewModel extends BaseObservable {
         return soloEventVMsResult;
     }
 
-    public void setSoloEventVMsResult(ObservableArrayList<EventInfoViewModel> soloEventVMsResult) {
+    public void setSoloEventVMsResult(List<EventInfoViewModel> soloEventVMsResult) {
+        this.changeResultTextColor(soloEventVMsResult);
         this.soloEventVMsResult = soloEventVMsResult;
         notifyPropertyChanged(BR.soloEventVMsResult);
     }
@@ -345,7 +257,8 @@ public class SearchViewModel extends BaseObservable {
         return contactsVMsResult;
     }
 
-    public void setContactsVMsResult(ObservableArrayList<ContactInfoViewModel> contactsVMsResult) {
+    public void setContactsVMsResult(List<ContactInfoViewModel> contactsVMsResult) {
+        this.changeResultTextColor(contactsVMsResult);
         this.contactsVMsResult = contactsVMsResult;
         notifyPropertyChanged(BR.contactsVMsResult);
     }

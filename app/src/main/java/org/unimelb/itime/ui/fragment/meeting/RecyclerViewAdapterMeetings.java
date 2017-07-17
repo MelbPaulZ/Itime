@@ -238,6 +238,18 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
     @Override
     public int getItemViewType(int position) {
 
+//        if (mode == Mode.INVITATION){
+//            return ;
+//        }
+
+//        if (mode == Mode.HOSTING){
+//            return ;
+//        }
+//
+//        if (mode == Mode.COMING){
+//            return ;
+//        }
+
         if (position%4 == 0){
             return  HOSTING_DETAILS;
         }

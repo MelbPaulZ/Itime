@@ -14,19 +14,33 @@ import org.greenrobot.greendao.converter.PropertyConverter;
  */
 @Entity
 public class Meeting implements Comparable<Meeting>{
+    private String meetingUid = "";
+    private String eventUid = "";
+    private String userUid = "";
+    private String info = "Hanna Baker invite you to ";
+    private String avatar = "";
+    private String createdAt = "";
+    private String updatedAt = "";
+
+
     @Convert(converter = Meeting.EventConverter.class , columnType = String.class)
     private Event event;
 
-    private String sysMsg = "Hanna Baker invite you to ";
-
-    @Generated(hash = 1336096537)
-    public Meeting(Event event, String sysMsg) {
-        this.event = event;
-        this.sysMsg = sysMsg;
-    }
-
     @Generated(hash = 171861101)
     public Meeting() {
+    }
+
+    @Generated(hash = 269515136)
+    public Meeting(String meetingUid, String eventUid, String userUid, String info,
+            String avatar, String createdAt, String updatedAt, Event event) {
+        this.meetingUid = meetingUid;
+        this.eventUid = eventUid;
+        this.userUid = userUid;
+        this.info = info;
+        this.avatar = avatar;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.event = event;
     }
 
     public Event getEvent() {
@@ -37,17 +51,65 @@ public class Meeting implements Comparable<Meeting>{
         this.event = event;
     }
 
-    public String getSysMsg() {
-        return sysMsg;
+    public String getInfo() {
+        return info;
     }
 
-    public void setSysMsg(String sysMsg) {
-        this.sysMsg = sysMsg;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     @Override
     public int compareTo(@NonNull Meeting o) {
         return event.compareTo(o.getEvent());
+    }
+
+    public String getMeetingUid() {
+        return this.meetingUid;
+    }
+
+    public void setMeetingUid(String meetingUid) {
+        this.meetingUid = meetingUid;
+    }
+
+    public String getEventUid() {
+        return this.eventUid;
+    }
+
+    public void setEventUid(String eventUid) {
+        this.eventUid = eventUid;
+    }
+
+    public String getUserUid() {
+        return this.userUid;
+    }
+
+    public void setUserUid(String userUid) {
+        this.userUid = userUid;
+    }
+
+    public String getAvatar() {
+        return this.avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     /************ Converter

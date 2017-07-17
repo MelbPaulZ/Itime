@@ -26,7 +26,7 @@ public abstract class SpannableInfoViewModel extends BaseObservable {
         this.matchStr = matchStr;
     }
 
-    public SpannableString changeMatchColor(String str, String matchStr){
+    SpannableString changeMatchColor(String str, String matchStr){
         SpannableString span = new SpannableString(str);
         if(matchStr.equals("")){
             return span;
@@ -40,21 +40,5 @@ public abstract class SpannableInfoViewModel extends BaseObservable {
                 begin, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         return span;
-    }
-
-    public abstract boolean matched(String matchStr);
-
-    /**
-     * Using to match if input is matched with compared object
-     * @param inputStr All the input should be lowercase
-     * @return
-     */
-    public boolean tryMatch(String inputStr){
-        setMatchStr("");
-        if(matched(inputStr)){
-            setMatchStr(inputStr);
-            return true;
-        }
-        return false;
     }
 }

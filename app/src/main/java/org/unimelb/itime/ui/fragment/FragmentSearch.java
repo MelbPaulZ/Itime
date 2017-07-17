@@ -17,8 +17,6 @@ import org.unimelb.itime.ui.mvpview.activity.SearchMvpView;
 import org.unimelb.itime.ui.presenter.SearchPresenter;
 import org.unimelb.itime.ui.viewmodel.SearchViewModel;
 
-import java.util.List;
-
 /**
  * Created by yuhaoliu on 10/7/17.
  */
@@ -27,15 +25,25 @@ public class FragmentSearch extends ItimeBaseFragment<SearchMvpView, SearchPrese
     public final static int TASK_ACTIVITY_BACK = 0;
     public final static int TASK_FRAGMENT_BACK = 1;
 
+    public final static int TYPE_MEETING = 1;
+    public final static int TYPE_EVENT = 2;
+    public final static int TYPE_CONTACT = 3;
+
     private int taskId = 0;
 
     private FragmentSearchBinding binding;
     private SearchViewModel viewModel;
-    private Class[] scope;
+    private SearchPresenter.Scope[] scopes;
 
+    /**
+     * In this fragment, {@link SearchPresenter<SearchMvpView> createPresenter} will not will called,
+     * the presenter should be set by caller.
+     *
+     * @return
+     */
     @Override
     public SearchPresenter<SearchMvpView> createPresenter() {
-        return new SearchPresenter<>(getContext());
+        return null;
     }
 
     @Override
@@ -61,13 +69,7 @@ public class FragmentSearch extends ItimeBaseFragment<SearchMvpView, SearchPrese
             binding.setVm(viewModel);
         }
 
-        //load data
-        if (scope != null) {
-            for (Class mClass : scope
-                    ) {
-                presenter.loadData(mClass);
-            }
-        }
+        getPresenter().setScope(scopes);
     }
 
     @Override
@@ -100,9 +102,24 @@ public class FragmentSearch extends ItimeBaseFragment<SearchMvpView, SearchPrese
     }
 
     @Override
-    public void onMeetingShowMoreClick(String searchStr, List<Meeting> meetingDataSet) {
+    public void onShowMoreClick(int type, String searchStr) {
         FragmentSearch detailSearch = new FragmentSearch();
-        detailSearch.setScope(Meeting.class);
+
+        switch (type){
+            case TYPE_MEETING:
+                detailSearch.setScope(SearchPresenter.Scope.MEETING);
+                break;
+            case TYPE_EVENT:
+                detailSearch.setScope(SearchPresenter.Scope.EVENT);
+                break;
+            case TYPE_CONTACT:
+                detailSearch.setScope(SearchPresenter.Scope.CONTACT);
+                break;
+            default:
+                return;
+        }
+
+        detailSearch.setPresenter(getPresenter());
         getBaseActivity().openFragment(detailSearch);
         //ensure set viewModel things after openFrag
         detailSearch.setTaskId(TASK_FRAGMENT_BACK);
@@ -111,36 +128,17 @@ public class FragmentSearch extends ItimeBaseFragment<SearchMvpView, SearchPrese
     }
 
     @Override
-    public void onEventShowMoreClick(String searchStr, List<Event> eventDataSet) {
-        FragmentSearch detailSearch = new FragmentSearch();
-        detailSearch.setScope(Event.class);
-        getBaseActivity().openFragment(detailSearch);
-        //ensure set viewModel things after openFrag
-        detailSearch.setTaskId(TASK_FRAGMENT_BACK);
-        detailSearch.setSearchStr(searchStr);
-        detailSearch.setShowMoreEnabled(false);
+    public void onSearchResult(SearchPresenter.SearchResult result) {
+        if (result.meetings != null){
+            viewModel.setMeetingSearchResult(result.meetings);
+        }
 
-    }
+        if (result.events != null){
+            viewModel.setEventSearchResult(result.events);
+        }
 
-    @Override
-    public void onContactShowMoreClick(String searchStr, List<Contact> contactDataSet) {
-        FragmentSearch detailSearch = new FragmentSearch();
-        detailSearch.setScope(Contact.class);
-        getBaseActivity().openFragment(detailSearch);
-        //ensure set viewModel things after openFrag
-        detailSearch.setTaskId(TASK_FRAGMENT_BACK);
-        detailSearch.setSearchStr(searchStr);
-        detailSearch.setShowMoreEnabled(false);
-    }
-
-    @Override
-    public <T> void onDataLoaded(Class<T> tClass, List<T> data) {
-        if (tClass == Meeting.class) {
-            viewModel.setMeetingDataSet((List<Meeting>) data);
-        } else if (tClass == Event.class) {
-            viewModel.setSoloEventDataSet((List<Event>) data);
-        } else if (tClass == Contact.class) {
-            viewModel.setContactDataSet((List<Contact>) data);
+        if (result.contacts != null){
+            viewModel.setContactSearchResult(result.contacts);
         }
     }
 
@@ -175,8 +173,8 @@ public class FragmentSearch extends ItimeBaseFragment<SearchMvpView, SearchPrese
         this.viewModel.showMoreEnabled.set(showMoreEnabled);
     }
 
-    public void setScope(Class... tClass) {
-        scope = tClass;
+    public void setScope(SearchPresenter.Scope... scopes) {
+        this.scopes = scopes;
     }
 
     public int getTaskId() {

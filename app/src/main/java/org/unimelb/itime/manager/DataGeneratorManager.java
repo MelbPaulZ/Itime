@@ -79,7 +79,7 @@ public class DataGeneratorManager {
 
             Meeting meeting = new Meeting();
             meeting.setEvent(event);
-            meeting.setSysMsg("MainAC generated");
+            meeting.setInfo("MainAC generated");
             meetings.add(meeting);
         }
 
@@ -123,7 +123,7 @@ public class DataGeneratorManager {
     public List<Contact> getContacts(){
         List<Contact> contacts = new ArrayList<>();
         Contact contact1 = new Contact();
-        contact1.setAliasName("a");
+        contact1.setAliasName("");
         contact1.setAliasPhoto("http://avatar.csdn.net/A/9/C/1_waldmer.jpg");
         contact1.setContactUid("1");
 
@@ -156,7 +156,7 @@ public class DataGeneratorManager {
         int i=0;
         for(Contact contact:contacts){
             User user = new User();
-            user.setPersonalAlias("ab");
+            user.setPersonalAlias("xy");
             user.setEmail("123456@unimelb.edu.au");
             user.setUserId("123456@unimelb.edu.au");
             user.setUserUid(i+"");

@@ -140,7 +140,7 @@ public class FragmentComing extends Fragment {
              ) {
             Meeting meeting = new Meeting();
             meeting.setEvent((Event) event);
-            meeting.setSysMsg("Coming");
+            meeting.setInfo("Coming");
             meetingSet.add(meeting);
         }
 
