@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.meeting.MeetingMenuViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:tag="Bottom4"
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:background="@android:color/transparent"
+        android:paddingStart="0dp"
+        android:paddingEnd="@dimen/card_marginTB"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/pin_btn"
+            android:layout_width="@dimen/meeting_menu_btn_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:onClick="@{vm.onClickDelete()}"
+            >
+            <ImageView
+                android:src="@{vm.getDeleteIconSrc(context)}"
+                android:layout_width="@dimen/meeting_menu_icon_width"
+                android:layout_height="@dimen/meeting_menu_icon_height"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/brand_warning"
+                android:text="@{vm.getDeleteIconText(context)}"
+                android:textSize="@dimen/meeting_menu_icon_textsize"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mute_btn"
+            android:layout_width="@dimen/meeting_menu_btn_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:onClick="@{vm.onClickRestore()}"
+            >
+            <ImageView
+                android:src="@{vm.getRestoreIconSrc(context)}"
+                android:layout_width="@dimen/meeting_menu_icon_width"
+                android:layout_height="@dimen/meeting_menu_icon_height"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{vm.getRestoreIconText(context)}"
+                android:gravity="center"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

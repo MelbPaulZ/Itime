@@ -3,7 +3,6 @@ package org.unimelb.itime.ui.fragment.meeting;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -12,7 +11,6 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Meeting;
-import org.unimelb.itime.bean.User;
 import org.unimelb.itime.databinding.MeetingHostingItemDetailsBinding;
 import org.unimelb.itime.databinding.MeetingHostingItemMessageBinding;
 import org.unimelb.itime.databinding.MeetingInvitationItemDetailedBinding;
@@ -21,7 +19,7 @@ import org.unimelb.itime.ui.viewmodel.meeting.MeetingHostingDetailCardViewModel;
 import org.unimelb.itime.ui.viewmodel.meeting.MeetingHostingMsgCardViewModel;
 import org.unimelb.itime.ui.viewmodel.meeting.MeetingInvitationDetailCardViewModel;
 import org.unimelb.itime.ui.viewmodel.meeting.MeetingInvitationMsgCardViewModel;
-import org.unimelb.itime.ui.viewmodel.meeting.MeetingMenu1ViewModel;
+import org.unimelb.itime.ui.viewmodel.meeting.MeetingMenuViewModel;
 import org.unimelb.itime.util.EventUtil;
 
 import java.util.Collections;
@@ -29,14 +27,20 @@ import java.util.List;
 
 public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerView.ViewHolder> {
     public enum Mode {
-        INVITATION, HOSTING, COMING
+        INVITATION, HOSTING, COMING,ARCHIVE
     }
 
+    /**
+     * note:should be public for data binding
+     */
     public static final int INVITATION_DETAILS = 1;
     public static final int INVITATION_MESSAGE = 2;
     public static final int HOSTING_DETAILS = 3;
     public static final int HOSTING_MESSAGE = 4;
 
+    /**
+     * note:should be public for data binding
+     */
     public class InvitationDetailsViewHolder extends RecyclerView.ViewHolder {
         MeetingInvitationItemDetailedBinding binding;
         int position = 0;
@@ -106,28 +110,28 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
             case INVITATION_DETAILS:{
                 MeetingInvitationItemDetailedBinding binding = DataBindingUtil.inflate(layoutInflater,R.layout.meeting_invitation_item_detailed,parent,false);
                 holder = new InvitationDetailsViewHolder(binding);
-                binding.setVmMenu1(new MeetingMenu1ViewModel());
+                binding.setVmMenu(new MeetingMenuViewModel());
                 binding.setVmDetail(new MeetingInvitationDetailCardViewModel(context,mode));
                 break;
             }
             case INVITATION_MESSAGE:{
                 MeetingInvitationItemMessageBinding binding = DataBindingUtil.inflate(layoutInflater,R.layout.meeting_invitation_item_message,parent,false);
                 holder = new InvitationMessageViewHolder(binding);
-                binding.setVmMenu1(new MeetingMenu1ViewModel());
+                binding.setVmMenu(new MeetingMenuViewModel());
                 binding.setVmMsg(new MeetingInvitationMsgCardViewModel(context,mode));
                 break;
             }
             case HOSTING_DETAILS:{
                 MeetingHostingItemDetailsBinding binding = DataBindingUtil.inflate(layoutInflater,R.layout.meeting_hosting_item_details,parent,false);
                 holder = new HostingDetailsViewHolder(binding);
-                binding.setVmMenu1(new MeetingMenu1ViewModel());
+                binding.setVmMenu(new MeetingMenuViewModel());
                 binding.setVmDetail(new MeetingHostingDetailCardViewModel(context,mode));
                 break;
             }
             case HOSTING_MESSAGE:{
                 MeetingHostingItemMessageBinding binding = DataBindingUtil.inflate(layoutInflater,R.layout.meeting_hosting_item_message,parent,false);
                 holder = new HostingMessageViewHolder(binding);
-                binding.setVmMenu1(new MeetingMenu1ViewModel());
+                binding.setVmMenu(new MeetingMenuViewModel());
                 binding.setVmMsg(new MeetingHostingMsgCardViewModel(context,mode));
                 break;
             }
@@ -152,14 +156,9 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
                 detailViewModel.setMeeting(meeting);
 
 
-                final MeetingMenu1ViewModel menu1ViewModel = holder.binding.getVmMenu1();
+                final MeetingMenuViewModel menu1ViewModel = holder.binding.getVmMenu();
                 menu1ViewModel.setMeeting(meeting);
-                menu1ViewModel.setmOnMenuClick(new MeetingMenu1ViewModel.OnMenuClick() {
-                    @Override
-                    public void onDataChange() {
-                        detailViewModel.setMeeting(meeting);
-                    }
-                });
+                menu1ViewModel.setmOnMenuClick(this.onMenuListener);
 
                 holder.binding.invalidateAll();
                 break;
@@ -172,14 +171,9 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
                 msgViewModel.setMeetings(mDataset);
                 msgViewModel.setMeeting(meeting);
 
-                final MeetingMenu1ViewModel menu1ViewModel = holder.binding.getVmMenu1();
+                final MeetingMenuViewModel menu1ViewModel = holder.binding.getVmMenu();
                 menu1ViewModel.setMeeting(meeting);
-                menu1ViewModel.setmOnMenuClick(new MeetingMenu1ViewModel.OnMenuClick() {
-                    @Override
-                    public void onDataChange() {
-                        msgViewModel.setMeeting(meeting);
-                    }
-                });
+                menu1ViewModel.setmOnMenuClick(this.onMenuListener);
 
                 holder.binding.invalidateAll();
                 break;
@@ -192,14 +186,9 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
                 msgViewModel.setMeetings(mDataset);
                 msgViewModel.setMeeting(meeting);
 
-                final MeetingMenu1ViewModel menu1ViewModel = holder.binding.getVmMenu1();
+                final MeetingMenuViewModel menu1ViewModel = holder.binding.getVmMenu();
                 menu1ViewModel.setMeeting(meeting);
-                menu1ViewModel.setmOnMenuClick(new MeetingMenu1ViewModel.OnMenuClick() {
-                    @Override
-                    public void onDataChange() {
-                        msgViewModel.setMeeting(meeting);
-                    }
-                });
+                menu1ViewModel.setmOnMenuClick(this.onMenuListener);
 
                 holder.binding.invalidateAll();
                 break;
@@ -212,14 +201,9 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
                 msgViewModel.setMeetings(mDataset);
                 msgViewModel.setMeeting(meeting);
 
-                final MeetingMenu1ViewModel menu1ViewModel = holder.binding.getVmMenu1();
+                final MeetingMenuViewModel menu1ViewModel = holder.binding.getVmMenu();
                 menu1ViewModel.setMeeting(meeting);
-                menu1ViewModel.setmOnMenuClick(new MeetingMenu1ViewModel.OnMenuClick() {
-                    @Override
-                    public void onDataChange() {
-                        msgViewModel.setMeeting(meeting);
-                    }
-                });
+                menu1ViewModel.setmOnMenuClick(this.onMenuListener);
 
                 holder.binding.invalidateAll();
                 break;
@@ -254,7 +238,7 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
             return isCancelled ? HOSTING_MESSAGE : HOSTING_DETAILS;
         }
 
-        if (mode == Mode.COMING){
+        if (mode == Mode.COMING || mode == Mode.ARCHIVE){
             if (isHost){
                 return isCancelled ? HOSTING_MESSAGE : HOSTING_DETAILS;
             }else{
@@ -270,10 +254,12 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
         return R.id.swipe;
     }
 
-    public interface OnMenuListener<T> {
-        void onPin(T obj);
-        void onMute(T obj);
-        void onArchive(T obj);
+    public interface OnMenuListener {
+        void onPin(Meeting obj);
+        void onMute(Meeting obj);
+        void onArchive(Meeting obj);
+        void onDelete(Meeting obj);
+        void onRestore(Meeting obj);
     }
 
     public OnMenuListener getOnMenuListener() {

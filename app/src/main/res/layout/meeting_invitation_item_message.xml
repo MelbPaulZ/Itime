@@ -7,8 +7,8 @@
             name="vmMsg"
             type="org.unimelb.itime.ui.viewmodel.meeting.MeetingInvitationMsgCardViewModel"/>
         <variable
-            name="vmMenu1"
-            type="org.unimelb.itime.ui.viewmodel.meeting.MeetingMenu1ViewModel"/>
+            name="vmMenu"
+            type="org.unimelb.itime.ui.viewmodel.meeting.MeetingMenuViewModel"/>
     </data>
 
     <LinearLayout
@@ -27,11 +27,8 @@
             app:show_mode="lay_down"
             app:clickToClose="true">
 
-            <include layout="@layout/meeting_menu_1"
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                bind:vm="@{vmMenu1}"
-                android:id="@+id/swipe_menu"/>
+            <include layout="@layout/meeting_menu"
+                bind:vm="@{vmMenu}"/>
 
             <FrameLayout
                 android:layout_width="match_parent"

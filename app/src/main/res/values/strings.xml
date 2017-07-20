@@ -245,6 +245,8 @@
     <string name="unmute">Unmute</string>
     <string name="archived">Archive</string>
     <string name="vote">Vote</string>
+    <string name="delete">Delete</string>
+    <string name="restore">Restore</string>
     <string name="meeting_tag_invitation">Invitation</string>
     <string name="meeting_tag_hosting">Hosting</string>
     <string name="meeting_tag_coming">Coming</string>

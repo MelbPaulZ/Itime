@@ -52,27 +52,8 @@ public class FragmentInvitation extends Fragment {
 
         // Adapter:
         mAdapter = new RecyclerViewAdapterMeetings(context, initData(), RecyclerViewAdapterMeetings.Mode.INVITATION);
-        mAdapter.setOnMenuListener(new RecyclerViewAdapterMeetings.OnMenuListener<String>() {
-            @Override
-            public void onPin(String obj) {
-                Toast.makeText(context,obj + " P", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onMute(String obj) {
-                Toast.makeText(context,obj + " M", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onArchive(String obj) {
-                Toast.makeText(context,obj + " A", Toast.LENGTH_SHORT).show();
-            }
-        });
         mAdapter.setMode(Attributes.Mode.Single);
         recyclerView.setAdapter(mAdapter);
-
-        /* Listeners */
-        recyclerView.setOnScrollListener(onScrollListener);
 
         return view;
     }
@@ -82,26 +63,17 @@ public class FragmentInvitation extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-
-    /**
-     * Substitute for our onScrollListener for RecyclerView
-     */
-    RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-            Log.e("ListView", "onScrollStateChanged");
-        }
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            // Could hide open views here if you wanted. //
-        }
-    };
-
-
     private List<Meeting> initData(){
         return DBManager.getInstance(getContext()).getAll(Meeting.class);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 }

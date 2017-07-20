@@ -8,5 +8,4 @@ import org.unimelb.itime.ui.presenter.MeetingPresenter;
  */
 
 public interface MeetingMvpView extends ItimeBaseMvpView {
-    void onLoadResult(MeetingPresenter.FilterResult result);
 }

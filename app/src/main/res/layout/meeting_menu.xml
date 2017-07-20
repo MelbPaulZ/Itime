@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.meeting.MeetingMenuViewModel"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <include layout="@layout/meeting_menu_normal"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:visibility="@{vm.getMenuVisibility(1)}"
+            bind:vm="@{vm}"/>
+
+        <include layout="@layout/meeting_menu_archive"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:visibility="@{vm.getMenuVisibility(2)}"
+            bind:vm="@{vm}"/>
+    </FrameLayout>
+</layout>

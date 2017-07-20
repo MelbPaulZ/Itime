@@ -37,7 +37,7 @@
             android:layout_centerVertical="true"
             android:padding="10dp"
             android:layout_marginRight="4dp"
-            android:textColor="@{vm.rightEnable?@color/black:@color/text_detail_label}"
+            android:textColor="@{vm.rightEnable?vm.rightTextColor:@color/text_detail_label}"
             android:text="@{vm.rightText}"
             android:onClick="@{vm.onCLickRight()}"
             android:textSize="17sp" />

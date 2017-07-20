@@ -12,35 +12,32 @@ import android.view.ViewGroup;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
-import org.unimelb.itime.base.ToolbarInterface;
-import org.unimelb.itime.bean.Event;
-import org.unimelb.itime.bean.Location;
-import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.databinding.FragmentMeetingBinding;
-import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.activity.SearchActivity;
-import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
-import org.unimelb.itime.ui.presenter.CalendarPresenter;
-import org.unimelb.itime.util.EventUtil;
+import org.unimelb.itime.ui.mvpview.MeetingMvpView;
+import org.unimelb.itime.ui.presenter.MeetingPresenter;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**
  * Created by yuhaoliu on 8/06/2017.
  */
 
-public class FragmentMeeting extends ItimeBaseFragment<CalendarMvpView, CalendarPresenter<CalendarMvpView>> implements ToolbarInterface {
+public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPresenter<MeetingMvpView>>{
 
     private FragmentMeetingBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if (binding!=null){
+            return binding.getRoot();
+        }
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_meeting, container, false);
 
         binding.getRoot().findViewById(R.id.search_bar).setOnClickListener(onSearchClick());
+        binding.getRoot().findViewById(R.id.archive_entrance).setOnClickListener(onArchiveClick());
 
         final TabLayout tabLayout = (TabLayout) binding.getRoot().findViewById(R.id.tab_layout);
 
@@ -50,6 +47,7 @@ public class FragmentMeeting extends ItimeBaseFragment<CalendarMvpView, Calendar
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final CusSwipeViewPager viewPager = (CusSwipeViewPager) binding.getRoot().findViewById(R.id.pager);
+
         final PagerAdapterMeeting adapter = new PagerAdapterMeeting
                 (getFragmentManager(), tabLayout.getTabCount());
         adapter.setmData(initFragments());
@@ -58,6 +56,7 @@ public class FragmentMeeting extends ItimeBaseFragment<CalendarMvpView, Calendar
         viewPager.setSwipeEnable(false);
         viewPager.setSwipingDuration(250);
         viewPager.setAdapter(adapter);
+
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -84,18 +83,8 @@ public class FragmentMeeting extends ItimeBaseFragment<CalendarMvpView, Calendar
     }
 
     @Override
-    public CalendarPresenter<CalendarMvpView> createPresenter() {
-        return new CalendarPresenter<>(getContext());
-    }
-
-    @Override
-    public void onNext() {
-
-    }
-
-    @Override
-    public void onBack() {
-
+    public MeetingPresenter<MeetingMvpView> createPresenter() {
+        return new MeetingPresenter<>(getContext());
     }
 
     public View.OnClickListener onSearchClick(){
@@ -105,6 +94,16 @@ public class FragmentMeeting extends ItimeBaseFragment<CalendarMvpView, Calendar
                 // To search activity
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
                 startActivity(intent);
+            }
+        };
+    }
+
+    public View.OnClickListener onArchiveClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // To archive fragment
+                getBaseActivity().openFragment(new FragmentArchive());
             }
         };
     }

@@ -52,22 +52,7 @@ public class FragmentHosting extends Fragment {
 
         // Adapter:
         mAdapter = new RecyclerViewAdapterMeetings(context, initData(), RecyclerViewAdapterMeetings.Mode.HOSTING);
-        mAdapter.setOnMenuListener(new RecyclerViewAdapterMeetings.OnMenuListener<String>() {
-            @Override
-            public void onPin(String obj) {
-                Toast.makeText(context,obj + " P", Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onMute(String obj) {
-                Toast.makeText(context,obj + " M", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onArchive(String obj) {
-                Toast.makeText(context,obj + " A", Toast.LENGTH_SHORT).show();
-            }
-        });
         mAdapter.setMode(Attributes.Mode.Single);
         recyclerView.setAdapter(mAdapter);
 

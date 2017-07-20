@@ -3,7 +3,6 @@ package org.unimelb.itime.ui.presenter;
 import android.content.Context;
 
 import org.unimelb.itime.base.ItimeBasePresenter;
-import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.ui.mvpview.MeetingMvpView;
 
@@ -27,7 +26,4 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
     public MeetingPresenter(Context context) {
         super(context);
     }
-
-
-
 }
