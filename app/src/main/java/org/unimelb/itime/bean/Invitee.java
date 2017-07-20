@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.greendao.annotation.Convert;
+import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.converter.PropertyConverter;
 
 import java.io.Serializable;
@@ -16,20 +17,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import david.itimecalendar.calendar.listeners.ITimeInviteeInterface;
+import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Created by yuhaoliu on 10/09/2016.
  */
+@Entity
 public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, Serializable, Parcelable {
     private static final long serialVersionUID = -7635944932445335913L;
 
-    public final static String STATUS_NEEDSACTION = "needsAction";
-    public final static String STATUS_ACCEPTED = "accepted";
-    public final static String STATUS_DECLINED = "declined";
-    public final static String USER_STATUS_ACTIVATED = "activated";
-    public final static String USER_STATUS_UNACTIVATED = "unactivated";
-    public final static String DEFAULT_NO_USER_UID = "-1";
+    public transient final static String STATUS_NEEDSACTION = "needsAction";
+    public transient final static String STATUS_ACCEPTED = "accepted";
+    public transient final static String STATUS_DECLINED = "declined";
+    public transient final static String USER_STATUS_ACTIVATED = "activated";
+    public transient final static String USER_STATUS_UNACTIVATED = "unactivated";
+    public transient final static String DEFAULT_NO_USER_UID = "-1";
 
+    /**
+     * has responded
+     */
+    public transient final static int HAS_RESPONDED = 1;
+    public transient final static int NON_HAS_RESPONDED = 0;
 
     private String eventUid = "";
     private String inviteeUid = "";
@@ -39,8 +47,24 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
     private String aliasPhoto = "";
     private String status = "";
     private String reason = "";
-    private int isHost;
     private String userStatus = "";
+    private int hasResponded = 0;
+
+    @Convert(converter = Invitee.UserConverter.class , columnType = String.class)
+    private User user = new User();
+    public static class UserConverter implements PropertyConverter<User,String> {
+        Gson gson = new Gson();
+
+        @Override
+        public User convertToEntityProperty(String databaseValue) {
+            return gson.fromJson(databaseValue, User.class);
+        }
+
+        @Override
+        public String convertToDatabaseValue(User entityProperty) {
+            return gson.toJson(entityProperty);
+        }
+    }
 
     @Override
     public String getUserStatus() {
@@ -109,6 +133,14 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
         this.userId = userId;
     }
 
+    public int getHasResponded() {
+        return hasResponded;
+    }
+
+    public void setHasResponded(int hasResponded) {
+        this.hasResponded = hasResponded;
+    }
+
     @Nullable
     @Override
     public String getPhoto() {
@@ -168,15 +200,6 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
         this.status = status;
     }
 
-    public int getIsHost() {
-        return isHost;
-    }
-
-    public void setIsHost(int isHost) {
-        this.isHost = isHost;
-    }
-
-
     @Override
     public int describeContents() {
         return 0;
@@ -192,9 +215,24 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
         dest.writeString(this.aliasPhoto);
         dest.writeString(this.status);
         dest.writeString(this.reason);
-        dest.writeInt(this.isHost);
         dest.writeString(this.userStatus);
         dest.writeList(this.inviteeTimeslot);
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<SlotResponse> getInviteeTimeslot() {
+        return this.inviteeTimeslot;
+    }
+
+    public void setInviteeTimeslot(List<SlotResponse> inviteeTimeslot) {
+        this.inviteeTimeslot = inviteeTimeslot;
     }
 
     public Invitee() {
@@ -209,10 +247,27 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
         this.aliasPhoto = in.readString();
         this.status = in.readString();
         this.reason = in.readString();
-        this.isHost = in.readInt();
         this.userStatus = in.readString();
         this.inviteeTimeslot = new ArrayList<SlotResponse>();
         in.readList(this.inviteeTimeslot, SlotResponse.class.getClassLoader());
+    }
+
+    @Generated(hash = 290903811)
+    public Invitee(String eventUid, String inviteeUid, String userUid, String userId, String aliasName,
+            String aliasPhoto, String status, String reason, String userStatus, int hasResponded, User user,
+            List<SlotResponse> inviteeTimeslot) {
+        this.eventUid = eventUid;
+        this.inviteeUid = inviteeUid;
+        this.userUid = userUid;
+        this.userId = userId;
+        this.aliasName = aliasName;
+        this.aliasPhoto = aliasPhoto;
+        this.status = status;
+        this.reason = reason;
+        this.userStatus = userStatus;
+        this.hasResponded = hasResponded;
+        this.user = user;
+        this.inviteeTimeslot = inviteeTimeslot;
     }
 
     public static final Creator<Invitee> CREATOR = new Creator<Invitee>() {
@@ -226,4 +281,5 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
             return new Invitee[size];
         }
     };
+
 }

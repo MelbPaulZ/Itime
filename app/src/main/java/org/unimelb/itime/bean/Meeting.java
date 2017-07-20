@@ -22,6 +22,8 @@ public class Meeting implements Comparable<Meeting>{
     private String createdAt = "";
     private String updatedAt = "";
 
+    @Convert(converter = Meeting.UpdateFieldConverter.class , columnType = String.class)
+    private String[] updateField = new String[]{};
 
     @Convert(converter = Meeting.EventConverter.class , columnType = String.class)
     private Event event;
@@ -30,9 +32,10 @@ public class Meeting implements Comparable<Meeting>{
     public Meeting() {
     }
 
-    @Generated(hash = 269515136)
+    @Generated(hash = 368415701)
     public Meeting(String meetingUid, String eventUid, String userUid, String info,
-            String avatar, String createdAt, String updatedAt, Event event) {
+            String avatar, String createdAt, String updatedAt, String[] updateField,
+            Event event) {
         this.meetingUid = meetingUid;
         this.eventUid = eventUid;
         this.userUid = userUid;
@@ -40,6 +43,7 @@ public class Meeting implements Comparable<Meeting>{
         this.avatar = avatar;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.updateField = updateField;
         this.event = event;
     }
 
@@ -112,6 +116,14 @@ public class Meeting implements Comparable<Meeting>{
         this.updatedAt = updatedAt;
     }
 
+    public String[] getUpdateField() {
+        return this.updateField;
+    }
+
+    public void setUpdateField(String[] updateField) {
+        this.updateField = updateField;
+    }
+
     /************ Converter
      *
      */
@@ -125,6 +137,20 @@ public class Meeting implements Comparable<Meeting>{
 
         @Override
         public String convertToDatabaseValue(Event entityProperty) {
+            return gson.toJson(entityProperty);
+        }
+    }
+
+    public static class UpdateFieldConverter implements PropertyConverter<String[] , String> {
+        Gson gson = new Gson();
+
+        @Override
+        public String[] convertToEntityProperty(String databaseValue) {
+            return gson.fromJson(databaseValue, String[].class);
+        }
+
+        @Override
+        public String convertToDatabaseValue(String[] entityProperty) {
             return gson.toJson(entityProperty);
         }
     }

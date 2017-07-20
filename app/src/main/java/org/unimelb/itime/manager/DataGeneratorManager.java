@@ -2,13 +2,20 @@ package org.unimelb.itime.manager;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Location;
 import org.unimelb.itime.bean.Meeting;
+import org.unimelb.itime.bean.PhotoUrl;
 import org.unimelb.itime.bean.User;
 import org.unimelb.itime.util.EventUtil;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -18,7 +25,12 @@ import java.util.List;
  */
 
 public class DataGeneratorManager {
+    private static final String EVENTS_FILE_NAME = "events.json";
+    private static final String MEETING_FILE_NAME = "meeting.json";
+    private static final String MEETING_LIST_FILE_NAME = "meetinglist.json";
+
     private static DataGeneratorManager ourInstance;
+    private User user;
     private Context context;
 
     public static DataGeneratorManager getInstance(Context context) {
@@ -26,6 +38,15 @@ public class DataGeneratorManager {
         if (ourInstance == null){
             ourInstance = new DataGeneratorManager(context);
             ourInstance.generateData();
+        }
+
+        return ourInstance;
+    }
+
+    public static DataGeneratorManager getInstance() {
+
+        if (ourInstance == null){
+            throw new RuntimeException("The DataGeneratorManager should be initialised with context param when calling firs time.");
         }
 
         return ourInstance;
@@ -41,13 +62,28 @@ public class DataGeneratorManager {
 
     private void initData() {
         clearDB();
-        initMeeting();
+        initUser();
+        initMeetingFromJson();
+//        initMeetingListFromJson();
+//        initMeeting();
         initEvent();
-        initContact();
+//        initContact();
     }
 
     private void clearDB(){
         DBManager.getInstance(context).clearDB();
+    }
+
+    /**
+     * Not insert to db
+     */
+    private void initUser(){
+        user = new User();
+        user.setPersonalAlias("Chuandong Yin");
+        user.setUserUid("userUid2");
+        user.setUserId("johncdyin@gmail.com");
+        user.setPhoto("http://ac-Sk9FQYeP.clouddn.com/srLVmMIBvCGXsIBnUkSdQTD");
+        user.setGender(User.MALE);
     }
 
     private void initMeeting(){
@@ -87,37 +123,42 @@ public class DataGeneratorManager {
     }
 
     private void initEvent(){
-        Calendar calendar = Calendar.getInstance();
-        List<Event> events = new ArrayList<>();
-        int[] type = {0, 1, 2};
-        int[] status = {0, 1};
-        long allDayInterval = (24 * 3600 * 1000);
-        long halfDayInterval = (12 * 3600 * 1000);
-        long interval = (3600 * 1000);
-        long startTime = calendar.getTimeInMillis();
-        long endTime;
-        for (int i = 1; i < 20; i++) {
-            endTime = startTime + interval;
-            Event event = EventUtil.getNewEvent();
-            event.setSummary("Telstra Competition Discussion");
-            event.setCoverPhoto("http://avatar.csdn.net/A/9/C/1_waldmer.jpg");
-            event.setGreeting("“We need to discuss about the next step. Please come to the meeting  ” ");
-//            event.setIsAllDay(i%2==0);
-            event.setIsAllDay(false);
-            event.setLocation(new Location());
-            event.setStartTime(startTime);
-            event.setEndTime(endTime);
-            events.add(event);
+        String json = null;
+        try {
 
-            startTime = startTime + halfDayInterval;
-            EventManager.getInstance(context).addEvent(event);
+            InputStream is = context.getAssets().open(EVENTS_FILE_NAME);
+
+            int size = is.available();
+
+            byte[] buffer = new byte[size];
+
+            is.read(buffer);
+
+            is.close();
+
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
 
+        Gson gson = new Gson();
+        Type listType = new TypeToken<List<Event>>() {}.getType();
+        List<Event> events = gson.fromJson(json, listType);
+
+
+        for (Event event :events
+             ) {
+            EventManager.getInstance(context).addEvent(event);
+        }
         DBManager.getInstance(context).insertOrReplace(events);
     }
 
     private void initContact(){
         DBManager.getInstance(context).insertOrReplace(getContacts());
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public List<Contact> getContacts(){
@@ -126,32 +167,6 @@ public class DataGeneratorManager {
         contact1.setAliasName("");
         contact1.setAliasPhoto("http://avatar.csdn.net/A/9/C/1_waldmer.jpg");
         contact1.setContactUid("1");
-
-//        Contact contact2 = new Contact();
-//        contact2.setAliasName("b");
-//        contact2.setAliasPhoto("http://avatar.csdn.net/A/9/C/1_waldmer.jpg");
-//        contact2.setContactUid("2");
-//
-//        Contact contact3 = new Contact();
-//        contact3.setAliasName("c");
-//        contact3.setAliasPhoto("http://avatar.csdn.net/A/9/C/1_waldmer.jpg");
-//        contact3.setContactUid("3");
-//
-//        Contact contact4 = new Contact();
-//        contact4.setAliasName("d");
-//        contact4.setAliasPhoto("http://avatar.csdn.net/A/9/C/1_waldmer.jpg");
-//        contact4.setContactUid("4");
-//
-//        Contact contact5 = new Contact();
-//        contact5.setAliasName("ad");
-//        contact5.setAliasPhoto("http://avatar.csdn.net/A/9/C/1_waldmer.jpg");
-//        contact5.setContactUid("5");
-//
-        contacts.add(contact1);
-//        contacts.add(contact5);
-//        contacts.add(contact2);
-//        contacts.add(contact3);
-//        contacts.add(contact4);
 
         int i=0;
         for(Contact contact:contacts){
@@ -166,5 +181,60 @@ public class DataGeneratorManager {
         }
 
         return contacts;
+    }
+
+
+    public void initMeetingFromJson(){
+        String json = null;
+        try {
+
+            InputStream is = context.getAssets().open(MEETING_FILE_NAME);
+
+            int size = is.available();
+
+            byte[] buffer = new byte[size];
+
+            is.read(buffer);
+
+            is.close();
+
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        Gson gson = new Gson();
+        Meeting meeting = gson.fromJson(json, Meeting.class);
+
+        List<Meeting> list = new ArrayList<>();
+        list.add(meeting);
+
+        DBManager.getInstance(context).insertOrReplace(list);
+    }
+
+    public void initMeetingListFromJson(){
+        String json = null;
+        try {
+
+            InputStream is = context.getAssets().open(MEETING_LIST_FILE_NAME);
+
+            int size = is.available();
+
+            byte[] buffer = new byte[size];
+
+            is.read(buffer);
+
+            is.close();
+
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        Gson gson = new Gson();
+        Type listType = new TypeToken<List<Meeting>>() {}.getType();
+        List<Meeting> meetings = gson.fromJson(json, listType);
+
+        DBManager.getInstance(context).insertOrReplace(meetings);
     }
 }

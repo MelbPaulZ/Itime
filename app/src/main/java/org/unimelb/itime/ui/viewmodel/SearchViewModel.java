@@ -16,10 +16,10 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.ui.mvpview.activity.SearchMvpView;
 import org.unimelb.itime.ui.presenter.SearchPresenter;
-import org.unimelb.itime.widget.listview.ContactInfoViewModel;
-import org.unimelb.itime.widget.listview.EventInfoViewModel;
-import org.unimelb.itime.widget.listview.MeetingInfoViewModel;
-import org.unimelb.itime.widget.listview.SpannableInfoViewModel;
+import org.unimelb.itime.ui.viewmodel.search.ContactInfoViewModel;
+import org.unimelb.itime.ui.viewmodel.search.EventInfoViewModel;
+import org.unimelb.itime.ui.viewmodel.search.MeetingInfoViewModel;
+import org.unimelb.itime.ui.viewmodel.search.SpannableInfoViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

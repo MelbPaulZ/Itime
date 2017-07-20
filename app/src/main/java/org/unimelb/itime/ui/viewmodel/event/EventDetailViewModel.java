@@ -11,7 +11,6 @@ import android.graphics.drawable.LayerDrawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -25,6 +24,7 @@ import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.ui.mvpview.event.EventDetailMvpView;
 import org.unimelb.itime.ui.presenter.event.EventDetailPresenter;
 import org.unimelb.itime.util.AppUtil;
+import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.widget.OnRecyclerItemClickListener;
 import org.unimelb.itime.widget.PhotoViewLayout;
 import org.unimelb.itime.widget.ScalableLayout;
@@ -84,7 +84,7 @@ public class EventDetailViewModel extends BaseObservable{
 
     @Bindable
     public boolean isArchived() {
-        return event.isArchive();
+        return event.isArchived();
     }
 
     @Bindable
@@ -287,7 +287,7 @@ public class EventDetailViewModel extends BaseObservable{
 
     private void generateTimeSlotItems(){
         List<EventDetailTimeslotViewModel> timeSlotsItems = new ArrayList<>();
-        for(TimeSlot timeSlot:event.getTimeslots()){
+        for(TimeSlot timeSlot:event.getTimeslot().values()){
             EventDetailTimeslotViewModel vm = new EventDetailTimeslotViewModel(context);
             vm.setTimeSlot(timeSlot);
             timeSlotsItems.add(vm);
@@ -650,15 +650,15 @@ public class EventDetailViewModel extends BaseObservable{
         setPhotoUrls(event.getPhotos());
 
         ArrayList<String> photos = new ArrayList<>();
-        for(Invitee invitee:event.getInvitees()){
-            if(invitee.getIsHost()==1){
+        for(Invitee invitee:event.getInvitee().values()){
+            if(EventUtil.isHost(event)){
                 setHost(invitee);
             }
             photos.add(invitee.getPhoto());
         }
         setAvatarList(photos);
         setCalendarType("iTime");
-        setTimeSlots(event.getTimeslots());
+        setTimeSlots(new ArrayList<>(event.getTimeslot().values()));
         selectedTimeSlots.clear();
         setShowTimeSlotSheet(true);
         setTimeSlotBottomSheetButtonVisibilities();

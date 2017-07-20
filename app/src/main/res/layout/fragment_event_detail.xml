@@ -662,7 +662,7 @@
 
         </RelativeLayout>
 
-        <!--statusbar archive part-->
+        <!--statusbar archived part-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_detail_cell_height"

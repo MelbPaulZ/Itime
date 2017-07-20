@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.sundeepk.compactcalendarview.ITimeTimeslotCalendar;
-
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
@@ -25,7 +23,9 @@ import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import david.itimecalendar.calendar.listeners.ITimeCalendarTimeslotViewListener;
 import david.itimecalendar.calendar.ui.monthview.DayViewBody;
@@ -33,7 +33,6 @@ import david.itimecalendar.calendar.ui.unitviews.DraggableTimeSlotView;
 import david.itimecalendar.calendar.ui.unitviews.RecommendedSlotView;
 import david.itimecalendar.calendar.ui.weekview.TimeSlotView;
 import david.itimecalendar.calendar.util.MyCalendar;
-import david.itimecalendar.calendar.wrapper.WrapperTimeSlot;
 
 /**
  * Created by yuhaoliu on 8/06/2017.
@@ -89,7 +88,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
     public void onNext() {
         Fragment fragment = getFrom();
         if (fragment instanceof FragmentEventCreate){
-            event.setTimeslots(selectedTimeslots);
+            event.setTimeslot(selectedTimeslotsMap);
             ((FragmentEventCreate) fragment).setEvent(event);
         }
         getFragmentManager().popBackStack();
@@ -128,7 +127,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
     private int selectCount = 0;
     private int total = 7;
 
-    private List<TimeSlot> selectedTimeslots = new ArrayList<>();
+    private Map<String, TimeSlot> selectedTimeslotsMap = new HashMap<>();
 
     private void updateTitle(){
         toolbarVM.setTitle(String.format(getString(R.string.toolbar_timeslots_select), selectCount, total));
@@ -143,7 +142,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
             timeSlotView.addTimeSlot(newSlot);
 
             selectCount++;
-            selectedTimeslots.add(newSlot);
+            selectedTimeslotsMap.put(newSlot.getTimeslotUid(),newSlot);
             updateTitle();
         }
 
@@ -159,7 +158,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
             newSlot.setEndTime(draggableTimeSlotView.getNewEndTime());
             timeSlotView.addTimeSlot(newSlot);
 
-            selectedTimeslots.add(newSlot);
+            selectedTimeslotsMap.put(newSlot.getTimeslotUid(),newSlot);
             selectCount++;
             updateTitle();
 
@@ -180,7 +179,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
             timeSlotView.addTimeSlot(newSlot);
 
             selectCount++;
-            selectedTimeslots.add(newSlot);
+            selectedTimeslotsMap.put(newSlot.getTimeslotUid(),newSlot);
             updateTitle();
 
 
@@ -214,7 +213,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
 
             selectCount--;
             updateTitle();
-            selectedTimeslots.remove(draggableTimeSlotView.getTimeslot());
+            selectedTimeslotsMap.remove(draggableTimeSlotView.getTimeslot().getTimeslotUid());
         }
 
         @Override

@@ -1,10 +1,11 @@
-package org.unimelb.itime.widget.listview;
+package org.unimelb.itime.ui.viewmodel.search;
 
 import android.databinding.Bindable;
 import android.text.SpannableString;
 
 import org.unimelb.itime.BR;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.ui.viewmodel.search.SpannableInfoViewModel;
 import org.unimelb.itime.util.EventUtil;
 
 /**
@@ -43,7 +44,7 @@ public class EventInfoViewModel extends SpannableInfoViewModel {
 
     @Bindable
     public SpannableString getTimeStr() {
-        return changeMatchColor(EventUtil.getEventDateStr(event), getMatchStr());
+        return new SpannableString(EventUtil.getEventDateStr(event));
     }
 
     public void setTimeStr(SpannableString timeStr) {

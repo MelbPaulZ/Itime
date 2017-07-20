@@ -1,38 +1,66 @@
 package org.unimelb.itime.ui.viewmodel.meeting;
 
+import android.content.Context;
+
+import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.ui.fragment.meeting.RecyclerViewAdapterMeetings;
+import org.unimelb.itime.util.EventUtil;
 
 /**
  * Created by yuhaoliu on 26/06/2017.
  */
 
-public class MeetingHostingDetailCardViewModel extends MeetingBaseCardViewModel {
+public class MeetingHostingDetailCardViewModel extends MeetingHostingBaseCardViewModel {
+    //int[] {goingNum, notGoingNum, votedNum, cantGoNum, noReplyNum}
+    private int[] inviteeVotedStatus;
 
-    public MeetingHostingDetailCardViewModel(RecyclerViewAdapterMeetings.Mode mode) {
-        super(mode);
+    public MeetingHostingDetailCardViewModel(Context context, RecyclerViewAdapterMeetings.Mode mode) {
+        super(context, mode);
+    }
+
+    @Override
+    public void setMeeting(Meeting meeting) {
+        super.setMeeting(meeting);
+        inviteeVotedStatus = EventUtil.getMeetingVotedStatus(meeting.getEvent());
     }
 
     public String getLabelName_1(){
-        return "Vote";
+        boolean confirmed = meeting.getEvent().getStatus().equals(Event.STATUS_CONFIRMED);
+        return  confirmed ? "Going":"Voted";
     }
 
     public String getLabelValue_1(){
-        return "1";
+        boolean confirmed = meeting.getEvent().getStatus().equals(Event.STATUS_CONFIRMED);
+        return  "" + (confirmed ?
+                inviteeVotedStatus[0]
+                :
+                inviteeVotedStatus[2]);
     }
 
     public String getLabelName_2(){
-        return "Vote";
+        boolean confirmed = meeting.getEvent().getStatus().equals(Event.STATUS_CONFIRMED);
+        return  confirmed ? "Not Going":"Can't go";
     }
 
     public String getLabelValue_2(){
-        return "2";
+        boolean confirmed = meeting.getEvent().getStatus().equals(Event.STATUS_CONFIRMED);
+        return  "" + (confirmed ?
+                inviteeVotedStatus[1]
+                :
+                inviteeVotedStatus[3]);
     }
 
     public String getLabelName_3(){
-        return "Vote";
+        boolean confirmed = meeting.getEvent().getStatus().equals(Event.STATUS_CONFIRMED);
+        return  confirmed ? "No reply":"No reply";
     }
 
     public String getLabelValue_3(){
-        return "3";
+        boolean confirmed = meeting.getEvent().getStatus().equals(Event.STATUS_CONFIRMED);
+        return  "" + (confirmed ?
+                inviteeVotedStatus[4]
+                :
+                inviteeVotedStatus[4]);
     }
 }

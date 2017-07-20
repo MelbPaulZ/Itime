@@ -21,6 +21,7 @@ import org.unimelb.itime.util.EventUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -102,7 +103,6 @@ public class FragmentComing extends Fragment {
     private List<Meeting> getDisplayData(){
         long todayBegin = EventUtil.getDayBeginMilliseconds(Calendar.getInstance().getTimeInMillis());
 
-//        Map<Long, List<ITimeEventInterface>> eventMap = new HashMap<>();
         List<ITimeEventInterface> eventSet = new ArrayList<>();
 
         Map<Long, List<ITimeEventInterface>> regularMap = eventsPackage.getRegularEventDayMap();
@@ -114,11 +114,6 @@ public class FragmentComing extends Fragment {
             List<ITimeEventInterface> events = entry.getValue();
             if (key >= todayBegin){
                 eventSet.addAll(events);
-//                if (eventMap.containsKey(key)){
-//                    eventMap.get(key).addAll(events);
-//                }else {
-//                    eventMap.put(key, events);
-//                }
             }
         }
         // extract repeated events
@@ -127,11 +122,6 @@ public class FragmentComing extends Fragment {
             List<ITimeEventInterface> events = entry.getValue();
             if (key >= todayBegin){
                 eventSet.addAll(events);
-//                if (eventMap.containsKey(key)){
-//                    eventMap.get(key).addAll(events);
-//                }else {
-//                    eventMap.put(key, events);
-//                }
             }
         }
 

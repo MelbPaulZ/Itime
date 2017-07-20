@@ -71,7 +71,7 @@ public class MeetingMenu1ViewModel extends BaseObservable {
 
     public Drawable getPinIconSrc(Context context){
         return context.getResources().getDrawable(
-                meeting.getEvent().isPin() ?
+                meeting.getEvent().isPinned() ?
                         R.drawable.icon_meetings_swipeleft_unpin
                         :
                         R.drawable.icon_meetings_swipeleft_pin);
@@ -87,7 +87,7 @@ public class MeetingMenu1ViewModel extends BaseObservable {
 
     public Drawable getArchiveIconSrc(Context context){
         return context.getResources().getDrawable(
-                meeting.getEvent().isArchive() ?
+                meeting.getEvent().isArchived() ?
                         R.drawable.icon_meetings_swipeleft_archive
                         :
                         R.drawable.icon_meetings_swipeleft_archive);
@@ -95,10 +95,10 @@ public class MeetingMenu1ViewModel extends BaseObservable {
 
     public String getPinIconText(Context context){
         return context.getResources().getString(
-                meeting.getEvent().isPin() ?
+                meeting.getEvent().isPinned() ?
                         R.string.unpin
                         :
-                        R.string.pin);
+                        R.string.pinned);
     }
 
     public String getMuteIconText(Context context){
@@ -111,9 +111,9 @@ public class MeetingMenu1ViewModel extends BaseObservable {
 
     public String getArchiveIconText(Context context){
         return context.getResources().getString(
-                meeting.getEvent().isArchive() ?
-                        R.string.archive
+                meeting.getEvent().isArchived() ?
+                        R.string.archived
                         :
-                        R.string.archive);
+                        R.string.archived);
     }
 }

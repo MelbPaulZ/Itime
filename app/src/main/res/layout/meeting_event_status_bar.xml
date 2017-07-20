@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -32,7 +33,7 @@
                 android:layout_height="20dp"
                 android:src="@drawable/icon_meetings_pinned"
                 android:layout_marginEnd="3dp"
-                android:visibility="@{vm.meeting.getEvent().isPin ? View.VISIBLE : View.GONE}"
+                android:visibility="@{vm.meeting.getEvent().isPinned ? View.VISIBLE : View.GONE}"
                 android:id="@+id/icon_pin"/>
 
             <ImageView
@@ -74,7 +75,9 @@
                     android:background="@{vm.getEventStatusDrawable(context)}"
                     android:id="@+id/event_status_text"
                     android:textSize="14sp"
-                    android:text="@{vm.getEventStatusText(context)}"/>
+                    android:text="@{vm.getEventStatusText(context)}"
+                    app:bg_color="@{vm.getEventStatusColor}"
+                    />
             </LinearLayout>
         </LinearLayout>
 

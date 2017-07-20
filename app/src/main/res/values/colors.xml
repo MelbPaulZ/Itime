@@ -71,7 +71,7 @@
     <color name="lightGrey">#EFEFEF</color>
     <!--meeting-->
     <color name="meeting_bg">#F5F5F5</color>
-    <color name="text_meetingtime">#BDBDBD</color>
+    <color name="meeting_time">#BDBDBD</color>
     <color name="meeting_dash">#bdbdbd</color>
     <color name="meeting_border">#eeeeee</color>
     <color name="text_indication">#BDBDBD</color>

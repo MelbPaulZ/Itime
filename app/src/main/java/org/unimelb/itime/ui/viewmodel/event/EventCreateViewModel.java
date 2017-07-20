@@ -22,14 +22,11 @@ import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.util.EventUtil;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import david.itimecalendar.calendar.listeners.ITimeEventInterface;
-import david.itimecalendar.calendar.util.BaseUtil;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
 /**
@@ -165,7 +162,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     }
 
     public int getAddTimeslotVisibility(Event event){
-        return event.getTimeslots()==null || event.getTimeslots().size()==0? View.VISIBLE:View.GONE;
+        return event.getTimeslot()==null || event.getTimeslot().size()==0? View.VISIBLE:View.GONE;
     }
 
     public int getTimeslotsVisibility(Event event){
@@ -173,10 +170,10 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     }
 
     public String getTimeslotsString(Event event){
-        if (event.getTimeslots()==null){
+        if (event.getTimeslot()==null){
             return "";
         }
-        return String.format(presenter.getContext().getString(R.string.event_candidate_timeslots), event.getTimeslots().size());
+        return String.format(presenter.getContext().getString(R.string.event_candidate_timeslots), event.getTimeslot().size());
     }
 
 
@@ -184,17 +181,17 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
      * **/
 
 
-    private List<TimeslotLineViewModel> timeslots = new ArrayList<>();
+    private List<TimeslotLineViewModel> timeslot = new ArrayList<>();
     private ItemBinding<TimeslotLineViewModel> onItemBind = ItemBinding.of(BR.timeslotVM, R.layout.row_timeslot);
 
     @Bindable
-    public List<TimeslotLineViewModel> getTimeslots() {
-        return timeslots;
+    public List<TimeslotLineViewModel> getTimeslot() {
+        return timeslot;
     }
 
-    public void setTimeslots(List<TimeslotLineViewModel> timeslots) {
-        this.timeslots = timeslots;
-        notifyPropertyChanged(BR.timeslots);
+    public void setTimeslot(List<TimeslotLineViewModel> timeslot) {
+        this.timeslot = timeslot;
+        notifyPropertyChanged(BR.timeslot);
     }
 
     @Bindable
@@ -209,14 +206,14 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
 
 
     private void resetTimeslots(){
-        if (event.getTimeslots()==null||event.getTimeslots().size()==0){
+        if (event.getTimeslot()==null||event.getTimeslot().size()==0){
             return;
         }
         List<TimeslotLineViewModel> timeslotLineViewModels = new ArrayList<>();
-        for (TimeSlot timeSlot: event.getTimeslots()){
+        for (TimeSlot timeSlot: event.getTimeslot().values()){
             timeslotLineViewModels.add(new TimeslotLineViewModel(presenter.getContext(), timeSlot));
         }
-        setTimeslots(timeslotLineViewModels);
+        setTimeslot(timeslotLineViewModels);
 
     }
 

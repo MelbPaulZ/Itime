@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 
 import org.unimelb.itime.R;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Meeting;
+import org.unimelb.itime.bean.User;
 import org.unimelb.itime.databinding.MeetingHostingItemDetailsBinding;
 import org.unimelb.itime.databinding.MeetingHostingItemMessageBinding;
 import org.unimelb.itime.databinding.MeetingInvitationItemDetailedBinding;
@@ -20,6 +22,7 @@ import org.unimelb.itime.ui.viewmodel.meeting.MeetingHostingMsgCardViewModel;
 import org.unimelb.itime.ui.viewmodel.meeting.MeetingInvitationDetailCardViewModel;
 import org.unimelb.itime.ui.viewmodel.meeting.MeetingInvitationMsgCardViewModel;
 import org.unimelb.itime.ui.viewmodel.meeting.MeetingMenu1ViewModel;
+import org.unimelb.itime.util.EventUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -96,34 +99,36 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder holder = null;
+        Context context = parent.getContext();
+
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         switch (viewType){
             case INVITATION_DETAILS:{
                 MeetingInvitationItemDetailedBinding binding = DataBindingUtil.inflate(layoutInflater,R.layout.meeting_invitation_item_detailed,parent,false);
                 holder = new InvitationDetailsViewHolder(binding);
                 binding.setVmMenu1(new MeetingMenu1ViewModel());
-                binding.setVmDetail(new MeetingInvitationDetailCardViewModel(mode));
+                binding.setVmDetail(new MeetingInvitationDetailCardViewModel(context,mode));
                 break;
             }
             case INVITATION_MESSAGE:{
                 MeetingInvitationItemMessageBinding binding = DataBindingUtil.inflate(layoutInflater,R.layout.meeting_invitation_item_message,parent,false);
                 holder = new InvitationMessageViewHolder(binding);
                 binding.setVmMenu1(new MeetingMenu1ViewModel());
-                binding.setVmMsg(new MeetingInvitationMsgCardViewModel(mode));
+                binding.setVmMsg(new MeetingInvitationMsgCardViewModel(context,mode));
                 break;
             }
             case HOSTING_DETAILS:{
                 MeetingHostingItemDetailsBinding binding = DataBindingUtil.inflate(layoutInflater,R.layout.meeting_hosting_item_details,parent,false);
                 holder = new HostingDetailsViewHolder(binding);
                 binding.setVmMenu1(new MeetingMenu1ViewModel());
-                binding.setVmDetail(new MeetingHostingDetailCardViewModel(mode));
+                binding.setVmDetail(new MeetingHostingDetailCardViewModel(context,mode));
                 break;
             }
             case HOSTING_MESSAGE:{
                 MeetingHostingItemMessageBinding binding = DataBindingUtil.inflate(layoutInflater,R.layout.meeting_hosting_item_message,parent,false);
                 holder = new HostingMessageViewHolder(binding);
                 binding.setVmMenu1(new MeetingMenu1ViewModel());
-                binding.setVmMsg(new MeetingHostingMsgCardViewModel(mode));
+                binding.setVmMsg(new MeetingHostingMsgCardViewModel(context,mode));
                 break;
             }
             default:
@@ -135,7 +140,6 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         int type = viewHolder.getItemViewType();
-        Log.i("adapter", "onBindViewHolder: " + position);
         final Meeting meeting = mDataset.get(position);
 
         switch (type){
@@ -237,33 +241,25 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
 
     @Override
     public int getItemViewType(int position) {
+        Meeting meeting = mDataset.get(position);
+        Event event = meeting.getEvent();
+        boolean isCancelled = event.getStatus().equals(Event.STATUS_CANCELLED);
+        boolean isHost = EventUtil.isHost(event);
 
-//        if (mode == Mode.INVITATION){
-//            return ;
-//        }
-
-//        if (mode == Mode.HOSTING){
-//            return ;
-//        }
-//
-//        if (mode == Mode.COMING){
-//            return ;
-//        }
-
-        if (position%4 == 0){
-            return  HOSTING_DETAILS;
+        if (mode == Mode.INVITATION){
+            return isCancelled ? INVITATION_MESSAGE : INVITATION_DETAILS;
         }
 
-        if (position%4 == 1){
-            return  HOSTING_MESSAGE;
+        if (mode == Mode.HOSTING){
+            return isCancelled ? HOSTING_MESSAGE : HOSTING_DETAILS;
         }
 
-        if (position%4 == 2){
-            return  INVITATION_DETAILS;
-        }
-
-        if (position%4 == 3){
-            return  INVITATION_MESSAGE;
+        if (mode == Mode.COMING){
+            if (isHost){
+                return isCancelled ? HOSTING_MESSAGE : HOSTING_DETAILS;
+            }else{
+                return isCancelled ? INVITATION_MESSAGE : INVITATION_DETAILS;
+            }
         }
 
         return -1;

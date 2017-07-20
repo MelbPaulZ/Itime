@@ -1,5 +1,6 @@
 package org.unimelb.itime.ui.viewmodel.meeting;
 
+import android.content.Context;
 import android.view.View;
 
 import org.unimelb.itime.ui.fragment.meeting.RecyclerViewAdapterMeetings;
@@ -8,10 +9,10 @@ import org.unimelb.itime.ui.fragment.meeting.RecyclerViewAdapterMeetings;
  * Created by yuhaoliu on 26/06/2017.
  */
 
-public class MeetingHostingMsgCardViewModel extends MeetingBaseCardViewModel {
+public class MeetingHostingMsgCardViewModel extends MeetingHostingBaseCardViewModel {
 
-    public MeetingHostingMsgCardViewModel(RecyclerViewAdapterMeetings.Mode mode) {
-        super(mode);
+    public MeetingHostingMsgCardViewModel(Context context, RecyclerViewAdapterMeetings.Mode mode) {
+        super(context,mode);
     }
 
     public String getSubTitle(){

@@ -103,7 +103,4 @@ public class DBManager {
             ((AbstractDao) (daoMaster.newSession()).getDao(obj.getClass())).insertOrReplace(obj);
         }
     }
-
-
-
 }

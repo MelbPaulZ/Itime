@@ -27,7 +27,7 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/updated_time_text"
-                android:textColor="@color/text_meetingtime"
+                android:textColor="@color/meeting_time"
                 android:layout_gravity="end"
                 android:textSize="11sp"
                 android:gravity="end"
@@ -43,7 +43,7 @@
                 android:textSize="19sp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textColor="@color/text_meetingtime"
+                android:textColor="@color/meeting_time"
                 android:text="@{vm.getTitle}"/>
 
             <TextView
@@ -52,7 +52,7 @@
                 android:gravity="start"
                 android:textSize="19sp"
                 android:id="@+id/subTitle_text"
-                android:textColor="@color/text_meetingtime"
+                android:textColor="@color/meeting_time"
                 android:text="@{vm.getSubTitle}"/>
         </LinearLayout>
 

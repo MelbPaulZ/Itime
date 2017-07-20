@@ -1,0 +1,198 @@
+{
+	    "meetingUid" : 1,
+	    "eventUid" : "147622845299714",
+	    "userUid" : 1,
+	    "info" : "",
+	    "updateField" : ["Location","Timeslot"],
+	    "createdAt" : "",
+	    "updatedAt" : "",
+	    "event" :
+	    {
+		    "id": "",
+		    "recurrence": ["RRULE:FREQ=DAILY;INTERVAL=1;UNTIL=20180827"],
+		    "status": "pending",
+		    "summary": "New Event(Not an all day event)",
+		    "reason":"",
+		    "description": "description of Three People Meeting",
+		    "note":"",
+		    "url": "http://www.google.com.au",
+		    "location": {
+		      "locationString1":"Doug McDonell Building",
+		      "locationString2":"168, The University of Melbourne, Grattan St,Parkville, VIC, Australia",
+		      "locationNote": "note:168 Mc building",
+		      "locationLatitude": "24.00234823",
+		      "locationLongitude": "128.00234823"
+		    },
+		    "reminder": 15,
+		    "source": "itime",
+		    "eventUid": "recurring_group_1",
+		    "calendarUid": "1",
+		    "recurringEventUid": "",
+		    "host": "inviteeUid1",
+		    "self": "inviteeUid1",
+		    "hostUserUid": "userUid1",
+		    "userUid": "userUid1",
+		    "eventType": "group",
+		    "inviteeVisibility": 1,
+		    "freebusyAccess": 0,
+		    "showLevel": 1,
+		    "deleteLevel": 0,
+		    "createdAt": "2017-08-23 02:20:47",
+		    "updatedAt": "2017-08-23 02:20:48",
+		    "photo": [],
+		    "coverPhoto":"",
+		    "isAllDay": false,
+		    "isPinned": true,
+		    "isMute": true,
+		    "isArchived": true,
+		    "extra": "",
+		    "start": {
+		        "dateTime": "2017-08-23T12:25:00+10:00",
+		        "timeZone": "Australia/Sydney"
+		    },
+		    "end": {
+		        "dateTime": "2017-08-23T13:25:00+10:00",
+		        "timeZone": "Australia/Sydney"
+		    },
+		    "duration":60,
+		    "greeting":"Welcome to the meeting!",
+		    "invitee": {
+		        "inviteeUid1": {
+		            "inviteeUid": "inviteeUid1",
+		            "eventUid": "recurring_group_1",
+		            "userUid": "userUid1",
+		            "userId": "johncdyin@gmail.com",
+		            "status": "accepted",
+		            "reason": "",
+		            "hasResponded": 1,
+		            "contact": {},
+		            "user": {
+		                "userUid": "userUid1",
+		                "userId": "johncdyin@gmail.com",
+		                "personalAlias": "x",
+		                "gender": 2,
+		                "email": "johncdyin@gmail.com",
+		                "phone": "",
+		                "photo": "http://ac-Sk9FQYeP.clouddn.com/srLVmMIBvCGXsIBnUkSdQTD",
+		                "region": ""
+		            }
+		        },
+		        "inviteeUid2": {
+		            "inviteeUid": "inviteeUid2",
+		            "eventUid": "recurring_group_1",
+		            "userUid": "userUid2",
+		            "userId": "xiaojiew@gmail.com",
+		            "status": "needsAction",
+		            "reason": "",
+		            "hasResponded": 1,
+		            "contact": {
+		                  "relationship": 2,
+		                  "source": "itime",
+		                  "note": "",
+		                  "status": "activated",
+		                  "userUid": "userUid1",
+		                  "contactUid": "userUid2",
+		                  "ratingVisibility": 0,
+		                  "eventVisibility": 1,
+		                  "aliasName": "Xiaojie Wang",
+		                  "aliasPhoto": "http://dev.timegenii.com/api/user/default_photo/2?default=Xiaojie+Wang",
+		                  "catchupCount": 0,
+		                  "nextCatchupTime": 0,
+		                  "lastCatchupTime": 0,
+		                  "createdAt": "2017-08-13 06:27:12",
+		                  "updatedAt": "2017-08-23 01:57:20",
+		                  "blockLevel": 0
+		            },
+		            "user": {
+		                  "userUid": "userUid2",
+		                  "userId": "xiaojiew@gmail.com",
+		                  "personalAlias": "xiaojiew",
+		                  "gender": 2,
+		                  "email": "xiaojiew@gmail.com",
+		                  "phone": "",
+		                  "photo": "http://ac-Sk9FQYeP.clouddn.com/srLVmMIBvCGXsIBnUkSdQTD",
+		                  "region": ""
+		            }
+		        }
+		    },
+
+		    "timeslot": {
+		        "timeslotUid1": {
+		            "timeslotUid": "timeslotUid1",
+		            "eventUid": "recurring_group_1",
+		            "start": {
+		                "dateTime": "2017-08-23T12:25:00+10:00",
+		                "timeZone": "Australia/Sydney"
+		            },
+		            "end": {
+		                "dateTime": "2017-08-23T13:25:00+10:00",
+		                "timeZone": "Australia/Sydney"
+		            },
+		            "acceptedNum": 1,
+		            "rejectedNum": 0,
+		            "pendingNum": 1,
+		            "totalNum": 2,
+		            "isConfirmed": 0,
+		            "isSystemSuggested": 0
+		        },
+		        "timeslotUid2": {
+		            "timeslotUid": "timeslotUid2",
+		            "eventUid": "recurring_group_1",
+		            "start": {
+		                "dateTime": "2017-06-20T13:00:00+10:00",
+		                "timeZone": "Australia/Sydney"
+		            },
+		            "end": {
+		                "dateTime": "2017-06-20T14:00:00+10:00",
+		                "timeZone": "Australia/Sydney"
+		            },
+		            "acceptedNum": 1,
+		            "rejectedNum": 0,
+		            "pendingNum": 1,
+		            "totalNum": 2,
+		            "isConfirmed": 0,
+		            "isSystemSuggested": 0
+		        }
+		    },
+
+		    "timeslotInvitee": {
+		        "timeslotUid1": {
+		            "inviteeUid1": {
+		                "status": "accepted",
+		                "rate": 1,
+		                "timeslotUid": "timeslotUid1",
+		                "inviteeUid": "inviteeUid1",
+		                "eventUid": "recurring_group_1",
+		                "userUid": "userUid1"
+		            },
+		            "inviteeUid2": {
+		                "status": "pending",
+		                "rate": 1,
+		                "timeslotUid": "timeslotUid1",
+		                "inviteeUid": "inviteeUid2",
+		                "eventUid": "recurring_group_1",
+		                "userUid": "userUid2"
+		            }
+		        },
+
+		        "timeslotUid2": {
+		            "inviteeUid1": {
+		                "status": "accepted",
+		                "rate": 1,
+		                "timeslotUid": "timeslotUid2",
+		                "inviteeUid": "inviteeUid1",
+		                "eventUid": "recurring_group_1",
+		                "userUid": "userUid1"
+		            },
+		            "inviteeUid2": {
+		                "status": "pending",
+		                "rate": 1,
+		                "timeslotUid": "timeslotUid2",
+		                "inviteeUid": "inviteeUid2",
+		                "eventUid": "recurring_group_1",
+		                "userUid": "userUid2"
+		            }
+		        }
+		    }
+		}
+	}

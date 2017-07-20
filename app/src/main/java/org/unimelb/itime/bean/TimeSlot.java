@@ -3,6 +3,8 @@ package org.unimelb.itime.bean;
 
 import android.support.annotation.NonNull;
 
+import org.unimelb.itime.util.AppUtil;
+
 import java.io.Serializable;
 
 import david.itimecalendar.calendar.listeners.ITimeTimeSlotInterface;
@@ -16,7 +18,7 @@ public class TimeSlot implements ITimeTimeSlotInterface<TimeSlot>,Serializable {
     public final static String STATUS_ACCEPTED = "accepted";
     public final static String STATUS_REJECTED = "rejected";
 
-    private String timeslotUid = ""; //
+    private String timeslotUid = AppUtil.generateUuid(); //
     private String eventUid = ""; //
     private String userUid = "";
     private long startTime; //

@@ -6,12 +6,7 @@ import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.RequestCreator;
 
 import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
@@ -23,19 +18,19 @@ import org.unimelb.itime.util.EventUtil;
 import java.util.Calendar;
 import java.util.List;
 
-import jp.wasabeef.picasso.transformations.CropCircleTransformation;
-
 /**
  * Created by yuhaoliu on 27/06/2017.
  */
 
 public class MeetingBaseCardViewModel extends BaseObservable {
-    private List<Meeting> meetings;
-    private Meeting meeting;
+    protected List<Meeting> meetings;
+    protected Meeting meeting;
+    protected Context context;
     protected RecyclerViewAdapterMeetings.Mode mode;
 
-    public MeetingBaseCardViewModel(RecyclerViewAdapterMeetings.Mode mode) {
+    public MeetingBaseCardViewModel(Context context, RecyclerViewAdapterMeetings.Mode mode) {
         this.mode = mode;
+        this.context = context;
     }
 
     @Bindable
@@ -52,81 +47,8 @@ public class MeetingBaseCardViewModel extends BaseObservable {
         this.meetings = meetings;
     }
 
-    public String getSysMsg(){
-        return meeting.getInfo();
-    }
-
-    public Drawable getIconSrc(Context context){
-        // TODO: 27/06/2017 logic for icon
-        return context.getResources().getDrawable(R.drawable.icon_meetings_vote);
-    }
-
-    public int getIconTextColor(){
-        return R.color.white;
-    }
-
-    public String getIconText(){
-        return "Vote";
-    }
-
-    public String getTitle(){
-        return meeting.getEvent().getSummary();
-    }
-
-    public String getGreeting(){
-        return meeting.getEvent().getGreeting();
-    }
-
-    public String getUpdatedTimeStr(){
-        return "5:20 pm";
-    }
-
-    public String getReminderTimeStr(){
-        return "In 2d 2h";
-    }
-
-    public String getProfilePhotoUrl(){
-        return "https://pmcdeadline2.files.wordpress.com/2016/06/angelababy.jpg";
-    }
-
-    public enum PictureMode{
-        CIRCLE, DEFAULT
-    }
-
-//    @BindingAdapter({"bind:imageUrl"})
-    @BindingAdapter( value={"imageUrl", "pictureMode"}, requireAll=false)
-    public static void loadImage(ImageView view, String imageUrl, @Nullable PictureMode pictureMode) {
-        RequestCreator creator = Picasso.with(view.getContext())
-                .load(imageUrl)
-                .placeholder(R.drawable.default_image);
-
-        if (pictureMode == null || pictureMode == PictureMode.DEFAULT){
-            // no transform
-        }else if (pictureMode == PictureMode.CIRCLE){
-            creator.transform(new CropCircleTransformation());
-        }
-
-        creator.into(view);
-    }
-
-    public int getStatusBlockVisibility(){
-        if (mode == RecyclerViewAdapterMeetings.Mode.COMING){
-            return View.GONE;
-        }
-
-        return View.VISIBLE;
-    }
-
-    public int getEventStatusVisibility(){
-        if (mode == RecyclerViewAdapterMeetings.Mode.HOSTING){
-            return View.VISIBLE;
-        }
-
-        return View.GONE;
-    }
-
-    public String getEventStatusText(Context context){
-        return context.getResources().getString(R.string.event_status_pending);
+    public boolean getSwipeEnable(){
+        return mode != RecyclerViewAdapterMeetings.Mode.COMING;
     }
 
     public int getDateTextVisibility(){
@@ -164,15 +86,68 @@ public class MeetingBaseCardViewModel extends BaseObservable {
         return EventUtil.getEventDateStr(event);
     }
 
+
+    public String getUpdatedTimeStr(){
+        return "5:20 pm";
+    }
+
+    public String getReminderTimeStr(){
+        return "In 2d 2h";
+    }
+
+    public int getStatusBlockVisibility(){
+        if (mode == RecyclerViewAdapterMeetings.Mode.COMING){
+            return View.GONE;
+        }
+
+        return View.VISIBLE;
+    }
+
+    public int getEventStatusVisibility(){
+        if (mode == RecyclerViewAdapterMeetings.Mode.HOSTING){
+            return View.VISIBLE;
+        }
+
+        return View.GONE;
+    }
+
+    public String getEventStatusText(Context context){
+        String status = meeting.getEvent().getStatus();
+        if (status.equals(Event.STATUS_CONFIRMED)){
+            return context.getResources().getString(R.string.event_status_confirmed);
+        }else if (status.equals(Event.STATUS_PENDING)){
+            return context.getResources().getString(R.string.event_status_pending);
+        }else if (status.equals(Event.STATUS_CANCELLED)){
+            return context.getResources().getString(R.string.event_status_cancel);
+        }
+
+        return "N/A";
+    }
+
+    public int getEventStatusColor(){
+        String status = meeting.getEvent().getStatus();
+        int color = 0;
+
+        switch (status) {
+            case Event.STATUS_CONFIRMED:
+                color = R.color.brand_main;
+                break;
+            case Event.STATUS_PENDING:
+                color = R.color.brand_highlight;
+                break;
+            case Event.STATUS_CANCELLED:
+                color = R.color.shadow_onwhite;
+                break;
+        }
+
+        return color;
+    }
+
     public Drawable getEventStatusDrawable(Context context){
         GradientDrawable drawable = (GradientDrawable)context.getResources().getDrawable(R.drawable.itime_round_corner_card_status_bg);
         drawable.mutate();
         drawable.setColor(context.getResources().getColor(R.color.brand_main));
         return drawable;
-    }
-
-    public boolean getSwipeEnable(){
-        return mode != RecyclerViewAdapterMeetings.Mode.COMING;
     }
 
     public boolean isRepeated(){
@@ -181,5 +156,12 @@ public class MeetingBaseCardViewModel extends BaseObservable {
         }
 
         return true;
+    }
+
+    @BindingAdapter( value={"bg_color"}, requireAll=false)
+    public static void changeBgDrawableColor(View view, int color) {
+        GradientDrawable db = (GradientDrawable) view.getBackground();
+        db.mutate();
+        db.setColor(view.getContext().getResources().getColor(color));
     }
 }

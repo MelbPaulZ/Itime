@@ -17,11 +17,14 @@ import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ItimeBaseMvpView;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.databinding.FragmentCreateEventAddInviteeBinding;
 import org.unimelb.itime.ui.mvpview.event.EventCreateAddInviteeMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.event.EventCreateAddInviteeViewModel;
+
+import java.util.ArrayList;
 
 /**
  * Created by Qiushuo Huang on 2017/6/21.
@@ -116,7 +119,7 @@ public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreate
         if(addContactFragment==null){
             addContactFragment = new FragmentEventCreateAddContact();
         }
-        addContactFragment.setInvitees(contentVM.getInvitees());
+        addContactFragment.setInvitees(new ArrayList<>(contentVM.getInvitees().values()));
         addContactFragment.setEvent(contentVM.getEvent());
         getBaseActivity().openFragment(addContactFragment);
     }
@@ -126,7 +129,7 @@ public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreate
         if(fragmentSearchInvitee==null){
             fragmentSearchInvitee = new FragmentEventCreateSearchInvitee();
         }
-        fragmentSearchInvitee.setInviteeList(contentVM.getInvitees());
+        fragmentSearchInvitee.setInviteeList(new ArrayList<>(contentVM.getInvitees().values()));
         fragmentSearchInvitee.setEvent(contentVM.getEvent());
         getBaseActivity().openFragment(fragmentSearchInvitee);
     }

@@ -1,4 +1,4 @@
-package org.unimelb.itime.widget.listview;
+package org.unimelb.itime.ui.viewmodel.search;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -26,7 +26,7 @@ public abstract class SpannableInfoViewModel extends BaseObservable {
         this.matchStr = matchStr;
     }
 
-    SpannableString changeMatchColor(String str, String matchStr){
+    protected SpannableString changeMatchColor(String str, String matchStr){
         SpannableString span = new SpannableString(str);
         if(matchStr.equals("")){
             return span;

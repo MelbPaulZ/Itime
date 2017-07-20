@@ -1,12 +1,10 @@
-package org.unimelb.itime.widget.listview;
+package org.unimelb.itime.ui.viewmodel.search;
 
 import android.databinding.Bindable;
 import android.text.SpannableString;
 
 import org.unimelb.itime.BR;
 import org.unimelb.itime.bean.Contact;
-import org.unimelb.itime.bean.Event;
-import org.unimelb.itime.util.EventUtil;
 
 /**
  * Created by yuhaoliu on 10/7/17.

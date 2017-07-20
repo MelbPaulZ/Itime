@@ -18,6 +18,7 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Location;
 import org.unimelb.itime.bean.Meeting;
+import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.util.EventUtil;
 
 import java.util.ArrayList;
@@ -101,31 +102,6 @@ public class FragmentInvitation extends Fragment {
 
 
     private List<Meeting> initData(){
-        List<Meeting> meetings = new ArrayList<>();
-
-        Calendar calendar = Calendar.getInstance();
-        List<Event> events = new ArrayList<>();
-        int[] type = {0, 1, 2};
-        int[] status = {0, 1};
-        long allDayInterval = (24 * 3600 * 1000);
-        long interval = (3600 * 1000);
-        long startTime = calendar.getTimeInMillis();
-        long endTime;
-        for (int i = 1; i < 20; i++) {
-            Meeting meeting = new Meeting();
-            endTime = startTime + interval;
-            Event event = EventUtil.getNewEvent();
-            event.setIsAllDay(i%2==0);
-            event.setLocation(new Location());
-            event.setStartTime(startTime);
-            event.setEndTime(endTime);
-            events.add(event);
-
-            startTime = startTime + allDayInterval;
-            meeting.setEvent(event);
-            meetings.add(meeting);
-        }
-
-        return meetings;
+        return DBManager.getInstance(getContext()).getAll(Meeting.class);
     }
 }

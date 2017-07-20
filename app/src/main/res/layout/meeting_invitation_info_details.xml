@@ -7,7 +7,7 @@
         <variable
             name="vm"
             type="org.unimelb.itime.ui.viewmodel.meeting.MeetingInvitationDetailCardViewModel" />
-        <import type="org.unimelb.itime.ui.viewmodel.meeting.MeetingBaseCardViewModel.PictureMode"/>
+        <import type="org.unimelb.itime.ui.viewmodel.meeting.MeetingInvitationBaseCardViewModel.PictureMode"/>
         <import type="android.view.View"/>
     </data>
 
@@ -33,8 +33,10 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
+                    android:layout_marginEnd="8dp"
                     android:id="@+id/profile_photo"
                     android:layout_alignParentStart="true"
+                    android:visibility="@{vm.getPhotoVisibility}"
                     app:imageUrl="@{vm.getProfilePhotoUrl}"
                     app:pictureMode="@{PictureMode.CIRCLE}"
                     />
@@ -47,21 +49,20 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:textSize="11sp"
-                    android:textColor="@color/text_body"
+                    android:textColor="@color/meeting_time"
                     android:text="@{vm.getUpdatedTimeStr}"
                     android:visibility="@{vm.updatedTimeVisibility}"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/message_text"
-                    android:layout_marginStart="8dp"
-                    android:gravity="left|center_vertical"
+                    android:gravity="start|center_vertical"
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@id/profile_photo"
                     android:layout_toStartOf="@id/updated_time_text"
                     android:textSize="14sp"
-                    android:textColor="@color/text_body"
+                    android:textColor="@{vm.getSysTextColor}"
                     android:text="@{vm.getSysMsg}"/>
 
             </RelativeLayout>
@@ -109,6 +110,7 @@
             android:background="@drawable/itime_round_corner_card_bg_tl_bl"
             android:layout_alignTop="@id/info_container"
             android:layout_alignBottom="@id/info_container"
+            app:bg_color="@{vm.getSideBarColor}"
             >
             <ImageView
                 android:id="@+id/status_icon"
@@ -121,6 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="10sp"
+                android:textColor="@{vm.getIconTextColor}"
                 android:text="@{vm.getIconText}" />
         </LinearLayout>
     </RelativeLayout>

@@ -13,7 +13,9 @@ import org.unimelb.itime.util.rulefactory.RuleInterface;
 import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import david.itimecalendar.calendar.listeners.ITimeEventInterface;
 import david.itimecalendar.calendar.listeners.ITimeInviteeInterface;
@@ -44,8 +46,10 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
     // new event attributes
     private String id = "";
+
     @Convert(converter = RecurrenceConverter.class, columnType = String.class)
     private String[] recurrence = {};
+
     private String status = "";
     private String summary = "";
     private String description = "";
@@ -62,9 +66,6 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     private String self = "";
     private String hostUserUid = "";
     private String userUid = "";
-    private String locationNote = "";
-    private String locationLatitude = "";
-    private String locationLongitude = "";
     private String eventType = "";
     private int inviteeVisibility;
     private int freebusyAccess;
@@ -80,36 +81,39 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     private TZoneTime start = new TZoneTime();
     @Convert(converter = Event.TZoneTimeConverter.class, columnType = String.class)
     private TZoneTime end = new TZoneTime();
+
     @Convert(converter = Event.InviteeConverter.class, columnType = String.class)
-    private List<Invitee> invitees = new ArrayList<>();
+    private Map<String, Invitee> invitee = new HashMap<>();
+
     @Convert(converter = Event.TimeslotConverter.class , columnType = String.class)
-    private List<TimeSlot> timeslots = new ArrayList<>();
+    private Map<String, TimeSlot> timeslot = new HashMap<>();
     @Convert(converter = Event.TimeslotInviteeConverter.class, columnType = String.class)
-    private List<TimeslotInvitee> timeslotInvitees = new ArrayList<>();
+    private Map<String, TimeslotInvitee> timeslotInvitee = new HashMap<>();
 
     private transient RuleModel rule = new RuleModel();
     private String note = "";
     private String coverPhoto = "";
     private int duration;
     private String greeting = "";
-    private boolean archive;
-    private boolean mute;
-    private boolean pin;
+    private boolean isArchived;
+    private boolean isMute;
+    private boolean isPinned;
 
     @Generated(hash = 344677835)
     public Event() {
     }
 
 
-    @Generated(hash = 217194186)
+
+
+    @Generated(hash = 1646521494)
     public Event(String id, String[] recurrence, String status, String summary, String description, String url,
             Location location, int reminder, String source, String eventUid, String calendarUid, String recurringEventUid,
-            String host, String self, String hostUserUid, String userUid, String locationNote, String locationLatitude,
-            String locationLongitude, String eventType, int inviteeVisibility, int freebusyAccess, int showLevel,
-            int deleteLevel, String createdAt, String updatedAt, List<PhotoUrl> photos, boolean isAllDay, String extra,
-            TZoneTime start, TZoneTime end, List<Invitee> invitees, List<TimeSlot> timeslots,
-            List<TimeslotInvitee> timeslotInvitees, String note, String coverPhoto, int duration, String greeting,
-            boolean archive, boolean mute, boolean pin) {
+            String host, String self, String hostUserUid, String userUid, String eventType, int inviteeVisibility,
+            int freebusyAccess, int showLevel, int deleteLevel, String createdAt, String updatedAt, List<PhotoUrl> photos,
+            boolean isAllDay, String extra, TZoneTime start, TZoneTime end, Map<String, Invitee> invitee,
+            Map<String, TimeSlot> timeslot, Map<String, TimeslotInvitee> timeslotInvitee, String note, String coverPhoto,
+            int duration, String greeting, boolean isArchived, boolean isMute, boolean isPinned) {
         this.id = id;
         this.recurrence = recurrence;
         this.status = status;
@@ -126,9 +130,6 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.self = self;
         this.hostUserUid = hostUserUid;
         this.userUid = userUid;
-        this.locationNote = locationNote;
-        this.locationLatitude = locationLatitude;
-        this.locationLongitude = locationLongitude;
         this.eventType = eventType;
         this.inviteeVisibility = inviteeVisibility;
         this.freebusyAccess = freebusyAccess;
@@ -141,18 +142,20 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.extra = extra;
         this.start = start;
         this.end = end;
-        this.invitees = invitees;
-        this.timeslots = timeslots;
-        this.timeslotInvitees = timeslotInvitees;
+        this.invitee = invitee;
+        this.timeslot = timeslot;
+        this.timeslotInvitee = timeslotInvitee;
         this.note = note;
         this.coverPhoto = coverPhoto;
         this.duration = duration;
         this.greeting = greeting;
-        this.archive = archive;
-        this.mute = mute;
-        this.pin = pin;
+        this.isArchived = isArchived;
+        this.isMute = isMute;
+        this.isPinned = isPinned;
     }
 
+
+    
 
     @Override
     public Event clone() {
@@ -345,30 +348,6 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.userUid = userUid;
     }
 
-    public String getLocationNote() {
-        return locationNote;
-    }
-
-    public void setLocationNote(String locationNote) {
-        this.locationNote = locationNote;
-    }
-
-    public String getLocationLatitude() {
-        return locationLatitude;
-    }
-
-    public void setLocationLatitude(String locationLatitude) {
-        this.locationLatitude = locationLatitude;
-    }
-
-    public String getLocationLongitude() {
-        return locationLongitude;
-    }
-
-    public void setLocationLongitude(String locationLongitude) {
-        this.locationLongitude = locationLongitude;
-    }
-
     public String getEventType() {
         return eventType;
     }
@@ -451,28 +430,13 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.extra = extra;
     }
 
-    public List<Invitee> getInvitees() {
-        return invitees;
+
+    public Map<String, TimeslotInvitee> getTimeslotInvitee() {
+        return timeslotInvitee;
     }
 
-    public void setInvitees(List<Invitee> invitees) {
-        this.invitees = invitees;
-    }
-
-    public List<TimeSlot> getTimeslots() {
-        return timeslots;
-    }
-
-    public void setTimeslots(List<TimeSlot> timeslots) {
-        this.timeslots = timeslots;
-    }
-
-    public List<TimeslotInvitee> getTimeslotInvitees() {
-        return timeslotInvitees;
-    }
-
-    public void setTimeslotInvitees(List<TimeslotInvitee> timeslotInvitees) {
-        this.timeslotInvitees = timeslotInvitees;
+    public void setTimeslotInvitee(Map<String,TimeslotInvitee> timeslotInvitee) {
+        this.timeslotInvitee = timeslotInvitee;
     }
 
     public int getDuration() {
@@ -557,53 +521,113 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     }
 
     public boolean getArchive() {
-        return this.archive;
+        return this.isArchived;
     }
 
-    public void setArchive(boolean archive) {
-        this.archive = archive;
+    public void setArchived(boolean archived) {
+        this.isArchived = archived;
     }
 
-    public boolean isArchive() {
-        return archive;
+    public boolean isArchived() {
+        return isArchived;
     }
 
     public boolean isMute() {
-        return mute;
+        return isMute;
     }
 
     public void setMute(boolean mute) {
-        this.mute = mute;
+        this.isMute = mute;
     }
 
-    public boolean isPin() {
-        return pin;
+    public boolean isPinned() {
+        return isPinned;
     }
 
-    public void setPin(boolean pin) {
-        this.pin = pin;
+    public void setPinned(boolean pinned) {
+        this.isPinned = pinned;
     }
 
     public boolean getMute() {
-        return this.mute;
+        return this.isMute;
     }
 
     public boolean getPin() {
-        return this.pin;
+        return this.isPinned;
+    }
+
+    public Map<String, Invitee> getInvitee() {
+        return this.invitee;
+    }
+
+    public void setInvitee(Map<String, Invitee> invitee) {
+        this.invitee = invitee;
+    }
+
+
+    public Map<String, TimeSlot> getTimeslot() {
+        return this.timeslot;
+    }
+
+
+    public void setTimeslot(Map<String, TimeSlot> timeslot) {
+        this.timeslot = timeslot;
     }
 
 
 
-    public static class TimeslotConverter implements PropertyConverter<List<TimeSlot> , String> {
+
+    public boolean getIsArchived() {
+        return this.isArchived;
+    }
+
+
+
+
+    public void setIsArchived(boolean isArchived) {
+        this.isArchived = isArchived;
+    }
+
+
+
+
+    public boolean getIsMute() {
+        return this.isMute;
+    }
+
+
+
+
+    public void setIsMute(boolean isMute) {
+        this.isMute = isMute;
+    }
+
+
+
+
+    public boolean getIsPinned() {
+        return this.isPinned;
+    }
+
+
+
+
+    public void setIsPinned(boolean isPinned) {
+        this.isPinned = isPinned;
+    }
+
+
+
+    public static class TimeslotConverter implements PropertyConverter<Map<String, TimeSlot> , String> {
         Gson gson = new Gson();
         @Override
-        public List<TimeSlot> convertToEntityProperty(String databaseValue) {
-            Type listType = new TypeToken<List<TimeSlot>>() {}.getType();
+        public Map<String, TimeSlot> convertToEntityProperty(String databaseValue) {
+            Type listType = new TypeToken<Map<String, TimeSlot>>() {}.getType();
             return gson.fromJson(databaseValue, listType);
         }
 
         @Override
-        public String convertToDatabaseValue(List<TimeSlot> entityProperty) {
+        public String convertToDatabaseValue(Map<String, TimeSlot> entityProperty) {
             return gson.toJson(entityProperty);
         }
     }
@@ -622,16 +646,16 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         }
     }
 
-    public static class InviteeConverter implements PropertyConverter<List<Invitee> , String>{
+    public static class InviteeConverter implements PropertyConverter<Map<String, Invitee> , String>{
         Gson gson = new Gson();
         @Override
-        public List<Invitee> convertToEntityProperty(String databaseValue) {
-            Type listType = new TypeToken<List<Invitee>>() {}.getType();
+        public Map<String, Invitee> convertToEntityProperty(String databaseValue) {
+            Type listType = new TypeToken<Map<String, Invitee>>() {}.getType();
             return gson.fromJson(databaseValue, listType);
         }
 
         @Override
-        public String convertToDatabaseValue(List<Invitee> entityProperty) {
+        public String convertToDatabaseValue(Map<String, Invitee> entityProperty) {
             return gson.toJson(entityProperty);
         }
     }
@@ -677,17 +701,17 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         }
     }
 
-    public static class TimeslotInviteeConverter implements PropertyConverter<List<TimeslotInvitee>, String>{
+    public static class TimeslotInviteeConverter implements PropertyConverter<Map<String, TimeslotInvitee>, String>{
         Gson gson = new Gson();
 
         @Override
-        public List<TimeslotInvitee> convertToEntityProperty(String databaseValue) {
-            Type listType = new TypeToken<List<TimeslotInvitee>>() {}.getType();
+        public Map<String, TimeslotInvitee> convertToEntityProperty(String databaseValue) {
+            Type listType = new TypeToken<Map<String, TimeslotInvitee>>() {}.getType();
             return gson.fromJson(databaseValue, listType);
         }
 
         @Override
-        public String convertToDatabaseValue(List<TimeslotInvitee> entityProperty) {
+        public String convertToDatabaseValue(Map<String, TimeslotInvitee> entityProperty) {
             return gson.toJson(entityProperty);
         }
     }
