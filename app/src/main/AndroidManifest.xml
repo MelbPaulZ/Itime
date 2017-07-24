@@ -74,13 +74,8 @@
 
         </activity>
 
-        <activity android:name=".ui.activity.SearchActivity"
-            android:windowSoftInputMode="adjustPan">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
+        <activity android:name=".ui.activity.SearchActivity"/>
+        <activity android:name=".ui.activity.ArchiveActivity"/>
 
         <activity android:name=".ui.activity.TestActivity"
             android:launchMode="singleTask"
@@ -90,6 +85,8 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
+
+
 
     </application>
 

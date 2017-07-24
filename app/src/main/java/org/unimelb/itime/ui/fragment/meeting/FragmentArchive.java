@@ -137,6 +137,6 @@ public class FragmentArchive extends ItimeBaseFragment<MeetingMvpView,MeetingPre
 
     @Override
     public void onBack() {
-        getFragmentManager().popBackStack();
+        getBaseActivity().finish();
     }
 }
