@@ -1,6 +1,5 @@
 package org.unimelb.itime.ui.fragment.event;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,14 +14,13 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.databinding.FragmentEventCreateAddContactsBinding;
 import org.unimelb.itime.ui.mvpview.event.EventCreateAddContactMvpView;
-import org.unimelb.itime.ui.mvpview.event.EventCreateAddInviteeMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.event.EventCreateAddContactViewModel;
-import org.unimelb.itime.ui.viewmodel.event.EventCreateAddInviteeViewModel;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Qiushuo Huang on 2017/6/1.
@@ -64,7 +62,7 @@ public class FragmentEventCreateAddContact extends ItimeBaseFragment<EventCreate
     public void onActivityCreated(Bundle bundle){
         super.onActivityCreated(bundle);
         viewModel = new EventCreateAddContactViewModel(getPresenter());
-        viewModel.setInvitees(new ArrayList<>(invitees));
+        viewModel.setInvitees(invitees);
         viewModel.loadData();
         viewModel.setEvent(event);
         binding.setContentVM(viewModel);
@@ -103,6 +101,17 @@ public class FragmentEventCreateAddContact extends ItimeBaseFragment<EventCreate
         invitees.clear();
         invitees.addAll(viewModel.getSelectedInvitee());
         onBack();
+    }
+
+    private Map<String, Invitee> getInviteeMap(List<Invitee> list){
+        HashMap<String, Invitee> result = new HashMap<>();
+        if(list == null){
+            return result;
+        }
+        for(Invitee invitee:list){
+            result.put(invitee.getInviteeUid(), invitee);
+        }
+        return result;
     }
 
     @Override

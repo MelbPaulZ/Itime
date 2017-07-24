@@ -2,11 +2,13 @@ package org.unimelb.itime.ui.viewmodel;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import com.android.databinding.library.baseAdapters.BR;
 
+import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseMvpView;
 import org.unimelb.itime.base.ToolbarInterface;
 
@@ -29,6 +31,7 @@ public class ToolbarViewModel<V extends ToolbarInterface> extends BaseObservable
 
     public ToolbarViewModel(V view) {
         this.view = view;
+        rightTextColor = Color.parseColor("#222222");
     }
 
     @Bindable
