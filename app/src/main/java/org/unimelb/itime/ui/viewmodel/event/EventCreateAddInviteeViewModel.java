@@ -17,7 +17,9 @@ import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.widget.OnRecyclerItemClickListener;
 import org.unimelb.itime.widget.listview.UserInfoViewModel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -31,7 +33,7 @@ public class EventCreateAddInviteeViewModel extends BaseObservable {
     private Context context;
     private EventCreateAddInviteeMvpView mvpView;
     private Event event;
-    private Map<String, Invitee> invitees = new HashMap<>();
+    private List<Invitee> invitees = new ArrayList<>();
     private ObservableList<UserInfoViewModel> inviteeItems = new ObservableArrayList<>();
     private ToolbarViewModel toolbarViewModel;
     private boolean canSeeEachOther = true;
@@ -74,10 +76,10 @@ public class EventCreateAddInviteeViewModel extends BaseObservable {
         notifyPropertyChanged(BR.inviteeItems);
     }
 
-    private void generateInviteeItems(Map<String, Invitee> invitees){
+    private void generateInviteeItems(List<Invitee> invitees){
         inviteeItems.clear();
 
-        for(Invitee invitee: invitees.values()){
+        for(Invitee invitee: invitees){
             UserInfoViewModel<Invitee> vm = new UserInfoViewModel<>();
             vm.setData(invitee);
             vm.setSelect(true);
@@ -94,7 +96,7 @@ public class EventCreateAddInviteeViewModel extends BaseObservable {
             public void onItemClick(View view, int position) {
                 UserInfoViewModel<Invitee> invitee = inviteeItems.get(position);
 
-                if(invitees.containsValue(invitee.getData())){
+                if(invitees.contains(invitee.getData())){
                     invitees.remove(invitee.getData().getInviteeUid());
                     inviteeItems.remove(invitee);
                 }
@@ -152,13 +154,12 @@ public class EventCreateAddInviteeViewModel extends BaseObservable {
         this.event = event;
     }
 
-    public Map<String, Invitee> getInvitees() {
+    public List<Invitee> getInvitees() {
         return invitees;
     }
 
-    public void setInvitees(Map<String, Invitee> invitees) {
+    public void setInvitees(List<Invitee> invitees) {
         this.invitees = invitees;
-        event.setInvitee(invitees);
     }
 
     public View.OnClickListener onSearchClick(){

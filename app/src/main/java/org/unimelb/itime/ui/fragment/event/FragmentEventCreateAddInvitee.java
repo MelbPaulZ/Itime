@@ -119,7 +119,7 @@ public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreate
         if(addContactFragment==null){
             addContactFragment = new FragmentEventCreateAddContact();
         }
-        addContactFragment.setInvitees(new ArrayList<>(contentVM.getInvitees().values()));
+        addContactFragment.setInvitees(contentVM.getInvitees());
         addContactFragment.setEvent(contentVM.getEvent());
         getBaseActivity().openFragment(addContactFragment);
     }
@@ -129,7 +129,7 @@ public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreate
         if(fragmentSearchInvitee==null){
             fragmentSearchInvitee = new FragmentEventCreateSearchInvitee();
         }
-        fragmentSearchInvitee.setInviteeList(new ArrayList<>(contentVM.getInvitees().values()));
+        fragmentSearchInvitee.setInviteeList(contentVM.getInvitees());
         fragmentSearchInvitee.setEvent(contentVM.getEvent());
         getBaseActivity().openFragment(fragmentSearchInvitee);
     }
