@@ -191,7 +191,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
         }
 
         @Override
-        public void onTimeSlotDragging(DraggableTimeSlotView draggableTimeSlotView, MyCalendar curRealCal, int x, int y) {
+        public void onTimeSlotDragging(DraggableTimeSlotView draggableTimeSlotView, MyCalendar myCalendar, int i, int i1, String s) {
 
         }
 
@@ -199,6 +199,11 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
         public void onTimeSlotDragDrop(DraggableTimeSlotView draggableTimeSlotView, long startTime, long endTime) {
             draggableTimeSlotView.getTimeslot().setStartTime(startTime);
             draggableTimeSlotView.getTimeslot().setEndTime(endTime);
+        }
+
+        @Override
+        public void onTimeSlotDragEnd(DraggableTimeSlotView draggableTimeSlotView) {
+
         }
 
         @Override

@@ -41,7 +41,6 @@ public class FragmentComing extends Fragment {
     private RecyclerViewAdapterMeetings mAdapter;
     private Context context;
     private List<Meeting> data;
-    private MeetingPresenter.FilterResult filterResult;
     private MeetingPresenter<MeetingMvpView> meetingPresenter;
     private EventManager.EventsPackage eventsPackage;
 
@@ -75,11 +74,9 @@ public class FragmentComing extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    public void setData(MeetingPresenter.FilterResult filterResult){
-        this.filterResult = filterResult;
-        this.data = filterResult.comingResult;
+    public void setData(List<Meeting> comingResult){
+        this.data = comingResult;
         if (mAdapter != null){
-            mAdapter.setOnMenuListener(new OnMeetingMenu(meetingPresenter,mAdapter,data,filterResult));
             mAdapter.notifyDatasetChanged();
         }
     }

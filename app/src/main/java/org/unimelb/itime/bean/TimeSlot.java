@@ -3,9 +3,12 @@ package org.unimelb.itime.bean;
 
 import android.support.annotation.NonNull;
 
+import org.greenrobot.greendao.annotation.Transient;
 import org.unimelb.itime.util.AppUtil;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import david.itimecalendar.calendar.listeners.ITimeTimeSlotInterface;
 
@@ -13,6 +16,7 @@ import david.itimecalendar.calendar.listeners.ITimeTimeSlotInterface;
  * Created by Paul on 10/09/2016.
  */
 public class TimeSlot implements ITimeTimeSlotInterface<TimeSlot>,Serializable {
+    public static final long serialVersionUID = 536871006;
     public final static String STATUS_CREATING = "creating";
     public final static String STATUS_PENDING = "pending";
     public final static String STATUS_ACCEPTED = "accepted";
@@ -32,7 +36,8 @@ public class TimeSlot implements ITimeTimeSlotInterface<TimeSlot>,Serializable {
     private int isSystemSuggested; // 1 -> true
     private String inviteeUid = "";
     private boolean isAllDay = false;
-
+    @Transient
+    private List<Invitee> voteInvitees = new ArrayList<>();
 
     @Override
     public void setStartTime(long l) {
@@ -160,6 +165,14 @@ public class TimeSlot implements ITimeTimeSlotInterface<TimeSlot>,Serializable {
 
     public void setInviteeUid(String inviteeUid) {
         this.inviteeUid = inviteeUid;
+    }
+
+    public List<Invitee> getVoteInvitees() {
+        return voteInvitees;
+    }
+
+    public void setVoteInvitees(List<Invitee> voteInvitees) {
+        this.voteInvitees = voteInvitees;
     }
 
     @Override

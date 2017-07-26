@@ -125,8 +125,8 @@ public class FragmentArchive extends ItimeBaseFragment<MeetingMvpView,MeetingPre
      */
     @Override
     public void onNext() {
+        mAdapter.notifyItemRangeRemoved(0,filterResult.archiveResult.size());
         meetingPresenter.deleteAllArchive();
-        mAdapter.notifyDatasetChanged();
     }
 
     @Override

@@ -7,6 +7,11 @@ import java.io.Serializable;
  */
 
 public class TimeslotInvitee implements Serializable {
+    //pending|accepted|rejected
+    public static final String STATUS_PENDING = "pending";
+    public static final String STATUS_ACCEPTED = "accepted";
+    public static final String STATUS_REJECTED = "rejected";
+
     private String status = "";
     private int rate;
     private String timeslotUid = "";

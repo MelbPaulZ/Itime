@@ -6,7 +6,7 @@ import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import org.greenrobot.greendao.AbstractDao;
-simport org.unimelb.itime.base.ItimeBasePresenter;
+import org.unimelb.itime.base.ItimeBasePresenter;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.EventDao;
 import org.unimelb.itime.bean.Meeting;

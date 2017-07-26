@@ -143,7 +143,8 @@ public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPr
         filterResult = meetings;
         fragmentInvitation.setData(meetings);
         fragmentHosting.setData(meetings);
-        fragmentComing.setData(meetings);
+
+        fragmentComing.setData(getPresenter().getComingResult());
     }
 
     @Override

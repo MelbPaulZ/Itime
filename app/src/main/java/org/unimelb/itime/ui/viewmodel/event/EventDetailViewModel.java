@@ -42,7 +42,7 @@ public class EventDetailViewModel extends BaseObservable{
     public static final int STATUS_NEED_VOTE = 1;
     public static final int STATUS_VOTED = 2;
     public static final int STATUS_NEED_CONFIRM = 3;
-    public static final int STATUS_NEED_CONFIRMED = 4;
+    public static final int STATUS_CONFIRMED = 4;
     public static final int STATUS_NEED_REVOTE = 5;
     public static final int STATUS_GOING = 6;
     public static final int STATUS_NOT_GOING = 7;
@@ -57,7 +57,7 @@ public class EventDetailViewModel extends BaseObservable{
     private boolean showTips = false;
     private int[] alertTimes;
     private String alertString = "";
-    private Invitee host;
+    private Invitee hostInvitee;
     private String coverImg="";
     private String eventTimeString;
     private int toolbarCollapseColor=0;
@@ -70,6 +70,12 @@ public class EventDetailViewModel extends BaseObservable{
     private List<EventDetailTimeslotViewModel> timeSlotsItems;
     private boolean showTimeSlotSheet = true;
     private int status = STATUS_NEED_CONFIRM;
+    private boolean host;
+
+    private int repliedNum = 0;
+    private int cantGoNum = 0;
+    private int noReplyNum = 0;
+    private int inviteeNum = 0;
 
     private boolean showConfirmVoteButton;
     private boolean showCantGoVoteButton;
@@ -81,6 +87,17 @@ public class EventDetailViewModel extends BaseObservable{
     private static int ANIMATOR_DURATION = 300;
     private LayerDrawable bottomSheetHeaderDrawable;
     private int bottomSheetStatus;
+    private String repeatString="";
+
+    @Bindable
+    public String getRepeatString() {
+        return repeatString;
+    }
+
+    public void setRepeatString(String repeatString) {
+        this.repeatString = repeatString;
+        notifyPropertyChanged(BR.repeatString);
+    }
 
     @Bindable
     public boolean isArchived() {
@@ -92,9 +109,93 @@ public class EventDetailViewModel extends BaseObservable{
         return status;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setStatus(Event event) {
+        if(event.getStatus().equals(Event.STATUS_CANCELLED)){
+            status = STATUS_CANCELED;
+        }
+
+        if(event.getStatus().equals(Event.STATUS_PENDING)){
+            if(isHost()){
+                status = STATUS_NEED_CONFIRM;
+            }else{
+                if(selectedTimeSlots.isEmpty()){
+                    status = STATUS_NEED_VOTE;
+                } else{
+                    status = STATUS_VOTED;
+                }
+            }
+        }
+
+        if(event.getStatus().equals(Event.STATUS_CONFIRMED)){
+            if(isHost()){
+                status = STATUS_CONFIRMED;
+            } else {
+                String myStatus = EventUtil.getInviteeStatus(event);
+                if(myStatus!=null) {
+                    switch (myStatus) {
+                        case Invitee.STATUS_ACCEPTED:
+                            status = STATUS_GOING;
+                            break;
+                        case Invitee.STATUS_DECLINED:
+                            status = STATUS_NOT_GOING;
+                            break;
+                        case Invitee.STATUS_NEEDSACTION:
+                            break;
+                    }
+                }
+            }
+        }
         notifyPropertyChanged(BR.status);
+    }
+
+    @Bindable
+    public boolean isHost() {
+        return host;
+    }
+
+    public void setHost(boolean host) {
+        this.host = host;
+        notifyPropertyChanged(BR.host);
+    }
+
+    @Bindable
+    public int getRepliedNum() {
+        return repliedNum;
+    }
+
+    public void setRepliedNum(int repliedNum) {
+        this.repliedNum = repliedNum;
+        notifyPropertyChanged(BR.repliedNum);
+    }
+
+    @Bindable
+    public int getCantGoNum() {
+        return cantGoNum;
+    }
+
+    public void setCantGoNum(int cantGoNum) {
+        this.cantGoNum = cantGoNum;
+        notifyPropertyChanged(BR.cantGoNum);
+    }
+
+    @Bindable
+    public int getNoReplyNum() {
+        return noReplyNum;
+    }
+
+    public void setNoReplyNum(int noReplyNum) {
+        this.noReplyNum = noReplyNum;
+        notifyPropertyChanged(BR.noReplyNum);
+    }
+
+    @Bindable
+    public int getInviteeNum() {
+        return inviteeNum;
+    }
+
+    public void setInviteeNum(int inviteeNum) {
+        this.inviteeNum = inviteeNum;
+        notifyPropertyChanged(BR.inviteeNum);
     }
 
     public OnRecyclerItemClickListener.OnItemClickListener onTimeSlotClick(){
@@ -430,13 +531,13 @@ public class EventDetailViewModel extends BaseObservable{
 
 
     @Bindable
-    public Invitee getHost(){
-        return host;
+    public Invitee getHostInvitee(){
+        return hostInvitee;
     }
 
-    public void setHost(Invitee invitee){
-        this.host = invitee;
-        notifyPropertyChanged(BR.host);
+    public void setHostInvitee(Invitee invitee){
+        this.hostInvitee = invitee;
+        notifyPropertyChanged(BR.hostInvitee);
     }
 
     @Bindable
@@ -553,7 +654,7 @@ public class EventDetailViewModel extends BaseObservable{
 //                cpyEvent.setStatus(Event.STATUS_PENDING);
 //                for (Invitee invitee : cpyEvent.getInvitee()) {
 //                    invitee.setEventUid(eventUid);
-//                    invitee.setStatus(Invitee.STATUS_NEEDSACTION); // maybe need to check if it is host
+//                    invitee.setStatus(Invitee.STATUS_NEEDSACTION); // maybe need to check if it is hostInvitee
 //                    String inviteeUid = AppUtil.generateUuid();
 //                    invitee.setInviteeUid(inviteeUid);
 //                    invitee.setSlotResponses(new ArrayList<SlotResponse>());
@@ -651,24 +752,43 @@ public class EventDetailViewModel extends BaseObservable{
         if (event.getPhotos() != null){
             setPhotoUrls(event.getPhotos());
         }
+        EventUtil.initTimeSlotVoteStatus(event);
+        setVoteStatus(event);
 
         ArrayList<String> photos = new ArrayList<>();
+        if(event.getSelf().equals(event.getHost())){
+            setHost(true);
+        }else{
+            setHost(false);
+        }
+
         for(Invitee invitee:event.getInvitee().values()){
-            if(EventUtil.isHost(event)){
-                setHost(invitee);
+            if(invitee.getInviteeUid().equals(event.getHost())){
+                setHostInvitee(invitee);
             }
             photos.add(invitee.getPhoto());
         }
         setAvatarList(photos);
         setCalendarType("iTime");
         setTimeSlots(new ArrayList<>(event.getTimeslot().values()));
-        selectedTimeSlots.clear();
         setShowTimeSlotSheet(true);
         setTimeSlotBottomSheetButtonVisibilities();
         generateEventTimeString();
         setAlertString("Alert 15 minutes before");
+
+        setSelectedTimeSlots(EventUtil.getMyVoteTimeSlot(event));
+        setStatus(event);
         notifyPropertyChanged(BR.submitBtnString);
+        notifyPropertyChanged(BR.event);
 //        setCalendarType(CalendarUtil.getInstance(context).getCalendarName(event));
+    }
+
+    private void setVoteStatus(Event event){
+        int[] nums = EventUtil.getMeetingVotedStatus(event);
+        setRepliedNum(nums[2]);
+        setCantGoNum(nums[3]);
+        setNoReplyNum(nums[4]);
+        setInviteeNum(event.getInvitee().size());
     }
 
     public int getLocationVisibility(Event event) {
@@ -755,6 +875,15 @@ public class EventDetailViewModel extends BaseObservable{
             @Override
             public void onClick(View view) {
 
+            }
+        };
+    }
+
+    public View.OnClickListener onBackClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mvpView.onBack();
             }
         };
     }

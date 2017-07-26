@@ -164,7 +164,6 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
                 detailViewModel.setMeetings(mDataset);
                 detailViewModel.setMeeting(meeting);
 
-
                 final MeetingMenuViewModel menu1ViewModel = holder.binding.getVmMenu();
                 menu1ViewModel.setMeeting(meeting);
                 menu1ViewModel.setmOnMenuClick(this.onMenuListener);

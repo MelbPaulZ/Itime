@@ -25,9 +25,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="225dp"
                     android:fitsSystemWindows="true"
-                    app:collapseheaderbar_avatar="@{contentVM.host.photo}"
-                    app:collapseheaderbar_name="@{contentVM.host.aliasName}"
+                    app:collapseheaderbar_avatar="@{contentVM.hostInvitee.photo}"
+                    app:collapseheaderbar_name="@{contentVM.hostInvitee.aliasName}"
                     app:collapseheaderbar_title="@{contentVM.event.summary}"
+                    app:collapseheaderbar_onLeftClick="@{contentVM.onBackClick()}"
                     >
                 </org.unimelb.itime.widget.CollapseHeadBar>
 
@@ -90,7 +91,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="100"
+                                    android:text="@{String.valueOf(contentVM.inviteeNum)}"
                                     android:textColor="@color/black"
                                     android:includeFontPadding="false"
                                     android:textSize="@dimen/font_big" />
@@ -122,7 +123,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="0"
+                                    android:text="@{String.valueOf(contentVM.repliedNum)}"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/font_big"
                                     android:includeFontPadding="false"
@@ -148,7 +149,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="0"
+                                    android:text="@{String.valueOf(contentVM.cantGoNum)}"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/font_big"
                                     android:includeFontPadding="false"
@@ -174,7 +175,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="0"
+                                    android:text="@{String.valueOf(contentVM.noReplyNum)}"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/font_big"
                                     android:includeFontPadding="false"
@@ -493,14 +494,14 @@
             android:orientation="vertical"
             android:gravity="center_vertical"
             android:background="@color/white"
-            android:visibility="gone">
+            android:visibility="@{contentVM.event.recurrence==null?View.GONE:View.VISIBLE}">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_body"
                 android:textSize="@dimen/font_large"
                 android:layout_weight="1"
-                android:text="Repeat Every Week"
+                android:text="@{contentVM.repeatString}"
                 android:layout_marginLeft="4dp" />
 
             <TextView
