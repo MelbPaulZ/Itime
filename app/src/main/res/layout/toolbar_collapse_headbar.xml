@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="contentVM"
+            type="org.unimelb.itime.ui.viewmodel.event.EventDetailViewModel"/>
+    </data>
+
 <android.support.design.widget.CollapsingToolbarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar_layout"
@@ -131,7 +139,22 @@
                 android:layout_width="13dp"
                 android:layout_height="13dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/icon_details_mute_statusbar" />
+                android:src="@drawable/icon_details_mute_statusbar"
+                android:visibility="@{contentVM.event.isMute?View.VISIBLE:View.GONE}"/>
+
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/icon_details_archive_statusbar"
+                android:visibility="@{contentVM.event.isArchived?View.VISIBLE:View.GONE}"/>
+
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/icon_details_pinned_statusbar"
+                android:visibility="@{contentVM.event.isPinned?View.VISIBLE:View.GONE}"/>
             <!--right imageview-->
 
             <!--right imageview-->
@@ -141,7 +164,8 @@
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/icon_details_edit_white"
                 android:background="?android:attr/selectableItemBackground"
-                android:id="@+id/edit_icon" />
+                android:id="@+id/edit_icon"
+                android:visibility="@{contentVM.host?View.VISIBLE:View.GONE}"/>
 
             <ImageView
                 android:layout_width="44dp"
@@ -151,11 +175,8 @@
                 android:src="@drawable/icon_details_more_white"
                 android:background="?android:attr/selectableItemBackground"
                 android:id="@+id/rightButton"/>
-
-
-
-
         </LinearLayout>
 
     </android.support.v7.widget.Toolbar>
 </android.support.design.widget.CollapsingToolbarLayout>
+</layout>
