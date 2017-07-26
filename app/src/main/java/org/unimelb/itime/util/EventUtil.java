@@ -10,12 +10,15 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.ITimeComparable;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.Meeting;
+import org.unimelb.itime.bean.TimeSlot;
+import org.unimelb.itime.bean.TimeslotInvitee;
 import org.unimelb.itime.bean.User;
 import org.unimelb.itime.manager.DataGeneratorManager;
 import org.unimelb.itime.util.rulefactory.FrequencyEnum;
 import org.unimelb.itime.util.rulefactory.RuleFactory;
 import org.unimelb.itime.util.rulefactory.RuleModel;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,6 +27,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.UUID;
 
@@ -583,6 +587,30 @@ public class EventUtil extends BaseUtil{
         }
 
         return new int[]{goingNum, notGoingNum, votedNum, cantGoNum, noReplyNum};
+    }
+
+    public static void initTimeSlotVoteStatus(Event event){
+        for(TimeSlot timeSlot:event.getTimeslot().values()){
+            timeSlot.getVoteInvitees().clear();
+        }
+
+        for(TimeslotInvitee ti:event.getTimeslotInvitee().values()){
+            if(ti.getStatus().equals(TimeslotInvitee.STATUS_ACCEPTED)){
+                TimeSlot timeSlot = event.getTimeslot().get(ti.getTimeslotUid());
+                timeSlot.getVoteInvitees().add(event.getInvitee().get(ti.getInviteeUid()));
+            }
+        }
+    }
+
+    public static List<TimeSlot> getMyVoteTimeSlot(Event event){
+        List<TimeSlot> result = new ArrayList<>();
+        for(TimeslotInvitee ti:event.getTimeslotInvitee().values()){
+            if(ti.getInviteeUid().equals(event.getSelf())
+                    && ti.getStatus().equals(TimeslotInvitee.STATUS_ACCEPTED)){
+                result.add(event.getTimeslot().get(ti.getTimeslotUid()));
+            }
+        }
+        return result;
     }
 
     /************** End of ************** Event Status Helper **********************************/

@@ -42,7 +42,7 @@ public class EventDetailViewModel extends BaseObservable{
     public static final int STATUS_NEED_VOTE = 1;
     public static final int STATUS_VOTED = 2;
     public static final int STATUS_NEED_CONFIRM = 3;
-    public static final int STATUS_NEED_CONFIRMED = 4;
+    public static final int STATUS_CONFIRMED = 4;
     public static final int STATUS_NEED_REVOTE = 5;
     public static final int STATUS_GOING = 6;
     public static final int STATUS_NOT_GOING = 7;
@@ -109,8 +109,42 @@ public class EventDetailViewModel extends BaseObservable{
         return status;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setStatus(Event event) {
+        if(event.getStatus().equals(Event.STATUS_CANCELLED)){
+            status = STATUS_CANCELED;
+        }
+
+        if(event.getStatus().equals(Event.STATUS_PENDING)){
+            if(isHost()){
+                status = STATUS_NEED_CONFIRM;
+            }else{
+                if(selectedTimeSlots.isEmpty()){
+                    status = STATUS_NEED_VOTE;
+                } else{
+                    status = STATUS_VOTED;
+                }
+            }
+        }
+
+        if(event.getStatus().equals(Event.STATUS_CONFIRMED)){
+            if(isHost()){
+                status = STATUS_CONFIRMED;
+            } else {
+                String myStatus = EventUtil.getInviteeStatus(event);
+                if(myStatus!=null) {
+                    switch (myStatus) {
+                        case Invitee.STATUS_ACCEPTED:
+                            status = STATUS_GOING;
+                            break;
+                        case Invitee.STATUS_DECLINED:
+                            status = STATUS_NOT_GOING;
+                            break;
+                        case Invitee.STATUS_NEEDSACTION:
+                            break;
+                    }
+                }
+            }
+        }
         notifyPropertyChanged(BR.status);
     }
 
@@ -714,9 +748,11 @@ public class EventDetailViewModel extends BaseObservable{
 
     public void setEvent(Event event) {
         this.event = event;
+
+        EventUtil.initTimeSlotVoteStatus(event);
         setVoteStatus(event);
         setPhotoUrls(event.getPhotos());
-        setRepeatString(EventUtil.getRepeatString(context,event));
+//        setRepeatString(EventUtil.getRepeatString(context,event));
 
         ArrayList<String> photos = new ArrayList<>();
         if(event.getSelf().equals(event.getHost())){
@@ -734,13 +770,14 @@ public class EventDetailViewModel extends BaseObservable{
         setAvatarList(photos);
         setCalendarType("iTime");
         setTimeSlots(new ArrayList<>(event.getTimeslot().values()));
-        selectedTimeSlots.clear();
         setShowTimeSlotSheet(true);
         setTimeSlotBottomSheetButtonVisibilities();
         generateEventTimeString();
         setAlertString("Alert 15 minutes before");
-        notifyPropertyChanged(BR.submitBtnString);
 
+        setSelectedTimeSlots(EventUtil.getMyVoteTimeSlot(event));
+        setStatus(event);
+        notifyPropertyChanged(BR.submitBtnString);
         notifyPropertyChanged(BR.event);
 //        setCalendarType(CalendarUtil.getInstance(context).getCalendarName(event));
     }
@@ -837,6 +874,15 @@ public class EventDetailViewModel extends BaseObservable{
             @Override
             public void onClick(View view) {
 
+            }
+        };
+    }
+
+    public View.OnClickListener onBackClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mvpView.onBack();
             }
         };
     }

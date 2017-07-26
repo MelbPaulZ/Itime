@@ -27,6 +27,7 @@ import com.squareup.picasso.Target;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.databinding.MenuEventDetailToolbarBinding;
+import org.unimelb.itime.databinding.ToolbarCollapseHeadbarBinding;
 import org.unimelb.itime.ui.viewmodel.event.EventDetailViewModel;
 import org.unimelb.itime.util.SizeUtil;
 import org.unimelb.itime.widget.popupmenu.ModalPopupView;
@@ -97,6 +98,7 @@ public class CollapseHeadBar extends AppBarLayout {
     private String name="";
     private int collapseColor;
     private EventDetailViewModel vm;
+    private ToolbarCollapseHeadbarBinding binding;
 
     public CollapseHeadBar(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -120,7 +122,11 @@ public class CollapseHeadBar extends AppBarLayout {
     }
 
     private void initContentView(){
-        contentView = (CollapsingToolbarLayout) LayoutInflater.from(getContext()).inflate(R.layout.toolbar_collapse_headbar, this, false);
+        binding =  DataBindingUtil.inflate(LayoutInflater.from(getContext()),R.layout.toolbar_collapse_headbar, this, false);
+        if(vm!=null){
+            binding.setContentVM(vm);
+        }
+        contentView = (CollapsingToolbarLayout) binding.getRoot();
 //        setContentScrim(new ColorDrawable(Color.parseColor("#6E000000")));
         avatarView = (ImageView) contentView.findViewById(R.id.avatarView);
         smallTitle = (TextView) contentView.findViewById(R.id.smallTitle);
@@ -352,6 +358,8 @@ public class CollapseHeadBar extends AppBarLayout {
 
     public void setViewModel(EventDetailViewModel vm) {
         this.vm = vm;
-
+        if(binding!=null){
+            binding.setContentVM(vm);
+        }
     }
 }
