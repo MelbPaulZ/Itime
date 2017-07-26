@@ -38,7 +38,6 @@ public class DBManager {
         return mInstance;
     }
 
-
     public synchronized void clearDB(){
         DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(
                 context.getApplicationContext(), dbName, null);
@@ -103,4 +102,6 @@ public class DBManager {
             ((AbstractDao) (daoMaster.newSession()).getDao(obj.getClass())).insertOrReplace(obj);
         }
     }
+
+
 }

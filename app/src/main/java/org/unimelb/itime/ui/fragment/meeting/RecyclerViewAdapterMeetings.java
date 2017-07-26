@@ -15,6 +15,7 @@ import org.unimelb.itime.databinding.MeetingHostingItemDetailsBinding;
 import org.unimelb.itime.databinding.MeetingHostingItemMessageBinding;
 import org.unimelb.itime.databinding.MeetingInvitationItemDetailedBinding;
 import org.unimelb.itime.databinding.MeetingInvitationItemMessageBinding;
+import org.unimelb.itime.ui.presenter.MeetingPresenter;
 import org.unimelb.itime.ui.viewmodel.meeting.MeetingHostingDetailCardViewModel;
 import org.unimelb.itime.ui.viewmodel.meeting.MeetingHostingMsgCardViewModel;
 import org.unimelb.itime.ui.viewmodel.meeting.MeetingInvitationDetailCardViewModel;
@@ -85,12 +86,20 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
     private List<Meeting> mDataset;
     private OnMenuListener onMenuListener;
     private Mode mode;
+    private MeetingPresenter presenter;
 
-    public RecyclerViewAdapterMeetings(Context mContext, List<Meeting> mDataset, Mode mode) {
+    public RecyclerViewAdapterMeetings(Context mContext, Mode mode, MeetingPresenter presenter) {
         this.mContext = mContext;
-        this.mDataset = mDataset;
         this.mode = mode;
+        this.presenter = presenter;
+    }
 
+    public List<Meeting> getmDataset() {
+        return mDataset;
+    }
+
+    public void setmDataset(List<Meeting> mDataset) {
+        this.mDataset = mDataset;
         switch (mode){
             case COMING:
                 Collections.sort(mDataset);

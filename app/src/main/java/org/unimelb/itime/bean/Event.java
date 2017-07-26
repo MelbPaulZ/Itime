@@ -22,12 +22,13 @@ import david.itimecalendar.calendar.listeners.ITimeInviteeInterface;
 
 import org.greenrobot.greendao.annotation.Generated;
 import org.unimelb.itime.util.rulefactory.RuleModel;
+import org.greenrobot.greendao.DaoException;
 
 /**
  * Created by Paul on 6/6/17.
  */
 
-@Entity
+@Entity(active = true)
 public class Event implements ITimeEventInterface<Event>, Serializable, Cloneable, RuleInterface, ITimeComparable<Event> {
 
     private static final long serialVersionUID = -7635944932445335914L;
@@ -98,6 +99,14 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     private boolean isArchived;
     private boolean isMute;
     private boolean isPinned;
+
+    /** Used to resolve relations */
+    @Generated(hash = 2040040024)
+    private transient DaoSession daoSession;
+
+    /** Used for active entity operations. */
+    @Generated(hash = 1542254534)
+    private transient EventDao myDao;
 
     @Generated(hash = 344677835)
     public Event() {
@@ -619,6 +628,61 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
     public void setIsPinned(boolean isPinned) {
         this.isPinned = isPinned;
+    }
+
+
+
+
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 128553479)
+    public void delete() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.delete(this);
+    }
+
+
+
+
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 1942392019)
+    public void refresh() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.refresh(this);
+    }
+
+
+
+
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#update(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 713229351)
+    public void update() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.update(this);
+    }
+
+
+
+
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 1459865304)
+    public void __setDaoSession(DaoSession daoSession) {
+        this.daoSession = daoSession;
+        myDao = daoSession != null ? daoSession.getEventDao() : null;
     }
 
 

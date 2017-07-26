@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/swipe"
             app:swipeEnabled="@{vmDetail.getSwipeEnable}"
-            app:show_mode="pull_out"
+            app:show_mode="lay_down"
             app:clickToClose="true"
             >
 

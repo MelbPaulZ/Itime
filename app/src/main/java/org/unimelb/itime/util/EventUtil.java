@@ -12,6 +12,7 @@ import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.bean.User;
 import org.unimelb.itime.manager.DataGeneratorManager;
+import org.unimelb.itime.ui.presenter.MeetingPresenter;
 import org.unimelb.itime.util.rulefactory.FrequencyEnum;
 import org.unimelb.itime.util.rulefactory.RuleFactory;
 import org.unimelb.itime.util.rulefactory.RuleModel;
@@ -436,7 +437,7 @@ public class EventUtil extends BaseUtil{
     /************** Start of ************ Event Status Helper **********************************/
 
     public static boolean isHost(Event event){
-        return event.getHostUserUid().equals(event.getUserUid());
+        return getEventHostUser(event).getUserId().equals(DataGeneratorManager.getInstance().getUser().getUserUid());
     }
 
     /**
@@ -583,6 +584,14 @@ public class EventUtil extends BaseUtil{
         }
 
         return new int[]{goingNum, notGoingNum, votedNum, cantGoNum, noReplyNum};
+    }
+
+    public static void restoreItem(Meeting meeting, MeetingPresenter.FilterResult filterResult){
+        if (meeting.getHostUserUid().equals(meeting.getUserUid())){
+            filterResult.hostingResult.add(meeting);
+        }else {
+            filterResult.archiveResult.add(meeting);
+        }
     }
 
     /************** End of ************** Event Status Helper **********************************/

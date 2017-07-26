@@ -7,15 +7,25 @@ import com.google.gson.Gson;
 import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Keep;
+import org.greenrobot.greendao.annotation.ToOne;
 import org.greenrobot.greendao.converter.PropertyConverter;
+import org.greenrobot.greendao.DaoException;
+
+import java.io.Serializable;
 
 /**
  * Created by yuhaoliu on 26/06/2017.
  */
-@Entity
-public class Meeting implements Comparable<Meeting>{
+@Entity(active = true)
+public class Meeting implements Comparable<Meeting>, Serializable{
+    private static final long serialVersionUID = 1536918684956999598L;
+
+    @Id
     private String meetingUid = "";
     private String eventUid = "";
+    private String hostUserUid = "";
     private String userUid = "";
     private String info = "Hanna Baker invite you to ";
     private String avatar = "";
@@ -27,17 +37,20 @@ public class Meeting implements Comparable<Meeting>{
 
     @Convert(converter = Meeting.EventConverter.class , columnType = String.class)
     private Event event;
+    /** Used to resolve relations */
+    @Generated(hash = 2040040024)
+    private transient DaoSession daoSession;
+    /** Used for active entity operations. */
+    @Generated(hash = 1797444500)
+    private transient MeetingDao myDao;
 
-    @Generated(hash = 171861101)
-    public Meeting() {
-    }
-
-    @Generated(hash = 368415701)
-    public Meeting(String meetingUid, String eventUid, String userUid, String info,
-            String avatar, String createdAt, String updatedAt, String[] updateField,
-            Event event) {
+    @Generated(hash = 1639379472)
+    public Meeting(String meetingUid, String eventUid, String hostUserUid, String userUid,
+            String info, String avatar, String createdAt, String updatedAt,
+            String[] updateField, Event event) {
         this.meetingUid = meetingUid;
         this.eventUid = eventUid;
+        this.hostUserUid = hostUserUid;
         this.userUid = userUid;
         this.info = info;
         this.avatar = avatar;
@@ -47,12 +60,8 @@ public class Meeting implements Comparable<Meeting>{
         this.event = event;
     }
 
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
+    @Generated(hash = 171861101)
+    public Meeting() {
     }
 
     public String getInfo() {
@@ -61,6 +70,14 @@ public class Meeting implements Comparable<Meeting>{
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     @Override
@@ -122,6 +139,65 @@ public class Meeting implements Comparable<Meeting>{
 
     public void setUpdateField(String[] updateField) {
         this.updateField = updateField;
+    }
+
+    public String getHostuseruid() {
+        return this.hostUserUid;
+    }
+
+    public void setHostuseruid(String hostuseruid) {
+        this.hostUserUid = hostuseruid;
+    }
+
+    public String getHostUserUid() {
+        return this.hostUserUid;
+    }
+
+    public void setHostUserUid(String hostUserUid) {
+        this.hostUserUid = hostUserUid;
+    }
+
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 128553479)
+    public void delete() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.delete(this);
+    }
+
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 1942392019)
+    public void refresh() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.refresh(this);
+    }
+
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#update(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 713229351)
+    public void update() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.update(this);
+    }
+
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 1584316095)
+    public void __setDaoSession(DaoSession daoSession) {
+        this.daoSession = daoSession;
+        myDao = daoSession != null ? daoSession.getMeetingDao() : null;
     }
 
     /************ Converter

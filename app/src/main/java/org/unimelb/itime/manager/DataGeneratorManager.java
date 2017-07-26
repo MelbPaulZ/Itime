@@ -63,10 +63,10 @@ public class DataGeneratorManager {
     private void initData() {
         clearDB();
         initUser();
-        initMeetingFromJson();
-//        initMeetingListFromJson();
+//        initMeetingFromJson();
+        initMeetingListFromJson();
 //        initMeeting();
-        initEvent();
+//        initEvent();
 //        initContact();
     }
 
@@ -80,7 +80,7 @@ public class DataGeneratorManager {
     private void initUser(){
         user = new User();
         user.setPersonalAlias("Chuandong Yin");
-        user.setUserUid("userUid2");
+        user.setUserUid("johncdyin@gmail.com");
         user.setUserId("johncdyin@gmail.com");
         user.setPhoto("http://ac-Sk9FQYeP.clouddn.com/srLVmMIBvCGXsIBnUkSdQTD");
         user.setGender(User.MALE);
@@ -209,6 +209,10 @@ public class DataGeneratorManager {
         List<Meeting> list = new ArrayList<>();
         list.add(meeting);
 
+        List<Event> eventlist = new ArrayList<>();
+        eventlist.add(meeting.getEvent());
+
+//        DBManager.getInstance(context).insertOrReplace(eventlist);
         DBManager.getInstance(context).insertOrReplace(list);
     }
 

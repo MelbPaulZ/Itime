@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.antfortune.freeline'
 apply plugin: 'org.greenrobot.greendao' // apply plugin
+apply plugin: 'me.tatarka.retrolambda' // apply plugin
 
 
 android {
@@ -26,10 +27,14 @@ android {
 //        }
 //
 //    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 greendao {
-    schemaVersion 15
+    schemaVersion 21
     daoPackage "org.unimelb.itime.bean"
 }
 
@@ -122,4 +127,8 @@ dependencies {
     compile 'com.daimajia.androidanimations:library:2.2@aar'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'jp.wasabeef:recyclerview-animators:2.2.6'
+
+    // support lambda
+    compile 'com.annimon:stream:1.0.3'
+
 }
