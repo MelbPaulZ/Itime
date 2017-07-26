@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.databinding.FragmentMeetingBinding;
+import org.unimelb.itime.ui.activity.ArchiveActivity;
 import org.unimelb.itime.ui.activity.SearchActivity;
 import org.unimelb.itime.ui.mvpview.MeetingMvpView;
 import org.unimelb.itime.ui.presenter.MeetingPresenter;
@@ -102,8 +103,9 @@ public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPr
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // To archive fragment
-                getBaseActivity().openFragment(new FragmentArchive());
+                // To archive activity
+                Intent intent = new Intent(getActivity(), ArchiveActivity.class);
+                startActivity(intent);
             }
         };
     }

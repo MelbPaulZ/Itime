@@ -101,7 +101,7 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
                 showCalendar(weekFragment);
                 break;
             case 2:
-//                showCalendar(agendaFragment);
+                showCalendar(agendaFragment);
                 break;
             default:
                 showCalendar(monthDayFragment);
@@ -114,24 +114,23 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
      * @param fragment
      */
     public void showCalendar(ItimeBaseFragment fragment){
-
-        if (weekFragment.isVisible()){
-//            // from week fragment
-//            if (fragment instanceof CalendarMonthDayFragment){
-//                // to day fragment
 //
-//                CalendarManager.getInstance().setCurrentShowCalendar(Calendar.getInstance());
+//        if (weekFragment.isVisible()){
+////            // from week fragment
+//            if (fragment instanceof FragmentCalendarMonthDay){
+//                // to day fragment
+////                CalendarManager.getInstance().setCurrentShowCalendar(Calendar.getInstance());
 //            }
 //
-//            if (fragment instanceof CalendarAgendaFragment){
+//            if (fragment instanceof FragmentCalendarAgenda){
 //                // to agenda fragment
 //                CalendarManager.getInstance().setCurrentShowCalendar(Calendar.getInstance());
 //            }
-
-        }
 //
-        if (agendaFragment.isVisible()){
-            // from agenda fragment
+//        }
+////
+//        if (agendaFragment.isVisible()){
+//            // from agenda fragment
 //            if(fragment instanceof CalendarMonthDayFragment || fragment instanceof CalendarWeekFragment){
 //                // to month day fragment or week fragment
 //                Calendar curCal = Calendar.getInstance();
@@ -139,8 +138,8 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
 //                showCal.set(Calendar.HOUR,curCal.get(Calendar.HOUR));
 //                showCal.set(Calendar.MINUTE, curCal.get(Calendar.MINUTE));
 //            }
-
-        }
+//
+//        }
         getFragmentManager().beginTransaction().replace(R.id.calendar_framelayout, fragment).commit();
     }
 
