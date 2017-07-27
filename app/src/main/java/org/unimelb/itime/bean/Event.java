@@ -352,7 +352,6 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         return eventType;
     }
 
-    @Override
     public boolean isConfirmed() {
         return status.equals(Event.STATUS_CONFIRMED);
     }

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="contentVM"
+            type="org.unimelb.itime.ui.viewmodel.contact.ContactHomePageViewModel"/>
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--friend requests-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_detail_cell_height"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:paddingLeft="15dp">
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/icon_contacts_request"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8.5dp"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/font_large"
+            android:textColor="@color/text_body"
+            android:text="@string/contact_friend_request"
+            android:layout_weight="1"
+            />
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="25dp"
+            android:textSize="10sp"
+            android:textColor="@color/white"
+            android:text="@{String.valueOf(contentVM.requestCount)}"
+            android:visibility="@{contentVM.requestCount==0?View.GONE:View.INVISIBLE}"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/icon_notice_number"/>
+    </LinearLayout>
+    <include layout="@layout/line"/>
+
+    <!--more friends-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_detail_cell_height"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:paddingLeft="15dp">
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/icon_contacts_findmore"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8.5dp"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/font_large"
+            android:textColor="@color/text_body"
+            android:text="@string/contact_find_more_friends"
+            android:layout_weight="1"
+            />
+
+        <TextView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginRight="30dp"
+            android:textSize="10sp"
+            android:textColor="@color/white"
+
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/icon_notice_number"/>
+    </LinearLayout>
+    <include layout="@layout/line"/>
+
+    <!--my profile-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_detail_cell_height"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:paddingLeft="15dp">
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/icon_contacts_myprofile"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8.5dp"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/font_large"
+            android:textColor="@color/text_body"
+            android:text="@string/contact_my_profile"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+    <include layout="@layout/line"/>
+</LinearLayout>
+    </layout>

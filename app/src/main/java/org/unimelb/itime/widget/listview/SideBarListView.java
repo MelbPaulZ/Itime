@@ -4,19 +4,26 @@ import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableList;
+import android.databinding.ViewDataBinding;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import org.unimelb.itime.R;
+import org.unimelb.itime.adapter.BaseRecyclerAdapter;
 import org.unimelb.itime.databinding.SideBarListViewBinding;
 import org.unimelb.itime.widget.OnRecyclerItemClickListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -33,6 +40,8 @@ public class SideBarListView extends FrameLayout {
     private Map<String, Integer> positionMap = new HashMap<>();
     private SideBarListViewModel viewModel;
     private ObservableList<UserInfoViewModel> items;
+    private ItemBinding itemBinding;
+    private MyAdapter myAdapter;
 
     public SideBarListView(Context context) {
         super(context);
@@ -51,12 +60,12 @@ public class SideBarListView extends FrameLayout {
 
     public void setItems(ObservableList<UserInfoViewModel> items){
         this.items = items;
-        viewModel.setItems(items);
         getPositionMap();
+        myAdapter.addDatas(items);
     }
 
     public void setItemBinding(ItemBinding itemBinding){
-        viewModel.setItemBinding(itemBinding);
+        this.itemBinding = itemBinding;
     }
 
     public void setOnItemClickListener(OnRecyclerItemClickListener.OnItemClickListener onItemClickListener){
@@ -89,6 +98,10 @@ public class SideBarListView extends FrameLayout {
         }
     }
 
+    public void addHeader(View view){
+        myAdapter.setHeaderView(view);
+    }
+
     public void init(){
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()),
                 R.layout.side_bar_list_view, null, false);
@@ -111,10 +124,44 @@ public class SideBarListView extends FrameLayout {
         viewModel.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.setContentVM(viewModel);
         this.addView(binding.getRoot());
+        myAdapter = new MyAdapter();
+        listView.setLayoutManager(new LinearLayoutManager(getContext()));
+        listView.setAdapter(myAdapter);
     }
 
     public void hideSideBar() {
         sideBar.setVisibility(GONE);
+    }
+
+    public class MyAdapter<T> extends BaseRecyclerAdapter<T> {
+
+        @Override
+        public RecyclerView.ViewHolder onCreate(ViewGroup parent, int viewType) {
+            ViewDataBinding binding =  DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), itemBinding.layoutRes(), parent, false);
+            MyHolder myHolder =  new MyHolder(binding.getRoot());
+            myHolder.setBinding(binding);
+            return myHolder;
+        }
+
+        @Override
+        public void onBind(RecyclerView.ViewHolder viewHolder, int RealPosition, T data) {
+            ((MyHolder) viewHolder).binding.setVariable(itemBinding.variableId(), data);
+        }
+
+        class MyHolder extends BaseRecyclerAdapter.Holder {
+            ViewDataBinding binding;
+            public MyHolder(View itemView) {
+                super(itemView);
+            }
+
+            public ViewDataBinding getBinding() {
+                return binding;
+            }
+
+            public void setBinding(ViewDataBinding binding) {
+                this.binding = binding;
+            }
+        }
     }
 
 }

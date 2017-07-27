@@ -23,6 +23,7 @@ import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.fragment.EmptyFragment;
 import org.unimelb.itime.ui.fragment.activity.FragmentItimeActivities;
+import org.unimelb.itime.ui.fragment.contact.MainContactFragment;
 import org.unimelb.itime.ui.fragment.meeting.FragmentMeeting;
 import org.unimelb.itime.ui.fragment.calendar.FragmentCalendar;
 import org.unimelb.itime.ui.mvpview.MainTabBarView;
@@ -68,7 +69,7 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         tagFragments[0] = new FragmentMeeting();
         tagFragments[1] = new FragmentItimeActivities();
         tagFragments[2] = new FragmentCalendar();
-        tagFragments[3] = new EmptyFragment();
+        tagFragments[3] = new MainContactFragment();
 
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();

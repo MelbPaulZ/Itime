@@ -21,11 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/sortedContactListView"
-            android:layout_toStartOf="@id/sidrbar"
-            app:items = "@{contentVM.items}"
-            app:itemBinding="@{contentVM.itemBinding}"
-            app:onItemClickListener="@{contentVM.onItemClickListener}"
-            app:layoutManager="@{contentVM.layoutManager}"/>
+            android:layout_toStartOf="@id/sidrbar" />
             <!--android:background="@color/white"/>-->
 
         <TextView

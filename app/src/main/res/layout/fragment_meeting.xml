@@ -31,8 +31,8 @@
                     app:smallAvatar='@{"http://avatar.csdn.net/A/9/C/1_waldmer.jpg"}' />
 
                 <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="265.5dp"
+                    android:layout_height="28dp"
                     android:layout_centerInParent="true">
                     <include layout="@layout/searchbar"/>
                 </FrameLayout>
