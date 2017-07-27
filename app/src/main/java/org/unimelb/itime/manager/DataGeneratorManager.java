@@ -22,8 +22,10 @@ import java.util.List;
 
 /**
  * Created by yuhaoliu on 11/7/17.
+ * Using for mock data
  */
 
+@Deprecated
 public class DataGeneratorManager {
     private static final String EVENTS_FILE_NAME = "events.json";
     private static final String MEETING_FILE_NAME = "meeting.json";

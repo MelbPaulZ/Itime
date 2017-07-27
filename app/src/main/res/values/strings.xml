@@ -252,4 +252,8 @@
     <string name="meeting_tag_coming">Coming</string>
     <string name="search">Search</string>
 
+    <!-- Error msg -->
+    <string name="some_error_happens">Some error happens</string>
+    <string name="alarm_error_msg_event_error">Alarmed event cannot find, error happens</string>
+    <string name="alarm_error_msg_bundle_error">Alarmed event cannot find, error happens</string>
 </resources>

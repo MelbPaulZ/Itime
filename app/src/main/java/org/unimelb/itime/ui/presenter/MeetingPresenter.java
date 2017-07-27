@@ -5,6 +5,7 @@ import android.content.Context;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.greendao.AbstractDao;
 import org.unimelb.itime.base.ItimeBasePresenter;
 import org.unimelb.itime.bean.Event;
@@ -12,8 +13,8 @@ import org.unimelb.itime.bean.EventDao;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.bean.MeetingDao;
 import org.unimelb.itime.manager.DBManager;
-import org.unimelb.itime.manager.DataGeneratorManager;
 import org.unimelb.itime.ui.mvpview.MeetingMvpView;
+import org.unimelb.itime.util.UserUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -43,15 +44,10 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
         super(context);
     }
 
-    public void loadData(){
-        if (filterResult !=null && getView() != null){
-            getView().onDataLoaded(filterResult);
-            return;
-        }
-
+    public void loadDataFromDB(){
         Observable<FilterResult> filterResultObservable = Observable.create(subscriber -> {
             FilterResult filterResult1 = new FilterResult();
-            String userUid = DataGeneratorManager.getInstance().getUser().getUserUid();
+            String userUid = UserUtil.getInstance(getContext()).getUserUid();
 
             AbstractDao<Meeting, Void> meetingDao = DBManager.getInstance(getContext()).getQueryDao(Meeting.class);
             AbstractDao<Event, Void> eventDao = DBManager.getInstance(getContext()).getQueryDao(Event.class);
@@ -86,7 +82,6 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
 
             subscriber.onNext(filterResult1);
 
-            filterResult = filterResult1;
             comingResult = new ArrayList<>();
 
         });
@@ -104,6 +99,8 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
 
             @Override
             public void onNext(FilterResult filterResult) {
+                MeetingPresenter.this.filterResult = filterResult;
+
                 if (getView() != null){
                     getView().onDataLoaded(filterResult);
                 }
@@ -114,6 +111,15 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
+    }
+
+    public void getData(){
+        if (filterResult !=null && getView() != null){
+            getView().onDataLoaded(filterResult);
+            return;
+        }
+
+        loadDataFromDB();
     }
 
     public FilterResult getFilterResult() {
@@ -172,4 +178,6 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
 //        data.getEvent().update();
 //        data.update();
 //    }
+
+
 }

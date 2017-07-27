@@ -10,9 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.databinding.FragmentMeetingBinding;
+import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.ui.activity.ArchiveActivity;
 import org.unimelb.itime.ui.activity.SearchActivity;
 import org.unimelb.itime.ui.mvpview.MeetingMvpView;
@@ -26,7 +29,6 @@ import java.util.List;
  */
 
 public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPresenter<MeetingMvpView>> implements MeetingMvpView{
-
     public final static int TO_ARCHIVE = 0;
 
     private FragmentMeetingBinding binding;
@@ -143,19 +145,33 @@ public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPr
         filterResult = meetings;
         fragmentInvitation.setData(meetings);
         fragmentHosting.setData(meetings);
-
         fragmentComing.setData(getPresenter().getComingResult());
+    }
+
+    @Subscribe
+    public void refreshMeeting(MessageEvent messageEvent){
+        if (messageEvent.task == MessageEvent.RELOAD_MEETING){
+            getPresenter().loadDataFromDB();
+        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        getPresenter().loadData();
+        EventBus.getDefault().register(this);
+
+        getPresenter().getData();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

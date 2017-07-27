@@ -6,7 +6,9 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.util.CalendarUtil;
 import org.unimelb.itime.util.EventUtil;
+import org.unimelb.itime.util.UserUtil;
 import org.unimelb.itime.util.rulefactory.RuleFactory;
 import org.unimelb.itime.util.rulefactory.RuleModel;
 
@@ -208,13 +210,13 @@ public class EventManager {
     }
 
     private void loadDB(){
-//        List<org.unimelb.itime.bean.Calendar> calendars = CalendarUtil.getInstance(context).getCalendar();
-//        String userUid = UserUtil.getInstance(context).getUserUid();
-//        List<Event> events = DBManager.getInstance(context).getAllAvailableEvents(calendars,userUid);
-//
-//        for (Event ev: events) {
-//            addEvent(ev);
-//        }
+        List<org.unimelb.itime.bean.Calendar> calendars = CalendarUtil.getInstance(context).getCalendar();
+        String userUid = UserUtil.getInstance(context).getUserUid();
+        List<Event> events = DBManager.getInstance(context).getAllAvailableEvents(calendars,userUid);
+
+        for (Event ev: events) {
+            addEvent(ev);
+        }
     }
 
     public synchronized void clear(){

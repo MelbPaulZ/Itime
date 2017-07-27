@@ -81,18 +81,14 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
 
         @Override
         public void onEventCreate(DraggableEventView draggableEventView) {
-//            Event event = EventUtil.getNewEvent();
-//            event.setStartTime(draggableEventView.getStartTimeM());
-//            event.setEndTime(draggableEventView.getEndTimeM());
-//            eventManager.addEvent(event);
-
             Intent intent = new Intent(getActivity(), EventCreateActivity.class);
             startActivity(intent);
         }
 
         @Override
         public void onEventClick(DraggableEventView draggableEventView) {
-
+            // TODO: 27/7/17 To event detail
+            Event event = (Event) draggableEventView.getEvent();
         }
 
         @Override
@@ -119,12 +115,13 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
 
         @Override
         public void onAllDayEventClick(ITimeEventInterface iTimeEventInterface) {
-
+            // TODO: 27/7/17 To event detail
+            Event event = (Event) iTimeEventInterface;
         }
 
         @Override
         public void onDateChanged(Date date) {
-
+            //// TODO: 27/7/17 update header
         }
     };
 

@@ -3,7 +3,10 @@ package org.unimelb.itime.util;
 import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
+
+import org.unimelb.itime.base.C;
 
 import java.util.List;
 import java.util.TimeZone;
@@ -59,14 +62,18 @@ public class AppUtil {
     }
 
 
-//    /**
-//     * all tokens are saved in this shared preference
-//     * @param ctx
-//     * @return
-//     */
-//    public static SharedPreferences getTokenSaver(Context ctx){
-//        return ctx.getSharedPreferences(C.sp.TOKEN, Context.MODE_PRIVATE);
-//    }
+    public static SharedPreferences getSharedPreferences(Context ctx){
+        return ctx.getSharedPreferences(C.sp.DEFAULT, Context.MODE_PRIVATE);
+    }
+
+    /**
+     * all tokens are saved in this shared preference
+     * @param ctx
+     * @return
+     */
+    public static SharedPreferences getTokenSaver(Context ctx){
+        return ctx.getSharedPreferences(C.sp.TOKEN, Context.MODE_PRIVATE);
+    }
 
 
     /**

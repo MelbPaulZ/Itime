@@ -11,6 +11,8 @@ import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.hannesdorfmann.mosby.mvp.MvpFragment;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseActivity;
 import org.unimelb.itime.bean.Contact;
@@ -21,6 +23,8 @@ import org.unimelb.itime.bean.User;
 import org.unimelb.itime.databinding.ActivityMainBinding;
 import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.messageevent.MessageEvent;
+import org.unimelb.itime.service.RemoteService;
 import org.unimelb.itime.ui.fragment.EmptyFragment;
 import org.unimelb.itime.ui.fragment.activity.FragmentItimeActivities;
 import org.unimelb.itime.ui.fragment.meeting.FragmentMeeting;
@@ -34,6 +38,10 @@ import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
+    public final static int MODE_MESSAGE = 89;
+    public final static int MODE_CONTACT = 90;
+    public final static String START_MODE = "start_mode";
+
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
@@ -50,7 +58,16 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setTabBarVM(viewModel);
         init();
+
+//        EventBus.getDefault().register(this);
     }
+
+//    @Subscribe
+//    public void refreshMeeting(MessageEvent messageEvent){
+//        if (messageEvent.task == MessageEvent.RELOAD_MEETING){
+//            ((FragmentMeeting)tagFragments[0]).getPresenter().loadDataFromDB();
+//        }
+//    }
 
     @NonNull
     @Override
@@ -106,5 +123,11 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         Intent intent = new Intent(this, EventCreateActivity.class);
         intent.putExtra(getString(R.string.event_type), getString(R.string.event_type_solo));
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }
