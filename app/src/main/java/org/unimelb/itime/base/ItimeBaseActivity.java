@@ -19,7 +19,6 @@ import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.hannesdorfmann.mosby.mvp.MvpView;
 
 import org.unimelb.itime.R;
-import org.unimelb.itime.manager.DataGeneratorManager;
 
 /**
  * Created by Paul on 6/6/17.
@@ -39,7 +38,7 @@ public abstract class ItimeBaseActivity<V extends MvpView, P extends MvpBasePres
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //mock data
-        DataGeneratorManager.getInstance(getApplicationContext());
+//        DataGeneratorManager.getInstance(getApplicationContext());
     }
 
 

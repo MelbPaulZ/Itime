@@ -21,9 +21,10 @@
         <!-- block status bar -->
         <include
             android:layout_width="match_parent"
-            android:layout_height="@dimen/wrap_content"
+            android:layout_height="@dimen/meeting_event_status_bar_height"
             bind:vm="@{vm}"
             layout="@layout/meeting_event_status_bar"/>
+
         <!-- event detail block -->
         <LinearLayout
             android:layout_width="match_parent"

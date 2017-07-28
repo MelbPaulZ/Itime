@@ -12,11 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.daimajia.swipe.util.Attributes;
+import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
 import org.unimelb.itime.R;
+import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.ui.mvpview.MeetingMvpView;
+import org.unimelb.itime.ui.presenter.MeetingPresenter;
 import org.unimelb.itime.util.EventUtil;
 
 import java.util.ArrayList;
@@ -36,7 +40,8 @@ public class FragmentComing extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerViewAdapterMeetings mAdapter;
     private Context context;
-
+    private List<Meeting> data;
+    private MeetingPresenter<MeetingMvpView> meetingPresenter;
     private EventManager.EventsPackage eventsPackage;
 
     @Nullable
@@ -52,8 +57,13 @@ public class FragmentComing extends Fragment {
         // Item Decorator:
         recyclerView.setItemAnimator(new FadeInLeftAnimator());
         // Adapter:
-        mAdapter = new RecyclerViewAdapterMeetings(context, getDisplayData(), RecyclerViewAdapterMeetings.Mode.COMING);
+        mAdapter = new RecyclerViewAdapterMeetings(context, RecyclerViewAdapterMeetings.Mode.COMING, meetingPresenter);
         mAdapter.setMode(Attributes.Mode.Single);
+        if (data != null){
+            mAdapter.setmDataset(data);
+            mAdapter.notifyDatasetChanged();
+        }
+
         recyclerView.setAdapter(mAdapter);
 
         return view;
@@ -62,6 +72,13 @@ public class FragmentComing extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
+
+    public void setData(List<Meeting> comingResult){
+        this.data = comingResult;
+        if (mAdapter != null){
+            mAdapter.notifyDatasetChanged();
+        }
     }
 
     private List<Meeting> getDisplayData(){
@@ -99,5 +116,9 @@ public class FragmentComing extends Fragment {
         }
 
         return meetingSet;
+    }
+
+    public void setMeetingPresenter(MeetingPresenter<MeetingMvpView> meetingPresenter) {
+        this.meetingPresenter = meetingPresenter;
     }
 }

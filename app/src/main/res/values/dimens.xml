@@ -71,6 +71,7 @@
     <dimen name="card_marginTB">10dp</dimen>
     <dimen name="card_marginLR">5.5dp</dimen>
     <dimen name="meeting_host_block_status_height">20dp</dimen>
+    <dimen name="meeting_event_status_bar_height">20dp</dimen>
     <integer name="search_result_max_show_c">2</integer>
     <integer name="search_result_max_show_c_disabled">-1</integer>
 </resources>

@@ -96,7 +96,7 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
         }
 
         @Override
-        public void onEventDragging(DraggableEventView draggableEventView, MyCalendar myCalendar, int i, int i1) {
+        public void onEventDragging(DraggableEventView draggableEventView, MyCalendar myCalendar, int i, int i1, String s) {
 
         }
 
@@ -105,6 +105,11 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
             Event event = (Event) draggableEventView.getEvent();
             event.setStartTime(draggableEventView.getStartTimeM());
             event.setEndTime(draggableEventView.getEndTimeM());
+        }
+
+        @Override
+        public void onEventDragEnd(DraggableEventView draggableEventView) {
+
         }
 
         @Override

@@ -10,9 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.databinding.FragmentMeetingBinding;
+import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.ui.activity.ArchiveActivity;
 import org.unimelb.itime.ui.activity.SearchActivity;
 import org.unimelb.itime.ui.mvpview.MeetingMvpView;
@@ -25,9 +28,15 @@ import java.util.List;
  * Created by yuhaoliu on 8/06/2017.
  */
 
-public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPresenter<MeetingMvpView>>{
+public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPresenter<MeetingMvpView>> implements MeetingMvpView{
+    public final static int TO_ARCHIVE = 0;
 
     private FragmentMeetingBinding binding;
+    private FragmentInvitation fragmentInvitation;
+    private FragmentHosting fragmentHosting;
+    private FragmentComing fragmentComing;
+    private PagerAdapterMeeting adapter;
+    private MeetingPresenter.FilterResult filterResult;
 
     @Nullable
     @Override
@@ -49,9 +58,8 @@ public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPr
 
         final CusSwipeViewPager viewPager = (CusSwipeViewPager) binding.getRoot().findViewById(R.id.pager);
 
-        final PagerAdapterMeeting adapter = new PagerAdapterMeeting
+        adapter = new PagerAdapterMeeting
                 (getFragmentManager(), tabLayout.getTabCount());
-        adapter.setmData(initFragments());
         //must be 2, otherwise get performance issue
         viewPager.setOffscreenPageLimit(2);
         viewPager.setSwipeEnable(false);
@@ -75,12 +83,15 @@ public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPr
 
             }
         });
+
         return binding.getRoot();
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        adapter.setmData(initFragments());
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -105,18 +116,70 @@ public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPr
             public void onClick(View v) {
                 // To archive activity
                 Intent intent = new Intent(getActivity(), ArchiveActivity.class);
-                startActivity(intent);
+                intent.putExtra(ArchiveActivity.ARCHIVE_RECEIVE_RESULT, getPresenter().getFilterResult());
+                startActivityForResult(intent, TO_ARCHIVE);
             }
         };
     }
 
     private List<Fragment> initFragments(){
-        List<Fragment> mData = new ArrayList<>();
+        fragmentInvitation = new FragmentInvitation();
+        fragmentInvitation.setMeetingPresenter(getPresenter());
 
-        mData.add(new FragmentInvitation());
-        mData.add(new FragmentHosting());
-        mData.add(new FragmentComing());
+        fragmentHosting = new FragmentHosting();
+        fragmentHosting.setMeetingPresenter(getPresenter());
+
+        fragmentComing = new FragmentComing();
+        fragmentComing.setMeetingPresenter(getPresenter());
+
+        List<Fragment> mData = new ArrayList<>();
+        mData.add(fragmentInvitation);
+        mData.add(fragmentHosting);
+        mData.add(fragmentComing);
 
         return mData;
+    }
+
+    @Override
+    public void onDataLoaded(MeetingPresenter.FilterResult meetings) {
+        filterResult = meetings;
+        fragmentInvitation.setData(meetings);
+        fragmentHosting.setData(meetings);
+        fragmentComing.setData(getPresenter().getComingResult());
+    }
+
+    @Subscribe
+    public void refreshMeeting(MessageEvent messageEvent){
+        if (messageEvent.task == MessageEvent.RELOAD_MEETING){
+            getPresenter().loadDataFromDB();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+
+        getPresenter().getData();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ArchiveActivity.ARCHIVE_BACK_RESULT_CODE){
+            getPresenter().setFilterResult((MeetingPresenter.FilterResult) data.getSerializableExtra(ArchiveActivity.ARCHIVE_BACK_RESULT));
+            getPresenter().refreshDisplayData();
+        }
     }
 }

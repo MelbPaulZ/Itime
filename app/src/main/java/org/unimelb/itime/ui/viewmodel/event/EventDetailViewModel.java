@@ -749,10 +749,11 @@ public class EventDetailViewModel extends BaseObservable{
     public void setEvent(Event event) {
         this.event = event;
 
+        if (event.getPhotos() != null){
+            setPhotoUrls(event.getPhotos());
+        }
         EventUtil.initTimeSlotVoteStatus(event);
         setVoteStatus(event);
-        setPhotoUrls(event.getPhotos());
-//        setRepeatString(EventUtil.getRepeatString(context,event));
 
         ArrayList<String> photos = new ArrayList<>();
         if(event.getSelf().equals(event.getHost())){

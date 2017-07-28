@@ -1,6 +1,7 @@
 package org.unimelb.itime.ui.fragment.meeting;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.databinding.FragmentMeetingArchiveBinding;
 import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.ui.activity.ArchiveActivity;
 import org.unimelb.itime.ui.mvpview.MeetingMvpView;
 import org.unimelb.itime.ui.presenter.MeetingPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
@@ -29,11 +31,14 @@ import org.unimelb.itime.util.EventUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import david.itimecalendar.calendar.listeners.ITimeEventInterface;
 import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
+
+import static org.unimelb.itime.ui.activity.ArchiveActivity.ARCHIVE_BACK_RESULT_CODE;
 
 /**
  * Created by yuhaoliu on 22/06/2017.
@@ -45,8 +50,10 @@ public class FragmentArchive extends ItimeBaseFragment<MeetingMvpView,MeetingPre
     private RecyclerView recyclerView;
     private RecyclerViewAdapterMeetings mAdapter;
     private Context context;
-
-    private EventManager.EventsPackage eventsPackage;
+    private List<Meeting> data;
+    private MeetingPresenter.FilterResult filterResult;
+    private MeetingPresenter<MeetingMvpView> meetingPresenter;
+    private OnMeetingMenu onMenu;
 
     @Nullable
     @Override
@@ -56,15 +63,16 @@ public class FragmentArchive extends ItimeBaseFragment<MeetingMvpView,MeetingPre
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_meeting_archive,container,false);
         View view = binding.getRoot();
 
-        eventsPackage = EventManager.getInstance(context).getEventsPackage();
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         // Layout Managers:
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         // Item Decorator:
         recyclerView.setItemAnimator(new FadeInLeftAnimator());
         // Adapter:
-        mAdapter = new RecyclerViewAdapterMeetings(context, getDisplayData(), RecyclerViewAdapterMeetings.Mode.ARCHIVE);
+        mAdapter = new RecyclerViewAdapterMeetings(context, RecyclerViewAdapterMeetings.Mode.ARCHIVE, meetingPresenter);
         mAdapter.setMode(Attributes.Mode.Single);
+
+
         recyclerView.setAdapter(mAdapter);
 
         setUpToolbar();
@@ -83,60 +91,54 @@ public class FragmentArchive extends ItimeBaseFragment<MeetingMvpView,MeetingPre
         binding.setVmToolbar(toolbarViewModel);
     }
 
+    public void setData(MeetingPresenter.FilterResult filterResult){
+        this.filterResult = filterResult;
+        this.data = filterResult.archiveResult;
+
+    }
+
     @Override
     public MeetingPresenter<MeetingMvpView> createPresenter() {
-        return new MeetingPresenter<>(getContext());
+        meetingPresenter = new MeetingPresenter<>(getContext());
+        return meetingPresenter;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        onMenu = new OnMeetingMenu(meetingPresenter,mAdapter,data,filterResult);
+
+        meetingPresenter.setFilterResult(filterResult);
+        if (mAdapter != null){
+            mAdapter.setOnMenuListener(onMenu);
+            mAdapter.notifyDatasetChanged();
+        }
+
+        if (data != null){
+            mAdapter.setmDataset(data);
+            mAdapter.notifyDatasetChanged();
+        }
     }
 
-    private List<Meeting> getDisplayData(){
-        long todayBegin = EventUtil.getDayBeginMilliseconds(Calendar.getInstance().getTimeInMillis());
-
-        List<ITimeEventInterface> eventSet = new ArrayList<>();
-
-        Map<Long, List<ITimeEventInterface>> regularMap = eventsPackage.getRegularEventDayMap();
-        Map<Long, List<ITimeEventInterface>> repeatedMap = eventsPackage.getRepeatedEventDayMap();
-
-        // extract regular events
-        for (Map.Entry<Long, List<ITimeEventInterface>> entry : regularMap.entrySet()) {
-            Long key = entry.getKey();
-            List<ITimeEventInterface> events = entry.getValue();
-            if (key >= todayBegin){
-                eventSet.addAll(events);
-            }
-        }
-        // extract repeated events
-        for (Map.Entry<Long, List<ITimeEventInterface>> entry : repeatedMap.entrySet()) {
-            Long key = entry.getKey();
-            List<ITimeEventInterface> events = entry.getValue();
-            if (key >= todayBegin){
-                eventSet.addAll(events);
-            }
-        }
-
-        List<Meeting> meetingSet = new ArrayList<>();
-        for (ITimeEventInterface event:eventSet
-             ) {
-            Meeting meeting = new Meeting();
-            meeting.setEvent((Event) event);
-            meeting.setInfo("Coming");
-            meetingSet.add(meeting);
-        }
-
-        return meetingSet;
-    }
-
+    /**
+     * Clear All btn
+     */
     @Override
     public void onNext() {
-
+        mAdapter.notifyItemRangeRemoved(0,filterResult.archiveResult.size());
+        meetingPresenter.deleteAllArchive();
     }
 
     @Override
     public void onBack() {
+        Intent intent = new Intent();
+        intent.putExtra(ArchiveActivity.ARCHIVE_BACK_RESULT, filterResult);
+        getBaseActivity().setResult(ARCHIVE_BACK_RESULT_CODE, intent);
         getBaseActivity().finish();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 }

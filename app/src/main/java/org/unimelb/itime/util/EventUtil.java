@@ -13,12 +13,14 @@ import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.bean.TimeslotInvitee;
 import org.unimelb.itime.bean.User;
-import org.unimelb.itime.manager.DataGeneratorManager;
+import org.unimelb.itime.manager.DBManager;
+import org.unimelb.itime.ui.presenter.MeetingPresenter;
 import org.unimelb.itime.util.rulefactory.FrequencyEnum;
 import org.unimelb.itime.util.rulefactory.RuleFactory;
 import org.unimelb.itime.util.rulefactory.RuleModel;
 
 import java.sql.Time;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,6 +40,9 @@ import david.itimecalendar.calendar.util.BaseUtil;
  */
 
 public class EventUtil extends BaseUtil{
+    public static double latitude;
+    public static double longitude;
+
 
     private static String TAG = "EventUtil";
     public final static long allDayMilliseconds = 24 * 60 * 60 * 1000;
@@ -437,10 +442,65 @@ public class EventUtil extends BaseUtil{
         return type;
     }
 
+    public static boolean isEventInVisibleCalendar(Event event, Context context) {
+        List<org.unimelb.itime.bean.Calendar> calendarList = DBManager.getInstance(context).getAllAvailableCalendarsForUser();
+        String calendarUid = event.getCalendarUid();
+        org.unimelb.itime.bean.Calendar cal = null;
+        for (org.unimelb.itime.bean.Calendar calendar : calendarList) {
+            if (calendar.getCalendarUid().equals(calendarUid)) {
+                cal = calendar;
+                break;
+            }
+        }
+
+        if (cal == null) {
+            return false;
+        }
+
+        return cal.getVisibility() > 0;
+
+    }
+
+    public static String getSuggestTimeStringFromLong(Context context, Long startTime, Long endTime) {
+        DateFormat df = new SimpleDateFormat("HH:mm");
+        Calendar calendarBegin = Calendar.getInstance();
+        calendarBegin.setTimeInMillis(startTime);
+
+        String dayOfWeekBegin =  calendarBegin.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, context.getResources().getConfiguration().locale);
+        dayOfWeekBegin = dayOfWeekBegin.toUpperCase();
+        String dayBegin = String.format("%02d", calendarBegin.get(Calendar.DAY_OF_MONTH));
+        String monthBegin = String.format("%02d",calendarBegin.get(Calendar.MONTH) + 1);
+        String yearBegin = String.format("%02d",calendarBegin.get(Calendar.YEAR));
+        String startTimeStr = df.format(calendarBegin.getTime());
+
+        Calendar calendarEnd = Calendar.getInstance();
+        calendarEnd.setTimeInMillis(endTime);
+        String dayOfWeekEnd =  calendarEnd.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, context.getResources().getConfiguration().locale);
+        dayOfWeekEnd = dayOfWeekEnd.toUpperCase();
+        String dayEnd = String.format("%02d", calendarEnd.get(Calendar.DAY_OF_MONTH));
+        String monthEnd= String.format("%02d",calendarEnd.get(Calendar.MONTH) + 1);
+        String yearEnd = String.format("%02d",calendarEnd.get(Calendar.YEAR));
+        String endTimeStr = df.format(calendarEnd.getTime());
+
+        String yearToday = String.format("%02d",Calendar.getInstance().get(Calendar.YEAR));
+
+        String dateBeginStr = dayBegin + "/" + monthBegin;
+        String dateEndStr = dayEnd + "/" + monthEnd;
+
+        String yearBeginStr = (yearBegin.equals(yearEnd) && yearBegin.equals(yearToday))?"": ("/"+yearBegin);
+        String yearEndStr = (yearEnd.equals(yearBegin) && yearEnd.equals(yearToday))?"": ("/"+ yearEnd);
+
+
+        return dayOfWeekBegin + " " + dateBeginStr + yearBeginStr + " " + startTimeStr
+                + " - "
+                + (dayOfWeekBegin.equals(dayOfWeekEnd)?"":(dayOfWeekEnd + " "))
+                +(dateBeginStr.equals(dateEndStr)?"":dateEndStr + yearEndStr + " ") + endTimeStr;
+    }
+
     /************** Start of ************ Event Status Helper **********************************/
 
     public static boolean isHost(Event event){
-        return event.getHostUserUid().equals(event.getUserUid());
+        return event.getUserUid().equals(event.getHostUserUid());
     }
 
     /**
@@ -451,7 +511,7 @@ public class EventUtil extends BaseUtil{
     public static Invitee getUserInvitee(Event event){
         for (Invitee invitee:event.getInvitee().values()
                 ) {
-            if (invitee.getUserUid().equals(DataGeneratorManager.getInstance().getUser().getUserUid())){
+            if (invitee.getUserUid().equals(event.getHostUserUid())){
                 return invitee;
             }
         }
@@ -479,7 +539,7 @@ public class EventUtil extends BaseUtil{
     public static String getInviteeStatus(Event event){
         for (Invitee invitee:event.getInvitee().values()
                 ) {
-            if (invitee.getUserUid().equals(DataGeneratorManager.getInstance().getUser().getUserUid())){
+            if (invitee.getUserUid().equals(event.getHostUserUid())){
                 return invitee.getStatus();
             }
         }
@@ -587,6 +647,14 @@ public class EventUtil extends BaseUtil{
         }
 
         return new int[]{goingNum, notGoingNum, votedNum, cantGoNum, noReplyNum};
+    }
+
+    public static void restoreItem(Meeting meeting, MeetingPresenter.FilterResult filterResult){
+        if (meeting.getHostUserUid().equals(meeting.getUserUid())){
+            filterResult.hostingResult.add(meeting);
+        }else {
+            filterResult.invitationResult.add(meeting);
+        }
     }
 
     public static void initTimeSlotVoteStatus(Event event){

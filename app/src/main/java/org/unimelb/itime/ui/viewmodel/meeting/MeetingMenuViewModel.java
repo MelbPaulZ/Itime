@@ -41,6 +41,10 @@ public class MeetingMenuViewModel extends BaseObservable {
             @Override
             public void onClick(View v) {
                 if (mOnMenuClick!=null){
+                    //update UI first
+                    meeting.getEvent().setIsPinned(!meeting.getEvent().isPinned());
+                    notifyPropertyChanged(BR.meeting);
+
                     mOnMenuClick.onPin(meeting);
                 }
             }
@@ -51,6 +55,10 @@ public class MeetingMenuViewModel extends BaseObservable {
             @Override
             public void onClick(View v) {
                 if (mOnMenuClick!=null){
+                    //update UI first
+                    meeting.getEvent().setIsMute(!meeting.getEvent().isMute());
+                    notifyPropertyChanged(BR.meeting);
+
                     mOnMenuClick.onMute(meeting);
                 }
             }
@@ -62,6 +70,10 @@ public class MeetingMenuViewModel extends BaseObservable {
             @Override
             public void onClick(View v) {
                 if (mOnMenuClick!=null){
+                    //update UI first, then remove this item in fragment
+                    meeting.getEvent().setIsArchived(!meeting.getEvent().isArchived());
+                    notifyPropertyChanged(BR.meeting);
+
                     mOnMenuClick.onArchive(meeting);
                 }
             }
@@ -73,6 +85,7 @@ public class MeetingMenuViewModel extends BaseObservable {
             @Override
             public void onClick(View v) {
                 if (mOnMenuClick!=null){
+                    //remove this item in fragment
                     mOnMenuClick.onDelete(meeting);
                 }
             }
@@ -84,6 +97,9 @@ public class MeetingMenuViewModel extends BaseObservable {
             @Override
             public void onClick(View v) {
                 if (mOnMenuClick!=null){
+                    meeting.getEvent().setIsArchived(!meeting.getEvent().isArchived());
+                    notifyPropertyChanged(BR.meeting);
+                    //remove this item in fragment
                     mOnMenuClick.onRestore(meeting);
                 }
             }
@@ -104,7 +120,7 @@ public class MeetingMenuViewModel extends BaseObservable {
         notifyPropertyChanged(BR.meeting);
     }
 
-    public Drawable getPinIconSrc(Context context){
+    public Drawable getPinIconSrc(Context context, Meeting meeting){
         return context.getResources().getDrawable(
                 meeting.getEvent().isPinned() ?
                         R.drawable.icon_meetings_swipeleft_unpin
@@ -112,7 +128,7 @@ public class MeetingMenuViewModel extends BaseObservable {
                         R.drawable.icon_meetings_swipeleft_pin);
     }
 
-    public Drawable getMuteIconSrc(Context context){
+    public Drawable getMuteIconSrc(Context context, Meeting meeting){
         return context.getResources().getDrawable(
                 meeting.getEvent().isMute() ?
                         R.drawable.icon_meetings_swipeleft_unmute
@@ -120,7 +136,7 @@ public class MeetingMenuViewModel extends BaseObservable {
                         R.drawable.icon_meetings_swipeleft_mute);
     }
 
-    public Drawable getArchiveIconSrc(Context context){
+    public Drawable getArchiveIconSrc(Context context, Meeting meeting){
         return context.getResources().getDrawable(
                 meeting.getEvent().isArchived() ?
                         R.drawable.icon_meetings_swipeleft_archive
@@ -136,7 +152,7 @@ public class MeetingMenuViewModel extends BaseObservable {
         return context.getResources().getDrawable(R.drawable.icon_meetings_restore);
     }
 
-    public String getPinIconText(Context context){
+    public String getPinIconText(Context context, Meeting meeting){
         return context.getResources().getString(
                 meeting.getEvent().isPinned() ?
                         R.string.unpin
@@ -144,7 +160,7 @@ public class MeetingMenuViewModel extends BaseObservable {
                         R.string.pinned);
     }
 
-    public String getMuteIconText(Context context){
+    public String getMuteIconText(Context context, Meeting meeting){
         return context.getResources().getString(
                 meeting.getEvent().isMute() ?
                         R.string.unmute
@@ -152,7 +168,7 @@ public class MeetingMenuViewModel extends BaseObservable {
                         R.string.mute);
     }
 
-    public String getArchiveIconText(Context context){
+    public String getArchiveIconText(Context context, Meeting meeting){
         return context.getResources().getString(
                 meeting.getEvent().isArchived() ?
                         R.string.archived

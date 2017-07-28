@@ -272,4 +272,8 @@
     <string name="morefriends_scan_qr_code">Scan QR Code</string>
     <string name="people_you_may_know">PEOPLE YOU MAY KNOW</string>
 
+    <!-- Error msg -->
+    <string name="some_error_happens">Some error happens</string>
+    <string name="alarm_error_msg_event_error">Alarmed event cannot find, error happens</string>
+    <string name="alarm_error_msg_bundle_error">Alarmed event cannot find, error happens</string>
 </resources>

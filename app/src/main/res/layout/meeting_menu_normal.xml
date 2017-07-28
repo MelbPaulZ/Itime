@@ -26,7 +26,7 @@
             android:onClick="@{vm.onClickPin()}"
             >
             <ImageView
-                android:src="@{vm.getPinIconSrc(context)}"
+                android:src="@{vm.getPinIconSrc(context,vm.meeting)}"
                 android:layout_width="@dimen/meeting_menu_icon_width"
                 android:layout_height="@dimen/meeting_menu_icon_height"
                 android:background="@android:color/transparent"
@@ -35,7 +35,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{vm.getPinIconText(context)}"
+                android:text="@{vm.getPinIconText(context,vm.meeting)}"
                 android:textSize="@dimen/meeting_menu_icon_textsize"
                 android:gravity="center"/>
         </LinearLayout>
@@ -49,7 +49,7 @@
             android:onClick="@{vm.onClickMute()}"
             >
             <ImageView
-                android:src="@{vm.getMuteIconSrc(context)}"
+                android:src="@{vm.getMuteIconSrc(context,vm.meeting)}"
                 android:layout_width="@dimen/meeting_menu_icon_width"
                 android:layout_height="@dimen/meeting_menu_icon_height"
                 android:background="@android:color/transparent"
@@ -57,7 +57,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{vm.getMuteIconText(context)}"
+                android:text="@{vm.getMuteIconText(context,vm.meeting)}"
                 android:gravity="center"
                 />
         </LinearLayout>
@@ -71,7 +71,7 @@
             android:onClick="@{vm.onClickArchive()}"
             >
             <ImageView
-                android:src="@{vm.getArchiveIconSrc(context)}"
+                android:src="@{vm.getArchiveIconSrc(context,vm.meeting)}"
                 android:layout_width="@dimen/meeting_menu_icon_width"
                 android:layout_height="@dimen/meeting_menu_icon_height"
                 android:background="@android:color/transparent"
@@ -79,7 +79,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{vm.getArchiveIconText(context)}"
+                android:text="@{vm.getArchiveIconText(context,vm.meeting)}"
                 android:gravity="center"
                 />
         </LinearLayout>

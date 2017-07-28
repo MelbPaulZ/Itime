@@ -13,12 +13,16 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.daimajia.swipe.util.Attributes;
+import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
 import org.unimelb.itime.R;
+import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Location;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.manager.DBManager;
+import org.unimelb.itime.ui.mvpview.MeetingMvpView;
+import org.unimelb.itime.ui.presenter.MeetingPresenter;
 import org.unimelb.itime.util.EventUtil;
 
 import java.util.ArrayList;
@@ -36,6 +40,9 @@ public class FragmentHosting extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerViewAdapterMeetings mAdapter;
     private Context context;
+    private List<Meeting> data;
+    private MeetingPresenter.FilterResult filterResult;
+    private MeetingPresenter<MeetingMvpView> meetingPresenter;
 
     @Nullable
     @Override
@@ -51,9 +58,13 @@ public class FragmentHosting extends Fragment {
         recyclerView.setItemAnimator(new FadeInLeftAnimator());
 
         // Adapter:
-        mAdapter = new RecyclerViewAdapterMeetings(context, initData(), RecyclerViewAdapterMeetings.Mode.HOSTING);
-
+        mAdapter = new RecyclerViewAdapterMeetings(context, RecyclerViewAdapterMeetings.Mode.HOSTING, meetingPresenter);
         mAdapter.setMode(Attributes.Mode.Single);
+        if (data != null){
+            mAdapter.setmDataset(data);
+            mAdapter.notifyDatasetChanged();
+        }
+
         recyclerView.setAdapter(mAdapter);
 
         /* Listeners */
@@ -84,7 +95,17 @@ public class FragmentHosting extends Fragment {
         }
     };
 
-    private List<Meeting> initData(){
-        return DBManager.getInstance(getContext()).getAll(Meeting.class);
+    public void setData(MeetingPresenter.FilterResult filterResult){
+        this.filterResult = filterResult;
+        this.data = filterResult.hostingResult;
+        if (mAdapter != null){
+            mAdapter.setOnMenuListener(new OnMeetingMenu(meetingPresenter,mAdapter,data,filterResult));
+            mAdapter.setmDataset(this.data);
+            mAdapter.notifyDatasetChanged();
+        }
+    }
+
+    public void setMeetingPresenter(MeetingPresenter<MeetingMvpView> meetingPresenter) {
+        this.meetingPresenter = meetingPresenter;
     }
 }

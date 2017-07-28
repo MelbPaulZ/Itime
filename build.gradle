@@ -21,6 +21,8 @@ buildscript {
         // green dao
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
 
+        //lambda
+        classpath 'me.tatarka:gradle-retrolambda:3.1.0'
     }
 }
 

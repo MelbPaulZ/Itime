@@ -2,19 +2,18 @@
 	{
 	    "meetingUid" : 1,
 	    "eventUid" : "147622845299714",
-	    "userUid" : 1,
+	    "userUid" : "johncdyin@gmail.com",
+	    "hostUserUid":"johncdyin@gmail.com",
 	    "info" : "",
-	    "updateField" : [],
+	    "updateField" : ["Location","Timeslossst"],
 	    "createdAt" : "",
 	    "updatedAt" : "",
 	    "event" :
 	    {
 		    "id": "",
-		    "recurrence": [
-		        "RRULE:FREQ=DAILY;INTERVAL=1;UNTIL=20180827"
-		    ],
-		    "status": "confirmed",
-		    "summary": "New Event(Not an all day event)",
+		    "recurrence": ["RRULE:FREQ=DAILY;INTERVAL=1;UNTIL=20180827"],
+		    "status": "pending",
+		    "summary": "is host",
 		    "reason":"",
 		    "description": "description of Three People Meeting",
 		    "note":"",
@@ -28,33 +27,33 @@
 		    },
 		    "reminder": 15,
 		    "source": "itime",
-		    "eventUid": "recurring_group_1",
+		    "eventUid": "147622845299714",
 		    "calendarUid": "1",
 		    "recurringEventUid": "",
 		    "host": "inviteeUid1",
 		    "self": "inviteeUid1",
-		    "hostUserUid": "userUid1",
-		    "userUid": "userUid1",
+		    "hostUserUid": "johncdyin@gmail.com",
+		    "userUid": "johncdyin@gmail.com",
 		    "eventType": "group",
 		    "inviteeVisibility": 1,
 		    "freebusyAccess": 0,
 		    "showLevel": 1,
 		    "deleteLevel": 0,
-		    "createdAt": "2017-05-23 02:20:47",
-		    "updatedAt": "2017-05-23 02:20:48",
+		    "createdAt": "2017-08-23 02:20:47",
+		    "updatedAt": "2017-08-23 02:20:48",
 		    "photo": [],
 		    "coverPhoto":"",
 		    "isAllDay": false,
-		    "isPinned": 0,
-		    "isMute": 0,
-		    "isArchived": 0,
+		    "isPinned": false,
+		    "isMute": false,
+		    "isArchived": false,
 		    "extra": "",
 		    "start": {
-		        "dateTime": "2017-05-23T12:25:00+10:00",
+		        "dateTime": "2017-08-23T12:25:00+10:00",
 		        "timeZone": "Australia/Sydney"
 		    },
 		    "end": {
-		        "dateTime": "2017-05-23T13:25:00+10:00",
+		        "dateTime": "2017-08-23T13:25:00+10:00",
 		        "timeZone": "Australia/Sydney"
 		    },
 		    "duration":60,
@@ -62,15 +61,15 @@
 		    "invitee": {
 		        "inviteeUid1": {
 		            "inviteeUid": "inviteeUid1",
-		            "eventUid": "recurring_group_1",
-		            "userUid": "userUid1",
+		            "eventUid": "147622845299714",
+		            "userUid": "johncdyin@gmail.com",
 		            "userId": "johncdyin@gmail.com",
 		            "status": "accepted",
 		            "reason": "",
 		            "hasResponded": 1,
 		            "contact": {},
 		            "user": {
-		                "userUid": "userUid1",
+		                "userUid": "johncdyin@gmail.com",
 		                "userId": "johncdyin@gmail.com",
 		                "personalAlias": "x",
 		                "gender": 2,
@@ -82,10 +81,10 @@
 		        },
 		        "inviteeUid2": {
 		            "inviteeUid": "inviteeUid2",
-		            "eventUid": "recurring_group_1",
-		            "userUid": "userUid2",
+		            "eventUid": "147622845299714",
+		            "userUid": "xiaojiew@gmail.com",
 		            "userId": "xiaojiew@gmail.com",
-		            "status": "accepted",
+		            "status": "needsAction",
 		            "reason": "",
 		            "hasResponded": 1,
 		            "contact": {
@@ -102,12 +101,12 @@
 		                  "catchupCount": 0,
 		                  "nextCatchupTime": 0,
 		                  "lastCatchupTime": 0,
-		                  "createdAt": "2017-05-13 06:27:12",
-		                  "updatedAt": "2017-05-23 01:57:20",
+		                  "createdAt": "2017-08-13 06:27:12",
+		                  "updatedAt": "2017-08-23 01:57:20",
 		                  "blockLevel": 0
 		            },
 		            "user": {
-		                  "userUid": "userUid2",
+		                  "userUid": "xiaojiew@gmail.com",
 		                  "userId": "xiaojiew@gmail.com",
 		                  "personalAlias": "xiaojiew",
 		                  "gender": 2,
@@ -122,13 +121,13 @@
 		    "timeslot": {
 		        "timeslotUid1": {
 		            "timeslotUid": "timeslotUid1",
-		            "eventUid": "recurring_group_1",
+		            "eventUid": "147622845299714",
 		            "start": {
-		                "dateTime": "2017-05-23T12:25:00+10:00",
+		                "dateTime": "2017-08-23T12:25:00+10:00",
 		                "timeZone": "Australia/Sydney"
 		            },
 		            "end": {
-		                "dateTime": "2017-05-23T13:25:00+10:00",
+		                "dateTime": "2017-08-23T13:25:00+10:00",
 		                "timeZone": "Australia/Sydney"
 		            },
 		            "acceptedNum": 1,
@@ -140,7 +139,7 @@
 		        },
 		        "timeslotUid2": {
 		            "timeslotUid": "timeslotUid2",
-		            "eventUid": "recurring_group_1",
+		            "eventUid": "147622845299714",
 		            "start": {
 		                "dateTime": "2017-06-20T13:00:00+10:00",
 		                "timeZone": "Australia/Sydney"
@@ -165,7 +164,7 @@
 		                "rate": 1,
 		                "timeslotUid": "timeslotUid1",
 		                "inviteeUid": "inviteeUid1",
-		                "eventUid": "recurring_group_1",
+		                "eventUid": "147622845299714",
 		                "userUid": "userUid1"
 		            },
 		            "inviteeUid2": {
@@ -173,7 +172,7 @@
 		                "rate": 1,
 		                "timeslotUid": "timeslotUid1",
 		                "inviteeUid": "inviteeUid2",
-		                "eventUid": "recurring_group_1",
+		                "eventUid": "147622845299714",
 		                "userUid": "userUid2"
 		            }
 		        },
@@ -184,7 +183,7 @@
 		                "rate": 1,
 		                "timeslotUid": "timeslotUid2",
 		                "inviteeUid": "inviteeUid1",
-		                "eventUid": "recurring_group_1",
+		                "eventUid": "147622845299714",
 		                "userUid": "userUid1"
 		            },
 		            "inviteeUid2": {
@@ -192,18 +191,18 @@
 		                "rate": 1,
 		                "timeslotUid": "timeslotUid2",
 		                "inviteeUid": "inviteeUid2",
-		                "eventUid": "recurring_group_1",
+		                "eventUid": "147622845299714",
 		                "userUid": "userUid2"
 		            }
 		        }
 		    }
 		}
 	},
-
 	{
-	    "meetingUid" : 1,
+	    "meetingUid" : 3,
 	    "eventUid" : "147622845299714",
-	    "userUid" : 1,
+	    "userUid" : "johncdyin@gmail.com",
+	    "hostUserUid":"xiaojiew@gmail.com",
 	    "info" : "",
 	    "updateField" : ["Location","Timeslot"],
 	    "createdAt" : "",
@@ -211,9 +210,9 @@
 	    "event" :
 	    {
 		    "id": "",
-		    "recurrence": [],
+		    "recurrence": ["RRULE:FREQ=DAILY;INTERVAL=1;UNTIL=20180827"],
 		    "status": "pending",
-		    "summary": "New Event(Not an all day event)",
+		    "summary": "not host 2",
 		    "reason":"",
 		    "description": "description of Three People Meeting",
 		    "note":"",
@@ -227,33 +226,33 @@
 		    },
 		    "reminder": 15,
 		    "source": "itime",
-		    "eventUid": "recurring_group_1",
+		    "eventUid": "147622845299714",
 		    "calendarUid": "1",
 		    "recurringEventUid": "",
 		    "host": "inviteeUid1",
 		    "self": "inviteeUid1",
-		    "hostUserUid": "userUid1",
-		    "userUid": "userUid1",
+		    "hostUserUid": "xiaojiew@gmail.com",
+		    "userUid": "johncdyin@gmail.com",
 		    "eventType": "group",
 		    "inviteeVisibility": 1,
 		    "freebusyAccess": 0,
 		    "showLevel": 1,
 		    "deleteLevel": 0,
-		    "createdAt": "2017-05-23 02:20:47",
-		    "updatedAt": "2017-05-23 02:20:48",
+		    "createdAt": "2017-08-23 02:20:47",
+		    "updatedAt": "2017-08-23 02:20:48",
 		    "photo": [],
 		    "coverPhoto":"",
 		    "isAllDay": false,
-		    "isPinned": 0,
-		    "isMute": 0,
-		    "isArchived": 0,
+		    "isPinned": false,
+		    "isMute": false,
+		    "isArchived": false,
 		    "extra": "",
 		    "start": {
-		        "dateTime": "2017-05-23T12:25:00+10:00",
+		        "dateTime": "2017-08-23T12:25:00+10:00",
 		        "timeZone": "Australia/Sydney"
 		    },
 		    "end": {
-		        "dateTime": "2017-05-23T13:25:00+10:00",
+		        "dateTime": "2017-08-23T13:25:00+10:00",
 		        "timeZone": "Australia/Sydney"
 		    },
 		    "duration":60,
@@ -261,15 +260,15 @@
 		    "invitee": {
 		        "inviteeUid1": {
 		            "inviteeUid": "inviteeUid1",
-		            "eventUid": "recurring_group_1",
-		            "userUid": "userUid1",
+		            "eventUid": "147622845299714",
+		            "userUid": "johncdyin@gmail.com",
 		            "userId": "johncdyin@gmail.com",
 		            "status": "accepted",
 		            "reason": "",
 		            "hasResponded": 1,
 		            "contact": {},
 		            "user": {
-		                "userUid": "userUid1",
+		                "userUid": "johncdyin@gmail.com",
 		                "userId": "johncdyin@gmail.com",
 		                "personalAlias": "x",
 		                "gender": 2,
@@ -281,10 +280,10 @@
 		        },
 		        "inviteeUid2": {
 		            "inviteeUid": "inviteeUid2",
-		            "eventUid": "recurring_group_1",
-		            "userUid": "userUid2",
+		            "eventUid": "147622845299714",
+		            "userUid": "xiaojiew@gmail.com",
 		            "userId": "xiaojiew@gmail.com",
-		            "status": "pending",
+		            "status": "needsAction",
 		            "reason": "",
 		            "hasResponded": 1,
 		            "contact": {
@@ -301,12 +300,12 @@
 		                  "catchupCount": 0,
 		                  "nextCatchupTime": 0,
 		                  "lastCatchupTime": 0,
-		                  "createdAt": "2017-05-13 06:27:12",
-		                  "updatedAt": "2017-05-23 01:57:20",
+		                  "createdAt": "2017-08-13 06:27:12",
+		                  "updatedAt": "2017-08-23 01:57:20",
 		                  "blockLevel": 0
 		            },
 		            "user": {
-		                  "userUid": "userUid2",
+		                  "userUid": "xiaojiew@gmail.com",
 		                  "userId": "xiaojiew@gmail.com",
 		                  "personalAlias": "xiaojiew",
 		                  "gender": 2,
@@ -321,13 +320,13 @@
 		    "timeslot": {
 		        "timeslotUid1": {
 		            "timeslotUid": "timeslotUid1",
-		            "eventUid": "recurring_group_1",
+		            "eventUid": "147622845299714",
 		            "start": {
-		                "dateTime": "2017-05-23T12:25:00+10:00",
+		                "dateTime": "2017-08-23T12:25:00+10:00",
 		                "timeZone": "Australia/Sydney"
 		            },
 		            "end": {
-		                "dateTime": "2017-05-23T13:25:00+10:00",
+		                "dateTime": "2017-08-23T13:25:00+10:00",
 		                "timeZone": "Australia/Sydney"
 		            },
 		            "acceptedNum": 1,
@@ -339,7 +338,7 @@
 		        },
 		        "timeslotUid2": {
 		            "timeslotUid": "timeslotUid2",
-		            "eventUid": "recurring_group_1",
+		            "eventUid": "147622845299714",
 		            "start": {
 		                "dateTime": "2017-06-20T13:00:00+10:00",
 		                "timeZone": "Australia/Sydney"
@@ -364,7 +363,7 @@
 		                "rate": 1,
 		                "timeslotUid": "timeslotUid1",
 		                "inviteeUid": "inviteeUid1",
-		                "eventUid": "recurring_group_1",
+		                "eventUid": "147622845299714",
 		                "userUid": "userUid1"
 		            },
 		            "inviteeUid2": {
@@ -372,7 +371,7 @@
 		                "rate": 1,
 		                "timeslotUid": "timeslotUid1",
 		                "inviteeUid": "inviteeUid2",
-		                "eventUid": "recurring_group_1",
+		                "eventUid": "147622845299714",
 		                "userUid": "userUid2"
 		            }
 		        },
@@ -383,7 +382,7 @@
 		                "rate": 1,
 		                "timeslotUid": "timeslotUid2",
 		                "inviteeUid": "inviteeUid1",
-		                "eventUid": "recurring_group_1",
+		                "eventUid": "147622845299714",
 		                "userUid": "userUid1"
 		            },
 		            "inviteeUid2": {
@@ -391,30 +390,28 @@
 		                "rate": 1,
 		                "timeslotUid": "timeslotUid2",
 		                "inviteeUid": "inviteeUid2",
-		                "eventUid": "recurring_group_1",
+		                "eventUid": "147622845299714",
 		                "userUid": "userUid2"
 		            }
 		        }
 		    }
 		}
 	},
-	
 	{
-	    "meetingUid" : 1,
+	    "meetingUid" : 2,
 	    "eventUid" : "147622845299714",
-	    "userUid" : 1,
+	    "userUid" : "johncdyin@gmail.com",
+	    "hostUserUid":"xiaojiew@gmail.com",
 	    "info" : "",
-	    "updateField" : [],
+	    "updateField" : ["Location","Timeslot"],
 	    "createdAt" : "",
 	    "updatedAt" : "",
 	    "event" :
 	    {
 		    "id": "",
-		    "recurrence": [
-		        "RRULE:FREQ=DAILY;INTERVAL=1;UNTIL=20180827"
-		    ],
-		    "status": "confirmed",
-		    "summary": "New Event(Not an all day event)",
+		    "recurrence": ["RRULE:FREQ=DAILY;INTERVAL=1;UNTIL=20180827"],
+		    "status": "pending",
+		    "summary": "not host",
 		    "reason":"",
 		    "description": "description of Three People Meeting",
 		    "note":"",
@@ -428,33 +425,33 @@
 		    },
 		    "reminder": 15,
 		    "source": "itime",
-		    "eventUid": "recurring_group_1",
+		    "eventUid": "147622845299714",
 		    "calendarUid": "1",
 		    "recurringEventUid": "",
 		    "host": "inviteeUid1",
 		    "self": "inviteeUid1",
-		    "hostUserUid": "userUid1",
-		    "userUid": "userUid1",
+		    "hostUserUid": "xiaojiew@gmail.com",
+		    "userUid": "johncdyin@gmail.com",
 		    "eventType": "group",
 		    "inviteeVisibility": 1,
 		    "freebusyAccess": 0,
 		    "showLevel": 1,
 		    "deleteLevel": 0,
-		    "createdAt": "2017-05-23 02:20:47",
-		    "updatedAt": "2017-05-23 02:20:48",
+		    "createdAt": "2017-08-23 02:20:47",
+		    "updatedAt": "2017-08-23 02:20:48",
 		    "photo": [],
 		    "coverPhoto":"",
 		    "isAllDay": false,
-		    "isPinned": 0,
-		    "isMute": 0,
-		    "isArchived": 0,
+		    "isPinned": false,
+		    "isMute": false,
+		    "isArchived": false,
 		    "extra": "",
 		    "start": {
-		        "dateTime": "2017-05-23T12:25:00+10:00",
+		        "dateTime": "2017-08-23T12:25:00+10:00",
 		        "timeZone": "Australia/Sydney"
 		    },
 		    "end": {
-		        "dateTime": "2017-05-23T13:25:00+10:00",
+		        "dateTime": "2017-08-23T13:25:00+10:00",
 		        "timeZone": "Australia/Sydney"
 		    },
 		    "duration":60,
@@ -462,15 +459,15 @@
 		    "invitee": {
 		        "inviteeUid1": {
 		            "inviteeUid": "inviteeUid1",
-		            "eventUid": "recurring_group_1",
-		            "userUid": "userUid1",
+		            "eventUid": "147622845299714",
+		            "userUid": "johncdyin@gmail.com",
 		            "userId": "johncdyin@gmail.com",
 		            "status": "accepted",
 		            "reason": "",
 		            "hasResponded": 1,
 		            "contact": {},
 		            "user": {
-		                "userUid": "userUid1",
+		                "userUid": "johncdyin@gmail.com",
 		                "userId": "johncdyin@gmail.com",
 		                "personalAlias": "x",
 		                "gender": 2,
@@ -482,10 +479,10 @@
 		        },
 		        "inviteeUid2": {
 		            "inviteeUid": "inviteeUid2",
-		            "eventUid": "recurring_group_1",
-		            "userUid": "userUid2",
+		            "eventUid": "147622845299714",
+		            "userUid": "xiaojiew@gmail.com",
 		            "userId": "xiaojiew@gmail.com",
-		            "status": "accepted",
+		            "status": "needsAction",
 		            "reason": "",
 		            "hasResponded": 1,
 		            "contact": {
@@ -502,12 +499,12 @@
 		                  "catchupCount": 0,
 		                  "nextCatchupTime": 0,
 		                  "lastCatchupTime": 0,
-		                  "createdAt": "2017-05-13 06:27:12",
-		                  "updatedAt": "2017-05-23 01:57:20",
+		                  "createdAt": "2017-08-13 06:27:12",
+		                  "updatedAt": "2017-08-23 01:57:20",
 		                  "blockLevel": 0
 		            },
 		            "user": {
-		                  "userUid": "userUid2",
+		                  "userUid": "xiaojiew@gmail.com",
 		                  "userId": "xiaojiew@gmail.com",
 		                  "personalAlias": "xiaojiew",
 		                  "gender": 2,
@@ -522,13 +519,13 @@
 		    "timeslot": {
 		        "timeslotUid1": {
 		            "timeslotUid": "timeslotUid1",
-		            "eventUid": "recurring_group_1",
+		            "eventUid": "147622845299714",
 		            "start": {
-		                "dateTime": "2017-05-23T12:25:00+10:00",
+		                "dateTime": "2017-08-23T12:25:00+10:00",
 		                "timeZone": "Australia/Sydney"
 		            },
 		            "end": {
-		                "dateTime": "2017-05-23T13:25:00+10:00",
+		                "dateTime": "2017-08-23T13:25:00+10:00",
 		                "timeZone": "Australia/Sydney"
 		            },
 		            "acceptedNum": 1,
@@ -540,7 +537,7 @@
 		        },
 		        "timeslotUid2": {
 		            "timeslotUid": "timeslotUid2",
-		            "eventUid": "recurring_group_1",
+		            "eventUid": "147622845299714",
 		            "start": {
 		                "dateTime": "2017-06-20T13:00:00+10:00",
 		                "timeZone": "Australia/Sydney"
@@ -565,7 +562,7 @@
 		                "rate": 1,
 		                "timeslotUid": "timeslotUid1",
 		                "inviteeUid": "inviteeUid1",
-		                "eventUid": "recurring_group_1",
+		                "eventUid": "147622845299714",
 		                "userUid": "userUid1"
 		            },
 		            "inviteeUid2": {
@@ -573,7 +570,7 @@
 		                "rate": 1,
 		                "timeslotUid": "timeslotUid1",
 		                "inviteeUid": "inviteeUid2",
-		                "eventUid": "recurring_group_1",
+		                "eventUid": "147622845299714",
 		                "userUid": "userUid2"
 		            }
 		        },
@@ -584,7 +581,7 @@
 		                "rate": 1,
 		                "timeslotUid": "timeslotUid2",
 		                "inviteeUid": "inviteeUid1",
-		                "eventUid": "recurring_group_1",
+		                "eventUid": "147622845299714",
 		                "userUid": "userUid1"
 		            },
 		            "inviteeUid2": {
@@ -592,7 +589,7 @@
 		                "rate": 1,
 		                "timeslotUid": "timeslotUid2",
 		                "inviteeUid": "inviteeUid2",
-		                "eventUid": "recurring_group_1",
+		                "eventUid": "147622845299714",
 		                "userUid": "userUid2"
 		            }
 		        }

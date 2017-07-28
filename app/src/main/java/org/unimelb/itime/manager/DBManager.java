@@ -6,8 +6,21 @@ import android.database.sqlite.SQLiteDatabase;
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.Property;
 import org.greenrobot.greendao.query.QueryBuilder;
+import org.unimelb.itime.bean.Calendar;
+import org.unimelb.itime.bean.CalendarDao;
 import org.unimelb.itime.bean.DaoMaster;
+import org.unimelb.itime.bean.DaoSession;
+import org.unimelb.itime.bean.Domain;
+import org.unimelb.itime.bean.DomainDao;
+import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.EventDao;
+import org.unimelb.itime.bean.FriendRequest;
+import org.unimelb.itime.bean.FriendRequestDao;
+import org.unimelb.itime.bean.User;
+import org.unimelb.itime.bean.UserDao;
+import org.unimelb.itime.util.UserUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,7 +50,6 @@ public class DBManager {
         }
         return mInstance;
     }
-
 
     public synchronized void clearDB(){
         DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(
@@ -102,5 +114,84 @@ public class DBManager {
         for (T obj:objs) {
             ((AbstractDao) (daoMaster.newSession()).getDao(obj.getClass())).insertOrReplace(obj);
         }
+    }
+
+    /************************ Customized DB method here **************************************/
+    public synchronized User getUser(String userUid){
+        DaoSession daoSession = daoMaster.newSession();
+        UserDao userDao = daoSession.getUserDao();
+        QueryBuilder<User> qb = userDao.queryBuilder();
+        qb.where(
+                UserDao.Properties.UserUid.eq(userUid));
+        List<User> list = qb.list();
+        if(list.isEmpty()){
+            return null;
+        }else {
+            return list.get(0);
+        }
+    }
+
+    /**
+     *
+     * @return all available calendars, exclude delete level = 1
+     */
+    public List<Calendar> getAllAvailableCalendarsForUser(){
+        DaoSession daoSession = daoMaster.newSession();
+        CalendarDao calendarDao = daoSession.getCalendarDao();
+        List<Calendar> calendarList = calendarDao.queryBuilder().where(
+                CalendarDao.Properties.UserUid.eq(UserUtil.getInstance(context).getUserUid()),
+                CalendarDao.Properties.DeleteLevel.eq(0)
+        ).orderAsc(CalendarDao.Properties.CreatedAt).list();
+        return calendarList;
+    }
+
+    public Event getEvent(String uid) {
+
+        DaoSession daoSession = daoMaster.newSession();
+        EventDao eventDao = daoSession.getEventDao();
+        QueryBuilder<Event> qb = eventDao.queryBuilder();
+        qb.where(EventDao.Properties.EventUid.eq(uid));
+        List<Event> list = qb.list();
+
+        return list.size() > 0 ? list.get(0) : null;
+    }
+
+    public DaoSession getNewSession(){
+        return daoMaster.newSession();
+    }
+
+    public synchronized List<Domain> getAllDomains() {
+        DaoSession daoSession = daoMaster.newSession();
+        DomainDao domainDao = daoSession.getDomainDao();
+        return domainDao.loadAll();
+    }
+
+    public synchronized void insertFriendRequest(FriendRequest request) {
+        if(request==null){
+            return;
+        }
+        DaoSession daoSession = daoMaster.newSession();
+        FriendRequestDao friendRequestDao = daoSession.getFriendRequestDao();
+        friendRequestDao.insertOrReplace(request);
+
+    }
+
+    public List<Event> getAllAvailableEvents(List<org.unimelb.itime.bean.Calendar> calendars, String userUid){
+        List<Event> events = new ArrayList<>();
+        AbstractDao query = DBManager.getInstance(context).getQueryDao(Event.class);
+        for (org.unimelb.itime.bean.Calendar cal:calendars
+                ) {
+            if (cal.getDeleteLevel() == 0 && cal.getVisibility() == 1){
+                List<Event> dbEvents = query.queryBuilder().where(
+                        EventDao.Properties.UserUid.eq(userUid),
+                        EventDao.Properties.CalendarUid.eq(cal.getCalendarUid()),
+                        EventDao.Properties.ShowLevel.gt(0)
+                ).list();
+
+                events.addAll(dbEvents);
+            }
+        }
+
+        return events;
     }
 }
