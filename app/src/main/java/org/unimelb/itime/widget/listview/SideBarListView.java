@@ -68,8 +68,8 @@ public class SideBarListView extends FrameLayout {
         this.itemBinding = itemBinding;
     }
 
-    public void setOnItemClickListener(OnRecyclerItemClickListener.OnItemClickListener onItemClickListener){
-        viewModel.setOnItemClickListener(onItemClickListener);
+    public void setOnItemClickListener(BaseRecyclerAdapter.OnItemClickListener onItemClickListener){
+        myAdapter.setOnItemClickListener(onItemClickListener);
     }
 
     public void getPositionMap(){

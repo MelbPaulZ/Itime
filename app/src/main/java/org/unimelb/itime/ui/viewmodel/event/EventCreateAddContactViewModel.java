@@ -10,6 +10,7 @@ import android.view.View;
 import com.android.databinding.library.baseAdapters.BR;
 
 import org.unimelb.itime.R;
+import org.unimelb.itime.adapter.BaseRecyclerAdapter;
 import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Invitee;
@@ -74,10 +75,10 @@ public class EventCreateAddContactViewModel extends BaseObservable{
         }
     }
 
-    public OnRecyclerItemClickListener.OnItemClickListener getOnItemClickListener(){
-        return new OnRecyclerItemClickListener.OnItemClickListener() {
+    public BaseRecyclerAdapter.OnItemClickListener getOnItemClickListener(){
+        return new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(View v, int position, Object data) {
                 UserInfoViewModel<Contact> contact = contacts.get(position);
                 if(selectedList.contains(contact.getData())){
                     selectedList.remove(contact.getData());
@@ -86,11 +87,6 @@ public class EventCreateAddContactViewModel extends BaseObservable{
                     selectedList.add(contact.getData());
                     contact.setSelect(true);
                 }
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-                onItemClick(view, position);
             }
         };
     }

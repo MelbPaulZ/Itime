@@ -40,10 +40,11 @@ public class PopupMenu {
 	private void initLinearLayout(){
 		popView = new LinearLayoutCompat(context);
 		popView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-		popView.setBackground(context.getResources().getDrawable(R.drawable.bg_shadow));
+		popView.setBackground(context.getResources().getDrawable(R.drawable.bg_toolbar_menu));
 		popView.setOrientation(LinearLayoutCompat.VERTICAL);
 		modalPopupView = new ModalPopupView(context);
 		modalPopupView.setContentView(popView);
+		modalPopupView.setBackground(context.getResources().getDrawable(R.color.mask_cover));
 	}
 
 	private int measureContentWidth(LinearLayoutCompat listView) {
@@ -139,6 +140,9 @@ public class PopupMenu {
 
 		TextView textView = (TextView) itemView.findViewById(R.id.item_name);
 		textView.setText(item.name);
+		if(item.colorId!=0){
+			textView.setTextColor(context.getResources().getColor(item.colorId));
+		}
 
 		ImageView imageView = (ImageView) itemView.findViewById(R.id.item_icon);
 		if(item.icon!=-1) {
@@ -153,10 +157,17 @@ public class PopupMenu {
 		// R.id of icon
 		public int icon = -1;
 		public String name;
+		public int colorId = 0;
 
 		public Item(int icon, String name){
 			this.icon = icon;
 			this.name = name;
+		}
+
+		public Item(int icon, String name, int colorId){
+			this.icon = icon;
+			this.name = name;
+			this.colorId = colorId;
 		}
 
 		public Item(String name){

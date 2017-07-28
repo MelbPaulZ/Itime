@@ -45,6 +45,7 @@
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/icon_contacts_add"
                 android:id="@+id/archive_entrance"
+                android:onClick="@{contentVM.onPlusClicked()}"
                 />
     </LinearLayout>
 

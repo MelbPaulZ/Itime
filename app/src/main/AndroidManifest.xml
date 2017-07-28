@@ -42,6 +42,26 @@
         </activity>
 
         <activity
+            android:name=".ui.activity.MoreFriendsActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <activity
+            android:name=".ui.activity.ProfileActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <activity
             android:name=".ui.activity.EventDetailActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan">

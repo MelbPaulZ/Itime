@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type = "android.view.View"/>
+        <variable
+            name="viewModel"
+            type="org.unimelb.itime.ui.viewmodel.contact.ProfileFragmentViewModel"/>
+        <variable
+            name="toolbarVM"
+            type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/toolbar"
+        app:vm="@{toolbarVM}"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37.5dp">
+
+        <RelativeLayout
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/avatarView">
+            <org.unimelb.itime.widget.RoundImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:smallAvatar="@{viewModel.photo}"
+                android:transitionName="@string/transition_name_avatar"
+                />
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginTop="4dp"
+                    android:src="@drawable/icon_contacts_block"
+                    android:visibility="@{viewModel.blocked?View.VISIBLE:View.GONE}"
+                    android:id="@+id/block"
+                    android:elevation="3dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/avatarView"
+            android:layout_marginTop="10dp"
+            android:padding="10dp">
+            <me.grantland.widget.AutofitTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="true"
+                android:maxWidth="300dp"
+                android:textSize="@dimen/font_huge"
+                app:minTextSize="@dimen/font_large"
+                android:text="@{viewModel.realName}"
+                android:textColor="@color/text_body"
+                android:layout_centerHorizontal="true"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:id="@+id/nameTextView"
+                android:layout_alignParentTop="true" />
+
+        <me.grantland.widget.AutofitTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="300dp"
+            android:textSize="@dimen/font_huge"
+            app:minTextSize="@dimen/font_large"
+            android:textIsSelectable="true"
+            android:text="@{'('+viewModel.name+')'}"
+            android:textColor="@color/text_body"
+            android:layout_centerHorizontal="true"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:id="@+id/aliasTextView"
+            android:layout_below="@id/nameTextView"
+            android:visibility="@{viewModel.showEdit?View.VISIBLE:View.GONE}"/>
+
+
+            <!--email and gender-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:id="@+id/emailGenderLayout"
+                android:layout_below="@id/aliasTextView"
+                android:layout_centerHorizontal="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.email}"
+                    android:textIsSelectable="true"
+                    android:textSize="@dimen/font_tiny"
+                    android:gravity="center"
+                    android:maxWidth="300dp"
+                    android:id="@+id/emailTextView"
+                    android:textColor="@color/text_email"
+                    android:layout_gravity="center_vertical"
+                    android:visibility="@{viewModel.showEmail?View.VISIBLE:View.GONE}" />
+
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="17dp"
+                android:background="@color/text_body"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/verticalLine"/>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@{viewModel.genderIcon}"
+                android:visibility="@{viewModel.showGender?View.VISIBLE:View.GONE}"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/genderIcon"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_tiny"
+                android:textColor="@color/text_address"
+                android:layout_marginTop="11dp"
+                android:text="@{viewModel.location}"
+                android:visibility='@{viewModel.location.equals("")?View.GONE:View.VISIBLE}'
+                android:id="@+id/addressTextView"
+                android:layout_below="@id/emailGenderLayout"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+    <!--android:id="@+id/phoneLayout"-->
+    <!--android:layout_marginTop="30dp"-->
+        <!--android:layout_marginLeft="50dp">-->
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@{viewModel.phone}"-->
+        <!--android:textSize="16dp"-->
+        <!--android:gravity="center"-->
+        <!--android:id="@+id/phoneTextView"-->
+        <!--android:layout_marginBottom="10dp"/>-->
+    <!--<include layout="@layout/line"/>-->
+<!--</LinearLayout>-->
+
+    <!--invite button-->
+    <LinearLayout
+        android:layout_width="236dp"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_profile_icon_button"
+        android:visibility="@{viewModel.showInvite?View.VISIBLE:View.GONE}"
+        android:onClick="@{viewModel.invitenListener}"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal">
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_contacts_invitenew"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/brand_main"
+            android:textSize="@dimen/font_large"
+            android:text="@string/profile_invite_to_new_event"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+
+    <!--add friend button-->
+    <LinearLayout
+        android:layout_width="236dp"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_profile_icon_button"
+        android:visibility="@{viewModel.showAdd?View.VISIBLE:View.GONE}"
+        android:onClick="@{viewModel.addListener}"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal">
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_contacts_addfriend"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/brand_main"
+            android:textSize="@dimen/font_large"
+            android:text="@string/profile_add_friend"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+
+    <!--<TextView-->
+        <!--android:layout_width="304dp"-->
+        <!--android:layout_height="53dp"-->
+        <!--android:text="@string/request_sent"-->
+        <!--android:textSize="@dimen/font_large"-->
+        <!--android:textColor="@color/lightblue"-->
+        <!--android:visibility="@{viewModel.showSent?View.VISIBLE:View.GONE}"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginBottom="11.5dp"-->
+        <!--/>-->
+
+    <!--<org.unimelb.itime.widget.BlueButton-->
+        <!--android:layout_width="304dp"-->
+        <!--android:layout_height="53dp"-->
+        <!--android:layout_marginBottom="11.5dp"-->
+        <!--android:text="@string/Accept"-->
+        <!--android:textSize="@dimen/font_large"-->
+        <!--android:visibility="@{viewModel.showAccept?View.VISIBLE:View.GONE}"-->
+        <!--android:gravity="center"-->
+        <!--android:onClick="@{viewModel.acceptListener}"-->
+        <!--android:layout_gravity="center_horizontal"/>-->
+
+    <!--<TextView-->
+        <!--android:layout_width="304dp"-->
+        <!--android:layout_height="53dp"-->
+        <!--android:layout_marginBottom="11.5dp"-->
+        <!--android:text="@string/Accepted"-->
+        <!--android:textSize="@dimen/font_large"-->
+        <!--android:textColor="@color/lightblue"-->
+        <!--android:visibility="@{viewModel.showAccepted?View.VISIBLE:View.GONE}"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--/>-->
+</LinearLayout>
+</layout>

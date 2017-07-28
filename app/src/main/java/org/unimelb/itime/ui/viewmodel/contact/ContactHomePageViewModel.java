@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import com.android.databinding.library.baseAdapters.BR;
 
 import org.unimelb.itime.R;
+import org.unimelb.itime.adapter.BaseRecyclerAdapter;
 import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.ui.mvpview.contact.MainContactsMvpView;
@@ -18,7 +19,9 @@ import org.unimelb.itime.ui.presenter.contact.ContactPresenter;
 import org.unimelb.itime.ui.viewmodel.search.ContactInfoViewModel;
 import org.unimelb.itime.widget.OnRecyclerItemClickListener;
 import org.unimelb.itime.widget.listview.UserInfoViewModel;
+import org.unimelb.itime.widget.popupmenu.PopupMenu;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +38,9 @@ public class ContactHomePageViewModel extends BaseObservable {
     private ObservableList<UserInfoViewModel> contacts = new ObservableArrayList<>();
     private int requestCount=0;
     private MainContactsMvpView mvpView;
+    private PopupMenu menu;
+    private List<PopupMenu.Item> menuItem;
+    private PopupMenu.OnItemClickListener onMenuItemClicked;
 
     public MainContactsMvpView getMvpView() {
         return mvpView;
@@ -47,6 +53,75 @@ public class ContactHomePageViewModel extends BaseObservable {
     public void loadData(){
         List<Contact> contactList = presenter.getContacts();
         generateContactVM(contactList);
+        initMenu();
+    }
+
+    private void initMenu(){
+        menu = new PopupMenu(presenter.getContext());
+        menuItem = new ArrayList<>();
+        menuItem.add(new PopupMenu.Item(R.drawable.icon_contacts_addfriends,
+                presenter.getContext().getResources().getString(R.string.contact_add_by_email)));
+        menuItem.add(new PopupMenu.Item(R.drawable.icon_contacts_scanqr,
+                presenter.getContext().getResources().getString(R.string.contact_scan_qr_code)));
+        menu.setItems(menuItem);
+
+        onMenuItemClicked = new PopupMenu.OnItemClickListener() {
+            @Override
+            public void onClick(int position, PopupMenu.Item item) {
+                if(mvpView==null){
+                    return;
+                }
+                switch (position){
+                    case 0:
+                        mvpView.goToAddFriendsFragment();
+                        break;
+                    case 1:
+                        mvpView.goToScanQR();
+                }
+            }
+        };
+        menu.setOnItemClickListener(onMenuItemClicked);
+    }
+
+    public View.OnClickListener onMoreFriendsClicked(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mvpView!=null)
+                    mvpView.goToAddFriendsFragment();
+            }
+        };
+    }
+
+    public View.OnClickListener onFriendRequestClicked(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mvpView!=null)
+                    mvpView.goToNewFriendFragment();
+            }
+        };
+    }
+
+    public View.OnClickListener onScanQRClicked(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mvpView!=null)
+                    mvpView.goToScanQR();
+            }
+        };
+    }
+
+    public View.OnClickListener onPlusClicked(){
+       return new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               if(menu!=null){
+                   menu.showLocation(view);
+               }
+           }
+       };
     }
 
     public View.OnClickListener onSearchClick(){
@@ -69,17 +144,14 @@ public class ContactHomePageViewModel extends BaseObservable {
         }
     }
 
-    public OnRecyclerItemClickListener.OnItemClickListener getOnItemClickListener(){
-        return new OnRecyclerItemClickListener.OnItemClickListener() {
+    public BaseRecyclerAdapter.OnItemClickListener getOnItemClickListener(){
+        return new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(View v, int position, Object data) {
                 UserInfoViewModel<Contact> contact = contacts.get(position);
-                mvpView.goToProfileFragment(view, contact.getData());
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-                onItemClick(view, position);
+                if(mvpView!=null) {
+                    mvpView.goToProfileFragment(null, contact.getData());
+                }
             }
         };
     }

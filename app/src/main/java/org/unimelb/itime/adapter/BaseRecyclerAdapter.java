@@ -71,7 +71,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.onItemClick(pos, data);
+                    mListener.onItemClick(v, pos, data);
                 }
             });
         }
@@ -125,6 +125,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     }
 
     public interface OnItemClickListener<T> {
-        void onItemClick(int position, T data);
+        void onItemClick(View view, int position, T data);
     }
 }

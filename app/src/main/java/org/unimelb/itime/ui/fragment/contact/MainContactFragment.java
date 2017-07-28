@@ -13,6 +13,8 @@ import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.databinding.FragmentMainContactsBinding;
 import org.unimelb.itime.databinding.HeaderContactMainListBinding;
+import org.unimelb.itime.ui.activity.MoreFriendsActivity;
+import org.unimelb.itime.ui.activity.ProfileActivity;
 import org.unimelb.itime.ui.activity.SearchActivity;
 import org.unimelb.itime.ui.mvpview.contact.MainContactsMvpView;
 import org.unimelb.itime.ui.presenter.contact.ContactPresenter;
@@ -27,7 +29,7 @@ import java.util.List;
  * Created by 37925 on 2016/12/8.
  */
 
-public class MainContactFragment extends ItimeBaseFragment<MainContactsMvpView, ContactPresenter> implements MainContactsMvpView {
+public class MainContactFragment extends ItimeBaseFragment<MainContactsMvpView, ContactPresenter<MainContactsMvpView>> implements MainContactsMvpView {
     private FragmentMainContactsBinding binding;
     private ContactHomePageViewModel viewModel;
 //    private NetworkBarViewModel networkBarViewModel;
@@ -49,6 +51,7 @@ public class MainContactFragment extends ItimeBaseFragment<MainContactsMvpView, 
     public void onActivityCreated(Bundle bundle){
         super.onActivityCreated(bundle);
         viewModel = new ContactHomePageViewModel(presenter);
+        viewModel.setMvpView(this);
         binding.setContentVM(viewModel);
         headerBinding.setContentVM(viewModel);
         contactList = binding.sortListView;
@@ -102,20 +105,20 @@ public class MainContactFragment extends ItimeBaseFragment<MainContactsMvpView, 
     }
 
     public void goToProfileFragment(View view, Contact user) {
-//        Intent intent = new Intent();
-//        intent.setClass(getActivity(), ProfileActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable(ProfileActivity.USER_UID,user.getUserDetail().getUserUid());
-//        intent.putExtras(bundle);
-//        if(view==null) {
-//            startActivity(intent);
-//        } else{
-//            ActivityOptionsCompat options =
-//                    ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
-//                            view, getString(R.string.transition_name_avatar));
-//
-//            ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
-//        }
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), ProfileActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ProfileActivity.USER_UID,user.getUserDetail().getUserUid());
+        intent.putExtras(bundle);
+        if(view==null) {
+            startActivity(intent);
+        } else{
+            ActivityOptionsCompat options =
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                            view, getString(R.string.transition_name_avatar));
+
+            ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
+        }
     }
 
     @Override
@@ -124,14 +127,19 @@ public class MainContactFragment extends ItimeBaseFragment<MainContactsMvpView, 
         startActivity(intent);
     }
 
+    @Override
+    public void goToScanQR() {
+
+    }
+
     public FragmentMainContactsBinding getBinding() {
         return binding;
     }
 
     public void goToAddFriendsFragment() {
-//        Intent intent = new Intent();
-//        intent.setClass(getActivity(), AddFriendActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), MoreFriendsActivity.class);
+        startActivity(intent);
     }
 
     @Override

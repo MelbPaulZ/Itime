@@ -6,6 +6,7 @@
         <variable
             name="vm"
             type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel" />
+        <import type="android.view.View"/>
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -39,6 +40,7 @@
             android:layout_marginRight="4dp"
             android:textColor="@{vm.rightEnable?vm.rightTextColor:@color/text_detail_label}"
             android:text="@{vm.rightText}"
+            android:visibility="@{vm.rightText!=null?View.VISIBLE:View.GONE}"
             android:onClick="@{vm.onCLickRight()}"
             android:textSize="17sp" />
 
@@ -48,9 +50,10 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="6.5dp"
             android:layout_centerVertical="true"
-            android:visibility="@{vm.rightIconVisibility}"
+            android:visibility="@{vm.rightIcon!=null?View.VISIBLE:View.GONE}"
             android:src="@{vm.rightIcon}"
             android:onClick="@{vm.onCLickRight()}"
+            android:id="@+id/right_icon"
             android:padding="10dp"
             />
 

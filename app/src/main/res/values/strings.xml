@@ -256,4 +256,20 @@
     <string name="contact_friend_request">Friend Requests</string>
     <string name="contact_find_more_friends">Find More Friends</string>
     <string name="contact_my_profile">My Profile</string>
+    <string name="contact_add_by_email">Add by Email</string>
+    <string name="contact_scan_qr_code">Scan QR Code</string>
+    <string name="profile_edit_alias">Edit Alias</string>
+    <string name="profile_unblock">Unblock</string>
+    <string name="profile_block">Block</string>
+    <string name="profile_delete">Delete</string>
+    <string name="profile_profile">Profile</string>
+    <string name="profile_invite_to_new_event">Invite to New Event</string>
+    <string name="profile_add_friend">Add Friend</string>
+    <string name="profile_request_sent">Request Sent</string>
+    <string name="transition_name_avatar">transition_name_avatar</string>
+    <string name="morefriends_title">Find More Friends</string>
+    <string name="morefriends_search_by_email">Search by Email</string>
+    <string name="morefriends_scan_qr_code">Scan QR Code</string>
+    <string name="people_you_may_know">PEOPLE YOU MAY KNOW</string>
+
 </resources>

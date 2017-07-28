@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="mainViewModel"
+            type="org.unimelb.itime.ui.viewmodel.contact.AddFriendsViewModel"/>
+        <variable
+            name="toolbarVM"
+            type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
+    </data>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:focusable="true"
+    android:fitsSystemWindows="true"
+    android:focusableInTouchMode="true">
+
+    <!--normal part-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="@{mainViewModel.searching?View.GONE:View.VISIBLE}">
+    <include layout="@layout/toolbar"
+        app:vm="@{toolbarVM}" />
+    <!--search by email-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_detail_cell_height"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:onClick="@{mainViewModel.onSearchClick()}"
+        android:paddingLeft="15dp">
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/icon_contacts_searchemail"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8.5dp"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/font_large"
+            android:textColor="@color/text_body"
+            android:text="@string/morefriends_search_by_email"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+    <include layout="@layout/line"/>
+
+    <!--scan qr code-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_detail_cell_height"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:paddingLeft="15dp">
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/icon_contacts_scanqrblue"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8.5dp"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/font_large"
+            android:textColor="@color/text_body"
+            android:text="@string/morefriends_scan_qr_code"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+    <include layout="@layout/line"/>
+
+    <!--Recent Part-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="15dp"
+        android:text="@string/people_you_may_know"
+        android:textSize="@dimen/font_tiny"
+        android:textColor="@color/warmGrey"
+        android:background="@color/fragment_background"
+        android:gravity="center_vertical"/>
+
+    <include layout="@layout/line"/>
+
+    <!--<ListView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/white"-->
+        <!--app:items="@{vm.recent}"-->
+        <!--app:itemBinding="@{vm.itemBinding}"-->
+        <!--app:onItemClickListener="@{vm.onRecentItemClick}"-->
+        <!--android:visibility="@{vm.searching?View.GONE:View.VISIBLE}"-->
+        <!--/>-->
+        </LinearLayout>
+    <!--search part-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="@{mainViewModel.searching?View.VISIBLE:View.GONE}"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/white"
+            >
+            <TextView
+                style="@style/itime_bottom_divider_line"/>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="14dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_nav_back"
+                android:onClick="@{mainViewModel.onQuitSearchClick()}"
+                android:id="@+id/backIcon"/>
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="44dp"
+                android:hint="@string/event_create_addinvitee_typeemailhere"
+                android:text="@={mainViewModel.searchText}"
+                android:textSize="@dimen/font_large"
+                android:textColor="@color/text_body"
+                android:layout_marginLeft="@dimen/s2"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:layout_toRightOf="@id/backIcon"
+                app:textWatcher = "@{mainViewModel.onEdit}"
+                android:background="@null"
+                />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="5dp"
+                android:src="@drawable/icon_event_closecell"
+                android:layout_marginRight="@dimen/s2"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:onClick="@{mainViewModel.onClearClick()}" />
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
+    </layout>

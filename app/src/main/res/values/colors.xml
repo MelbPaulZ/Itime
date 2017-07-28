@@ -66,6 +66,8 @@
 
     <color name="text_detail_label">#BBBBBB</color>
     <color name="text_detail_votebtndisable">#89C5FF</color>
+    <color name="text_email">#757575</color>
+    <color name="text_address">#757575</color>
     <color name="text_body">#222</color>
     <color name="fragment_background">#fafafa</color>
     <color name="lightGrey">#EFEFEF</color>
