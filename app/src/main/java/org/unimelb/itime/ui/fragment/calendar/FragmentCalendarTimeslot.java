@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
@@ -15,6 +17,7 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.databinding.FragmentCalendarTimeslotBinding;
 import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
@@ -51,11 +54,11 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        /**
-         * For TESTING
-         */
-        initSlots(slots);
-        /*****/
+//        /**
+//         * For TESTING
+//         */
+//        initSlots(slots);
+//        /*****/
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_calendar_timeslot, container, false);
 
@@ -97,6 +100,13 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
     @Override
     public void onBack() {
         getFragmentManager().popBackStack();
+    }
+
+    @Subscribe
+    public void refreshEvent(MessageEvent msg){
+        if (msg.task == MessageEvent.RELOAD_EVENT){
+            timeSlotView.setEventPackage(EventManager.getInstance(getContext()).getEventsPackage());
+        }
     }
 
     private void initView(){
@@ -255,11 +265,23 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
             TimeSlot slot = new TimeSlot();
             slot.setStartTime(startTime);
             slot.setEndTime(startTime+duration);
-            slot.setIsSystemSuggested(1);
+            slot.setSystemSuggested(true);
             slot.setIsAllDay(i == 2);
             slots.add(slot);
 
             startTime += dayInterval;
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 }

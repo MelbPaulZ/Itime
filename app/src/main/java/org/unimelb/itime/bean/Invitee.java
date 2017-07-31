@@ -48,7 +48,7 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
     private String status = "";
     private String reason = "";
     private String userStatus = "";
-    private int hasResponded = 0;
+    private boolean hasResponded = false;
 
     @Convert(converter = Invitee.UserConverter.class , columnType = String.class)
     private User user = new User();
@@ -133,13 +133,6 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
         this.userId = userId;
     }
 
-    public int getHasResponded() {
-        return hasResponded;
-    }
-
-    public void setHasResponded(int hasResponded) {
-        this.hasResponded = hasResponded;
-    }
 
     @Nullable
     @Override
@@ -235,6 +228,15 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
         this.inviteeTimeslot = inviteeTimeslot;
     }
 
+    public boolean getHasResponded() {
+        return this.hasResponded;
+    }
+
+
+    public void setHasResponded(boolean hasResponded) {
+        this.hasResponded = hasResponded;
+    }
+
     public Invitee() {
     }
 
@@ -252,9 +254,9 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
         in.readList(this.inviteeTimeslot, SlotResponse.class.getClassLoader());
     }
 
-    @Generated(hash = 290903811)
+    @Generated(hash = 1609602461)
     public Invitee(String eventUid, String inviteeUid, String userUid, String userId, String aliasName,
-            String aliasPhoto, String status, String reason, String userStatus, int hasResponded, User user,
+            String aliasPhoto, String status, String reason, String userStatus, boolean hasResponded, User user,
             List<SlotResponse> inviteeTimeslot) {
         this.eventUid = eventUid;
         this.inviteeUid = inviteeUid;

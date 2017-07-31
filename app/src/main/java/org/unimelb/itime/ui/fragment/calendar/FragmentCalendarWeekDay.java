@@ -6,11 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
 
@@ -54,6 +57,13 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
     @Override
     public void onBack() {
 
+    }
+
+    @Subscribe
+    public void refreshEvent(MessageEvent msg){
+        if (msg.task == MessageEvent.RELOAD_EVENT){
+            weekView.setEventPackage(EventManager.getInstance(getContext()).getEventsPackage());
+        }
     }
 
     private void initView(){
@@ -117,4 +127,16 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
 
         }
     };
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
 }

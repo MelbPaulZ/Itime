@@ -7,7 +7,7 @@ import org.unimelb.itime.ui.presenter.MeetingPresenter;
 
 import java.util.List;
 
-import static org.unimelb.itime.util.EventUtil.restoreItem;
+import static org.unimelb.itime.util.MeetingUtil.restoreItem;
 
 /**
  * Created by yuhaoliu on 25/7/17.

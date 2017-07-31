@@ -47,6 +47,7 @@ public class FragmentEventCreateAddContact extends ItimeBaseFragment<EventCreate
                              ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_event_create_add_contacts, container, false);
+
         return binding.getRoot();
     }
 

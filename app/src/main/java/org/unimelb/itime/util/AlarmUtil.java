@@ -18,7 +18,7 @@ import java.util.List;
  * Created by yuhaoliu on 4/03/2017.
  */
 
-public class AlarmUil {
+public class AlarmUtil {
     public static final int ALARM_UNIQUE_CODE = 10086;
     public static final String START_TIME = "ALARM_TIME";
     public static final String EVENT_UID = "EVENT_UID";
@@ -28,7 +28,7 @@ public class AlarmUil {
         if (UserUtil.getInstance(context).isLogin()){
             Event event = getNextAlarmEvent(context);
             if (event != null){
-                AlarmUil.addAlarmToSystem(context, event);
+                AlarmUtil.addAlarmToSystem(context, event);
             }
         }
     }

@@ -75,7 +75,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     private String createdAt= "";
     private String updatedAt = "";
     @Convert(converter = Event.PhotoUrlConverter.class , columnType = String.class)
-    private List<PhotoUrl> photos = new ArrayList<>();
+    private List<PhotoUrl> photo = new ArrayList<>();
     private boolean isAllDay;
     private String extra;
     @Convert(converter = Event.TZoneTimeConverter.class, columnType = String.class)
@@ -115,11 +115,12 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
 
 
-    @Generated(hash = 1646521494)
+
+    @Generated(hash = 1794832828)
     public Event(String id, String[] recurrence, String status, String summary, String description, String url,
             Location location, int reminder, String source, String eventUid, String calendarUid, String recurringEventUid,
             String host, String self, String hostUserUid, String userUid, String eventType, int inviteeVisibility,
-            int freebusyAccess, int showLevel, int deleteLevel, String createdAt, String updatedAt, List<PhotoUrl> photos,
+            int freebusyAccess, int showLevel, int deleteLevel, String createdAt, String updatedAt, List<PhotoUrl> photo,
             boolean isAllDay, String extra, TZoneTime start, TZoneTime end, Map<String, Invitee> invitee,
             Map<String, TimeSlot> timeslot, Map<String, TimeslotInvitee> timeslotInvitee, String note, String coverPhoto,
             int duration, String greeting, boolean isArchived, boolean isMute, boolean isPinned) {
@@ -146,7 +147,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.deleteLevel = deleteLevel;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.photos = photos;
+        this.photo = photo;
         this.isAllDay = isAllDay;
         this.extra = extra;
         this.start = start;
@@ -162,6 +163,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.isMute = isMute;
         this.isPinned = isPinned;
     }
+
 
 
     
@@ -417,12 +419,12 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.updatedAt = updatedAt;
     }
 
-    public List<PhotoUrl> getPhotos() {
-        return photos;
+    public List<PhotoUrl> getPhoto() {
+        return photo;
     }
 
-    public void setPhotos(List<PhotoUrl> photos) {
-        this.photos = photos;
+    public void setPhoto(List<PhotoUrl> photo) {
+        this.photo = photo;
     }
 
     @Override

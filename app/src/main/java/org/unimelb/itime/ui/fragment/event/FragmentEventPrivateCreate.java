@@ -121,7 +121,7 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void onNext() {
-
+        presenter.createEvent(event);
     }
 
     @Override
@@ -247,7 +247,9 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void onTaskSuccess(int taskId, Object data) {
-
+        if (taskId == EventCreatePresenter.TASK_EVENT_CREATE){
+            getActivity().finish();
+        }
     }
 
     @Override

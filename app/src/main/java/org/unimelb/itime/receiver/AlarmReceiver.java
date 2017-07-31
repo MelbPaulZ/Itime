@@ -19,7 +19,7 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.ui.activity.MainActivity;
-import org.unimelb.itime.util.AlarmUil;
+import org.unimelb.itime.util.AlarmUtil;
 import org.unimelb.itime.util.EventUtil;
 
 /**
@@ -38,7 +38,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         this.context = context;
         this.showNotification(intent);
-        AlarmUil.synchronizeSysAlarm(context);
+        AlarmUtil.synchronizeSysAlarm(context);
     }
 
     /**
@@ -46,8 +46,8 @@ public class AlarmReceiver extends BroadcastReceiver {
      */
     private void showNotification(Intent intent) {
         Bundle extras = intent.getExtras();
-        String uid = extras.getString(AlarmUil.EVENT_UID, null);
-        long startTime = extras.getLong(AlarmUil.START_TIME, -1);
+        String uid = extras.getString(AlarmUtil.EVENT_UID, null);
+        long startTime = extras.getLong(AlarmUtil.START_TIME, -1);
 
         /**
          * Event bundle error, may cause by synchronization error bet server and local db.

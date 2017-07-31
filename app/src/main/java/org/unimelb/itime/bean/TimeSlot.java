@@ -32,8 +32,8 @@ public class TimeSlot implements ITimeTimeSlotInterface<TimeSlot>,Serializable {
     private int totalNum; //
     private int rejectedNum; //
     private int pendingNum; //
-    private int isConfirmed; //
-    private int isSystemSuggested; // 1 -> true
+    private boolean isConfirmed; //
+    private boolean isSystemSuggested; // 1 -> true
     private String inviteeUid = "";
     private boolean isAllDay = false;
     @Transient
@@ -94,7 +94,7 @@ public class TimeSlot implements ITimeTimeSlotInterface<TimeSlot>,Serializable {
 
     @Override
     public boolean isRecommended() {
-        return isSystemSuggested == 1;
+        return isSystemSuggested;
     }
 
     @Override
@@ -127,21 +127,6 @@ public class TimeSlot implements ITimeTimeSlotInterface<TimeSlot>,Serializable {
         this.rejectedNum = rejectedNum;
     }
 
-    public int getIsConfirmed() {
-        return isConfirmed;
-    }
-
-    public void setIsConfirmed(int isConfirmed) {
-        this.isConfirmed = isConfirmed;
-    }
-
-    public int getIsSystemSuggested() {
-        return isSystemSuggested;
-    }
-
-    public void setIsSystemSuggested(int isSystemSuggested) {
-        this.isSystemSuggested = isSystemSuggested;
-    }
 
     public String getUserUid() {
         return userUid;
@@ -192,4 +177,19 @@ public class TimeSlot implements ITimeTimeSlotInterface<TimeSlot>,Serializable {
         isAllDay = allDay;
     }
 
+    public boolean isConfirmed() {
+        return isConfirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        isConfirmed = confirmed;
+    }
+
+    public boolean isSystemSuggested() {
+        return isSystemSuggested;
+    }
+
+    public void setSystemSuggested(boolean systemSuggested) {
+        isSystemSuggested = systemSuggested;
+    }
 }

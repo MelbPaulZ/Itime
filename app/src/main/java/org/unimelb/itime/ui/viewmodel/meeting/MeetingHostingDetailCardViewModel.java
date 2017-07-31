@@ -6,6 +6,7 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.ui.fragment.meeting.RecyclerViewAdapterMeetings;
 import org.unimelb.itime.util.EventUtil;
+import org.unimelb.itime.util.MeetingUtil;
 
 /**
  * Created by yuhaoliu on 26/06/2017.
@@ -22,7 +23,7 @@ public class MeetingHostingDetailCardViewModel extends MeetingHostingBaseCardVie
     @Override
     public void setMeeting(Meeting meeting) {
         super.setMeeting(meeting);
-        inviteeVotedStatus = EventUtil.getMeetingVotedStatus(meeting.getEvent());
+        inviteeVotedStatus = MeetingUtil.getMeetingVotedStatus(meeting.getEvent());
     }
 
     public String getLabelName_1(){

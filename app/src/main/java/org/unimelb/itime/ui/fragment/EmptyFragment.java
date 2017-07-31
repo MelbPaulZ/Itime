@@ -24,6 +24,8 @@ public class EmptyFragment extends ItimeBaseFragment<ItimeBaseMvpView, ItimeBase
         return inflater.inflate(R.layout.fragment_empty, container, false);
     }
 
+
+
     @Override
     public ItimeBasePresenter<ItimeBaseMvpView> createPresenter() {
         return new ItimeBasePresenter<ItimeBaseMvpView>(getContext()) {

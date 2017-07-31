@@ -9,10 +9,12 @@ import android.widget.Toast;
 import org.greenrobot.eventbus.EventBus;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseActivity;
+import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.service.RemoteService;
 import org.unimelb.itime.ui.mvpview.LoginMvpView;
 import org.unimelb.itime.ui.presenter.LoginPresenter;
+import org.unimelb.itime.util.UserUtil;
 
 /**
  * Created by yuhaoliu on 27/7/17.
@@ -29,6 +31,8 @@ public class EmptyLoginActivity extends ItimeBaseActivity<LoginMvpView,LoginPres
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        UserUtil.getInstance(getApplicationContext()).clearAccountWithDB();
 
         // start remote service
         Intent intent = new Intent(this,RemoteService.class);

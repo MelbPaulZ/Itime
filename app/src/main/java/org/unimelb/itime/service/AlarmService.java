@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.IBinder;
 
 import org.unimelb.itime.receiver.AlarmReceiver;
-import org.unimelb.itime.util.AlarmUil;
+import org.unimelb.itime.util.AlarmUtil;
 
 /**
  * Created by yuhaoliu on 5/03/2017.
@@ -36,7 +36,7 @@ public class AlarmService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        AlarmUil.synchronizeSysAlarm(getApplicationContext());
+        AlarmUtil.synchronizeSysAlarm(getApplicationContext());
 
         return START_STICKY;
     }

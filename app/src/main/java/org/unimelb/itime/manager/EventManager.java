@@ -256,7 +256,7 @@ public class EventManager {
             this.addEvent(event);
         }
 
-//        AlarmUil.synchronizeSysAlarm(context);
+//        AlarmUtil.synchronizeSysAlarm(context);
     }
 
     private void updateEvent(Event oldEvent, Event newEvent){

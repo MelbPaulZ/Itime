@@ -31,6 +31,7 @@
                 android:layout_gravity="end"
                 android:textSize="11sp"
                 android:gravity="end"
+                android:textAllCaps="true"
                 android:text="@{vm.getUpdatedTimeStr}"
                 android:visibility="@{vm.updatedTimeVisibility}"/>
 

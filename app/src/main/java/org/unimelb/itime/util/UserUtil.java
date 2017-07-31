@@ -38,6 +38,13 @@ public class UserUtil {
         return instance;
     }
 
+    public static UserUtil getInstance(){
+        if(instance == null) {
+            throw new RuntimeException("User has not initialised yet");
+        }
+        return instance;
+    }
+
     /**
      * restore all persistent information to instance
      */
@@ -154,6 +161,7 @@ public class UserUtil {
         SharedPreferences userSp = AppUtil.getSharedPreferences(context);
         userSp.edit().remove(C.calendar.LAST_USED_CAL).apply();
     }
+
 
     /**
      * delete everything
