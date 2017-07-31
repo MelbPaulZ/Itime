@@ -12,7 +12,7 @@ public class PhotoUrl implements Cloneable,Serializable {
     private String eventUid = "";
     private String filename = "";
     private String localPath = "";
-    private int success;
+    private boolean success;
 
     public PhotoUrl(String url){
         this.url = url;
@@ -62,11 +62,11 @@ public class PhotoUrl implements Cloneable,Serializable {
         this.localPath = localPath;
     }
 
-    public int getSuccess() {
+    public boolean getSuccess() {
         return this.success;
     }
 
-    public void setSuccess(int success) {
+    public void setSuccess(boolean success) {
         this.success = success;
     }
 

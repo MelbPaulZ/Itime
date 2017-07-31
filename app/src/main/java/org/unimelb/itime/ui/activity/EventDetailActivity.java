@@ -85,7 +85,7 @@ public class EventDetailActivity extends ItimeBaseActivity{
             photoUrl.setUrl("http://s1.dwstatic.com/group1/M00/DA/29/7cb28a3fcf4e3c10459ecbdb89bc409e.jpg");
             photos.add(photoUrl);
         }
-        event.setPhotos(photos);
+        event.setPhoto(photos);
         event.setUrl("https://www.google.com.au/");
 
         Map<String, TimeSlot> timeSlots = new HashMap<>();

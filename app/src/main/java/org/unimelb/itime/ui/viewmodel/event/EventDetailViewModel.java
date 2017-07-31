@@ -750,8 +750,8 @@ public class EventDetailViewModel extends BaseObservable{
     public void setEvent(Event event) {
         this.event = event;
 
-        if (event.getPhotos() != null){
-            setPhotoUrls(event.getPhotos());
+        if (event.getPhoto() != null){
+            setPhotoUrls(event.getPhoto());
         }
         EventUtil.initTimeSlotVoteStatus(event);
         setVoteStatus(event);
