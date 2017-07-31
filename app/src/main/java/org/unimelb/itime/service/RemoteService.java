@@ -125,6 +125,7 @@ public class RemoteService extends Service {
     private void successLogin(){
         context = getApplicationContext();
         dbManager = DBManager.getInstance(context);
+
         eventManager = EventManager.getInstance(context);
         tokenUtil = TokenUtil.getInstance(context);
 
@@ -185,7 +186,7 @@ public class RemoteService extends Service {
     }
 
     private void firstFetchData(){
-//        fetchCalendar();
+        fetchCalendar();
 //        fetchContact();
 //        fetchFriendRequest();
 //        fetchMessages();
@@ -533,11 +534,24 @@ public class RemoteService extends Service {
         Observable<HttpResult<List<Meeting>>> observable = meetingApi.list(synToken) // -1 will fetch all events
                 .map(ret -> {
                     if (ret.getData().size() > 0) {
+                        /**
+                         * For testing
+                         */
+//                        for (Meeting meeting:ret.getData()
+//                             ) {
+//                            if (meeting.getMeetingUid().equals("37f5cb90-742d-11e7-b6c0-edac18bb7971")){
+//                                //for filter
+//                                ArrayList<Meeting> data = new ArrayList<Meeting>();
+//                                data.add(meeting);
+//                                dbManager.insertOrReplace(data);
+//                            }
+//                        }
+
                         //update db
                         dbManager.insertOrReplace(ret.getData());
 
                         //update syncToken
-                        tokenUtil.setEventToken(user.getUserUid(), ret.getSyncToken());
+                        tokenUtil.setMeetingToken(user.getUserUid(), ret.getSyncToken());
                     }
 
                     return ret;
@@ -550,6 +564,7 @@ public class RemoteService extends Service {
 
             @Override
             public void onError(Throwable e) {
+                Log.i(TAG, "onError: ");
             }
 
             @Override

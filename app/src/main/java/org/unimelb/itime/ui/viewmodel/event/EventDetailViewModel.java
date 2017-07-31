@@ -25,6 +25,7 @@ import org.unimelb.itime.ui.mvpview.event.EventDetailMvpView;
 import org.unimelb.itime.ui.presenter.event.EventDetailPresenter;
 import org.unimelb.itime.util.AppUtil;
 import org.unimelb.itime.util.EventUtil;
+import org.unimelb.itime.util.MeetingUtil;
 import org.unimelb.itime.widget.OnRecyclerItemClickListener;
 import org.unimelb.itime.widget.PhotoViewLayout;
 import org.unimelb.itime.widget.ScalableLayout;
@@ -784,7 +785,7 @@ public class EventDetailViewModel extends BaseObservable{
     }
 
     private void setVoteStatus(Event event){
-        int[] nums = EventUtil.getMeetingVotedStatus(event);
+        int[] nums = MeetingUtil.getMeetingVotedStatus(event);
         setRepliedNum(nums[2]);
         setCantGoNum(nums[3]);
         setNoReplyNum(nums[4]);

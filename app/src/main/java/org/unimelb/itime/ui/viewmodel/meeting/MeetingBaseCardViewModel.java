@@ -18,6 +18,8 @@ import org.unimelb.itime.util.EventUtil;
 import java.util.Calendar;
 import java.util.List;
 
+import static org.unimelb.itime.util.MeetingUtil.getMeetingUpdatedTimeStr;
+
 /**
  * Created by yuhaoliu on 27/06/2017.
  */
@@ -88,7 +90,8 @@ public class MeetingBaseCardViewModel extends BaseObservable {
 
 
     public String getUpdatedTimeStr(){
-        return "5:20 pm";
+        String time = getMeetingUpdatedTimeStr(meeting);
+        return time == null ? "" : time;
     }
 
     public String getReminderTimeStr(){

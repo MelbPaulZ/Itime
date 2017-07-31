@@ -235,7 +235,8 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
     public int getItemViewType(int position) {
         Meeting meeting = mDataset.get(position);
         Event event = meeting.getEvent();
-        boolean isCancelled = event.getStatus().equals(Event.STATUS_CANCELLED);
+//        boolean isCancelled = event.getStatus().equals(Event.STATUS_CANCELLED);
+        boolean isCancelled = event.getDeleteLevel() > 0;
         boolean isHost = EventUtil.isHost(event);
 
         if (mode == Mode.INVITATION){

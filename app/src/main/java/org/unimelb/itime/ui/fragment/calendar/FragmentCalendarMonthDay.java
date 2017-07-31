@@ -8,11 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
@@ -62,6 +65,15 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
     public void onBack() {
 
     }
+
+    @Subscribe
+    public void refreshEvent(MessageEvent msg){
+        if (msg.task == MessageEvent.RELOAD_EVENT){
+            monthDayView.setEventPackage(EventManager.getInstance(getContext()).getEventsPackage());
+        }
+    }
+
+
 
     private void initView(){
         monthDayView = (MonthView) root.findViewById(R.id.month_view);
@@ -128,6 +140,9 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
     @Override
     public void onStart() {
         super.onStart();
+
+        EventBus.getDefault().register(this);
+
         Log.i(TAG, "onStart: " + "FragmentCalendarMonthDay");
     }
 
@@ -146,6 +161,8 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
     @Override
     public void onStop() {
         super.onStop();
+
+        EventBus.getDefault().unregister(this);
         Log.i(TAG, "onPause: " + "FragmentCalendarMonthDay");
     }
 }

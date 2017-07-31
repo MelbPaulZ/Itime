@@ -6,10 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
 
@@ -53,6 +56,13 @@ public class FragmentCalendarAgenda extends ItimeBaseFragment<CalendarMvpView, C
 
     }
 
+    @Subscribe
+    public void refreshEvent(MessageEvent msg){
+        if (msg.task == MessageEvent.RELOAD_EVENT){
+            agendaView.setDayEventMap(EventManager.getInstance(getContext()).getEventsPackage());
+        }
+    }
+
     private void initView(){
         agendaView = (MonthAgendaView) root.findViewById(R.id.agenda_view);
         //Set the data source with format of ITimeEventPackageInterface
@@ -73,4 +83,16 @@ public class FragmentCalendarAgenda extends ItimeBaseFragment<CalendarMvpView, C
 
         }
     };
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
 }
