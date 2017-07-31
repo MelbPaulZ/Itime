@@ -92,6 +92,7 @@ public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreate
         if(fragmentEventCreate==null){
             fragmentEventCreate = new FragmentEventCreate();
         }
+        Event event = contentVM.getEditedEvent();
         fragmentEventCreate.setEvent(event);
         getBaseActivity().openFragment(fragmentEventCreate);
     }
