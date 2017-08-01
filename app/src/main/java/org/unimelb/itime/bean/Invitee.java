@@ -48,6 +48,23 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
     private String status = "";
     private String reason = "";
     private String userStatus = "";
+
+    @Convert(converter = Invitee.ContactConverter.class , columnType = String.class)
+    private Contact contact = new Contact();
+    public static class ContactConverter implements PropertyConverter<Contact,String> {
+        Gson gson = new Gson();
+
+        @Override
+        public Contact convertToEntityProperty(String databaseValue) {
+            return gson.fromJson(databaseValue, Contact.class);
+        }
+
+        @Override
+        public String convertToDatabaseValue(Contact entityProperty) {
+            return gson.toJson(entityProperty);
+        }
+    }
+
     private boolean hasResponded = false;
 
     @Convert(converter = Invitee.UserConverter.class , columnType = String.class)
@@ -137,7 +154,7 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
     @Nullable
     @Override
     public String getPhoto() {
-        return this.getAliasPhoto();
+        return getAliasPhoto();
     }
 
     @Override
@@ -170,7 +187,15 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
     }
 
     public String getAliasName() {
-        return aliasName;
+        if(contact!=null){
+            return contact.getAliasName();
+        }
+
+        if(user!=null){
+            return user.getPersonalAlias();
+        }
+
+        return "";
     }
 
     public void setAliasName(String aliasName) {
@@ -178,7 +203,15 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
     }
 
     public String getAliasPhoto() {
-        return aliasPhoto;
+        if(contact!=null){
+            return contact.getAliasPhoto();
+        }
+
+        if(user!=null){
+            return user.getPhoto();
+        }
+
+        return "";
     }
 
     public void setAliasPhoto(String aliasPhoto) {
@@ -254,10 +287,10 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
         in.readList(this.inviteeTimeslot, SlotResponse.class.getClassLoader());
     }
 
-    @Generated(hash = 1609602461)
+    @Generated(hash = 6555386)
     public Invitee(String eventUid, String inviteeUid, String userUid, String userId, String aliasName,
-            String aliasPhoto, String status, String reason, String userStatus, boolean hasResponded, User user,
-            List<SlotResponse> inviteeTimeslot) {
+            String aliasPhoto, String status, String reason, String userStatus, Contact contact,
+            boolean hasResponded, User user, List<SlotResponse> inviteeTimeslot) {
         this.eventUid = eventUid;
         this.inviteeUid = inviteeUid;
         this.userUid = userUid;
@@ -267,6 +300,7 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
         this.status = status;
         this.reason = reason;
         this.userStatus = userStatus;
+        this.contact = contact;
         this.hasResponded = hasResponded;
         this.user = user;
         this.inviteeTimeslot = inviteeTimeslot;
@@ -284,4 +318,11 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
         }
     };
 
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
 }

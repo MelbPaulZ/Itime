@@ -342,6 +342,7 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     @Override
     public void onBack() {
 //        toCalendar(EventPresenter.TASK_BACK);
+        getBaseActivity().onBackPressed();
     }
 
     @Override

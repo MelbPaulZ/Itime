@@ -287,6 +287,7 @@
                             android:id="@+id/note_part"
                             android:paddingRight="@dimen/s1"
                             android:paddingLeft="@dimen/s1"
+                            android:visibility="@{contentVM.event.note.empty?View.GONE:View.VISIBLE}"
                             >
                             <TextView
                                 android:layout_width="wrap_content"
