@@ -1,5 +1,6 @@
 package org.unimelb.itime.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
@@ -131,4 +132,5 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
 }

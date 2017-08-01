@@ -1,5 +1,7 @@
 package org.unimelb.itime.ui.fragment.calendar;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.messageevent.MessageEvent;
+import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
 
@@ -127,6 +130,18 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
 
         }
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == EventCreateActivity.CREATE_EVENT) {
+            if (resultCode == Activity.RESULT_OK) {
+                weekView.setEventPackage(EventManager.getInstance(getContext()).getEventsPackage());
+            }
+        }
+    }
+
+
 
     @Override
     public void onStart() {

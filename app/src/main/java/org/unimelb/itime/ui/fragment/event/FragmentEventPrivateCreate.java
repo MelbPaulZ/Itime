@@ -15,20 +15,26 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 
+
+import org.greenrobot.eventbus.EventBus;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.Location;
 import org.unimelb.itime.bean.TZoneTime;
 import org.unimelb.itime.databinding.FragmentEventPrivateCreateBinding;
 import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.messageevent.MessageEvent;
+import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.activity.LocationActivity;
 import org.unimelb.itime.ui.fragment.component.FragmentEventTime;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.event.EventCreatePrivateViewModel;
+import org.unimelb.itime.util.EventUtil;
 
 import java.util.HashMap;
 
@@ -121,6 +127,7 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void onNext() {
+
         presenter.createEvent(event);
     }
 
@@ -248,6 +255,8 @@ implements EventCreateMvpView, ToolbarInterface{
     @Override
     public void onTaskSuccess(int taskId, Object data) {
         if (taskId == EventCreatePresenter.TASK_EVENT_CREATE){
+            EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_EVENT));
+            getActivity().setResult(Activity.RESULT_OK);
             getActivity().finish();
         }
     }

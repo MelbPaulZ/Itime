@@ -1,5 +1,6 @@
 package org.unimelb.itime.ui.fragment.calendar;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -94,7 +95,12 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
         @Override
         public void onEventCreate(DraggableEventView draggableEventView) {
             Intent intent = new Intent(getActivity(), EventCreateActivity.class);
-            startActivity(intent);
+            Event event = new Event();
+            event.setStartTime(draggableEventView.getStartTimeM());
+            event.setEndTime(draggableEventView.getEndTimeM());
+//            Event event = EventUtil.createEventFromInterface(draggableEventView.getEvent());
+            intent.putExtra("Event", event);
+            startActivityForResult(intent, EventCreateActivity.CREATE_EVENT);
         }
 
         @Override
@@ -136,6 +142,16 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
             //// TODO: 27/7/17 update header
         }
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == EventCreateActivity.CREATE_EVENT) {
+            if (resultCode == Activity.RESULT_OK) {
+                monthDayView.setEventPackage(EventManager.getInstance(getContext()).getEventsPackage());
+            }
+        }
+    }
 
     @Override
     public void onStart() {

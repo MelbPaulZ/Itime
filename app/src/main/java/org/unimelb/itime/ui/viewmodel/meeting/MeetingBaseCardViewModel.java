@@ -178,6 +178,6 @@ public class MeetingBaseCardViewModel extends BaseObservable {
     public static void changeBgDrawableColor(View view, int color) {
         GradientDrawable db = (GradientDrawable) view.getBackground();
         db.mutate();
-        db.setColor(view.getContext().getResources().getColor(color));
+//        db.setColor(view.getContext().getResources().getColor(color));
     }
 }

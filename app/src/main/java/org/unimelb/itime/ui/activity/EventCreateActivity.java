@@ -20,6 +20,7 @@ import org.unimelb.itime.ui.fragment.event.FragmentEventPrivateCreate;
 
 public class EventCreateActivity extends ItimeBaseActivity {
 
+    public static final int CREATE_EVENT = 1001;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +34,9 @@ public class EventCreateActivity extends ItimeBaseActivity {
             addInviteeFragment.setEvent(event);
             fragment = addInviteeFragment;
         }else{
+            Event ev = (Event) getIntent().getSerializableExtra("Event");
             fragment = new FragmentEventPrivateCreate();
+            ((FragmentEventPrivateCreate)fragment).setEvent(ev);
         }
         getSupportFragmentManager().beginTransaction().add(R.id.frag_container_event_create,fragment, FragmentEventCreate.class.getSimpleName()).commit();
     }
