@@ -4,11 +4,13 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.unimelb.itime.R;
@@ -21,6 +23,7 @@ import org.unimelb.itime.ui.mvpview.contact.ProfileMvpView;
 import org.unimelb.itime.ui.presenter.contact.ProfilePresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.contact.ProfileFragmentViewModel;
+import org.unimelb.itime.util.FontUtil;
 import org.unimelb.itime.widget.popupmenu.PopupMenu;
 
 import java.util.ArrayList;
@@ -112,6 +115,8 @@ public class ProfileFragment extends ItimeBaseFragment<ProfileMvpView, ProfilePr
         toolbarViewModel.setRightIcon(getContext().getResources().getDrawable(R.drawable.icon_more_black));
         toolbarViewModel.setRightEnable(true);
         binding.setToolbarVM(toolbarViewModel);
+
+        setFonts();
     }
 
     @Override
@@ -214,6 +219,14 @@ public class ProfileFragment extends ItimeBaseFragment<ProfileMvpView, ProfilePr
                 viewModel.setRequestId(requestId);
                 break;
         }
+    }
+
+    private void setFonts(){
+        TextView name = (TextView) getContentView().findViewById(R.id.nameTextView);
+        TextView alias = (TextView) getContentView().findViewById(R.id.aliasTextView);
+        Typeface sansLight = FontUtil.getSansLight(getContext());
+        name.setTypeface(sansLight);
+        alias.setTypeface(sansLight);
     }
 
     @Override

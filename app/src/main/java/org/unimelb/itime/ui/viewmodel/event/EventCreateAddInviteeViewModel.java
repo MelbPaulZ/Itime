@@ -179,4 +179,12 @@ public class EventCreateAddInviteeViewModel extends BaseObservable {
             }
         };
     }
+
+    public Event getEditedEvent(){
+        event.getInvitee().clear();
+        for(Invitee invitee: invitees){
+            event.getInvitee().put(invitee.getUserUid(), invitee);
+        }
+        return event;
+    }
 }

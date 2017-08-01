@@ -355,7 +355,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/s1"
                             android:id="@+id/photo_part"
-                            android:visibility="@{contentVM.event.photos.size()!=0? View.VISIBLE: View.GONE}"
+                            android:visibility="@{contentVM.event.photo.size()!=0? View.VISIBLE: View.GONE}"
                             android:paddingRight="@dimen/s1"
                             android:paddingLeft="@dimen/s1"
                             >

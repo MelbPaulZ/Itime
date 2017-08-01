@@ -1,20 +1,37 @@
 package org.unimelb.itime.ui.presenter;
 
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
 import org.unimelb.itime.base.ItimeBaseMvpView;
 import org.unimelb.itime.base.ItimeBasePresenter;
 import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.User;
+import org.unimelb.itime.manager.DBManager;
+import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.messageevent.MessageEvent;
+import org.unimelb.itime.restfulapi.EventApi;
+import org.unimelb.itime.restfulresponse.HttpResult;
 import org.unimelb.itime.ui.mvpview.TaskBasedMvpView;
 import org.unimelb.itime.ui.mvpview.event.EventCreateAddInviteeMvpView;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
+import org.unimelb.itime.util.CalendarUtil;
+import org.unimelb.itime.util.EventUtil;
+import org.unimelb.itime.util.HttpUtil;
+import org.unimelb.itime.util.TokenUtil;
+import org.unimelb.itime.util.UserUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import rx.Observable;
+import rx.Subscriber;
 
 /**
  * Created by Paul on 2/6/17.
@@ -22,8 +39,8 @@ import java.util.List;
 
 public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBasePresenter<V> {
     public static final int TASK_EVENT_CONFIRM = 1;
-
-
+    public static final int TASK_EVENT_CREATE = 2;
+    private static final String TAG = "EventCreatePresenter";
     public EventCreatePresenter(Context context) {
         super(context);
     }
@@ -34,6 +51,63 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
             getView().onTaskSuccess(TASK_EVENT_CONFIRM, null);
         }
     }
+
+    public void createEvent(Event event){
+        event.setCalendarUid(CalendarUtil.getInstance(getContext()).getDefaultCalendarUid());
+        String syncToken = TokenUtil.getInstance(getContext()).getEventToken(UserUtil.getInstance(getContext()).getUserUid());
+        EventApi eventApi = HttpUtil.createService(getContext(), EventApi.class);
+        Observable<HttpResult<List<Event>>> observable = eventApi.insert(event, syncToken);
+        Subscriber<HttpResult<List<Event>>> subscriber = new Subscriber<HttpResult<List<Event>>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.i(TAG, "onError: ");
+            }
+
+            @Override
+            public void onNext(HttpResult<List<Event>> result) {
+                updateEventToken(result.getSyncToken());
+                synchronizeLocal(result.getData());
+                EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_EVENT));
+                if(getView() != null){
+                    getView().onTaskSuccess(TASK_EVENT_CREATE, result.getData());
+                }
+            }
+        };
+        HttpUtil.subscribe(observable, subscriber);
+
+    }
+
+    private void updateEventToken(String token){
+        TokenUtil.getInstance(getContext()).setEventToken(UserUtil.getInstance(getContext()).getUserUid(), token);
+    }
+
+    public void synchronizeLocal(List<Event> events){
+        for (Event ev: events){
+            synchronizeLocal(ev);
+        }
+    }
+
+    private void synchronizeLocal(Event ev){
+        boolean visibility = EventUtil.isEventInVisibleCalendar(ev, getContext());
+
+        if (!visibility){
+            //remove event from event manager
+            EventManager.getInstance(getContext()).removeEvent(ev);
+            Toast.makeText(getContext(),"Created/Updated to an INVISIBLE calendar.",Toast.LENGTH_LONG).show();
+        }else {
+            // if visible, update EventManager
+            EventManager.getInstance(getContext()).insertOrUpdate(ev);
+        }
+        //need update DB after update Eventmanager
+        DBManager.getInstance(getContext()).insertOrReplace(Arrays.asList(ev));
+    }
+
+
 
     public List<Contact> getContacts(){
 
