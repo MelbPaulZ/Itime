@@ -377,7 +377,7 @@ public class EventUtil extends BaseUtil{
         invitee.setAliasPhoto(contact.getAliasPhoto());
         invitee.setAliasName(contact.getAliasName());
         invitee.setUserId(contact.getUserDetail().getUserId());
-        invitee.setUserUid(contact.getUserUid());
+        invitee.setUserUid(contact.getUserDetail().getUserUid());
         invitee.setEventUid(event.getEventUid());
         return invitee;
     }
