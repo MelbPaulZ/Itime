@@ -32,6 +32,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.UUID;
 
+import david.itimecalendar.calendar.listeners.ITimeEventInterface;
+
 
 /**
  * Created by yuhaoliu on 10/06/2017.
@@ -573,4 +575,33 @@ public class EventUtil extends BaseUtil{
     }
 
     /************** End of ************** Event Status Helper **********************************/
+
+
+    /**
+     * create event from event interface
+     */
+    @Deprecated
+    public static Event createEventFromInterface(ITimeEventInterface iTimeEventInterface){
+        Event event = new Event();
+        event.setStartTime(iTimeEventInterface.getStartTime());
+        event.setEndTime(iTimeEventInterface.getEndTime());
+        return event;
+    }
+
+    public static Invitee getSelfForSoloEvent(Context context, Event event){
+        Invitee invitee = new Invitee();
+        invitee.setEventUid(event.getEventUid());
+        invitee.setUserUid(UserUtil.getInstance(context).getUserUid());
+        return invitee;
+    }
+
+    public static boolean isMyselfInEvent(Context context, Event event){
+        String userUid = UserUtil.getInstance(context).getUserUid();
+        for(Invitee invitee : event.getInvitee().values()){
+            if (invitee.getUserUid().equals(userUid)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

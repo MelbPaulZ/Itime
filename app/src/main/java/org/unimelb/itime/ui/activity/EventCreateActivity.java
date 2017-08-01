@@ -33,7 +33,9 @@ public class EventCreateActivity extends ItimeBaseActivity {
             addInviteeFragment.setEvent(event);
             fragment = addInviteeFragment;
         }else{
+            Event ev = (Event) getIntent().getSerializableExtra("Event");
             fragment = new FragmentEventPrivateCreate();
+            ((FragmentEventPrivateCreate)fragment).setEvent(ev);
         }
         getSupportFragmentManager().beginTransaction().add(R.id.frag_container_event_create,fragment, FragmentEventCreate.class.getSimpleName()).commit();
     }

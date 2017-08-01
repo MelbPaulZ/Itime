@@ -94,6 +94,11 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
         @Override
         public void onEventCreate(DraggableEventView draggableEventView) {
             Intent intent = new Intent(getActivity(), EventCreateActivity.class);
+            Event event = new Event();
+            event.setStartTime(draggableEventView.getStartTimeM());
+            event.setEndTime(draggableEventView.getEndTimeM());
+//            Event event = EventUtil.createEventFromInterface(draggableEventView.getEvent());
+            intent.putExtra("Event", event);
             startActivity(intent);
         }
 
