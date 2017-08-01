@@ -6,8 +6,12 @@ import android.database.sqlite.SQLiteDatabase;
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.Property;
 import org.greenrobot.greendao.query.QueryBuilder;
+import org.unimelb.itime.bean.Block;
+import org.unimelb.itime.bean.BlockDao;
 import org.unimelb.itime.bean.Calendar;
 import org.unimelb.itime.bean.CalendarDao;
+import org.unimelb.itime.bean.Contact;
+import org.unimelb.itime.bean.ContactDao;
 import org.unimelb.itime.bean.DaoMaster;
 import org.unimelb.itime.bean.DaoSession;
 import org.unimelb.itime.bean.Domain;
@@ -195,5 +199,52 @@ public class DBManager {
         return events;
     }
 
+    public synchronized List<Contact> getAllContact() {
+        DaoSession daoSession = daoMaster.newSession();
+        ContactDao contactDao = daoSession.getContactDao();
+        QueryBuilder<Contact> qb = contactDao.queryBuilder();
+        qb.where(qb.and(ContactDao.Properties.UserUid.eq(UserUtil.getInstance(context).getUserUid()),
+                qb.and(ContactDao.Properties.Status.eq(Contact.ACTIVATED),
+                        ContactDao.Properties.BlockLevel.eq(0)))).orderAsc(ContactDao.Properties.AliasName);
+        List<Contact> list = qb.list();
+        return list;
+    }
 
+    public synchronized List<Block> getBlockContacts() {
+        DaoSession daoSession = daoMaster.newSession();
+        BlockDao blockDao = daoSession.getBlockDao();
+        QueryBuilder<Block> qb = blockDao.queryBuilder();
+        qb.where(qb.and(BlockDao.Properties.UserUid.eq(UserUtil.getInstance(context).getUserUid()),
+                BlockDao.Properties.BlockLevel.gt(0)));
+        List<Block> list = qb.list();
+        return list;
+    }
+
+    public synchronized void insertBlock(Block block) {
+        if(block==null){
+            return;
+        }
+        DaoSession daoSession = daoMaster.newSession();
+        BlockDao blockDao = daoSession.getBlockDao();
+        blockDao.insertOrReplace(block);
+    }
+
+    public synchronized void insertDomain(Domain domain) {
+        if(domain==null){
+            return;
+        }
+        DaoSession daoSession = daoMaster.newSession();
+        DomainDao domainDao = daoSession.getDomainDao();
+        domainDao.insertOrReplace(domain);
+    }
+
+    public synchronized void deleteBlock(Block block) {
+        if(block==null){
+            return;
+        }
+
+        DaoSession daoSession = daoMaster.newSession();
+        BlockDao blockDao = daoSession.getBlockDao();
+        blockDao.delete(block);
+    }
 }
