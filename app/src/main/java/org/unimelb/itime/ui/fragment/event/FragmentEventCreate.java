@@ -199,7 +199,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==REQ_LOCATION && resultCode == Activity.RESULT_OK){
+        if (requestCode == REQ_LOCATION && resultCode == Activity.RESULT_OK){
             String locationString1 = data.getStringExtra(getString(R.string.location_string1));
             String locationString2 = data.getStringExtra(getString(R.string.location_string2));
             Location location = new Location();

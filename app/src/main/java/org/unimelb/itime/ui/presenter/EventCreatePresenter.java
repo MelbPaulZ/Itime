@@ -56,6 +56,9 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
 
     public void createEvent(Event event){
         EventUtil.generateNeededHostAttributes(getContext(), event);
+        if (event.getEventType().equals(Event.TYPE_GROUP)){
+            EventUtil.generateGroupEventAttributes(getContext(), event);
+        }
         String syncToken = TokenUtil.getInstance(getContext()).getEventToken(UserUtil.getInstance(getContext()).getUserUid());
         EventApi eventApi = HttpUtil.createService(getContext(), EventApi.class);
         Observable<HttpResult<List<Event>>> observable = eventApi.insert(event, syncToken);

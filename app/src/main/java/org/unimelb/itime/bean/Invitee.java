@@ -18,6 +18,7 @@ import java.util.List;
 
 import david.itimecalendar.calendar.listeners.ITimeInviteeInterface;
 import org.greenrobot.greendao.annotation.Generated;
+import org.unimelb.itime.util.AppUtil;
 
 /**
  * Created by yuhaoliu on 10/09/2016.
@@ -48,6 +49,8 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
     private String status = "";
     private String reason = "";
     private String userStatus = "";
+
+
 
     @Convert(converter = Invitee.ContactConverter.class , columnType = String.class)
     private Contact contact = new Contact();
@@ -271,6 +274,7 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
     }
 
     public Invitee() {
+        inviteeUid = AppUtil.generateUuid();
     }
 
     protected Invitee(Parcel in) {

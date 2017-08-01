@@ -618,4 +618,11 @@ public class EventUtil extends BaseUtil{
             event.getInvitee().put(event.getInvitee().size() + "", invitee);
         }
     }
+
+    public static void generateGroupEventAttributes(Context context, Event event){
+        for (Invitee invitee : event.getInvitee().values()){
+            invitee.setEventUid(event.getEventUid());
+
+        }
+    }
 }
