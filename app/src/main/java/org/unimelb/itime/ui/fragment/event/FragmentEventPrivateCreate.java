@@ -27,6 +27,7 @@ import org.unimelb.itime.bean.TZoneTime;
 import org.unimelb.itime.databinding.FragmentEventPrivateCreateBinding;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.messageevent.MessageEvent;
+import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.activity.LocationActivity;
 import org.unimelb.itime.ui.fragment.component.FragmentEventTime;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
@@ -126,10 +127,7 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void onNext() {
-        if (!EventUtil.isMyselfInEvent(getContext(), event)){
-            Invitee invitee = EventUtil.getSelfForSoloEvent(getContext(), event);
-            event.getInvitee().put(event.getInvitee().size() + "", invitee);
-        }
+
         presenter.createEvent(event);
     }
 
@@ -258,6 +256,7 @@ implements EventCreateMvpView, ToolbarInterface{
     public void onTaskSuccess(int taskId, Object data) {
         if (taskId == EventCreatePresenter.TASK_EVENT_CREATE){
             EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_EVENT));
+            getActivity().setResult(Activity.RESULT_OK);
             getActivity().finish();
         }
     }

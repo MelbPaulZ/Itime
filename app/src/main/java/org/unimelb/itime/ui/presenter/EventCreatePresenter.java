@@ -11,6 +11,7 @@ import org.unimelb.itime.base.ItimeBaseMvpView;
 import org.unimelb.itime.base.ItimeBasePresenter;
 import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.User;
 import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.manager.EventManager;
@@ -20,6 +21,7 @@ import org.unimelb.itime.restfulresponse.HttpResult;
 import org.unimelb.itime.ui.mvpview.TaskBasedMvpView;
 import org.unimelb.itime.ui.mvpview.event.EventCreateAddInviteeMvpView;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
+import org.unimelb.itime.util.AppUtil;
 import org.unimelb.itime.util.CalendarUtil;
 import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.util.HttpUtil;
@@ -53,7 +55,7 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
     }
 
     public void createEvent(Event event){
-        event.setCalendarUid(CalendarUtil.getInstance(getContext()).getDefaultCalendarUid());
+        EventUtil.generateNeededHostAttributes(getContext(), event);
         String syncToken = TokenUtil.getInstance(getContext()).getEventToken(UserUtil.getInstance(getContext()).getUserUid());
         EventApi eventApi = HttpUtil.createService(getContext(), EventApi.class);
         Observable<HttpResult<List<Event>>> observable = eventApi.insert(event, syncToken);
@@ -72,7 +74,7 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
             public void onNext(HttpResult<List<Event>> result) {
                 updateEventToken(result.getSyncToken());
                 synchronizeLocal(result.getData());
-                EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_EVENT));
+//                EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_EVENT));
                 if(getView() != null){
                     getView().onTaskSuccess(TASK_EVENT_CREATE, result.getData());
                 }
@@ -102,6 +104,7 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
         }else {
             // if visible, update EventManager
             EventManager.getInstance(getContext()).insertOrUpdate(ev);
+            Toast.makeText(getContext(),"insert to event manager",Toast.LENGTH_LONG).show();
         }
         //need update DB after update Eventmanager
         DBManager.getInstance(getContext()).insertOrReplace(Arrays.asList(ev));

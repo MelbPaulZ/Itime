@@ -588,10 +588,12 @@ public class EventUtil extends BaseUtil{
         return event;
     }
 
-    public static Invitee getSelfForSoloEvent(Context context, Event event){
+    public static Invitee createSelfInviteeForEvent(Context context, Event event){
         Invitee invitee = new Invitee();
         invitee.setEventUid(event.getEventUid());
         invitee.setUserUid(UserUtil.getInstance(context).getUserUid());
+        invitee.setInviteeUid(AppUtil.generateUuid());
+        invitee.setUser(UserUtil.getInstance(context).getUser());
         return invitee;
     }
 
@@ -603,5 +605,16 @@ public class EventUtil extends BaseUtil{
             }
         }
         return false;
+    }
+
+    public static void generateNeededHostAttributes(Context context, Event event){
+        event.setShowLevel(1);
+        event.setEventUid(AppUtil.generateUuid());
+        event.setHostUserUid(UserUtil.getInstance(context).getUserUid());
+        event.setCalendarUid(CalendarUtil.getInstance(context).getDefaultCalendarUid());
+        if (!EventUtil.isMyselfInEvent(context, event)){
+            Invitee invitee = createSelfInviteeForEvent(context, event);
+            event.getInvitee().put(event.getInvitee().size() + "", invitee);
+        }
     }
 }
