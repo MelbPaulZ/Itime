@@ -27,7 +27,6 @@
             android:id="@+id/swipe"
             app:swipeEnabled="@{vmMsg.getSwipeEnable}"
             app:show_mode="lay_down"
-            app:clickToClose="true"
             >
 
             <include layout="@layout/meeting_menu"
@@ -44,11 +43,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:clickable="true"
                     android:foreground="?attr/selectableItemBackground"
                     app:cardBackgroundColor="@android:color/transparent"
                     app:cardCornerRadius="@dimen/card_radius"
                     app:cardElevation="@dimen/card_elevation"
+                    android:clickable="true"
+                    android:onClick="@{vmMsg.onCardClick}"
                     >
                     <include layout="@layout/meeting_hosting_info_message"
                         android:layout_height="wrap_content"
