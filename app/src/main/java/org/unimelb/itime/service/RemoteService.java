@@ -401,6 +401,11 @@ public class RemoteService extends Service {
                             tokenUtil.setEventToken(user.getUserUid(), ret.getSyncToken());
                         }
 
+                        for (Event event : visibleEventList
+                                ) {
+                            eventManager.insertOrUpdate(event);
+                        }
+
                         return ret;
                     }
                 });
@@ -419,15 +424,19 @@ public class RemoteService extends Service {
                 if (!isStart) {
                     return;
                 }
-                if (result.getData().size() > 0) {
-                    // need to let data change in synchronised thread
-                    // visible event list save to event manager
-
-                    for (Event event : visibleEventList
-                            ) {
-                        eventManager.insertOrUpdate(event);
-                    }
-                }
+//                if (result.getData().size() > 0) {
+//                    // need to let data change in synchronised thread
+//                    // visible event list save to event manager
+//
+//                    long s = System.currentTimeMillis();
+//                    for (Event event : visibleEventList
+//                            ) {
+//                        eventManager.insertOrUpdate(event);
+//                    }
+//                    long e = System.currentTimeMillis();
+//                    long dur = e - s;
+//                    Log.i(TAG, "onNext: ");
+//                }
 
                 if (result.getData().size() > 0 && result.getStatus() == 1 && result.getStatus() > 0) {
                     EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_EVENT));

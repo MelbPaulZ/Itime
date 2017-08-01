@@ -213,9 +213,9 @@
     <string name="week">Week</string>
     <string name="agenda">Agenda</string>
 
-    <string name="tab_calendar">Calendar</string>
+    <string name="tab_calendar">Calendars</string>
     <string name="tab_contacts">Contacts</string>
-    <string name="tab_mettings">Meetings</string>
+    <string name="tab_meeting">Meetings</string>
     <string name="tab_soloevent">Solo Event</string>
     <string name="tab_activities">Activities</string>
     <string name="tab_message">Message</string>

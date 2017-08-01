@@ -129,7 +129,7 @@ public class MeetingBaseCardViewModel extends BaseObservable {
 
     public int getEventStatusColor(){
         String status = meeting.getEvent().getStatus();
-        int color = 0;
+        int color;
 
         switch (status) {
             case Event.STATUS_CONFIRMED:
@@ -140,6 +140,9 @@ public class MeetingBaseCardViewModel extends BaseObservable {
                 break;
             case Event.STATUS_CANCELLED:
                 color = R.color.shadow_onwhite;
+                break;
+            default:
+                color = R.color.red;
                 break;
         }
 

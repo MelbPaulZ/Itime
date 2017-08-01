@@ -45,7 +45,7 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
     }
 
     public void loadDataFromDB(){
-        Observable<FilterResult> filterResultObservable = Observable.create(subscriber -> {
+        Observable<FilterResult> filterResultObservable = Observable.create((Subscriber<? super FilterResult> subscriber) -> {
             FilterResult filterResult1 = new FilterResult();
             String userUid = UserUtil.getInstance(getContext()).getUserUid();
 
@@ -83,7 +83,6 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
             subscriber.onNext(filterResult1);
 
             comingResult = new ArrayList<>();
-
         });
 
         Subscriber<FilterResult> subscriber = new Subscriber<FilterResult>() {
