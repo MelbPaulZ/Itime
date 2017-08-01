@@ -84,7 +84,7 @@ public class PhotoViewLayout extends ViewGroup {
 
         if(url==null){
             Picasso.with(context)//
-                    .load(R.drawable.default_image)//
+                    .load(R.drawable.icon_details_photo_placeholder)//
                     .resize(INIT_SIZE, INIT_SIZE)//
                     .centerCrop()//
                     .into(view);
@@ -94,8 +94,8 @@ public class PhotoViewLayout extends ViewGroup {
         if (!url.getUrl().equals("")){
             Picasso.with(context)//
                     .load(url.getUrl())//
-                    .placeholder(R.drawable.default_image)//
-                    .error(R.drawable.default_image)//
+                    .placeholder(R.drawable.icon_details_photo_placeholder)//
+                    .error(R.drawable.icon_details_photo_placeholder)//
                     .memoryPolicy(NO_CACHE, NO_STORE)
                     .resize(INIT_SIZE, INIT_SIZE)//
                     .centerCrop()//
@@ -105,8 +105,8 @@ public class PhotoViewLayout extends ViewGroup {
             if (file.exists()){
                 Picasso.with(context)//
                         .load(new File(url.getLocalPath()))//
-                        .placeholder(R.drawable.default_image)//
-                        .error(R.drawable.default_image)//
+                        .placeholder(R.drawable.icon_details_photo_placeholder)//
+                        .error(R.drawable.icon_details_photo_placeholder)//
                         .memoryPolicy(NO_CACHE, NO_STORE)
                         .resize(INIT_SIZE, INIT_SIZE)//
                         .centerCrop()//

@@ -93,7 +93,7 @@
                         android:paddingTop="9.5dp"
                         android:paddingBottom="9.5dp"
                         android:textColor="@color/search_bar_result_title"
-                        android:text="@string/tab_mettings"
+                        android:text="@string/tab_meeting"
                         android:visibility="@{vm.titleEnabled ? View.VISIBLE : View.GONE}"
                         />
 

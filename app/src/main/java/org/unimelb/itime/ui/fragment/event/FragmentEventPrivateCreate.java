@@ -116,7 +116,7 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void onNext() {
-
+        event.setEventType(Event.EVENT_TYPE_SOLO);
         presenter.createEvent(event);
     }
 

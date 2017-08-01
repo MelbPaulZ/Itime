@@ -1,6 +1,7 @@
 package org.unimelb.itime.ui.viewmodel.meeting;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
@@ -12,6 +13,7 @@ import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Meeting;
+import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.fragment.meeting.RecyclerViewAdapterMeetings;
 import org.unimelb.itime.util.EventUtil;
 
@@ -51,6 +53,14 @@ public class MeetingBaseCardViewModel extends BaseObservable {
 
     public boolean getSwipeEnable(){
         return mode != RecyclerViewAdapterMeetings.Mode.COMING;
+    }
+
+    public View.OnClickListener onCardClick(){
+        return v -> {
+            Intent intent = new Intent(context.getApplicationContext(), EventDetailActivity.class);
+            intent.putExtra(EventDetailActivity.EVENT, meeting.getEvent());
+            context.startActivity(intent);
+        };
     }
 
     public int getDateTextVisibility(){
@@ -129,7 +139,7 @@ public class MeetingBaseCardViewModel extends BaseObservable {
 
     public int getEventStatusColor(){
         String status = meeting.getEvent().getStatus();
-        int color = 0;
+        int color;
 
         switch (status) {
             case Event.STATUS_CONFIRMED:
@@ -140,6 +150,9 @@ public class MeetingBaseCardViewModel extends BaseObservable {
                 break;
             case Event.STATUS_CANCELLED:
                 color = R.color.shadow_onwhite;
+                break;
+            default:
+                color = R.color.red;
                 break;
         }
 

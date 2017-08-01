@@ -43,7 +43,7 @@
         android:maxWidth="345dp"
         android:textColor="@color/white"
         android:textSize="@dimen/font_huge"
-
+        android:gravity="center_horizontal"
         android:layout_alignParentTop="true"
         android:id="@+id/bigTitle"
         android:layout_centerHorizontal="true"/>

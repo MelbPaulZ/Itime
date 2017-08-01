@@ -8,11 +8,19 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.databinding.FragmentMainContactsBinding;
 import org.unimelb.itime.databinding.HeaderContactMainListBinding;
+import org.unimelb.itime.messageevent.MessageAddContact;
+import org.unimelb.itime.messageevent.MessageEditContact;
+import org.unimelb.itime.messageevent.MessageNewFriendRequest;
+import org.unimelb.itime.messageevent.MessageRemoveContact;
 import org.unimelb.itime.ui.activity.MoreFriendsActivity;
 import org.unimelb.itime.ui.activity.ProfileActivity;
 import org.unimelb.itime.ui.activity.SearchActivity;
@@ -43,7 +51,7 @@ public class MainContactFragment extends ItimeBaseFragment<MainContactsMvpView, 
                 R.layout.fragment_main_contacts, container, false);
         headerBinding = DataBindingUtil.inflate(inflater,
                 R.layout.header_contact_main_list, null, false);
-//        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
         return binding.getRoot();
     }
 
@@ -70,16 +78,16 @@ public class MainContactFragment extends ItimeBaseFragment<MainContactsMvpView, 
 //    public void addContact(MessageAddContact msg){
 //        viewModel.addContact(msg.contact);
 //    }
-//
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void setRequestCount(MessageNewFriendRequest msg){
-//        viewModel.setRequestCount(msg.count);
-//    }
-//
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void editContact(MessageEditContact msg){
-//        viewModel.loadData();
-//    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void setRequestCount(MessageNewFriendRequest msg){
+        viewModel.setRequestCount(msg.count);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void editContact(MessageEditContact msg){
+        viewModel.loadData();
+    }
 //
 //    @Subscribe(threadMode = ThreadMode.MAIN)
 //    public void oneNetworkChange(MessageNetworkStatus message){
@@ -150,7 +158,7 @@ public class MainContactFragment extends ItimeBaseFragment<MainContactsMvpView, 
     @Override
     public void onDestroy(){
         super.onDestroy();
-//        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

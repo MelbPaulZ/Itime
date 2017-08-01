@@ -187,7 +187,7 @@ public class RemoteService extends Service {
 
     private void firstFetchData(){
         fetchCalendar();
-//        fetchContact();
+        fetchContact();
 //        fetchFriendRequest();
 //        fetchMessages();
         fetchMeetings();
@@ -401,6 +401,12 @@ public class RemoteService extends Service {
                             tokenUtil.setEventToken(user.getUserUid(), ret.getSyncToken());
                         }
 
+                        //sync event manager
+                        for (Event event : visibleEventList
+                                ) {
+                            eventManager.insertOrUpdate(event);
+                        }
+
                         return ret;
                     }
                 });
@@ -418,15 +424,6 @@ public class RemoteService extends Service {
             public void onNext(final HttpResult<List<Event>> result) {
                 if (!isStart) {
                     return;
-                }
-                if (result.getData().size() > 0) {
-                    // need to let data change in synchronised thread
-                    // visible event list save to event manager
-
-                    for (Event event : visibleEventList
-                            ) {
-                        eventManager.insertOrUpdate(event);
-                    }
                 }
 
                 if (result.getData().size() > 0 && result.getStatus() == 1 && result.getStatus() > 0) {
