@@ -13,6 +13,9 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreateAddInvitee;
 import org.unimelb.itime.ui.fragment.event.FragmentEventPrivateCreate;
+import org.unimelb.itime.util.CalendarUtil;
+
+import java.util.Calendar;
 
 /**
  * Created by Paul on 12/6/17.
@@ -31,10 +34,18 @@ public class EventCreateActivity extends ItimeBaseActivity {
         if (type!=null && type.equals(getString(R.string.event_type_group))){
             FragmentEventCreateAddInvitee addInviteeFragment = new FragmentEventCreateAddInvitee();
             Event event = new Event();
+            event.setCalendarUid(CalendarUtil.getInstance(getApplicationContext()).getDefaultCalendarUid());
             addInviteeFragment.setEvent(event);
             fragment = addInviteeFragment;
         }else{
             Event ev = (Event) getIntent().getSerializableExtra("Event");
+            if (ev == null){
+                ev = new Event();
+                Calendar c = Calendar.getInstance();
+                ev.setStartTime(c.getTimeInMillis());
+                ev.setEndTime(c.getTimeInMillis() + 1000 * 60 * 60);
+            }
+            ev.setCalendarUid(CalendarUtil.getInstance(getApplicationContext()).getDefaultCalendarUid());
             fragment = new FragmentEventPrivateCreate();
             ((FragmentEventPrivateCreate)fragment).setEvent(ev);
         }

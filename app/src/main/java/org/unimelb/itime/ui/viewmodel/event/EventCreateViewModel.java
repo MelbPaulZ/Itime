@@ -23,10 +23,12 @@ import com.developer.paul.closabledatabindingview.interfaces.ClosableItem;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseViewModel;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.databinding.CellEventCreateRepeatMiddleBinding;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
+import org.unimelb.itime.util.CalendarUtil;
 import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.util.rulefactory.RuleFactory;
 import org.unimelb.itime.util.rulefactory.RuleModel;
@@ -58,8 +60,6 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         this.presenter = presenter;
         mvpView = (EventCreateMvpView) presenter.getView();
         init();
-
-        mockData();
     }
 
     private void init(){
@@ -76,12 +76,12 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         notifyPropertyChanged(BR.buttonItems);
     }
 
-    private void mockData(){
-        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
-        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
-        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
-
-    }
+//    private void mockData(){
+//        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
+//        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
+//        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
+//
+//    }
 
     public CompoundButton.OnCheckedChangeListener onAlldayChangeListener(){
         return new CompoundButton.OnCheckedChangeListener() {
@@ -184,6 +184,10 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             return "";
         }
         return String.format(presenter.getContext().getString(R.string.event_candidate_timeslots), event.getTimeslot().size());
+    }
+
+    public String getDisplayCalendar(Event event){
+        return CalendarUtil.getInstance(presenter.getContext()).getCalendarName(event.getCalendarUid());
     }
 
 
@@ -324,7 +328,16 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         this.event = event;
         resetButtonsAndRows();
         resetTimeslots();
+        updateAvatars();
         notifyPropertyChanged(BR.event);
+    }
+
+    private void updateAvatars(){
+        mockAvatorLists.clear();
+        for (Invitee invitee: event.getInvitee().values()){
+            mockAvatorLists.add(invitee.getAliasPhoto());
+        }
+
     }
 
     /**

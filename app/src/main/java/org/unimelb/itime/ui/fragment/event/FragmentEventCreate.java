@@ -60,7 +60,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
 
     private void init(){
         if (vm==null) {
-            mockEvent();
+//            mockEvent();
             vm = new EventCreateViewModel(getPresenter());
             vm.setEvent(event);
             binding.setVm(vm);
@@ -75,11 +75,6 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         }
     }
 
-    private void mockEvent(){
-        event= new Event();
-        event.getStart().setDateTime("2017-05-23T12:25:00+10:00");
-        event.getEnd().setDateTime("2017-05-23T13:25:00+10:00");
-    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
