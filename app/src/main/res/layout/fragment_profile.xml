@@ -53,20 +53,22 @@
             android:layout_below="@id/avatarView"
             android:layout_marginTop="10dp"
             android:padding="10dp">
+
             <me.grantland.widget.AutofitTextView
+                android:id="@+id/nameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textIsSelectable="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-smallcaps"
+                android:maxLines="1"
                 android:maxWidth="300dp"
-                android:textSize="@dimen/font_huge"
-                app:minTextSize="@dimen/font_large"
                 android:text="@{viewModel.realName}"
                 android:textColor="@color/text_body"
-                android:layout_centerHorizontal="true"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:id="@+id/nameTextView"
-                android:layout_alignParentTop="true" />
+                android:textIsSelectable="true"
+                android:textSize="@dimen/font_huge"
+                app:minTextSize="@dimen/font_large" />
 
         <me.grantland.widget.AutofitTextView
             android:layout_width="wrap_content"
@@ -76,6 +78,7 @@
             app:minTextSize="@dimen/font_large"
             android:textIsSelectable="true"
             android:text="@{'('+viewModel.name+')'}"
+            android:typeface="normal"
             android:textColor="@color/text_body"
             android:layout_centerHorizontal="true"
             android:maxLines="1"

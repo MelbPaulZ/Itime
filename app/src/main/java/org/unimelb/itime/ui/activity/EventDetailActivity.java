@@ -27,6 +27,7 @@ import java.util.Map;
  */
 
 public class EventDetailActivity extends ItimeBaseActivity{
+    public static String EVENT = "event";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,12 @@ public class EventDetailActivity extends ItimeBaseActivity{
         setContentView(R.layout.activity_event_create);
 
         FragmentEventDetail fragment = new FragmentEventDetail();
-        fragment.setData(getEvent());
+        Event event = (Event) getIntent().getSerializableExtra(EVENT);
+        if(event!=null) {
+            fragment.setData(event);
+        }else {
+            fragment.setData(getEvent());
+        }
         getSupportFragmentManager().beginTransaction().add(R.id.frag_container_event_create,fragment, FragmentEventCreate.class.getSimpleName()).commit();
     }
 
