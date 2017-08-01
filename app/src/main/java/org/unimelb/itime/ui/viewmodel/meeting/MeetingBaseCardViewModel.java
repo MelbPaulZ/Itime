@@ -15,6 +15,8 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.fragment.meeting.RecyclerViewAdapterMeetings;
+import org.unimelb.itime.ui.mvpview.MeetingMvpView;
+import org.unimelb.itime.ui.presenter.MeetingPresenter;
 import org.unimelb.itime.util.EventUtil;
 
 import java.util.Calendar;
@@ -31,10 +33,13 @@ public class MeetingBaseCardViewModel extends BaseObservable {
     protected Meeting meeting;
     protected Context context;
     protected RecyclerViewAdapterMeetings.Mode mode;
+    protected MeetingPresenter<MeetingMvpView> meetingPresenter;
 
-    public MeetingBaseCardViewModel(Context context, RecyclerViewAdapterMeetings.Mode mode) {
+
+    public MeetingBaseCardViewModel(Context context, RecyclerViewAdapterMeetings.Mode mode, MeetingPresenter<MeetingMvpView> meetingPresenter) {
         this.mode = mode;
         this.context = context;
+        this.meetingPresenter = meetingPresenter;
     }
 
     @Bindable
@@ -57,9 +62,9 @@ public class MeetingBaseCardViewModel extends BaseObservable {
 
     public View.OnClickListener onCardClick(){
         return v -> {
-            Intent intent = new Intent(context.getApplicationContext(), EventDetailActivity.class);
-            intent.putExtra(EventDetailActivity.EVENT, meeting.getEvent());
-            context.startActivity(intent);
+            if (meetingPresenter.getView() != null){
+                meetingPresenter.getView().onMeetingClick(meeting);
+            }
         };
     }
 
@@ -178,6 +183,6 @@ public class MeetingBaseCardViewModel extends BaseObservable {
     public static void changeBgDrawableColor(View view, int color) {
         GradientDrawable db = (GradientDrawable) view.getBackground();
         db.mutate();
-//        db.setColor(view.getContext().getResources().getColor(color));
+        db.setColor(view.getContext().getResources().getColor(color));
     }
 }

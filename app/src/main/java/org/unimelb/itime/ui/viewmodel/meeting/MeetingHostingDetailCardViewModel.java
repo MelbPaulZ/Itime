@@ -5,6 +5,8 @@ import android.content.Context;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.ui.fragment.meeting.RecyclerViewAdapterMeetings;
+import org.unimelb.itime.ui.mvpview.MeetingMvpView;
+import org.unimelb.itime.ui.presenter.MeetingPresenter;
 import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.util.MeetingUtil;
 
@@ -16,8 +18,8 @@ public class MeetingHostingDetailCardViewModel extends MeetingHostingBaseCardVie
     //int[] {goingNum, notGoingNum, votedNum, cantGoNum, noReplyNum}
     private int[] inviteeVotedStatus;
 
-    public MeetingHostingDetailCardViewModel(Context context, RecyclerViewAdapterMeetings.Mode mode) {
-        super(context, mode);
+    public MeetingHostingDetailCardViewModel(Context context, RecyclerViewAdapterMeetings.Mode mode, MeetingPresenter<MeetingMvpView> meetingPresenter) {
+        super(context, mode,meetingPresenter);
     }
 
     @Override

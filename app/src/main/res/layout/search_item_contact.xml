@@ -29,6 +29,8 @@
             android:textSize="19sp"
             android:textColor="@color/search_bar_result_body_text"
             android:id="@+id/title"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="@{contactVM.getNameStr(contactVM.matchStr)}"/>
 
         <TextView

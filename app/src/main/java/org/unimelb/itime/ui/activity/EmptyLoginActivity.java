@@ -32,7 +32,7 @@ public class EmptyLoginActivity extends ItimeBaseActivity<LoginMvpView,LoginPres
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        UserUtil.getInstance(getApplicationContext()).clearAccountWithDB();
+//        UserUtil.getInstance(getApplicationContext()).clearAccountWithDB();
 
         // start remote service
         Intent intent = new Intent(this,RemoteService.class);

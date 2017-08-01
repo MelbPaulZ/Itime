@@ -120,28 +120,28 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
                 MeetingInvitationItemDetailedBinding binding = DataBindingUtil.inflate(layoutInflater,R.layout.meeting_invitation_item_detailed,parent,false);
                 holder = new InvitationDetailsViewHolder(binding);
                 binding.setVmMenu(new MeetingMenuViewModel());
-                binding.setVmDetail(new MeetingInvitationDetailCardViewModel(context,mode));
+                binding.setVmDetail(new MeetingInvitationDetailCardViewModel(context,mode,presenter));
                 break;
             }
             case INVITATION_MESSAGE:{
                 MeetingInvitationItemMessageBinding binding = DataBindingUtil.inflate(layoutInflater,R.layout.meeting_invitation_item_message,parent,false);
                 holder = new InvitationMessageViewHolder(binding);
                 binding.setVmMenu(new MeetingMenuViewModel());
-                binding.setVmMsg(new MeetingInvitationMsgCardViewModel(context,mode));
+                binding.setVmMsg(new MeetingInvitationMsgCardViewModel(context,mode,presenter));
                 break;
             }
             case HOSTING_DETAILS:{
                 MeetingHostingItemDetailsBinding binding = DataBindingUtil.inflate(layoutInflater,R.layout.meeting_hosting_item_details,parent,false);
                 holder = new HostingDetailsViewHolder(binding);
                 binding.setVmMenu(new MeetingMenuViewModel());
-                binding.setVmDetail(new MeetingHostingDetailCardViewModel(context,mode));
+                binding.setVmDetail(new MeetingHostingDetailCardViewModel(context,mode,presenter));
                 break;
             }
             case HOSTING_MESSAGE:{
                 MeetingHostingItemMessageBinding binding = DataBindingUtil.inflate(layoutInflater,R.layout.meeting_hosting_item_message,parent,false);
                 holder = new HostingMessageViewHolder(binding);
                 binding.setVmMenu(new MeetingMenuViewModel());
-                binding.setVmMsg(new MeetingHostingMsgCardViewModel(context,mode));
+                binding.setVmMsg(new MeetingHostingMsgCardViewModel(context,mode,presenter));
                 break;
             }
             default:

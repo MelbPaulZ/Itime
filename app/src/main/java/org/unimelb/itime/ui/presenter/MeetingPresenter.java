@@ -1,11 +1,11 @@
 package org.unimelb.itime.ui.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.greendao.AbstractDao;
 import org.unimelb.itime.base.ItimeBasePresenter;
 import org.unimelb.itime.bean.Event;
@@ -13,14 +13,19 @@ import org.unimelb.itime.bean.EventDao;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.bean.MeetingDao;
 import org.unimelb.itime.manager.DBManager;
+import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.mvpview.MeetingMvpView;
+import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.util.UserUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
+import david.itimecalendar.calendar.listeners.ITimeEventInterface;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -66,23 +71,20 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
             List<Meeting> hostingResult = meetingDao.queryBuilder().where(
                     MeetingDao.Properties.EventUid.notIn(keys),
                     MeetingDao.Properties.HostUserUid.eq(userUid)
-//                    new WhereCondition.StringCondition(MeetingDao.Properties.HostUserUid + " = " + MeetingDao.Properties.UserUid)
             ).list();
 
             List<Meeting> invitationResult = meetingDao.queryBuilder().where(
                     MeetingDao.Properties.EventUid.notIn(keys),MeetingDao.Properties.HostUserUid.notEq(userUid)
             ).list();
 
-//                List<Meeting> comingDataSet = eventDao.queryBuilder().where(
-//                        MeetingDao.Properties.HostUserUid.eq(MeetingDao.Properties.UserUid)
-//                ).list();
             filterResult1.archiveResult = archiveResult;
             filterResult1.invitationResult = invitationResult;
             filterResult1.hostingResult = hostingResult;
 
             subscriber.onNext(filterResult1);
 
-            comingResult = new ArrayList<>();
+            comingResult = getFutureMeeting();
+            Log.i("wdadwa", "loadDataFromDB: ");
         });
 
         Subscriber<FilterResult> subscriber = new Subscriber<FilterResult>() {
@@ -101,7 +103,7 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
                 MeetingPresenter.this.filterResult = filterResult;
 
                 if (getView() != null){
-                    getView().onDataLoaded(filterResult);
+                    getView().onDataLoaded(filterResult,comingResult);
                 }
             }
         };
@@ -114,7 +116,7 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
 
     public void getData(){
         if (filterResult !=null && getView() != null){
-            getView().onDataLoaded(filterResult);
+            getView().onDataLoaded(filterResult,comingResult);
             return;
         }
 
@@ -139,7 +141,7 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
 
     public void refreshDisplayData(){
         if (getView() != null){
-            getView().onDataLoaded(filterResult);
+            getView().onDataLoaded(filterResult,comingResult);
         }
     }
 
@@ -179,4 +181,66 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
 //    }
 
 
+    /**
+     * get coming meetings from event
+     * @return
+     */
+    private List<Meeting> getFutureMeeting(){
+        List<Meeting> comingResult = new ArrayList<>();
+        int range = 50;//day
+
+        Calendar cal = Calendar.getInstance();
+        Long currentDay  = EventUtil.getDayBeginMilliseconds(cal.getTimeInMillis() - range * EventUtil.allDayMilliseconds);
+        Long endDay  = currentDay + range * EventUtil.allDayMilliseconds;
+
+        EventManager.EventsPackage packages = EventManager.getInstance(getContext()).getEventsPackage();
+        Map<Long, List<ITimeEventInterface>> regularEventMap = packages.getRegularEventDayMap();
+        Map<Long, List<ITimeEventInterface>> repeatedEventMap = packages.getRepeatedEventDayMap();
+
+        comingResult.addAll(wrapFutureEventToMeeting(regularEventMap, endDay));
+        comingResult.addAll(wrapFutureEventToMeeting(repeatedEventMap, endDay));
+
+        return comingResult;
+    }
+
+    /**
+     * Filtering to get future group event then wrapping to meeting
+     * @param map
+     * @param endDay
+     * @return
+     */
+    private List<Meeting> wrapFutureEventToMeeting(Map<Long, List<ITimeEventInterface>> map, long endDay){
+        List<Meeting> comingResult = new ArrayList<>();
+
+        for (Map.Entry<Long, List<ITimeEventInterface>> entry : map.entrySet())
+        {
+            if (entry.getKey() > endDay){break;}
+
+            List<ITimeEventInterface> events = entry.getValue();
+
+            for (ITimeEventInterface event : events
+                    ) {
+                if (event.getEventType().equals(Event.EVENT_TYPE_SOLO)){
+                    continue;
+                }
+
+                Meeting meeting = wrapEventToMeeting((Event) event);
+                comingResult.add(meeting);
+            }
+        }
+
+        return comingResult;
+    }
+
+    /**
+     * Wrapping single event to meeting
+     * @param event
+     * @return
+     */
+    private Meeting wrapEventToMeeting(Event event){
+        Meeting meeting = new Meeting();
+        meeting.setEvent(event);
+
+        return meeting;
+    }
 }

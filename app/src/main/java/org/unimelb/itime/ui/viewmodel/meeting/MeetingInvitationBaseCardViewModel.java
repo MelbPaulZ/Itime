@@ -16,6 +16,8 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.ui.fragment.meeting.CardTemplate;
 import org.unimelb.itime.ui.fragment.meeting.RecyclerViewAdapterMeetings;
+import org.unimelb.itime.ui.mvpview.MeetingMvpView;
+import org.unimelb.itime.ui.presenter.MeetingPresenter;
 
 import java.util.HashMap;
 import java.util.List;
@@ -80,8 +82,8 @@ public class MeetingInvitationBaseCardViewModel extends MeetingBaseCardViewModel
 
     protected CardTemplate cardTemplate;
 
-    public MeetingInvitationBaseCardViewModel(Context context, RecyclerViewAdapterMeetings.Mode mode) {
-        super(context,mode);
+    public MeetingInvitationBaseCardViewModel(Context context, RecyclerViewAdapterMeetings.Mode mode,  MeetingPresenter<MeetingMvpView> meetingPresenter) {
+        super(context,mode,meetingPresenter);
     }
 
     @Bindable

@@ -42,7 +42,6 @@ public class FragmentComing extends Fragment {
     private Context context;
     private List<Meeting> data;
     private MeetingPresenter<MeetingMvpView> meetingPresenter;
-    private EventManager.EventsPackage eventsPackage;
 
     @Nullable
     @Override
@@ -50,7 +49,6 @@ public class FragmentComing extends Fragment {
         View view = inflater.inflate(R.layout.meeting_recyclerview, container, false);
 
         context = getContext();
-        eventsPackage = EventManager.getInstance(context).getEventsPackage();
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         // Layout Managers:
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -59,6 +57,7 @@ public class FragmentComing extends Fragment {
         // Adapter:
         mAdapter = new RecyclerViewAdapterMeetings(context, RecyclerViewAdapterMeetings.Mode.COMING, meetingPresenter);
         mAdapter.setMode(Attributes.Mode.Single);
+
         if (data != null){
             mAdapter.setmDataset(data);
             mAdapter.notifyDatasetChanged();
@@ -77,45 +76,9 @@ public class FragmentComing extends Fragment {
     public void setData(List<Meeting> comingResult){
         this.data = comingResult;
         if (mAdapter != null){
+            mAdapter.setmDataset(this.data);
             mAdapter.notifyDatasetChanged();
         }
-    }
-
-    private List<Meeting> getDisplayData(){
-        long todayBegin = EventUtil.getDayBeginMilliseconds(Calendar.getInstance().getTimeInMillis());
-
-        List<ITimeEventInterface> eventSet = new ArrayList<>();
-
-        Map<Long, List<ITimeEventInterface>> regularMap = eventsPackage.getRegularEventDayMap();
-        Map<Long, List<ITimeEventInterface>> repeatedMap = eventsPackage.getRepeatedEventDayMap();
-
-        // extract regular events
-        for (Map.Entry<Long, List<ITimeEventInterface>> entry : regularMap.entrySet()) {
-            Long key = entry.getKey();
-            List<ITimeEventInterface> events = entry.getValue();
-            if (key >= todayBegin){
-                eventSet.addAll(events);
-            }
-        }
-        // extract repeated events
-        for (Map.Entry<Long, List<ITimeEventInterface>> entry : repeatedMap.entrySet()) {
-            Long key = entry.getKey();
-            List<ITimeEventInterface> events = entry.getValue();
-            if (key >= todayBegin){
-                eventSet.addAll(events);
-            }
-        }
-
-        List<Meeting> meetingSet = new ArrayList<>();
-        for (ITimeEventInterface event:eventSet
-             ) {
-            Meeting meeting = new Meeting();
-            meeting.setEvent((Event) event);
-            meeting.setInfo("Coming");
-            meetingSet.add(meeting);
-        }
-
-        return meetingSet;
     }
 
     public void setMeetingPresenter(MeetingPresenter<MeetingMvpView> meetingPresenter) {

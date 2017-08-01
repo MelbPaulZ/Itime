@@ -24,6 +24,7 @@ import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.databinding.FragmentMeetingArchiveBinding;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.activity.ArchiveActivity;
+import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.mvpview.MeetingMvpView;
 import org.unimelb.itime.ui.presenter.MeetingPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
@@ -44,7 +45,7 @@ import static org.unimelb.itime.ui.activity.ArchiveActivity.ARCHIVE_BACK_RESULT_
  * Created by yuhaoliu on 22/06/2017.
  */
 
-public class FragmentArchive extends ItimeBaseFragment<MeetingMvpView,MeetingPresenter<MeetingMvpView>> implements ToolbarInterface {
+public class FragmentArchive extends ItimeBaseFragment<MeetingMvpView,MeetingPresenter<MeetingMvpView>> implements MeetingMvpView,ToolbarInterface {
     private FragmentMeetingArchiveBinding binding;
 
     private RecyclerView recyclerView;
@@ -68,12 +69,6 @@ public class FragmentArchive extends ItimeBaseFragment<MeetingMvpView,MeetingPre
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         // Item Decorator:
         recyclerView.setItemAnimator(new FadeInLeftAnimator());
-        // Adapter:
-        mAdapter = new RecyclerViewAdapterMeetings(context, RecyclerViewAdapterMeetings.Mode.ARCHIVE, meetingPresenter);
-        mAdapter.setMode(Attributes.Mode.Single);
-
-
-        recyclerView.setAdapter(mAdapter);
 
         setUpToolbar();
 
@@ -109,15 +104,16 @@ public class FragmentArchive extends ItimeBaseFragment<MeetingMvpView,MeetingPre
         onMenu = new OnMeetingMenu(meetingPresenter,mAdapter,data,filterResult);
 
         meetingPresenter.setFilterResult(filterResult);
-        if (mAdapter != null){
-            mAdapter.setOnMenuListener(onMenu);
-            mAdapter.notifyDatasetChanged();
-        }
 
-        if (data != null){
-            mAdapter.setmDataset(data);
-            mAdapter.notifyDatasetChanged();
-        }
+        // Adapter: init here because of timing for presenter
+        mAdapter = new RecyclerViewAdapterMeetings(context, RecyclerViewAdapterMeetings.Mode.ARCHIVE, meetingPresenter);
+        mAdapter.setMode(Attributes.Mode.Single);
+        recyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnMenuListener(onMenu);
+        mAdapter.setmDataset(data);
+
+        mAdapter.notifyDatasetChanged();
     }
 
     /**
@@ -140,5 +136,20 @@ public class FragmentArchive extends ItimeBaseFragment<MeetingMvpView,MeetingPre
     @Override
     public void onStart() {
         super.onStart();
+    }
+
+    /**
+     * Do nothing, data is passed in
+     */
+    @Override
+    public void onDataLoaded(MeetingPresenter.FilterResult meetings, List<Meeting> comingMeeting) {
+
+    }
+
+    @Override
+    public void onMeetingClick(Meeting meeting) {
+        Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+        intent.putExtra(EventDetailActivity.EVENT, meeting.getEvent());
+        getActivity().startActivity(intent);
     }
 }

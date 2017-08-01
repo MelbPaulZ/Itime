@@ -41,7 +41,6 @@ public class FragmentHosting extends Fragment {
     private RecyclerViewAdapterMeetings mAdapter;
     private Context context;
     private List<Meeting> data;
-    private MeetingPresenter.FilterResult filterResult;
     private MeetingPresenter<MeetingMvpView> meetingPresenter;
 
     @Nullable
@@ -96,7 +95,6 @@ public class FragmentHosting extends Fragment {
     };
 
     public void setData(MeetingPresenter.FilterResult filterResult){
-        this.filterResult = filterResult;
         this.data = filterResult.hostingResult;
         if (mAdapter != null){
             mAdapter.setOnMenuListener(new OnMeetingMenu(meetingPresenter,mAdapter,data,filterResult));

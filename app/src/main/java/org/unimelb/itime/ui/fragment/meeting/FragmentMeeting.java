@@ -14,9 +14,11 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
+import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.databinding.FragmentMeetingBinding;
 import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.ui.activity.ArchiveActivity;
+import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.activity.SearchActivity;
 import org.unimelb.itime.ui.mvpview.MeetingMvpView;
 import org.unimelb.itime.ui.presenter.MeetingPresenter;
@@ -141,11 +143,18 @@ public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPr
     }
 
     @Override
-    public void onDataLoaded(MeetingPresenter.FilterResult meetings) {
+    public void onDataLoaded(MeetingPresenter.FilterResult meetings, List<Meeting> comingMeeting) {
         filterResult = meetings;
         fragmentInvitation.setData(meetings);
         fragmentHosting.setData(meetings);
-        fragmentComing.setData(getPresenter().getComingResult());
+        fragmentComing.setData(comingMeeting);
+    }
+
+    @Override
+    public void onMeetingClick(Meeting meeting) {
+        Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+        intent.putExtra(EventDetailActivity.EVENT, meeting.getEvent());
+        getActivity().startActivity(intent);
     }
 
     @Subscribe

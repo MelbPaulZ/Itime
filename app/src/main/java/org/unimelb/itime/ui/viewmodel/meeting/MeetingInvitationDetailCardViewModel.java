@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.View;
 
 import org.unimelb.itime.ui.fragment.meeting.RecyclerViewAdapterMeetings;
+import org.unimelb.itime.ui.mvpview.MeetingMvpView;
+import org.unimelb.itime.ui.presenter.MeetingPresenter;
 
 /**
  * Created by yuhaoliu on 26/06/2017.
@@ -11,8 +13,8 @@ import org.unimelb.itime.ui.fragment.meeting.RecyclerViewAdapterMeetings;
 
 public class MeetingInvitationDetailCardViewModel extends MeetingInvitationBaseCardViewModel {
 
-    public MeetingInvitationDetailCardViewModel(Context context, RecyclerViewAdapterMeetings.Mode mode) {
-        super(context,mode);
+    public MeetingInvitationDetailCardViewModel(Context context, RecyclerViewAdapterMeetings.Mode mode, MeetingPresenter<MeetingMvpView> meetingPresenter) {
+        super(context,mode,meetingPresenter);
     }
 
     public int getUpdatedTimeVisibility(){

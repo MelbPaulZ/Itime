@@ -11,12 +11,13 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/search_bar_bg">
         <!-- search bar -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:background="@color/search_bar_bg"
+            android:background="@color/search_bar_edit_bg"
             >
             <TextView
                 style="@style/itime_bottom_divider_line"/>
@@ -80,7 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="@color/search_bar_bg"
+                    android:background="@color/search_bar_edit_bg"
                     android:orientation="vertical"
                     android:visibility="@{vm.meetingVMsResult.size() == 0 ? View.GONE:View.VISIBLE}"
                     >
@@ -130,7 +131,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="@color/search_bar_bg"
+                    android:background="@color/search_bar_edit_bg"
                     android:orientation="vertical"
                     android:visibility="@{vm.soloEventVMsResult.size() == 0 ? View.GONE:View.VISIBLE}"
                     >
@@ -179,7 +180,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="@color/search_bar_bg"
+                    android:background="@color/search_bar_edit_bg"
                     android:orientation="vertical"
                     android:visibility="@{vm.contactsVMsResult.size() == 0 ? View.GONE:View.VISIBLE}"
                     >
