@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.event.EventCreateViewModel.RepeatCellViewModel"/>
+    </data>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="54dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/page_text_size"
+        android:textColor="@color/black"
+        android:id="@+id/repeat_cell_primary_text"
+        android:visibility="@{vm.getTwoLinesVisibility(vm.event)}"
+        android:text="@{vm.getRepeatPrimaryString(vm.event)}"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="11sp"
+        android:layout_below="@+id/repeat_cell_primary_text"
+        android:textColor="@color/warmGrey"
+        android:visibility="@{vm.getTwoLinesVisibility(vm.event)}"
+        android:text="@{vm.getRepeatSecondaryString(vm.event)}"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/page_text_size"
+        android:layout_centerVertical="true"
+        android:textColor="@color/black"
+        android:text="@{vm.getRepeatPrimaryString(vm.event)}"
+        android:visibility="@{vm.getOneLineVisiblitity(vm.event)}"
+        />
+</RelativeLayout>
+</layout>

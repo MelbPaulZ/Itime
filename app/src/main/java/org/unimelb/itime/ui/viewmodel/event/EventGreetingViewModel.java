@@ -10,6 +10,8 @@ import com.android.databinding.library.baseAdapters.BR;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseViewModel;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.ui.mvpview.event.EventGreetingMvpView;
+import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.presenter.LocalPresenter;
 
 /**
@@ -19,13 +21,15 @@ import org.unimelb.itime.ui.presenter.LocalPresenter;
 public class EventGreetingViewModel extends ItimeBaseViewModel {
 
     private Event event;
-    private LocalPresenter presenter;
+    private EventCreatePresenter presenter;
+    private EventGreetingMvpView mvpView;
 
     private int EDIT_COUNT_LIMIT = 140;
     private int EDIT_COUNT_THRESHOLD = 20;
 
-    public EventGreetingViewModel(LocalPresenter presenter) {
+    public EventGreetingViewModel(EventCreatePresenter<EventGreetingMvpView> presenter) {
         this.presenter = presenter;
+        this.mvpView = presenter.getView();
     }
 
     @Bindable

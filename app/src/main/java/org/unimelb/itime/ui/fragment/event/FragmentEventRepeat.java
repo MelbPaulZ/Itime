@@ -90,12 +90,5 @@ public class FragmentEventRepeat extends ItimeBaseFragment<EventRepeatMvpView, E
         getBaseActivity().openFragment(fragmentEventRepeatCustom);
     }
 
-    @Override
-    public void toEndRepeat(Event event) {
-        FragmentEventEndRepeat eventEndRepeat = new FragmentEventEndRepeat();
-        Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
-        eventEndRepeat.setEvent(cpyEvent);
-        getBaseActivity().openFragment(eventEndRepeat);
 
-    }
 }

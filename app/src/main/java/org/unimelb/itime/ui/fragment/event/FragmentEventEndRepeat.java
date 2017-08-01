@@ -17,8 +17,10 @@ import org.unimelb.itime.ui.mvpview.event.EventEndRepeatMvpView;
 import org.unimelb.itime.ui.presenter.LocalPresenter;
 import org.unimelb.itime.ui.viewmodel.event.EventEndRepeatViewModel;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
+import org.unimelb.itime.util.rulefactory.RuleFactory;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Paul on 5/6/17.
@@ -56,12 +58,16 @@ public class FragmentEventEndRepeat extends ItimeBaseFragment<EventEndRepeatMvpV
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 vm.setNeverCheckVisibility(View.GONE);
                 vm.setOnDateCheckVisibility(View.VISIBLE);
+                Calendar c = Calendar.getInstance();
+                c.set(year, monthOfYear, dayOfMonth);
+                event.getRule().setUntil(c.getTime(), c.getTimeZone());
             }
         });
 
     }
 
     public void setEvent(Event event) {
+        event.setRule(RuleFactory.getInstance().getRuleModel(event));
         this.event = event;
     }
 
@@ -74,6 +80,9 @@ public class FragmentEventEndRepeat extends ItimeBaseFragment<EventEndRepeatMvpV
 
     @Override
     public void onNext() {
+        FragmentEventRepeatCustom fragmentEventRepeat = (FragmentEventRepeatCustom) getFrom();
+        event.setRecurrence(event.getRule().getRecurrence());
+        fragmentEventRepeat.setEvent(event);
         getFragmentManager().popBackStack();
     }
 

@@ -114,9 +114,13 @@ public class ClosableRowLinearLayout extends ClosableBaseLinearLayout{
         }
 
         private void addCustomMidView(View v, RelativeLayout rowRelativeLayout, OnClickListener leftClickListener){
-            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
-            );
+//            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+//                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
+//            );
+            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) v.getLayoutParams();
+            if (lp == null){
+                    lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            }
             lp.leftMargin = ClosableDataBindingUtil.dxTodp(getContext(), TEXT_LEFT_MARGIN);
             lp.bottomMargin = ClosableDataBindingUtil.dxTodp(getContext(), 20);
             lp.addRule(RelativeLayout.CENTER_VERTICAL);

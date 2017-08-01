@@ -9,5 +9,4 @@ import org.unimelb.itime.bean.Event;
 
 public interface EventRepeatMvpView extends ItimeBaseMvpView {
     void toCustomRepeat(Event event);
-    void toEndRepeat(Event event);
 }

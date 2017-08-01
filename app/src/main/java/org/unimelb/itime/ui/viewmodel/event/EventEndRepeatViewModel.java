@@ -3,6 +3,7 @@ package org.unimelb.itime.ui.viewmodel.event;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 
@@ -69,6 +70,9 @@ public class EventEndRepeatViewModel extends BaseObservable {
                 setNeverCheckVisibility(neverCheckVisibility);
                 onDateCheckVisibility = View.GONE;
                 setOnDateCheckVisibility(onDateCheckVisibility);
+                event.getRule().setUntil(null, null);
+                event.setRecurrence(event.getRule().getRecurrence());
+                Log.i("", "onClick: ");
             }
         };
     }
@@ -77,10 +81,11 @@ public class EventEndRepeatViewModel extends BaseObservable {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onDateCheckVisibility = onDateCheckVisibility == View.VISIBLE? View.GONE: View.VISIBLE;
+                onDateCheckVisibility = View.VISIBLE;
                 setOnDateCheckVisibility(onDateCheckVisibility);
                 neverCheckVisibility = View.GONE;
                 setNeverCheckVisibility(neverCheckVisibility);
+
             }
         };
     }

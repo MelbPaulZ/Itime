@@ -3,6 +3,8 @@ package org.unimelb.itime.util.rulefactory;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import org.unimelb.itime.util.EventUtil;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -154,7 +156,7 @@ public class RuleModel<T extends RuleInterface> implements Serializable {
      * Ensure until is UTC
      */
     public void setUntil(Date until, @Nullable TimeZone fromTZ) {
-//        this.until = EventUtil.untilConverter(this.ruleInterface.getStartTime(),until,fromTZ);
+        this.until = until == null ? null : EventUtil.untilConverter(this.ruleInterface.getStartTime(),until,fromTZ);
     }
 
     public int getInterval() {

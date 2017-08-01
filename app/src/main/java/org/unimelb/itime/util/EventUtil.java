@@ -199,6 +199,7 @@ public class EventUtil extends BaseUtil{
 
     public static String HOUR_MIN = "kk:mm";
     public static String WEEK_DAY_MONTH = "EEE, dd MMM";
+    public static String DAY_MONTH_YEAR = "dd MMM yyyy";
     public static String TIME_ZONE_PATTERN = "yyyy-MM-dd'T'HH:mm:ssZZZZZ";
 
     public static String getFormatTimeString(long time, String format){

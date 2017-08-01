@@ -1,5 +1,6 @@
 package org.unimelb.itime.ui.viewmodel.event;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableArrayList;
@@ -13,7 +14,10 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.ui.mvpview.event.EventRepeatMvpView;
 import org.unimelb.itime.ui.presenter.EventRepeatPresenter;
+import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.util.rulefactory.FrequencyEnum;
+
+import java.util.Calendar;
 
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
@@ -122,18 +126,6 @@ public class EventRepeatViewModel extends BaseObservable {
             items.get(i).setIconVisibility(View.GONE);
         }
     }
-
-    public View.OnClickListener onClickEndRepeat(){
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mvpView!=null){
-                    mvpView.toEndRepeat(event);
-                }
-            }
-        };
-    }
-
 
 
     private String getString(int stringId){

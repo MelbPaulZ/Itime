@@ -40,7 +40,6 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     private EventCreateViewModel vm;
     private ToolbarViewModel toolbarViewModel;
     private Event event;
-
     public final static int REQ_LOCATION = 1001;
 
     @Override
