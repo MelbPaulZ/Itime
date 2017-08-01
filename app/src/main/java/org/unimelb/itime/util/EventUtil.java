@@ -374,18 +374,16 @@ public class EventUtil extends BaseUtil{
 
     public static Invitee generateInvitee(Event event, Contact contact){
         Invitee invitee = new Invitee();
-        invitee.setAliasPhoto(contact.getAliasPhoto());
-        invitee.setAliasName(contact.getAliasName());
         invitee.setUserId(contact.getUserDetail().getUserId());
         invitee.setUserUid(contact.getUserDetail().getUserUid());
         invitee.setEventUid(event.getEventUid());
+        invitee.setContact(contact);
         return invitee;
     }
 
     public static Invitee generateInvitee(Event event, User user){
         Invitee invitee = new Invitee();
-        invitee.setAliasPhoto(user.getPhoto());
-        invitee.setAliasName(user.getPersonalAlias());
+        invitee.setUser(user);
         invitee.setUserUid(user.getUserUid());
         invitee.setEventUid(event.getEventUid());
         return invitee;
