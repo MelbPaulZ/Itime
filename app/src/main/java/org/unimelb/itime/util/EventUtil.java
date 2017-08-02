@@ -394,6 +394,7 @@ public class EventUtil extends BaseUtil{
     public static Invitee generateInvitee(Event event, String email){
         Invitee invitee = new Invitee();
         invitee.setAliasName(email);
+        invitee.setAliasName(email);
         invitee.setUserUid("-1");
         invitee.setEventUid(event.getEventUid());
         return invitee;

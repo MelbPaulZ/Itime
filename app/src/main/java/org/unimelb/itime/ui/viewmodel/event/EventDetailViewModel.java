@@ -888,4 +888,16 @@ public class EventDetailViewModel extends BaseObservable{
             }
         };
     }
+
+    public View.OnClickListener onEditEvent(){
+        return new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                if(mvpView!=null){
+                    mvpView.gotoEdit();
+                }
+            }
+        };
+    }
 }
