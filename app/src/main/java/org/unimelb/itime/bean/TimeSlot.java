@@ -36,8 +36,8 @@ public class TimeSlot implements ITimeTimeSlotInterface<TimeSlot>,Serializable {
     private boolean isSystemSuggested; // 1 -> true
     private String inviteeUid = "";
     private boolean isAllDay = false;
-    @Transient
-    private List<Invitee> voteInvitees = new ArrayList<>();
+//    @Transient
+    private transient List<Invitee> voteInvitees = new ArrayList<>();
 
     @Override
     public void setStartTime(long l) {

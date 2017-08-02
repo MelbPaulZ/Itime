@@ -12,10 +12,13 @@ import org.unimelb.itime.util.rulefactory.RuleInterface;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import david.itimecalendar.calendar.listeners.ITimeEventInterface;
 import david.itimecalendar.calendar.listeners.ITimeInviteeInterface;
@@ -213,6 +216,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     public void setStartTime(long l) {
         String time = EventUtil.getFormatTimeString(l, EventUtil.TIME_ZONE_PATTERN);
         this.start.setDateTime(time);
+        this.start.setTimeZone(TimeZone.getDefault().getID());
     }
 
     @Override
@@ -225,6 +229,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     public void setEndTime(long l) {
         String time = EventUtil.getFormatTimeString(l, EventUtil.TIME_ZONE_PATTERN);
         this.end.setDateTime(time);
+        this.end.setTimeZone(TimeZone.getDefault().getID());
     }
 
     @Override

@@ -86,7 +86,9 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
 
     @Override
     public void onTaskSuccess(int taskId, Object data) {
-
+        if (taskId == EventCreatePresenter.TASK_EVENT_CREATE){
+            getActivity().finish();
+        }
     }
 
     @Override
