@@ -42,6 +42,8 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
     private View root;
     private EventManager eventManager;
     private MonthView monthDayView;
+    private FragmentCalendar.OnDateChanged onDateChanged;
+
 
     @Nullable
     @Override
@@ -74,7 +76,13 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
         }
     }
 
+    public FragmentCalendar.OnDateChanged getOnDateChanged() {
+        return onDateChanged;
+    }
 
+    public void setOnDateChanged(FragmentCalendar.OnDateChanged onDateChanged) {
+        this.onDateChanged = onDateChanged;
+    }
 
     private void initView(){
         monthDayView = (MonthView) root.findViewById(R.id.month_view);
@@ -139,7 +147,7 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
 
         @Override
         public void onDateChanged(Date date) {
-            //// TODO: 27/7/17 update header
+            onDateChanged.onDateChanged(date);
         }
     };
 

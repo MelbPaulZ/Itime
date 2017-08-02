@@ -48,6 +48,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
     private TimeSlotView timeSlotView;
     private ToolbarViewModel toolbarVM;
     private Event event;
+
     //For TESTING
     ArrayList<TimeSlot> slots = new ArrayList<>();
 
@@ -142,6 +143,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<CalendarMvpView,
     private void updateTitle(){
         toolbarVM.setTitle(String.format(getString(R.string.toolbar_timeslots_select), selectCount, total));
     }
+
     private ITimeCalendarTimeslotViewListener listener = new ITimeCalendarTimeslotViewListener(){
         @Override
         public void onAllDayRcdTimeslotClick(long dayBeginMilliseconds) {

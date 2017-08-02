@@ -34,6 +34,7 @@ public class FragmentCalendarAgenda extends ItimeBaseFragment<CalendarMvpView, C
     private View root;
     private EventManager eventManager;
     private MonthAgendaView agendaView;
+    private FragmentCalendar.OnDateChanged onDateChanged;
 
     @Nullable
     @Override
@@ -59,6 +60,15 @@ public class FragmentCalendarAgenda extends ItimeBaseFragment<CalendarMvpView, C
 
     }
 
+    public FragmentCalendar.OnDateChanged getOnDateChanged() {
+        return onDateChanged;
+    }
+
+    public void setOnDateChanged(FragmentCalendar.OnDateChanged onDateChanged) {
+        this.onDateChanged = onDateChanged;
+    }
+
+
     @Subscribe
     public void refreshEvent(MessageEvent msg){
         if (msg.task == MessageEvent.RELOAD_EVENT){
@@ -78,7 +88,7 @@ public class FragmentCalendarAgenda extends ItimeBaseFragment<CalendarMvpView, C
     private ITimeCalendarMonthAgendaViewListener listener = new ITimeCalendarMonthAgendaViewListener() {
         @Override
         public void onDateChanged(Date date) {
-
+            onDateChanged.onDateChanged(date);
         }
 
         @Override

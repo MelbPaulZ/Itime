@@ -10,10 +10,13 @@ import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseViewModel;
 import org.unimelb.itime.bean.SpinnerWrapper;
+import org.unimelb.itime.ui.fragment.calendar.FragmentCalendar;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
+import org.unimelb.itime.util.EventUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
@@ -23,14 +26,40 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
 public class MainCalendarViewModel extends ItimeBaseViewModel{
     public final static String TAG = "MainCalendarViewModel";
 
-    private String toolbarTitle;
+    private String toolbarTitle = EventUtil.getEventTitlebarDateStr(new Date());
     private CalendarMvpView mvpView;
     private boolean showSpinnerMenu;
+
 
     private ArrayList<SpinnerWrapper> menuItems = new ArrayList<>();
     private ItemBinding<SpinnerWrapper> menuItemView = ItemBinding.of(BR.wrapper, R.layout.listview_simple_menu_dropdown_item);
     private AdapterView.OnItemClickListener onMenuSpinnerClicked;
 
+    private FragmentCalendar.OnToolbarClick onToolbarClick;
+
+    public FragmentCalendar.OnToolbarClick getOnToolbarClick() {
+        return onToolbarClick;
+    }
+
+    public void setOnToolbarClick(FragmentCalendar.OnToolbarClick onToolbarClick) {
+        this.onToolbarClick = onToolbarClick;
+    }
+
+    public View.OnClickListener onBackTodayClick(){
+        return v -> {
+          if (onToolbarClick != null){
+              onToolbarClick.onTodayClick();
+          }
+        };
+    }
+
+    public View.OnClickListener onSearchClick(){
+        return v -> {
+            if (onToolbarClick != null){
+                onToolbarClick.onSearchClick();
+            }
+        };
+    }
 
     @Bindable
     public AdapterView.OnItemClickListener getOnMenuSpinnerClicked() {
@@ -113,5 +142,10 @@ public class MainCalendarViewModel extends ItimeBaseViewModel{
     public void setToolbarTitle(String toolbarTitle) {
         this.toolbarTitle = toolbarTitle;
         notifyPropertyChanged(BR.toolbarTitle);
+    }
+
+    public String getToday(){
+        Calendar cal = Calendar.getInstance();
+        return cal.get(Calendar.DAY_OF_MONTH) + "";
     }
 }

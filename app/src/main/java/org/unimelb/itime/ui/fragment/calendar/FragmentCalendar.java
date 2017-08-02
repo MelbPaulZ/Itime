@@ -27,7 +27,9 @@ import org.unimelb.itime.util.EventUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by yuhaoliu on 8/06/2017.
@@ -43,6 +45,20 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
     private FragmentCalendarWeekDay weekFragment;
 
     private MainCalendarViewModel mainCalendarViewModel;
+    private OnToolbarClick onToolbarClick = new OnToolbarClick() {
+        @Override
+        public void onSearchClick() {
+
+        }
+
+        @Override
+        public void onTodayClick() {
+
+        }
+    };
+    private OnDateChanged onDateChanged = date -> {
+        mainCalendarViewModel.setToolbarTitle(EventUtil.getEventTitlebarDateStr(date));
+    };
 
     @Nullable
     @Override
@@ -82,14 +98,13 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
         wrappers.add(new SpinnerWrapper(getString(R.string.week), 0));
         wrappers.add(new SpinnerWrapper(getString(R.string.agenda), 0));
         mainCalendarViewModel.setMenuItems(wrappers);
-        mainCalendarViewModel.setOnMenuSpinnerClicked(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                mainCalendarViewModel.setShowSpinnerMenu(false);
-                mainCalendarViewModel.resetOtherWrappers(i);
-                changeView(i);
-            }
+        mainCalendarViewModel.setOnToolbarClick(onToolbarClick);
+        mainCalendarViewModel.setOnMenuSpinnerClicked((adapterView, view, i, l) -> {
+            mainCalendarViewModel.setShowSpinnerMenu(false);
+            mainCalendarViewModel.resetOtherWrappers(i);
+            changeView(i);
         });
+
     }
 
     public void changeView(int index){
@@ -147,30 +162,20 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
         monthDayFragment = new FragmentCalendarMonthDay();
         weekFragment = new FragmentCalendarWeekDay();
         agendaFragment = new FragmentCalendarAgenda();
+
+        monthDayFragment.setOnDateChanged(onDateChanged);
+        weekFragment.setOnDateChanged(onDateChanged);
+        agendaFragment.setOnDateChanged(onDateChanged);
+
         getFragmentManager().beginTransaction().add(R.id.calendar_framelayout, monthDayFragment).commit();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.i(TAG, "onStart: " + "FragmentCalendar");
+    public interface OnDateChanged{
+        void onDateChanged(Date date);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.i(TAG, "onResume: " + "FragmentCalendar");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.i(TAG, "onPause: " + "FragmentCalendar");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.i(TAG, "onPause: " + "FragmentCalendar");
+    public interface OnToolbarClick{
+        void onSearchClick();
+        void onTodayClick();
     }
 }

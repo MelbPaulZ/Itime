@@ -37,6 +37,7 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
     private View root;
     private EventManager eventManager;
     private WeekView weekView;
+    private FragmentCalendar.OnDateChanged onDateChanged;
 
     @Nullable
     @Override
@@ -78,11 +79,19 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
         weekView.setITimeCalendarWeekDayViewListener(listener);
     }
 
+    public FragmentCalendar.OnDateChanged getOnDateChanged() {
+        return onDateChanged;
+    }
+
+    public void setOnDateChanged(FragmentCalendar.OnDateChanged onDateChanged) {
+        this.onDateChanged = onDateChanged;
+    }
+
     private ITimeCalendarWeekDayViewListener listener = new ITimeCalendarWeekDayViewListener(){
 
         @Override
         public void onDateChanged(Date date) {
-
+            onDateChanged.onDateChanged(date);
         }
 
         @Override

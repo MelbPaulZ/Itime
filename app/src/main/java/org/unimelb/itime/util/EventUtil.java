@@ -399,6 +399,15 @@ public class EventUtil extends BaseUtil{
         return invitee;
     }
 
+    public static String getEventTitlebarDateStr(Date date){
+        Calendar cal = Calendar.getInstance();
+        String titleMonth = cal.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault());
+        String titleYear = cal.get(Calendar.YEAR) + "";
+        String title = titleMonth + " " + titleYear;
+
+        return title;
+    }
+
     public static String getEventDateStr(Event event){
         long time = event.getStartTime();
         long currentDayTime = Calendar.getInstance().getTimeInMillis();
@@ -424,6 +433,7 @@ public class EventUtil extends BaseUtil{
 
         return dayOfWeek + " " + dayOfMonth + " " + monthTh;
     }
+
 
     public static int getDatesRelationType(long todayM, long currentDayM){
         todayM = getDayBeginMilliseconds(todayM);

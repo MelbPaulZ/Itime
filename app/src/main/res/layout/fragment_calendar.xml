@@ -23,7 +23,7 @@
             <FrameLayout
                 android:id="@+id/nav_hamburger_frame"
                 android:layout_width="49dp"
-                android:layout_height="49dp"
+                android:layout_height="match_parent"
                 android:onClick="@{calendarVM.threeLineOnClickListener}">
 
                 <TextView
@@ -33,6 +33,20 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="5dp"
                     android:background="@drawable/nav_calendar_hamburger" />
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="49dp"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@id/nav_hamburger_frame"
+                >
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/icon_calendar_search"
+                    />
             </FrameLayout>
 
             <TextView
@@ -46,6 +60,23 @@
                 android:textColor="@color/brownishGreyTwo"
                 android:textSize="@dimen/font_large"
                 android:textStyle="bold" />
+
+            <FrameLayout
+                android:id="@+id/back_to_today_frame"
+                android:layout_width="49dp"
+                android:layout_height="49dp"
+                android:layout_alignParentEnd="true">
+                <TextView
+                    android:id="@+id/back_to_today"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/nav_calendar_today"
+                    android:gravity="bottom|center_horizontal"
+                    android:paddingBottom="4.5dp"
+                    android:text="@{calendarVM.today}"
+                    android:textSize="8sp" />
+            </FrameLayout>
         </RelativeLayout>
 
         <!-- Calendar-->
