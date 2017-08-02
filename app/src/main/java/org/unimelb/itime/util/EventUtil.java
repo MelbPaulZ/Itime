@@ -26,9 +26,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.UUID;
 
@@ -199,6 +201,7 @@ public class EventUtil extends BaseUtil{
 
     public static String HOUR_MIN = "kk:mm";
     public static String WEEK_DAY_MONTH = "EEE, dd MMM";
+    public static String DAY_MONTH_YEAR = "dd MMM yyyy";
     public static String TIME_ZONE_PATTERN = "yyyy-MM-dd'T'HH:mm:ssZZZZZ";
 
     public static String getFormatTimeString(long time, String format){
@@ -374,18 +377,16 @@ public class EventUtil extends BaseUtil{
 
     public static Invitee generateInvitee(Event event, Contact contact){
         Invitee invitee = new Invitee();
-        invitee.setAliasPhoto(contact.getAliasPhoto());
-        invitee.setAliasName(contact.getAliasName());
         invitee.setUserId(contact.getUserDetail().getUserId());
-        invitee.setUserUid(contact.getUserUid());
+        invitee.setUserUid(contact.getUserDetail().getUserUid());
         invitee.setEventUid(event.getEventUid());
+        invitee.setContact(contact);
         return invitee;
     }
 
     public static Invitee generateInvitee(Event event, User user){
         Invitee invitee = new Invitee();
-        invitee.setAliasPhoto(user.getPhoto());
-        invitee.setAliasName(user.getPersonalAlias());
+        invitee.setUser(user);
         invitee.setUserUid(user.getUserUid());
         invitee.setEventUid(event.getEventUid());
         return invitee;
@@ -626,5 +627,28 @@ public class EventUtil extends BaseUtil{
             Invitee invitee = createSelfInviteeForEvent(context, event);
             event.getInvitee().put(event.getInvitee().size() + "", invitee);
         }
+    }
+
+    public static void generateGroupEventAttributes(Context context, Event event){
+        for (Invitee invitee : event.getInvitee().values()){
+            invitee.setEventUid(event.getEventUid());
+        }
+
+        TimeSlot firstTimeSlot = getFirstTimeSlot(event.getTimeslot());
+        event.setStartTime(firstTimeSlot.getStartTime());
+        event.setEndTime(firstTimeSlot.getEndTime());
+
+    }
+
+    public static TimeSlot getFirstTimeSlot(Map<String,TimeSlot> map){
+        long startTime = Long.MAX_VALUE;
+        TimeSlot rst = null;
+        for (TimeSlot timeSlot : map.values()){
+            if (timeSlot.getStartTime() < startTime){
+                startTime = timeSlot.getStartTime();
+                rst = timeSlot;
+            }
+        }
+        return rst;
     }
 }

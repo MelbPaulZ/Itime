@@ -17,6 +17,7 @@ import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.databinding.FragmentEventRepeatCustomBinding;
+import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.mvpview.event.EventRepeatCustomMvpView;
 import org.unimelb.itime.ui.presenter.LocalPresenter;
 import org.unimelb.itime.ui.viewmodel.event.EventRepeatCustomViewModel;
@@ -31,7 +32,8 @@ import java.util.List;
  * Created by Paul on 5/6/17.
  */
 
-public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCustomMvpView, LocalPresenter<EventRepeatCustomMvpView>> implements ToolbarInterface{
+public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCustomMvpView, LocalPresenter<EventRepeatCustomMvpView>>
+        implements ToolbarInterface, EventRepeatCustomMvpView{
     private FragmentEventRepeatCustomBinding binding;
     private ToolbarViewModel toolbarViewModel;
     private EventRepeatCustomViewModel vm;
@@ -245,5 +247,13 @@ public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCust
     @Override
     public void onBack() {
         getFragmentManager().popBackStack();
+    }
+
+    @Override
+    public void toEndRepeat(Event event) {
+        FragmentEventEndRepeat eventEndRepeat = new FragmentEventEndRepeat();
+        Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
+        eventEndRepeat.setEvent(cpyEvent);
+        getBaseActivity().openFragment(eventEndRepeat);
     }
 }

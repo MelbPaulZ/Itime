@@ -187,7 +187,7 @@ public class RemoteService extends Service {
 
     private void firstFetchData(){
         fetchCalendar();
-//        fetchContact();
+        fetchContact();
 //        fetchFriendRequest();
 //        fetchMessages();
         fetchMeetings();

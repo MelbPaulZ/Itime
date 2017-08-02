@@ -64,7 +64,7 @@
 
                     <TextView
                         style="@style/itimeCellRightContent"
-                        android:text="6" />
+                        android:text="@{String.valueOf(vm.event.invitee.size())}" />
 
                     <ImageView style="@style/ItimeDisclosure" />
                 </RelativeLayout>
@@ -240,7 +240,7 @@
 
                     <TextView
                         style="@style/itimeCellRightContent"
-                        android:text="ITime" />
+                        android:text="@{vm.getDisplayCalendar(vm.event)}" />
 
                     <TextView style="@style/ItimeDisclosure" />
 

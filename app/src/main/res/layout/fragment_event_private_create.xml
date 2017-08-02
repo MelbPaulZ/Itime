@@ -286,7 +286,7 @@
 
                     <TextView
                         style="@style/itimeCellRightContent"
-                        android:text="ITime" />
+                        android:text="@{vm.getDisplayCalendar(vm.event)}" />
 
                     <TextView style="@style/ItimeDisclosure" />
 

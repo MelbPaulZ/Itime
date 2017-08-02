@@ -92,26 +92,15 @@ implements EventCreateMvpView, ToolbarInterface{
     }
 
     private void firstLoad(){
-        if (event==null) {
-            mockEvent();
-        }
-
         vm = new EventCreatePrivateViewModel(getPresenter(), getOrderHashMap());
         vm.setEvent(event);
         binding.setVm(vm);
-
         toolbarVM = new ToolbarViewModel<>(this);
         toolbarVM.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarVM.setTitle(getString(R.string.new_event));
         toolbarVM.setRightText(getString(R.string.toolbar_save));
         toolbarVM.setRightEnable(true);
         binding.setToolbarVM(toolbarVM);
-    }
-
-    private void mockEvent(){
-        event = new Event();
-        event.setStart(new TZoneTime("2017-05-23T12:25:00+10:00","Australia/Sydney"));
-        event.setEnd(new TZoneTime("2017-05-23T13:25:00+10:00", "Australia/Sydney"));
     }
 
 

@@ -40,7 +40,6 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     private EventCreateViewModel vm;
     private ToolbarViewModel toolbarViewModel;
     private Event event;
-
     public final static int REQ_LOCATION = 1001;
 
     @Override
@@ -61,7 +60,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
 
     private void init(){
         if (vm==null) {
-            mockEvent();
+//            mockEvent();
             vm = new EventCreateViewModel(getPresenter());
             vm.setEvent(event);
             binding.setVm(vm);
@@ -76,11 +75,6 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         }
     }
 
-    private void mockEvent(){
-        event= new Event();
-        event.getStart().setDateTime("2017-05-23T12:25:00+10:00");
-        event.getEnd().setDateTime("2017-05-23T13:25:00+10:00");
-    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -205,7 +199,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==REQ_LOCATION && resultCode == Activity.RESULT_OK){
+        if (requestCode == REQ_LOCATION && resultCode == Activity.RESULT_OK){
             String locationString1 = data.getStringExtra(getString(R.string.location_string1));
             String locationString2 = data.getStringExtra(getString(R.string.location_string2));
             Location location = new Location();

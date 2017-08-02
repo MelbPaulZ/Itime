@@ -39,6 +39,14 @@ public class CalendarUtil {
         return UserUtil.getInstance(context).getUserUid();
     }
 
+    public String getCalendarName(String calendarUid){
+        for (Calendar c : getCalendar()){
+            if (c.getCalendarUid().equals(calendarUid)){
+                return c.getSummary();
+            }
+        }
+        return "";
+    }
 
     public String getCalendarName(Event event){
         if (event.getCalendarUid().equals("")){

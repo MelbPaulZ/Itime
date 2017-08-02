@@ -1,9 +1,15 @@
 package org.unimelb.itime.ui.viewmodel.event;
 
+import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.alertview.AlertView;
@@ -17,12 +23,18 @@ import com.developer.paul.closabledatabindingview.interfaces.ClosableItem;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseViewModel;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.TimeSlot;
+import org.unimelb.itime.databinding.CellEventCreateRepeatMiddleBinding;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
+import org.unimelb.itime.util.CalendarUtil;
 import org.unimelb.itime.util.EventUtil;
+import org.unimelb.itime.util.rulefactory.RuleFactory;
+import org.unimelb.itime.util.rulefactory.RuleModel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -48,8 +60,6 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         this.presenter = presenter;
         mvpView = (EventCreateMvpView) presenter.getView();
         init();
-
-        mockData();
     }
 
     private void init(){
@@ -66,12 +76,12 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         notifyPropertyChanged(BR.buttonItems);
     }
 
-    private void mockData(){
-        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
-        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
-        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
-
-    }
+//    private void mockData(){
+//        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
+//        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
+//        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
+//
+//    }
 
     public CompoundButton.OnCheckedChangeListener onAlldayChangeListener(){
         return new CompoundButton.OnCheckedChangeListener() {
@@ -174,6 +184,10 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             return "";
         }
         return String.format(presenter.getContext().getString(R.string.event_candidate_timeslots), event.getTimeslot().size());
+    }
+
+    public String getDisplayCalendar(Event event){
+        return CalendarUtil.getInstance(presenter.getContext()).getCalendarName(event.getCalendarUid());
     }
 
 
@@ -314,7 +328,16 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         this.event = event;
         resetButtonsAndRows();
         resetTimeslots();
+        updateAvatars();
         notifyPropertyChanged(BR.event);
+    }
+
+    private void updateAvatars(){
+        mockAvatorLists.clear();
+        for (Invitee invitee: event.getInvitee().values()){
+            mockAvatorLists.add(invitee.getAliasPhoto());
+        }
+
     }
 
     /**
@@ -432,6 +455,49 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         }
     }
 
+    public class RepeatCellViewModel extends BaseObservable{
+
+        private Event event;
+
+        public RepeatCellViewModel(Event event) {
+            this.event = event;
+        }
+
+        public int getTwoLinesVisibility(Event event){
+            RuleModel ruleModel = RuleFactory.getInstance().getRuleModel(event);
+            return ruleModel.getUntil() == null ? View.GONE : View.VISIBLE;
+        }
+
+        public int getOneLineVisiblitity(Event event){
+            return getTwoLinesVisibility(event) == View.GONE ? View.VISIBLE : View.GONE;
+        }
+
+        @Bindable
+        public Event getEvent() {
+            return event;
+        }
+
+        public void setEvent(Event event) {
+            this.event = event;
+            EventCreateViewModel.this.notifyPropertyChanged(BR.event);
+        }
+
+        public String getRepeatPrimaryString(Event event){
+            return EventUtil.getRepeatString(presenter.getContext(), event);
+        }
+
+        public String getRepeatSecondaryString(Event event){
+            Calendar c = Calendar.getInstance();
+            RuleModel ruleModel = RuleFactory.getInstance().getRuleModel(event);
+            if (ruleModel == null || ruleModel.getUntil() == null) {
+                return "";
+            }
+            c.setTime(ruleModel.getUntil());
+
+            return "until " + EventUtil.getFormatTimeString(c.getTimeInMillis(), EventUtil.DAY_MONTH_YEAR);
+        }
+    }
+
     private void addRepeatToRow(String text){
         if (containRow(getString(R.string.repeat_toolbar_btn))){
             updateRow(getString(R.string.repeat_toolbar_btn), text);
@@ -456,7 +522,29 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
 
         addInList(getString(R.string.repeat_toolbar_btn),
                 presenter.getContext().getResources().getDrawable(R.drawable.icon_event_repeat),
-                text, onClickListener, onDeleteListener);
+                text, onClickListener, onDeleteListener, new RowItem.RowCreateInterface() {
+                    @Override
+                    public View onCreateMiddleView(RowItem rowItem) {
+                        LayoutInflater inflater = LayoutInflater.from(presenter.getContext());
+                        CellEventCreateRepeatMiddleBinding binding = DataBindingUtil.inflate(inflater, R.layout.cell_event_create_repeat_middle, null, false);
+                        RepeatCellViewModel cellVM = new RepeatCellViewModel(event);
+                        binding.setVm(cellVM);
+
+//                        RelativeLayout v = new RelativeLayout(presenter.getContext());
+//                        v.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+//                        v.setBackgroundColor(presenter.getContext().getResources().getColor(R.color.black));
+//                        TextView t = new TextView(presenter.getContext());
+//                        t.setText("this is a test");
+//                        t.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+//                        v.addView(t);
+                        return binding.getRoot();
+                    }
+
+                    @Override
+                    public void updateClosableView(RowItem rowItem) {
+
+                    }
+                });
         notifyPropertyChanged(BR.rowItems);
     }
 

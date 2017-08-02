@@ -9,9 +9,13 @@ import com.android.databinding.library.baseAdapters.BR;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseViewModel;
+import org.unimelb.itime.bean.Calendar;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.ui.mvpview.event.EventCreateCalendarsMvpView;
 import org.unimelb.itime.ui.presenter.LocalPresenter;
+import org.unimelb.itime.util.CalendarUtil;
+
+import java.util.List;
 
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
@@ -31,8 +35,8 @@ public class EventCreateCalendarsViewModel extends ItimeBaseViewModel {
     }
 
     private void init(){
-        for (int i = 0; i < mockCalendars().length ; i++) {
-            RepeatLineViewModel lineViewModel = new RepeatLineViewModel(mockCalendars()[i],
+        for (int i = 0; i < getCalendars().size() ; i++) {
+            RepeatLineViewModel lineViewModel = new RepeatLineViewModel(getCalendars().get(i).getSummary(),
                     View.GONE, presenter.getContext().getResources().getDrawable(R.drawable.icon_event_checkmark_blue), true);
             lineViewModel.setOnClickCallBack(new RepeatLineViewModel.OnClickCallBack() {
                 @Override
@@ -40,6 +44,8 @@ public class EventCreateCalendarsViewModel extends ItimeBaseViewModel {
                     if (repeatLineViewModel.getIconVisibility() == View.GONE){
                         resetAllClick();
                         repeatLineViewModel.setIconVisibility(View.VISIBLE);
+                        int index = items.indexOf(repeatLineViewModel);
+                        event.setCalendarUid(getCalendars().get(index).getCalendarUid());
                     }
                 }
                 @Override
@@ -49,18 +55,23 @@ public class EventCreateCalendarsViewModel extends ItimeBaseViewModel {
             });
             items.add(lineViewModel);
         }
-
-        items.get(0).setIconVisibility(View.VISIBLE);
-
     }
 
-    private String[] mockCalendars(){
-        String[] calendars = new String[4];
-        calendars[0] = "iTime";
-        calendars[1] = "Work";
-        calendars[2] = "School";
-        calendars[3] = "Personal";
-        return calendars;
+    private void updateViews(){
+        int firstShowIndex = 0;
+        for (int i = 0 ; i < getCalendars().size() ; i ++){
+            Calendar c = getCalendars().get(i);
+            if (getCalendars().get(i).getCalendarUid().equals(event.getCalendarUid())){
+                firstShowIndex = i;
+                break;
+            }
+        }
+
+        items.get(firstShowIndex).setIconVisibility(View.VISIBLE);
+    }
+
+    private List<Calendar> getCalendars(){
+        return CalendarUtil.getInstance(presenter.getContext()).getCalendar();
     }
 
     private void resetAllClick(){
@@ -76,6 +87,7 @@ public class EventCreateCalendarsViewModel extends ItimeBaseViewModel {
 
     public void setEvent(Event event) {
         this.event = event;
+        updateViews();
         notifyPropertyChanged(BR.event);
     }
 }
