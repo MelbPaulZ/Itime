@@ -47,6 +47,6 @@ public class ProfileActivity extends ItimeBaseActivity {
 
     @Override
     protected int getFragmentContainerId(){
-        return R.id.content_container;
+        return R.id.frag_container_event_create;
     }
 }
