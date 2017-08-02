@@ -636,7 +636,9 @@ public class EventUtil extends BaseUtil{
         TimeSlot firstTimeSlot = getFirstTimeSlot(event.getTimeslot());
         event.setStartTime(firstTimeSlot.getStartTime());
         event.setEndTime(firstTimeSlot.getEndTime());
-
+        event.setHostUserUid(UserUtil.getInstance(context).getUserUid());
+        event.setUserUid(UserUtil.getInstance(context).getUserUid());
+        event.setSelf(UserUtil.getInstance(context).getUserUid());
     }
 
     public static TimeSlot getFirstTimeSlot(Map<String,TimeSlot> map){
