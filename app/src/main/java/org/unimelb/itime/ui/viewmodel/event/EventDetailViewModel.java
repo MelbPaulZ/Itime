@@ -757,7 +757,7 @@ public class EventDetailViewModel extends BaseObservable{
         setVoteStatus(event);
 
         ArrayList<String> photos = new ArrayList<>();
-        if(event.getSelf().equals(event.getHost())){
+        if(EventUtil.isHost(event)){
             setHost(true);
         }else{
             setHost(false);
