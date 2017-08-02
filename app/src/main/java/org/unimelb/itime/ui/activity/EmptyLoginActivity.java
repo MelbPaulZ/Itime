@@ -23,7 +23,7 @@ import org.unimelb.itime.util.UserUtil;
 public class EmptyLoginActivity extends ItimeBaseActivity<LoginMvpView,LoginPresenter> implements LoginMvpView
 {
 
-    private final static String username = "ruizhangmu@gmail.com";
+    private final static String username = "liuyuhao@gmail.com";
     private final static String password = "123456";
     private static final String TAG = "EmptyLoginActivity";
 
@@ -32,7 +32,7 @@ public class EmptyLoginActivity extends ItimeBaseActivity<LoginMvpView,LoginPres
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-//        UserUtil.getInstance(getApplicationContext()).clearAccountWithDB();
+        UserUtil.getInstance(getApplicationContext()).clearAccountWithDB();
 
         // start remote service
         Intent intent = new Intent(this,RemoteService.class);

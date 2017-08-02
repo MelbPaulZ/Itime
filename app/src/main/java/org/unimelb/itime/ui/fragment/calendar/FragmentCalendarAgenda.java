@@ -13,9 +13,11 @@ import org.greenrobot.eventbus.Subscribe;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.ui.activity.EventCreateActivity;
+import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
 
@@ -93,7 +95,9 @@ public class FragmentCalendarAgenda extends ItimeBaseFragment<CalendarMvpView, C
 
         @Override
         public void onEventClick(ITimeEventInterface iTimeEventInterface) {
-
+            Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+            intent.putExtra(EventDetailActivity.EVENT, (Event)iTimeEventInterface);
+            getActivity().startActivity(intent);
         }
     };
 

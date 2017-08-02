@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.ui.mvpview.LoginMvpView;
 import org.unimelb.itime.util.CalendarUtil;
 import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.util.UserUtil;
@@ -395,6 +396,7 @@ public class EventManager {
 
         for (Long time: repeatedEventsTimes
                 ) {
+
             Event dup_event;
             dup_event = event.clone();
 
@@ -420,7 +422,7 @@ public class EventManager {
                 if (uidTracerMap.containsKey(event.getEventUid())){
                     uidTracerMap.get(event.getEventUid()).add(tracer);
                 }else {
-                    uidTracerMap.put(event.getEventUid(), new ArrayList<EventTracer>());
+                    uidTracerMap.put(event.getEventUid(), new ArrayList<>());
                     uidTracerMap.get(event.getEventUid()).add(tracer);
                 }
 
@@ -428,20 +430,12 @@ public class EventManager {
                 if (repeatedEventMap.containsKey(dayBeginMilliseconds)){
                     repeatedEventMap.get(dayBeginMilliseconds).add(dup_event);
                 }else {
-                    repeatedEventMap.put(dayBeginMilliseconds,new ArrayList<ITimeEventInterface>());
+                    repeatedEventMap.put(dayBeginMilliseconds, new ArrayList<>());
                     repeatedEventMap.get(dayBeginMilliseconds).add(dup_event);
                 }
 
                 dayBeginMilliseconds += BaseUtil.getAllDayLong(dayBeginMilliseconds);
             }
-
-//            //add event to repeated map
-//            if (repeatedEventMap.containsKey(dayBeginMilliseconds)){
-//                repeatedEventMap.get(dayBeginMilliseconds).add(dup_event);
-//            }else {
-//                repeatedEventMap.put(dayBeginMilliseconds,new ArrayList<ITimeEventInterface>());
-//                repeatedEventMap.get(dayBeginMilliseconds).add(dup_event);
-//            }
         }
     }
 
@@ -560,7 +554,6 @@ public class EventManager {
     public class EventsPackage implements ITimeEventPackageInterface {
         private Map<Long, List<ITimeEventInterface>> regularEventMap;
         private Map<Long, List<ITimeEventInterface>> repeatedEventMap;
-
 
         void setRegularEventMap(Map<Long, List<ITimeEventInterface>> regularEventMap) {
             this.regularEventMap = regularEventMap;

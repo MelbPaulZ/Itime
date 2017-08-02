@@ -215,7 +215,6 @@ public class EventUtil extends BaseUtil{
         Date date = null;
         try {
             date = new SimpleDateFormat(TIME_ZONE_PATTERN, Locale.getDefault()).parse(dateTime);
-            Log.i(TAG, "parseTimeZoneToDate: ");
         } catch (ParseException e) {
             Log.i(TAG, "timeZoneToDate: parse error " + dateTime);
         }

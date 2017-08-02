@@ -18,6 +18,7 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.ui.activity.EventCreateActivity;
+import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
@@ -29,6 +30,7 @@ import david.itimecalendar.calendar.listeners.ITimeCalendarMonthDayViewListener;
 import david.itimecalendar.calendar.listeners.ITimeEventInterface;
 
 import david.itimecalendar.calendar.ui.monthview.DayViewBody;
+import david.itimecalendar.calendar.ui.monthview.EventController;
 import david.itimecalendar.calendar.ui.monthview.MonthView;
 import david.itimecalendar.calendar.ui.unitviews.DraggableEventView;
 import david.itimecalendar.calendar.util.MyCalendar;
@@ -106,15 +108,15 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
             Event event = new Event();
             event.setStartTime(draggableEventView.getStartTimeM());
             event.setEndTime(draggableEventView.getEndTimeM());
-//            Event event = EventUtil.createEventFromInterface(draggableEventView.getEvent());
             intent.putExtra("Event", event);
             startActivityForResult(intent, EventCreateActivity.CREATE_EVENT);
         }
 
         @Override
         public void onEventClick(DraggableEventView draggableEventView) {
-            // TODO: 27/7/17 To event detail
-            Event event = (Event) draggableEventView.getEvent();
+            Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+            intent.putExtra(EventDetailActivity.EVENT, (Event)draggableEventView.getEvent());
+            getActivity().startActivity(intent);
         }
 
         @Override
@@ -132,6 +134,8 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
             Event event = (Event) draggableEventView.getEvent();
             event.setStartTime(draggableEventView.getStartTimeM());
             event.setEndTime(draggableEventView.getEndTimeM());
+
+            EventManager.getInstance(getContext()).insertOrUpdate(event);
         }
 
         @Override
@@ -141,8 +145,9 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
 
         @Override
         public void onAllDayEventClick(ITimeEventInterface iTimeEventInterface) {
-            // TODO: 27/7/17 To event detail
-            Event event = (Event) iTimeEventInterface;
+            Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+            intent.putExtra(EventDetailActivity.EVENT, (Event)iTimeEventInterface);
+            getActivity().startActivity(intent);
         }
 
         @Override
@@ -188,5 +193,7 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
 
         EventBus.getDefault().unregister(this);
         Log.i(TAG, "onPause: " + "FragmentCalendarMonthDay");
+
+//        EventController
     }
 }

@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by Paul on 22/6/17.
  */
 
-public class TZoneTime implements Serializable{
+public class TZoneTime implements Serializable, Cloneable{
     private String dateTime = "";
     private String timeZone = "";
 
@@ -32,5 +32,16 @@ public class TZoneTime implements Serializable{
 
     public void setTimeZone(String timeZone) {
         this.timeZone = timeZone;
+    }
+
+    @Override
+    protected TZoneTime clone() {
+        TZoneTime tZoneTime = null;
+        try {
+            tZoneTime = (TZoneTime) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return tZoneTime;
     }
 }

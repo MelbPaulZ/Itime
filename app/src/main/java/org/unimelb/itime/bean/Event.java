@@ -167,16 +167,14 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.isPinned = isPinned;
     }
 
-
-
-    
-
     @Override
     public Event clone() {
         Event event = null;
         try
         {
             event = (Event) super.clone();
+            event.setStart(event.getStart().clone());
+            event.setEnd(event.getEnd().clone());
         } catch (CloneNotSupportedException e){
             e.printStackTrace();
         }
@@ -521,7 +519,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
     // add methods
     public long getDurationMilliseconds(){
-        return getStartTime() - getEndTime();
+        return getEndTime() - getStartTime();
     }
 
     public String getCoverPhoto() {

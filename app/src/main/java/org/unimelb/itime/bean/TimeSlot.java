@@ -153,6 +153,9 @@ public class TimeSlot implements ITimeTimeSlotInterface<TimeSlot>,Serializable {
     }
 
     public List<Invitee> getVoteInvitees() {
+        if (voteInvitees == null){
+            voteInvitees = new ArrayList<>();
+        }
         return voteInvitees;
     }
 
