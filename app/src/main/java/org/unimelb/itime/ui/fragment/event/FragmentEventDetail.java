@@ -235,6 +235,10 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         }
     }
 
+    public void gotoEdit(){
+
+    }
+
     public void viewChange() {
 //        FragmentEventCreateAddContact fragment = new FragmentEventCreateAddContact();
 //        fragment.setEvent(event);

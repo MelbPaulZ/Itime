@@ -165,6 +165,7 @@
                 android:src="@drawable/icon_details_edit_white"
                 android:background="?android:attr/selectableItemBackground"
                 android:id="@+id/edit_icon"
+                android:onClick="@{contentVM.onEditEvent()}"
                 android:visibility="@{contentVM.host?View.VISIBLE:View.GONE}"/>
 
             <ImageView

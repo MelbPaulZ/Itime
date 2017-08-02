@@ -757,7 +757,7 @@ public class EventDetailViewModel extends BaseObservable{
         setVoteStatus(event);
 
         ArrayList<String> photos = new ArrayList<>();
-        if(event.getSelf().equals(event.getHost())){
+        if(EventUtil.isHost(event)){
             setHost(true);
         }else{
             setHost(false);
@@ -885,6 +885,18 @@ public class EventDetailViewModel extends BaseObservable{
             @Override
             public void onClick(View view) {
                 mvpView.onBack();
+            }
+        };
+    }
+
+    public View.OnClickListener onEditEvent(){
+        return new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                if(mvpView!=null){
+                    mvpView.gotoEdit();
+                }
             }
         };
     }
