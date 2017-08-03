@@ -282,10 +282,6 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             addButton(getString(R.string.repeat_toolbar_btn));
             removeItem(rowItems, getString(R.string.repeat_toolbar_btn));
         }
-
-
-//        notifyPropertyChanged(BR.rowItems);
-        notifyPropertyChanged(BR.buttonItems);
     }
 
     /**
@@ -457,10 +453,10 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
 
     public class RepeatCellViewModel extends BaseObservable{
 
-        private Event event;
+        private Event cellEvent;
 
         public RepeatCellViewModel(Event event) {
-            this.event = event;
+            this.cellEvent = event;
         }
 
         public int getTwoLinesVisibility(Event event){
@@ -473,13 +469,13 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         }
 
         @Bindable
-        public Event getEvent() {
-            return event;
+        public Event getCellEvent() {
+            return cellEvent;
         }
 
-        public void setEvent(Event event) {
-            this.event = event;
-            EventCreateViewModel.this.notifyPropertyChanged(BR.event);
+        public void setCellEvent(Event event) {
+            this.cellEvent = event;
+            notifyPropertyChanged(BR.cellEvent);
         }
 
         public String getRepeatPrimaryString(Event event){
@@ -498,9 +494,15 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         }
     }
 
+    private void updateRepeatRow(){
+        RowItem item = findRowItem(getString(R.string.repeat_toolbar_btn));
+        item.getRowCreateInterface().updateClosableView(item);
+    }
+
     private void addRepeatToRow(String text){
         if (containRow(getString(R.string.repeat_toolbar_btn))){
-            updateRow(getString(R.string.repeat_toolbar_btn), text);
+            updateRepeatRow();
+//            updateRow(getString(R.string.repeat_toolbar_btn), text);
             return;
         }
         View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -520,6 +522,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             }
         };
 
+        final RepeatCellViewModel[] cellVM = new RepeatCellViewModel[1];
         addInList(getString(R.string.repeat_toolbar_btn),
                 presenter.getContext().getResources().getDrawable(R.drawable.icon_event_repeat),
                 text, onClickListener, onDeleteListener, new RowItem.RowCreateInterface() {
@@ -527,22 +530,14 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
                     public View onCreateMiddleView(RowItem rowItem) {
                         LayoutInflater inflater = LayoutInflater.from(presenter.getContext());
                         CellEventCreateRepeatMiddleBinding binding = DataBindingUtil.inflate(inflater, R.layout.cell_event_create_repeat_middle, null, false);
-                        RepeatCellViewModel cellVM = new RepeatCellViewModel(event);
-                        binding.setVm(cellVM);
-
-//                        RelativeLayout v = new RelativeLayout(presenter.getContext());
-//                        v.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-//                        v.setBackgroundColor(presenter.getContext().getResources().getColor(R.color.black));
-//                        TextView t = new TextView(presenter.getContext());
-//                        t.setText("this is a test");
-//                        t.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-//                        v.addView(t);
+                        cellVM[0] = new RepeatCellViewModel(event);
+                        binding.setVm(cellVM[0]);
                         return binding.getRoot();
                     }
 
                     @Override
                     public void updateClosableView(RowItem rowItem) {
-
+                        cellVM[0].setCellEvent(event);
                     }
                 });
         notifyPropertyChanged(BR.rowItems);
@@ -579,7 +574,6 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         addInList(getString(R.string.note_toolbar_btn),
                 presenter.getContext().getResources().getDrawable(R.drawable.icon_event_note),
                 text, onClickListener, onDeleteListener);
-//        notifyPropertyChanged(BR.rowItems);
     }
 
 
@@ -607,7 +601,6 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         };
 
         addInList(getString(R.string.url_toolbar_btn), presenter.getContext().getResources().getDrawable(R.drawable.icon_event_url), text, onClickListener, onDeleteListener);
-//        notifyPropertyChanged(BR.rowItems);
     }
 
     private String[] getMessages(){
@@ -660,7 +653,6 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
                         
                     }
                 });
-        notifyPropertyChanged(BR.rowItems);
 
     }
 
@@ -695,7 +687,6 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             rowItem.setRowCreateInterface(rowCreateInterface);
         }
         rowItems.add(rowItem);
-        notifyPropertyChanged(BR.rowItems);
     }
 
 

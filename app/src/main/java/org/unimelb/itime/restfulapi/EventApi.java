@@ -36,9 +36,18 @@ public interface EventApi {
             @Path("calendarUid") String calendarUid,
             @Path("eventUid") String eventUid,
             @Body Event event,
-            @Query("type") String type,
-            @Query("originalStartTime") long originalStartTime,
+            @Query("originalStartTime") String originStartTime,
             @Query("syncToken") String syncToken);
+
+//    @POST("event/update/{calendarUid}/{eventUid}")
+//Observable<HttpResult<List<Event>>> update(
+//        @Path("calendarUid") String calendarUid,
+//        @Path("eventUid") String eventUid,
+//        @Body Event event,
+//        @Query("type") String type,
+//        @Query("originalStartTime") long originalStartTime,
+//        @Query("syncToken") String syncToken);
+
 
     @POST("event/delete/{calendarUid}/{eventUid}")
     Observable<HttpResult<List<Event>>> delete(

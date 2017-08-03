@@ -95,35 +95,35 @@ public class EventUtil extends BaseUtil{
     }
 
     public static Date untilConverter(long orgStartTime, Date orgDate, @Nullable TimeZone fromTZ){
-        if (fromTZ == null){
-            fromTZ = TimeZone.getTimeZone("UTC");
-        }
+//        if (fromTZ == null){
+//            fromTZ = TimeZone.getTimeZone("UTC");
+//        }
+//
+//        Calendar temp = Calendar.getInstance();
+//        temp.setTimeInMillis(orgStartTime);
+//
+//        int toUTCOffset = TimeZone.getDefault().getOffset(orgDate.getTime());
+//        int fromUTCOffset = fromTZ.getOffset(orgDate.getTime());
+//        int offsetTZ = toUTCOffset - fromUTCOffset;
+//        int mGMTOffset = -(offsetTZ/(60 * 60 * 1000));
+//
+//        int offset = 0;
+//        if (mGMTOffset + temp.get(Calendar.HOUR_OF_DAY) > 24){
+//            offset = 1;
+//        }else if (mGMTOffset + temp.get(Calendar.HOUR_OF_DAY) < 0){
+//            offset = -1;
+//        }
+//
+//        Calendar cal = Calendar.getInstance();
+//        cal.setTimeInMillis(orgDate.getTime());
+//        cal.add(Calendar.DATE,-offset);
+//        cal.set(Calendar.HOUR_OF_DAY,temp.get(Calendar.HOUR_OF_DAY));
+//        cal.set(Calendar.MINUTE,temp.get(Calendar.MINUTE));
+//        cal.set(Calendar.SECOND,59);
+//        Date result = new Date();
+//        result.setTime(cal.getTimeInMillis());
 
-        Calendar temp = Calendar.getInstance();
-        temp.setTimeInMillis(orgStartTime);
-
-        int toUTCOffset = TimeZone.getDefault().getOffset(orgDate.getTime());
-        int fromUTCOffset = fromTZ.getOffset(orgDate.getTime());
-        int offsetTZ = toUTCOffset - fromUTCOffset;
-        int mGMTOffset = -(offsetTZ/(60 * 60 * 1000));
-
-        int offset = 0;
-        if (mGMTOffset + temp.get(Calendar.HOUR_OF_DAY) > 24){
-            offset = 1;
-        }else if (mGMTOffset + temp.get(Calendar.HOUR_OF_DAY) < 0){
-            offset = -1;
-        }
-
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(orgDate.getTime());
-        cal.add(Calendar.DATE,-offset);
-        cal.set(Calendar.HOUR_OF_DAY,temp.get(Calendar.HOUR_OF_DAY));
-        cal.set(Calendar.MINUTE,temp.get(Calendar.MINUTE));
-        cal.set(Calendar.SECOND,59);
-        Date result = new Date();
-        result.setTime(cal.getTimeInMillis());
-
-        return result;
+        return orgDate;
     }
 
     public static Event getNewEvent(){
@@ -341,8 +341,6 @@ public class EventUtil extends BaseUtil{
      * This get Repeat String methods return the message that should be displayed on screen
      */
     public static String getRepeatString(Context context, Event event) {
-        Date d = parseTimeZoneToDate(event.getStart().getDateTime());
-        String dayOfWeek = getFormatTimeString(d.getTime(), "EEE");
         FrequencyEnum frequencyEnum = event.getRule().getFrequencyEnum();
         int interval = event.getRule().getInterval();
 
@@ -364,7 +362,7 @@ public class EventUtil extends BaseUtil{
             case DAILY:
                 return String.format(context.getString(R.string.repeat_everyday_cus),interval==1?"":" "+interval+" ");
             case WEEKLY:
-                return String.format(context.getString(R.string.repeat_everyweek_cus),interval==1?" ":" "+interval+" ",dayOfWeek);
+                return String.format(context.getString(R.string.repeat_everyweek_cus),interval==1?" ":" "+interval+" ");
             case MONTHLY:
                 return String.format(context.getString(R.string.repeat_every_month_cus),interval==1?" ":" "+interval+" ");
             case YEARLY:

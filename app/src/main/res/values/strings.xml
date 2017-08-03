@@ -166,7 +166,7 @@
     <string name="event_custom_wheel_months">months</string>
     <string name="event_custom_wheel_years">years</string>
     <string name="repeat_everyday_cus">Every%1$sday</string>
-    <string name="repeat_everyweek_cus">Every%1$sweek ( Every %2$s )</string>
+    <string name="repeat_everyweek_cus">Every%1$sweek</string>
     <string name="repeat_every_month_cus">Every%1$smonth</string>
     <string name="repeat_every_year_cus">Every%1$syear</string>
 

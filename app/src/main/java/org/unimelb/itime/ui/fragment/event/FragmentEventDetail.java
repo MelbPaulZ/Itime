@@ -236,7 +236,15 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     }
 
     public void gotoEdit(){
-
+        if (event.getEventType().equals(Event.TYPE_GROUP)){
+            FragmentEventCreate fragment = new FragmentEventCreate();
+            fragment.setEvent(event);
+            getBaseActivity().openFragment(fragment);
+        }else if (event.getEventType().equals(Event.TYPE_SOLO)){
+            FragmentEventPrivateCreate fragment = new FragmentEventPrivateCreate();
+            fragment.setEvent(event);
+            getBaseActivity().openFragment(fragment);
+        }
     }
 
     public void viewChange() {

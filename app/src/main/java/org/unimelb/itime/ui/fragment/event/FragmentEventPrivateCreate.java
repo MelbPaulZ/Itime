@@ -103,6 +103,10 @@ implements EventCreateMvpView, ToolbarInterface{
         binding.setToolbarVM(toolbarVM);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
     private HashMap<String, Integer> getOrderHashMap(){
         HashMap<String,Integer> orderHashMap = new HashMap<>();
