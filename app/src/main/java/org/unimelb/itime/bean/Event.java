@@ -8,6 +8,7 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.converter.PropertyConverter;
 import org.unimelb.itime.util.EventUtil;
+import org.unimelb.itime.util.rulefactory.RuleFactory;
 import org.unimelb.itime.util.rulefactory.RuleInterface;
 
 import java.io.Serializable;
@@ -502,6 +503,9 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
 
     public RuleModel getRule() {
+        if (rule == null){
+            rule = RuleFactory.getInstance().getRuleModel(this);
+        }
         return rule;
     }
 

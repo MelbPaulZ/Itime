@@ -7,12 +7,14 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.databinding.FragmentEventGreetingBinding;
+import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.mvpview.event.EventGreetingMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
@@ -68,8 +70,12 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
 
     @Override
     public void onNext() {
-        event.setEventType(Event.TYPE_GROUP);
-        presenter.createEvent(event);
+        if (getActivity() instanceof EventCreateActivity) {
+            event.setEventType(Event.TYPE_GROUP);
+            presenter.createEvent(event);
+        }else if (getActivity() instanceof EventDetailActivity){
+            presenter.updateEvent(event);
+        }
     }
 
     @Override
@@ -87,6 +93,9 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
     @Override
     public void onTaskSuccess(int taskId, Object data) {
         if (taskId == EventCreatePresenter.TASK_EVENT_CREATE){
+            getActivity().finish();
+        }else if (taskId == EventCreatePresenter.TASK_EVENT_UPDATE){
+            Toast.makeText(getContext(), "update event successfully", Toast.LENGTH_SHORT).show();
             getActivity().finish();
         }
     }

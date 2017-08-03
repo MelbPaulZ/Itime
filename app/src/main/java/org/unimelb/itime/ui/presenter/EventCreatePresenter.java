@@ -42,6 +42,7 @@ import rx.Subscriber;
 public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBasePresenter<V> {
     public static final int TASK_EVENT_CONFIRM = 1;
     public static final int TASK_EVENT_CREATE = 2;
+    public static final int TASK_EVENT_UPDATE = 3;
     private static final String TAG = "EventCreatePresenter";
     public EventCreatePresenter(Context context) {
         super(context);
@@ -85,6 +86,43 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
         };
         HttpUtil.subscribe(observable, subscriber);
 
+    }
+
+    public void updateEvent(Event event){
+        if (event.getEventType().equals(Event.TYPE_GROUP)){
+            EventUtil.generateGroupEventAttributes(getContext(), event);
+        }
+        Event orgEvent = DBManager.getInstance(getContext()).getEvent(event.getEventUid());
+
+        String syncToken = TokenUtil.getInstance(getContext()).getEventToken(UserUtil.getInstance(getContext()).getUserUid());
+        EventApi eventApi = HttpUtil.createService(getContext(), EventApi.class);
+        Observable<HttpResult<List<Event>>> observable = eventApi.update(
+                orgEvent.getCalendarUid(),
+                event.getEventUid(),
+                event,
+                orgEvent.getStart().getDateTime(),
+                syncToken);
+        Subscriber<HttpResult<List<Event>>> subscriber = new Subscriber<HttpResult<List<Event>>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.i(TAG, "onError: " + e.getMessage());
+            }
+
+            @Override
+            public void onNext(HttpResult<List<Event>> listHttpResult) {
+                updateEventToken(listHttpResult.getSyncToken());
+                synchronizeLocal(listHttpResult.getData());
+                if(getView() != null){
+                    getView().onTaskSuccess(TASK_EVENT_UPDATE, listHttpResult.getData());
+                }
+            }
+        };
+        HttpUtil.subscribe(observable, subscriber);
     }
 
     private void updateEventToken(String token){
