@@ -812,7 +812,11 @@ public class EventDetailViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(presenter!=null){
+                    presenter.muteEvent(event, !event.getMute());
+                }
+                event.setMute(!event.getMute());
+                notifyPropertyChanged(BR.event);
             }
         };
     }
@@ -821,7 +825,11 @@ public class EventDetailViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(presenter!=null){
+                    presenter.pinEvent(event, !event.getPin());
+                }
+                event.setPinned(!event.getPin());
+                notifyPropertyChanged(BR.event);
             }
         };
     }
@@ -830,7 +838,11 @@ public class EventDetailViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(presenter!=null){
+                    presenter.archiveEvent(event, !event.getArchive());
+                }
+                event.setArchived(!event.getArchive());
+                notifyPropertyChanged(BR.event);
             }
         };
     }

@@ -110,6 +110,14 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         return mHeaderView == null ? position : position - 1;
     }
 
+    public int getRealPositionOffset(){
+        if(getHeaderView()==null){
+            return 0;
+        }else{
+            return 1;
+        }
+    }
+
     @Override
     public int getItemCount() {
         return mHeaderView == null ? mDatas.size() : mDatas.size() + 1;

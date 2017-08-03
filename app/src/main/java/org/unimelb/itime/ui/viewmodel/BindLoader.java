@@ -132,8 +132,8 @@ public class BindLoader extends BaseObservable {
         if (!url.getUrl().equals("")){
             Picasso.with(context)//
                     .load(url.getUrl())//
-                    .placeholder(R.drawable.default_image)//
-                    .error(R.drawable.default_image)//
+                    .placeholder(R.drawable.invitee_selected_default_picture)//
+                    .error(R.drawable.invitee_selected_default_picture)//
                     .memoryPolicy(NO_CACHE, NO_STORE)
                     .resize(100, 100)//
                     .centerCrop()
@@ -143,8 +143,8 @@ public class BindLoader extends BaseObservable {
             if (file.exists()){
                 Picasso.with(context)//
                         .load(new File(url.getLocalPath()))//
-                        .placeholder(R.drawable.default_image)//
-                        .error(R.drawable.default_image)//
+                        .placeholder(R.drawable.invitee_selected_default_picture)//
+                        .error(R.drawable.invitee_selected_default_picture)//
                         .memoryPolicy(NO_CACHE, NO_STORE)
                         .resize(100, 100)//
                         .centerCrop()

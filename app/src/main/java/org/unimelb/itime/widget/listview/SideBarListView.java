@@ -7,6 +7,7 @@ import android.databinding.ObservableList;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
@@ -42,6 +43,7 @@ public class SideBarListView extends FrameLayout {
     private ObservableList<UserInfoViewModel> items;
     private ItemBinding itemBinding;
     private MyAdapter myAdapter;
+    private RecyclerView.SmoothScroller smoothScroller;
 
     public SideBarListView(Context context) {
         super(context);
@@ -108,7 +110,7 @@ public class SideBarListView extends FrameLayout {
         dialog = binding.dialog;
         sideBar = binding.sidrbar;
         sideBar.setTextView(dialog);
-        listView = binding.sortedContactListView;
+
         // 设置右侧触摸监听
         sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
 
@@ -116,7 +118,7 @@ public class SideBarListView extends FrameLayout {
             public void onTouchingLetterChanged(String s) {
                 // 该字母首次出现的位置
                 if (positionMap.containsKey(s)) {
-                    listView.scrollToPosition(positionMap.get(s));
+                    scrollToPosition(positionMap.get(s));
                 }
             }
         });
@@ -124,9 +126,27 @@ public class SideBarListView extends FrameLayout {
         viewModel.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.setContentVM(viewModel);
         this.addView(binding.getRoot());
+
+        initListView();
+
+    }
+
+    private void initListView(){
+        listView = binding.sortedContactListView;
         myAdapter = new MyAdapter();
         listView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         listView.setAdapter(myAdapter);
+        smoothScroller = new LinearSmoothScroller(getContext()) {
+            @Override protected int getVerticalSnapPreference() {
+                return LinearSmoothScroller.SNAP_TO_START;
+            }
+        };
+    }
+
+    private void scrollToPosition(int p){
+        smoothScroller.setTargetPosition(p+myAdapter.getRealPositionOffset());
+        listView.getLayoutManager().startSmoothScroll(smoothScroller);
     }
 
     public void hideSideBar() {

@@ -1,5 +1,7 @@
 package org.unimelb.itime.restfulapi;
 
+import android.databinding.ObservableList;
+
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.restfulresponse.HttpResult;
@@ -18,6 +20,9 @@ import rx.Observable;
  * Created by Paul on 23/09/2016.
  */
 public interface EventApi {
+    public static final int OPERATION_TRUE = 1;
+    public static final int OPERATION_FALSE = 2;
+
     @GET("event/list/{calendarUid}")
     Observable<HttpResult<List<Event>>> list(
             @Path("calendarUid") String calendarUid,
@@ -100,4 +105,31 @@ public interface EventApi {
             @Body HashMap<String, Object> body,
             @Query("syncToken") String syncToken);
 
+    @POST("event/mute/{calendarUid}/{eventUid}/{operation}")//operation: 1 for mute, 0 for unmute
+    Observable<HttpResult<List<Event>>> mute(
+            @Path("calendarUid") String calendarUid,
+            @Path("eventUid") String eventUid,
+            @Path("operation") int operation,
+            @Query("syncToken") String syncToken);
+
+    @POST("event/pin/{calendarUid}/{eventUid}/{operation}")//operation: 1 for pin, 0 for unpin
+    Observable<HttpResult<List<Event>>> pin(
+            @Path("calendarUid") String calendarUid,
+            @Path("eventUid") String eventUid,
+            @Path("operation") int operation,
+            @Query("syncToken") String syncToken);
+
+    @POST("event/archive/{calendarUid}/{eventUid}/{operation}")//Operatoin: 1 for archive, 0 for un-archive
+    Observable<HttpResult<List<Event>>> archive(
+            @Path("calendarUid") String calendarUid,
+            @Path("eventUid") String eventUid,
+            @Path("operation") int operation,
+            @Query("syncToken") String syncToken);
+
+//    @POST("event/update_cover_photo/{calendarUid}/{eventUid}")//body parameter(x-xxx-form-urlencode):
+//    ObservableList<HttpResult<List<Event>> archive(
+//            @Path("calendarUid") String calendarUid,
+//            @Path("eventUid") String eventUid,
+//            @Path("operation") int operation,
+//            @Query("syncToken") String syncToken);
 }
