@@ -52,7 +52,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@{vm.inviteeCount}"
+        android:text="@{String.valueOf(vm.inviteePhotos.size())}"
         android:textSize="@dimen/font_small"
         android:textColor="@color/text_detail_label"
         android:layout_centerVertical="true"

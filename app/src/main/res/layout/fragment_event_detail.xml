@@ -248,6 +248,7 @@
                             android:layout_marginTop="@dimen/s1"
                             android:paddingRight="@dimen/s1"
                             android:paddingLeft="@dimen/s1"
+                            android:visibility="@{contentVM.event.location==null?View.GONE:View.VISIBLE}"
                             >
                             <TextView
                                 android:layout_width="wrap_content"
@@ -645,7 +646,7 @@
                 android:layout_centerVertical="true"
                 android:textSize="@dimen/font_large"
                 android:textColor="@{contentVM.status == contentVM.STATUS_NOT_GOING ? @color/brand_warning : @color/text_detail_label}"
-                android:text="@string/event_detail_Going"
+                android:text="@string/event_detail_notgoing"
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/s1"
                 android:layout_alignParentRight="true"

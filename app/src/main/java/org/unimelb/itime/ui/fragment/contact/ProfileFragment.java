@@ -34,14 +34,14 @@ import java.util.List;
  * Created by 37925 on 2016/12/9.
  */
 
-public class ProfileFragment extends ItimeBaseFragment<ProfileMvpView, ProfilePresenter> implements ToolbarInterface,ProfileMvpView {
+public class ProfileFragment extends ItimeBaseFragment<ProfileMvpView, ProfilePresenter<ProfileMvpView>> implements ToolbarInterface,ProfileMvpView {
     public static final int MODE_CONTACT = 1;
     public static final int MODE_REQUEST = 2;
     public static final int MODE_STRANGER = 3;
 
     private FragmentProfileBinding binding;
     private ProfileFragmentViewModel viewModel;
-//    private EditAliasFragment editAliasFragment;
+    private EditAliasFragment editAliasFragment;
     private ToolbarViewModel toolbarViewModel;
     private int startMode = 1;
     private Contact contact;
@@ -148,12 +148,12 @@ public class ProfileFragment extends ItimeBaseFragment<ProfileMvpView, ProfilePr
 
     @Override
     public void goToEditAlias() {
-//        if(editAliasFragment == null) {
-//            editAliasFragment = new EditAliasFragment();
-//        }
-//        editAliasFragment.setContact(contact);
-//        getBaseActivity().openFragment(editAliasFragment, null, true);
-//        fromEditAlias = true;
+        if(editAliasFragment == null) {
+            editAliasFragment = new EditAliasFragment();
+        }
+        editAliasFragment.setContact(contact);
+        getBaseActivity().openFragment(editAliasFragment, null, true);
+        fromEditAlias = true;
     }
 
     public Context getContext(){
