@@ -77,7 +77,11 @@ public class FragmentEventDetailConfirm extends ItimeBaseFragment<EventDetailCon
 
     @Override
     public void confirm() {
-        presenter.confirmEvent(event);
+        presenter.confirmEvent(
+                event.getCalendarUid(),
+                event.getEventUid(),
+                timeSlot.getTimeslotUid(),
+                timeSlot.getStartTime());
     }
 
     @Override

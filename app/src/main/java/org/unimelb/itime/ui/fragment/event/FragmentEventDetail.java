@@ -22,6 +22,7 @@ import org.unimelb.itime.databinding.DialogEventDetailNoteBinding;
 import org.unimelb.itime.databinding.FragmentEventDetailBinding;
 import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.mvpview.event.EventDetailMvpView;
+import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.presenter.event.EventDetailPresenter;
 import org.unimelb.itime.ui.viewmodel.event.EventDetailViewModel;
 import org.unimelb.itime.widget.CollapseHeadBar;
@@ -35,7 +36,7 @@ import java.util.List;
 /**
  * Created by Paul on 4/09/2016.
  */
-public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, EventDetailPresenter<EventDetailMvpView>>
+public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, EventCreatePresenter<EventDetailMvpView>>
         implements EventDetailMvpView {
     private static final String SHOW_EVENT_DETAIL_TIPS = "event detail tips";
     private FragmentEventDetailBinding binding;
@@ -64,8 +65,8 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     }
 
     @Override
-    public EventDetailPresenter<EventDetailMvpView> createPresenter() {
-        return new EventDetailPresenter<>(getContext());
+    public EventCreatePresenter<EventDetailMvpView> createPresenter() {
+        return new EventCreatePresenter<>(getContext());
     }
 
     private void initStatusBar(){

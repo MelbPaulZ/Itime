@@ -22,6 +22,7 @@ import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.PhotoUrl;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.ui.mvpview.event.EventDetailMvpView;
+import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.presenter.event.EventDetailPresenter;
 import org.unimelb.itime.util.AppUtil;
 import org.unimelb.itime.util.EventUtil;
@@ -50,7 +51,7 @@ public class EventDetailViewModel extends BaseObservable{
     public static final int STATUS_CANCELED = 8;
     public static final int STATUS_EXPIRED = 9;
 
-    private EventDetailPresenter<EventDetailMvpView> presenter;
+    private EventCreatePresenter<EventDetailMvpView> presenter;
     private Event event;
     private EventDetailMvpView mvpView;
     private Context context;
@@ -576,7 +577,7 @@ public class EventDetailViewModel extends BaseObservable{
         notifyPropertyChanged(BR.photoUrls);
     }
 
-    public EventDetailViewModel(EventDetailPresenter<EventDetailMvpView> presenter) {
+    public EventDetailViewModel(EventCreatePresenter<EventDetailMvpView> presenter) {
         this.presenter = presenter;
         this.context = getContext();
 //        this.wrapperTimeSlotList = new ArrayList<>();
@@ -912,4 +913,5 @@ public class EventDetailViewModel extends BaseObservable{
             }
         };
     }
+
 }

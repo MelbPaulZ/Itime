@@ -248,7 +248,7 @@
                             android:layout_marginTop="@dimen/s1"
                             android:paddingRight="@dimen/s1"
                             android:paddingLeft="@dimen/s1"
-                            android:visibility="@{contentVM.event.location==null?View.GONE:View.VISIBLE}"
+                            android:visibility="@{contentVM.event.location.locationString1.empty?View.GONE:View.VISIBLE}"
                             >
                             <TextView
                                 android:layout_width="wrap_content"
@@ -496,7 +496,7 @@
             android:orientation="vertical"
             android:gravity="center_vertical"
             android:background="@color/white"
-            android:visibility="@{contentVM.event.recurrence==null?View.GONE:View.VISIBLE}">
+            android:visibility="@{contentVM.event.recurrence.length==0?View.GONE:View.VISIBLE}">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
