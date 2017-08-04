@@ -5,9 +5,11 @@ import android.databinding.Bindable;
 import android.view.View;
 
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.ui.mvpview.event.EventDetailConfirmMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
+import org.unimelb.itime.util.TimeFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,6 +123,23 @@ public class EventDetailConfirmViewModel extends BaseObservable {
 
     public void setTimeSlot(TimeSlot timeSlot) {
         this.timeSlot = timeSlot;
+        setStartDate(TimeFactory.getFormatTimeString(timeSlot.getStartTime(), TimeFactory.DAY_MONTH_YEAR));
+        setStartTime(TimeFactory.getFormatTimeString(timeSlot.getStartTime(), TimeFactory.HOUR_MIN_A));
+        setEndDate(TimeFactory.getFormatTimeString(timeSlot.getEndTime(), TimeFactory.DAY_MONTH_YEAR));
+        setEndTime(TimeFactory.getFormatTimeString(timeSlot.getEndTime(), TimeFactory.HOUR_MIN_A));
+
+        List<String> goInvitees = new ArrayList<>();
+        List<String> notGoInvitees = new ArrayList<>();
+        for(Invitee invitee:timeSlot.getVoteInvitees()){
+           goInvitees.add(invitee.getShowPhoto());
+        }
+
+        for(Invitee invitee:timeSlot.getRejectInvitees()){
+            notGoInvitees.add(invitee.getShowPhoto());
+        }
+
+        setGoInvitees(goInvitees);
+        setNotGoInvitees(notGoInvitees);
     }
 
     @Bindable

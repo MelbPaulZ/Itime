@@ -42,6 +42,7 @@ public class TimeSlot implements ITimeTimeSlotInterface<TimeSlot>,Serializable {
 
 //    @Transient
     private transient List<Invitee> voteInvitees = new ArrayList<>();
+    private transient List<Invitee> rejectInvitees = new ArrayList<>();
 
     @Override
     public void setStartTime(long l) {
@@ -212,5 +213,16 @@ public class TimeSlot implements ITimeTimeSlotInterface<TimeSlot>,Serializable {
 
     public void setSystemSuggested(boolean systemSuggested) {
         isSystemSuggested = systemSuggested;
+    }
+
+    public List<Invitee> getRejectInvitees() {
+        if (rejectInvitees == null){
+            rejectInvitees = new ArrayList<>();
+        }
+        return rejectInvitees;
+    }
+
+    public void setRejectInvitees(List<Invitee> rejectInvitees) {
+        this.rejectInvitees = rejectInvitees;
     }
 }

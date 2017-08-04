@@ -200,7 +200,9 @@ public class EventUtil extends BaseUtil{
 
 
     public static String HOUR_MIN = "kk:mm";
+    public static String HOUR_MIN_A = "kk:mm a";
     public static String WEEK_DAY_MONTH = "EEE, dd MMM";
+    public static String HOUR_MIN_WEEK_DAY_MONTH = "kk:mm a EEE,dd MMM";
     public static String DAY_MONTH_YEAR = "dd MMM yyyy";
     public static String TIME_ZONE_PATTERN = "yyyy-MM-dd'T'HH:mm:ssZZZZZ";
 
@@ -568,6 +570,11 @@ public class EventUtil extends BaseUtil{
             if(ti.getStatus().equals(TimeslotInvitee.STATUS_ACCEPTED)){
                 TimeSlot timeSlot = event.getTimeslot().get(ti.getTimeslotUid());
                 timeSlot.getVoteInvitees().add(event.getInvitee().get(ti.getInviteeUid()));
+            }
+
+            if(ti.getStatus().equals(TimeslotInvitee.STATUS_REJECTED)){
+                TimeSlot timeSlot = event.getTimeslot().get(ti.getTimeslotUid());
+                timeSlot.getRejectInvitees().add(event.getInvitee().get(ti.getInviteeUid()));
             }
         }
     }

@@ -423,7 +423,7 @@
         android:layout_height="match_parent"
         android:background="@color/mask_cover"
         android:onClick="@{contentVM.onTimeSlotSheetClickListener}"
-        android:visibility="@{contentVM.showTimeSlotSheet?View.VISIBLE:View.GONE}"
+        android:visibility="@{((contentVM.status == contentVM.STATUS_NEED_VOTE) || (contentVM.status == contentVM.STATUS_NEED_CONFIRM))&amp;contentVM.showTimeSlotSheet?View.VISIBLE:View.GONE}"
         />
     <org.unimelb.itime.widget.ScalableLayout
         android:orientation="vertical" android:layout_width="match_parent"

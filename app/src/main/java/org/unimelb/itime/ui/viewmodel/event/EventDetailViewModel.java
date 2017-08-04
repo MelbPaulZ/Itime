@@ -21,6 +21,7 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.PhotoUrl;
 import org.unimelb.itime.bean.TimeSlot;
+import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.mvpview.event.EventDetailMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.presenter.event.EventDetailPresenter;
@@ -33,6 +34,7 @@ import org.unimelb.itime.widget.ScalableLayout;
 import org.unimelb.itime.widget.popupmenu.PopupMenu;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -242,7 +244,9 @@ public class EventDetailViewModel extends BaseObservable{
     }
 
     private void generateEventTimeString(){
-        setEventTimeString("01:00 pm WED, 20 July → \n02:00 pm WED, 21 July");
+        setEventTimeString(EventUtil.getFormatTimeString(event.getStartTime(), EventUtil.HOUR_MIN_WEEK_DAY_MONTH)
+                + "→\n"
+                + EventUtil.getFormatTimeString(event.getEndTime(), EventUtil.HOUR_MIN_WEEK_DAY_MONTH));
     }
 
     @Bindable
@@ -324,7 +328,21 @@ public class EventDetailViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                long firstAcceptTimeslot = 0;
+                HashMap<String, Object> params = new HashMap<>();
+                ArrayList<String> timeslotUids = new ArrayList<>();
+                for(TimeSlot timeSlot:selectedTimeSlots){
+                    timeslotUids.add(timeSlot.getTimeslotUid());
+                    if (firstAcceptTimeslot == 0) {
+                        // this is for recording where to scroll, first accept timeslot
+                        firstAcceptTimeslot = timeSlot.getStartTime();
+                    }
+                }
+                params.put("timeslots", timeslotUids);
+                presenter.acceptTimeslots(
+                        event,
+                        params,
+                        firstAcceptTimeslot);
             }
         };
     }
@@ -344,7 +362,7 @@ public class EventDetailViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                presenter.rejectTimeslots(event.getCalendarUid(), event.getEventUid());
             }
         };
     }
@@ -703,10 +721,10 @@ public class EventDetailViewModel extends BaseObservable{
             @Override
             public void onClick(View v) {
 //                Event orgEvent = EventManager.getInstance(context).getCurrentEvent();
-//                presenter.acceptEvent(event.getCalendarUid(),
-//                            event.getEventUid(),
-//                            EventPresenter.UPDATE_ALL,
-//                            orgEvent.getStartTime());
+                presenter.acceptEvent(event.getCalendarUid(),
+                            event.getEventUid(),
+                            EventCreatePresenter.UPDATE_ALL,
+                            event.getStartTime());
             }
         };
     }
@@ -719,24 +737,21 @@ public class EventDetailViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                long firstAcceptTimeslot = 0;
-//                    HashMap<String, Object> params = new HashMap<>();
-//                    ArrayList<String> timeslotUids = new ArrayList<>();
-//                    for (SubTimeslotViewModel viewModel : wrapperTimeSlotList) {
-//                        if (viewModel.getWrapper().isSelected()) {
-//                            TimeSlot timeslot = (TimeSlot) viewModel.getWrapper().getTimeSlot();
-//                            timeslotUids.add(timeslot.getTimeslotUid());
-//                            if (firstAcceptTimeslot == 0) {
-//                                // this is for recording where to scroll, first accept timeslot
-//                                firstAcceptTimeslot = timeslot.getStartTime();
-//                            }
-//                        }
-//                    }
-//                    params.put("timeslots", timeslotUids);
-//                    presenter.acceptTimeslots(
-//                            event,
-//                            params,
-//                            firstAcceptTimeslot);
+                long firstAcceptTimeslot = 0;
+                    HashMap<String, Object> params = new HashMap<>();
+                    ArrayList<String> timeslotUids = new ArrayList<>();
+                    for(TimeSlot timeSlot:selectedTimeSlots){
+                            timeslotUids.add(timeSlot.getTimeslotUid());
+                            if (firstAcceptTimeslot == 0) {
+                                // this is for recording where to scroll, first accept timeslot
+                                firstAcceptTimeslot = timeSlot.getStartTime();
+                            }
+                        }
+                    params.put("timeslots", timeslotUids);
+                    presenter.acceptTimeslots(
+                            event,
+                            params,
+                            firstAcceptTimeslot);
             }
         };
     }

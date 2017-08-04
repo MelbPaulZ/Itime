@@ -10,6 +10,7 @@ import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.TimeSlot;
+import org.unimelb.itime.util.TimeFactory;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -75,9 +76,9 @@ public class EventDetailTimeslotViewModel extends BaseObservable {
 
     public void setTimeSlot(TimeSlot timeSlot) {
         this.timeSlot = timeSlot;
-
-        setFirstTimeRow("12:00 → 14:00");
-        setSecondTimeRow("WED, 20 JUL");
+        String[] time = TimeFactory.getTimeStrings(context, timeSlot);
+        setFirstTimeRow(time[0]);
+        setSecondTimeRow(time[1]);
         inviteePhotos = new ArrayList<>();
         for(Invitee invitee : timeSlot.getVoteInvitees()){
             inviteePhotos.add(invitee.getAliasPhoto());
