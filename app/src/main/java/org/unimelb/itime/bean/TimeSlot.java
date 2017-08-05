@@ -5,10 +5,12 @@ import android.support.annotation.NonNull;
 
 import org.greenrobot.greendao.annotation.Transient;
 import org.unimelb.itime.util.AppUtil;
+import org.unimelb.itime.util.EventUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 import david.itimecalendar.calendar.listeners.ITimeTimeSlotInterface;
 
@@ -25,8 +27,6 @@ public class TimeSlot implements ITimeTimeSlotInterface<TimeSlot>,Serializable {
     private String timeslotUid = AppUtil.generateUuid(); //
     private String eventUid = ""; //
     private String userUid = "";
-    private long startTime; //
-    private long endTime; //
     private String status = ""; //
     private int acceptedNum; //
     private int totalNum; //
@@ -36,27 +36,46 @@ public class TimeSlot implements ITimeTimeSlotInterface<TimeSlot>,Serializable {
     private boolean isSystemSuggested; // 1 -> true
     private String inviteeUid = "";
     private boolean isAllDay = false;
+
+    private TZoneTime start = new TZoneTime();
+    private TZoneTime end = new TZoneTime();
+
 //    @Transient
     private transient List<Invitee> voteInvitees = new ArrayList<>();
+    private transient List<Invitee> rejectInvitees = new ArrayList<>();
 
     @Override
     public void setStartTime(long l) {
-        this.startTime = l;
+        String time = EventUtil.getFormatTimeString(l, EventUtil.TIME_ZONE_PATTERN);
+        this.start.setDateTime(time);
+        this.end.setTimeZone(TimeZone.getDefault().getID());
     }
 
     @Override
     public long getStartTime() {
-        return this.startTime;
+        long time = EventUtil.parseTimeZoneToDate(start.getDateTime()).getTime();
+        return time;
     }
 
     @Override
     public void setEndTime(long l) {
-        this.endTime = l;
+        String time = EventUtil.getFormatTimeString(l, EventUtil.TIME_ZONE_PATTERN);
+        this.end.setDateTime(time);
+        this.end.setTimeZone(TimeZone.getDefault().getID());
     }
 
     @Override
     public long getEndTime() {
-        return this.endTime;
+        long time = EventUtil.parseTimeZoneToDate(end.getDateTime()).getTime();
+        return time;
+    }
+
+    public void setStart(TZoneTime startTime) {
+        this.start = startTime;
+    }
+
+    public void setEnd(TZoneTime endTime) {
+        this.end = endTime;
     }
 
     @Override
@@ -194,5 +213,16 @@ public class TimeSlot implements ITimeTimeSlotInterface<TimeSlot>,Serializable {
 
     public void setSystemSuggested(boolean systemSuggested) {
         isSystemSuggested = systemSuggested;
+    }
+
+    public List<Invitee> getRejectInvitees() {
+        if (rejectInvitees == null){
+            rejectInvitees = new ArrayList<>();
+        }
+        return rejectInvitees;
+    }
+
+    public void setRejectInvitees(List<Invitee> rejectInvitees) {
+        this.rejectInvitees = rejectInvitees;
     }
 }

@@ -22,6 +22,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.databinding.library.baseAdapters.BR;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -99,6 +100,8 @@ public class CollapseHeadBar extends AppBarLayout {
     private int collapseColor;
     private EventDetailViewModel vm;
     private ToolbarCollapseHeadbarBinding binding;
+    private MenuEventDetailToolbarBinding menuBinding;
+    private OnMenuClickListener onMenuClickListener;
 
     public CollapseHeadBar(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -177,8 +180,11 @@ public class CollapseHeadBar extends AppBarLayout {
     private void initMenu(){
         menu = new ModalPopupView(getContext());
         menu.setBackground(getResources().getDrawable(R.color.mask_cover));
-        MenuEventDetailToolbarBinding menuBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.menu_event_detail_toolbar, new FrameLayout(getContext()), false);
+        menuBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.menu_event_detail_toolbar, new FrameLayout(getContext()), false);
         menuBinding.setVm(vm);
+        onMenuClickListener = new OnMenuClickListener();
+        onMenuClickListener.setVm(vm);
+        menuBinding.setListener(onMenuClickListener);
         menu.setContentView(menuBinding.getRoot());
         rightButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -360,6 +366,134 @@ public class CollapseHeadBar extends AppBarLayout {
         this.vm = vm;
         if(binding!=null){
             binding.setContentVM(vm);
+        }
+
+        if(menuBinding!=null){
+            menuBinding.setVm(vm);
+        }
+
+        if(onMenuClickListener!=null){
+            onMenuClickListener.setVm(vm);
+        }
+    }
+
+    public class OnMenuClickListener{
+        private EventDetailViewModel vm;
+
+        public OnClickListener onMuteClick(){
+            return new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(vm!=null){
+                        vm.onMuteClick().onClick(view);
+                    }
+                    if(menu!=null) {
+                        menu.dismiss();
+                    }
+                }
+            };
+        }
+
+        public OnClickListener onPinClick(){
+            return new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(vm!=null){
+                        vm.onPinClick().onClick(view);
+                    }
+                    if(menu!=null) {
+                        menu.dismiss();
+                    }
+                }
+            };
+        }
+
+        public OnClickListener onArchiveClick(){
+            return new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(vm!=null){
+                        vm.onArchiveClick().onClick(view);
+                    }
+                    if(menu!=null) {
+                        menu.dismiss();
+                    }
+                }
+            };
+        }
+
+        public OnClickListener onShareClick(){
+            return new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(vm!=null){
+                        vm.onShareClick().onClick(view);
+                    }
+                    if(menu!=null) {
+                        menu.dismiss();
+                    }
+                }
+            };
+        }
+
+        public OnClickListener onRemindClick(){
+            return new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(vm!=null){
+                        vm.onRemindClick().onClick(view);
+                    }
+                    if(menu!=null) {
+                        menu.dismiss();
+                    }
+                }
+            };
+        }
+
+        public OnClickListener onHistoryClick(){
+            return new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(vm!=null){
+                        vm.onHistoryClick().onClick(view);
+                    }
+                    if(menu!=null) {
+                        menu.dismiss();
+                    }
+                }
+            };
+        }
+
+        public OnClickListener onDuplicateClick(){
+            return new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(vm!=null){
+                        vm.onDuplicateClick().onClick(view);
+                    }
+                    if(menu!=null) {
+                        menu.dismiss();
+                    }
+                }
+            };
+        }
+
+        public OnClickListener onDeleteClick(){
+            return new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(vm!=null){
+                        vm.onDeleteClick().onClick(view);
+                    }
+                    if(menu!=null) {
+                        menu.dismiss();
+                    }
+                }
+            };
+        }
+
+        public void setVm(EventDetailViewModel vm) {
+            this.vm = vm;
         }
     }
 }

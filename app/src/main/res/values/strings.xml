@@ -166,7 +166,7 @@
     <string name="event_custom_wheel_months">months</string>
     <string name="event_custom_wheel_years">years</string>
     <string name="repeat_everyday_cus">Every%1$sday</string>
-    <string name="repeat_everyweek_cus">Every%1$sweek ( Every %2$s )</string>
+    <string name="repeat_everyweek_cus">Every%1$sweek</string>
     <string name="repeat_every_month_cus">Every%1$smonth</string>
     <string name="repeat_every_year_cus">Every%1$syear</string>
 
@@ -266,14 +266,26 @@
     <string name="profile_invite_to_new_event">Invite to New Event</string>
     <string name="profile_add_friend">Add Friend</string>
     <string name="profile_request_sent">Request Sent</string>
+    <string name="alias_title">Alias</string>
+    <string name="edit_alias_alert_msg">Alias should be %1$d to %2$d letters</string>
+    <string name="edit_name_alert_msg">Name should be %1$d to %2$d letters</string>
+    <string name="edit_alias_alert">Too long alias</string>
+
     <string name="transition_name_avatar">transition_name_avatar</string>
     <string name="morefriends_title">Find More Friends</string>
     <string name="morefriends_search_by_email">Search by Email</string>
     <string name="morefriends_scan_qr_code">Scan QR Code</string>
     <string name="people_you_may_know">PEOPLE YOU MAY KNOW</string>
 
+
     <!-- Error msg -->
     <string name="some_error_happens">Some error happens</string>
     <string name="alarm_error_msg_event_error">Alarmed event cannot find, error happens</string>
     <string name="alarm_error_msg_bundle_error">Alarmed event cannot find, error happens</string>
+
+    <string name="network_error_cant_connect">Can’t Connect</string>
+    <string name="network_error_check_your_network_and_try_again">Check your network and try again</string>
+    <string name="network_error_retry">RETRY</string>
+    <string name="network_error_please_try_again">Network error, please check your network and try again.</string>
+    <string name="network_error_bar_message">Network disconnected. Please check network.</string>
 </resources>

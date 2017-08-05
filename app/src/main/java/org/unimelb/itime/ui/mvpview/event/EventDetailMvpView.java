@@ -24,4 +24,5 @@ public interface EventDetailMvpView extends TaskBasedMvpView<List<Event>>, Itime
     void showAllNote();
     void gotoConfirm(TimeSlot timeSlot);
 
+    void gotoEdit();
 }

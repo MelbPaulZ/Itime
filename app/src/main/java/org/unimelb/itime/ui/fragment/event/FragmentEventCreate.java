@@ -98,10 +98,14 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
 
     @Override
     public void onNext() {
-        FragmentEventGreeting fragment = new FragmentEventGreeting();
-        Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
-        fragment.setEvent(cpyEvent);
-        getBaseActivity().openFragment(fragment);
+        if (event.getTimeslot().size() == 0){
+            toTimeslot(event);
+        }else {
+            FragmentEventGreeting fragment = new FragmentEventGreeting();
+            Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
+            fragment.setEvent(cpyEvent);
+            getBaseActivity().openFragment(fragment);
+        }
     }
 
     @Override

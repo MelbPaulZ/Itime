@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="org.unimelb.itime.ui.viewmodel.contact.EditContactViewModel"/>
+        <variable
+            name="toolbarVM"
+            type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <include layout="@layout/toolbar"
+        app:vm="@{toolbarVM}"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="54dp">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/edit_icon"
+            android:src="@drawable/icon_contacts_edit_blue"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="11dp"
+            android:layout_centerVertical="true"/>
+        <org.unimelb.itime.widget.PureEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_large"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="60dp"
+            android:layout_toRightOf="@id/edit_icon"
+            android:text="@={viewModel.alias}"
+            android:textColor="@color/text_body"
+            android:singleLine="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_large"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentRight= "true"
+            android:text="@{String.valueOf(viewModel.remainLength)}"
+            android:textColor="@{viewModel.remainLength &lt; 0?@color/brand_warning:@color/text_detail_label}"
+            android:layout_gravity="center"
+            />
+    </RelativeLayout>
+    <include layout="@layout/line"/>
+</LinearLayout>
+</layout>

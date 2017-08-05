@@ -61,7 +61,6 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:ellipsize="end"
-                android:fontFamily="sans-serif-smallcaps"
                 android:maxLines="1"
                 android:maxWidth="300dp"
                 android:text="@{viewModel.realName}"
@@ -118,7 +117,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="5dp"
                 android:layout_marginLeft="5dp"
-                android:id="@+id/verticalLine"/>
+                android:id="@+id/verticalLine"
+                android:visibility="@{viewModel.showGender?View.VISIBLE:View.GONE}"/>
 
             <ImageView
                 android:layout_width="15dp"

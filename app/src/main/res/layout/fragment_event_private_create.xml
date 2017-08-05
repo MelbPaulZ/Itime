@@ -297,8 +297,9 @@
                     android:layout_height="wrap_content"
                     android:animateLayoutChanges="true"
                     android:orientation="vertical"
+                    ClosableBaseLinearLayout:orderHashMap="@{vm.orderHashMap}"
                     ClosableBaseLinearLayout:closableItems="@{vm.rowItems}"
-                    ClosableBaseLinearLayout:orderHashMap="@{vm.orderHashMap}" />
+                    />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -310,8 +311,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:animateLayoutChanges="true"
-                        ClosableBaseLinearLayout:closableItems="@{vm.buttonItems}"
-                        ClosableBaseLinearLayout:orderHashMap="@{vm.orderHashMap}" />
+                        ClosableBaseLinearLayout:orderHashMap="@{vm.orderHashMap}"
+                        ClosableBaseLinearLayout:closableItems="@{vm.buttonItems}" />
                 </RelativeLayout>
             </LinearLayout>
         </ScrollView>

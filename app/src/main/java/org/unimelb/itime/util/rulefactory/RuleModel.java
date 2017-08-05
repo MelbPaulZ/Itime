@@ -156,7 +156,7 @@ public class RuleModel<T extends RuleInterface> implements Serializable {
      * Ensure until is UTC
      */
     public void setUntil(Date until, @Nullable TimeZone fromTZ) {
-        this.until = until == null ? null : EventUtil.untilConverter(this.ruleInterface.getStartTime(),until,fromTZ);
+        this.until = until;
     }
 
     public int getInterval() {

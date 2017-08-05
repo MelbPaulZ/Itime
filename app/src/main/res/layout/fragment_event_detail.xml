@@ -248,6 +248,7 @@
                             android:layout_marginTop="@dimen/s1"
                             android:paddingRight="@dimen/s1"
                             android:paddingLeft="@dimen/s1"
+                            android:visibility="@{contentVM.event.location.locationString1.empty?View.GONE:View.VISIBLE}"
                             >
                             <TextView
                                 android:layout_width="wrap_content"
@@ -422,7 +423,7 @@
         android:layout_height="match_parent"
         android:background="@color/mask_cover"
         android:onClick="@{contentVM.onTimeSlotSheetClickListener}"
-        android:visibility="@{contentVM.showTimeSlotSheet?View.VISIBLE:View.GONE}"
+        android:visibility="@{((contentVM.status == contentVM.STATUS_NEED_VOTE) || (contentVM.status == contentVM.STATUS_NEED_CONFIRM))&amp;contentVM.showTimeSlotSheet?View.VISIBLE:View.GONE}"
         />
     <org.unimelb.itime.widget.ScalableLayout
         android:orientation="vertical" android:layout_width="match_parent"
@@ -495,7 +496,7 @@
             android:orientation="vertical"
             android:gravity="center_vertical"
             android:background="@color/white"
-            android:visibility="@{contentVM.event.recurrence==null?View.GONE:View.VISIBLE}">
+            android:visibility="@{contentVM.event.recurrence.length==0?View.GONE:View.VISIBLE}">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -645,7 +646,7 @@
                 android:layout_centerVertical="true"
                 android:textSize="@dimen/font_large"
                 android:textColor="@{contentVM.status == contentVM.STATUS_NOT_GOING ? @color/brand_warning : @color/text_detail_label}"
-                android:text="@string/event_detail_Going"
+                android:text="@string/event_detail_notgoing"
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/s1"
                 android:layout_alignParentRight="true"
