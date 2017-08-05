@@ -21,7 +21,7 @@ import org.unimelb.itime.ui.viewmodel.SearchViewModel;
  * Created by yuhaoliu on 10/7/17.
  */
 
-public class FragmentSearch extends ItimeBaseFragment<SearchMvpView, SearchPresenter<SearchMvpView>> implements SearchMvpView {
+public class FragmentMeetingSearch extends ItimeBaseFragment<SearchMvpView, SearchPresenter<SearchMvpView>> implements SearchMvpView {
     public final static int TASK_ACTIVITY_BACK = 0;
     public final static int TASK_FRAGMENT_BACK = 1;
 
@@ -103,7 +103,7 @@ public class FragmentSearch extends ItimeBaseFragment<SearchMvpView, SearchPrese
 
     @Override
     public void onShowMoreClick(int type, String searchStr) {
-        FragmentSearch detailSearch = new FragmentSearch();
+        FragmentMeetingSearch detailSearch = new FragmentMeetingSearch();
 
         switch (type){
             case TYPE_MEETING:

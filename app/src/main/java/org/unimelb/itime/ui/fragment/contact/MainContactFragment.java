@@ -132,6 +132,7 @@ public class MainContactFragment extends ItimeBaseFragment<MainContactsMvpView, 
     @Override
     public void gotoSearch() {
         Intent intent = new Intent(getActivity(), SearchActivity.class);
+        intent.putExtra(SearchActivity.TASK,SearchActivity.MULTIPLE_SEARCH);
         startActivity(intent);
     }
 

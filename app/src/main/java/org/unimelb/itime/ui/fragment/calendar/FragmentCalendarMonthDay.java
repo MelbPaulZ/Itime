@@ -193,7 +193,11 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
 
         EventBus.getDefault().unregister(this);
         Log.i(TAG, "onPause: " + "FragmentCalendarMonthDay");
+    }
 
-//        EventController
+    public void backToToday(){
+        if (monthDayView != null){
+            monthDayView.scrollToDate(new Date());
+        }
     }
 }

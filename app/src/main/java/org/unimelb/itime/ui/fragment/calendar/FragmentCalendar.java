@@ -1,5 +1,6 @@
 package org.unimelb.itime.ui.fragment.calendar;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import org.unimelb.itime.bean.Location;
 import org.unimelb.itime.bean.SpinnerWrapper;
 import org.unimelb.itime.databinding.FragmentCalendarBinding;
 import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.ui.activity.SearchActivity;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
 import org.unimelb.itime.ui.viewmodel.MainCalendarViewModel;
@@ -48,12 +50,22 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
     private OnToolbarClick onToolbarClick = new OnToolbarClick() {
         @Override
         public void onSearchClick() {
-
+            Intent intent = new Intent(getActivity(), SearchActivity.class);
+            intent.putExtra(SearchActivity.TASK,SearchActivity.CALENDAR_SEARCH);
+            startActivity(intent);
         }
 
         @Override
         public void onTodayClick() {
-
+            if (monthDayFragment != null){
+                monthDayFragment.backToToday();
+            }
+            if (weekFragment != null){
+                weekFragment.backToToday();
+            }
+            if (agendaFragment != null){
+                agendaFragment.backToToday();
+            }
         }
     };
     private OnDateChanged onDateChanged = date -> {

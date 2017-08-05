@@ -58,13 +58,10 @@ public class SearchPresenter<V extends SearchMvpView> extends ItimeBasePresenter
             throw new RuntimeException("Scope cannot be null");
         }
 
-        Observable<SearchResult> observable = Observable.create(new Observable.OnSubscribe<SearchResult>() {
-            @Override
-            public void call(Subscriber<? super SearchResult> subscriber) {
-                //init dataSet
-                initDataFromDB(scope);
-                subscriber.onNext(searchResult(scope, searchStr));
-            }
+        Observable<SearchResult> observable = Observable.create(subscriber -> {
+            //init dataSet
+            initDataFromDB(scope);
+            subscriber.onNext(searchResult(scope, searchStr));
         });
 
         Subscriber<SearchResult> subscriber = new Subscriber<SearchResult>() {

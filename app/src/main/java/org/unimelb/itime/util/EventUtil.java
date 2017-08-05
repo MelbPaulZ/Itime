@@ -401,6 +401,7 @@ public class EventUtil extends BaseUtil{
 
     public static String getEventTitlebarDateStr(Date date){
         Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
         String titleMonth = cal.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault());
         String titleYear = cal.get(Calendar.YEAR) + "";
         String title = titleMonth + " " + titleYear;

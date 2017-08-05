@@ -21,6 +21,7 @@ import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import david.itimecalendar.calendar.listeners.ITimeCalendarMonthAgendaViewListener;
@@ -121,5 +122,11 @@ public class FragmentCalendarAgenda extends ItimeBaseFragment<CalendarMvpView, C
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+    }
+
+    public void backToToday(){
+        if (agendaView != null){
+            agendaView.scrollToDate(new Date());
+        }
     }
 }

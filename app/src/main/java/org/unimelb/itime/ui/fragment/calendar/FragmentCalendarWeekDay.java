@@ -21,6 +21,7 @@ import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import david.itimecalendar.calendar.listeners.ITimeCalendarWeekDayViewListener;
@@ -165,5 +166,11 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+    }
+
+    public void backToToday(){
+        if (weekView != null){
+            weekView.scrollToDate(new Date());
+        }
     }
 }
