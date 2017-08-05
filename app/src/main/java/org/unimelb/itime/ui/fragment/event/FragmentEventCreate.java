@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.GravityEnum;
@@ -198,6 +199,12 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     @Override
     public void showPopupDialog(int startOrEnd) {
 
+    }
+
+    @Override
+    public void toInvitee(Event event) {
+        // click invitee cell
+        Toast.makeText(getContext(), "invitee", Toast.LENGTH_SHORT).show();
     }
 
     @Override

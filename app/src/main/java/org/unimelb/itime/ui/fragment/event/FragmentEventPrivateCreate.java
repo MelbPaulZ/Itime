@@ -227,6 +227,11 @@ implements EventCreateMvpView, ToolbarInterface{
     }
 
     @Override
+    public void toInvitee(Event event) {
+        // dont write anything here, solo event does not have this method
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==REQ_LOCATION && resultCode == Activity.RESULT_OK){

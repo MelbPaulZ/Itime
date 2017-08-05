@@ -39,7 +39,8 @@
                 <!--Invitee-->
                 <RelativeLayout
                     style="@style/ItimeRelativeCell"
-                    android:background="@drawable/bg_divider_bottom">
+                    android:background="@drawable/bg_divider_bottom"
+                    android:onClick="@{vm.onClickInvitees()}">
 
                     <ImageView
                         style="@style/ItimeCellLeftIcon"
