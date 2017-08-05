@@ -15,6 +15,7 @@ import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.databinding.FragmentEventCreateAddContactsBinding;
 import org.unimelb.itime.ui.mvpview.event.EventCreateAddContactMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
+import org.unimelb.itime.ui.presenter.contact.ContactPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.event.EventCreateAddContactViewModel;
 
@@ -26,7 +27,7 @@ import java.util.Map;
  * Created by Qiushuo Huang on 2017/6/1.
  */
 
-public class FragmentEventCreateAddContact extends ItimeBaseFragment<EventCreateAddContactMvpView, EventCreatePresenter<EventCreateAddContactMvpView>>
+public class FragmentEventCreateAddContact extends ItimeBaseFragment<EventCreateAddContactMvpView, ContactPresenter<EventCreateAddContactMvpView>>
         implements EventCreateAddContactMvpView, ToolbarInterface{
 
     private FragmentEventCreateAddContactsBinding binding;
@@ -64,7 +65,6 @@ public class FragmentEventCreateAddContact extends ItimeBaseFragment<EventCreate
         super.onActivityCreated(bundle);
         viewModel = new EventCreateAddContactViewModel(getPresenter());
         viewModel.setInvitees(invitees);
-        viewModel.loadData();
         viewModel.setEvent(event);
         binding.setContentVM(viewModel);
         toolbarViewModel = new ToolbarViewModel<>(this);
@@ -81,6 +81,7 @@ public class FragmentEventCreateAddContact extends ItimeBaseFragment<EventCreate
 
     public void onResume(){
         super.onResume();
+        presenter.loadContacts();
     }
 
     public void goToProfileFragment(View view, Contact user) {
@@ -88,8 +89,8 @@ public class FragmentEventCreateAddContact extends ItimeBaseFragment<EventCreate
     }
 
     @Override
-    public EventCreatePresenter<EventCreateAddContactMvpView> createPresenter() {
-        return new EventCreatePresenter<>(getContext());
+    public ContactPresenter<EventCreateAddContactMvpView> createPresenter() {
+        return new ContactPresenter<>(getContext());
     }
 
     @Override
@@ -123,7 +124,10 @@ public class FragmentEventCreateAddContact extends ItimeBaseFragment<EventCreate
     @Override
     public void onTaskSuccess(int taskId, Object data) {
         switch (taskId){
-
+            case ContactPresenter.TAST_ALL_CONTACT:
+                if(data instanceof List)
+                    viewModel.loadData((List<Contact>) data);
+                break;
         }
     }
 

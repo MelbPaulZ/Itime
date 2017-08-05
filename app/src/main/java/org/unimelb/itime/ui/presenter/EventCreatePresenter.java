@@ -48,6 +48,8 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
+import static org.unimelb.itime.ui.presenter.contact.ContactPresenter.TAST_ALL_CONTACT;
+
 /**
  * Created by Paul on 2/6/17.
  */
@@ -70,12 +72,15 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
     public static final int TASK_SYN_IMAGE= 14;
     public static final int TASK_EVENT_FETCH = 15;
     public static final int TASK_EVENT_CREATE = 16;
+    public static final int TASK_REFRESH_EVENT = 17;
 
     public static final String UPDATE_THIS = "this";
     public static final String UPDATE_ALL = "all";
     public static final String UPDATE_FOLLOWING = "following";
 
+
     private static final String TAG = "EventCreatePresenter";
+
 
     private EventApi eventApi;
     private PhotoApi photoApi;
@@ -596,6 +601,30 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
         }else{
 
         }
+    }
+
+    public void refreshEvent(String eventUid){
+        Observable<Event> observable = Observable.create(new Observable.OnSubscribe<Event>() {
+            @Override
+            public void call(Subscriber<? super Event> subscriber) {
+                DBManager dbManager = DBManager.getInstance(context);
+                subscriber.onNext(dbManager.getEvent(eventUid));
+            }
+        });
+        ItimeSubscriber<Event> subscriber = new ItimeSubscriber<Event>() {
+            @Override
+            public void onHttpError(Throwable e) {
+                getView().onTaskError(TASK_REFRESH_EVENT, null);
+            }
+
+            @Override
+            public void onNext(Event result) {
+                if(getView()!=null){
+                    getView().onTaskSuccess(TASK_REFRESH_EVENT, result);
+                }
+            }
+        };
+        HttpUtil.subscribe(observable, subscriber);
     }
 
     private class ImageUploadWrapper{

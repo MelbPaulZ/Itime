@@ -41,7 +41,6 @@ public class MainContactFragment extends ItimeBaseFragment<MainContactsMvpView, 
     private FragmentMainContactsBinding binding;
     private ContactHomePageViewModel viewModel;
 //    private NetworkBarViewModel networkBarViewModel;
-    private ToolbarViewModel toolbarViewModel;
     private SideBarListView contactList;
     private HeaderContactMainListBinding headerBinding;
 
@@ -66,7 +65,6 @@ public class MainContactFragment extends ItimeBaseFragment<MainContactsMvpView, 
         contactList.addHeader(headerBinding.getRoot());
 //        networkBarViewModel = new NetworkBarViewModel();
 //        binding.setNetworkVM(networkBarViewModel);
-        viewModel.loadData();
     }
 
 //    @Subscribe(threadMode = ThreadMode.MAIN)
@@ -86,7 +84,7 @@ public class MainContactFragment extends ItimeBaseFragment<MainContactsMvpView, 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void editContact(MessageEditContact msg){
-        viewModel.loadData();
+        presenter.loadContacts();
     }
 //
 //    @Subscribe(threadMode = ThreadMode.MAIN)
@@ -100,6 +98,7 @@ public class MainContactFragment extends ItimeBaseFragment<MainContactsMvpView, 
 
     public void onResume(){
         super.onResume();
+        presenter.loadContacts();
 //        networkBarViewModel.setShow(!NetworkUtil.getInstance(getContext()).isAvailable());
 //        viewModel.resetView();
     }
@@ -168,10 +167,12 @@ public class MainContactFragment extends ItimeBaseFragment<MainContactsMvpView, 
 
     @Override
     public void onTaskSuccess(int taskId, Object data) {
-//        switch (taskId){
-//            case ContactPresenter.TASK_CONTACTS:
-//                viewModel.setFriendList(data);
-//        }
+        switch (taskId){
+            case ContactPresenter.TAST_ALL_CONTACT:
+                if(data instanceof List)
+                    viewModel.loadData((List<Contact>) data);
+                break;
+        }
     }
 
     @Override

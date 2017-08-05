@@ -63,7 +63,7 @@ public class SideBarListView extends FrameLayout {
     public void setItems(ObservableList<UserInfoViewModel> items){
         this.items = items;
         getPositionMap();
-        myAdapter.addDatas(items);
+        myAdapter.setDatas(items);
     }
 
     public void setItemBinding(ItemBinding itemBinding){

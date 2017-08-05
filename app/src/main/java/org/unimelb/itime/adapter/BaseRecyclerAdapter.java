@@ -45,6 +45,11 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         notifyDataSetChanged();
     }
 
+    public void setDatas(ObservableList<T> datas) {
+        mDatas = datas;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemViewType(int position) {
         if(mHeaderView == null) return TYPE_NORMAL;

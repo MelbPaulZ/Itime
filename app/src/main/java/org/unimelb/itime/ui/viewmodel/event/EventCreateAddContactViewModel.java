@@ -16,6 +16,7 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.ui.mvpview.event.EventCreateAddContactMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
+import org.unimelb.itime.ui.presenter.contact.ContactPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.widget.OnRecyclerItemClickListener;
@@ -32,7 +33,7 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
  */
 
 public class EventCreateAddContactViewModel extends BaseObservable{
-    private EventCreatePresenter presenter;
+    private ContactPresenter presenter;
     private Context context;
     private EventCreateAddContactMvpView mvpView;
     private List<Invitee> invitees = new ArrayList<>();
@@ -51,8 +52,7 @@ public class EventCreateAddContactViewModel extends BaseObservable{
         notifyPropertyChanged(BR.event);
     }
 
-    public void loadData(){
-        List<Contact> contactList = presenter.getContacts();
+    public void loadData(List<Contact> contactList){
         generateContactVM(contactList);
     }
 
@@ -104,15 +104,15 @@ public class EventCreateAddContactViewModel extends BaseObservable{
         this.toolbarViewModel = toolbarViewModel;
     }
 
-    public EventCreateAddContactViewModel(EventCreatePresenter presenter) {
+    public EventCreateAddContactViewModel(ContactPresenter presenter) {
         this.presenter = presenter;
     }
 
-    public EventCreatePresenter getPresenter() {
+    public ContactPresenter getPresenter() {
         return presenter;
     }
 
-    public void setPresenter(EventCreatePresenter presenter) {
+    public void setPresenter(ContactPresenter presenter) {
         this.presenter = presenter;
     }
 

@@ -50,8 +50,7 @@ public class ContactHomePageViewModel extends BaseObservable {
         this.mvpView = mvpView;
     }
 
-    public void loadData(){
-        List<Contact> contactList = presenter.getContacts();
+    public void loadData(List<Contact> contactList){
         generateContactVM(contactList);
         initMenu();
     }
