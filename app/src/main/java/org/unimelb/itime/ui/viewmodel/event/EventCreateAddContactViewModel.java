@@ -64,7 +64,7 @@ public class EventCreateAddContactViewModel extends BaseObservable{
             UserInfoViewModel<Contact> vm = new UserInfoViewModel<>();
             vm.setData(contact);
             contacts.add(vm);
-            contactMap.put(contact.getUserUid(), vm);
+            contactMap.put(contact.getUserDetail().getUserUid(), vm);
         }
 
         for(Invitee invitee:invitees){

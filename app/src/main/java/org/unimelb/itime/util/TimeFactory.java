@@ -41,7 +41,13 @@ public class TimeFactory {
                         +getFormatTimeString(timeSlot.getEndTime(), DAY_MONTH_YEAR);
 
             }else if(isDifferentDay(timeSlot)){
+                result[0] = getFormatTimeString(timeSlot.getStartTime(), HOUR_MIN_A)
+                        +" "
+                        +getFormatTimeString(timeSlot.getStartTime(), WEEK_DAY_MONTH);
 
+                result[1] = getFormatTimeString(timeSlot.getEndTime(), HOUR_MIN_A)
+                        +" "
+                        +getFormatTimeString(timeSlot.getEndTime(), WEEK_DAY_MONTH);
             }else{
                 result[0] = getFormatTimeString(timeSlot.getStartTime(), HOUR_MIN_A)
                         +" → "

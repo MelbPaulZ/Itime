@@ -43,6 +43,8 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     private Event event;
     public final static int REQ_LOCATION = 1001;
 
+    FragmentEventCreateAddInvitee fragmentEventCreateAddInvitee;
+
     @Override
     public EventCreatePresenter<EventCreateMvpView> createPresenter() {
         return new EventCreatePresenter<>(getContext());
@@ -204,7 +206,10 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     @Override
     public void toInvitee(Event event) {
         // click invitee cell
-        Toast.makeText(getContext(), "invitee", Toast.LENGTH_SHORT).show();
+        if(fragmentEventCreateAddInvitee==null)
+            fragmentEventCreateAddInvitee = new FragmentEventCreateAddInvitee();
+        fragmentEventCreateAddInvitee.setEvent(event);
+        getBaseActivity().openFragment(fragmentEventCreateAddInvitee);
     }
 
     @Override
