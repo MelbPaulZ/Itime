@@ -78,6 +78,7 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
     public void refreshEvent(MessageEvent msg){
         if (msg.task == MessageEvent.RELOAD_EVENT){
             monthDayView.setEventPackage(EventManager.getInstance(getContext()).getEventsPackage());
+            monthDayView.refresh();
         }
     }
 

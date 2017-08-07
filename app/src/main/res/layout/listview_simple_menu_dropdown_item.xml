@@ -7,27 +7,32 @@
             type="org.unimelb.itime.bean.SpinnerWrapper"/>
         <import type="android.view.View"/>
     </data>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="18dp"
+        android:orientation="horizontal"
         >
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="64.5dp"
             android:layout_height="wrap_content"
             android:text="@{wrapper.name}"
-            android:textSize="15sp"
-            android:layout_centerVertical="true"
+            android:textSize="16sp"
+            android:gravity="start"
+            android:layout_gravity="center_vertical"
             android:textColor="@{wrapper.isSelecte==1? @color/brightBlue: @color/black}"
             />
         
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginLeft="8dp"
-            android:layout_centerVertical="true"
+            android:layout_width="13dp"
+            android:layout_height="10dp"
+            android:layout_marginStart="7.5dp"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/icon_calendar_check_mark"
             android:visibility="@{wrapper.isSelecte==1? View.VISIBLE: View.INVISIBLE}"/>
-
-    </RelativeLayout>
+    </LinearLayout>
 </layout>

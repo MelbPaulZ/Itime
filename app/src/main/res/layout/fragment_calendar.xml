@@ -97,15 +97,13 @@
             android:visibility="@{calendarVM.showSpinnerMenu ? View.VISIBLE : View.GONE}">
             <!--spinner menu-->
             <org.unimelb.itime.widget.ITimeListView
-                android:layout_width="100dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="48dp"
                 android:background="@drawable/bg_shadow"
                 android:footerDividersEnabled="false"
-                android:paddingEnd="9dp"
-                android:paddingStart="9dp"
                 android:visibility="@{calendarVM.showSpinnerMenu ? View.VISIBLE : View.GONE}"
                 app:itemBinding="@{calendarVM.menuItemView}"
                 app:items="@{calendarVM.menuItems}"

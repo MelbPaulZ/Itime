@@ -20,6 +20,8 @@ import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
+import org.unimelb.itime.ui.presenter.EventCreatePresenter;
+import org.unimelb.itime.util.EventUtil;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -35,7 +37,7 @@ import david.itimecalendar.calendar.util.MyCalendar;
  * Created by yuhaoliu on 8/06/2017.
  */
 
-public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, CalendarPresenter<CalendarMvpView>> implements ToolbarInterface {
+public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, EventCreatePresenter<CalendarMvpView>> implements ToolbarInterface {
     private View root;
     private EventManager eventManager;
     private WeekView weekView;
@@ -51,8 +53,8 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
     }
 
     @Override
-    public CalendarPresenter<CalendarMvpView> createPresenter() {
-        return new CalendarPresenter<>(getContext());
+    public EventCreatePresenter<CalendarMvpView> createPresenter() {
+        return new EventCreatePresenter<>(getContext());
     }
 
     @Override
@@ -98,7 +100,8 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
 
         @Override
         public boolean isDraggable(DraggableEventView draggableEventView) {
-            return true;
+            Event event = (Event) draggableEventView.getEvent();
+            return event.getEventType().equals(Event.EVENT_TYPE_SOLO);
         }
 
         @Override
@@ -128,9 +131,12 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
 
         @Override
         public void onEventDragDrop(DraggableEventView draggableEventView) {
-            Event event = (Event) draggableEventView.getEvent();
-            event.setStartTime(draggableEventView.getStartTimeM());
-            event.setEndTime(draggableEventView.getEndTimeM());
+            final Event originEvent = (Event) draggableEventView.getEvent();
+            EventUtil.updateSoloEvent(
+                    originEvent,
+                    draggableEventView.getStartTimeM(),
+                    draggableEventView.getEndTimeM(),
+                    presenter);
         }
 
         @Override
