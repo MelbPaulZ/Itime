@@ -85,6 +85,7 @@ public class EventDetailViewModel extends BaseObservable{
     private boolean showCantGoVoteButton;
     private boolean showSubmitVoteButton;
     private boolean showSubmitVoteDisableButton;
+    private boolean soloEvent = false;
 
     private ObjectAnimator bottomSheetHeaderShowAnimator;
     private ObjectAnimator bottomSheetHeaderHideAnimator;
@@ -109,11 +110,22 @@ public class EventDetailViewModel extends BaseObservable{
     }
 
     @Bindable
+    public boolean isSoloEvent() {
+        return soloEvent;
+    }
+
+    public void setSoloEvent(boolean soloEvent) {
+        this.soloEvent = soloEvent;
+        notifyPropertyChanged(BR.soloEvent);
+    }
+
+    @Bindable
     public int getStatus() {
         return status;
     }
 
     public void setStatus(Event event) {
+
         if(event.getStatus().equals(Event.STATUS_CANCELLED)){
             status = STATUS_CANCELED;
         }
@@ -765,6 +777,8 @@ public class EventDetailViewModel extends BaseObservable{
 
     public void setEvent(Event event) {
         this.event = event;
+
+        setSoloEvent(event.getEventType().equals(Event.TYPE_SOLO));
 
         if (event.getPhoto() != null){
             setPhotoUrls(event.getPhoto());
