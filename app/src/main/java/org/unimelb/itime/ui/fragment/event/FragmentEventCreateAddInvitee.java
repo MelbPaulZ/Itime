@@ -79,6 +79,7 @@ public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreate
     @Override
     public void onResume() {
         super.onResume();
+        contentVM.setEvent(event);
         contentVM.loadData();
     }
 

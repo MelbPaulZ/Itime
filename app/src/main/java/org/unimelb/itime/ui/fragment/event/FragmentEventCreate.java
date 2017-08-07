@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.GravityEnum;
@@ -41,6 +42,8 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     private ToolbarViewModel toolbarViewModel;
     private Event event;
     public final static int REQ_LOCATION = 1001;
+
+    FragmentEventCreateAddInvitee fragmentEventCreateAddInvitee;
 
     @Override
     public EventCreatePresenter<EventCreateMvpView> createPresenter() {
@@ -198,6 +201,15 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     @Override
     public void showPopupDialog(int startOrEnd) {
 
+    }
+
+    @Override
+    public void toInvitee(Event event) {
+        // click invitee cell
+        if(fragmentEventCreateAddInvitee==null)
+            fragmentEventCreateAddInvitee = new FragmentEventCreateAddInvitee();
+        fragmentEventCreateAddInvitee.setEvent(event);
+        getBaseActivity().openFragment(fragmentEventCreateAddInvitee);
     }
 
     @Override

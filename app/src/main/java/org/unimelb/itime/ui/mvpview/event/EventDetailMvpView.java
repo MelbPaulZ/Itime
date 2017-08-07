@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by Paul on 4/09/2016.
  */
-public interface EventDetailMvpView extends TaskBasedMvpView<List<Event>>, ItimeCommonMvpView {
+public interface EventDetailMvpView extends TaskBasedMvpView, ItimeCommonMvpView {
     void viewInCalendar();
     void viewInviteeResponse(TimeSlot timeSlot);
     void gotoGridView();

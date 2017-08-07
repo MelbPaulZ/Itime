@@ -2,6 +2,7 @@ package org.unimelb.itime.ui.fragment.event;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.databinding.ObservableList;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,12 +15,17 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.databinding.DialogEventDetailNoteBinding;
 import org.unimelb.itime.databinding.FragmentEventDetailBinding;
+import org.unimelb.itime.messageevent.MessageEvent;
+import org.unimelb.itime.messageevent.MessageNewFriendRequest;
 import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.mvpview.event.EventDetailMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
@@ -55,8 +61,6 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
 
     // for display invitee response page
 //    private Map<String, List<EventUtil.StatusKeyStruct>> replyData = null;
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,6 +72,14 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     public EventCreatePresenter<EventDetailMvpView> createPresenter() {
         return new EventCreatePresenter<>(getContext());
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void doEventMessage(MessageEvent messageEvent){
+        if(messageEvent.task==MessageEvent.RELOAD_EVENT && event!=null) {
+           presenter.refreshEvent(event.getEventUid());
+        }
+    }
+
 
     private void initStatusBar(){
         getActivity().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -90,11 +102,11 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         contentViewModel = new EventDetailViewModel(getPresenter());
         contentViewModel.setEvent(event);
         contentViewModel.setShowEventDetailTips(false);
-        initData();
         initToolbar();
         initAllNotePop();
         binding.setContentVM(contentViewModel);
         contentViewModel.setToolbarCollapseColor(getResources().getColor(R.color.lightBlueTwo));
+        EventBus.getDefault().register(this);
 //        initBottomSheet();
     }
 
@@ -102,23 +114,15 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
 
     public void setData(Event event) {
         this.event = event;
+        if(contentViewModel!=null){
+            contentViewModel.setEvent(event);
+        }
     }
 
 //    public void setData(Event event, List<WrapperTimeSlot> wrapperList){
 //        this.event = event;
 //        this.wrapperTimeSlotList = wrapperList;
 //    }
-
-    private void initData(){
-//        if (event.getEventType().equals(Event.TYPE_SOLO)){
-//            // if solo event, dont need init followings
-//            return;
-//        }
-        initInvitee();
-        initInviteeReplies();
-        initTimeslots();
-
-    }
 
     private void initAllNotePop(){
         allNotePop = new ModalPopupView(getContext());
@@ -127,36 +131,6 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         View content = noteBinding.getRoot();
         allNotePop.setContentView(content);
         allNotePop.setBackground(getResources().getDrawable(R.color.mask_cover));
-    }
-
-    private void initInvitee(){
-        // it needs to be puted on the begining, otherwise won't initialize
-//        contentViewModel.generateInviteeList(EventUtil.getInviteeWithStatus(event.getInvitee(), Invitee.STATUS_ACCEPTED));
-    }
-
-    private void initTimeslots(){
-//        if (wrapperTimeSlotList==null){
-//            contentViewModel.setWrapperTimeSlotList(timeslotVMList);
-//            return;
-//        }
-//        // if wrapperTimeslotList is not null, then initialise based on wrapperTimeslots
-//        timeslotVMList = new ArrayList<>();
-//        for (WrapperTimeSlot wrapper: wrapperTimeSlotList){
-//            SubTimeslotViewModel vm = new SubTimeslotViewModel(this);
-//            vm.setWrapper(wrapper);
-//            vm.setHostEvent(EventUtil.isUserHostOfEvent(getContext(), event));
-//            vm.setInviteeVisibility(
-//                    event.getInviteeVisibility() == 0 && !EventUtil.isUserHostOfEvent(getContext(), event)? 0:1);
-//            vm.setReplyData(replyData);
-//            vm.setIconSelected(wrapper.isSelected());
-//            timeslotVMList.add(vm);
-//        }
-//        contentViewModel.setWrapperTimeSlotList(timeslotVMList);
-
-    }
-
-    private void initInviteeReplies(){
-//        replyData = EventUtil.getAdapterData(event);
     }
 
     private void initToolbar(){
@@ -254,40 +228,6 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
 //        getBaseActivity().openFragment(fragment);
     }
 
-//    @Override
-//    public void onTimeslotClick(WrapperTimeSlot wrapper) {
-//        // this wrapper has been changed, if host, then has already two selected wrappers
-//        if (EventUtil.isUserHostOfEvent(getContext(), event)){
-//            if (wrapper.isSelected() && TimeSlotUtil.numberSelectedWrapper(timeslotVMList) >1){
-//                unselectWrappersExclude(wrapper);
-//            }
-//        }
-//
-//        // two people event can only select one timeslot, need to unselect other timeslots
-//        if (!EventUtil.isUserHostOfEvent(getContext(), event)){
-//            if (wrapper.isSelected()
-//                    && TimeSlotUtil.numberSelectedWrapper(timeslotVMList) > 1
-//                    && event.getInvitee().size() == 2){
-//                unselectWrappersExclude(wrapper);
-//            }
-//        }
-//        contentViewModel.setWrapperTimeSlotList(timeslotVMList);
-//    }
-
-//    /**
-//     * this method unselect other timeslots, if the host select more than one timeslots
-//     * @param exclusiveWrapper
-//     */
-//    private void unselectWrappersExclude(WrapperTimeSlot exclusiveWrapper){
-//        for (SubTimeslotViewModel viewModel: timeslotVMList){
-//            WrapperTimeSlot wrapperTimeSlot = viewModel.getWrapper();
-//            if (!wrapperTimeSlot.equals(exclusiveWrapper)){
-//                wrapperTimeSlot.setSelected(false);
-//                viewModel.setIconSelected(false);
-//            }
-//        }
-//    }
-
     @Override
     public void toResponse() {
 //        EventResponseFragment eventResponseFragment = new EventResponseFragment();
@@ -330,8 +270,14 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     }
 
     @Override
-    public void onTaskSuccess(int taskId, List<Event> data) {
+    public void onTaskSuccess(int taskId, Object data) {
         hideProgressDialog();
+        switch (taskId){
+            case EventCreatePresenter.TASK_REFRESH_EVENT:
+                if(contentViewModel!=null && data instanceof Event){
+                    setData(event);
+                }
+        }
 //        if (taskId == EventPresenter.TASK_TIMESLOT_ACCEPT){
 //            toCalendar(Activity.RESULT_OK);
 //        }else if (taskId == EventPresenter.TASK_EVENT_CONFIRM){
@@ -400,6 +346,8 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     @Override
     public void onResume(){
         super.onResume();
+        if(event!=null)
+            presenter.refreshEvent(event.getEventUid());
 //        initTips();
 //        if(timeslotShow) {
 //            bottomSheet.show();
@@ -408,7 +356,13 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
 //        }
     }
 
-//    public void initBottomSheet(){
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    //    public void initBottomSheet(){
 //        final TextView show=binding.showButton;
 //        bottomSheet =binding.multibottomlayout;
 //        show.setOnClickListener(

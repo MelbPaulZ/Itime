@@ -91,11 +91,12 @@ public class FragmentEventDetailConfirm extends ItimeBaseFragment<EventDetailCon
 
     @Override
     public void onTaskStart(int taskId) {
-
+        showProgressDialog();
     }
 
     @Override
     public void onTaskSuccess(int taskId, List<Event> data) {
+        hideProgressDialog();
         switch (taskId){
             case EventCreatePresenter.TASK_EVENT_CONFIRM:
                 getBaseActivity().onBackPressed();
@@ -105,7 +106,7 @@ public class FragmentEventDetailConfirm extends ItimeBaseFragment<EventDetailCon
 
     @Override
     public void onTaskError(int taskId, Object data) {
-
+        hideProgressDialog();
     }
 
     @Override

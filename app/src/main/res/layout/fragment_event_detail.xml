@@ -193,7 +193,7 @@
                             android:layout_marginTop="@dimen/s1"
                             android:paddingRight="@dimen/s1"
                             android:paddingLeft="@dimen/s1"
-                            android:visibility="@{contentVM.eventTimeString.empty?View.GONE:View.VISIBLE}"
+                            android:visibility="@{contentVM.status == contentVM.STATUS_CONFIRMED &amp; contentVM.eventTimeString.empty?View.GONE:View.VISIBLE}"
                             >
                             <TextView
                                 android:layout_width="wrap_content"

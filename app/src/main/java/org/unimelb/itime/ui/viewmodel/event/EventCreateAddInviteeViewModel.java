@@ -14,10 +14,12 @@ import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.ui.mvpview.event.EventCreateAddInviteeMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
+import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.widget.OnRecyclerItemClickListener;
 import org.unimelb.itime.widget.listview.UserInfoViewModel;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +38,7 @@ public class EventCreateAddInviteeViewModel extends BaseObservable {
     private List<Invitee> invitees = new ArrayList<>();
     private ObservableList<UserInfoViewModel> inviteeItems = new ObservableArrayList<>();
     private ToolbarViewModel toolbarViewModel;
+    private Invitee selfInvitee;
     private boolean canSeeEachOther = true;
 
     @Bindable
@@ -80,12 +83,16 @@ public class EventCreateAddInviteeViewModel extends BaseObservable {
         inviteeItems.clear();
 
         for(Invitee invitee: invitees){
-            UserInfoViewModel<Invitee> vm = new UserInfoViewModel<>();
-            vm.setData(invitee);
-            vm.setSelect(true);
-            inviteeItems.add(vm);
+            if(!invitee.getInviteeUid().equals(event.getSelf())) {
+                UserInfoViewModel<Invitee> vm = new UserInfoViewModel<>();
+                vm.setData(invitee);
+                vm.setSelect(true);
+                inviteeItems.add(vm);
+            }else{
+                selfInvitee = invitee;
+            }
         }
-
+        invitees.remove(selfInvitee);
         nextEnable(!inviteeItems.isEmpty());
     }
 
@@ -95,9 +102,8 @@ public class EventCreateAddInviteeViewModel extends BaseObservable {
             @Override
             public void onItemClick(View view, int position) {
                 UserInfoViewModel<Invitee> invitee = inviteeItems.get(position);
-
                 if(invitees.contains(invitee.getData())){
-                    invitees.remove(invitee.getData().getInviteeUid());
+                    invitees.remove(invitee.getData());
                     inviteeItems.remove(invitee);
                 }
                 nextEnable(!inviteeItems.isEmpty());
@@ -152,6 +158,8 @@ public class EventCreateAddInviteeViewModel extends BaseObservable {
 
     public void setEvent(Event event) {
         this.event = event;
+        invitees.clear();
+        invitees.addAll(event.getInvitee().values());
     }
 
     public List<Invitee> getInvitees() {
@@ -182,9 +190,24 @@ public class EventCreateAddInviteeViewModel extends BaseObservable {
 
     public Event getEditedEvent(){
         event.getInvitee().clear();
-        for(Invitee invitee: invitees){
-            event.getInvitee().put(invitee.getUserUid(), invitee);
+        HashMap<String, Invitee> newInvitees = new HashMap<>();
+        HashMap<String, Invitee> oldInvitees = new HashMap<>();
+
+        for(Invitee invitee: event.getInvitee().values()){
+            oldInvitees.put(invitee.getUserId(), invitee);
         }
+
+        for(Invitee invitee: invitees){
+            if(oldInvitees.containsKey(invitee.getUserId())){
+                Invitee old = oldInvitees.get((invitee.getUserId()));
+                newInvitees.put(old.getInviteeUid(), old);
+            }else{
+                newInvitees.put(invitee.getUserId(), invitee);
+            }
+        }
+
+        newInvitees.put(selfInvitee.getInviteeUid(), selfInvitee);
+        event.setInvitee(newInvitees);
         return event;
     }
 }

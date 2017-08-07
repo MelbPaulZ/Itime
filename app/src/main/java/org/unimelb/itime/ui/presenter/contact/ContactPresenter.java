@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
+import rx.Subscriber;
 
 /**
  * Created by Qiushuo Huang on 2017/6/21.
@@ -35,6 +36,7 @@ public class ContactPresenter<T extends TaskBasedMvpView> extends MvpBasePresent
     public static final int TASK_SEARCH_USER = 1112;
     public static final int TASK_INVITE = 1113;
     public static final int TASK_MYSELF = 1114;
+    public static final int TAST_ALL_CONTACT = 1115;
     public static final int ERROR_INVALID_EMAIL = 2224;
     private Context context;
     private UserApi userApi;
@@ -139,54 +141,27 @@ public class ContactPresenter<T extends TaskBasedMvpView> extends MvpBasePresent
 //        }
     }
 
-    public List<Contact> getContacts(){
+    public void loadContacts(){
+        Observable<List<Contact>> observable = Observable.create(new Observable.OnSubscribe<List<Contact>>() {
+            @Override
+            public void call(Subscriber<? super List<Contact>> subscriber) {
+                DBManager dbManager = DBManager.getInstance(context);
+                subscriber.onNext(dbManager.getAllContact());
+            }
+        });
+        ItimeSubscriber<List<Contact>> subscriber = new ItimeSubscriber<List<Contact>>() {
+            @Override
+            public void onHttpError(Throwable e) {
+                getView().onTaskError(TASK_INVITE, null);
+            }
 
-        DBManager dbManager = DBManager.getInstance(context);
-        return dbManager.getAllContact();
-
-//        List<Contact> contacts = new ArrayList<>();
-//        Contact contact1 = new Contact();
-//        contact1.setAliasName("a");
-//        contact1.setAliasPhoto("http://avatar.csdn.net/A/9/C/1_waldmer.jpg");
-//        contact1.setContactUid("1");
-//
-//        Contact contact2 = new Contact();
-//        contact2.setAliasName("b");
-//        contact2.setAliasPhoto("http://avatar.csdn.net/A/9/C/1_waldmer.jpg");
-//        contact2.setContactUid("2");
-//
-//        Contact contact3 = new Contact();
-//        contact3.setAliasName("c");
-//        contact3.setAliasPhoto("http://avatar.csdn.net/A/9/C/1_waldmer.jpg");
-//        contact3.setContactUid("3");
-//
-//        Contact contact4 = new Contact();
-//        contact4.setAliasName("d");
-//        contact4.setAliasPhoto("http://avatar.csdn.net/A/9/C/1_waldmer.jpg");
-//        contact4.setContactUid("4");
-//
-//        Contact contact5 = new Contact();
-//        contact5.setAliasName("ad");
-//        contact5.setAliasPhoto("http://avatar.csdn.net/A/9/C/1_waldmer.jpg");
-//        contact5.setContactUid("5");
-//
-//        contacts.add(contact1);
-//        contacts.add(contact5);
-//        contacts.add(contact2);
-//        contacts.add(contact3);
-//        contacts.add(contact4);
-//
-//        int i=0;
-//        for(Contact contact:contacts){
-//            User user = new User();
-//            user.setEmail("123456@unimelb.edu.au");
-//            user.setUserId("123456@unimelb.edu.au");
-//            user.setUserUid(i+"");
-//            i++;
-//            contact.setUserUid(i+"");
-//            contact.setUserDetail(user);
-//        }
-//
-//        return contacts;
+            @Override
+            public void onNext(List<Contact> result) {
+                if(getView()!=null){
+                    getView().onTaskSuccess(TAST_ALL_CONTACT, result);
+                }
+            }
+        };
+        HttpUtil.subscribe(observable, subscriber);
     }
 }
