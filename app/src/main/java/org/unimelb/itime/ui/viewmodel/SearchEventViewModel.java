@@ -4,6 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -82,6 +83,7 @@ public class SearchEventViewModel extends BaseObservable {
                 refreshResultHint();
                 clearResults();
                 presenter.search(searchStr);
+                Log.i("Search", "afterTextChanged: ");
             }
         };
     }

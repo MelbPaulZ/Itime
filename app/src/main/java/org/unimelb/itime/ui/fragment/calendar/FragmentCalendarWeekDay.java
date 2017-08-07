@@ -37,7 +37,7 @@ import david.itimecalendar.calendar.util.MyCalendar;
  * Created by yuhaoliu on 8/06/2017.
  */
 
-public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, EventCreatePresenter<CalendarMvpView>> implements ToolbarInterface {
+public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, EventCreatePresenter<CalendarMvpView>> implements CalendarMvpView, ToolbarInterface {
     private View root;
     private EventManager eventManager;
     private WeekView weekView;
@@ -106,10 +106,12 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
 
         @Override
         public void onEventCreate(DraggableEventView draggableEventView) {
+            Intent intent = new Intent(getActivity(), EventCreateActivity.class);
             Event event = new Event();
             event.setStartTime(draggableEventView.getStartTimeM());
             event.setEndTime(draggableEventView.getEndTimeM());
-            eventManager.addEvent(event);
+            intent.putExtra("Event", event);
+            startActivityForResult(intent, EventCreateActivity.CREATE_EVENT);
         }
 
         @Override
@@ -166,6 +168,7 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+        weekView.refresh();
     }
 
     @Override
@@ -178,5 +181,23 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
         if (weekView != null){
             weekView.scrollToDate(new Date());
         }
+    }
+
+    @Override
+    public void onTaskStart(int taskId) {
+
+    }
+
+    @Override
+    public void onTaskSuccess(int taskId, Object data) {
+        switch (taskId){
+            default:
+                weekView.refresh();
+        }
+    }
+
+    @Override
+    public void onTaskError(int taskId, Object data) {
+
     }
 }

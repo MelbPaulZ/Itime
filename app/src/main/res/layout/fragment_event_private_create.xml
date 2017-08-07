@@ -104,7 +104,7 @@
                     <TextView
                         android:id="@+id/solo_all_day_start"
                         android:layout_width="wrap_content"
-                        android:layout_height="19dp"
+                        android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="45dp"
                         android:minWidth="104dp"
@@ -125,7 +125,7 @@
                     <!--end date-->
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="19dp"
+                        android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="35dp"
                         android:layout_toEndOf="@id/solo_all_day_time_arrow"
@@ -169,7 +169,7 @@
                     <TextView
                         android:id="@+id/solo_start_date"
                         android:layout_width="100dp"
-                        android:layout_height="17dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="45dp"
                         android:text="@{vm.getEventStartDate(vm.event)}"
                         android:textColor="@color/blackTwo"
@@ -200,7 +200,7 @@
                     <TextView
                         android:id="@+id/solo_end_time"
                         android:layout_width="wrap_content"
-                        android:layout_height="17dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="70dp"
                         android:layout_toRightOf="@id/solo_start_date"
                         android:text="@{vm.getEventEndDate(vm.event)}"

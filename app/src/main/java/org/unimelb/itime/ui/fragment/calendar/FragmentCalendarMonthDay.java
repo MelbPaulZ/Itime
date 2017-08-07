@@ -1,11 +1,9 @@
 package org.unimelb.itime.ui.fragment.calendar;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +19,7 @@ import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.activity.EventDetailActivity;
-import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
-import org.unimelb.itime.ui.presenter.CalendarPresenter;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.util.EventUtil;
 
@@ -31,9 +27,6 @@ import java.util.Date;
 
 import david.itimecalendar.calendar.listeners.ITimeCalendarMonthDayViewListener;
 import david.itimecalendar.calendar.listeners.ITimeEventInterface;
-
-import david.itimecalendar.calendar.ui.monthview.DayViewBody;
-import david.itimecalendar.calendar.ui.monthview.EventController;
 import david.itimecalendar.calendar.ui.monthview.MonthView;
 import david.itimecalendar.calendar.ui.unitviews.DraggableEventView;
 import david.itimecalendar.calendar.util.MyCalendar;
@@ -160,6 +153,11 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
         public void onDateChanged(Date date) {
             onDateChanged.onDateChanged(date);
         }
+
+        @Override
+        public void onHeaderFlingDateChanged(Date date) {
+            EventManager.getInstance(getContext()).syncRepeatedEvent(date.getTime());
+        }
     };
 
     @Override
@@ -175,9 +173,8 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
     @Override
     public void onStart() {
         super.onStart();
-
         EventBus.getDefault().register(this);
-
+        monthDayView.refresh();
         Log.i(TAG, "onStart: " + "FragmentCalendarMonthDay");
     }
 
@@ -214,7 +211,10 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
 
     @Override
     public void onTaskSuccess(int taskId, Object data) {
-        monthDayView.refresh();
+        switch (taskId){
+            default:
+                monthDayView.refresh();
+        }
     }
 
     @Override

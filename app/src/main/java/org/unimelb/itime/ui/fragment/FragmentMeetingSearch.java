@@ -1,5 +1,6 @@
 package org.unimelb.itime.ui.fragment;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.databinding.FragmentSearchBinding;
+import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.mvpview.activity.SearchMvpView;
 import org.unimelb.itime.ui.presenter.SearchPresenter;
 import org.unimelb.itime.ui.viewmodel.SearchViewModel;
@@ -88,12 +90,16 @@ public class FragmentMeetingSearch extends ItimeBaseFragment<SearchMvpView, Sear
 
     @Override
     public void onMeetingClick(Meeting meeting) {
-
+        Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+        intent.putExtra(EventDetailActivity.EVENT, meeting.getEvent());
+        getActivity().startActivity(intent);
     }
 
     @Override
     public void onEventClick(Event event) {
-
+        Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+        intent.putExtra(EventDetailActivity.EVENT, event);
+        getActivity().startActivity(intent);
     }
 
     @Override

@@ -116,7 +116,6 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
             public void onNext(HttpResult<List<Event>> result) {
                 updateEventToken(result.getSyncToken());
                 synchronizeLocal(result.getData());
-//                EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_EVENT));
                 if(getView() != null){
                     getView().onTaskSuccess(TASK_EVENT_CREATE, result.getData());
                 }
@@ -189,43 +188,6 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
         }
         //need update DB after update Eventmanager
         DBManager.getInstance(getContext()).insertOrReplace(Arrays.asList(ev));
-    }
-
-
-    public void insertEvent(Event event){
-        if (getView()!=null){
-            getView().onTaskStart(TASK_EVENT_INSERT);
-        }
-//        recordScrollTime(event.getStartTime());
-        String syncToken = TokenUtil.getInstance(context).getEventToken(UserUtil.getInstance(context).getUserUid());
-        Observable<HttpResult<List<Event>>> observable = eventApi.insert(event, syncToken);
-        ItimeSubscriber<HttpResult<List<Event>>> subscriber = new ItimeSubscriber<HttpResult<List<Event>>>() {
-            @Override
-            public void onHttpError(Throwable e) {
-                if(getView() != null){
-                    getView().onTaskError(TASK_EVENT_INSERT, null);
-                }
-            }
-
-            @Override
-            public void onNext(HttpResult<List<Event>> eventHttpResult) {
-                Event ev = eventHttpResult.getData().get(0);
-                updateEventToken(eventHttpResult.getSyncToken());
-                synchronizeLocal(ev);
-
-                EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_EVENT));
-
-                if(getView() != null){
-                    getView().onTaskSuccess(TASK_EVENT_INSERT, eventHttpResult.getData());
-                }
-
-                // if the event is successfully insertOrReplace into server, then begin to upload photos
-//                if (ev.hasPhoto()){
-//                    uploadImage(ev);
-//                }
-            }
-        };
-        HttpUtil.subscribe(observable,subscriber);
     }
 
     public void deleteEvent(Event event, String type, long orgStartTime) {

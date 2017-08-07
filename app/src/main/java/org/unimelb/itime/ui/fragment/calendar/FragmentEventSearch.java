@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,13 +52,10 @@ public class FragmentEventSearch extends ItimeBaseFragment<SearchEventMvpView, S
 
     private RecyclerView eventRecyclerView;
 
-    private AgendaViewBody.OnEventClickListener onEventClickListener = new AgendaViewBody.OnEventClickListener() {
-        @Override
-        public void onEventClick(ITimeEventInterface iTimeEventInterface) {
-            Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-            intent.putExtra(EventDetailActivity.EVENT, (Event)iTimeEventInterface);
-            getActivity().startActivity(intent);
-        }
+    private AgendaViewBody.OnEventClickListener onEventClickListener = iTimeEventInterface -> {
+        Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+        intent.putExtra(EventDetailActivity.EVENT, (Event)iTimeEventInterface);
+        getActivity().startActivity(intent);
     };
 
     private RecyclerView.Adapter adapter = new RecyclerView.Adapter() {
@@ -153,7 +151,6 @@ public class FragmentEventSearch extends ItimeBaseFragment<SearchEventMvpView, S
         this.map.clear();
         this.map.addAll(result);
         this.adapter.notifyDataSetChanged();
-        binding.invalidateAll();
     }
 
     @Override
