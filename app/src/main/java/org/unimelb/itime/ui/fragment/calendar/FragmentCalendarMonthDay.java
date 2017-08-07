@@ -1,9 +1,11 @@
 package org.unimelb.itime.ui.fragment.calendar;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,7 @@ import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
+import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.util.EventUtil;
 
 import java.util.Date;
@@ -39,7 +42,7 @@ import david.itimecalendar.calendar.util.MyCalendar;
  * Created by yuhaoliu on 8/06/2017.
  */
 
-public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView, CalendarPresenter<CalendarMvpView>> implements ToolbarInterface {
+public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView, EventCreatePresenter<CalendarMvpView>> implements CalendarMvpView, ToolbarInterface {
     private static final String TAG = "lifecycle";
     private View root;
     private EventManager eventManager;
@@ -57,8 +60,8 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
     }
 
     @Override
-    public CalendarPresenter<CalendarMvpView> createPresenter() {
-        return new CalendarPresenter<>(getContext());
+    public EventCreatePresenter<CalendarMvpView> createPresenter() {
+        return new EventCreatePresenter<>(getContext());
     }
 
     @Override
@@ -99,7 +102,8 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
 
         @Override
         public boolean isDraggable(DraggableEventView draggableEventView) {
-            return true;
+            Event event = (Event) draggableEventView.getEvent();
+            return event.getEventType().equals(Event.EVENT_TYPE_SOLO);
         }
 
         @Override
@@ -131,11 +135,12 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
 
         @Override
         public void onEventDragDrop(DraggableEventView draggableEventView) {
-            Event event = (Event) draggableEventView.getEvent();
-            event.setStartTime(draggableEventView.getStartTimeM());
-            event.setEndTime(draggableEventView.getEndTimeM());
-
-            EventManager.getInstance(getContext()).insertOrUpdate(event);
+            final Event originEvent = (Event) draggableEventView.getEvent();
+            EventUtil.updateSoloEvent(
+                    originEvent,
+                    draggableEventView.getStartTimeM(),
+                    draggableEventView.getEndTimeM(),
+                    presenter);
         }
 
         @Override
@@ -199,5 +204,20 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
         if (monthDayView != null){
             monthDayView.scrollToDate(new Date());
         }
+    }
+
+    @Override
+    public void onTaskStart(int taskId) {
+
+    }
+
+    @Override
+    public void onTaskSuccess(int taskId, Object data) {
+        monthDayView.refresh();
+    }
+
+    @Override
+    public void onTaskError(int taskId, Object data) {
+
     }
 }

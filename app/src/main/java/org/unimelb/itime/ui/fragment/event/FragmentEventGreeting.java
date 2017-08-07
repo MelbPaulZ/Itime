@@ -21,6 +21,7 @@ import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.presenter.LocalPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.event.EventGreetingViewModel;
+import org.unimelb.itime.util.EventUtil;
 
 /**
  * Created by Paul on 21/6/17.
@@ -74,6 +75,7 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
             event.setEventType(Event.TYPE_GROUP);
             presenter.createEvent(event);
         }else if (getActivity() instanceof EventDetailActivity){
+            EventUtil.generateGroupEventAttributes(getContext(), event);
             presenter.updateEvent(event);
         }
     }
