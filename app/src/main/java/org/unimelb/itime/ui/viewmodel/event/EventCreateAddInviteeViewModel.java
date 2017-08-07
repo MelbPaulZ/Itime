@@ -206,7 +206,8 @@ public class EventCreateAddInviteeViewModel extends BaseObservable {
             }
         }
 
-        newInvitees.put(selfInvitee.getInviteeUid(), selfInvitee);
+        if(selfInvitee!=null)
+            newInvitees.put(selfInvitee.getInviteeUid(), selfInvitee);
         event.setInvitee(newInvitees);
         return event;
     }
