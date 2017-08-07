@@ -127,9 +127,7 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
     }
 
     public void updateEvent(Event event){
-        if (event.getEventType().equals(Event.TYPE_GROUP)){
-            EventUtil.generateGroupEventAttributes(getContext(), event);
-        }
+
         Event orgEvent = DBManager.getInstance(getContext()).getEvent(event.getEventUid());
 
         String syncToken = TokenUtil.getInstance(getContext()).getEventToken(UserUtil.getInstance(getContext()).getUserUid());
