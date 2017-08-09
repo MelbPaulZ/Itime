@@ -272,7 +272,12 @@
     <string name="edit_alias_alert_msg">Alias should be %1$d to %2$d letters</string>
     <string name="edit_name_alert_msg">Name should be %1$d to %2$d letters</string>
     <string name="edit_alias_alert">Too long alias</string>
-
+    <string name="dialog_delete_contact_title">Delete this contact?</string>
+    <string name="dialog_delete_contact_message">This person will no longer show in your contact list but can still invite you to events</string>
+    <string name="dialog_block_contact_title">Block this contact?</string>
+    <string name="dialog_block_contact_message">People you block can no longer: \n• Invite you to any events</string>
+    <string name="dialog_block_block">Block</string>
+    <string name="dialog_delete_delete">Delete</string>
     <string name="transition_name_avatar">transition_name_avatar</string>
     <string name="morefriends_title">Find More Friends</string>
     <string name="morefriends_search_by_email">Search by Email</string>

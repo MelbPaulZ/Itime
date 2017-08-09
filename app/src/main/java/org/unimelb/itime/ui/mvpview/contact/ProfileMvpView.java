@@ -18,4 +18,8 @@ public interface ProfileMvpView extends ItimeBaseMvpView, TaskBasedMvpView {
     void goToInviteFragment();
 
     void goToEditAlias();
+
+    void showBlockDialog();
+
+    void showDeleteDialog();
 }

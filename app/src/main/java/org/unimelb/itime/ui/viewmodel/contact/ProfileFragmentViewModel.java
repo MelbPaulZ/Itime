@@ -36,7 +36,7 @@ public class ProfileFragmentViewModel extends BaseObservable {
     private String name = "";
     private String phone = "";
     private String photo = "";
-    private boolean blocked = true;
+    private boolean blocked = false;
     private boolean alreadyContact = true;
     private boolean showAdd = false;
     private boolean showInvite = false;
@@ -78,7 +78,7 @@ public class ProfileFragmentViewModel extends BaseObservable {
         menuItem.add(new PopupMenu.Item(R.drawable.icon_contacts_edit,
                 presenter.getContext().getResources().getString(R.string.profile_edit_alias)));
 
-        if(blocked) {
+        if(!blocked) {
             menuItem.add(new PopupMenu.Item(R.drawable.icon_contacts_block_black,
                     presenter.getContext().getResources().getString(R.string.profile_block)));
         }else{
@@ -105,13 +105,13 @@ public class ProfileFragmentViewModel extends BaseObservable {
                         break;
                     case 1:
                         if(!getBlocked()){
-                            presenter.blockUser(contact);
+                            mvpView.showBlockDialog();
                         } else {
                             presenter.unblockUser(contact);
                         }
                         break;
                     case 2:
-                        presenter.deleteUser(contact);
+                        mvpView.showDeleteDialog();
                         break;
                 }
             }
@@ -292,6 +292,7 @@ public class ProfileFragmentViewModel extends BaseObservable {
         setBlocked(contact.getBlockLevel()!=0);
         setShowGender(!contact.getUserDetail().getGender().equals(User.UNDEFINED));
         setGenderIcon(contact.getUserDetail().getGender());
+
     }
 
     @Bindable
@@ -309,6 +310,7 @@ public class ProfileFragmentViewModel extends BaseObservable {
         setShowEdit(true);
         setShowRealName(true);
         setShowInvite(true);
+        setAlreadyContact(true);
     }
 
     public void requestMode(){
@@ -327,6 +329,7 @@ public class ProfileFragmentViewModel extends BaseObservable {
         }
         setShowEdit(false);
         setShowRealName(false);
+        setAlreadyContact(false);
     }
 
     public void strangerMode(){
@@ -345,6 +348,7 @@ public class ProfileFragmentViewModel extends BaseObservable {
         }
         setShowEdit(false);
         setShowRealName(false);
+        setAlreadyContact(false);
     }
 
     public View.OnClickListener getEditAliasListener(){
