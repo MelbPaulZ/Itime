@@ -119,12 +119,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
                 .contentGravity(GravityEnum.CENTER)
                 .negativeText(R.string.event_dialog_discard)
                 .positiveText(R.string.event_dialog_keep_editing)
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        getActivity().finish();
-                    }
-                })
+                .onNegative((dialog, which) -> getActivity().finish())
                 .show();
     }
 
@@ -189,6 +184,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     public void toTimeslot(Event event) {
         FragmentCalendarTimeslot fragment = new FragmentCalendarTimeslot();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
+        fragment.setMode(FragmentCalendarTimeslot.Mode.HOST_CREATE);
         fragment.setEvent(cpyEvent);
         getBaseActivity().openFragment(fragment);
     }

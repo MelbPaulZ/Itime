@@ -17,6 +17,7 @@
     <string name="toolbar_location">Location</string>
     <string name="toolbar_event">Event</string>
     <string name="toolbar_timeslots">Timeslots</string>
+    <string name="toolbar_choose_timeslots">Choose Timeslots</string>
     <string name="toolbar_alert">Alert</string>
     <string name="toolbar_save">Save</string>
     <string name="toolbar_greeting">Greetings</string>
@@ -252,6 +253,8 @@
     <string name="meeting_tag_invitation">Invitation</string>
     <string name="meeting_tag_hosting">Hosting</string>
     <string name="meeting_tag_coming">Coming</string>
+    <string name="meeting_tag_archive">Archive</string>
+    <string name="meeting_tag_archive_clear_all">Clear All</string>
     <string name="search">Search</string>
     
     <!--contacts-->

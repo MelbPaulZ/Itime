@@ -48,7 +48,7 @@ public class TimeSlot implements ITimeTimeSlotInterface<TimeSlot>,Serializable {
     public void setStartTime(long l) {
         String time = EventUtil.getFormatTimeString(l, EventUtil.TIME_ZONE_PATTERN);
         this.start.setDateTime(time);
-        this.end.setTimeZone(TimeZone.getDefault().getID());
+        this.start.setTimeZone(TimeZone.getDefault().getID());
     }
 
     @Override

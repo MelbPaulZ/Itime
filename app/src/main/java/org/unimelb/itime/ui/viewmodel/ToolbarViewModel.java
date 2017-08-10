@@ -27,7 +27,7 @@ public class ToolbarViewModel<V extends ToolbarInterface> extends BaseObservable
     private Drawable rightIcon;
     private int rightIconVisibility = View.GONE;
 
-    private V view;
+    V view;
 
     public ToolbarViewModel(V view) {
         this.view = view;
