@@ -17,7 +17,7 @@ import java.lang.reflect.Type;
  */
 
 @Entity
-public class User implements Serializable, Cloneable {
+public class User implements Serializable, Cloneable, ITimeUserInfoInterface {
     public static final long serialVersionUID = 1231245L;
 
     public final static String MALE = "1";
@@ -210,6 +210,21 @@ public class User implements Serializable, Cloneable {
 
     public void setSigninCount(int signinCount) {
         this.signinCount = signinCount;
+    }
+
+    @Override
+    public String getShowPhoto() {
+        return photo;
+    }
+
+    @Override
+    public String getShowName() {
+        return personalAlias;
+    }
+
+    @Override
+    public String getSecondInfo() {
+        return userId;
     }
 
     public static class UserConverter implements PropertyConverter<User, String> {

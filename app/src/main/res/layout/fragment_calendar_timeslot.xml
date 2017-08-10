@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="toolbarVM"
-            type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
+            type="org.unimelb.itime.ui.viewmodel.ToolbarTimeslotViewModel"/>
     </data>
 
     <LinearLayout
@@ -13,7 +12,117 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/toolbar" bind:vm="@{toolbarVM}"/>
+        <!-- Timeslot Toolbar -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:background="@color/white">
+
+            <FrameLayout
+                android:id="@+id/toolbar_back"
+                android:layout_width="49dp"
+                android:layout_height="match_parent"
+                android:onClick="@{toolbarVM.backClick}">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/icon_nav_back" />
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="49dp"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@id/toolbar_back"
+                android:visibility="@{toolbarVM.timeslotSwitcherVisibility}"
+                android:onClick="@{toolbarVM.switcherClick}"
+                >
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@{toolbarVM.getTimeslotSwitcherIcon(context,toolbarVM.isTimeslotEnable)}"
+                    />
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                >
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|center_horizontal"
+                    android:gravity="center"
+                    android:text="@{toolbarVM.getTitle(context,toolbarVM.selectedTimeslot, toolbarVM.confirmedTimeslot)}"
+                    android:textColor="@color/brownishGreyTwo"
+                    android:textSize="@dimen/font_large"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <!-- confirmed time slot text-->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textColor="@color/brand_main"
+                            android:text="@{toolbarVM.getConfirmedTimeslotStartTime(toolbarVM.confirmedTimeslot)}"
+                            />
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_gravity="center"
+                            android:visibility="@{toolbarVM.getTimeArrowVisibility(toolbarVM.confirmedTimeslot)}"
+                            android:src="@drawable/icon_event_arrow"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textColor="@color/brand_main"
+                            android:text="@{toolbarVM.getConfirmedTimeslotEndTime(toolbarVM.confirmedTimeslot)}"
+                            />
+                    </LinearLayout>
+
+                    <!-- confirmed date slot text-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="14sp"
+                        android:textColor="@color/warmGrey"
+                        android:text="@{toolbarVM.getConfirmedTimeslotDate(context,toolbarVM.confirmedTimeslot)}"
+                        />
+                </LinearLayout>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:layout_marginEnd="4dp"
+                android:text="@string/toolbar_next"
+                android:onClick="@{toolbarVM.nextClick}"
+                android:textSize="17sp" />
+        </RelativeLayout>
 
         <david.itimecalendar.calendar.ui.weekview.TimeSlotView
             android:layout_width="match_parent"

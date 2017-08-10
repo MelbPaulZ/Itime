@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.databinding.library.baseAdapters.BR;
@@ -87,6 +88,7 @@ public class CollapseHeadBar extends AppBarLayout {
     private TextView smallTitle;
     private TextView nameView;
     private TextView bigTitleView;
+    private LinearLayout statusIcons;
     private TextView inviteeCountView;
     private View leftButton;
     private View rightButton;
@@ -135,6 +137,7 @@ public class CollapseHeadBar extends AppBarLayout {
         smallTitle = (TextView) contentView.findViewById(R.id.smallTitle);
         bigTitleView = (TextView) contentView.findViewById(R.id.bigTitle);
         nameView = (TextView) contentView.findViewById(R.id.nameTextView);
+        statusIcons = (LinearLayout) contentView.findViewById(R.id.statusIcons);
         inviteeCountView = (TextView) contentView.findViewById(R.id.inviteeCount);
 
         if(inviteeCountView.getText().toString().isEmpty()){
@@ -285,6 +288,7 @@ public class CollapseHeadBar extends AppBarLayout {
         if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
             if(mIsTheTitleContainerVisible) {
                 startAlphaAnimation(bigTitleView, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
+                startAlphaAnimation(statusIcons, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
                 mIsTheTitleContainerVisible = false;
             }
 
@@ -292,6 +296,7 @@ public class CollapseHeadBar extends AppBarLayout {
 
             if (!mIsTheTitleContainerVisible) {
                 startAlphaAnimation(bigTitleView, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
+                startAlphaAnimation(statusIcons, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
                 mIsTheTitleContainerVisible = true;
             }
         }

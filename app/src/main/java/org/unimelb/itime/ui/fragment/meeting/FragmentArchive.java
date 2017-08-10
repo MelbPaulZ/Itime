@@ -79,9 +79,9 @@ public class FragmentArchive extends ItimeBaseFragment<MeetingMvpView,MeetingPre
         ToolbarViewModel toolbarViewModel = new ToolbarViewModel(this);
         toolbarViewModel.setLeftEnable(true);
         toolbarViewModel.setLeftIcon(context.getResources().getDrawable(R.drawable.icon_calendar_arrowleft));
-        toolbarViewModel.setTitle("Archive");
+        toolbarViewModel.setTitle(getResources().getString(R.string.meeting_tag_archive));
         toolbarViewModel.setRightEnable(true);
-        toolbarViewModel.setRightText("Clear All");
+        toolbarViewModel.setRightText(getResources().getString(R.string.meeting_tag_archive_clear_all));
         toolbarViewModel.setRightTextColor(context.getResources().getColor(R.color.brand_warning));
         binding.setVmToolbar(toolbarViewModel);
     }
@@ -101,19 +101,18 @@ public class FragmentArchive extends ItimeBaseFragment<MeetingMvpView,MeetingPre
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        onMenu = new OnMeetingMenu(meetingPresenter,mAdapter,data,filterResult);
 
         meetingPresenter.setFilterResult(filterResult);
-
         // Adapter: init here because of timing for presenter
         mAdapter = new RecyclerViewAdapterMeetings(context, RecyclerViewAdapterMeetings.Mode.ARCHIVE, meetingPresenter);
-        mAdapter.setMode(Attributes.Mode.Single);
+        onMenu = new OnMeetingMenu(meetingPresenter,mAdapter,data,filterResult);
         recyclerView.setAdapter(mAdapter);
-
         mAdapter.setOnMenuListener(onMenu);
+        mAdapter.setMode(Attributes.Mode.Single);
         mAdapter.setmDataset(data);
 
         mAdapter.notifyDatasetChanged();
+
     }
 
     /**

@@ -68,9 +68,7 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
             }
         }
     };
-    private OnDateChanged onDateChanged = date -> {
-        mainCalendarViewModel.setToolbarTitle(EventUtil.getEventTitlebarDateStr(date));
-    };
+    private OnDateChanged onDateChanged = date -> mainCalendarViewModel.setToolbarTitle(EventUtil.getEventTitlebarDateStr(date));
 
     @Nullable
     @Override

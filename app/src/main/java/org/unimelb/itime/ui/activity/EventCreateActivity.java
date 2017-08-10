@@ -34,6 +34,7 @@ public class EventCreateActivity extends ItimeBaseActivity {
         if (type!=null && type.equals(getString(R.string.event_type_group))){
             FragmentEventCreateAddInvitee addInviteeFragment = new FragmentEventCreateAddInvitee();
             Event event = new Event();
+            event.setStatus(Event.STATUS_PENDING);
             event.setCalendarUid(CalendarUtil.getInstance(getApplicationContext()).getDefaultCalendarUid());
             addInviteeFragment.setEvent(event);
             fragment = addInviteeFragment;

@@ -2,6 +2,8 @@ package org.unimelb.itime.ui.viewmodel.contact;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.Spannable;
@@ -9,13 +11,22 @@ import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.style.StyleSpan;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.android.databinding.library.baseAdapters.BR;
 
+import org.unimelb.itime.R;
+import org.unimelb.itime.bean.User;
 import org.unimelb.itime.ui.mvpview.contact.AddFriendsMvpView;
 import org.unimelb.itime.ui.presenter.contact.ContactPresenter;
 
 import org.unimelb.itime.util.EmailUtil;
+import org.unimelb.itime.widget.listview.UserInfoViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
 
 /**
@@ -32,9 +43,62 @@ public class AddFriendsViewModel extends BaseObservable {
     private String searchText = "";
     private boolean searching = false;
     private boolean showCancel = false;
+    private boolean showSearchButton = false;
+    private boolean showAutoComplete = false;
     private SpannableStringBuilder inviteText;
     private EmailUtil emailUtil;
+    private List<String> autoEmails = new ArrayList<>();
+    private ObservableList<UserInfoViewModel> autoCompleteItems = new ObservableArrayList<>();
 
+
+    private void generateInviteeItems(List<String> autoEmails){
+        autoCompleteItems.clear();
+
+        for(String email: autoEmails){
+           User user = new User();
+            user.setPersonalAlias(email);
+            UserInfoViewModel<User> vm = new UserInfoViewModel<>();
+            vm.setData(user);
+            autoCompleteItems.add(vm);
+            vm.setMatchStr(searchText);
+            }
+    }
+
+    @Bindable
+    public List<String> getAutoEmails() {
+        return autoEmails;
+    }
+
+    public void setAutoEmails(List<String> autoEmails) {
+        this.autoEmails = autoEmails;
+        notifyPropertyChanged(BR.autoEmails);
+    }
+
+    @Bindable
+    public ObservableList<UserInfoViewModel> getAutoCompleteItems() {
+        return autoCompleteItems;
+    }
+
+    public void setAutoCompleteItems(ObservableList<UserInfoViewModel> autoCompleteItems) {
+        this.autoCompleteItems = autoCompleteItems;
+        notifyPropertyChanged(BR.autoCompleteItems);
+    }
+
+    public AdapterView.OnItemClickListener onItemClick(){
+        return new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String email = autoEmails.get(i);
+                setSearchText(email);
+                setShowAutoComplete(false);
+                setShowSearchButton(true);
+            }
+        };
+    }
+
+    public ItemBinding getItemBinding(){
+        return ItemBinding.of(com.android.databinding.library.baseAdapters.BR.viewModel, R.layout.listview_user_autocomplete_item);
+    }
 
     public AddFriendsMvpView getMvpView() {
         return mvpView;
@@ -110,6 +174,26 @@ public class AddFriendsViewModel extends BaseObservable {
         notifyPropertyChanged(BR.showButtons);
     }
 
+    @Bindable
+    public boolean isShowSearchButton() {
+        return showSearchButton;
+    }
+
+    public void setShowSearchButton(boolean showSearchButton) {
+        this.showSearchButton = showSearchButton;
+        notifyPropertyChanged(BR.showSearchButton);
+    }
+
+    @Bindable
+    public boolean isShowAutoComplete() {
+        return showAutoComplete;
+    }
+
+    public void setShowAutoComplete(boolean showAutoComplete) {
+        this.showAutoComplete = showAutoComplete;
+        notifyPropertyChanged(BR.showAutoComplete);
+    }
+
     public void showNotFound() {
         setShowNotFound(true);
         setShowButtons(false);
@@ -171,6 +255,8 @@ public class AddFriendsViewModel extends BaseObservable {
             }
         };
     }
+
+
 
     public String getPureSearchText(){
         return searchText;
@@ -243,13 +329,25 @@ public class AddFriendsViewModel extends BaseObservable {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                search();
+                if (searchText.isEmpty()) {
+                    setShowSearchButton(false);
+                    setShowAutoComplete(false);
+                } else {
+                    autoEmails = EmailUtil.getInstance(presenter.getContext()).getAutoCompleteLists(editable.toString());
+                    if (autoEmails.isEmpty()) {
+                    } else {
+                        if (autoEmails.get(0).equals(editable.toString())) {
+                            setShowSearchButton(true);
+                            setShowAutoComplete(false);
+                        } else {
+                            generateInviteeItems(autoEmails);
+                            setShowSearchButton(false);
+                            setShowAutoComplete(true);
+                        }
+                    }
+                }
             }
         };
-    }
-
-    public void search(){
-
     }
 
     @Bindable

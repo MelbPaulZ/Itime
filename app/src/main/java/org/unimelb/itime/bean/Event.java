@@ -253,13 +253,13 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     }
 
     @Override
-    public void setIsAllDay(boolean isAllDay) {
-        this.isAllDay = isAllDay;
+    public void setAllDay(boolean b) {
+        this.isAllDay = b;
     }
 
     @Override
-    public boolean getIsAllDay() {
-        return this.isAllDay;
+    public boolean isAllDay() {
+        return isAllDay;
     }
 
     public void setSummary(String summary) {
@@ -682,6 +682,22 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         }
         myDao.update(this);
     }
+
+
+
+
+    public boolean getIsAllDay() {
+        return this.isAllDay;
+    }
+
+
+
+
+
+    public void setIsAllDay(boolean isAllDay) {
+        this.isAllDay = isAllDay;
+    }
+
 
 
 

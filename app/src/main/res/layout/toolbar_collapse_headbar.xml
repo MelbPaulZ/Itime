@@ -36,6 +36,7 @@
         app:layout_collapseParallaxMultiplier="0.6"
         >
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="60dp"
@@ -97,6 +98,39 @@
         app:contentInsetRight="0dp"
         app:contentInsetEnd="0dp"
         >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--status icon-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerInParent="true"
+                android:id="@+id/statusIcons">
+                <ImageView
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/icon_details_mute_statusbar"
+                    android:visibility="@{contentVM.event.isMute &amp; (!contentVM.event.isArchived)?View.VISIBLE:View.GONE}"/>
+
+                <ImageView
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/icon_details_archive_statusbar"
+                    android:visibility="@{contentVM.event.isArchived?View.VISIBLE:View.GONE}"/>
+
+                <ImageView
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/icon_details_pinned_statusbar"
+                    android:visibility="@{contentVM.event.isPinned &amp; (!contentVM.event.isArchived)?View.VISIBLE:View.GONE}"/>
+            </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -134,27 +168,6 @@
                 android:maxLines="1"
                 android:layout_weight="1"
                 android:ellipsize="end"/>
-            <!--status icon-->
-            <ImageView
-                android:layout_width="13dp"
-                android:layout_height="13dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/icon_details_mute_statusbar"
-                android:visibility="@{contentVM.event.isMute?View.VISIBLE:View.GONE}"/>
-
-            <ImageView
-                android:layout_width="13dp"
-                android:layout_height="13dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/icon_details_archive_statusbar"
-                android:visibility="@{contentVM.event.isArchived?View.VISIBLE:View.GONE}"/>
-
-            <ImageView
-                android:layout_width="13dp"
-                android:layout_height="13dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/icon_details_pinned_statusbar"
-                android:visibility="@{contentVM.event.isPinned?View.VISIBLE:View.GONE}"/>
             <!--right imageview-->
 
             <!--right imageview-->
@@ -177,6 +190,7 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:id="@+id/rightButton"/>
         </LinearLayout>
+        </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
 </android.support.design.widget.CollapsingToolbarLayout>
