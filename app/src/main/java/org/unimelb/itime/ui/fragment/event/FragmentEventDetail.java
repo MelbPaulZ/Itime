@@ -27,10 +27,12 @@ import org.unimelb.itime.databinding.FragmentEventDetailBinding;
 import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.messageevent.MessageNewFriendRequest;
 import org.unimelb.itime.ui.activity.EventCreateActivity;
+import org.unimelb.itime.ui.fragment.calendar.FragmentCalendarTimeslot;
 import org.unimelb.itime.ui.mvpview.event.EventDetailMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.presenter.event.EventDetailPresenter;
 import org.unimelb.itime.ui.viewmodel.event.EventDetailViewModel;
+import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.widget.CollapseHeadBar;
 import org.unimelb.itime.widget.popupmenu.ModalPopupView;
 import org.unimelb.itime.widget.popupmenu.PopupMenu;
@@ -159,26 +161,27 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
 
     @Override
     public void viewInCalendar() {
-//        EventTimeSlotViewFragment timeSlotViewFragment = new EventTimeSlotViewFragment();
-//
-//        timeSlotViewFragment.setFragment_task(TASK_VIEW);
-//        Event cpyEvent = EventUtil.copyEvent(event);
-//        List<WrapperTimeSlot> cpyWrapperTimeslots = new ArrayList<>();
-//        if(this.wrapperTimeSlotList!=null) {
-//            for (WrapperTimeSlot wrapperTimeSlot : this.wrapperTimeSlotList) {
-//                cpyWrapperTimeslots.add(wrapperTimeSlot.copyWrapperTimeslot());
-//            }
-//        }
-//
-//        if (event.getConfirmedCount()>0){
-//            // if the event is confirmed, then no timeslot showing
-//            timeSlotViewFragment.setData(event, null);
-//            timeSlotViewFragment.setDisplayTimeslot(false);
-//        }else {
-//            timeSlotViewFragment.setData(cpyEvent, cpyWrapperTimeslots);
-//        }
-//
-//        getBaseActivity().openFragment(timeSlotViewFragment);
+        if (event.isConfirmed()){
+            toCalendarView();
+        }else {
+            toTimeslotView(EventUtil.isHost(event));
+        }
+    }
+
+    private void toTimeslotView(boolean isHost){
+        FragmentCalendarTimeslot.Mode mode = isHost ?
+                FragmentCalendarTimeslot.Mode.HOST_CONFIRM : FragmentCalendarTimeslot.Mode.INVITEE_CONFIRM;
+        FragmentCalendarTimeslot fragmentCalendarTimeslot = new FragmentCalendarTimeslot();
+        fragmentCalendarTimeslot.setEvent(event);
+        fragmentCalendarTimeslot.setMode(mode);
+        getBaseActivity().openFragment(fragmentCalendarTimeslot);
+    }
+
+    private void toCalendarView(){
+        FragmentCalendarTimeslot fragmentCalendarTimeslot = new FragmentCalendarTimeslot();
+        fragmentCalendarTimeslot.setEvent(event);
+        fragmentCalendarTimeslot.setMode(FragmentCalendarTimeslot.Mode.HOST_CONFIRM);
+        getBaseActivity().openFragment(fragmentCalendarTimeslot);
     }
 
 

@@ -459,7 +459,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/bg_cornor_border_blue">
+                android:background="@drawable/bg_cornor_border_blue"
+                android:onClick="@{contentVM.onClickViewInCalendar()}"
+                >
                 <View
                     android:layout_width="20dp"
                     android:layout_height="20dp"
