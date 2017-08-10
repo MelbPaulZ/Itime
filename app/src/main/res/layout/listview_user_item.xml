@@ -37,7 +37,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="55.5dp"
+            android:layout_height="@dimen/standard_detail_cell_height"
             >
             <FrameLayout
                 android:layout_width="match_parent"

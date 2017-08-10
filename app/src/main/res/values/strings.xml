@@ -278,6 +278,10 @@
     <string name="dialog_block_contact_message">People you block can no longer: \n• Invite you to any events</string>
     <string name="dialog_block_block">Block</string>
     <string name="dialog_delete_delete">Delete</string>
+    <string name="contact_search_account_by_email">Search account by Email</string>
+    <string name="contact_search_account">Search Account: </string>
+    <string name="contact_invitation_sent">Invitation Sent</string>
+    <string name="contact_invite_fail">Invite failed, please check your network</string>
     <string name="transition_name_avatar">transition_name_avatar</string>
     <string name="morefriends_title">Find More Friends</string>
     <string name="morefriends_search_by_email">Search by Email</string>
