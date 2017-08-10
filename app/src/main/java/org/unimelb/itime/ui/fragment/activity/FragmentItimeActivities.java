@@ -122,4 +122,9 @@ public class FragmentItimeActivities extends ItimeBaseFragment<ItimeActivitiesMv
         intent.putExtra(ItimeActivitiesActivity.ACTIVITIES_MEETING, getMessageGroupByUid(messageGroupUid));
         startActivity(intent);
     }
+
+    @Override
+    public void onDisplayMessages(MessageGroup messageGroup) {
+        presenter.readMessageGroup(messageGroup);
+    }
 }

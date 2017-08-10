@@ -88,6 +88,7 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
             v.startAnimation(getAlphaAnimation());
             showDetail.set(!showDetail.get());
             setShowDetail(showDetail);
+            mvpView.onDisplayMessages(messageGroup);
         }else{ //to close
            v.startAnimation(getCloseAnimation());
         }
