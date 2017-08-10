@@ -391,15 +391,11 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
 //    }
 
     public PopupMenu.OnItemClickListener getOnMenuItemClick(){
-        return new PopupMenu.OnItemClickListener() {
-
-            @Override
-            public void onClick(int position, PopupMenu.Item item) {
-                if(position==0){
-                    viewChange();
-                }
-                Toast.makeText(getContext(), item.name, Toast.LENGTH_SHORT).show();
+        return (position, item) -> {
+            if(position==0){
+                viewChange();
             }
+            Toast.makeText(getContext(), item.name, Toast.LENGTH_SHORT).show();
         };
     }
 

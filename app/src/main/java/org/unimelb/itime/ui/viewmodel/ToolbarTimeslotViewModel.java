@@ -98,7 +98,8 @@ public class ToolbarTimeslotViewModel <V extends ToolbarInterface & ToolbarTimes
             return context.getResources().getString(R.string.toolbar_choose_timeslots);
         }
 
-        if (this.mode == FragmentCalendarTimeslot.Mode.HOST_CREATE){
+        if (this.mode == FragmentCalendarTimeslot.Mode.HOST_CREATE
+                || this.mode == FragmentCalendarTimeslot.Mode.INVITEE_CONFIRM){
             return String.format(context.getString(R.string.toolbar_timeslots_select), selectedCount, 7);
         }
 

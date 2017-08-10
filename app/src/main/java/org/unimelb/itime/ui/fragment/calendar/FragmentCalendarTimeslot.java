@@ -216,6 +216,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
          */
         @Override
         public void onTimeSlotClick(DraggableTimeSlotView draggableTimeSlotView) {
+            TimeSlot timeSlot = (TimeSlot) draggableTimeSlotView.getTimeslot();
             switch (mode){
                 case HOST_CONFIRM:{
                     WrapperTimeSlot wrapperTimeSlot = draggableTimeSlotView.getWrapper();
@@ -223,7 +224,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
 
                     if (isSelected){
                         if (toolbarVM.getConfirmedTimeslot() == null){
-                            toolbarVM.setConfirmedTimeslot((TimeSlot) draggableTimeSlotView.getTimeslot());
+                            toolbarVM.setConfirmedTimeslot(timeSlot);
                             wrapperTimeSlot.setSelected(true);
                         }else {
                             Toast.makeText(getContext(),"Only " + selectMax + " slot(s) can be selected",Toast.LENGTH_LONG).show();
@@ -240,7 +241,19 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
                 case INVITEE_CONFIRM:
                     WrapperTimeSlot wrapperTimeSlot = draggableTimeSlotView.getWrapper();
                     boolean isSelected = !wrapperTimeSlot.isSelected();
-                    wrapperTimeSlot.setSelected(isSelected);
+
+                    if (isSelected){
+                        if (selectedTimeslotsMap.values().size() < selectMax){
+                            wrapperTimeSlot.setSelected(true);
+                            selectedTimeslotsMap.put(timeSlot.getTimeslotUid(),timeSlot);
+                        }else {
+                            Toast.makeText(getContext(),"Only " + selectMax + " slot(s) can be selected",Toast.LENGTH_LONG).show();
+                        }
+                    }else {
+                        // un-selected a selected slot
+                        wrapperTimeSlot.setSelected(false);
+                        selectedTimeslotsMap.remove(timeSlot.getTimeslotUid());
+                    }
                     draggableTimeSlotView.updateViewStatus();
                     updateToolbarTimeslot();
                     break;
