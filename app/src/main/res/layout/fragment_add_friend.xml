@@ -108,6 +108,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:visibility="@{mainViewModel.searching?View.VISIBLE:View.GONE}"
+        android:background="@color/fragment_background"
         >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -132,6 +133,7 @@
                 android:textSize="@dimen/font_large"
                 android:textColor="@color/text_body"
                 android:layout_marginLeft="@dimen/s2"
+                android:textColorHint="@color/text_indication"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
                 android:layout_toRightOf="@id/backIcon"
@@ -148,9 +150,61 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:onClick="@{mainViewModel.onClearClick()}" />
-
-
         </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/contact_search_account_by_email"
+            android:textSize="@dimen/font_large"
+            android:textColor="@color/text_indication"
+            android:layout_marginTop="20dp"
+            android:visibility="@{mainViewModel.searchText.empty?View.VISIBLE:View.GONE}"/>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:items="@{mainViewModel.autoCompleteItems}"
+            app:itemBinding="@{mainViewModel.itemBinding}"
+            app:onItemClickListener="@{mainViewModel.onItemClick}"
+            android:visibility="@{mainViewModel.showAutoComplete?View.VISIBLE:View.GONE}"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_detail_cell_height"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:visibility="@{mainViewModel.showSearchButton?View.VISIBLE:View.GONE}"
+            android:onClick="@{mainViewModel.searchButtonListener}"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/icon_contacts_search"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="center_vertical"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="@dimen/font_large"
+                android:textColor="@color/text_body"
+                android:text="@string/contact_search_account"
+                android:layout_gravity="center_vertical"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="@dimen/font_large"
+                android:textColor="@color/brand_main"
+                android:layout_marginRight="24dp"
+                android:text="@{' ' + mainViewModel.searchText}"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

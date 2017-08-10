@@ -50,6 +50,9 @@
     <dimen name="font_tiny">12sp</dimen>
     <dimen name="design_bottom_sheet_peek_height_min">150dp</dimen>
 
+    <!--contact-->
+    <dimen name="search_account_button_text_size">19sp</dimen>
+
     <dimen name="standard_detail_cell_height">55dp</dimen>
     <dimen name="s1">20dp</dimen>
     <dimen name="s2">10dp</dimen>

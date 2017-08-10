@@ -4,15 +4,14 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.graphics.drawable.Drawable;
-import android.view.View;
 
-import org.unimelb.itime.BR;
+import com.android.databinding.library.baseAdapters.BR;
+
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.util.TimeFactory;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +20,7 @@ import java.util.List;
  */
 
 public class EventDetailTimeslotViewModel extends BaseObservable {
-    private Drawable icon;
+    private Drawable leftIcon;
     private String firstTimeRow = "";
     private String secondTimeRow = "";
     private List<String> inviteePhotos;
@@ -34,6 +33,7 @@ public class EventDetailTimeslotViewModel extends BaseObservable {
 
     public EventDetailTimeslotViewModel(Context context){
         this.context = context;
+
     }
 
     @Bindable
@@ -43,8 +43,8 @@ public class EventDetailTimeslotViewModel extends BaseObservable {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+        generateIcon();
         notifyPropertyChanged(BR.selected);
-        notifyPropertyChanged(BR.icon);
     }
 
     @Bindable
@@ -54,8 +54,9 @@ public class EventDetailTimeslotViewModel extends BaseObservable {
 
     public void setOutdated(boolean outdated) {
         this.outdated = outdated;
+        generateIcon();
         notifyPropertyChanged(BR.outdated);
-        notifyPropertyChanged(BR.icon);
+
     }
 
     @Bindable
@@ -65,8 +66,9 @@ public class EventDetailTimeslotViewModel extends BaseObservable {
 
     public void setConflict(boolean conflict) {
         this.conflict = conflict;
+        generateIcon();
         notifyPropertyChanged(BR.conflict);
-        notifyPropertyChanged(BR.icon);
+
     }
 
     @Bindable
@@ -84,31 +86,31 @@ public class EventDetailTimeslotViewModel extends BaseObservable {
             inviteePhotos.add(invitee.getAliasPhoto());
         }
         setInviteePhotos(inviteePhotos);
+        generateIcon();
         notifyPropertyChanged(BR.timeSlot);
     }
 
     @Bindable
-    public Drawable getIcon() {
+    public Drawable getLeftIcon() {
+        return leftIcon;
+    }
+
+    private void generateIcon(){
+
         if(selected){
-            icon = context.getResources().getDrawable(R.drawable.icon_details_check_selected);
+            leftIcon = context.getResources().getDrawable(R.drawable.icon_details_check_selected);
         }else{
-            icon = context.getResources().getDrawable(R.drawable.icon_details_check_unselected);
+            leftIcon = context.getResources().getDrawable(R.drawable.icon_details_check_unselected);
 
             if(conflict){
-                icon = context.getResources().getDrawable(R.drawable.icon_details_check_conflicted);
+                leftIcon = context.getResources().getDrawable(R.drawable.icon_details_check_conflicted);
             }
 
             if(outdated){
-                icon = context.getResources().getDrawable(R.drawable.icon_details_check_outdated);
+                leftIcon = context.getResources().getDrawable(R.drawable.icon_details_check_outdated);
             }
         }
-
-        return icon;
-    }
-
-    public void setIcon(Drawable icon) {
-        this.icon = icon;
-        notifyPropertyChanged(BR.icon);
+        notifyPropertyChanged(BR.leftIcon);
     }
 
     @Bindable

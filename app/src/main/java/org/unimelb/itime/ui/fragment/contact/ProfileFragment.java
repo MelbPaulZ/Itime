@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
@@ -154,6 +157,38 @@ public class ProfileFragment extends ItimeBaseFragment<ProfileMvpView, ProfilePr
         editAliasFragment.setContact(contact);
         getBaseActivity().openFragment(editAliasFragment, null, true);
         fromEditAlias = true;
+    }
+
+    @Override
+    public void showBlockDialog() {
+        getDialogBuidler()
+                .title(getString(R.string.dialog_block_contact_title))
+                .content(getString(R.string.dialog_block_contact_message))
+                .positiveText(getString(R.string.dialog_block_block))
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        presenter.blockUser(contact);
+                    }
+                })
+                .negativeText(getString(R.string.dialog_cancel))
+                .show();
+    }
+
+    @Override
+    public void showDeleteDialog() {
+        getDialogBuidler()
+                .title(getString(R.string.dialog_delete_contact_title))
+                .content(getString(R.string.dialog_delete_contact_message))
+                .positiveText(getString(R.string.dialog_delete_delete))
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        presenter.deleteUser(contact);
+                    }
+                })
+                .negativeText(getString(R.string.dialog_cancel))
+                .show();
     }
 
     public Context getContext(){

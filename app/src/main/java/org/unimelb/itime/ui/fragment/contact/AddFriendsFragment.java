@@ -149,15 +149,15 @@ public class AddFriendsFragment extends ItimeBaseFragment<AddFriendsMvpView, Con
     public void onTaskSuccess(int taskId, Contact data) {
         hideProgressDialog();
         switch (taskId){
-//            case AddFriendsPresenter.TASK_SEARCH_USER:
-//                goToProfileFragment(data);
-//                break;
-//            case AddFriendsPresenter.TASK_INVITE:
-//                Toast.makeText(getContext(), getContext().getString(R.string.invite_success), Toast.LENGTH_SHORT).show();
-//                break;
-//            case AddFriendsPresenter.TASK_MYSELF:
-//                goToSettingFragment();
-//                break;
+            case ContactPresenter.TASK_SEARCH_USER:
+                goToProfileFragment(data);
+                break;
+            case ContactPresenter.TASK_INVITE:
+                Toast.makeText(getContext(), getContext().getString(R.string.contact_invitation_sent), Toast.LENGTH_SHORT).show();
+                break;
+            case ContactPresenter.TASK_MYSELF:
+                goToSettingFragment();
+                break;
         }
 
     }
@@ -169,9 +169,9 @@ public class AddFriendsFragment extends ItimeBaseFragment<AddFriendsMvpView, Con
             case ContactPresenter.TASK_SEARCH_USER:
                 mainViewModel.showNotFound();
                 break;
-//            case ContactPresenter.TASK_INVITE:
-//                Toast.makeText(getContext(), getContext().getString(R.string.invite_fail), Toast.LENGTH_SHORT).show();
-//                break;
+            case ContactPresenter.TASK_INVITE:
+                Toast.makeText(getContext(), getContext().getString(R.string.contact_invite_fail), Toast.LENGTH_SHORT).show();
+                break;
 //            case ContactPresenter.ERROR_INVALID_EMAIL:
 //                showDialog(getString(R.string.domain_alert_message), "");
         }

@@ -29,6 +29,10 @@ public class EmailUtil {
     private EmailUtil(Context context){
         String str="^(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w{2,})+)$";
         emailPattern = Pattern.compile(str);
+        emailSuffixes.add("@student.unimelb.edu.au");
+        emailSuffixes.add("@unimelb.edu.au");
+        emailSuffixes.add("@student.monash.edu.au");
+        emailSuffixes.add("@monash.edu.au");
 //        List<Domain> list = DBManager.getInstance(context).getAllDomains();
 //        for(Domain domain:list){
 //            emailSuffixes.add(domain.getRule());

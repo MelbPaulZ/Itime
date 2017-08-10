@@ -108,7 +108,9 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         initAllNotePop();
         binding.setContentVM(contentViewModel);
         contentViewModel.setToolbarCollapseColor(getResources().getColor(R.color.lightBlueTwo));
-        EventBus.getDefault().register(this);
+        if(!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
 //        initBottomSheet();
     }
 

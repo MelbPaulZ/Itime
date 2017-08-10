@@ -11,14 +11,14 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/standard_detail_cell_height"
     android:background="?android:attr/selectableItemBackground">
-    <View
+    <ImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginRight="@dimen/s2"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:id="@+id/icon"
-        android:background="@{vm.icon}"/>
+        android:src="@{vm.leftIcon}"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
