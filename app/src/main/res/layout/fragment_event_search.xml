@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fix_list="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.SearchEventViewModel"/>
+        <import type="android.view.View"/>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/search_bar_bg">
+        <!-- search bar -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/search_bar_edit_bg"
+            >
+            <TextView
+                style="@style/itime_bottom_divider_line"/>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="14dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_nav_back"
+                android:onClick="@{vm.onBackClick()}"
+                android:id="@+id/backIcon"/>
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="44dp"
+                android:hint="@string/searchbar_placeholder"
+                android:text="@={vm.searchStr}"
+                android:textSize="@dimen/font_large"
+                android:textColor="@color/text_body"
+                android:layout_marginLeft="@dimen/s2"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:layout_toRightOf="@id/backIcon"
+                app:textWatcher = "@{vm.onEdit}"
+                android:background="@null"
+                />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="5dp"
+                android:src="@drawable/icon_event_closecell"
+                android:layout_marginEnd="@dimen/s2"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:onClick="@{vm.onClearClick()}"
+                android:visibility="@{vm.searchStr.isEmpty?View.GONE:View.VISIBLE}"/>
+        </RelativeLayout>
+
+        <!-- search bar result text -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="16sp"
+            android:textColor="@color/search_bar_result_sub_text"
+            android:gravity="center"
+            android:text="@{vm.resultHint}"
+            android:visibility="@{vm.resultHint.isEmpty ? View.GONE:View.VISIBLE}"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:visibility="@{vm.searchStr.isEmpty ? View.GONE:View.VISIBLE}"
+            android:id="@+id/event_recycler_view"
+            />
+    </LinearLayout>
+</layout>

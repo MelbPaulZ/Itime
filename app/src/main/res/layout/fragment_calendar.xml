@@ -40,6 +40,7 @@
                 android:layout_width="49dp"
                 android:layout_height="match_parent"
                 android:layout_toEndOf="@id/nav_hamburger_frame"
+                android:onClick="@{calendarVM.searchClickListener}"
                 >
                 <ImageView
                     android:layout_width="30dp"
@@ -65,7 +66,8 @@
                 android:id="@+id/back_to_today_frame"
                 android:layout_width="49dp"
                 android:layout_height="49dp"
-                android:layout_alignParentEnd="true">
+                android:layout_alignParentEnd="true"
+                android:onClick="@{calendarVM.backTodayClickListener}">
                 <TextView
                     android:id="@+id/back_to_today"
                     android:layout_width="25dp"
@@ -95,15 +97,13 @@
             android:visibility="@{calendarVM.showSpinnerMenu ? View.VISIBLE : View.GONE}">
             <!--spinner menu-->
             <org.unimelb.itime.widget.ITimeListView
-                android:layout_width="100dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="48dp"
                 android:background="@drawable/bg_shadow"
                 android:footerDividersEnabled="false"
-                android:paddingEnd="9dp"
-                android:paddingStart="9dp"
                 android:visibility="@{calendarVM.showSpinnerMenu ? View.VISIBLE : View.GONE}"
                 app:itemBinding="@{calendarVM.menuItemView}"
                 app:items="@{calendarVM.menuItems}"

@@ -45,7 +45,7 @@ public class MainCalendarViewModel extends ItimeBaseViewModel{
         this.onToolbarClick = onToolbarClick;
     }
 
-    public View.OnClickListener onBackTodayClick(){
+    public View.OnClickListener getBackTodayClickListener(){
         return v -> {
           if (onToolbarClick != null){
               onToolbarClick.onTodayClick();
@@ -53,7 +53,7 @@ public class MainCalendarViewModel extends ItimeBaseViewModel{
         };
     }
 
-    public View.OnClickListener onSearchClick(){
+    public View.OnClickListener getSearchClickListener(){
         return v -> {
             if (onToolbarClick != null){
                 onToolbarClick.onSearchClick();

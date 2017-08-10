@@ -1,5 +1,6 @@
 package org.unimelb.itime.ui.fragment;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.databinding.FragmentSearchBinding;
+import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.mvpview.activity.SearchMvpView;
 import org.unimelb.itime.ui.presenter.SearchPresenter;
 import org.unimelb.itime.ui.viewmodel.SearchViewModel;
@@ -21,7 +23,7 @@ import org.unimelb.itime.ui.viewmodel.SearchViewModel;
  * Created by yuhaoliu on 10/7/17.
  */
 
-public class FragmentSearch extends ItimeBaseFragment<SearchMvpView, SearchPresenter<SearchMvpView>> implements SearchMvpView {
+public class FragmentMeetingSearch extends ItimeBaseFragment<SearchMvpView, SearchPresenter<SearchMvpView>> implements SearchMvpView {
     public final static int TASK_ACTIVITY_BACK = 0;
     public final static int TASK_FRAGMENT_BACK = 1;
 
@@ -88,12 +90,16 @@ public class FragmentSearch extends ItimeBaseFragment<SearchMvpView, SearchPrese
 
     @Override
     public void onMeetingClick(Meeting meeting) {
-
+        Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+        intent.putExtra(EventDetailActivity.EVENT, meeting.getEvent());
+        getActivity().startActivity(intent);
     }
 
     @Override
     public void onEventClick(Event event) {
-
+        Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+        intent.putExtra(EventDetailActivity.EVENT, event);
+        getActivity().startActivity(intent);
     }
 
     @Override
@@ -103,7 +109,7 @@ public class FragmentSearch extends ItimeBaseFragment<SearchMvpView, SearchPrese
 
     @Override
     public void onShowMoreClick(int type, String searchStr) {
-        FragmentSearch detailSearch = new FragmentSearch();
+        FragmentMeetingSearch detailSearch = new FragmentMeetingSearch();
 
         switch (type){
             case TYPE_MEETING:

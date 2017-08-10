@@ -38,6 +38,8 @@ public class EventCreateActivity extends ItimeBaseActivity {
             addInviteeFragment.setEvent(event);
             fragment = addInviteeFragment;
         }else{
+            //For solo event
+            //auto-fill solo event detail
             Event ev = (Event) getIntent().getSerializableExtra("Event");
             if (ev == null){
                 ev = new Event();
@@ -46,6 +48,9 @@ public class EventCreateActivity extends ItimeBaseActivity {
                 ev.setEndTime(c.getTimeInMillis() + 1000 * 60 * 60);
             }
             ev.setCalendarUid(CalendarUtil.getInstance(getApplicationContext()).getDefaultCalendarUid());
+            ev.setEventType(Event.EVENT_TYPE_SOLO);
+            ev.setStatus(Event.STATUS_CONFIRMED);
+
             fragment = new FragmentEventPrivateCreate();
             ((FragmentEventPrivateCreate)fragment).setEvent(ev);
         }

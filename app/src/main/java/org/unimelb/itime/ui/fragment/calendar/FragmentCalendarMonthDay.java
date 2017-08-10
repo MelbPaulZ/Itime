@@ -19,18 +19,14 @@ import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.activity.EventDetailActivity;
-import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
-import org.unimelb.itime.ui.presenter.CalendarPresenter;
+import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.util.EventUtil;
 
 import java.util.Date;
 
 import david.itimecalendar.calendar.listeners.ITimeCalendarMonthDayViewListener;
 import david.itimecalendar.calendar.listeners.ITimeEventInterface;
-
-import david.itimecalendar.calendar.ui.monthview.DayViewBody;
-import david.itimecalendar.calendar.ui.monthview.EventController;
 import david.itimecalendar.calendar.ui.monthview.MonthView;
 import david.itimecalendar.calendar.ui.unitviews.DraggableEventView;
 import david.itimecalendar.calendar.util.MyCalendar;
@@ -39,7 +35,7 @@ import david.itimecalendar.calendar.util.MyCalendar;
  * Created by yuhaoliu on 8/06/2017.
  */
 
-public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView, CalendarPresenter<CalendarMvpView>> implements ToolbarInterface {
+public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView, EventCreatePresenter<CalendarMvpView>> implements CalendarMvpView, ToolbarInterface {
     private static final String TAG = "lifecycle";
     private View root;
     private EventManager eventManager;
@@ -57,8 +53,8 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
     }
 
     @Override
-    public CalendarPresenter<CalendarMvpView> createPresenter() {
-        return new CalendarPresenter<>(getContext());
+    public EventCreatePresenter<CalendarMvpView> createPresenter() {
+        return new EventCreatePresenter<>(getContext());
     }
 
     @Override
@@ -75,6 +71,7 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
     public void refreshEvent(MessageEvent msg){
         if (msg.task == MessageEvent.RELOAD_EVENT){
             monthDayView.setEventPackage(EventManager.getInstance(getContext()).getEventsPackage());
+            monthDayView.refresh();
         }
     }
 
@@ -99,7 +96,8 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
 
         @Override
         public boolean isDraggable(DraggableEventView draggableEventView) {
-            return true;
+            Event event = (Event) draggableEventView.getEvent();
+            return event.getEventType().equals(Event.EVENT_TYPE_SOLO);
         }
 
         @Override
@@ -131,11 +129,12 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
 
         @Override
         public void onEventDragDrop(DraggableEventView draggableEventView) {
-            Event event = (Event) draggableEventView.getEvent();
-            event.setStartTime(draggableEventView.getStartTimeM());
-            event.setEndTime(draggableEventView.getEndTimeM());
-
-            EventManager.getInstance(getContext()).insertOrUpdate(event);
+            final Event originEvent = (Event) draggableEventView.getEvent();
+            EventUtil.updateSoloEvent(
+                    originEvent,
+                    draggableEventView.getStartTimeM(),
+                    draggableEventView.getEndTimeM(),
+                    presenter);
         }
 
         @Override
@@ -154,6 +153,11 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
         public void onDateChanged(Date date) {
             onDateChanged.onDateChanged(date);
         }
+
+        @Override
+        public void onHeaderFlingDateChanged(Date date) {
+            EventManager.getInstance(getContext()).syncRepeatedEvent(date.getTime());
+        }
     };
 
     @Override
@@ -169,9 +173,8 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
     @Override
     public void onStart() {
         super.onStart();
-
         EventBus.getDefault().register(this);
-
+        monthDayView.refresh();
         Log.i(TAG, "onStart: " + "FragmentCalendarMonthDay");
     }
 
@@ -193,7 +196,29 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
 
         EventBus.getDefault().unregister(this);
         Log.i(TAG, "onPause: " + "FragmentCalendarMonthDay");
+    }
 
-//        EventController
+    public void backToToday(){
+        if (monthDayView != null){
+            monthDayView.scrollToDate(new Date());
+        }
+    }
+
+    @Override
+    public void onTaskStart(int taskId) {
+
+    }
+
+    @Override
+    public void onTaskSuccess(int taskId, Object data) {
+        switch (taskId){
+            default:
+                monthDayView.refresh();
+        }
+    }
+
+    @Override
+    public void onTaskError(int taskId, Object data) {
+
     }
 }

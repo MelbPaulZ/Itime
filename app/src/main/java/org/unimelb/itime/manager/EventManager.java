@@ -161,6 +161,9 @@ public class EventManager {
             }
         }else {
             // non-repeat event
+            /**
+             * Ensure the event can be find by Key & Uid
+             */
             if (regularEventMap.containsKey(key)) {
                 for (ITimeEventInterface iTimeEventInterface : regularEventMap.get(key)) {
                     if ((iTimeEventInterface).getEventUid().equals(eventUid)) {
@@ -169,6 +172,7 @@ public class EventManager {
                 }
             }
         }
+
         return null;
     }
 

@@ -2,7 +2,11 @@ package org.unimelb.itime.util;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Contact;
@@ -14,11 +18,14 @@ import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.bean.TimeslotInvitee;
 import org.unimelb.itime.bean.User;
 import org.unimelb.itime.manager.DBManager;
+import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.presenter.MeetingPresenter;
 import org.unimelb.itime.util.rulefactory.FrequencyEnum;
 import org.unimelb.itime.util.rulefactory.RuleFactory;
 import org.unimelb.itime.util.rulefactory.RuleModel;
 
+import java.lang.reflect.Type;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -81,6 +88,32 @@ public class EventUtil extends BaseUtil{
         calendar.set(Calendar.MILLISECOND, 0);
 
         return calendar.getTimeInMillis();
+    }
+
+    /**
+     *
+     * @param event
+     * @return
+     */
+    public static Event copyEvent(Event event){
+        Gson gson = new Gson();
+
+        String eventStr = gson.toJson(event);
+        Event copyEvent = gson.fromJson(eventStr, Event.class);
+
+        Type dataType = new TypeToken<RuleModel<Event>>() {}.getType();
+        RuleModel response = gson.fromJson(gson.toJson(event.getRule(), dataType), dataType);
+        copyEvent.setRule(response);
+
+        return copyEvent;
+    }
+
+    public static CharSequence[] getRepeatEventChangeOptions(Context context) {
+        CharSequence[] sequences = new CharSequence[3];
+        sequences[0] = context.getString(R.string.dialog_save_for_this_event_only);
+        sequences[1] = context.getString(R.string.dialog_save_for_future_events);
+        sequences[2] = context.getString(R.string.dialog_cancel);
+        return sequences;
     }
 
     public static <T extends ITimeComparable> void removeWhileLooping(ArrayList<T> list, T rmObj){
@@ -402,6 +435,7 @@ public class EventUtil extends BaseUtil{
 
     public static String getEventTitlebarDateStr(Date date){
         Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
         String titleMonth = cal.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault());
         String titleYear = cal.get(Calendar.YEAR) + "";
         String title = titleMonth + " " + titleYear;
@@ -631,6 +665,45 @@ public class EventUtil extends BaseUtil{
         if (!EventUtil.isMyselfInEvent(context, event)){
             Invitee invitee = createSelfInviteeForEvent(context, event);
             event.getInvitee().put(event.getInvitee().size() + "", invitee);
+        }
+    }
+
+    public static void updateSoloEvent(Event oldEvent, long newStartTime, long newEndTime, EventCreatePresenter presenter){
+        final Event event = EventUtil.copyEvent(oldEvent);
+        final Context context = presenter.getContext();
+        event.setStartTime(newStartTime);
+        event.setEndTime(newEndTime);
+        EventManager.getInstance(presenter.getContext()).setCurrentEvent(oldEvent);
+
+        if (event.getRecurrence().length > 0) {
+            // this is repeat event
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("this is a repeat event")
+                    .setItems(EventUtil.getRepeatEventChangeOptions(context), (dialog, which) -> {
+                        switch (which) {
+//
+                            case 0: {
+//                                        presenter.updateEvent(event, EventPresenter.UPDATE_THIS, originEvent.getStartTime());
+                                break;
+                            }
+                            case 1: {
+//                                        presenter.updateEvent(event, EventPresenter.UPDATE_FOLLOWING, originEvent.getStartTime());
+                                break;
+                            }
+                            case 2: {
+                                break;
+                            }
+
+                        }
+                    });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        } else {
+            // this is not repeat event
+            Event copyEvent = EventUtil.copyEvent(event);
+            copyEvent.setStartTime(newStartTime);
+            copyEvent.setEndTime(newEndTime);
+            presenter.updateEvent(copyEvent);
         }
     }
 

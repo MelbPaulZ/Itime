@@ -107,6 +107,7 @@ public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPr
             public void onClick(View v) {
                 // To search activity
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
+                intent.putExtra(SearchActivity.TASK,SearchActivity.MULTIPLE_SEARCH);
                 startActivity(intent);
             }
         };

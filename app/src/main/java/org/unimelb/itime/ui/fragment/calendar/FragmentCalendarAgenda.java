@@ -21,18 +21,21 @@ import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import david.itimecalendar.calendar.listeners.ITimeCalendarMonthAgendaViewListener;
 import david.itimecalendar.calendar.listeners.ITimeEventInterface;
 import david.itimecalendar.calendar.ui.agendaview.AgendaViewBody;
 import david.itimecalendar.calendar.ui.agendaview.MonthAgendaView;
+import david.itimecalendar.calendar.ui.monthview.DayViewAllDay;
 
 /**
  * Created by yuhaoliu on 8/06/2017.
  */
 
-public class FragmentCalendarAgenda extends ItimeBaseFragment<CalendarMvpView, CalendarPresenter<CalendarMvpView>> implements ToolbarInterface {
+public class FragmentCalendarAgenda extends ItimeBaseFragment<CalendarMvpView, CalendarPresenter<CalendarMvpView>> implements CalendarMvpView,
+        ToolbarInterface {
     private View root;
     private EventManager eventManager;
     private MonthAgendaView agendaView;
@@ -94,6 +97,11 @@ public class FragmentCalendarAgenda extends ItimeBaseFragment<CalendarMvpView, C
         }
 
         @Override
+        public void onHeaderFlingDateChanged(Date date) {
+            EventManager.getInstance(getContext()).syncRepeatedEvent(date.getTime());
+        }
+
+        @Override
         public void onEventClick(ITimeEventInterface iTimeEventInterface) {
             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
             intent.putExtra(EventDetailActivity.EVENT, (Event)iTimeEventInterface);
@@ -115,11 +123,36 @@ public class FragmentCalendarAgenda extends ItimeBaseFragment<CalendarMvpView, C
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+        agendaView.refresh();
     }
 
     @Override
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+    }
+
+    public void backToToday(){
+        if (agendaView != null){
+            agendaView.scrollToDate(new Date());
+        }
+    }
+
+    @Override
+    public void onTaskStart(int taskId) {
+
+    }
+
+    @Override
+    public void onTaskSuccess(int taskId, Object data) {
+        switch (taskId){
+            default:
+                agendaView.refresh();
+        }
+    }
+
+    @Override
+    public void onTaskError(int taskId, Object data) {
+
     }
 }
