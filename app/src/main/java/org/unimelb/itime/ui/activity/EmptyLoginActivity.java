@@ -25,7 +25,7 @@ import david.itimecalendar.calendar.ui.monthview.MonthView;
 public class EmptyLoginActivity extends ItimeBaseActivity<LoginMvpView,LoginPresenter> implements LoginMvpView
 {
 
-    private final static String username = "liuyuhao@gmail.com";
+    private final static String username = "ruizhangmu@gmail.com";
     private final static String password = "123456";
     private static final String TAG = "EmptyLoginActivity";
 

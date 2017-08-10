@@ -28,6 +28,7 @@ import org.unimelb.itime.databinding.FragmentEventPrivateCreateBinding;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.ui.activity.EventCreateActivity;
+import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.activity.LocationActivity;
 import org.unimelb.itime.ui.fragment.component.FragmentEventTime;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
@@ -120,8 +121,11 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void onNext() {
-
-        presenter.createEvent(event);
+        if (getActivity() instanceof EventCreateActivity) {
+            presenter.createEvent(event);
+        }else if (getActivity() instanceof EventDetailActivity){
+            presenter.updateEvent(event);
+        }
     }
 
     @Override
@@ -256,6 +260,11 @@ implements EventCreateMvpView, ToolbarInterface{
             EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_EVENT));
             getActivity().setResult(Activity.RESULT_OK);
             getActivity().finish();
+        } else if (taskId == EventCreatePresenter.TASK_EVENT_UPDATE){
+            FragmentEventDetail fragmentEventDetail = (FragmentEventDetail) getFrom();
+            fragmentEventDetail.setData(event);
+            getFragmentManager().popBackStack();
+
         }
     }
 

@@ -11,14 +11,14 @@
     android:layout_height="wrap_content"
     android:minHeight="83dp"
     android:background="@color/whiteFive">
-    
-    <ImageView
+
+    <org.unimelb.itime.widget.RoundImageView
         android:id="@+id/activity_meeting_message_icon"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/icon_event_repeat"
+        app:smallAvatar="@{messageViewGroup.message.photo}"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="parent"
         />
@@ -42,7 +42,7 @@
         android:layout_marginTop="12dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginEnd="13dp"
-        android:text="5:26pm"
+        android:text="@{messageViewGroup.getTimeString(messageViewGroup.message)}"
         android:textSize="11sp"
         android:textColor="@color/pinkishGreyTwo"
         />

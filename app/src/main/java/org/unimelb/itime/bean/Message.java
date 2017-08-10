@@ -1,26 +1,30 @@
 package org.unimelb.itime.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Paul on 4/7/17.
  */
 
-public class Message {
+public class Message implements Serializable {
+
+
+    private static final long serialVersionUID = 6568872098666058601L;
+    private String photo = "";
+    private String title = "";
+    private String subtitle1 = "";
+    private int type; // 0 -> default?
+
     private int messageUid;
     private int messageGroupUid;
     private int userUid;
     private String eventUid = "";
-    private String photo = "";
-    private String title = "";
-    private String subtitle1 = "";
-    private String subtitle2 = "";
-    /** template -> {host_unconfirmed_normal, host_unconfirmed_normal, host_confirmed_normal, invitee_normal,
-     *   invitee_deleted, host_unconfirmed_deleted, host_confirmed_deleted}**/
-    private String template = "";
-    private int type; // 0 -> default?
+    private String displayName = "";
     private boolean isRead;
     private int deleteLevel;
-    private String createAt = "";
-    private String updateAt = "";
+    private String createdAt = "";
+    private String updatedAt = "";
+
 
     public int getMessageUid() {
         return messageUid;
@@ -78,22 +82,6 @@ public class Message {
         this.subtitle1 = subtitle1;
     }
 
-    public String getSubtitle2() {
-        return subtitle2;
-    }
-
-    public void setSubtitle2(String subtitle2) {
-        this.subtitle2 = subtitle2;
-    }
-
-    public String getTemplate() {
-        return template;
-    }
-
-    public void setTemplate(String template) {
-        this.template = template;
-    }
-
     public int getType() {
         return type;
     }
@@ -118,19 +106,29 @@ public class Message {
         this.deleteLevel = deleteLevel;
     }
 
-    public String getCreateAt() {
-        return createAt;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreateAt(String createAt) {
-        this.createAt = createAt;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public String getUpdateAt() {
-        return updateAt;
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdateAt(String updateAt) {
-        this.updateAt = updateAt;
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+
 }

@@ -49,6 +49,7 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
     private String status = "";
     private String reason = "";
     private String userStatus = "";
+    private boolean isHost = false;
 
 
 
@@ -268,6 +269,13 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
         return this.hasResponded;
     }
 
+    public boolean isHost() {
+        return isHost;
+    }
+
+    public void setHost(boolean host) {
+        isHost = host;
+    }
 
     public void setHasResponded(boolean hasResponded) {
         this.hasResponded = hasResponded;
@@ -291,9 +299,9 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
         in.readList(this.inviteeTimeslot, SlotResponse.class.getClassLoader());
     }
 
-    @Generated(hash = 6555386)
+    @Generated(hash = 1873565021)
     public Invitee(String eventUid, String inviteeUid, String userUid, String userId, String aliasName,
-            String aliasPhoto, String status, String reason, String userStatus, Contact contact,
+            String aliasPhoto, String status, String reason, String userStatus, boolean isHost, Contact contact,
             boolean hasResponded, User user, List<SlotResponse> inviteeTimeslot) {
         this.eventUid = eventUid;
         this.inviteeUid = inviteeUid;
@@ -304,11 +312,14 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
         this.status = status;
         this.reason = reason;
         this.userStatus = userStatus;
+        this.isHost = isHost;
         this.contact = contact;
         this.hasResponded = hasResponded;
         this.user = user;
         this.inviteeTimeslot = inviteeTimeslot;
     }
+
+
 
     public static final Creator<Invitee> CREATOR = new Creator<Invitee>() {
         @Override
@@ -328,5 +339,13 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
 
     public void setContact(Contact contact) {
         this.contact = contact;
+    }
+
+    public boolean getIsHost() {
+        return this.isHost;
+    }
+
+    public void setIsHost(boolean isHost) {
+        this.isHost = isHost;
     }
 }

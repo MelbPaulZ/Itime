@@ -21,6 +21,7 @@ import org.unimelb.itime.bean.FriendRequestResult;
 import org.unimelb.itime.bean.ItimeWebSocket;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.bean.Message;
+import org.unimelb.itime.bean.MessageGroup;
 import org.unimelb.itime.bean.User;
 import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.manager.EventManager;
@@ -33,6 +34,7 @@ import org.unimelb.itime.restfulapi.CalendarApi;
 import org.unimelb.itime.restfulapi.ContactApi;
 import org.unimelb.itime.restfulapi.EventApi;
 import org.unimelb.itime.restfulapi.FriendRequestApi;
+import org.unimelb.itime.restfulapi.ITimeActivityApi;
 import org.unimelb.itime.restfulapi.MeetingApi;
 import org.unimelb.itime.restfulapi.MessageApi;
 import org.unimelb.itime.restfulresponse.HttpResult;
@@ -66,6 +68,7 @@ public class RemoteService extends Service {
     private CalendarApi calendarApi;
     private ContactApi contactApi;
     private FriendRequestApi requestApi;
+    private ITimeActivityApi iTimeActivityApi;
     private Boolean isStart = true;
 
     private Context context;
@@ -135,6 +138,7 @@ public class RemoteService extends Service {
         calendarApi = HttpUtil.createService(context, CalendarApi.class);
         contactApi = HttpUtil.createService(context, ContactApi.class);
         requestApi = HttpUtil.createService(context, FriendRequestApi.class);
+        iTimeActivityApi = HttpUtil.createService(context, ITimeActivityApi.class);
 
         user = UserUtil.getInstance(context).getUser();
         loadLocalEvents();
@@ -191,6 +195,7 @@ public class RemoteService extends Service {
 //        fetchFriendRequest();
 //        fetchMessages();
         fetchMeetings();
+        fetchITimeActivities();
     }
 
     private void initPresenters(){
@@ -570,4 +575,35 @@ public class RemoteService extends Service {
         };
         HttpUtil.subscribe(observable, subscriber);
     }
+
+    private void fetchITimeActivities(){
+        final String synToken = TokenUtil.getInstance(context).getITimeActivitiesToken(user.getUserUid());
+        Observable<HttpResult<List<MessageGroup>>> observable = iTimeActivityApi.list(synToken).map(ret -> {
+            if (ret.getData().size() > 0) {
+                dbManager.insertOrReplace(ret.getData());
+                tokenUtil.setITimeActivitiesToken(user.getUserUid(), ret.getSyncToken());
+            }
+            return ret;
+        });
+        Subscriber<HttpResult<List<MessageGroup>>> subscriber = new Subscriber<HttpResult<List<MessageGroup>>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.i(TAG, "onError: ");
+            }
+
+            @Override
+            public void onNext(HttpResult<List<MessageGroup>> listHttpResult) {
+                EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_ITIME_ACTIVITIES));
+            }
+        };
+        HttpUtil.subscribe(observable, subscriber);
+
+    }
+
+
 }

@@ -50,4 +50,10 @@
         <attr name="max_show_c" format="integer"/>
         <attr name="scroll_enable" format="boolean"/>
     </declare-styleable>
+
+    <declare-styleable name="BadgeView">
+        <attr name="numberColor" format="color"/>
+        <attr name="bgColor" format="color"/>
+        <attr name="number" format="string"/>
+    </declare-styleable>
 </resources>
