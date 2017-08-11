@@ -233,11 +233,12 @@ public class EventUtil extends BaseUtil{
 
 
     public static String HOUR_MIN = "kk:mm";
-    public static String HOUR_MIN_A = "kk:mm a";
+    public static String HOUR_MIN_A = "hh:mm a";
     public static String WEEK_DAY_MONTH = "EEE, dd MMM";
     public static String HOUR_MIN_WEEK_DAY_MONTH = "kk:mm a EEE,dd MMM";
     public static String DAY_MONTH_YEAR = "dd MMM yyyy";
     public static String TIME_ZONE_PATTERN = "yyyy-MM-dd'T'HH:mm:ssZZZZZ";
+    public static String UPDATE_CREATE_AT = "yyyy-MM-dd kk:mm:ss";
 
     public static String getFormatTimeString(long time, String format){
         Calendar c = Calendar.getInstance();
@@ -246,15 +247,33 @@ public class EventUtil extends BaseUtil{
         return fmt.format(c.getTime());
     }
 
-    public static Date parseTimeZoneToDate(String dateTime) {
+    public static Date parseTimeZoneToDate(String dateTime, String format){
         Date date = null;
+        String pattern = format == null ?  TIME_ZONE_PATTERN : format;
         try {
-            date = new SimpleDateFormat(TIME_ZONE_PATTERN, Locale.getDefault()).parse(dateTime);
+            date = new SimpleDateFormat(pattern, Locale.getDefault()).parse(dateTime);
         } catch (ParseException e) {
             Log.i(TAG, "timeZoneToDate: parse error " + dateTime);
         }
         return date;
+    }
 
+    public static Date parseTimeZoneToDate(String dateTime) {
+        return parseTimeZoneToDate(dateTime, null);
+    }
+
+    public static boolean isSameDay(Calendar c1, Calendar c2){
+        return c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH)
+                && c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH)
+                && c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR);
+    }
+
+    public static boolean isYesterDay(Calendar baseCalendar, Calendar comparedCalendar){
+        return getBeginOfDayCalendar(baseCalendar).getTimeInMillis() - getBeginOfDayCalendar(comparedCalendar).getTimeInMillis() == getOneDayLong();
+    }
+
+    public static long getOneDayLong(){
+        return 1000 * 60 * 60 * 24;
     }
 
     public static String reminderIntToString(Context context, int reminder){
@@ -642,6 +661,7 @@ public class EventUtil extends BaseUtil{
     public static Invitee createSelfInviteeForEvent(Context context, Event event){
         Invitee invitee = new Invitee();
         invitee.setEventUid(event.getEventUid());
+        invitee.setHost(true);
         invitee.setUserUid(UserUtil.getInstance(context).getUserUid());
         invitee.setInviteeUid(AppUtil.generateUuid());
         invitee.setUser(UserUtil.getInstance(context).getUser());

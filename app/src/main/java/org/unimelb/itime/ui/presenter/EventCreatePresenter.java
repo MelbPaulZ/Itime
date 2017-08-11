@@ -125,6 +125,8 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
 
     }
 
+
+
     /**
      * Only for solo events can be
      * @param event
@@ -132,7 +134,6 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
     public void updateEvent(final Event event){
 
         Event orgEvent = DBManager.getInstance(getContext()).getEvent(event.getEventUid());
-
         String syncToken = TokenUtil.getInstance(getContext()).getEventToken(UserUtil.getInstance(getContext()).getUserUid());
         EventApi eventApi = HttpUtil.createService(getContext(), EventApi.class);
         Observable<HttpResult<List<Event>>> observable = eventApi.update(

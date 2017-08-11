@@ -170,6 +170,14 @@ public class TokenUtil {
         setToken(userUid, token, SyncToken.PREFIX_BLOCK);
     }
 
+    public void setITimeActivitiesToken(String userUid, String token){
+        setToken(userUid, token, SyncToken.PREFIX_ITIMEACTIVITIES);
+    }
+
+    public String getITimeActivitiesToken(String userUid){
+        return getToken(userUid, SyncToken.PREFIX_ITIMEACTIVITIES);
+    }
+
     /**
      * Added by Qiushuo Huang
      * @param userUid

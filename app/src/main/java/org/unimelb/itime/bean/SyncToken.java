@@ -18,6 +18,7 @@ public class SyncToken {
     public final static String PREFIX_ACCOUNT = "account_list";
     public final static String PREFIX_BLOCK = "block_list";
     public final static String PREFIX_FRIEND_REQUEST = "friend_request_list";
+    public final static String PREFIX_ITIMEACTIVITIES = "itime_activity_list";
 
     private String userUid = "";
     @Id

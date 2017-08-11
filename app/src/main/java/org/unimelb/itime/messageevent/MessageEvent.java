@@ -10,6 +10,7 @@ public class MessageEvent {
     public final static int LOGIN_SUCCESS = 4;
     public final static int LOGIN_REGISTER_LEANCLOUD =5;
     public final static int RELOAD_MEETING = 6;
+    public final static int RELOAD_ITIME_ACTIVITIES = 7;
 
     public String message;
     public int task;
