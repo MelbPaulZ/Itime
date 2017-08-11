@@ -1,5 +1,6 @@
 package org.unimelb.itime.ui.fragment.calendar;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,12 +15,15 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
+import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.databinding.FragmentCalendarTimeslotBinding;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
+import org.unimelb.itime.ui.fragment.event.FragmentEventDetail;
+import org.unimelb.itime.ui.fragment.event.FragmentEventDetailConfirm;
 import org.unimelb.itime.ui.mvpview.calendar.TimeslotMvpView;
 import org.unimelb.itime.ui.presenter.TimeslotPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarTimeslotViewModel;
@@ -56,6 +60,8 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     private Mode mode = Mode.HOST_CREATE;
     private int selectMax = 1;
 
+    private transient List<TimeSlot> preSelectedSlots;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -71,8 +77,9 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
         return new TimeslotPresenter<>(getContext());
     }
 
-    public void setEvent(Event event) {
+    public void setEvent(Event event, List<TimeSlot> selectedTimeslots) {
         this.event = event;
+        this.preSelectedSlots = selectedTimeslots;
     }
 
     public void setMode(Mode mode) {
@@ -84,9 +91,8 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
         super.onActivityCreated(savedInstanceState);
         toolbarVM = new ToolbarTimeslotViewModel<>(this);
         binding.setToolbarVM(toolbarVM);
-
         setTimeslotViewMode(mode,event);
-        linkEventTimeslots(event);
+        linkEventTimeslots(event, preSelectedSlots);
     }
 
     @Override
@@ -105,8 +111,13 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
         if (fragment instanceof FragmentEventCreate){
             event.setTimeslot(selectedTimeslotsMap);
             ((FragmentEventCreate) fragment).setEvent(event);
+            getFragmentManager().popBackStack();
+        }else if (fragment instanceof FragmentEventDetail){
+            FragmentEventDetailConfirm fragmentConfirm = new FragmentEventDetailConfirm();
+            fragmentConfirm.setEvent(event);
+            fragmentConfirm.setTimeSlot(toolbarVM.getConfirmedTimeslot());
+            getBaseActivity().openFragment(fragmentConfirm);
         }
-        getFragmentManager().popBackStack();
     }
 
     @Override
@@ -167,11 +178,32 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
         timeSlotView.setViewMode(mode);
     }
 
-    private void linkEventTimeslots(Event event){
+    private void linkEventTimeslots(Event event, List<TimeSlot> selectedTimeslots){
         List<TimeSlot> timeSlots = new ArrayList<>(event.getTimeslot().values());
+
+        //upgrade map
+        switch (mode){
+            case HOST_CREATE:
+                for (TimeSlot timeslot:event.getTimeslot().values()
+                     ) {
+                    selectedTimeslotsMap.put(timeslot.getTimeslotUid(), timeslot);
+                }
+                break;
+            case HOST_CONFIRM:case INVITEE_CONFIRM:
+                for (TimeSlot timeslot:selectedTimeslots
+                        ) {
+                    selectedTimeslotsMap.put(timeslot.getTimeslotUid(), timeslot);
+                }
+                break;
+        }
+
+        // add to timeslot view for display
         for (TimeSlot timeslot:timeSlots
              ) {
-            timeSlotView.addTimeSlot(timeslot);
+            WrapperTimeSlot wrapper = new WrapperTimeSlot(timeslot);
+            wrapper.setSelected(selectedTimeslotsMap.containsKey(wrapper.getTimeSlot().getTimeslotUid()));
+            //For timeslot view
+            timeSlotView.addTimeSlot(wrapper);
         }
     }
 

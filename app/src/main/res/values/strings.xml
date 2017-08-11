@@ -9,6 +9,8 @@
     <string name="dialog_save_for_future_events"></string>
     <!--toolbar string-->
     <string name="toolbar_done">Done</string>
+    <string name="toolbar_confirm">Confirm</string>
+    <string name="toolbar_vote">Vote</string>
     <string name="toolbar_custom">Custom</string>
     <string name="toolbar_cancel">Cancel</string>
     <string name="toolbar_url">URL</string>

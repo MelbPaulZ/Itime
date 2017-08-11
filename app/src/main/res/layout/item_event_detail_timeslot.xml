@@ -72,8 +72,6 @@
         android:layout_marginRight="@dimen/s3"
         android:layout_toLeftOf="@id/inviteeCount"
         />
-
-
 </RelativeLayout>
 
 </layout>

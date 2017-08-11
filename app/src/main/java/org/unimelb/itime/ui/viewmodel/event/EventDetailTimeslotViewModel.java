@@ -5,8 +5,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.graphics.drawable.Drawable;
 
-import com.android.databinding.library.baseAdapters.BR;
-
+import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.TimeSlot;
@@ -96,7 +95,6 @@ public class EventDetailTimeslotViewModel extends BaseObservable {
     }
 
     private void generateIcon(){
-
         if(selected){
             leftIcon = context.getResources().getDrawable(R.drawable.icon_details_check_selected);
         }else{

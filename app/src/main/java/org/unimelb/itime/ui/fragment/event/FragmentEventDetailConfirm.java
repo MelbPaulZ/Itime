@@ -99,7 +99,7 @@ public class FragmentEventDetailConfirm extends ItimeBaseFragment<EventDetailCon
         hideProgressDialog();
         switch (taskId){
             case EventCreatePresenter.TASK_EVENT_CONFIRM:
-                getBaseActivity().onBackPressed();
+                getBaseActivity().finish();
                 break;
         }
     }
