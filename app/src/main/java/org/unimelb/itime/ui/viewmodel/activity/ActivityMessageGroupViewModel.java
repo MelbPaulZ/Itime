@@ -82,6 +82,13 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
         }
     };
 
+    private void readMessages(){
+        for (ActivityMessageViewModel messageViewModel : messageGroups){
+            messageViewModel.getMessage().setRead(true);
+        }
+        notifyPropertyChanged(BR.messageGroup);
+    }
+
 
     public void onChangeHideShow(View v){
         if (!showDetail.get()){ // to show
@@ -89,10 +96,13 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
             showDetail.set(!showDetail.get());
             setShowDetail(showDetail);
             mvpView.onDisplayMessages(messageGroup);
+            readMessages(); // just
         }else{ //to close
            v.startAnimation(getCloseAnimation());
         }
     }
+
+
 
     private AlphaAnimation getAlphaAnimation(){
         AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);

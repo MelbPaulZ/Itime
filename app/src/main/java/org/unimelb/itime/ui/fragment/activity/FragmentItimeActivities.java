@@ -78,17 +78,19 @@ public class FragmentItimeActivities extends ItimeBaseFragment<ItimeActivitiesMv
         for (MessageGroup messageGroup : messageGroups){
             ActivityMessageGroupViewModel msgGroupVM = new ActivityMessageGroupViewModel(messageGroup);
             msgGroupVM.setContext(getContext());
+            msgGroupVM.setMvpView(this);
             activityMessageGroupViewModels.add(msgGroupVM);
         }
         return activityMessageGroupViewModels;
     }
 
     @Subscribe
-    public void reloadActivities(MessageEvent messageEvent){
+    public void updateActivities(MessageEvent messageEvent){
         if (messageEvent.task == MessageEvent.RELOAD_ITIME_ACTIVITIES){
             vm.setMessageGroups(getMessageViewGroups());
         }
     }
+
 
     @Override
     public void onStart() {

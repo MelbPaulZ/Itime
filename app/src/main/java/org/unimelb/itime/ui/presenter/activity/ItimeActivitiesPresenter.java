@@ -2,6 +2,7 @@ package org.unimelb.itime.ui.presenter.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -11,6 +12,7 @@ import org.unimelb.itime.base.ItimeBasePresenter;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Message;
 import org.unimelb.itime.bean.MessageGroup;
+import org.unimelb.itime.bean.MessageGroupRetrofitBody;
 import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.restfulapi.ITimeActivityApi;
@@ -39,9 +41,12 @@ public class ItimeActivitiesPresenter<V extends ItimeBaseMvpView> extends ItimeB
     }
 
     public void readMessageGroup(MessageGroup messageGroup){
-        ArrayList<Integer> readIntegers = new ArrayList<>();
+        MessageGroupRetrofitBody body = new MessageGroupRetrofitBody();
+        body.setIsRead(1); // this means read....
+        List<Integer> readIntegers = body.getMessageGroupUids();
         readIntegers.add(messageGroup.getMessageGroupUid());
-        Observable<HttpResult<List<MessageGroup>>> observable = iTimeActivityApi.read(readIntegers).map(ret -> {
+        body.setMessageGroupUids(readIntegers);
+        Observable<HttpResult<List<MessageGroup>>> observable = iTimeActivityApi.read(body).map(ret -> {
             if (ret.getData().size()>0){
                 dbManager.insertOrReplace(ret.getData());
             }
@@ -55,12 +60,12 @@ public class ItimeActivitiesPresenter<V extends ItimeBaseMvpView> extends ItimeB
 
             @Override
             public void onError(Throwable e) {
-
+                Log.i(" error ", "onError: ");
             }
 
             @Override
             public void onNext(HttpResult<List<MessageGroup>> listHttpResult) {
-                EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_ITIME_ACTIVITIES));
+//                EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_ITIME_ACTIVITIES));
                 Toast.makeText(getContext(), "Read", Toast.LENGTH_SHORT).show();
             }
         };
