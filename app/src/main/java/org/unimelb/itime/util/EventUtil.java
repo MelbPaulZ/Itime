@@ -419,6 +419,7 @@ public class EventUtil extends BaseUtil{
     public static Invitee generateInvitee(Event event, User user){
         Invitee invitee = new Invitee();
         invitee.setUser(user);
+        invitee.setUserId(user.getUserId());
         invitee.setUserUid(user.getUserUid());
         invitee.setEventUid(event.getEventUid());
         return invitee;

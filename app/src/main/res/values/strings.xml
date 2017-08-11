@@ -85,6 +85,10 @@
     <string name="event_create_recent_invitee">RECENT</string>
     <string name="event_create_peopleinvited">PEOPLE INVITEED</string>
     <string name="event_create_allowthemtoseeeachothervote">Allow them to see each other\'s votes</string>
+    <string name="event_detail_all_invitee_title">%1$d Invitees</string>
+    <string name="event_detail_all_invitee_tag_going">%1$d Going</string>
+    <string name="event_detail_all_invitee_tag_notgoing">%1$d Not Going</string>
+    <string name="event_detail_all_invitee_tag_noreply">%1$d No Reply</string>
 
     <!--Timeslots-->
     <string name="event_candidate_timeslots">%1$d Candidate Timeslots: </string>

@@ -81,6 +81,10 @@ public class EventDetailViewModel extends BaseObservable{
     private int noReplyNum = 0;
     private int inviteeNum = 0;
 
+    private List<Invitee> goingInvitees = new ArrayList<>();
+    private List<Invitee> notGoingInvitees = new ArrayList<>();
+    private List<Invitee> noReplyInvitees = new ArrayList<>();
+
     private boolean showConfirmVoteButton;
     private boolean showCantGoVoteButton;
     private boolean showSubmitVoteButton;
@@ -815,11 +819,40 @@ public class EventDetailViewModel extends BaseObservable{
     }
 
     private void setVoteStatus(Event event){
-        int[] nums = MeetingUtil.getMeetingVotedStatus(event);
-        setRepliedNum(nums[2]);
-        setCantGoNum(nums[3]);
-        setNoReplyNum(nums[4]);
+        goingInvitees.clear();
+        noReplyInvitees.clear();
+        notGoingInvitees.clear();
+        for (Invitee invitee:event.getInvitee().values()) {
+            String status = invitee.getStatus();
+
+            switch (status) {
+                case Invitee.STATUS_ACCEPTED:
+                    goingInvitees.add(invitee);
+                    break;
+                case Invitee.STATUS_NEEDSACTION:
+                    noReplyInvitees.add(invitee);
+                    break;
+                case Invitee.STATUS_DECLINED:
+                    notGoingInvitees.add(invitee);
+                    break;
+            }
+        }
+        setRepliedNum(goingInvitees.size());
+        setCantGoNum(notGoingInvitees.size());
+        setNoReplyNum(noReplyInvitees.size());
         setInviteeNum(event.getInvitee().size());
+    }
+
+    public List<Invitee> getGoingInvitees() {
+        return goingInvitees;
+    }
+
+    public List<Invitee> getNotGoingInvitees() {
+        return notGoingInvitees;
+    }
+
+    public List<Invitee> getNoReplyInvitees() {
+        return noReplyInvitees;
     }
 
     public int getLocationVisibility(Event event) {
@@ -938,6 +971,18 @@ public class EventDetailViewModel extends BaseObservable{
             public void onClick(View view) {
                 if(mvpView!=null){
                     mvpView.gotoEdit();
+                }
+            }
+        };
+    }
+
+    public View.OnClickListener onAllInviteesClick(){
+        return new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                if(mvpView!=null){
+                    mvpView.toAllInvitees();
                 }
             }
         };
