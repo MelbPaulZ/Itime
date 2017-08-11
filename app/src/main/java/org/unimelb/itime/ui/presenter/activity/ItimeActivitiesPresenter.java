@@ -65,8 +65,7 @@ public class ItimeActivitiesPresenter<V extends ItimeBaseMvpView> extends ItimeB
 
             @Override
             public void onNext(HttpResult<List<MessageGroup>> listHttpResult) {
-//                EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_ITIME_ACTIVITIES));
-                Toast.makeText(getContext(), "Read", Toast.LENGTH_SHORT).show();
+
             }
         };
         HttpUtil.subscribe(observable, subscriber);
