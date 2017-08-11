@@ -620,26 +620,30 @@ public class EventUtil extends BaseUtil{
             timeSlot.getVoteInvitees().clear();
         }
 
-        for(TimeslotInvitee ti:event.getTimeslotInvitee().values()){
-            if(ti.getStatus().equals(TimeslotInvitee.STATUS_ACCEPTED)){
-                TimeSlot timeSlot = event.getTimeslot().get(ti.getTimeslotUid());
-                timeSlot.getVoteInvitees().add(event.getInvitee().get(ti.getInviteeUid()));
-            }
+        for(Map<String,TimeslotInvitee> tiMap:event.getTimeslotInvitee().values()){
+            for(TimeslotInvitee ti:tiMap.values()) {
+                if (ti.getStatus().equals(TimeslotInvitee.STATUS_ACCEPTED)) {
+                    TimeSlot timeSlot = event.getTimeslot().get(ti.getTimeslotUid());
+                    timeSlot.getVoteInvitees().add(event.getInvitee().get(ti.getInviteeUid()));
+                }
 
-            if(ti.getStatus().equals(TimeslotInvitee.STATUS_REJECTED)){
-                TimeSlot timeSlot = event.getTimeslot().get(ti.getTimeslotUid());
-                timeSlot.getRejectInvitees().add(event.getInvitee().get(ti.getInviteeUid()));
+                if (ti.getStatus().equals(TimeslotInvitee.STATUS_REJECTED)) {
+                    TimeSlot timeSlot = event.getTimeslot().get(ti.getTimeslotUid());
+                    timeSlot.getRejectInvitees().add(event.getInvitee().get(ti.getInviteeUid()));
+                }
             }
         }
     }
 
     public static List<TimeSlot> getMyVoteTimeSlot(Event event){
         List<TimeSlot> result = new ArrayList<>();
-        for(TimeslotInvitee ti:event.getTimeslotInvitee().values()){
-            if(ti.getInviteeUid().equals(event.getSelf())
-                    && ti.getStatus().equals(TimeslotInvitee.STATUS_ACCEPTED)){
-                result.add(event.getTimeslot().get(ti.getTimeslotUid()));
-            }
+        for(Map<String, TimeslotInvitee> ti:event.getTimeslotInvitee().values()){
+           if(ti.containsKey(event.getSelf())) {
+               TimeslotInvitee tsi = ti.get(event.getSelf());
+               if (tsi.getStatus().equals(TimeslotInvitee.STATUS_ACCEPTED)) {
+                   result.add(event.getTimeslot().get(tsi.getTimeslotUid()));
+               }
+           }
         }
         return result;
     }

@@ -123,7 +123,9 @@ public class ScalableLayout extends LinearLayout{
                 int deltaX = x - lastXIntercept;
                 int deltaY = y - lastYIntercept;
                 scrolling = true;
-                if (Math.abs(deltaY)>= Math.abs(deltaX)) {
+                float v = y-lastRawY;
+
+                if (Math.abs(deltaY)>= Math.abs(deltaX) && Math.abs(v)>10) {
                     if(currentStatus == STATUS_EXPAND) {
                          if(deltaY<0 || ViewCompat.canScrollVertically(getRecyclerView(), -1)) {
                             intercepted = false;

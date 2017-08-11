@@ -58,7 +58,7 @@ public class InviteeListViewModel extends BaseObservable {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Invitee invitee = invitees.get(i);
-                if(invitee.getUserStatus().equals(Invitee.STATUS_ACCEPTED)) {
+                if(invitee.getUserStatus().equals(Invitee.USER_STATUS_ACTIVATED)) {
                     if (fragment != null) {
                         fragment.toProfile(invitee.getUserUid());
                     }

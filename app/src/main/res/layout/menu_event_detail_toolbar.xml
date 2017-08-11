@@ -10,7 +10,7 @@
         <import type="android.view.View"/>
     </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
+    android:orientation="vertical" android:layout_width="250dp"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_shadow"
     android:paddingTop="25dp"
@@ -18,7 +18,7 @@
     android:paddingLeft="@dimen/s1"
     android:paddingBottom="15dp">
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center_horizontal"
@@ -29,10 +29,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginRight="44dp"
             android:onClick="@{listener.onMuteClick()}"
             android:visibility="@{vm.event.archived?View.GONE:View.VISIBLE}"
-            android:gravity="center_horizontal"
             android:layout_weight="1">
             <ImageView
                 android:layout_width="30dp"
@@ -53,10 +51,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginRight="44dp"
             android:onClick="@{listener.onPinClick()}"
             android:visibility="@{vm.event.archived?View.GONE:View.VISIBLE}"
-            android:gravity="center_horizontal"
             android:layout_weight="1">
             <ImageView
                 android:layout_width="30dp"
@@ -78,7 +74,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:onClick="@{listener.onArchiveClick()}"
-            android:gravity="center_horizontal"
             android:layout_weight="1">
             <ImageView
                 android:layout_width="30dp"
