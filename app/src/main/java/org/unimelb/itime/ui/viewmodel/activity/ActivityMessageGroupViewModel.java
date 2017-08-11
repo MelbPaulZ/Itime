@@ -54,7 +54,7 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
     }
 
     private void initMessages(){
-        int size = messageGroup.getMessage().size();
+        int size = messageGroup.getMessage().size() <= 4? messageGroup.getMessage().size(): 4 ;
         for (int i = 0 ; i < size ; i++){
             ActivityMessageViewModel v = new ActivityMessageViewModel(messageGroup.getMessage().get(i));
             v.setContext(context);
@@ -78,9 +78,21 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
     public final OnItemBind<ActivityMessageViewModel> onItemBind = new OnItemBind<ActivityMessageViewModel>() {
         @Override
         public void onItemBind(ItemBinding itemBinding, int position, ActivityMessageViewModel item) {
-            itemBinding.set(BR.messageViewGroup, position >= 3? R.layout.itime_activity_message_bottom : R.layout.itime_activity_meeting_message);
+            if (position == 3){
+                itemBinding.set(BR.messageViewGroup  ,R.layout.itime_activity_message_bottom);
+            }else if (position < 3){
+                itemBinding.set(BR.messageViewGroup, R.layout.itime_activity_meeting_message);
+            }
+//            itemBinding.set(BR.messageViewGroup, position >= 3? R.layout.itime_activity_message_bottom : R.layout.itime_activity_meeting_message);
         }
     };
+
+    private void readMessages(){
+        for (ActivityMessageViewModel messageViewModel : messageGroups){
+            messageViewModel.getMessage().setRead(true);
+        }
+        notifyPropertyChanged(BR.messageGroup);
+    }
 
 
     public void onChangeHideShow(View v){
@@ -89,10 +101,13 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
             showDetail.set(!showDetail.get());
             setShowDetail(showDetail);
             mvpView.onDisplayMessages(messageGroup);
+            readMessages(); // just
         }else{ //to close
            v.startAnimation(getCloseAnimation());
         }
     }
+
+
 
     private AlphaAnimation getAlphaAnimation(){
         AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
