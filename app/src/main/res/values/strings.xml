@@ -5,8 +5,8 @@
 
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>
-    <string name="dialog_save_for_this_event_only"></string>
-    <string name="dialog_save_for_future_events"></string>
+    <string name="dialog_save_for_this_event_only">Save for this event only</string>
+    <string name="dialog_save_for_future_events">Save for future events</string>
     <!--toolbar string-->
     <string name="toolbar_done">Done</string>
     <string name="toolbar_confirm">Confirm</string>
@@ -240,6 +240,7 @@
     <!--activity-->
     <string name="activity_meeting_show_more">show more…</string>
     <string name="searchbar_placeholder">Search</string>
+    <string name="yesterday">Yesterday</string>
 
     <string name="search_showmore">show more...</string>
 

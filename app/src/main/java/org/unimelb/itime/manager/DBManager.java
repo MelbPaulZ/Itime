@@ -20,6 +20,7 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.EventDao;
 import org.unimelb.itime.bean.FriendRequest;
 import org.unimelb.itime.bean.FriendRequestDao;
+import org.unimelb.itime.bean.MessageGroup;
 import org.unimelb.itime.bean.User;
 import org.unimelb.itime.bean.UserDao;
 import org.unimelb.itime.util.UserUtil;
@@ -246,5 +247,14 @@ public class DBManager {
         DaoSession daoSession = daoMaster.newSession();
         BlockDao blockDao = daoSession.getBlockDao();
         blockDao.delete(block);
+    }
+
+    public synchronized void insertMessageGroup(MessageGroup messageGroup){
+        if (messageGroup == null){
+            return;
+        }
+
+        DaoSession daoSession = daoMaster.newSession();
+
     }
 }

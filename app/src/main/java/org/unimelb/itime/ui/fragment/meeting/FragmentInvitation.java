@@ -60,6 +60,21 @@ public class FragmentInvitation extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
     public void setData(MeetingPresenter.FilterResult filterResult){
         this.filterResult = filterResult;
         this.data = filterResult.invitationResult;

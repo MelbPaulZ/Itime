@@ -17,6 +17,7 @@ import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Message;
 import org.unimelb.itime.bean.MessageGroup;
+import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.ui.mvpview.activity.ItimeActivitiesMvpView;
 
 import java.util.ArrayList;
@@ -28,12 +29,13 @@ import me.tatarka.bindingcollectionadapter2.OnItemBind;
 public class ActivityMessageGroupViewModel extends BaseObservable {
     private MessageGroup messageGroup;
     private ItimeActivitiesMvpView mvpView;
+    private Context context;
 
     private ObservableBoolean showDetail = new ObservableBoolean(false);
 
     public ActivityMessageGroupViewModel(MessageGroup messageGroup) {
         this.messageGroup = messageGroup;
-        mockMessage();
+        initMessages();
     }
 
     public void setMvpView(ItimeActivitiesMvpView mvpView) {
@@ -47,21 +49,30 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
         }
     }
 
-    private void mockMessage(){
-        for (int i = 0 ; i <= 3; i ++){
-            ActivityMessageViewModel v = new ActivityMessageViewModel(mockMessage(mockMsg[i]));
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    private void initMessages(){
+        int size = messageGroup.getMessage().size();
+        for (int i = 0 ; i < size ; i++){
+            ActivityMessageViewModel v = new ActivityMessageViewModel(messageGroup.getMessage().get(i));
+            v.setContext(context);
             v.setMvpView(mvpView);
             messageGroups.add(v);
         }
+
     }
 
-    private Message mockMessage(String msg){
-        Message message = new Message();
-        message.setTitle(msg);
-        return message;
-    }
+//    private void mockMessage(){
+//        for (int i = 0 ; i <= 3; i ++){
+//            ActivityMessageViewModel v = new ActivityMessageViewModel(mockMessage(mockMsg[i]));
+//            v.setMvpView(mvpView);
+//            messageGroups.add(v);
+//        }
+//    }
 
-    private String[] mockMsg = {"message1 title", "message2 title", "message3 title", "message4 title", "message5 title"};
+
 
     private List<ActivityMessageViewModel> messageGroups = new ArrayList<>(); // maximum size 4
     public final OnItemBind<ActivityMessageViewModel> onItemBind = new OnItemBind<ActivityMessageViewModel>() {
@@ -77,6 +88,7 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
             v.startAnimation(getAlphaAnimation());
             showDetail.set(!showDetail.get());
             setShowDetail(showDetail);
+            mvpView.onDisplayMessages(messageGroup);
         }else{ //to close
            v.startAnimation(getCloseAnimation());
         }
@@ -125,7 +137,35 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
     }
 
     public int getUnNumberMuteDotVisibility(MessageGroup messageGroup){
-        return messageGroup.isMute() ? View.VISIBLE : View.GONE;
+        if (messageGroup.isMute()){
+            for (ActivityMessageViewModel messageVM: messageGroups){
+                if (messageVM.getMessage().isRead() == false){
+                    return View.VISIBLE;
+                }
+            }
+        }
+        return View.GONE;
+    }
+
+    public int getNumberredMuteDotVisibility(MessageGroup messageGroup){
+        if (!messageGroup.isMute()){
+            for (ActivityMessageViewModel messageVM: messageGroups){
+                if (messageVM.getMessage().isRead() == false){
+                    return View.VISIBLE;
+                }
+            }
+        }
+        return View.GONE;
+    }
+
+    public String getUnReadMessageNumber(MessageGroup messageGroup){
+        int count = 0;
+        for (Message message: messageGroup.getMessage()){
+            if (!message.isRead()){
+                count ++;
+            }
+        }
+        return count > 0 ? count + "" : "";
     }
 
     public Drawable getIcon(Context context, boolean showDetail){

@@ -9,16 +9,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
+import org.unimelb.itime.bean.Message;
 import org.unimelb.itime.bean.MessageGroup;
 import org.unimelb.itime.databinding.FragmentItimeActivitiesBinding;
+import org.unimelb.itime.manager.DBManager;
+import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.ui.activity.ItimeActivitiesActivity;
 import org.unimelb.itime.ui.mvpview.activity.ItimeActivitiesMvpView;
 import org.unimelb.itime.ui.presenter.activity.ItimeActivitiesPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.activity.ActivityMessageGroupViewModel;
+import org.unimelb.itime.ui.viewmodel.activity.ActivityMessageViewModel;
 import org.unimelb.itime.ui.viewmodel.activity.ItimeActivitiesViewModel;
 
 import java.util.ArrayList;
@@ -64,46 +70,37 @@ public class FragmentItimeActivities extends ItimeBaseFragment<ItimeActivitiesMv
     }
 
     private List<ActivityMessageGroupViewModel> getMessageViewGroups(){
+        DBManager dbManager = DBManager.getInstance(getContext());
+        List<MessageGroup> messageGroups = dbManager.getAll(MessageGroup.class);
+
         List<ActivityMessageGroupViewModel> activityMessageGroupViewModels = new ArrayList<>();
-        activityMessageGroupViewModels.add(getMockSystemMessageGroupViewModel());
-        activityMessageGroupViewModels.add(getMockEventMessageGroupViewModel());
-        activityMessageGroupViewModels.add(getMockEventMessageGroupViewModel());
-        activityMessageGroupViewModels.add(getMockSystemMessageGroupViewModel());
-        activityMessageGroupViewModels.add(getMockEventMessageGroupViewModel());
-        activityMessageGroupViewModels.add(getMockEventMessageGroupViewModel());
-        activityMessageGroupViewModels.add(getMockEventMessageGroupViewModel());
+
+        for (MessageGroup messageGroup : messageGroups){
+            ActivityMessageGroupViewModel msgGroupVM = new ActivityMessageGroupViewModel(messageGroup);
+            msgGroupVM.setContext(getContext());
+            activityMessageGroupViewModels.add(msgGroupVM);
+        }
         return activityMessageGroupViewModels;
     }
 
-    private ActivityMessageGroupViewModel getMockEventMessageGroupViewModel(){
-        ActivityMessageGroupViewModel messageGroupViewModel = new ActivityMessageGroupViewModel(getMockMeetingMessageGroup());
-        messageGroupViewModel.setMvpView(this);
-        return messageGroupViewModel;
+    @Subscribe
+    public void reloadActivities(MessageEvent messageEvent){
+        if (messageEvent.task == MessageEvent.RELOAD_ITIME_ACTIVITIES){
+            vm.setMessageGroups(getMessageViewGroups());
+        }
     }
 
-    private ActivityMessageGroupViewModel getMockSystemMessageGroupViewModel(){
-        return new ActivityMessageGroupViewModel(getMockSystemMessageGroup());
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
     }
 
-    private MessageGroup getMockSystemMessageGroup(){
-        MessageGroup messageGroup = new MessageGroup();
-        messageGroup.setTitle("messageGroupMock");
-        messageGroup.setMute(true);
-        messageGroup.setType(MessageGroup.SYSTEM_MESSAGE_GROUP);
-        return messageGroup;
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
-
-    private int mockCount = 0;
-    private MessageGroup getMockMeetingMessageGroup(){
-        MessageGroup messageGroup = new MessageGroup();
-        messageGroup.setTitle("messageMeetingGroupMock");
-        messageGroup.setMute(mockCount++ % 2 == 0);
-        messageGroup.setType(MessageGroup.TYPE_EVENT_MESSAGE_GROUP);
-        return messageGroup;
-    }
-
-
-
 
     @Override
     public void onNext() {
@@ -124,5 +121,10 @@ public class FragmentItimeActivities extends ItimeBaseFragment<ItimeActivitiesMv
         Intent intent = new Intent(getActivity(), ItimeActivitiesActivity.class);
         intent.putExtra(ItimeActivitiesActivity.ACTIVITIES_MEETING, getMessageGroupByUid(messageGroupUid));
         startActivity(intent);
+    }
+
+    @Override
+    public void onDisplayMessages(MessageGroup messageGroup) {
+        presenter.readMessageGroup(messageGroup);
     }
 }
