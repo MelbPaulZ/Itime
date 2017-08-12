@@ -50,6 +50,7 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     private FragmentEventDetailBinding binding;
     private Event event;
     private FragmentEventDetailConfirm confirmFragment;
+    private FragmentEventDetailAllInvitees allInviteesFragment;
     private CollapseHeadBar headBar;
 
     private EventDetailViewModel contentViewModel;
@@ -243,6 +244,15 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
 //        EventResponseFragment eventResponseFragment = new EventResponseFragment();
 //        eventResponseFragment.setData(event);
 //        getBaseActivity().openFragment(eventResponseFragment);
+    }
+
+    public void toAllInvitees(){
+
+            allInviteesFragment=new FragmentEventDetailAllInvitees();
+
+        allInviteesFragment.setEvent(event);
+        allInviteesFragment.setContentVM(contentViewModel);
+        getBaseActivity().openFragment(allInviteesFragment);
     }
 
     @Override

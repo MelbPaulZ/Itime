@@ -93,7 +93,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     @Convert(converter = Event.TimeslotConverter.class , columnType = String.class)
     private Map<String, TimeSlot> timeslot = new HashMap<>();
     @Convert(converter = Event.TimeslotInviteeConverter.class, columnType = String.class)
-    private Map<String, TimeslotInvitee> timeslotInvitee = new HashMap<>();
+    private Map<String, Map<String, TimeslotInvitee>> timeslotInvitee = new HashMap<>();
 
     private transient RuleModel rule = new RuleModel();
     private String note = "";
@@ -120,14 +120,14 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
 
 
-    @Generated(hash = 1794832828)
-    public Event(String id, String[] recurrence, String status, String summary, String description, String url,
-            Location location, int reminder, String source, String eventUid, String calendarUid, String recurringEventUid,
-            String host, String self, String hostUserUid, String userUid, String eventType, int inviteeVisibility,
-            int freebusyAccess, int showLevel, int deleteLevel, String createdAt, String updatedAt, List<PhotoUrl> photo,
-            boolean isAllDay, String extra, TZoneTime start, TZoneTime end, Map<String, Invitee> invitee,
-            Map<String, TimeSlot> timeslot, Map<String, TimeslotInvitee> timeslotInvitee, String note, String coverPhoto,
-            int duration, String greeting, boolean isArchived, boolean isMute, boolean isPinned) {
+    @Generated(hash = 1201637913)
+    public Event(String id, String[] recurrence, String status, String summary, String description, String url, Location location,
+            int reminder, String source, String eventUid, String calendarUid, String recurringEventUid, String host, String self,
+            String hostUserUid, String userUid, String eventType, int inviteeVisibility, int freebusyAccess, int showLevel,
+            int deleteLevel, String createdAt, String updatedAt, List<PhotoUrl> photo, boolean isAllDay, String extra,
+            TZoneTime start, TZoneTime end, Map<String, Invitee> invitee, Map<String, TimeSlot> timeslot,
+            Map<String, Map<String, TimeslotInvitee>> timeslotInvitee, String note, String coverPhoto, int duration, String greeting,
+            boolean isArchived, boolean isMute, boolean isPinned) {
         this.id = id;
         this.recurrence = recurrence;
         this.status = status;
@@ -167,6 +167,10 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         this.isMute = isMute;
         this.isPinned = isPinned;
     }
+
+
+
+
 
     @Override
     public Event clone() {
@@ -450,11 +454,11 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     }
 
 
-    public Map<String, TimeslotInvitee> getTimeslotInvitee() {
+    public Map<String, Map<String, TimeslotInvitee>> getTimeslotInvitee() {
         return timeslotInvitee;
     }
 
-    public void setTimeslotInvitee(Map<String,TimeslotInvitee> timeslotInvitee) {
+    public void setTimeslotInvitee(Map<String, Map<String, TimeslotInvitee>> timeslotInvitee) {
         this.timeslotInvitee = timeslotInvitee;
     }
 
@@ -794,17 +798,17 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
         }
     }
 
-    public static class TimeslotInviteeConverter implements PropertyConverter<Map<String, TimeslotInvitee>, String>{
+    public static class TimeslotInviteeConverter implements PropertyConverter<Map<String, Map<String,TimeslotInvitee>>, String>{
         Gson gson = new Gson();
 
         @Override
-        public Map<String, TimeslotInvitee> convertToEntityProperty(String databaseValue) {
-            Type listType = new TypeToken<Map<String, TimeslotInvitee>>() {}.getType();
+        public Map<String, Map<String,TimeslotInvitee>> convertToEntityProperty(String databaseValue) {
+            Type listType = new TypeToken<Map<String, Map<String,TimeslotInvitee>>>() {}.getType();
             return gson.fromJson(databaseValue, listType);
         }
 
         @Override
-        public String convertToDatabaseValue(Map<String, TimeslotInvitee> entityProperty) {
+        public String convertToDatabaseValue(Map<String, Map<String,TimeslotInvitee>> entityProperty) {
             return gson.toJson(entityProperty);
         }
     }

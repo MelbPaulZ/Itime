@@ -97,7 +97,7 @@ public class AddFriendsViewModel extends BaseObservable {
     }
 
     public ItemBinding getItemBinding(){
-        return ItemBinding.of(com.android.databinding.library.baseAdapters.BR.viewModel, R.layout.listview_user_autocomplete_item);
+        return ItemBinding.of(com.android.databinding.library.baseAdapters.BR.viewModel, R.layout.listview_user_item);
     }
 
     public AddFriendsMvpView getMvpView() {

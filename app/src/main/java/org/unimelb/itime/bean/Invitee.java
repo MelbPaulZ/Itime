@@ -54,7 +54,8 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
 
 
     @Convert(converter = Invitee.ContactConverter.class , columnType = String.class)
-    private Contact contact = new Contact();
+    private Contact contact = null;
+
     public static class ContactConverter implements PropertyConverter<Contact,String> {
         Gson gson = new Gson();
 

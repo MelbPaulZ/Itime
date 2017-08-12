@@ -56,6 +56,7 @@
                             android:paddingRight="@dimen/s1"
                             android:paddingLeft="@dimen/s1"
                             android:elevation="5dp"
+                            android:onClick="@{contentVM.onAllInviteesClick}"
                             android:visibility="@{contentVM.soloEvent?View.GONE:View.VISIBLE}">
 
                             <LinearLayout

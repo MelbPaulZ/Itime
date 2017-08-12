@@ -20,6 +20,7 @@ public interface EventDetailMvpView extends TaskBasedMvpView, ItimeCommonMvpView
     void proposeNewTimeslots(Event event);
     void viewUserProfile(String userUid);
     void onViewGoingInvitees();
+    void toAllInvitees();
     void openUrl(String url);
     void showAllNote();
     void gotoConfirm(TimeSlot timeSlot);
