@@ -51,12 +51,15 @@ public class FragmentEventDetailAllInvitees  extends ItimeBaseFragment<EventDeta
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if(binding!=null){
+            return binding.getRoot();
+        }
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_detail_all_invitee, container, false);
         tabLayout = (TabLayout) binding.getRoot().findViewById(R.id.tab_layout);
         final CusSwipeViewPager viewPager = (CusSwipeViewPager) binding.getRoot().findViewById(R.id.pager);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         adapter = new PagerAdapterMeeting
-                (getFragmentManager(), 3);
+                (getFragmentManager(), TAB_COUNT);
         //must be 2, otherwise get performance issue
         viewPager.setOffscreenPageLimit(2);
         viewPager.setSwipeEnable(false);
@@ -108,6 +111,11 @@ public class FragmentEventDetailAllInvitees  extends ItimeBaseFragment<EventDeta
                 String.format(getString(R.string.event_detail_all_invitee_tag_notgoing), contentVM.getCantGoNum())));
         tabLayout.addTab(tabLayout.newTab().setText(
                 String.format(getString(R.string.event_detail_all_invitee_tag_noreply), contentVM.getNoReplyNum())));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         adapter.setmData(initFragments());
         adapter.notifyDataSetChanged();
     }

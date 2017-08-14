@@ -761,4 +761,17 @@ public class EventUtil extends BaseUtil{
         long nowTime = Calendar.getInstance().getTimeInMillis();
         return nowTime >= timeMillisecond;
     }
+
+    public static boolean isConfirmed(Event event){
+        if(event.getStatus().equals(Event.STATUS_CONFIRMED)){
+            return true;
+        }
+
+        for(TimeSlot timeSlot:event.getTimeslot().values()){
+            if(timeSlot.isConfirmed()){
+                return true;
+            }
+        }
+        return false;
+    }
 }

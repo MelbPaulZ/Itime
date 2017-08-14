@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.hannesdorfmann.mosby.mvp.MvpFragment;
@@ -20,6 +21,7 @@ import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Location;
 import org.unimelb.itime.bean.Meeting;
+import org.unimelb.itime.bean.Message;
 import org.unimelb.itime.bean.User;
 import org.unimelb.itime.databinding.ActivityMainBinding;
 import org.unimelb.itime.manager.DBManager;
@@ -59,17 +61,32 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         viewModel.setUnReadNum(0+"");
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setTabBarVM(viewModel);
+        viewModel.updateUnreadActivitiesNumberAndVisibility(); // ?? what the fuck not work?
+        Log.i("aaa", "onCreate: " + "onCreate MainActivity");
         init();
 
-//        EventBus.getDefault().register(this);
     }
 
-//    @Subscribe
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+
+    }
+
+    //    @Subscribe
 //    public void refreshMeeting(MessageEvent messageEvent){
 //        if (messageEvent.task == MessageEvent.RELOAD_MEETING){
 //            ((FragmentMeeting)tagFragments[0]).getPresenter().loadDataFromDB();
 //        }
 //    }
+
+    @Subscribe
+    public void refreshActivities(MessageEvent messageEvent){
+        if (messageEvent.task == MessageEvent.RELOAD_ITIME_ACTIVITIES){
+            viewModel.updateUnreadActivitiesNumberAndVisibility();
+        }
+    }
 
     @NonNull
     @Override
@@ -127,10 +144,10 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         startActivity(intent);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
 
+    @Override
+    protected void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
 }

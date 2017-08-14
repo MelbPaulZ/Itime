@@ -46,13 +46,17 @@
     <string name="event_detail_no_reply">No Reply</string>
     <string name="event_detail_itime_contact_title">iTime Contacts</string>
     <string name="event_detail_youmayhaveconfilict">You may have conflict on the timeslot</string>
-    <string name="event_detail_choosetimeslots">Choose Timeslots</string>
+    <string name="event_detail_sheet_left_choosetimeslots">Choose Timeslots</string>
+    <string name="event_detail_sheet_left_voted">Voted</string>
+    <string name="event_detail_sheet_left_not_going">Not Going</string>
     <string name="event_detail_view_in_calendar">View in calendar</string>
     <string name="event_detail_icannotgoatalltimeslots">I can\'t go at all timeslot</string>
     <string name="event_detail_thetimeslotisoutdated">The timeslot is outdated</string>
     <string name="event_detail_pleaseselectatleast1timeslot">Please select at least 1 timeslot</string>
     <string name="event_detail_pleaseselect1timeslot">Please select 1 timeslot</string>
     <string name="event_detail_submit_vote">Submit Vote</string>
+    <string name="event_detail_submit_n_vote">Submit Vote (%1$d/%2$d)</string>
+    <string name="event_detail_voted_for_n_timeslots">Voted for %1$d Timeslots</string>
     <string name="event_detail_confirm">Confirm</string>
     <string name="event_detail_Going">Going</string>
     <string name="event_detail_notgoing">Not Going</string>
@@ -67,7 +71,9 @@
     <string name="event_detail_youcannotchangeafterconfirmation">You cannot change timeslot after confirmation!</string>
     <string name="event_detail_peoplenotgoing">People not going</string>
     <string name="event_detail_toolbar_mute">Mute</string>
+    <string name="event_detail_toolbar_muted">Unmute</string>
     <string name="event_detail_toolbar_pin">Pin</string>
+    <string name="event_detail_toolbar_pinned">Unpin</string>
     <string name="event_detail_toolbar_archive">Archive</string>
     <string name="event_detail_toolbar_archived">Archived</string>
     <string name="event_detail_toolbar_share">Share</string>
@@ -249,6 +255,7 @@
     <string name="activity_meeting_show_more">show more…</string>
     <string name="searchbar_placeholder">Search</string>
     <string name="yesterday">Yesterday</string>
+    <string name="mark_all_read">Mark all read</string>
 
     <string name="search_showmore">show more...</string>
 
