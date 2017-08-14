@@ -14,6 +14,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
+import org.unimelb.itime.bean.Calendar;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.databinding.FragmentCalendarTimeslotBinding;
@@ -34,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 import david.itimecalendar.calendar.listeners.ITimeCalendarTimeslotViewListener;
+import david.itimecalendar.calendar.ui.CalendarConfig;
 import david.itimecalendar.calendar.ui.unitviews.DraggableTimeSlotView;
 import david.itimecalendar.calendar.ui.unitviews.RcdRegularTimeSlotView;
 import david.itimecalendar.calendar.ui.weekview.TimeSlotView;
@@ -54,6 +56,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     private FragmentCalendarTimeslotBinding binding;
     private EventManager eventManager;
     private TimeSlotView timeSlotView;
+    private CalendarConfig config = new CalendarConfig();
     private ToolbarTimeslotViewModel toolbarVM;
     private Event event;
     private Mode mode = Mode.HOST_CREATE;
@@ -138,7 +141,10 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     }
 
     private void initView(){
+        config.unconfirmedIncluded = false;
         timeSlotView = (TimeSlotView) binding.getRoot().findViewById(R.id.timeslot_view);
+        timeSlotView.setCalendarConfig(config);
+
         timeSlotView.setEventPackage(eventManager.getEventsPackage());
         timeSlotView.setOnTimeslotDurationChangedListener(duration -> {
             if (duration == -1){
@@ -275,7 +281,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
                             wrapperTimeSlot.setSelected(true);
                         }else {
                             Toast.makeText(getContext()
-                                    , String.format(getContext().getString(R.string.timeslot_alert_max_count),String.valueOf(selectMax))
+                                    , String.format(getContext().getString(R.string.timeslot_alert_max_count), selectMax)
                                     , Toast.LENGTH_LONG).show();
                         }
                     }else {
@@ -301,7 +307,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
                             selectedTimeslotsMap.put(timeSlot.getTimeslotUid(),timeSlot);
                         }else {
                             Toast.makeText(getContext()
-                                    , String.format(getContext().getString(R.string.timeslot_alert_max_count),String.valueOf(selectMax))
+                                    , String.format(getContext().getString(R.string.timeslot_alert_max_count), selectMax)
                                     , Toast.LENGTH_LONG).show();
                         }
                     }else {

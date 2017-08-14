@@ -26,6 +26,7 @@ import java.util.Date;
 
 import david.itimecalendar.calendar.listeners.ITimeCalendarMonthAgendaViewListener;
 import david.itimecalendar.calendar.listeners.ITimeEventInterface;
+import david.itimecalendar.calendar.ui.CalendarConfig;
 import david.itimecalendar.calendar.ui.agendaview.AgendaViewBody;
 import david.itimecalendar.calendar.ui.agendaview.MonthAgendaView;
 import david.itimecalendar.calendar.ui.monthview.DayViewAllDay;
@@ -40,6 +41,7 @@ public class FragmentCalendarAgenda extends ItimeBaseFragment<CalendarMvpView, C
     private EventManager eventManager;
     private MonthAgendaView agendaView;
     private FragmentCalendar.OnDateChanged onDateChanged;
+    private CalendarConfig config = new CalendarConfig();
 
     @Nullable
     @Override
@@ -77,16 +79,19 @@ public class FragmentCalendarAgenda extends ItimeBaseFragment<CalendarMvpView, C
     @Subscribe
     public void refreshEvent(MessageEvent msg){
         if (msg.task == MessageEvent.RELOAD_EVENT){
-            agendaView.setDayEventMap(EventManager.getInstance(getContext()).getEventsPackage());
+            agendaView.setEventPackage(EventManager.getInstance(getContext()).getEventsPackage());
         }
     }
 
     private void initView(){
+        config.unconfirmedIncluded = true;
+
         agendaView = (MonthAgendaView) root.findViewById(R.id.agenda_view);
+        agendaView.setCalendarConfig(config);
         //Set the data source with format of ITimeEventPackageInterface
         //ITimeEventPackageInterface is composed by two parts:
         //  1: regular events. 2: repeated events.
-        agendaView.setDayEventMap(eventManager.getEventsPackage());
+        agendaView.setEventPackage(eventManager.getEventsPackage());
         agendaView.setITimeCalendarMonthAgendaViewListener(listener);
     }
 
@@ -114,7 +119,7 @@ public class FragmentCalendarAgenda extends ItimeBaseFragment<CalendarMvpView, C
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == EventCreateActivity.CREATE_EVENT) {
             if (resultCode == Activity.RESULT_OK) {
-                agendaView.setDayEventMap(EventManager.getInstance(getContext()).getEventsPackage());
+                agendaView.setEventPackage(EventManager.getInstance(getContext()).getEventsPackage());
             }
         }
     }

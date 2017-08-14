@@ -27,6 +27,8 @@ import java.util.Date;
 
 import david.itimecalendar.calendar.listeners.ITimeCalendarMonthDayViewListener;
 import david.itimecalendar.calendar.listeners.ITimeEventInterface;
+import david.itimecalendar.calendar.ui.CalendarConfig;
+import david.itimecalendar.calendar.ui.monthview.DayViewBodyCell;
 import david.itimecalendar.calendar.ui.monthview.MonthView;
 import david.itimecalendar.calendar.ui.unitviews.DraggableEventView;
 import david.itimecalendar.calendar.util.MyCalendar;
@@ -41,7 +43,7 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
     private EventManager eventManager;
     private MonthView monthDayView;
     private FragmentCalendar.OnDateChanged onDateChanged;
-
+    private CalendarConfig config = new CalendarConfig();
 
     @Nullable
     @Override
@@ -84,7 +86,10 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
     }
 
     private void initView(){
+        config.unconfirmedIncluded = true;
+
         monthDayView = (MonthView) root.findViewById(R.id.month_view);
+        monthDayView.setCalendarConfig(config);
         //Set the data source with format of ITimeEventPackageInterface
         //ITimeEventPackageInterface is composed by two parts:
         //  1: regular events. 2: repeated events.

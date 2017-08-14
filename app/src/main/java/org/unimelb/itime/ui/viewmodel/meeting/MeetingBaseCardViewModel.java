@@ -18,6 +18,7 @@ import org.unimelb.itime.ui.fragment.meeting.RecyclerViewAdapterMeetings;
 import org.unimelb.itime.ui.mvpview.MeetingMvpView;
 import org.unimelb.itime.ui.presenter.MeetingPresenter;
 import org.unimelb.itime.util.EventUtil;
+import org.unimelb.itime.util.TimeFactory;
 
 import java.util.Calendar;
 import java.util.List;
@@ -110,7 +111,26 @@ public class MeetingBaseCardViewModel extends BaseObservable {
     }
 
     public String getReminderTimeStr(){
-        return "In 2d 2h";
+        long[] timeDiff = TimeFactory.getTimeDiffWithToday(meeting.getEvent().getStartTime());
+        boolean isOutdated = timeDiff[3] < 0;
+
+        int resIdMode = isOutdated ? R.string.meeting_reminder_time_ago : R.string.meeting_reminder_time_future;
+        if (timeDiff[0] != 0){
+            // > 1 day
+            return String.format(
+                    context.getString(resIdMode),String.format(context.getString(R.string.meeting_reminder_time_day)
+                            ,(int)Math.abs(timeDiff[0])));
+        }else if (timeDiff[1] != 0){
+            // day = 0, hour > 0
+            return String.format(
+                    context.getString(resIdMode),String.format(context.getString(R.string.meeting_reminder_time_hour)
+                            ,(int)Math.abs(timeDiff[1])));
+        }else {
+            // day = 0, hour = 0
+            return String.format(context.getString(resIdMode)
+                    ,String.format(context.getString(R.string.meeting_reminder_time_min)
+                            ,(int)Math.abs(timeDiff[2])));
+        }
     }
 
     public int getStatusBlockVisibility(){

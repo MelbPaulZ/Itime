@@ -5,8 +5,10 @@ import android.content.Context;
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.TimeSlot;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Qiushuo Huang on 2017/8/4.
@@ -86,4 +88,20 @@ public class TimeFactory {
         return fmt.format(c.getTime());
     }
 
+    /**
+     * Return days & hours & minutes which means the diff between the
+     * input time and current time
+     * @param time
+     * @return
+     */
+    public static long[] getTimeDiffWithToday(long time){
+        long currentTime = Calendar.getInstance().getTimeInMillis();
+        long diff = time - currentTime;
+        long minutesTotal = TimeUnit.MILLISECONDS.toMinutes(diff);
+
+        long days = TimeUnit.MILLISECONDS.toDays(diff);
+        long hours = TimeUnit.MILLISECONDS.toHours(diff)%24;
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(diff)%60;
+        return new long[] {days,hours,minutes,minutesTotal};
+    }
 }

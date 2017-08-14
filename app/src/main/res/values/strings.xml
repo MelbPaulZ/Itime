@@ -193,7 +193,7 @@
     <string name="timeslot_alert_outdated_select">Timeslot outdated</string>
     <string name="timeslot_alert_conflict_select">You may have conflict on the timeslot</string>
     <string name="timeslot_alert_outdated_create">You can\'t create outdated timeslots</string>
-    <string name="timeslot_alert_max_count">Only %1$ slot(s) can be selected</string>
+    <string name="timeslot_alert_max_count">Only %1$d slot(s) can be selected</string>
 
     <!--Event Time-->
     <string name="event_time_picker_start">Start</string>
@@ -266,6 +266,12 @@
     <string name="meeting_tag_coming">Coming</string>
     <string name="meeting_tag_archive">Archive</string>
     <string name="meeting_tag_archive_clear_all">Clear All</string>
+    <string name="meeting_reminder_time_future" >In %1$s</string>
+    <string name="meeting_reminder_next_slot" >Next timeslot in %1$s</string>
+    <string name="meeting_reminder_time_ago" >%1$s Ago</string>
+    <string name="meeting_reminder_time_day" >%1$dd</string>
+    <string name="meeting_reminder_time_hour" >%1$dh</string>
+    <string name="meeting_reminder_time_min" >%1$dmin</string>
     <string name="search">Search</string>
     
     <!--contacts-->
