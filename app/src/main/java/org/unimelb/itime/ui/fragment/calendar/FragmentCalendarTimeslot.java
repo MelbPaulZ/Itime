@@ -57,6 +57,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     private ToolbarTimeslotViewModel toolbarVM;
     private Event event;
     private Mode mode = Mode.HOST_CREATE;
+    // TODO: 14/8/17 add max setting logic
     private int selectMax = 1;
 
     private transient List<TimeSlot> preSelectedSlots;

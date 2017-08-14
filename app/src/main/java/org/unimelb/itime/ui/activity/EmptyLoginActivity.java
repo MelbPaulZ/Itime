@@ -82,8 +82,10 @@ public class EmptyLoginActivity extends ItimeBaseActivity<LoginMvpView,LoginPres
         spinner.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,admins));
 
         loginBtn.setOnClickListener(v -> {
-            username = usernameET.getText().toString();
-            password = pswET.getText().toString();
+            String inputUsername = usernameET.getText().toString();
+            String inputPsw = pswET.getText().toString();
+            username = inputUsername.isEmpty() ? username:inputUsername;
+            password = inputUsername.isEmpty() ? password:inputPsw;
             presenter.loginByEmail(username,password);
         });
 
@@ -133,6 +135,8 @@ public class EmptyLoginActivity extends ItimeBaseActivity<LoginMvpView,LoginPres
 
     @Override
     public void onTaskSuccess(int taskId, Object data) {
+        Toast.makeText(getApplicationContext(),"Login as: " + username ,Toast.LENGTH_LONG).show();
+
         EventBus.getDefault().post(new MessageEvent(MessageEvent.LOGIN_SUCCESS));
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
