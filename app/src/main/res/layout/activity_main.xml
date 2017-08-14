@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
 
     <data>
         <variable
@@ -126,23 +126,35 @@
                     android:tag="tab_text"
                     />
                 <!--add in last, for bring to front-->
+
+
+
                 <View
                     android:id="@+id/contactAnchor"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
                     android:layout_centerInParent="true" />
-                <TextView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_centerHorizontal="true"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:text='@{tabBarVM.unReadFriendRequest+""}'
-                    android:visibility="@{tabBarVM.unReadFriendRequest==0?View.GONE:View.VISIBLE}"
+
+                <org.unimelb.itime.widget.BadgeView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:layout_toRightOf="@id/contactAnchor"
                     android:layout_alignParentTop="true"
-                    android:gravity="center"
-                    android:background="@drawable/icon_notice_number"/>
+                    android:visibility="@{tabBarVM.unReadActivitiesVisibility}"
+                    app:number="@{String.valueOf(tabBarVM.unReadActivitiesNumber)}"
+                    />
+                <!--<TextView-->
+                    <!--android:layout_width="20dp"-->
+                    <!--android:layout_height="20dp"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:textSize="10sp"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:text='@{tabBarVM.unReadFriendRequest+""}'-->
+                    <!--android:visibility="@{tabBarVM.unReadFriendRequest==0?View.GONE:View.VISIBLE}"-->
+                    <!--android:layout_toRightOf="@id/contactAnchor"-->
+                    <!--android:layout_alignParentTop="true"-->
+                    <!--android:gravity="center"-->
+                    <!--android:background="@drawable/icon_notice_number"/>-->
             </RelativeLayout>
 
             <!--placeholder-->

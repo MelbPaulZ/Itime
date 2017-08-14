@@ -95,6 +95,9 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
     @Override
     public void onTaskSuccess(int taskId, Object data) {
         if (taskId == EventCreatePresenter.TASK_EVENT_CREATE){
+            Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+            intent.putExtra(EventDetailActivity.EVENT, event);
+            startActivity(intent);
             getActivity().finish();
         }else if (taskId == EventCreatePresenter.TASK_EVENT_UPDATE){
             Toast.makeText(getContext(), "update event successfully", Toast.LENGTH_SHORT).show();
