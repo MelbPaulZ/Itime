@@ -79,6 +79,16 @@
                     android:text="@{calendarVM.today}"
                     android:textSize="8sp" />
             </FrameLayout>
+
+            <!-- restart icon -->
+            <View
+                android:id="@+id/restart"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_toStartOf="@id/back_to_today_frame"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_restart"
+                android:onClick="@{calendarVM.restartClickListener}"/>
         </RelativeLayout>
 
         <!-- Calendar-->

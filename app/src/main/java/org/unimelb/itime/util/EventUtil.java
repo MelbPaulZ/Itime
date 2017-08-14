@@ -756,4 +756,9 @@ public class EventUtil extends BaseUtil{
         }
         return rst;
     }
+
+    public static boolean isExpired(long timeMillisecond) {
+        long nowTime = Calendar.getInstance().getTimeInMillis();
+        return nowTime >= timeMillisecond;
+    }
 }

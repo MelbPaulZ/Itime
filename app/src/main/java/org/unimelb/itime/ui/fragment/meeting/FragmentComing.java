@@ -73,6 +73,12 @@ public class FragmentComing extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAdapter.closeAllItems();
+    }
+
     public void setData(List<Meeting> comingResult){
         this.data = comingResult;
         if (mAdapter != null){

@@ -1,5 +1,7 @@
 package org.unimelb.itime.ui.viewmodel;
 
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.Bindable;
 import android.util.Log;
 import android.view.View;
@@ -61,6 +63,16 @@ public class MainCalendarViewModel extends ItimeBaseViewModel{
         };
     }
 
+    public View.OnClickListener getRestartClickListener(){
+        return v -> {
+            Context context = v.getContext();
+            Intent i = context.getPackageManager()
+                    .getLaunchIntentForPackage(context.getPackageName() );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(i);
+        };
+    }
+
     @Bindable
     public AdapterView.OnItemClickListener getOnMenuSpinnerClicked() {
         return onMenuSpinnerClicked;
@@ -82,12 +94,7 @@ public class MainCalendarViewModel extends ItimeBaseViewModel{
     }
 
     public View.OnClickListener getThreeLineOnClickListener(){
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setShowSpinnerMenu(!showSpinnerMenu);
-            }
-        };
+        return view -> setShowSpinnerMenu(!showSpinnerMenu);
     }
 
     /**
@@ -95,12 +102,7 @@ public class MainCalendarViewModel extends ItimeBaseViewModel{
      * @return
      */
     public View.OnClickListener onOutsideClicked(){
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setShowSpinnerMenu(false);
-            }
-        };
+        return view -> setShowSpinnerMenu(false);
     }
 
     @Bindable
@@ -122,16 +124,6 @@ public class MainCalendarViewModel extends ItimeBaseViewModel{
         for (int i = 0 ; i < menuItems.size() ; i++){
             menuItems.get(i).setIsSelecte(i==position? 1 : 0);
         }
-    }
-
-    public String initToolBarTitle(){
-        Calendar calendar = Calendar.getInstance();
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        int delta = -(calendar.get(Calendar.DAY_OF_WEEK)-1);
-        calendar.add(Calendar.DATE,delta);
-
-//        return EventUtil.getMonth(getContext(), calendar.get(Calendar.MONTH)) + " " + calendar.get(Calendar.YEAR);
-        return "";
     }
 
     @Bindable

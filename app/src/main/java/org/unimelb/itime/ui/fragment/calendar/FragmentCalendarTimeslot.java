@@ -1,6 +1,5 @@
 package org.unimelb.itime.ui.fragment.calendar;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,7 +14,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
-import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.databinding.FragmentCalendarTimeslotBinding;
@@ -27,6 +25,7 @@ import org.unimelb.itime.ui.fragment.event.FragmentEventDetailConfirm;
 import org.unimelb.itime.ui.mvpview.calendar.TimeslotMvpView;
 import org.unimelb.itime.ui.presenter.TimeslotPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarTimeslotViewModel;
+import org.unimelb.itime.util.EventUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,7 +35,7 @@ import java.util.Map;
 
 import david.itimecalendar.calendar.listeners.ITimeCalendarTimeslotViewListener;
 import david.itimecalendar.calendar.ui.unitviews.DraggableTimeSlotView;
-import david.itimecalendar.calendar.ui.unitviews.RecommendedSlotView;
+import david.itimecalendar.calendar.ui.unitviews.RcdRegularTimeSlotView;
 import david.itimecalendar.calendar.ui.weekview.TimeSlotView;
 import david.itimecalendar.calendar.util.MyCalendar;
 import david.itimecalendar.calendar.wrapper.WrapperTimeSlot;
@@ -58,6 +57,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     private ToolbarTimeslotViewModel toolbarVM;
     private Event event;
     private Mode mode = Mode.HOST_CREATE;
+    // TODO: 14/8/17 add max setting logic
     private int selectMax = 1;
 
     private transient List<TimeSlot> preSelectedSlots;
@@ -233,13 +233,17 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
 
         @Override
         public void onTimeSlotCreate(DraggableTimeSlotView draggableTimeSlotView) {
-            TimeSlot newSlot = new TimeSlot();
-            newSlot.setStartTime(draggableTimeSlotView.getNewStartTime());
-            newSlot.setEndTime(draggableTimeSlotView.getNewEndTime());
-            timeSlotView.addTimeSlot(newSlot);
+            if (EventUtil.isExpired(draggableTimeSlotView.getNewStartTime())){
+                Toast.makeText(getContext(), R.string.timeslot_alert_outdated_create, Toast.LENGTH_LONG).show();
+            }else {
+                TimeSlot newSlot = new TimeSlot();
+                newSlot.setStartTime(draggableTimeSlotView.getNewStartTime());
+                newSlot.setEndTime(draggableTimeSlotView.getNewEndTime());
+                timeSlotView.addTimeSlot(newSlot);
 
-            selectedTimeslotsMap.put(newSlot.getTimeslotUid(),newSlot);
-            updateToolbarTimeslot();
+                selectedTimeslotsMap.put(newSlot.getTimeslotUid(),newSlot);
+                updateToolbarTimeslot();
+            }
         }
 
         /**
@@ -249,17 +253,30 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
         @Override
         public void onTimeSlotClick(DraggableTimeSlotView draggableTimeSlotView) {
             TimeSlot timeSlot = (TimeSlot) draggableTimeSlotView.getTimeslot();
+
+
+            if (EventUtil.isExpired(draggableTimeSlotView.getTimeslot())){
+                Toast.makeText(getContext(), R.string.timeslot_alert_outdated_select, Toast.LENGTH_LONG).show();
+                return;
+            }
+
             switch (mode){
                 case HOST_CONFIRM:{
                     WrapperTimeSlot wrapperTimeSlot = draggableTimeSlotView.getWrapper();
                     boolean isSelected = !wrapperTimeSlot.isSelected();
 
                     if (isSelected){
+                        if (draggableTimeSlotView.getWrapper().isConflict()){
+                            Toast.makeText(getContext(), R.string.timeslot_alert_conflict_select, Toast.LENGTH_SHORT).show();
+                        }
+
                         if (toolbarVM.getConfirmedTimeslot() == null){
                             toolbarVM.setConfirmedTimeslot(timeSlot);
                             wrapperTimeSlot.setSelected(true);
                         }else {
-                            Toast.makeText(getContext(),"Only " + selectMax + " slot(s) can be selected",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext()
+                                    , String.format(getContext().getString(R.string.timeslot_alert_max_count),String.valueOf(selectMax))
+                                    , Toast.LENGTH_LONG).show();
                         }
                     }else {
                         // un-selected a selected slot
@@ -275,11 +292,17 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
                     boolean isSelected = !wrapperTimeSlot.isSelected();
 
                     if (isSelected){
+                        if (draggableTimeSlotView.getWrapper().isConflict()){
+                            Toast.makeText(getContext(), R.string.timeslot_alert_conflict_select, Toast.LENGTH_SHORT).show();
+                        }
+
                         if (selectedTimeslotsMap.values().size() < selectMax){
                             wrapperTimeSlot.setSelected(true);
                             selectedTimeslotsMap.put(timeSlot.getTimeslotUid(),timeSlot);
                         }else {
-                            Toast.makeText(getContext(),"Only " + selectMax + " slot(s) can be selected",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext()
+                                    , String.format(getContext().getString(R.string.timeslot_alert_max_count),String.valueOf(selectMax))
+                                    , Toast.LENGTH_LONG).show();
                         }
                     }else {
                         // un-selected a selected slot
@@ -294,7 +317,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
 
 
         @Override
-        public void onRcdTimeSlotClick(RecommendedSlotView v) {
+        public void onRcdTimeSlotClick(RcdRegularTimeSlotView v) {
             v.getWrapper().setSelected(true);
             TimeSlot newSlot = new TimeSlot();
             newSlot.setStartTime(v.getWrapper().getTimeSlot().getStartTime());
@@ -317,8 +340,12 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
 
         @Override
         public void onTimeSlotDragDrop(DraggableTimeSlotView draggableTimeSlotView, long startTime, long endTime) {
-            draggableTimeSlotView.getTimeslot().setStartTime(startTime);
-            draggableTimeSlotView.getTimeslot().setEndTime(endTime);
+            if (EventUtil.isExpired(draggableTimeSlotView.getNewStartTime())){
+                Toast.makeText(getContext(), R.string.timeslot_alert_outdated_create, Toast.LENGTH_LONG).show();
+            }else {
+                draggableTimeSlotView.getTimeslot().setStartTime(startTime);
+                draggableTimeSlotView.getTimeslot().setEndTime(endTime);
+            }
         }
 
         @Override
