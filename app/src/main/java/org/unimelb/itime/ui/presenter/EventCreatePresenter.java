@@ -191,7 +191,7 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
         DBManager.getInstance(getContext()).insertOrReplace(Arrays.asList(ev));
     }
 
-    public void deleteEvent(Event event, String type, long orgStartTime) {
+    public void deleteEvent(Event event) {
         if (getView()!=null){
             getView().onTaskStart(TASK_EVENT_DELETE);
         }
@@ -199,8 +199,6 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
         Observable<HttpResult<List<Event>>> observable = eventApi.delete(
                 event.getCalendarUid(),
                 event.getEventUid(),
-                type,
-                orgStartTime,
                 syncToken);
         ItimeSubscriber<HttpResult<List<Event>>> subscriber = new ItimeSubscriber<HttpResult<List<Event>>>() {
             @Override

@@ -950,7 +950,9 @@ public class EventDetailViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (mvpView!=null){
+                    mvpView.onDelete();
+                }
             }
         };
     }
