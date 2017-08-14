@@ -425,7 +425,7 @@
         android:layout_height="match_parent"
         android:background="@color/mask_cover"
         android:onClick="@{contentVM.onTimeSlotSheetClickListener}"
-        android:visibility="@{((contentVM.status == contentVM.STATUS_NEED_VOTE) || (contentVM.status == contentVM.STATUS_NEED_CONFIRM)) &amp; (!contentVM.soloEvent) &amp; contentVM.showTimeSlotSheet?View.VISIBLE:View.GONE}"
+        android:visibility="@{contentVM.event.status.equals(Event.STATUS_PENDING) &amp; contentVM.showTimeSlotSheet?View.VISIBLE:View.GONE}"
         />
     <org.unimelb.itime.widget.ScalableLayout
         android:orientation="vertical" android:layout_width="match_parent"
@@ -438,7 +438,7 @@
         app:scalablelayout_collapseheight="300dp"
         app:scalablelayout_expandheight="800dp"
         app:scalablelayout_status="@{contentVM.bottomSheetStatus}"
-        android:visibility="@{((!contentVM.soloEvent) &amp; ((contentVM.status == contentVM.STATUS_NEED_VOTE) || (contentVM.status == contentVM.STATUS_NEED_CONFIRM))) ? View.VISIBLE:View.GONE}"
+        android:visibility="@{contentVM.event.status.equals(Event.STATUS_PENDING) ? View.VISIBLE:View.GONE}"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -520,7 +520,7 @@
                 android:layout_marginLeft="4dp" />
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <ListView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:paddingRight="@dimen/s2"
@@ -530,7 +530,7 @@
             app:items = "@{contentVM.timeSlotsItems}"
             app:itemBinding="@{contentVM.timeSlotItemBinding}"
             app:onItemClickListener="@{contentVM.onTimeSlotClick}"
-            app:layoutManager="@{contentVM.timeSlotLayoutManager}"/>
+            android:divider="@null"/>
 
         <!--buttons part-->
         <LinearLayout
@@ -548,7 +548,7 @@
                 android:textSize="@dimen/font_large"
                 android:background="@drawable/selector_warning_button"
                 android:onClick="@{contentVM.onCantGoAllClick()}"
-                android:visibility="@{contentVM.status == contentVM.STATUS_NEED_VOTE?View.VISIBLE:View.GONE}"
+                android:visibility="@{(contentVM.status == contentVM.STATUS_NEED_VOTE || contentVM.status == contentVM.STATUS_VOTED)?View.VISIBLE:View.GONE}"
                 />
 
             <!--submit disabled-->
@@ -562,6 +562,19 @@
                 android:textSize="@dimen/font_large"
                 android:visibility="@{(contentVM.status == contentVM.STATUS_NEED_VOTE &amp; contentVM.selectedTimeSlots.empty)?View.VISIBLE:View.GONE}"
                 />
+
+            <!--Voted-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_detail_cell_height"
+                android:textColor="@color/brand_main"
+                android:background="@drawable/bg_bottom_cornor_bluelight"
+                android:text="@{contentVM.votedBtnString}"
+                android:gravity="center"
+                android:textSize="@dimen/font_large"
+                android:visibility="@{(contentVM.status == contentVM.STATUS_VOTED)?View.VISIBLE:View.GONE}"
+                />
+
 
             <!--submit able-->
             <TextView
@@ -609,7 +622,7 @@
                 android:gravity="center"
                 android:textSize="@dimen/font_large"
                 android:background="@drawable/selector_warning_button"
-                android:onClick="@{contentVM.onConfirmClick()}"
+                android:onClick="@{contentVM.onCantGoAllClick()}"
                 />
 
             <TextView

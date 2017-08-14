@@ -4,6 +4,8 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.graphics.drawable.Drawable;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.android.databinding.library.baseAdapters.BR;
 
@@ -16,10 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Qiushuo Huang on 2017/6/18.
+ * Created by Qiushuo Huang on 2017/8/12.
  */
 
-public class EventDetailTimeslotViewModel extends BaseObservable {
+public class EventDetailTimeSlotItemViewModel extends BaseObservable {
     private Drawable leftIcon;
     private String firstTimeRow = "";
     private String secondTimeRow = "";
@@ -31,7 +33,7 @@ public class EventDetailTimeslotViewModel extends BaseObservable {
     private boolean conflict;
     private Context context;
 
-    public EventDetailTimeslotViewModel(Context context){
+    public EventDetailTimeSlotItemViewModel(Context context){
         this.context = context;
 
     }
@@ -86,6 +88,9 @@ public class EventDetailTimeslotViewModel extends BaseObservable {
             inviteePhotos.add(invitee.getAliasPhoto());
         }
         setInviteePhotos(inviteePhotos);
+        if(timeSlot.getStartTime()<System.currentTimeMillis()){
+            setOutdated(true);
+        }
         generateIcon();
         notifyPropertyChanged(BR.timeSlot);
     }
@@ -96,19 +101,14 @@ public class EventDetailTimeslotViewModel extends BaseObservable {
     }
 
     private void generateIcon(){
-
-        if(selected){
+        if(outdated){
+            leftIcon = context.getResources().getDrawable(R.drawable.icon_details_check_outdated);
+        } else if(selected){
             leftIcon = context.getResources().getDrawable(R.drawable.icon_details_check_selected);
+        }else if(conflict){
+            leftIcon = context.getResources().getDrawable(R.drawable.icon_details_check_conflicted);
         }else{
             leftIcon = context.getResources().getDrawable(R.drawable.icon_details_check_unselected);
-
-            if(conflict){
-                leftIcon = context.getResources().getDrawable(R.drawable.icon_details_check_conflicted);
-            }
-
-            if(outdated){
-                leftIcon = context.getResources().getDrawable(R.drawable.icon_details_check_outdated);
-            }
         }
         notifyPropertyChanged(BR.leftIcon);
     }

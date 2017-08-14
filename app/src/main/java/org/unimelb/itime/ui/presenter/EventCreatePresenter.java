@@ -388,6 +388,8 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
             @Override
             public void onNext(HttpResult<List<Event>> listHttpResult) {
                 synchronizeLocal(listHttpResult.getData());
+                DBManager.getInstance(context).insertOrReplace(listHttpResult.getData());
+                EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_EVENT));
                 if (getView()!=null){
                     getView().onTaskSuccess(TASK_EVENT_REJECT, listHttpResult.getData());
                 }
@@ -424,6 +426,8 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
                 EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_EVENT));
                 //sync message
 //                inboxPresenter.fetchMessages();
+                DBManager.getInstance(context).insertOrReplace(listHttpResult.getData());
+                EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_EVENT));
                 if (getView()!=null){
                     getView().onTaskSuccess(TASK_EVENT_ACCEPT, listHttpResult.getData());
                 }
@@ -470,6 +474,8 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
                 updateEventToken(eventHttpResult.getSyncToken());
                 //sync message
 //                inboxPresenter.fetchMessages();
+                DBManager.getInstance(context).insertOrReplace(eventHttpResult.getData());
+                EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_EVENT));
                 if (getView()!=null){
                     getView().onTaskSuccess(TASK_TIMESLOT_ACCEPT, eventHttpResult.getData());
                 }
@@ -509,6 +515,7 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
                 if (getView()!=null){
                     getView().onTaskSuccess(TASK_EVENT_CONFIRM, eventHttpResult.getData());
                 }
+                DBManager.getInstance(context).insertOrReplace(eventHttpResult.getData());
                 EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_EVENT));
             }
         };
@@ -539,6 +546,7 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
                 //sync message
 //                inboxPresenter.fetchMessages();
                 updateEventToken(listHttpResult.getSyncToken());
+                DBManager.getInstance(context).insertOrReplace(listHttpResult.getData());
                 EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_EVENT));
                 if (getView()!=null){
                     getView().onTaskSuccess(TASK_TIMESLOT_REJECT, listHttpResult.getData());
