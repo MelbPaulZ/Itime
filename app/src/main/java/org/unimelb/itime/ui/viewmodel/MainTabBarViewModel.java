@@ -3,11 +3,15 @@ package org.unimelb.itime.ui.viewmodel;
 import android.content.Context;
 import android.databinding.Bindable;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 
 import com.android.databinding.library.baseAdapters.BR;
 
 import org.unimelb.itime.base.ItimeBaseViewModel;
+import org.unimelb.itime.bean.Message;
+import org.unimelb.itime.bean.MessageGroup;
+import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.ui.mvpview.MainTabBarView;
 import org.unimelb.itime.widget.ITimeShootMenu;
 
@@ -26,6 +30,8 @@ public class MainTabBarViewModel extends ItimeBaseViewModel{
     private int visible;
     private int unReadFriendRequest;
     private Context context;
+    private int unReadActivitiesNumber = -1;
+    private int unReadActivitiesVisibility;
 
     private List<ITimeShootMenu.Item> items;
 
@@ -131,5 +137,52 @@ public class MainTabBarViewModel extends ItimeBaseViewModel{
     public void setTabSelectedArr(boolean[] tabSelectedArr) {
         this.tabSelectedArr = tabSelectedArr;
         notifyPropertyChanged(BR.tabSelectedArr);
+    }
+
+
+    public void setUnReadActivitiesNumber(int unReadActivitiesNumber) {
+        this.unReadActivitiesNumber = unReadActivitiesNumber;
+        notifyPropertyChanged(BR.unReadActivitiesNumber);
+    }
+
+    @Bindable
+    public int getUnReadActivitiesNumber() {
+        return unReadActivitiesNumber;
+    }
+
+
+    // this has to be called everytime there is activity update...
+    public void updateUnreadActivitiesNumberAndVisibility(){
+        List<MessageGroup> msgGroups = DBManager.getInstance(getContext()).getAll(MessageGroup.class);
+        int count = 0;
+        boolean unMute = false;
+        for (MessageGroup messageGroup : msgGroups){
+            if (!messageGroup.isMute()){
+                unMute = true;
+            }
+            for (Message message: messageGroup.getMessage()){
+                if (!message.isRead() && !messageGroup.isMute()){
+                    count ++;
+                }
+            }
+        }
+        // if no unread activities, then still hide the badge
+        if (count == 0){
+            unMute = false;
+        }
+        Log.i("aaa", "updateUnreadActivitiesNumberAndVisibility: " + count);
+        setUnReadActivitiesNumber(count);
+        setUnReadActivitiesVisibility(unMute? View.VISIBLE : View.GONE);
+    }
+
+
+    @Bindable
+    public int getUnReadActivitiesVisibility() {
+        return unReadActivitiesVisibility;
+    }
+
+    public void setUnReadActivitiesVisibility(int unReadActivitiesVisibility) {
+        this.unReadActivitiesVisibility = unReadActivitiesVisibility;
+        notifyPropertyChanged(BR.unReadActivitiesVisibility);
     }
 }

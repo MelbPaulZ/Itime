@@ -65,7 +65,31 @@ public class ItimeActivitiesPresenter<V extends ItimeBaseMvpView> extends ItimeB
 
             @Override
             public void onNext(HttpResult<List<MessageGroup>> listHttpResult) {
+                DBManager.getInstance(getContext()).insertOrReplace(listHttpResult.getData());
+                EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_ITIME_ACTIVITIES));
+            }
+        };
+        HttpUtil.subscribe(observable, subscriber);
+    }
 
+    // TODO: 14/8/17  read all messages
+    public void readAll(){
+        Observable<HttpResult<List<MessageGroup>>> observable = iTimeActivityApi.readAll(1);
+        Subscriber<HttpResult<List<MessageGroup>>> subscriber = new Subscriber<HttpResult<List<MessageGroup>>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(HttpResult<List<MessageGroup>> listHttpResult) {
+                DBManager.getInstance(getContext()).insertOrReplace(listHttpResult.getData());
+                EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_ITIME_ACTIVITIES));
             }
         };
         HttpUtil.subscribe(observable, subscriber);

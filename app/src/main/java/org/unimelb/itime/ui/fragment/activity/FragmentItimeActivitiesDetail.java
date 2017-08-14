@@ -14,6 +14,7 @@ import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Message;
 import org.unimelb.itime.bean.MessageGroup;
 import org.unimelb.itime.databinding.FragmentItimeActivitiesDetailBinding;
+import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.ui.mvpview.activity.ItimeActivitiesDetailMvpView;
 import org.unimelb.itime.ui.presenter.activity.ItimeActivitiesDetailPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
@@ -50,7 +51,7 @@ implements ToolbarInterface{
         super.onActivityCreated(savedInstanceState);
 
         vm = new ItimeActivitiesDetailViewModel(getPresenter());
-        vm.setMessages(mockMessages());
+        vm.setMessages(getMessages());
         vm.setMessageGroup(messageGroup);
         binding.setVm(vm);
 
@@ -65,22 +66,19 @@ implements ToolbarInterface{
         this.messageGroup = messageGroup;
     }
 
-    private List<ActivityMessageViewModel> mockMessages(){
-        List<ActivityMessageViewModel> messages = new ArrayList<>();
-        for (int i = 0 ; i <= 20; i ++){
-            messages.add(new ActivityMessageViewModel(mockMessage(mockMsg[i%5])));
+
+    private List<ActivityMessageViewModel> getMessages(){
+        List<MessageGroup> messageGroups = DBManager.getInstance(getContext()).find(MessageGroup.class, "messageGroupUid", messageGroup.getMessageGroupUid());
+        List<Message> messages = messageGroups.get(0).getMessage();
+        List<ActivityMessageViewModel> viewModels = new ArrayList<>();
+        for (Message message: messages){
+            ActivityMessageViewModel msgViewModel = new ActivityMessageViewModel(message);
+            msgViewModel.setContext(getContext());
+            viewModels.add(msgViewModel);
         }
-        return messages;
+
+        return viewModels;
     }
-
-
-    private Message mockMessage(String msg){
-        Message message = new Message();
-        message.setTitle(msg);
-        return message;
-    }
-
-    private String[] mockMsg = {"message1 title", "message2 title", "message3 title", "message4 title", "message5 title"};
 
 
     @Override

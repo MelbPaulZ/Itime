@@ -26,4 +26,7 @@ public interface ITimeActivityApi {
 
     @POST("message_group/read")
     Observable<HttpResult<List<MessageGroup>>> read(@Body MessageGroupRetrofitBody messageGroupRetrofitBody);
+
+    @POST("message_group/read_all")
+    Observable<HttpResult<List<MessageGroup>>> readAll(@Query("isRead") int isRead);
 }

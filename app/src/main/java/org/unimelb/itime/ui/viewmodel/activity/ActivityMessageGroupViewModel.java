@@ -33,8 +33,9 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
 
     private ObservableBoolean showDetail = new ObservableBoolean(false);
 
-    public ActivityMessageGroupViewModel(MessageGroup messageGroup) {
+    public ActivityMessageGroupViewModel(Context context, MessageGroup messageGroup) {
         this.messageGroup = messageGroup;
+        this.context = context;
         initMessages();
     }
 
@@ -54,6 +55,7 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
     }
 
     private void initMessages(){
+        messageGroups.clear();
         int size = messageGroup.getMessage().size() <= 4? messageGroup.getMessage().size(): 4 ;
         for (int i = 0 ; i < size ; i++){
             ActivityMessageViewModel v = new ActivityMessageViewModel(messageGroup.getMessage().get(i));
@@ -63,15 +65,6 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
         }
 
     }
-
-//    private void mockMessage(){
-//        for (int i = 0 ; i <= 3; i ++){
-//            ActivityMessageViewModel v = new ActivityMessageViewModel(mockMessage(mockMsg[i]));
-//            v.setMvpView(mvpView);
-//            messageGroups.add(v);
-//        }
-//    }
-
 
 
     private List<ActivityMessageViewModel> messageGroups = new ArrayList<>(); // maximum size 4
@@ -91,6 +84,7 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
         for (ActivityMessageViewModel messageViewModel : messageGroups){
             messageViewModel.getMessage().setRead(true);
         }
+
         notifyPropertyChanged(BR.messageGroup);
     }
 
@@ -214,6 +208,7 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
 
     public void setMessageGroup(MessageGroup messageGroup) {
         this.messageGroup = messageGroup;
+        initMessages();
         notifyPropertyChanged(BR.messageGroup);
     }
 
