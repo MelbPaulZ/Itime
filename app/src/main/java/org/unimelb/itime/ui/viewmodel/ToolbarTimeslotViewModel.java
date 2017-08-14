@@ -32,6 +32,9 @@ public class ToolbarTimeslotViewModel <V extends ToolbarInterface & ToolbarTimes
     @Bindable
     private ObservableBoolean isTimeslotEnable = new ObservableBoolean(true);
 
+    @Bindable
+    private ObservableBoolean rightBtnClickable = new ObservableBoolean(false);
+
     private V view;
     private FragmentCalendarTimeslot.Mode mode;
 
@@ -44,6 +47,7 @@ public class ToolbarTimeslotViewModel <V extends ToolbarInterface & ToolbarTimes
     public void setSelectedTimeslot(List<TimeSlot> selectedTimeslot) {
         this.selectedTimeslot = selectedTimeslot;
         notifyPropertyChanged(BR.selectedTimeslot);
+        setRightBtnClickable(new ObservableBoolean(selectedTimeslot.size() != 0));
     }
 
     public List<TimeSlot> getSelectedTimeslot() {
@@ -57,6 +61,7 @@ public class ToolbarTimeslotViewModel <V extends ToolbarInterface & ToolbarTimes
     public void setConfirmedTimeslot(TimeSlot confirmedTimeslot) {
         this.confirmedTimeslot = confirmedTimeslot;
         notifyPropertyChanged(BR.confirmedTimeslot);
+        setRightBtnClickable(new ObservableBoolean(confirmedTimeslot != null));
     }
 
     public ObservableBoolean getIsTimeslotEnable() {
@@ -82,7 +87,6 @@ public class ToolbarTimeslotViewModel <V extends ToolbarInterface & ToolbarTimes
         if (this.mode != FragmentCalendarTimeslot.Mode.HOST_CREATE){
             return View.VISIBLE;
         }
-
         return View.GONE;
     }
 
@@ -98,7 +102,8 @@ public class ToolbarTimeslotViewModel <V extends ToolbarInterface & ToolbarTimes
             return context.getResources().getString(R.string.toolbar_choose_timeslots);
         }
 
-        if (this.mode == FragmentCalendarTimeslot.Mode.HOST_CREATE){
+        if (this.mode == FragmentCalendarTimeslot.Mode.HOST_CREATE
+                || this.mode == FragmentCalendarTimeslot.Mode.INVITEE_CONFIRM){
             return String.format(context.getString(R.string.toolbar_timeslots_select), selectedCount, 7);
         }
 
@@ -152,6 +157,34 @@ public class ToolbarTimeslotViewModel <V extends ToolbarInterface & ToolbarTimes
                 timeSlotView.disableTimeSlot();
             }
         };
+    }
+
+    public String getRightBtnText(Context context) {
+        switch (mode){
+            case HOST_CREATE:
+                return context.getResources().getString(R.string.toolbar_done);
+            case HOST_CONFIRM:
+                return context.getResources().getString(R.string.toolbar_confirm);
+            case INVITEE_CONFIRM:
+                return context.getResources().getString(R.string.toolbar_vote);
+        }
+
+        return "Error";
+    }
+
+    public int getRightBtnTextColor(Context context, boolean clickable) {
+        return clickable ?
+                context.getResources().getColor(R.color.text_enable)
+                : context.getResources().getColor(R.color.text_disable);
+    }
+
+    public ObservableBoolean getRightBtnClickable() {
+       return rightBtnClickable;
+    }
+
+    public void setRightBtnClickable(ObservableBoolean rightBtnClickable) {
+        this.rightBtnClickable = rightBtnClickable;
+        notifyPropertyChanged(BR.rightBtnClickable);
     }
 
     public interface ToolbarTimeSlotComponents {

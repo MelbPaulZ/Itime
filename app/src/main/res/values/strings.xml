@@ -9,6 +9,8 @@
     <string name="dialog_save_for_future_events">Save for future events</string>
     <!--toolbar string-->
     <string name="toolbar_done">Done</string>
+    <string name="toolbar_confirm">Confirm</string>
+    <string name="toolbar_vote">Vote</string>
     <string name="toolbar_custom">Custom</string>
     <string name="toolbar_cancel">Cancel</string>
     <string name="toolbar_url">URL</string>
@@ -44,7 +46,9 @@
     <string name="event_detail_no_reply">No Reply</string>
     <string name="event_detail_itime_contact_title">iTime Contacts</string>
     <string name="event_detail_youmayhaveconfilict">You may have conflict on the timeslot</string>
-    <string name="event_detail_choosetimeslots">Choose Timeslots</string>
+    <string name="event_detail_sheet_left_choosetimeslots">Choose Timeslots</string>
+    <string name="event_detail_sheet_left_voted">Voted</string>
+    <string name="event_detail_sheet_left_not_going">Not Going</string>
     <string name="event_detail_view_in_calendar">View in calendar</string>
     <string name="event_detail_icannotgoatalltimeslots">I can\'t go at all timeslot</string>
     <string name="event_detail_thetimeslotisoutdated">The timeslot is outdated</string>
@@ -192,6 +196,10 @@
     <string name="event_alert_1_day_before">1 day before</string>
     <string name="event_alert_2_days_before">2 days before</string>
     <string name="event_alert_1_week_before">1 week before</string>
+    <string name="timeslot_alert_outdated_select">Timeslot outdated</string>
+    <string name="timeslot_alert_conflict_select">You may have conflict on the timeslot</string>
+    <string name="timeslot_alert_outdated_create">You can\'t create outdated timeslots</string>
+    <string name="timeslot_alert_max_count">Only %1$ slot(s) can be selected</string>
 
     <!--Event Time-->
     <string name="event_time_picker_start">Start</string>

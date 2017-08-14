@@ -425,7 +425,7 @@
         android:layout_height="match_parent"
         android:background="@color/mask_cover"
         android:onClick="@{contentVM.onTimeSlotSheetClickListener}"
-        android:visibility="@{contentVM.event.status.equals(Event.STATUS_PENDING) &amp; contentVM.showTimeSlotSheet?View.VISIBLE:View.GONE}"
+        android:visibility="@{contentVM.canVote &amp; contentVM.showTimeSlotSheet?View.VISIBLE:View.GONE}"
         />
     <org.unimelb.itime.widget.ScalableLayout
         android:orientation="vertical" android:layout_width="match_parent"
@@ -438,7 +438,7 @@
         app:scalablelayout_collapseheight="300dp"
         app:scalablelayout_expandheight="800dp"
         app:scalablelayout_status="@{contentVM.bottomSheetStatus}"
-        android:visibility="@{contentVM.event.status.equals(Event.STATUS_PENDING) ? View.VISIBLE:View.GONE}"
+        android:visibility="@{contentVM.canVote ? View.VISIBLE:View.GONE}"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -454,7 +454,7 @@
                 android:textSize="@dimen/font_large"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="@string/event_detail_choosetimeslots"
+                android:text="@{contentVM.sheetLeftText}"
                 android:layout_marginLeft="4dp" />
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -549,6 +549,18 @@
                 android:background="@drawable/selector_warning_button"
                 android:onClick="@{contentVM.onCantGoAllClick()}"
                 android:visibility="@{(contentVM.status == contentVM.STATUS_NEED_VOTE || contentVM.status == contentVM.STATUS_VOTED)?View.VISIBLE:View.GONE}"
+                />
+
+            <!--can't go button for status-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_detail_cell_height"
+                android:textColor="@color/brand_warning"
+                android:text="@string/event_detail_icannotgoatalltimeslots"
+                android:gravity="center"
+                android:textSize="@dimen/font_large"
+                android:background="@drawable/selector_warning_button"
+                android:visibility="@{(contentVM.status == contentVM.STATUS_NOT_GOING_PENDING)?View.VISIBLE:View.GONE}"
                 />
 
             <!--submit disabled-->

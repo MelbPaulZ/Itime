@@ -119,7 +119,9 @@
                 android:layout_centerVertical="true"
                 android:padding="10dp"
                 android:layout_marginEnd="4dp"
-                android:text="@string/toolbar_next"
+                android:clickable="@{toolbarVM.rightBtnClickable}"
+                android:text="@{toolbarVM.getRightBtnText(context)}"
+                android:textColor="@{toolbarVM.getRightBtnTextColor(context,toolbarVM.rightBtnClickable)}"
                 android:onClick="@{toolbarVM.nextClick}"
                 android:textSize="17sp" />
         </RelativeLayout>

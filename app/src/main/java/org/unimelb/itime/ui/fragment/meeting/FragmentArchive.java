@@ -115,6 +115,8 @@ public class FragmentArchive extends ItimeBaseFragment<MeetingMvpView,MeetingPre
 
     }
 
+
+
     /**
      * Clear All btn
      */
@@ -135,6 +137,7 @@ public class FragmentArchive extends ItimeBaseFragment<MeetingMvpView,MeetingPre
     @Override
     public void onStart() {
         super.onStart();
+        mAdapter.closeAllItems();
     }
 
     /**

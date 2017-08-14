@@ -185,7 +185,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         FragmentCalendarTimeslot fragment = new FragmentCalendarTimeslot();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setMode(FragmentCalendarTimeslot.Mode.HOST_CREATE);
-        fragment.setEvent(cpyEvent);
+        fragment.setEvent(cpyEvent, null);
         getBaseActivity().openFragment(fragment);
     }
 

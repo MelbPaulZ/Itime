@@ -77,6 +77,11 @@ public class FragmentHosting extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAdapter.closeAllItems();
+    }
 
     /**
      * Substitute for our onScrollListener for RecyclerView

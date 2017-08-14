@@ -77,6 +77,7 @@ public class EventDetailViewModel extends BaseObservable{
     private int status = STATUS_NEED_CONFIRM;
     private int originalStatus;
     private boolean host;
+    private boolean canVote = false;
 
     private int repliedNum = 0;
     private int cantGoNum = 0;
@@ -99,6 +100,7 @@ public class EventDetailViewModel extends BaseObservable{
     private LayerDrawable bottomSheetHeaderDrawable;
     private int bottomSheetStatus;
     private String repeatString="";
+    private String sheetLeftText = "";
 
     @Bindable
     public String getRepeatString() {
@@ -134,8 +136,14 @@ public class EventDetailViewModel extends BaseObservable{
         String myStatus = EventUtil.getInviteeStatus(event);
 
         if(event.getStatus().equals(Event.STATUS_CANCELLED)){
-            status = STATUS_CANCELED;
-        }
+            if(isHost()){
+                status = STATUS_CANCELED;
+            }else if(EventUtil.isConfirmed(event)){
+                    status = STATUS_NOT_GOING;
+                }else{
+                status = STATUS_NOT_GOING_PENDING;
+            }
+            }
 
         if(event.getStatus().equals(Event.STATUS_PENDING)){
             if(isHost()){
@@ -181,12 +189,42 @@ public class EventDetailViewModel extends BaseObservable{
     }
 
     @Bindable
+    public boolean isCanVote() {
+        return canVote;
+    }
+
+    public void setCanVote(boolean canVote) {
+        this.canVote = canVote;
+        notifyPropertyChanged(BR.canVote);
+    }
+
+    @Bindable
     public int getStatus() {
         return status;
     }
 
     public void setStatus(int status) {
         this.status = status;
+        if(status == STATUS_NEED_CONFIRM ||
+                status == STATUS_NEED_VOTE ||
+                status == STATUS_NOT_GOING_PENDING ||
+                status == STATUS_VOTED){
+            setCanVote(true);
+            switch (status){
+                case STATUS_NEED_CONFIRM:
+                case STATUS_NEED_VOTE:
+                    setSheetLeftText(context.getString(R.string.event_detail_sheet_left_choosetimeslots));
+                    break;
+                case STATUS_VOTED:
+                    setSheetLeftText(context.getString(R.string.event_detail_sheet_left_voted));
+                    break;
+                case STATUS_NOT_GOING_PENDING:
+                    setSheetLeftText(context.getString(R.string.event_detail_sheet_left_not_going));
+                    break;
+            }
+        }else{
+            setCanVote(false);
+        }
         notifyPropertyChanged(BR.status);
     }
 
@@ -274,6 +312,8 @@ public class EventDetailViewModel extends BaseObservable{
                     }
                 }
                 notifyPropertyChanged(BR.selectedTimeSlots);
+                notifyPropertyChanged(BR.submitBtnString);
+                notifyPropertyChanged(BR.votedBtnString);
             }
         };
     }
@@ -1036,4 +1076,13 @@ public class EventDetailViewModel extends BaseObservable{
         };
     }
 
+    @Bindable
+    public String getSheetLeftText() {
+        return sheetLeftText;
+    }
+
+    public void setSheetLeftText(String sheetLeftText) {
+        this.sheetLeftText = sheetLeftText;
+        notifyPropertyChanged(BR.sheetLeftText);
+    }
 }

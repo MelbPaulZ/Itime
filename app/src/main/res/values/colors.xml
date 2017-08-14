@@ -73,6 +73,8 @@
     <color name="fragment_background">#fafafa</color>
     <color name="lightGrey">#EFEFEF</color>
     <!--meeting-->
+    <color name="meeting_tab_regular">#9E9E9E</color>
+    <color name="meeting_tab_selected">#222</color>
     <color name="meeting_bg">#F5F5F5</color>
     <color name="meeting_time">#BDBDBD</color>
     <color name="meeting_dash">#bdbdbd</color>

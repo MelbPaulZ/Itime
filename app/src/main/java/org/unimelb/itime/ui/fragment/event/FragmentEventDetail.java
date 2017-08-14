@@ -178,16 +178,16 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         FragmentCalendarTimeslot.Mode mode = isHost ?
                 FragmentCalendarTimeslot.Mode.HOST_CONFIRM : FragmentCalendarTimeslot.Mode.INVITEE_CONFIRM;
         FragmentCalendarTimeslot fragmentCalendarTimeslot = new FragmentCalendarTimeslot();
-        fragmentCalendarTimeslot.setEvent(event);
+        fragmentCalendarTimeslot.setEvent(event, contentViewModel.getSelectedTimeSlots());
         fragmentCalendarTimeslot.setMode(mode);
         getBaseActivity().openFragment(fragmentCalendarTimeslot);
     }
 
     private void toCalendarView(){
-        FragmentCalendarTimeslot fragmentCalendarTimeslot = new FragmentCalendarTimeslot();
-        fragmentCalendarTimeslot.setEvent(event);
-        fragmentCalendarTimeslot.setMode(FragmentCalendarTimeslot.Mode.HOST_CONFIRM);
-        getBaseActivity().openFragment(fragmentCalendarTimeslot);
+//        FragmentCalendarTimeslot fragmentCalendarTimeslot = new FragmentCalendarTimeslot();
+//        fragmentCalendarTimeslot.setEvent(event);
+//        fragmentCalendarTimeslot.setMode(FragmentCalendarTimeslot.Mode.HOST_CONFIRM);
+//        getBaseActivity().openFragment(fragmentCalendarTimeslot);
     }
 
 
@@ -408,15 +408,11 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
 //    }
 
     public PopupMenu.OnItemClickListener getOnMenuItemClick(){
-        return new PopupMenu.OnItemClickListener() {
-
-            @Override
-            public void onClick(int position, PopupMenu.Item item) {
-                if(position==0){
-                    viewChange();
-                }
-                Toast.makeText(getContext(), item.name, Toast.LENGTH_SHORT).show();
+        return (position, item) -> {
+            if(position==0){
+                viewChange();
             }
+            Toast.makeText(getContext(), item.name, Toast.LENGTH_SHORT).show();
         };
     }
 

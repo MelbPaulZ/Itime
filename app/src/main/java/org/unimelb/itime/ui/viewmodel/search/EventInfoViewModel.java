@@ -5,7 +5,6 @@ import android.text.SpannableString;
 
 import org.unimelb.itime.BR;
 import org.unimelb.itime.bean.Event;
-import org.unimelb.itime.ui.viewmodel.search.SpannableInfoViewModel;
 import org.unimelb.itime.util.EventUtil;
 
 /**
