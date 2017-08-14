@@ -63,6 +63,7 @@ public class FragmentInvitation extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        mAdapter.closeAllItems();
     }
 
     @Override

@@ -95,8 +95,8 @@
     <style name="TabBarStyle" parent="Widget.Design.TabLayout">
         <item name="tabTextAppearance">@style/TabLayoutTextStyle</item>
         <item name="tabIndicatorHeight">2dp</item>
-        <item name="tabSelectedTextColor">@color/black</item>
-        <item name="tabTextColor">@color/black</item>
+        <item name="tabSelectedTextColor">@color/meeting_tab_selected</item>
+        <item name="tabTextColor">@color/meeting_tab_regular</item>
         <item name="tabIndicatorColor">@color/brightBlue</item>
     </style>
 

@@ -190,6 +190,10 @@
     <string name="event_alert_1_day_before">1 day before</string>
     <string name="event_alert_2_days_before">2 days before</string>
     <string name="event_alert_1_week_before">1 week before</string>
+    <string name="timeslot_alert_outdated_select">Timeslot outdated</string>
+    <string name="timeslot_alert_conflict_select">You may have conflict on the timeslot</string>
+    <string name="timeslot_alert_outdated_create">You can\'t create outdated timeslots</string>
+    <string name="timeslot_alert_max_count">Only %1$ slot(s) can be selected</string>
 
     <!--Event Time-->
     <string name="event_time_picker_start">Start</string>
