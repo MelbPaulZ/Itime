@@ -13,6 +13,7 @@ import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Meeting;
+import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.fragment.meeting.RecyclerViewAdapterMeetings;
 import org.unimelb.itime.ui.mvpview.MeetingMvpView;
@@ -20,6 +21,7 @@ import org.unimelb.itime.ui.presenter.MeetingPresenter;
 import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.util.TimeFactory;
 
+import java.sql.Time;
 import java.util.Calendar;
 import java.util.List;
 
@@ -111,10 +113,21 @@ public class MeetingBaseCardViewModel extends BaseObservable {
     }
 
     public String getReminderTimeStr(){
-        long[] timeDiff = TimeFactory.getTimeDiffWithToday(meeting.getEvent().getStartTime());
+        boolean isConfirmed = meeting.getEvent().isConfirmed();
+        long[] timeDiff;
+
+        if (isConfirmed){
+            timeDiff = TimeFactory.getTimeDiffWithToday(meeting.getEvent().getStartTime());
+        }else {
+            TimeSlot[] timeSlots = EventUtil.getNearestTimeslot(meeting.getEvent().getTimeslot());
+            TimeSlot target = timeSlots[timeSlots[1] != null ? 1 : 0];
+            timeDiff = TimeFactory.getTimeDiffWithToday(target.getStartTime());
+        }
+
         boolean isOutdated = timeDiff[3] < 0;
 
-        int resIdMode = isOutdated ? R.string.meeting_reminder_time_ago : R.string.meeting_reminder_time_future;
+        int resIdMode = isOutdated ? R.string.meeting_reminder_time_ago
+                : (isConfirmed ? R.string.meeting_reminder_time_future:R.string.meeting_reminder_next_slot);
         if (timeDiff[0] != 0){
             // > 1 day
             return String.format(

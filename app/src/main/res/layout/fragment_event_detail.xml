@@ -43,8 +43,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        >
+                        android:orientation="vertical">
 
                         <!--vote part-->
                         <LinearLayout
@@ -225,7 +224,8 @@
                                 android:id="@+id/time_icon"
                                 android:src="@drawable/icon_details_viewincalendar"
                                 android:layout_alignParentTop="true"
-                                android:layout_alignParentRight="true"/>
+                                android:layout_alignParentRight="true"
+                                android:onClick="@{contentVM.onClickViewInCalendar()}"/>
 
                             <TextView
                                 android:layout_width="wrap_content"

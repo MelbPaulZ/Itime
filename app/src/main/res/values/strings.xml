@@ -28,6 +28,7 @@
     <string name="toolbar_timeslots_select">%1$d/%2$d Timeslots</string>
     <string name="toolbar_activities">Activities</string>
     <string name="toolbar_mute">Mute</string>
+    <string name="toolbar_view_in_calendar">Calendar</string>
 
     <!--Event-->
     <string name="event">Event</string>

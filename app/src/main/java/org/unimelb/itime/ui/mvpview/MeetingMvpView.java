@@ -11,6 +11,6 @@ import java.util.List;
  */
 
 public interface MeetingMvpView extends ItimeBaseMvpView {
-    void onDataLoaded(MeetingPresenter.FilterResult meetings, List<Meeting> comingMeetings);
+    void onDataLoaded(MeetingPresenter.FilterResult meetings);
     void onMeetingClick(Meeting meeting);
 }

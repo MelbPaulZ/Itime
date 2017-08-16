@@ -47,7 +47,7 @@ public class FragmentInvitation extends Fragment {
         mAdapter = new RecyclerViewAdapterMeetings(context, RecyclerViewAdapterMeetings.Mode.INVITATION, meetingPresenter);
         mAdapter.setMode(Attributes.Mode.Single);
         if (data != null){
-            mAdapter.setmDataset(data);
+            mAdapter.setData(data);
             mAdapter.notifyDatasetChanged();
         }
         recyclerView.setAdapter(mAdapter);
@@ -81,7 +81,7 @@ public class FragmentInvitation extends Fragment {
         this.data = filterResult.invitationResult;
         if (mAdapter != null){
             mAdapter.setOnMenuListener(new OnMeetingMenu(meetingPresenter,mAdapter,data,filterResult));
-            mAdapter.setmDataset(data);
+            mAdapter.setData(data);
             mAdapter.notifyDatasetChanged();
         }
     }

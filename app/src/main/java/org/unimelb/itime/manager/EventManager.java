@@ -6,7 +6,6 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import org.unimelb.itime.bean.Event;
-import org.unimelb.itime.ui.mvpview.LoginMvpView;
 import org.unimelb.itime.util.CalendarUtil;
 import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.util.UserUtil;
@@ -388,7 +387,7 @@ public class EventManager {
             }
         }
 
-        ArrayList<Long> repeatedEventsTimes = rule.getOccurenceDates(rangeStart,rangeEnd);
+        ArrayList<Long> repeatedEventsTimes = rule.getOccurrenceDates(rangeStart,rangeEnd);
 
         for (Long time: repeatedEventsTimes
                 ) {

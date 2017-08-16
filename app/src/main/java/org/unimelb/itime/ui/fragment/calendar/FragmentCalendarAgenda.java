@@ -84,10 +84,8 @@ public class FragmentCalendarAgenda extends ItimeBaseFragment<CalendarMvpView, C
     }
 
     private void initView(){
-        config.unconfirmedIncluded = true;
-
         agendaView = (MonthAgendaView) root.findViewById(R.id.agenda_view);
-        agendaView.setCalendarConfig(config);
+        agendaView.getConfig().unconfirmedIncluded = true;
         //Set the data source with format of ITimeEventPackageInterface
         //ITimeEventPackageInterface is composed by two parts:
         //  1: regular events. 2: repeated events.

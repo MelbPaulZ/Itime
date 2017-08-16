@@ -94,11 +94,11 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
         this.presenter = presenter;
     }
 
-    public List<Meeting> getmDataset() {
+    public List<Meeting> getData() {
         return mDataset;
     }
 
-    public void setmDataset(List<Meeting> mDataset) {
+    public void setData(List<Meeting> mDataset) {
         this.mDataset = mDataset;
         switch (mode){
             case COMING:

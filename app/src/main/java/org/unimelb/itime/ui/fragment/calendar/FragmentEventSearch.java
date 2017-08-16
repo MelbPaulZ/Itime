@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 import david.itimecalendar.calendar.listeners.ITimeEventInterface;
+import david.itimecalendar.calendar.ui.CalendarConfig;
 import david.itimecalendar.calendar.ui.agendaview.AgendaViewBody;
 import david.itimecalendar.calendar.util.MyCalendar;
 
@@ -76,7 +77,7 @@ public class FragmentEventSearch extends ItimeBaseFragment<SearchEventMvpView, S
             body.setOnEventClickListener(onEventClickListener);
             ArrayList<ITimeEventInterface> interfaces = new ArrayList<>();
             interfaces.addAll(entry.getValue());
-
+            body.setCalendarConfig(new CalendarConfig());
             body.setEventList(interfaces);
         }
 

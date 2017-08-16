@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ import java.util.List;
 
 public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPresenter<MeetingMvpView>> implements MeetingMvpView{
     public final static int TO_ARCHIVE = 0;
+    private static final String TAG = "FragmentMeeting";
 
     private FragmentMeetingBinding binding;
     private FragmentInvitation fragmentInvitation;
@@ -114,14 +116,11 @@ public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPr
     }
 
     public View.OnClickListener onArchiveClick(){
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // To archive activity
-                Intent intent = new Intent(getActivity(), ArchiveActivity.class);
-                intent.putExtra(ArchiveActivity.ARCHIVE_RECEIVE_RESULT, getPresenter().getFilterResult());
-                startActivityForResult(intent, TO_ARCHIVE);
-            }
+        return v -> {
+            // To archive activity
+            Intent intent = new Intent(getActivity(), ArchiveActivity.class);
+            intent.putExtra(ArchiveActivity.ARCHIVE_RECEIVE_RESULT, getPresenter().getFilterResult());
+            startActivityForResult(intent, TO_ARCHIVE);
         };
     }
 
@@ -144,11 +143,11 @@ public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPr
     }
 
     @Override
-    public void onDataLoaded(MeetingPresenter.FilterResult meetings, List<Meeting> comingMeeting) {
+    public void onDataLoaded(MeetingPresenter.FilterResult meetings) {
         filterResult = meetings;
         fragmentInvitation.setData(meetings);
         fragmentHosting.setData(meetings);
-        fragmentComing.setData(comingMeeting);
+        fragmentComing.setData(meetings.comingResult);
     }
 
     @Override
@@ -188,7 +187,9 @@ public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPr
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == ArchiveActivity.ARCHIVE_BACK_RESULT_CODE){
-            getPresenter().setFilterResult((MeetingPresenter.FilterResult) data.getSerializableExtra(ArchiveActivity.ARCHIVE_BACK_RESULT));
+            MeetingPresenter.FilterResult filterResult = (MeetingPresenter.FilterResult) data.getSerializableExtra(ArchiveActivity.ARCHIVE_BACK_RESULT);
+            filterResult.comingResult = getPresenter().getFilterResult().comingResult;
+            getPresenter().setFilterResult(filterResult);
             getPresenter().refreshDisplayData();
         }
     }

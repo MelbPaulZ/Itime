@@ -95,7 +95,8 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     @Convert(converter = Event.TimeslotInviteeConverter.class, columnType = String.class)
     private Map<String, Map<String, TimeslotInvitee>> timeslotInvitee = new HashMap<>();
 
-    private transient RuleModel rule = new RuleModel();
+//    private transient RuleModel rule = new RuleModel();
+    private transient RuleModel rule;
     private String note = "";
     private String coverPhoto = "";
     private int duration;

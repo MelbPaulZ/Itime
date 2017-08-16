@@ -2,7 +2,6 @@ package org.unimelb.itime.ui.fragment.event;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.databinding.ObservableList;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,12 +24,11 @@ import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.databinding.DialogEventDetailNoteBinding;
 import org.unimelb.itime.databinding.FragmentEventDetailBinding;
 import org.unimelb.itime.messageevent.MessageEvent;
-import org.unimelb.itime.messageevent.MessageNewFriendRequest;
 import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.fragment.calendar.FragmentCalendarTimeslot;
+import org.unimelb.itime.ui.fragment.calendar.FragmentCalendarViewInCalendar;
 import org.unimelb.itime.ui.mvpview.event.EventDetailMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
-import org.unimelb.itime.ui.presenter.event.EventDetailPresenter;
 import org.unimelb.itime.ui.viewmodel.event.EventDetailViewModel;
 import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.widget.CollapseHeadBar;
@@ -39,7 +37,6 @@ import org.unimelb.itime.widget.popupmenu.PopupMenu;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Paul on 4/09/2016.
@@ -184,10 +181,9 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     }
 
     private void toCalendarView(){
-//        FragmentCalendarTimeslot fragmentCalendarTimeslot = new FragmentCalendarTimeslot();
-//        fragmentCalendarTimeslot.setEvent(event);
-//        fragmentCalendarTimeslot.setMode(FragmentCalendarTimeslot.Mode.HOST_CONFIRM);
-//        getBaseActivity().openFragment(fragmentCalendarTimeslot);
+        FragmentCalendarViewInCalendar fragmentCalendarViewInCalendar = new FragmentCalendarViewInCalendar();
+        fragmentCalendarViewInCalendar.setEvent(event);
+        getBaseActivity().openFragment(fragmentCalendarViewInCalendar);
     }
 
 
