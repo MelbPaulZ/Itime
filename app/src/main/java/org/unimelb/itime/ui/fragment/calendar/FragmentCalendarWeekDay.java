@@ -77,6 +77,7 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
 
     private void initView(){
         weekView = (WeekView) root.findViewById(R.id.week_view);
+        weekView.getCalendarConfig().enableEvent();
         //Set the data source with format of ITimeEventPackageInterface
         //ITimeEventPackageInterface is composed by two parts:
         //  1: regular events. 2: repeated events.
