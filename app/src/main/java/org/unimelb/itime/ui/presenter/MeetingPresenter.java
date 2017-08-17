@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
+import com.hannesdorfmann.mosby.mvp.MvpView;
 
 import org.greenrobot.greendao.AbstractDao;
 import org.unimelb.itime.base.ItimeBasePresenter;
@@ -37,21 +38,40 @@ import rx.schedulers.Schedulers;
 
 public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresenter<V>{
     private FilterResult filterResult;
-    private List<Meeting> comingResult;
 
     public static class FilterResult implements Serializable{
         public List<Meeting> invitationResult;
         public List<Meeting> hostingResult;
         public List<Meeting> archiveResult;
+        public transient List<Meeting> comingResult;
     }
 
     public MeetingPresenter(Context context) {
         super(context);
     }
 
-    public void loadDataFromDB(){
+    private void transformRepeatedMeeting(FilterResult filterResult){
+        List<Meeting> invitationResult = filterResult.invitationResult;
+        List<Meeting> hostingResult = filterResult.hostingResult;
+        List<Meeting> archiveResult = filterResult.archiveResult;
+        transformRepeatedMeeting(invitationResult);
+        transformRepeatedMeeting(hostingResult);
+        transformRepeatedMeeting(archiveResult);
+    }
+
+    private void transformRepeatedMeeting(List<Meeting> meetings){
+        for (Meeting meeting:meetings
+             ) {
+            Event event = meeting.getEvent();
+            if (event.getRecurrence().length != 0){
+                EventUtil.transformRepeatEventToLatestInstance(event);
+            }
+        }
+    }
+
+    public synchronized void loadDataFromDB(){
         Observable<FilterResult> filterResultObservable = Observable.create((Subscriber<? super FilterResult> subscriber) -> {
-            FilterResult filterResult1 = new FilterResult();
+            FilterResult filterResult = new FilterResult();
             String userUid = UserUtil.getInstance(getContext()).getUserUid();
 
             AbstractDao<Meeting, Void> meetingDao = DBManager.getInstance(getContext()).getQueryDao(Meeting.class);
@@ -77,14 +97,14 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
                     MeetingDao.Properties.EventUid.notIn(keys),MeetingDao.Properties.HostUserUid.notEq(userUid)
             ).list();
 
-            filterResult1.archiveResult = archiveResult;
-            filterResult1.invitationResult = invitationResult;
-            filterResult1.hostingResult = hostingResult;
+            filterResult.archiveResult = archiveResult == null ? new ArrayList<>() : archiveResult;
+            filterResult.invitationResult = invitationResult == null ? new ArrayList<>() : invitationResult;
+            filterResult.hostingResult = hostingResult == null ? new ArrayList<>() : hostingResult;
+            //handle repeated events
+            transformRepeatedMeeting(filterResult);
+            filterResult.comingResult = getFutureMeeting(filterResult);
 
-            subscriber.onNext(filterResult1);
-
-            comingResult = getFutureMeeting();
-            Log.i("wdadwa", "loadDataFromDB: ");
+            subscriber.onNext(filterResult);
         });
 
         Subscriber<FilterResult> subscriber = new Subscriber<FilterResult>() {
@@ -95,15 +115,13 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
 
             @Override
             public void onError(Throwable e) {
-
             }
 
             @Override
             public void onNext(FilterResult filterResult) {
                 MeetingPresenter.this.filterResult = filterResult;
-
                 if (getView() != null){
-                    getView().onDataLoaded(filterResult,comingResult);
+                    getView().onDataLoaded(filterResult);
                 }
             }
         };
@@ -115,8 +133,12 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
     }
 
     public void getData(){
-        if (filterResult !=null && getView() != null){
-            getView().onDataLoaded(filterResult,comingResult);
+        if (getView() == null){
+            return;
+        }
+
+        if (filterResult != null){
+            getView().onDataLoaded(filterResult);
             return;
         }
 
@@ -131,17 +153,9 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
         this.filterResult = filterResult;
     }
 
-    public List<Meeting> getComingResult() {
-        return comingResult;
-    }
-
-    public void setComingResult(List<Meeting> comingResult) {
-        this.comingResult = comingResult;
-    }
-
     public void refreshDisplayData(){
         if (getView() != null){
-            getView().onDataLoaded(filterResult,comingResult);
+            getView().onDataLoaded(filterResult);
         }
     }
 
@@ -182,23 +196,24 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
 
 
     /**
-     * get coming meetings from event
+     * get coming meetings from invitation and hosting results
      * @return
      */
-    private List<Meeting> getFutureMeeting(){
+    private List<Meeting> getFutureMeeting(FilterResult filterResult){
         List<Meeting> comingResult = new ArrayList<>();
         int range = 50;//day
+        long todayBegin = EventUtil.getDayBeginMilliseconds(Calendar.getInstance().getTimeInMillis() - range * EventUtil.allDayMilliseconds);
 
-        Calendar cal = Calendar.getInstance();
-        Long currentDay  = EventUtil.getDayBeginMilliseconds(cal.getTimeInMillis() - range * EventUtil.allDayMilliseconds);
-        Long endDay  = currentDay + range * EventUtil.allDayMilliseconds;
+        List<Meeting> fields = new ArrayList<>(filterResult.invitationResult);
+        fields.addAll(filterResult.hostingResult);
 
-        EventManager.EventsPackage packages = EventManager.getInstance(getContext()).getEventsPackage();
-        Map<Long, List<ITimeEventInterface>> regularEventMap = packages.getRegularEventDayMap();
-        Map<Long, List<ITimeEventInterface>> repeatedEventMap = packages.getRepeatedEventDayMap();
-
-        comingResult.addAll(wrapFutureEventToMeeting(regularEventMap, endDay));
-        comingResult.addAll(wrapFutureEventToMeeting(repeatedEventMap, endDay));
+        for (Meeting meeting:fields
+             ) {
+            Event event = meeting.getEvent();
+            if (event.getStartTime() > todayBegin){
+                comingResult.add(meeting);
+            }
+        }
 
         return comingResult;
     }

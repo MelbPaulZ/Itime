@@ -5,38 +5,27 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.daimajia.swipe.util.Attributes;
-import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
-import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.databinding.FragmentMeetingArchiveBinding;
-import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.activity.ArchiveActivity;
 import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.mvpview.MeetingMvpView;
 import org.unimelb.itime.ui.presenter.MeetingPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
-import org.unimelb.itime.util.EventUtil;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import david.itimecalendar.calendar.listeners.ITimeEventInterface;
 import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
 
 import static org.unimelb.itime.ui.activity.ArchiveActivity.ARCHIVE_BACK_RESULT_CODE;
@@ -109,7 +98,7 @@ public class FragmentArchive extends ItimeBaseFragment<MeetingMvpView,MeetingPre
         recyclerView.setAdapter(mAdapter);
         mAdapter.setOnMenuListener(onMenu);
         mAdapter.setMode(Attributes.Mode.Single);
-        mAdapter.setmDataset(data);
+        mAdapter.setData(data);
 
         mAdapter.notifyDatasetChanged();
 
@@ -144,7 +133,7 @@ public class FragmentArchive extends ItimeBaseFragment<MeetingMvpView,MeetingPre
      * Do nothing, data is passed in
      */
     @Override
-    public void onDataLoaded(MeetingPresenter.FilterResult meetings, List<Meeting> comingMeeting) {
+    public void onDataLoaded(MeetingPresenter.FilterResult meetings) {
 
     }
 

@@ -28,6 +28,7 @@ import org.unimelb.itime.ui.presenter.TimeslotPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarTimeslotViewModel;
 import org.unimelb.itime.util.EventUtil;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -56,7 +57,6 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     private FragmentCalendarTimeslotBinding binding;
     private EventManager eventManager;
     private TimeSlotView timeSlotView;
-    private CalendarConfig config = new CalendarConfig();
     private ToolbarTimeslotViewModel toolbarVM;
     private Event event;
     private Mode mode = Mode.HOST_CREATE;
@@ -96,6 +96,14 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
         binding.setToolbarVM(toolbarVM);
         setTimeslotViewMode(mode,event);
         linkEventTimeslots(event, preSelectedSlots);
+
+        //scroll to latest timeslot
+        if (event.getTimeslot() == null || event.getTimeslot().size() == 0){
+            return;
+        }
+        TimeSlot[] timeSlots = EventUtil.getNearestTimeslot(event.getTimeslot());
+        TimeSlot targetTimeSlot = timeSlots[1] != null ? timeSlots[1]:timeSlots[0];
+        timeSlotView.scrollToDate(new Date(targetTimeSlot.getStartTime()),true);
     }
 
     @Override
@@ -141,9 +149,9 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     }
 
     private void initView(){
-        config.unconfirmedIncluded = false;
         timeSlotView = (TimeSlotView) binding.getRoot().findViewById(R.id.timeslot_view);
-        timeSlotView.setCalendarConfig(config);
+        // ensure set config before set mode
+        timeSlotView.getCalendarConfig().unconfirmedIncluded = false;
 
         timeSlotView.setEventPackage(eventManager.getEventsPackage());
         timeSlotView.setOnTimeslotDurationChangedListener(duration -> {

@@ -6,28 +6,17 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.daimajia.swipe.util.Attributes;
-import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
 import org.unimelb.itime.R;
-import org.unimelb.itime.base.ItimeBaseFragment;
-import org.unimelb.itime.bean.Event;
-import org.unimelb.itime.bean.Location;
 import org.unimelb.itime.bean.Meeting;
-import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.ui.mvpview.MeetingMvpView;
 import org.unimelb.itime.ui.presenter.MeetingPresenter;
-import org.unimelb.itime.util.EventUtil;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
@@ -60,7 +49,7 @@ public class FragmentHosting extends Fragment {
         mAdapter = new RecyclerViewAdapterMeetings(context, RecyclerViewAdapterMeetings.Mode.HOSTING, meetingPresenter);
         mAdapter.setMode(Attributes.Mode.Single);
         if (data != null){
-            mAdapter.setmDataset(data);
+            mAdapter.setData(data);
             mAdapter.notifyDatasetChanged();
         }
 
@@ -103,7 +92,7 @@ public class FragmentHosting extends Fragment {
         this.data = filterResult.hostingResult;
         if (mAdapter != null){
             mAdapter.setOnMenuListener(new OnMeetingMenu(meetingPresenter,mAdapter,data,filterResult));
-            mAdapter.setmDataset(this.data);
+            mAdapter.setData(this.data);
             mAdapter.notifyDatasetChanged();
         }
     }

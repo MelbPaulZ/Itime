@@ -6,30 +6,19 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.daimajia.swipe.util.Attributes;
-import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
 import org.unimelb.itime.R;
-import org.unimelb.itime.base.ItimeBaseFragment;
-import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Meeting;
-import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.mvpview.MeetingMvpView;
 import org.unimelb.itime.ui.presenter.MeetingPresenter;
-import org.unimelb.itime.util.EventUtil;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import david.itimecalendar.calendar.listeners.ITimeEventInterface;
 import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
 
 /**
@@ -59,7 +48,7 @@ public class FragmentComing extends Fragment {
         mAdapter.setMode(Attributes.Mode.Single);
 
         if (data != null){
-            mAdapter.setmDataset(data);
+            mAdapter.setData(data);
             mAdapter.notifyDatasetChanged();
         }
 
@@ -82,7 +71,7 @@ public class FragmentComing extends Fragment {
     public void setData(List<Meeting> comingResult){
         this.data = comingResult;
         if (mAdapter != null){
-            mAdapter.setmDataset(this.data);
+            mAdapter.setData(this.data);
             mAdapter.notifyDatasetChanged();
         }
     }

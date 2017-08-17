@@ -152,9 +152,9 @@ public class ToolbarTimeslotViewModel <V extends ToolbarInterface & ToolbarTimes
             notifyPropertyChanged(BR.isTimeslotEnable);
 
             if (isTimeslotEnable.get()){
-                timeSlotView.enableTimeSlot(false);
+                timeSlotView.showTimeslot();
             }else {
-                timeSlotView.disableTimeSlot();
+                timeSlotView.hideTimeslot();
             }
         };
     }
