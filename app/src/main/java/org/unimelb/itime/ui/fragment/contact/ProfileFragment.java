@@ -226,6 +226,7 @@ public class ProfileFragment extends ItimeBaseFragment<ProfileMvpView, ProfilePr
             case ProfilePresenter.TASK_ADD :
                 viewModel.setShowAdd(false);
                 viewModel.setShowSent(true);
+                Toast.makeText(getContext(),getString(R.string.contact_invitation_sent), Toast.LENGTH_SHORT).show();
                 break;
             case ProfilePresenter.TASK_BLOCK :
                 viewModel.blockSuccess();
@@ -234,8 +235,8 @@ public class ProfileFragment extends ItimeBaseFragment<ProfileMvpView, ProfilePr
                 viewModel.unblockSuccess();
                 break;
             case ProfilePresenter.TASK_DELETE :
-//                Toast.makeText(getContext(), getString(R.string.delete_success), Toast.LENGTH_SHORT).show();
-//                onBack();
+                Toast.makeText(getContext(), getString(R.string.profile_delete_success), Toast.LENGTH_SHORT).show();
+                onBack();
                 break;
             case ProfilePresenter.TASK_CONTACT :
                 contact = (Contact) data;
@@ -253,6 +254,7 @@ public class ProfileFragment extends ItimeBaseFragment<ProfileMvpView, ProfilePr
                 viewModel.requestMode();
                 viewModel.setRequestId(requestId);
                 break;
+
         }
     }
 
@@ -267,7 +269,8 @@ public class ProfileFragment extends ItimeBaseFragment<ProfileMvpView, ProfilePr
     @Override
     public void onTaskError(int taskId, Object data) {
         hideProgressDialog();
-        switch (taskId){
+        Toast.makeText(getContext(), getString(R.string.network_error_retry), Toast.LENGTH_SHORT).show();
+//        switch (taskId){
 //            case ProfilePresenter.TASK_ACCEPT :
 //                Toast.makeText(getContext(), getString(R.string.accept_fail), Toast.LENGTH_SHORT).show();
 //                break;
@@ -286,6 +289,6 @@ public class ProfileFragment extends ItimeBaseFragment<ProfileMvpView, ProfilePr
 //            case ProfilePresenter.TASK_STRANGER :
 //                Toast.makeText(getContext(), getString(R.string.access_fail), Toast.LENGTH_SHORT).show();
 //                break;
-        }
+//        }
     }
 }

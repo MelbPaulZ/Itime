@@ -347,6 +347,11 @@ public class ScalableLayout extends LinearLayout{
 //        Log.e("measuredheight", this.getMeasuredHeight()+":"+hideHeight+":"+expandHeight+":"+collapseHeight);
     }
 
+    public void refreshLayout(){
+
+        this.requestLayout();
+    }
+
     private ObjectAnimator getCollapseAnimator(){
         int start = getLayoutParams().height;
         int end = collapseHeight;

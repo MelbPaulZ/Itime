@@ -48,6 +48,7 @@ public class ProfilePresenter<T extends TaskBasedMvpView> extends MvpBasePresent
     public static final int TASK_CONTACT = 5;
     public static final int TASK_STRANGER = 6;
     public static final int TASK_REQUEST = 7;
+    public static final int TASK_SENT_INVITE = 8;
 
     private Context context;
     private UserApi userApi;

@@ -17,6 +17,7 @@ import android.os.Parcelable;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -45,6 +46,7 @@ public class ITimeShootMenu extends ViewGroup {
     private static final int EXPAND_ALPHA = 255;
     private static final float COLLAPSED_PLUS_ROTATION = 0f;
     private static final float EXPANDED_PLUS_ROTATION = 90f + 45f;
+    private TextView createEventText;
 
     private AnimatorSet mExpandAnimation = new AnimatorSet().setDuration(ANIMATION_DURATION);
     private AnimatorSet mCollapseAnimation = new AnimatorSet().setDuration(ANIMATION_DURATION);
@@ -147,11 +149,11 @@ public class ITimeShootMenu extends ViewGroup {
         if(isExpanded()) {
             if (isIn(ITimeShootMenu.this, event)) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    for (int i = 0; i < itemViews.size(); i++) {
+                    for (int i = 1; i < itemViews.size(); i++) {
                         View v = itemViews.get(i);
                         if (isIn(v, event)) {
                             if (onItemClickListener != null)
-                                onItemClickListener.onItemClick(i, items.get(i));
+                                onItemClickListener.onItemClick(i-1, items.get(i-1));
                             break;
                         }
                     }
@@ -673,12 +675,25 @@ public class ITimeShootMenu extends ViewGroup {
         if(items!=list){
             removeAllItem();
             items = list;
+            addCreateText();
             for(int i=0;i<items.size();i++){
                 View view = generateView(items.get(i));
                 view.setTag(i);
                 addItem(view);
             }
         }
+    }
+
+    private void addCreateText(){
+        if(createEventText==null){
+            createEventText = new TextView(getContext());
+            createEventText.setTextColor(Color.WHITE);
+            createEventText.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            int size = getContext().getResources().getDimensionPixelSize(R.dimen.font_huge);
+            createEventText.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
+            createEventText.setText(R.string.create_an_event);
+        }
+        addItem(createEventText);
     }
 
 

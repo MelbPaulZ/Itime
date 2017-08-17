@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="org.unimelb.itime.bean.FriendRequest"/>
+        <variable
+            name="viewModel"
+            type="org.unimelb.itime.ui.viewmodel.contact.FrendRequestItemViewModel"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_listview_background"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            style="@style/ListLableTextStyle"
+            android:text="@string/friend_requests_new_friends"
+            android:visibility="@{viewModel.showNewFriendsLabel?View.VISIBLE:View.GONE}"/>
+
+        <TextView
+            style="@style/ListLableTextStyle"
+            android:text="@string/friend_requests_sent"
+            android:visibility="@{viewModel.showSentLable?View.VISIBLE:View.GONE}"/>
+
+        <TextView
+            style="@style/ListLableTextStyle"
+            android:text="@string/friend_requests_received"
+            android:visibility="@{viewModel.showReceivedLabel?View.VISIBLE:View.GONE}"/>
+
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/standard_detail_cell_height"
+            >
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="15dp"
+                android:layout_alignParentLeft="true"
+                android:id="@+id/user_info"
+                android:layout_weight="1"
+                android:layout_toLeftOf="@+id/buttonPart">
+                <include layout="@layout/listview_user_info_part"
+                    app:viewModel="@{viewModel}"/>
+            </FrameLayout>
+
+
+            <!--button part-->
+            <RelativeLayout
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:id="@id/buttonPart">
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:background="@drawable/bg_cornor_border_blue"
+                android:text="@string/friend_requests_btn_accept"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_small"
+                android:layout_centerInParent="true"
+                android:id="@+id/acceptButton"
+                android:visibility="@{viewModel.displayStatus.equals(FriendRequest.DISPLAY_STATUS_ACCEPT)? View.VISIBLE : View.GONE}"
+                android:onClick="@{viewModel.onClickListener}"
+                />
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:gravity="center"-->
+                <!--android:text="@string/friend_requests_btn_request_sent"-->
+                <!--android:textColor="@color/text_indication"-->
+                <!--android:textSize="@dimen/font_tiny"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:id="@+id/addedTextView"-->
+                <!--android:visibility="@{viewModel.displayStatus.equals(FriendRequest.DISPLAY_STATUS_ADDED)? View.VISIBLE : View.GONE}"-->
+                <!--/>-->
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:src="@drawable/icon_contacts_added"
+                android:layout_centerInParent="true"
+                android:visibility="@{viewModel.displayStatus.equals(FriendRequest.DISPLAY_STATUS_ACCEPTED)? View.VISIBLE : View.GONE}"
+                />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

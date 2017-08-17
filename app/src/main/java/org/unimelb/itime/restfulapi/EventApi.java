@@ -8,6 +8,7 @@ import org.unimelb.itime.restfulresponse.HttpResult;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -22,6 +23,7 @@ import rx.Observable;
 public interface EventApi {
     public static final int OPERATION_TRUE = 1;
     public static final int OPERATION_FALSE = 2;
+    String REASON = "reason";
 
     @GET("event/list/{calendarUid}")
     Observable<HttpResult<List<Event>>> list(
@@ -99,6 +101,7 @@ public interface EventApi {
     Observable<HttpResult<List<Event>>> rejectTimeslot(
             @Path("calendarUid") String calendarUid,
             @Path("eventUid") String eventUid,
+            @Body Map<String, Object> parameters,
             @Query("syncToken") String syncToken);
 
     @POST("event/timeslot/recommend")

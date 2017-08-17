@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import com.android.databinding.library.baseAdapters.BR;
 
 import org.unimelb.itime.R;
+import org.unimelb.itime.bean.RecomandContact;
 import org.unimelb.itime.bean.User;
 import org.unimelb.itime.ui.mvpview.contact.AddFriendsMvpView;
 import org.unimelb.itime.ui.presenter.contact.ContactPresenter;
@@ -49,7 +50,7 @@ public class AddFriendsViewModel extends BaseObservable {
     private EmailUtil emailUtil;
     private List<String> autoEmails = new ArrayList<>();
     private ObservableList<UserInfoViewModel> autoCompleteItems = new ObservableArrayList<>();
-
+    private ObservableList<RecommendContactItemViewModel> recommendItems = new ObservableArrayList<>();
 
     private void generateInviteeItems(List<String> autoEmails){
         autoCompleteItems.clear();
@@ -192,23 +193,6 @@ public class AddFriendsViewModel extends BaseObservable {
     public void setShowAutoComplete(boolean showAutoComplete) {
         this.showAutoComplete = showAutoComplete;
         notifyPropertyChanged(BR.showAutoComplete);
-    }
-
-    public void showNotFound() {
-        setShowNotFound(true);
-        setShowButtons(false);
-        setShowSearch(false);
-        notifyPropertyChanged(BR.isValidEmail);
-//        String emailtext = ContactCheckUtil.getInsstance().ellipsizeEmail(searchText);
-        String emailtext = searchText;
-        String str = "Invite "+ emailtext +" to use Timegenii";
-
-        SpannableStringBuilder text = new SpannableStringBuilder(str);
-        int begin = str.indexOf(emailtext);
-        int end = begin+emailtext.length();
-        text.setSpan(new StyleSpan(Typeface.ITALIC),
-                begin,end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        setInviteText(text);
     }
 
     @Bindable
@@ -369,17 +353,40 @@ public class AddFriendsViewModel extends BaseObservable {
         };
     }
 
-//    public .OnEditListener getOnEditListener(){
-//        return new SearchBar.OnEditListener() {
-//            @Override
-//            public void onEditing(View view, String text) {
-//                if ("".equals(text)) {
-//
-//                } else {
-//                    showSearch();
-//                }
-//                setSearchText(text);
-//            }
-//        };
-//    }
+    @Bindable
+    public ObservableList<RecommendContactItemViewModel> getRecommendItems() {
+        return recommendItems;
+    }
+
+    public void setRecommendItems(ObservableList<RecommendContactItemViewModel> recommendItems) {
+        this.recommendItems = recommendItems;
+        notifyPropertyChanged(BR.recommendItems);
+    }
+
+    public void setRecommendContacts(List<RecomandContact> list){
+        recommendItems.clear();
+        for(RecomandContact recomandContact:list){
+            RecommendContactItemViewModel item = new RecommendContactItemViewModel();
+            item.setMvpView(getMvpView());
+            item.setPresenter(presenter);
+            item.setData(recomandContact);
+            recommendItems.add(item);
+
+        }
+        notifyPropertyChanged(BR.recommendItems);
+    }
+
+    public ItemBinding getRecommendItemBinding(){
+        return ItemBinding.of(BR.viewModel, R.layout.listview_recommend_contact_item);
+    }
+
+    public void requestSendSuccess(String userUid){
+        for(RecommendContactItemViewModel item: recommendItems){
+            if(item.getData().getUserUid().equals(userUid)){
+                item.setSent(true);
+                break;
+            }
+        }
+    }
+
 }

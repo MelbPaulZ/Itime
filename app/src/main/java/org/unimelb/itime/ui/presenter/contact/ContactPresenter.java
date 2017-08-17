@@ -1,6 +1,7 @@
 package org.unimelb.itime.ui.presenter.contact;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
@@ -8,10 +9,13 @@ import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import org.unimelb.itime.base.ItimeBaseMvpView;
 import org.unimelb.itime.base.ItimeBasePresenter;
 import org.unimelb.itime.bean.Contact;
+import org.unimelb.itime.bean.FriendRequest;
+import org.unimelb.itime.bean.RecomandContact;
 import org.unimelb.itime.bean.User;
 import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.others.ItimeSubscriber;
 import org.unimelb.itime.restfulapi.ContactApi;
+import org.unimelb.itime.restfulapi.FriendRequestApi;
 import org.unimelb.itime.restfulapi.UserApi;
 import org.unimelb.itime.restfulresponse.HttpResult;
 import org.unimelb.itime.ui.mvpview.TaskBasedMvpView;
@@ -37,15 +41,19 @@ public class ContactPresenter<T extends TaskBasedMvpView> extends MvpBasePresent
     public static final int TASK_INVITE = 1113;
     public static final int TASK_MYSELF = 1114;
     public static final int TAST_ALL_CONTACT = 1115;
+    public static final int TASK_RECOMMEND = 1116;
+    public static final int TASK_ADD = 1117;
     public static final int ERROR_INVALID_EMAIL = 2224;
     private Context context;
     private UserApi userApi;
     private ContactApi contactApi;
+    private FriendRequestApi requestApi;
 
     public ContactPresenter(Context context){
         this.context = context;
         userApi = HttpUtil.createService(context, UserApi.class);
         contactApi = HttpUtil.createService(context, ContactApi.class);
+        requestApi = HttpUtil.createService(context, FriendRequestApi.class);
     }
 
     public Context getContext(){
@@ -159,6 +167,67 @@ public class ContactPresenter<T extends TaskBasedMvpView> extends MvpBasePresent
             public void onNext(List<Contact> result) {
                 if(getView()!=null){
                     getView().onTaskSuccess(TAST_ALL_CONTACT, result);
+                }
+            }
+        };
+        HttpUtil.subscribe(observable, subscriber);
+    }
+
+    public void getRecommendContacts(){
+        Observable<HttpResult<List<RecomandContact>>> observable = contactApi.recommend();
+        ItimeSubscriber<HttpResult<List<RecomandContact>>> subscriber = new ItimeSubscriber<HttpResult<List<RecomandContact>>>() {
+            @Override
+            public void onHttpError(Throwable e) {
+               e.printStackTrace();
+                if(getView()!=null) {
+                    getView().onTaskError(TASK_RECOMMEND, null);
+                }
+            }
+
+            @Override
+            public void onNext(HttpResult<List<RecomandContact>> result) {
+                if (result.getStatus()!=1){
+                    if(getView()!=null) {
+                        getView().onTaskError(TASK_RECOMMEND, null);
+                    }
+                }else {
+                    if(result.getData()==null){
+
+                    }else {
+                        if(getView()!=null) {
+                            getView().onTaskSuccess(TASK_RECOMMEND, result.getData());
+                        }
+                    }
+                }
+            }
+        };
+        HttpUtil.subscribe(observable, subscriber);
+    }
+
+    public void addUser(String userUid){
+        if(getView()==null){
+            return;
+        }
+        getView().onTaskStart(TASK_ADD);
+        Observable<HttpResult<Void>> observable = requestApi.send(userUid, FriendRequest.SOURCE_ITIME);
+        ItimeSubscriber<HttpResult<Void>> subscriber = new ItimeSubscriber<HttpResult<Void>>() {
+            @Override
+            public void onHttpError(Throwable e) {
+                if(getView()!=null) {
+                    getView().onTaskError(TASK_ADD, null);
+                }
+            }
+
+            @Override
+            public void onNext(HttpResult<Void> result) {
+                if (result.getStatus()!=1){
+                    if(getView()!=null) {
+                        getView().onTaskError(TASK_ADD, null);
+                    }
+                }else {
+                    if(getView()!=null) {
+                        getView().onTaskSuccess(TASK_ADD, userUid);
+                    }
                 }
             }
         };

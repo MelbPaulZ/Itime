@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -523,14 +524,19 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
     }
 
 
-    public void rejectTimeslots(String calendarUid, String eventUid){
+    public void rejectTimeslots(String calendarUid, String eventUid, String reason){
         if (getView()!=null){
             getView().onTaskStart(TASK_TIMESLOT_REJECT);
         }
         String syncToken = getEventToken();
+        Map<String, Object> para = new HashMap<>();
+        if(reason!=null && (!reason.isEmpty())){
+            para.put(EventApi.REASON, reason);
+        }
         Observable<HttpResult<List<Event>>> observable = eventApi.rejectTimeslot(
                 calendarUid,
                 eventUid,
+                para,
                 syncToken);
         ItimeSubscriber<HttpResult<List<Event>>> subscriber = new ItimeSubscriber<HttpResult<List<Event>>>() {
             @Override

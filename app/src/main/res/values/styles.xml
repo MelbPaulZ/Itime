@@ -100,6 +100,17 @@
         <item name="tabIndicatorColor">@color/brightBlue</item>
     </style>
 
+    <style name="ListLableTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:textSize">@dimen/font_tiny</item>
+        <item name="android:textColor">@color/warmGrey</item>
+        <item name="android:background">@color/fragment_background</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TabLayoutTextStyle">
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">normal</item>
