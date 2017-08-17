@@ -21,16 +21,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="37.5dp">
+        android:layout_marginTop="20dp">
 
         <RelativeLayout
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_centerHorizontal="true"
             android:id="@+id/avatarView">
             <org.unimelb.itime.widget.RoundImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 app:smallAvatar="@{viewModel.photo}"
                 android:transitionName="@string/transition_name_avatar"
                 />
@@ -66,14 +66,14 @@
                 android:text="@{viewModel.realName}"
                 android:textColor="@color/text_body"
                 android:textIsSelectable="true"
-                android:textSize="@dimen/font_huge"
+                android:textSize="@dimen/profile_name_large_size"
                 app:minTextSize="@dimen/font_large" />
 
         <me.grantland.widget.AutofitTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxWidth="300dp"
-            android:textSize="@dimen/font_huge"
+            android:textSize="@dimen/profile_name_large_size"
             app:minTextSize="@dimen/font_large"
             android:textIsSelectable="true"
             android:text="@{'('+viewModel.name+')'}"

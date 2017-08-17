@@ -4,11 +4,14 @@ import android.Manifest;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
@@ -17,11 +20,14 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Contact;
+import org.unimelb.itime.bean.RecomandContact;
 import org.unimelb.itime.databinding.FragmentAddFriendBinding;
 import org.unimelb.itime.ui.mvpview.contact.AddFriendsMvpView;
 import org.unimelb.itime.ui.presenter.contact.ContactPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.contact.AddFriendsViewModel;
+
+import java.util.List;
 
 /**
  * Created by 37925 on 2016/12/10.
@@ -48,20 +54,22 @@ public class AddFriendsFragment extends ItimeBaseFragment<AddFriendsMvpView, Con
     public void onActivityCreated(Bundle bundle){
         super.onActivityCreated(bundle);
         mainViewModel = new AddFriendsViewModel(presenter);
+        mainViewModel.setMvpView(this);
         binding.setMainViewModel(mainViewModel);
 
         toolbarViewModel = new ToolbarViewModel<>(this);
         toolbarViewModel.setLeftIcon(getContext().getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarViewModel.setTitle(getString(R.string.morefriends_title));
         binding.setToolbarVM(toolbarViewModel);
+        presenter.getRecommendContacts();
     }
 
 
-    public void goToProfileFragment(Contact user){
+    public void goToProfileFragment(String userUid){
         if(profileFragment == null) {
             profileFragment = new ProfileFragment();
         }
-        profileFragment.setUserUid(user.getUserDetail().getUserUid());
+        profileFragment.setUserUid(userUid);
         profileFragment.setStartMode(ProfileFragment.MODE_CONTACT);
         getBaseActivity().openFragment(profileFragment, null, true);
     }
@@ -76,6 +84,7 @@ public class AddFriendsFragment extends ItimeBaseFragment<AddFriendsMvpView, Con
     public void goToScanQRCode(){
         MPermissions.requestPermissions(this, REQ_QRCODE, Manifest.permission.CAMERA);
     }
+
 
 //    /**
 //     * Added by Qiushuo Huang
@@ -123,6 +132,23 @@ public class AddFriendsFragment extends ItimeBaseFragment<AddFriendsMvpView, Con
 //        }
 //    }
 
+    public void sendInviteEmail(){
+        String email = mainViewModel.getPureSearchText();
+        String message = String.format(getString(R.string.contact_user_not_found_dialog_message)
+                , email);
+        getDialogBuidler()
+                .title(R.string.contact_user_not_found_dialog_title)
+                .content(message)
+                .negativeText(R.string.dialog_cancel)
+                .positiveText(R.string.dialog_invite)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        presenter.sendInvite(email);
+                    }
+                })
+                .show();
+    }
 
     @Override
     public ContactPresenter createPresenter() {
@@ -146,11 +172,11 @@ public class AddFriendsFragment extends ItimeBaseFragment<AddFriendsMvpView, Con
     }
 
     @Override
-    public void onTaskSuccess(int taskId, Contact data) {
+    public void onTaskSuccess(int taskId, Object data) {
         hideProgressDialog();
         switch (taskId){
             case ContactPresenter.TASK_SEARCH_USER:
-                goToProfileFragment(data);
+                goToProfileFragment(((Contact)data).getUserDetail().getUserUid());
                 break;
             case ContactPresenter.TASK_INVITE:
                 Toast.makeText(getContext(), getContext().getString(R.string.contact_invitation_sent), Toast.LENGTH_SHORT).show();
@@ -158,8 +184,14 @@ public class AddFriendsFragment extends ItimeBaseFragment<AddFriendsMvpView, Con
             case ContactPresenter.TASK_MYSELF:
                 goToSettingFragment();
                 break;
+            case ContactPresenter.TASK_ADD:
+                Toast.makeText(getContext(), getContext().getString(R.string.profile_request_sent), Toast.LENGTH_SHORT).show();
+                mainViewModel.requestSendSuccess((String) data);
+                break;
+            case ContactPresenter.TASK_RECOMMEND:
+                mainViewModel.setRecommendContacts((List<RecomandContact>) data);
+                break;
         }
-
     }
 
     @Override
@@ -167,10 +199,13 @@ public class AddFriendsFragment extends ItimeBaseFragment<AddFriendsMvpView, Con
         hideProgressDialog();
         switch (taskId){
             case ContactPresenter.TASK_SEARCH_USER:
-                mainViewModel.showNotFound();
+                sendInviteEmail();
                 break;
             case ContactPresenter.TASK_INVITE:
                 Toast.makeText(getContext(), getContext().getString(R.string.contact_invite_fail), Toast.LENGTH_SHORT).show();
+                break;
+            case ContactPresenter.TASK_ADD:
+                Toast.makeText(getContext(), getContext().getString(R.string.network_error_retry), Toast.LENGTH_SHORT).show();
                 break;
 //            case ContactPresenter.ERROR_INVALID_EMAIL:
 //                showDialog(getString(R.string.domain_alert_message), "");

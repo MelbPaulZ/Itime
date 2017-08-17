@@ -13,12 +13,15 @@ import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Meeting;
+import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.fragment.meeting.RecyclerViewAdapterMeetings;
 import org.unimelb.itime.ui.mvpview.MeetingMvpView;
 import org.unimelb.itime.ui.presenter.MeetingPresenter;
 import org.unimelb.itime.util.EventUtil;
+import org.unimelb.itime.util.TimeFactory;
 
+import java.sql.Time;
 import java.util.Calendar;
 import java.util.List;
 
@@ -110,7 +113,37 @@ public class MeetingBaseCardViewModel extends BaseObservable {
     }
 
     public String getReminderTimeStr(){
-        return "In 2d 2h";
+        boolean isConfirmed = meeting.getEvent().isConfirmed();
+        long[] timeDiff;
+
+        if (isConfirmed){
+            timeDiff = TimeFactory.getTimeDiffWithToday(meeting.getEvent().getStartTime());
+        }else {
+            TimeSlot[] timeSlots = EventUtil.getNearestTimeslot(meeting.getEvent().getTimeslot());
+            TimeSlot target = timeSlots[timeSlots[1] != null ? 1 : 0];
+            timeDiff = TimeFactory.getTimeDiffWithToday(target.getStartTime());
+        }
+
+        boolean isOutdated = timeDiff[3] < 0;
+
+        int resIdMode = isOutdated ? R.string.meeting_reminder_time_ago
+                : (isConfirmed ? R.string.meeting_reminder_time_future:R.string.meeting_reminder_next_slot);
+        if (timeDiff[0] != 0){
+            // > 1 day
+            return String.format(
+                    context.getString(resIdMode),String.format(context.getString(R.string.meeting_reminder_time_day)
+                            ,(int)Math.abs(timeDiff[0])));
+        }else if (timeDiff[1] != 0){
+            // day = 0, hour > 0
+            return String.format(
+                    context.getString(resIdMode),String.format(context.getString(R.string.meeting_reminder_time_hour)
+                            ,(int)Math.abs(timeDiff[1])));
+        }else {
+            // day = 0, hour = 0
+            return String.format(context.getString(resIdMode)
+                    ,String.format(context.getString(R.string.meeting_reminder_time_min)
+                            ,(int)Math.abs(timeDiff[2])));
+        }
     }
 
     public int getStatusBlockVisibility(){

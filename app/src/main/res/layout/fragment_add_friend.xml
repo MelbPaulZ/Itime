@@ -14,7 +14,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/fragment_background"
     android:focusable="true"
     android:fitsSystemWindows="true"
     android:focusableInTouchMode="true">
@@ -78,30 +78,27 @@
     </LinearLayout>
     <include layout="@layout/line"/>
 
-    <!--Recent Part-->
+        <!--Recent Part-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="@{mainViewModel.recommendItems.empty?View.GONE:View.VISIBLE}">
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="15dp"
-        android:text="@string/people_you_may_know"
-        android:textSize="@dimen/font_tiny"
-        android:textColor="@color/warmGrey"
-        android:background="@color/fragment_background"
-        android:gravity="center_vertical"/>
+        style="@style/ListLableTextStyle"
+        android:text="@string/people_you_may_know" />
 
     <include layout="@layout/line"/>
 
-    <!--<ListView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@color/white"-->
-        <!--app:items="@{vm.recent}"-->
-        <!--app:itemBinding="@{vm.itemBinding}"-->
-        <!--app:onItemClickListener="@{vm.onRecentItemClick}"-->
-        <!--android:visibility="@{vm.searching?View.GONE:View.VISIBLE}"-->
-        <!--/>-->
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:items="@{mainViewModel.recommendItems}"
+        app:itemBinding="@{mainViewModel.recommendItemBinding}"
+        />
         </LinearLayout>
+    </LinearLayout>
     <!--search part-->
     <LinearLayout
         android:layout_width="match_parent"

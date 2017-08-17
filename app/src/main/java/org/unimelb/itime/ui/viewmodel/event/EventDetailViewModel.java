@@ -5,12 +5,15 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -21,14 +24,10 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.PhotoUrl;
 import org.unimelb.itime.bean.TimeSlot;
-import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.mvpview.event.EventDetailMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
-import org.unimelb.itime.ui.presenter.event.EventDetailPresenter;
 import org.unimelb.itime.util.AppUtil;
 import org.unimelb.itime.util.EventUtil;
-import org.unimelb.itime.util.MeetingUtil;
-import org.unimelb.itime.widget.OnRecyclerItemClickListener;
 import org.unimelb.itime.widget.PhotoViewLayout;
 import org.unimelb.itime.widget.ScalableLayout;
 import org.unimelb.itime.widget.popupmenu.PopupMenu;
@@ -52,6 +51,7 @@ public class EventDetailViewModel extends BaseObservable{
     public static final int STATUS_NOT_GOING = 7;
     public static final int STATUS_CANCELED = 8;
     public static final int STATUS_EXPIRED = 9;
+    public static final int STATUS_NOT_GOING_PENDING = 10;
 
     private EventCreatePresenter<EventDetailMvpView> presenter;
     private Event event;
@@ -71,10 +71,13 @@ public class EventDetailViewModel extends BaseObservable{
     private String calendarType = "";
     private List<TimeSlot> timeSlots;
     private List<TimeSlot> selectedTimeSlots = new ArrayList<>();
-    private List<EventDetailTimeslotViewModel> timeSlotsItems;
+    private List<TimeSlot> originalSelectedTimeSlots = new ArrayList<>();
+    private ObservableList<EventDetailTimeSlotItemViewModel> timeSlotsItems = new ObservableArrayList<>();
     private boolean showTimeSlotSheet = true;
     private int status = STATUS_NEED_CONFIRM;
+    private int originalStatus;
     private boolean host;
+    private boolean canVote = false;
 
     private int repliedNum = 0;
     private int cantGoNum = 0;
@@ -97,6 +100,7 @@ public class EventDetailViewModel extends BaseObservable{
     private LayerDrawable bottomSheetHeaderDrawable;
     private int bottomSheetStatus;
     private String repeatString="";
+    private String sheetLeftText = "";
 
     @Bindable
     public String getRepeatString() {
@@ -106,6 +110,11 @@ public class EventDetailViewModel extends BaseObservable{
     public void setRepeatString(String repeatString) {
         this.repeatString = repeatString;
         notifyPropertyChanged(BR.repeatString);
+    }
+
+    public boolean isSelectedTimeSlotsChanged(){
+        return !(selectedTimeSlots.containsAll(originalSelectedTimeSlots)
+                && originalSelectedTimeSlots.containsAll(selectedTimeSlots));
     }
 
     @Bindable
@@ -123,34 +132,45 @@ public class EventDetailViewModel extends BaseObservable{
         notifyPropertyChanged(BR.soloEvent);
     }
 
-    @Bindable
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(Event event) {
+    private void initStatus(Event event) {
+        String myStatus = EventUtil.getInviteeStatus(event);
 
         if(event.getStatus().equals(Event.STATUS_CANCELLED)){
-            status = STATUS_CANCELED;
-        }
+            if(isHost()){
+                status = STATUS_CANCELED;
+            }else if(EventUtil.isConfirmed(event)){
+                    status = STATUS_NOT_GOING;
+                }else{
+                status = STATUS_NOT_GOING_PENDING;
+            }
+            }
 
         if(event.getStatus().equals(Event.STATUS_PENDING)){
             if(isHost()){
                 status = STATUS_NEED_CONFIRM;
             }else{
-                if(selectedTimeSlots.isEmpty()){
-                    status = STATUS_NEED_VOTE;
-                } else{
-                    status = STATUS_VOTED;
+                if(myStatus!=null) {
+                    switch (myStatus) {
+                        case Invitee.STATUS_ACCEPTED:
+                            status = STATUS_VOTED;
+                            break;
+                        case Invitee.STATUS_DECLINED:
+                            status = STATUS_NOT_GOING_PENDING;
+                            break;
+                        case Invitee.STATUS_NEEDSACTION:
+                            status = STATUS_NEED_VOTE;
+                            break;
+                    }
                 }
             }
         }
+
+
 
         if(event.getStatus().equals(Event.STATUS_CONFIRMED)){
             if(isHost()){
                 status = STATUS_CONFIRMED;
             } else {
-                String myStatus = EventUtil.getInviteeStatus(event);
                 if(myStatus!=null) {
                     switch (myStatus) {
                         case Invitee.STATUS_ACCEPTED:
@@ -164,6 +184,46 @@ public class EventDetailViewModel extends BaseObservable{
                     }
                 }
             }
+        }
+            setStatus(status);
+    }
+
+    @Bindable
+    public boolean isCanVote() {
+        return canVote;
+    }
+
+    public void setCanVote(boolean canVote) {
+        this.canVote = canVote;
+        notifyPropertyChanged(BR.canVote);
+    }
+
+    @Bindable
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+        if(status == STATUS_NEED_CONFIRM ||
+                status == STATUS_NEED_VOTE ||
+                status == STATUS_NOT_GOING_PENDING ||
+                status == STATUS_VOTED){
+            setCanVote(true);
+            switch (status){
+                case STATUS_NEED_CONFIRM:
+                case STATUS_NEED_VOTE:
+                    setSheetLeftText(context.getString(R.string.event_detail_sheet_left_choosetimeslots));
+                    break;
+                case STATUS_VOTED:
+                    setSheetLeftText(context.getString(R.string.event_detail_sheet_left_voted));
+                    break;
+                case STATUS_NOT_GOING_PENDING:
+                    setSheetLeftText(context.getString(R.string.event_detail_sheet_left_not_going));
+                    break;
+            }
+        }else{
+            setCanVote(false);
         }
         notifyPropertyChanged(BR.status);
     }
@@ -218,33 +278,40 @@ public class EventDetailViewModel extends BaseObservable{
         notifyPropertyChanged(BR.inviteeNum);
     }
 
-    public OnRecyclerItemClickListener.OnItemClickListener onTimeSlotClick(){
-        return new OnRecyclerItemClickListener.OnItemClickListener() {
+    public AdapterView.OnItemClickListener onTimeSlotClick(){
+        return new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int i) {
-                EventDetailTimeslotViewModel vm = timeSlotsItems.get(i);
-                Toast.makeText(context, i+"", Toast.LENGTH_SHORT).show();
-                if(vm.isSelected()){
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                EventDetailTimeSlotItemViewModel vm = timeSlotsItems.get(i);
+                if (vm.isOutdated()) {
+                    Toast.makeText(context, context.getString(R.string.event_detail_thetimeslotisoutdated), Toast.LENGTH_SHORT).show();
+                } else if (vm.isSelected()) {
                     vm.setSelected(false);
                     selectedTimeSlots.remove(vm.getTimeSlot());
-                }else{
-                    if(vm.isOutdated()){
-                        Toast.makeText(context, context.getString(R.string.event_detail_thetimeslotisoutdated), Toast.LENGTH_SHORT).show();
-                    }else {
+                } else {
+                        if (isHost()) {
+                            selectedTimeSlots.clear();
+                            for (EventDetailTimeSlotItemViewModel item : timeSlotsItems) {
+                                item.setSelected(false);
+                            }
+                        }
+
                         vm.setSelected(true);
                         selectedTimeSlots.add(vm.getTimeSlot());
                         if (vm.isConflict()) {
                             Toast.makeText(context, context.getString(R.string.event_detail_youmayhaveconfilict), Toast.LENGTH_SHORT).show();
                         }
                     }
+                if(!isHost()) {
+                    if (isSelectedTimeSlotsChanged()) {
+                        setStatus(STATUS_NEED_VOTE);
+                    } else{
+                        setStatus(originalStatus);
+                    }
                 }
                 notifyPropertyChanged(BR.selectedTimeSlots);
                 notifyPropertyChanged(BR.submitBtnString);
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-                onItemClick(view, position);
+                notifyPropertyChanged(BR.votedBtnString);
             }
         };
     }
@@ -378,7 +445,7 @@ public class EventDetailViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.rejectTimeslots(event.getCalendarUid(), event.getEventUid());
+               mvpView.onRejectAll();
             }
         };
     }
@@ -410,26 +477,31 @@ public class EventDetailViewModel extends BaseObservable{
         return new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
     }
 
-    public ItemBinding<EventDetailTimeslotViewModel> getTimeSlotItemBinding(){
+    public ItemBinding<EventDetailTimeSlotItemViewModel> getTimeSlotItemBinding(){
+//        return ItemBinding.of(BR.vm, R.layout.item_event_detail_timeslot);
         return ItemBinding.of(BR.vm, R.layout.item_event_detail_timeslot);
     }
 
-    public List<EventDetailTimeslotViewModel> getTimeSlotsItems() {
+    public ObservableList<EventDetailTimeSlotItemViewModel> getTimeSlotsItems() {
         return timeSlotsItems;
     }
 
-    public void setTimeSlotsItems(List<EventDetailTimeslotViewModel> timeSlotsItems) {
+    public void setTimeSlotsItems(ObservableList<EventDetailTimeSlotItemViewModel> timeSlotsItems) {
         this.timeSlotsItems = timeSlotsItems;
     }
 
     private void generateTimeSlotItems(){
-        List<EventDetailTimeslotViewModel> timeSlotsItems = new ArrayList<>();
+        timeSlotsItems.clear();
         for(TimeSlot timeSlot:event.getTimeslot().values()){
-            EventDetailTimeslotViewModel vm = new EventDetailTimeslotViewModel(context);
+            EventDetailTimeSlotItemViewModel vm = new EventDetailTimeSlotItemViewModel(context);
             vm.setTimeSlot(timeSlot);
+            if(selectedTimeSlots.contains(timeSlot)){
+                vm.setSelected(true);
+            }else{
+                vm.setSelected(false);
+            }
             timeSlotsItems.add(vm);
         }
-        setTimeSlotsItems(timeSlotsItems);
     }
 
     public View.OnClickListener getOnTimeSlotSheetClickListener(){
@@ -479,8 +551,14 @@ public class EventDetailViewModel extends BaseObservable{
 
     @Bindable
     public String getSubmitBtnString() {
-        return context.getResources().getString(R.string.event_detail_submit_vote)
-                +" ("+selectedTimeSlots.size()+"/"+timeSlots.size()+")";
+        return String.format(context.getResources().getString(R.string.event_detail_submit_n_vote),
+               getSelectedTimeSlots().size(), timeSlots.size());
+    }
+
+    @Bindable
+    public String getVotedBtnString() {
+        return String.format(context.getResources().getString(R.string.event_detail_voted_for_n_timeslots),
+                getSelectedTimeSlots().size());
     }
 
     @Bindable
@@ -781,22 +859,42 @@ public class EventDetailViewModel extends BaseObservable{
 
     public void setEvent(Event event) {
         this.event = event;
-
         setSoloEvent(event.getEventType().equals(Event.TYPE_SOLO));
 
         if (event.getPhoto() != null){
             setPhotoUrls(event.getPhoto());
         }
+
         EventUtil.initTimeSlotVoteStatus(event);
         setVoteStatus(event);
 
-        ArrayList<String> photos = new ArrayList<>();
         if(EventUtil.isHost(event)){
             setHost(true);
         }else{
             setHost(false);
+            //must be called before setTimeSlots
+            setSelectedTimeSlots(EventUtil.getMyVoteTimeSlot(event));
+            originalSelectedTimeSlots.addAll(getSelectedTimeSlots());
         }
 
+        generateAvatarList();
+        setCalendarType("iTime");
+
+        setTimeSlots(new ArrayList<>(event.getTimeslot().values()));
+        setShowTimeSlotSheet(true);
+        setTimeSlotBottomSheetButtonVisibilities();
+        generateEventTimeString();
+        setAlertString("Alert 15 minutes before");
+
+        initStatus(event);
+        originalStatus = getStatus();
+        notifyPropertyChanged(BR.submitBtnString);
+        notifyPropertyChanged(BR.event);
+//        setCalendarType(CalendarUtil.getInstance(context).getCalendarName(event));
+    }
+
+    private void generateAvatarList(){
+        ArrayList<String> photos = new ArrayList<>();
         for(Invitee invitee:event.getInvitee().values()){
             if(invitee.getInviteeUid().equals(event.getHost())){
                 setHostInvitee(invitee);
@@ -804,18 +902,6 @@ public class EventDetailViewModel extends BaseObservable{
             photos.add(invitee.getPhoto());
         }
         setAvatarList(photos);
-        setCalendarType("iTime");
-        setTimeSlots(new ArrayList<>(event.getTimeslot().values()));
-        setShowTimeSlotSheet(true);
-        setTimeSlotBottomSheetButtonVisibilities();
-        generateEventTimeString();
-        setAlertString("Alert 15 minutes before");
-
-        setSelectedTimeSlots(EventUtil.getMyVoteTimeSlot(event));
-        setStatus(event);
-        notifyPropertyChanged(BR.submitBtnString);
-        notifyPropertyChanged(BR.event);
-//        setCalendarType(CalendarUtil.getInstance(context).getCalendarName(event));
     }
 
     private void setVoteStatus(Event event){
@@ -923,7 +1009,9 @@ public class EventDetailViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(mvpView!=null){
+                    mvpView.remindEveryone();
+                }
             }
         };
     }
@@ -990,4 +1078,13 @@ public class EventDetailViewModel extends BaseObservable{
         };
     }
 
+    @Bindable
+    public String getSheetLeftText() {
+        return sheetLeftText;
+    }
+
+    public void setSheetLeftText(String sheetLeftText) {
+        this.sheetLeftText = sheetLeftText;
+        notifyPropertyChanged(BR.sheetLeftText);
+    }
 }

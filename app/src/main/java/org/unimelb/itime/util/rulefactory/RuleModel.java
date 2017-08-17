@@ -401,8 +401,19 @@ public class RuleModel<T extends RuleInterface> implements Serializable {
         return sameDay;
     }
 
+    //range: - & + a year from today
+    public ArrayList<Long> getOccurrenceDates(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, -1);
+        Date startDate = calendar.getTime();
+        calendar.add(Calendar.YEAR, 2);
+        Date endDate = calendar.getTime();
+
+        return getOccurrenceDates(startDate.getTime(),endDate.getTime());
+    }
+
     //range: [startRange, endRange)
-    public ArrayList<Long> getOccurenceDates(long startRange, long endRange){
+    public ArrayList<Long> getOccurrenceDates(long startRange, long endRange){
                 ArrayList<Long> availableDates = new ArrayList<>();
         long startTime = this.ruleInterface.getStartTime();//right
 

@@ -49,7 +49,7 @@
     <dimen name="font_small">14sp</dimen>
     <dimen name="font_tiny">12sp</dimen>
     <dimen name="design_bottom_sheet_peek_height_min">150dp</dimen>
-
+    <dimen name="profile_name_large_size">29sp</dimen>
     <!--contact-->
     <dimen name="search_account_button_text_size">19sp</dimen>
 

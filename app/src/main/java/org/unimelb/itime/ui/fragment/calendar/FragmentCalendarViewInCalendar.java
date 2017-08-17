@@ -2,6 +2,7 @@ package org.unimelb.itime.ui.fragment.calendar;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -15,12 +16,14 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.databinding.FragmentCalendarMonthdayReviewBinding;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
+import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.util.EventUtil;
 
 import java.util.ArrayList;
@@ -30,7 +33,6 @@ import java.util.List;
 import david.itimecalendar.calendar.listeners.ITimeCalendarMonthDayViewListener;
 import david.itimecalendar.calendar.listeners.ITimeEventInterface;
 import david.itimecalendar.calendar.ui.CalendarConfig;
-import david.itimecalendar.calendar.ui.monthview.DayViewBodyCell;
 import david.itimecalendar.calendar.ui.monthview.MonthView;
 import david.itimecalendar.calendar.ui.unitviews.DraggableEventView;
 import david.itimecalendar.calendar.util.MyCalendar;
@@ -39,20 +41,34 @@ import david.itimecalendar.calendar.util.MyCalendar;
  * Created by yuhaoliu on 8/06/2017.
  */
 
-public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView, EventCreatePresenter<CalendarMvpView>> implements CalendarMvpView, ToolbarInterface {
-    private static final String TAG = "lifecycle";
-    private View root;
+public class FragmentCalendarViewInCalendar extends ItimeBaseFragment<CalendarMvpView, EventCreatePresenter<CalendarMvpView>> implements CalendarMvpView, ToolbarInterface {
     private EventManager eventManager;
     private MonthView monthDayView;
     private FragmentCalendar.OnDateChanged onDateChanged;
+    private ToolbarViewModel toolbarViewModel;
+    private FragmentCalendarMonthdayReviewBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_calendar_monthday, container, false);
+        if (binding==null) {
+            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_calendar_monthday_review, container, false);
+        }
         eventManager = EventManager.getInstance(getContext());
+        monthDayView = (MonthView) binding.getRoot().findViewById(R.id.month_view);
+
         initView();
-        return root;
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        toolbarViewModel = new ToolbarViewModel<>(this);
+        toolbarViewModel.setTitle(getString(R.string.toolbar_view_in_calendar));
+        toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_back_black));
+        binding.setToolbarVM(toolbarViewModel);
     }
 
     @Override
@@ -67,7 +83,7 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
 
     @Override
     public void onBack() {
-
+        getFragmentManager().popBackStack();
     }
 
     @Subscribe
@@ -87,15 +103,23 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
     }
 
     private void initView(){
-        monthDayView = (MonthView) root.findViewById(R.id.month_view);
-        monthDayView.getCalendarConfig().enableEvent();
-        monthDayView.getCalendarConfig().unconfirmedIncluded = true;
-
+        CalendarConfig config = monthDayView.getCalendarConfig();
+        config.enableEvent();
+        config.isEventClickable = false;
+        config.isEventCreatable = false;
+        config.isEventDraggable = false;
+        config.unconfirmedIncluded = true;
+        config.isHeaderVisible = false;
+        monthDayView.refresh();
         //Set the data source with format of ITimeEventPackageInterface
         //ITimeEventPackageInterface is composed by two parts:
         //  1: regular events. 2: repeated events.
         monthDayView.setEventPackage(eventManager.getEventsPackage());
         monthDayView.setITimeCalendarMonthDayViewListener(listener);
+
+        if (event != null){
+            monthDayView.scrollToDate(new Date(event.getStartTime()),true);
+        }
     }
 
     private ITimeCalendarMonthDayViewListener listener = new ITimeCalendarMonthDayViewListener(){
@@ -183,33 +207,12 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
         super.onStart();
         EventBus.getDefault().register(this);
         monthDayView.refresh();
-        Log.i(TAG, "onStart: " + "FragmentCalendarMonthDay");
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.i(TAG, "onResume: " + "FragmentCalendarMonthDay");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.i(TAG, "onPause: " + "FragmentCalendarMonthDay");
-    }
-
-    @Override
     public void onStop() {
         super.onStop();
 
         EventBus.getDefault().unregister(this);
-        Log.i(TAG, "onPause: " + "FragmentCalendarMonthDay");
-    }
-
-    public void backToToday(){
-        if (monthDayView != null){
-            monthDayView.scrollToDate(new Date(),false);
-        }
     }
 
     @Override
@@ -230,10 +233,12 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
 
     }
 
-    public void scrollToDate(Date targetDate, boolean toTime){
-        if(monthDayView == null){
+    private Event event;
 
+    public void setEvent(Event event) {
+        this.event = event;
+        if (monthDayView != null){
+            monthDayView.scrollToDate(new Date(event.getStartTime()),true);
         }
-        monthDayView.scrollToDate(targetDate,toTime);
     }
 }

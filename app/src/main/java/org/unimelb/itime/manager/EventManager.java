@@ -6,7 +6,6 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import org.unimelb.itime.bean.Event;
-import org.unimelb.itime.ui.mvpview.LoginMvpView;
 import org.unimelb.itime.util.CalendarUtil;
 import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.util.UserUtil;
@@ -35,9 +34,6 @@ public class EventManager {
 
     private Event currentEvent = new Event();
 
-    /**
-     *
-     */
     private Map<String, ITimeEventInterface> eventFinder = new HashMap<>();
     private Map<String, List<ITimeEventInterface>> crossDayMap = new HashMap<>();
 
@@ -71,7 +67,6 @@ public class EventManager {
 
     private void init(){
         currentEvent = new Event();
-//        allDayEventList = new ArrayList<>();
         regularEventMap = new HashMap<>();
         orgRepeatedEventList = new ArrayList<>();
         repeatedEventMap = new HashMap<>();
@@ -98,10 +93,6 @@ public class EventManager {
 
         return instance;
     }
-
-//    public static EventManager getInstance(){
-//        return instance;
-//    }
 
     public EventsPackage getEventsPackage(){
         return eventsPackage;
@@ -396,7 +387,7 @@ public class EventManager {
             }
         }
 
-        ArrayList<Long> repeatedEventsTimes = rule.getOccurenceDates(rangeStart,rangeEnd);
+        ArrayList<Long> repeatedEventsTimes = rule.getOccurrenceDates(rangeStart,rangeEnd);
 
         for (Long time: repeatedEventsTimes
                 ) {
@@ -462,10 +453,6 @@ public class EventManager {
             eventFinder.remove(event.getEventUid());
         }
     }
-
-//    private synchronized void removeAlldayEvent(Event event){
-//        this.allDayEventList.remove(event);
-//    }
 
     private synchronized void removeRegularEvent(Event event){
         ITimeEventInterface org = findRegularEvent(event);

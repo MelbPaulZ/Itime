@@ -1,19 +1,24 @@
 package org.unimelb.itime.ui.fragment.event;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.databinding.ObservableList;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -25,12 +30,11 @@ import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.databinding.DialogEventDetailNoteBinding;
 import org.unimelb.itime.databinding.FragmentEventDetailBinding;
 import org.unimelb.itime.messageevent.MessageEvent;
-import org.unimelb.itime.messageevent.MessageNewFriendRequest;
 import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.fragment.calendar.FragmentCalendarTimeslot;
+import org.unimelb.itime.ui.fragment.calendar.FragmentCalendarViewInCalendar;
 import org.unimelb.itime.ui.mvpview.event.EventDetailMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
-import org.unimelb.itime.ui.presenter.event.EventDetailPresenter;
 import org.unimelb.itime.ui.viewmodel.event.EventDetailViewModel;
 import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.widget.CollapseHeadBar;
@@ -39,7 +43,6 @@ import org.unimelb.itime.widget.popupmenu.PopupMenu;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Paul on 4/09/2016.
@@ -184,10 +187,9 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     }
 
     private void toCalendarView(){
-//        FragmentCalendarTimeslot fragmentCalendarTimeslot = new FragmentCalendarTimeslot();
-//        fragmentCalendarTimeslot.setEvent(event);
-//        fragmentCalendarTimeslot.setMode(FragmentCalendarTimeslot.Mode.HOST_CONFIRM);
-//        getBaseActivity().openFragment(fragmentCalendarTimeslot);
+        FragmentCalendarViewInCalendar fragmentCalendarViewInCalendar = new FragmentCalendarViewInCalendar();
+        fragmentCalendarViewInCalendar.setEvent(event);
+        getBaseActivity().openFragment(fragmentCalendarViewInCalendar);
     }
 
 
@@ -274,6 +276,8 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         startActivity(intent);
     }
 
+
+
     @Override
     public void viewUserProfile(String userUid) {
 //        ProfileFragment userProfileFrag = new ProfileFragment();
@@ -288,6 +292,41 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
 //        getBaseActivity().openFragment(confirmInviteeFragment);
     }
 
+    public void onRejectAll(){
+        getDialogBuidler()
+                .positiveText(R.string.dialog_ok)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        presenter.rejectTimeslots(event.getCalendarUid(), event.getEventUid(), dialog.getInputEditText().getText().toString());
+                    }
+                })
+                .negativeText(R.string.dialog_cancel)
+                .title(R.string.event_detail_dialog_cantgo_title)
+                .content(R.string.event_detail_dialog_cantgo_message)
+                .input(R.string.event_detail_dialog_cantgo_hint, 0, true, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+
+                    }
+                })
+                .show();
+
+    }
+
+    public void remindEveryone(){
+        getDialogBuidler()
+                .positiveText(R.string.event_detail_dialog_remind)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                    }
+                })
+                .negativeText(R.string.dialog_cancel)
+                .title(R.string.event_detail_dialog_remind_title)
+                .show();
+    }
 
     @Override
     public void onTaskStart(int task) {

@@ -43,6 +43,8 @@ import java.util.UUID;
 
 import david.itimecalendar.calendar.listeners.ITimeEventInterface;
 
+import static org.unimelb.itime.bean.EventDao.Properties.Timeslot;
+
 
 /**
  * Created by yuhaoliu on 10/06/2017.
@@ -757,8 +759,76 @@ public class EventUtil extends BaseUtil{
         return rst;
     }
 
+    public static TimeSlot[] getNearestTimeslot(Map<String,TimeSlot> map){
+        long currentTime = Calendar.getInstance().getTimeInMillis();
+        TimeSlot latestOutdated = null;
+        TimeSlot latestFuture = null;
+
+        for (TimeSlot timeSlot : map.values()){
+            if (timeSlot.getStartTime() < currentTime){
+                // set first latestOutdated
+                if (latestOutdated == null){
+                    latestOutdated = timeSlot;
+                    continue;
+                }
+                // update latestOutdated
+                if (latestOutdated.getStartTime() < timeSlot.getStartTime()){
+                    latestOutdated = timeSlot;
+                }
+            }else {
+                // set first latestOutdated
+                if (latestFuture == null){
+                    latestFuture = timeSlot;
+                    continue;
+                }
+                // update latestOutdated
+                if (latestFuture.getStartTime() > timeSlot.getStartTime()){
+                    latestFuture = timeSlot;
+                }
+            }
+        }
+
+        return new TimeSlot[] {latestOutdated, latestFuture};
+    }
+
+    public static Event transformRepeatEventToLatestInstance(Event event){
+        long currentTime = Calendar.getInstance().getTimeInMillis();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, 1);
+        long range = calendar.getTime().getTime() - currentTime;
+
+        List<Long> futureRst = event.getRule().getOccurrenceDates(currentTime, currentTime + range);
+
+        if (futureRst.size() != 0){
+            event.setStartTime(futureRst.get(0));
+            return event;
+        }
+
+        List pastRst = event.getRule().getOccurrenceDates(currentTime - range, currentTime);
+
+        if (pastRst.size() != 0){
+            event.setStartTime(futureRst.get(pastRst.size() - 1));
+            return event;
+        }
+
+        return null;
+    }
+
     public static boolean isExpired(long timeMillisecond) {
         long nowTime = Calendar.getInstance().getTimeInMillis();
         return nowTime >= timeMillisecond;
+    }
+
+    public static boolean isConfirmed(Event event){
+        if(event.getStatus().equals(Event.STATUS_CONFIRMED)){
+            return true;
+        }
+
+        for(TimeSlot timeSlot:event.getTimeslot().values()){
+            if(timeSlot.isConfirmed()){
+                return true;
+            }
+        }
+        return false;
     }
 }

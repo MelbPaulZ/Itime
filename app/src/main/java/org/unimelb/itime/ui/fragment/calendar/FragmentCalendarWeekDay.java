@@ -28,6 +28,7 @@ import java.util.Date;
 
 import david.itimecalendar.calendar.listeners.ITimeCalendarWeekDayViewListener;
 import david.itimecalendar.calendar.listeners.ITimeEventInterface;
+import david.itimecalendar.calendar.ui.CalendarConfig;
 import david.itimecalendar.calendar.ui.monthview.DayViewBody;
 import david.itimecalendar.calendar.ui.unitviews.DraggableEventView;
 import david.itimecalendar.calendar.ui.weekview.WeekView;
@@ -76,6 +77,7 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
 
     private void initView(){
         weekView = (WeekView) root.findViewById(R.id.week_view);
+        weekView.getCalendarConfig().enableEvent();
         //Set the data source with format of ITimeEventPackageInterface
         //ITimeEventPackageInterface is composed by two parts:
         //  1: regular events. 2: repeated events.
@@ -162,8 +164,6 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
         }
     }
 
-
-
     @Override
     public void onStart() {
         super.onStart();
@@ -179,7 +179,7 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
 
     public void backToToday(){
         if (weekView != null){
-            weekView.scrollToDate(new Date());
+            weekView.scrollToDate(new Date(),false);
         }
     }
 
