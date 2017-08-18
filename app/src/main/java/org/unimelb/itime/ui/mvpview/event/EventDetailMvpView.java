@@ -24,6 +24,9 @@ public interface EventDetailMvpView extends TaskBasedMvpView, ItimeCommonMvpView
     void openUrl(String url);
     void showAllNote();
     void gotoConfirm(TimeSlot timeSlot);
+    void onRejectAll();
+    void remindEveryone();
 
     void gotoEdit();
+    void onDelete();
 }

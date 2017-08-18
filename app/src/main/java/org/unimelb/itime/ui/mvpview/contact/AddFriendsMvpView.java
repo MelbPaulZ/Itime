@@ -10,10 +10,10 @@ import org.unimelb.itime.ui.mvpview.TaskBasedMvpView;
  * Created by 37925 on 2016/12/14.
  */
 
-public interface AddFriendsMvpView extends ItimeBaseMvpView, TaskBasedMvpView<Contact> {
+public interface AddFriendsMvpView extends ItimeBaseMvpView, TaskBasedMvpView {
     Activity getActivity();
 
     void goToScanQRCode();
 
-    void goToProfileFragment(Contact user);
+    void goToProfileFragment(String userUid);
 }

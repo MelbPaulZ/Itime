@@ -4,7 +4,9 @@
     <!--dialog string-->
 
     <string name="dialog_ok">OK</string>
+    <string name="dialog_done">Done</string>
     <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_invite">Invite</string>
     <string name="dialog_save_for_this_event_only">Save for this event only</string>
     <string name="dialog_save_for_future_events">Save for future events</string>
     <!--toolbar string-->
@@ -32,6 +34,7 @@
 
     <!--Event-->
     <string name="event">Event</string>
+    <string name="create_an_event">Create An Event</string>
     <string name="event_detail_header_hosted_by">Hosted by</string>
     <string name="event_detail_header_invitees">invitee</string>
     <string name="event_detail_location">Location</string>
@@ -86,6 +89,11 @@
     <string name="event_create_onlymyself">Only Myself</string>
     <string name="event_create_confirm_toolbar">Confirm</string>
     <string name="event_create_confirm_done">Done</string>
+    <string name="event_detail_dialog_cantgo_title">Can\'t go</string>
+    <string name="event_detail_dialog_remind">Remind</string>
+    <string name="event_detail_dialog_remind_title">Every invitee will recieve a system reminder </string>
+    <string name="event_detail_dialog_cantgo_message">You can leave a message (Optional)</string>
+    <string name="event_detail_dialog_cantgo_hint">Why you can\'t go</string>
 
     <!--Event Create Add Invitee-->
     <string name="event_create_addinvitee">Add Invitee</string>
@@ -286,6 +294,10 @@
     <string name="contact_friend_request">Friend Requests</string>
     <string name="contact_find_more_friends">Find More Friends</string>
     <string name="contact_my_profile">My Profile</string>
+    <string name="contact_user_not_found_dialog_title">User Not Found</string>
+    <string name="contact_user_not_found_dialog_message">Invite\n%1$s\nto
+join iTime</string>
+    <string name="contact_recommend_add">Add</string>
     <string name="contact_add_by_email">Add by Email</string>
     <string name="contact_scan_qr_code">Scan QR Code</string>
     <string name="profile_edit_alias">Edit Alias</string>
@@ -295,7 +307,9 @@
     <string name="profile_profile">Profile</string>
     <string name="profile_invite_to_new_event">Invite to New Event</string>
     <string name="profile_add_friend">Add Friend</string>
+    <string name="profile_delete_success">Delete Success</string>
     <string name="profile_request_sent">Request Sent</string>
+    <string name="contact_mutual_friends">%1$d mutual friends</string>
     <string name="alias_title">Alias</string>
     <string name="edit_alias_alert_msg">Alias should be %1$d to %2$d letters</string>
     <string name="edit_name_alert_msg">Name should be %1$d to %2$d letters</string>
@@ -315,7 +329,12 @@
     <string name="morefriends_search_by_email">Search by Email</string>
     <string name="morefriends_scan_qr_code">Scan QR Code</string>
     <string name="people_you_may_know">PEOPLE YOU MAY KNOW</string>
-
+    <string name="friend_requests_title">Friend Requests</string>
+    <string name="friend_requests_new_friends">NEW FRIENDS</string>
+    <string name="friend_requests_received">RECEIVED</string>
+    <string name="friend_requests_sent">SENT</string>
+    <string name="friend_requests_btn_request_sent">Request sent</string>
+    <string name="friend_requests_btn_accept">ACCEPT</string>
 
     <!-- Error msg -->
     <string name="some_error_happens">Some error happens</string>

@@ -1,7 +1,10 @@
 package org.unimelb.itime.restfulapi;
 
+import android.databinding.ObservableList;
+
 import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.RecomandContact;
 import org.unimelb.itime.restfulresponse.HttpResult;
 
 import java.util.List;
@@ -41,4 +44,6 @@ public interface ContactApi {
     @POST("contact/invite/{email}/{source}")
     Observable<HttpResult<String>> invite(@Path("email") String email, @Path("source") String source);
 
+    @GET("contact/recommend/list")
+    Observable<HttpResult<List<RecomandContact>>> recommend();
 }

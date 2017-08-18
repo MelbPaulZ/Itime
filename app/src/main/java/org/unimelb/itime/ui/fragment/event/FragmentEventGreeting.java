@@ -23,6 +23,8 @@ import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.event.EventGreetingViewModel;
 import org.unimelb.itime.util.EventUtil;
 
+import java.util.List;
+
 /**
  * Created by Paul on 21/6/17.
  */
@@ -96,7 +98,8 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
     public void onTaskSuccess(int taskId, Object data) {
         if (taskId == EventCreatePresenter.TASK_EVENT_CREATE){
             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-            intent.putExtra(EventDetailActivity.EVENT, event);
+            List<Event> eventList = (List<Event>) data;
+            intent.putExtra(EventDetailActivity.EVENT, eventList.get(0));
             startActivity(intent);
             getActivity().finish();
         }else if (taskId == EventCreatePresenter.TASK_EVENT_UPDATE){

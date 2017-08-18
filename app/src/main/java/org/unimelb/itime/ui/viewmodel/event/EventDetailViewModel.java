@@ -283,13 +283,12 @@ public class EventDetailViewModel extends BaseObservable{
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 EventDetailTimeSlotItemViewModel vm = timeSlotsItems.get(i);
-                if (vm.isSelected()) {
+                if (vm.isOutdated()) {
+                    Toast.makeText(context, context.getString(R.string.event_detail_thetimeslotisoutdated), Toast.LENGTH_SHORT).show();
+                } else if (vm.isSelected()) {
                     vm.setSelected(false);
                     selectedTimeSlots.remove(vm.getTimeSlot());
                 } else {
-                    if (vm.isOutdated()) {
-                        Toast.makeText(context, context.getString(R.string.event_detail_thetimeslotisoutdated), Toast.LENGTH_SHORT).show();
-                    } else {
                         if (isHost()) {
                             selectedTimeSlots.clear();
                             for (EventDetailTimeSlotItemViewModel item : timeSlotsItems) {
@@ -303,7 +302,6 @@ public class EventDetailViewModel extends BaseObservable{
                             Toast.makeText(context, context.getString(R.string.event_detail_youmayhaveconfilict), Toast.LENGTH_SHORT).show();
                         }
                     }
-                }
                 if(!isHost()) {
                     if (isSelectedTimeSlotsChanged()) {
                         setStatus(STATUS_NEED_VOTE);
@@ -447,7 +445,7 @@ public class EventDetailViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.rejectTimeslots(event.getCalendarUid(), event.getEventUid());
+               mvpView.onRejectAll();
             }
         };
     }
@@ -1011,7 +1009,9 @@ public class EventDetailViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(mvpView!=null){
+                    mvpView.remindEveryone();
+                }
             }
         };
     }
@@ -1038,7 +1038,9 @@ public class EventDetailViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (mvpView!=null){
+                    mvpView.onDelete();
+                }
             }
         };
     }

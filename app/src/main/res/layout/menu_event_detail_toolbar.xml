@@ -115,6 +115,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_detail_cell_height"
         android:orientation="horizontal"
+        android:visibility="@{vm.host?View.VISIBLE:View.GONE}"
         android:onClick="@{listener.onRemindClick()}">
         <ImageView
             android:layout_width="20dp"

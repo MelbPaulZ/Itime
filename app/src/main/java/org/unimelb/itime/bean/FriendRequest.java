@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 
 @Entity
-public class FriendRequest implements Serializable {
+public class FriendRequest implements ITimeUserInfoInterface, Serializable {
 
     public static final String STATUS_SENT = "sent";
     public static final String STATUS_CONFIRMED = "confirmed";
@@ -179,4 +179,18 @@ public class FriendRequest implements Serializable {
     }
 
 
+    @Override
+    public String getShowPhoto() {
+        return userDetail.getShowPhoto();
+    }
+
+    @Override
+    public String getShowName() {
+        return userDetail.getShowName();
+    }
+
+    @Override
+    public String getSecondInfo() {
+        return userDetail.getUserId();
+    }
 }
