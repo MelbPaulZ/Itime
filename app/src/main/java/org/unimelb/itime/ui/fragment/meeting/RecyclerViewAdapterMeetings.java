@@ -22,14 +22,43 @@ import org.unimelb.itime.ui.viewmodel.meeting.MeetingInvitationDetailCardViewMod
 import org.unimelb.itime.ui.viewmodel.meeting.MeetingInvitationMsgCardViewModel;
 import org.unimelb.itime.ui.viewmodel.meeting.MeetingMenuViewModel;
 import org.unimelb.itime.util.EventUtil;
+import org.unimelb.itime.util.TimeFactory;
 
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerView.ViewHolder> {
     public enum Mode {
         INVITATION, HOSTING, COMING,ARCHIVE
     }
+
+    private Comparator<Meeting> comingComparator = Meeting::compareTo;
+    private Comparator<Meeting> invitationComparator = (m1, m2) -> {
+        Long long1 = TimeFactory.getUpdatedAtLong(m1.getUpdatedAt());
+        Long long2 = TimeFactory.getUpdatedAtLong(m2.getUpdatedAt());
+        return long1.compareTo(long2);
+    };
+    private Comparator<Meeting> hostingComparator = (m1, m2) -> {
+        long currentTime = Calendar.getInstance().getTimeInMillis();
+        long m1StartTime = EventUtil.getNearestTime(m1.getEvent());
+        long m2StartTime = EventUtil.getNearestTime(m2.getEvent());
+
+        Long diffM1 = m1StartTime - currentTime;
+        Long diffM2 = m2StartTime - currentTime;
+
+        //futures
+        if (diffM1 >=0 && diffM2 >= 0){
+            return diffM1.compareTo(diffM2);
+        }
+        //passed
+        if (diffM1 < 0 && diffM2 < 0){
+            return diffM2.compareTo(diffM1);
+        }
+
+        return diffM1.compareTo(diffM2);
+    };
 
     /**
      * note:should be public for data binding
@@ -101,9 +130,19 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
     public void setData(List<Meeting> mDataset) {
         this.mDataset = mDataset;
         switch (mode){
-            case COMING:
-                Collections.sort(mDataset);
+            case ARCHIVE:
+                // archive no need to sort
                 break;
+            case INVITATION:
+                Collections.sort(mDataset, invitationComparator);
+                break;
+            case HOSTING:
+                Collections.sort(mDataset, hostingComparator);
+                break;
+            case COMING:
+                Collections.sort(mDataset, comingComparator);
+                break;
+
             default:
                 break;
         }

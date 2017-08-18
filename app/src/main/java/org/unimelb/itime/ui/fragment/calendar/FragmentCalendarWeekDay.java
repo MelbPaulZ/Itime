@@ -38,7 +38,7 @@ import david.itimecalendar.calendar.util.MyCalendar;
  * Created by yuhaoliu on 8/06/2017.
  */
 
-public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, EventCreatePresenter<CalendarMvpView>> implements CalendarMvpView, ToolbarInterface {
+public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, EventCreatePresenter<CalendarMvpView>> implements CalendarMvpView, ToolbarInterface, FragmentCalendar.CalendarListener {
     private View root;
     private EventManager eventManager;
     private WeekView weekView;
@@ -199,5 +199,14 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
     @Override
     public void onTaskError(int taskId, Object data) {
 
+    }
+
+    @Override
+    public void scrollToDate(Date date, boolean toTime) {
+        if (weekView == null){
+            return;
+        }
+
+        weekView.scrollToDate(date,toTime);
     }
 }

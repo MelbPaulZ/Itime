@@ -102,6 +102,7 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
             filterResult.hostingResult = hostingResult == null ? new ArrayList<>() : hostingResult;
             //handle repeated events
             transformRepeatedMeeting(filterResult);
+
             filterResult.comingResult = getFutureMeeting(filterResult);
 
             subscriber.onNext(filterResult);
@@ -201,11 +202,12 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
      */
     private List<Meeting> getFutureMeeting(FilterResult filterResult){
         List<Meeting> comingResult = new ArrayList<>();
-        int range = 50;//day
+        int range = 0;//day
         long todayBegin = EventUtil.getDayBeginMilliseconds(Calendar.getInstance().getTimeInMillis() - range * EventUtil.allDayMilliseconds);
 
         List<Meeting> fields = new ArrayList<>(filterResult.invitationResult);
         fields.addAll(filterResult.hostingResult);
+        fields.addAll(filterResult.archiveResult);
 
         for (Meeting meeting:fields
              ) {

@@ -62,9 +62,7 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setTabBarVM(viewModel);
         viewModel.updateUnreadActivitiesNumberAndVisibility(); // ?? what the fuck not work?
-        Log.i("aaa", "onCreate: " + "onCreate MainActivity");
         init();
-
     }
 
     @Override
@@ -134,14 +132,14 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
     public void gotoCreateMeeting() {
         Intent intent = new Intent(this, EventCreateActivity.class);
         intent.putExtra(getString(R.string.event_type), getString(R.string.event_type_group));
-        startActivity(intent);
+        startActivityForResult(intent, EventCreateActivity.CREATE_EVENT);
     }
 
     @Override
     public void gotoCreateEvent() {
         Intent intent = new Intent(this, EventCreateActivity.class);
         intent.putExtra(getString(R.string.event_type), getString(R.string.event_type_solo));
-        startActivity(intent);
+        startActivityForResult(intent, EventCreateActivity.CREATE_EVENT);
     }
 
 
@@ -149,5 +147,15 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
     protected void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        for (MvpFragment fragment:tagFragments
+             ) {
+            fragment.onActivityResult(requestCode,resultCode,data);
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

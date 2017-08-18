@@ -791,6 +791,24 @@ public class EventUtil extends BaseUtil{
         return new TimeSlot[] {latestOutdated, latestFuture};
     }
 
+    /**
+     * If event not confirm, return the nearest time in timeslots (compare to current time)
+     * if it is confirmed, just return the start time of event
+     * @param event
+     * @return
+     */
+    public static long getNearestTime(Event event){
+        boolean isConfirmed = event.isConfirmed();
+        if (isConfirmed){
+            return event.getStartTime();
+        }
+
+        TimeSlot[] timeSlots = EventUtil.getNearestTimeslot(event.getTimeslot());
+        TimeSlot target = timeSlots[timeSlots[1] != null ? 1 : 0];
+
+        return target.getStartTime();
+    }
+
     public static Event transformRepeatEventToLatestInstance(Event event){
         long currentTime = Calendar.getInstance().getTimeInMillis();
         Calendar calendar = Calendar.getInstance();

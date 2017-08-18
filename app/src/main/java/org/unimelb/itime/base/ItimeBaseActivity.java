@@ -1,6 +1,7 @@
 package org.unimelb.itime.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -19,6 +20,11 @@ import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.hannesdorfmann.mosby.mvp.MvpView;
 
 import org.unimelb.itime.R;
+import org.unimelb.itime.ui.activity.EventDetailActivity;
+import org.unimelb.itime.ui.activity.MainActivity;
+import org.unimelb.itime.ui.fragment.calendar.FragmentCalendar;
+
+import java.util.Date;
 
 /**
  * Created by Paul on 6/6/17.
@@ -178,4 +184,11 @@ public abstract class ItimeBaseActivity<V extends MvpView, P extends MvpBasePres
 
 
     protected abstract int getFragmentContainerId();
+
+    public void finishWithScrollDate(int resultCode, Date date){
+        Intent intent = new Intent();
+        intent.putExtra(FragmentCalendar.SCROLL_TO_DATE, date);
+        this.setResult(resultCode,intent);
+        this.finish();
+    }
 }

@@ -1,5 +1,6 @@
 package org.unimelb.itime.ui.fragment.calendar;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
@@ -21,9 +22,12 @@ import org.unimelb.itime.bean.Location;
 import org.unimelb.itime.bean.SpinnerWrapper;
 import org.unimelb.itime.databinding.FragmentCalendarBinding;
 import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.ui.activity.ArchiveActivity;
+import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.activity.SearchActivity;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.CalendarPresenter;
+import org.unimelb.itime.ui.presenter.MeetingPresenter;
 import org.unimelb.itime.ui.viewmodel.MainCalendarViewModel;
 import org.unimelb.itime.util.EventUtil;
 
@@ -37,14 +41,19 @@ import java.util.Locale;
  * Created by yuhaoliu on 8/06/2017.
  */
 
-public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, CalendarPresenter<CalendarMvpView>> implements ToolbarInterface {
+public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, CalendarPresenter<CalendarMvpView>> implements ToolbarInterface{
     private static final String TAG = "lifecycle";
+
+    public static final String SCROLL_TO_DATE = "scroll_to_date";
+
     private EventManager eventManager;
     private FragmentCalendarBinding binding;
 
     private FragmentCalendarMonthDay monthDayFragment;
     private FragmentCalendarAgenda agendaFragment;
     private FragmentCalendarWeekDay weekFragment;
+
+    private CalendarListener currentCalendar;
 
     private MainCalendarViewModel mainCalendarViewModel;
     private OnToolbarClick onToolbarClick = new OnToolbarClick() {
@@ -102,6 +111,8 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
 
     }
 
+
+
     public void initSpinner(){
         ArrayList<SpinnerWrapper> wrappers = new ArrayList<>();
         wrappers.add(new SpinnerWrapper(getString(R.string.day),1));
@@ -138,33 +149,8 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
      * this method controls where to scroll to when change between different calendars
      * @param fragment
      */
-    public void showCalendar(ItimeBaseFragment fragment){
-//
-//        if (weekFragment.isVisible()){
-////            // from week fragment
-//            if (fragment instanceof FragmentCalendarMonthDay){
-//                // to day fragment
-////                CalendarManager.getInstance().setCurrentShowCalendar(Calendar.getInstance());
-//            }
-//
-//            if (fragment instanceof FragmentCalendarAgenda){
-//                // to agenda fragment
-//                CalendarManager.getInstance().setCurrentShowCalendar(Calendar.getInstance());
-//            }
-//
-//        }
-////
-//        if (agendaFragment.isVisible()){
-//            // from agenda fragment
-//            if(fragment instanceof CalendarMonthDayFragment || fragment instanceof CalendarWeekFragment){
-//                // to month day fragment or week fragment
-//                Calendar curCal = Calendar.getInstance();
-//                Calendar showCal = CalendarManager.getInstance().getCurrentShowCalendar();
-//                showCal.set(Calendar.HOUR,curCal.get(Calendar.HOUR));
-//                showCal.set(Calendar.MINUTE, curCal.get(Calendar.MINUTE));
-//            }
-//
-//        }
+    public <T extends ItimeBaseFragment & CalendarListener> void showCalendar(T fragment){
+        currentCalendar = fragment;
         getFragmentManager().beginTransaction().replace(R.id.calendar_framelayout, fragment).commit();
     }
 
@@ -177,6 +163,7 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
         weekFragment.setOnDateChanged(onDateChanged);
         agendaFragment.setOnDateChanged(onDateChanged);
 
+        currentCalendar = monthDayFragment;
         getFragmentManager().beginTransaction().add(R.id.calendar_framelayout, monthDayFragment).commit();
     }
 
@@ -187,5 +174,20 @@ public class FragmentCalendar extends ItimeBaseFragment<CalendarMvpView, Calenda
     public interface OnToolbarClick{
         void onSearchClick();
         void onTodayClick();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK){
+            Date targetDate = (Date) data.getSerializableExtra(FragmentCalendar.SCROLL_TO_DATE);
+            if (targetDate != null && currentCalendar != null){
+                currentCalendar.scrollToDate(targetDate,true);
+            }
+        }
+    }
+
+    interface CalendarListener{
+        void scrollToDate(Date date, boolean toTime);
     }
 }

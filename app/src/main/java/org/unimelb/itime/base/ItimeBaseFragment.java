@@ -2,6 +2,7 @@ package org.unimelb.itime.base;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,6 +22,10 @@ import com.hannesdorfmann.mosby.mvp.MvpView;
 import com.zhy.m.permission.MPermissions;
 
 import org.unimelb.itime.R;
+import org.unimelb.itime.ui.activity.EventDetailActivity;
+import org.unimelb.itime.ui.fragment.calendar.FragmentCalendar;
+
+import java.util.Date;
 
 /**
  * Created by Paul on 2/6/17.
@@ -223,7 +228,5 @@ public abstract class ItimeBaseFragment<V extends MvpView, P extends MvpPresente
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
         }
     }
-
-
 
 }
