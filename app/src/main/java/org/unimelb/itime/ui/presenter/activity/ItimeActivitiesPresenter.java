@@ -60,7 +60,7 @@ public class ItimeActivitiesPresenter<V extends ItimeBaseMvpView> extends ItimeB
 
             @Override
             public void onError(Throwable e) {
-                Log.i(" error ", "onError: ");
+                Log.i(" error ", "onError: " + e.getMessage());
             }
 
             @Override

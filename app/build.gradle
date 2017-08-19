@@ -34,7 +34,7 @@ android {
 }
 
 greendao {
-    schemaVersion 27
+    schemaVersion 29
     daoPackage "org.unimelb.itime.bean"
 }
 

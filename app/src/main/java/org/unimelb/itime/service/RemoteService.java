@@ -580,7 +580,7 @@ public class RemoteService extends Service {
         final String synToken = TokenUtil.getInstance(context).getITimeActivitiesToken(user.getUserUid());
         Observable<HttpResult<List<MessageGroup>>> observable = iTimeActivityApi.list(synToken).map(ret -> {
             if (ret.getData().size() > 0) {
-                dbManager.insertOrReplace(ret.getData());
+                dbManager.insertMessageGroups(ret.getData());
                 tokenUtil.setITimeActivitiesToken(user.getUserUid(), ret.getSyncToken());
             }
             return ret;

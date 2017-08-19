@@ -12,12 +12,13 @@ import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.List;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.DaoException;
 
 /**
  * Created by Paul on 4/7/17.
  */
 
-@Entity
+@Entity(active = true)
 public class MessageGroup implements Serializable{
 
     public final static int TYPE_EVENT_MESSAGE_GROUP = 1;
@@ -28,8 +29,12 @@ public class MessageGroup implements Serializable{
     private int type; // 1 -> event message group   2 -> system message group  3 -> chat message
     private String title = "";
     private String status = "";
+
     private int messageGroupUid;
+
     private int userUid;
+
+    @Id
     private String eventUid = "";
     private boolean isMute;
     private int deleteLevel;
@@ -39,6 +44,12 @@ public class MessageGroup implements Serializable{
 
     @Convert(converter = MessageConverter.class, columnType = String.class)
     private List<Message> message;
+    /** Used to resolve relations */
+    @Generated(hash = 2040040024)
+    private transient DaoSession daoSession;
+    /** Used for active entity operations. */
+    @Generated(hash = 745534098)
+    private transient MessageGroupDao myDao;
 
     @Generated(hash = 1832732690)
     public MessageGroup(int type, String title, String status, int messageGroupUid, int userUid,
@@ -172,6 +183,49 @@ public class MessageGroup implements Serializable{
 
     public void setIsArchived(boolean isArchived) {
         this.isArchived = isArchived;
+    }
+
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 128553479)
+    public void delete() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.delete(this);
+    }
+
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 1942392019)
+    public void refresh() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.refresh(this);
+    }
+
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#update(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 713229351)
+    public void update() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.update(this);
+    }
+
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 1247233291)
+    public void __setDaoSession(DaoSession daoSession) {
+        this.daoSession = daoSession;
+        myDao = daoSession != null ? daoSession.getMessageGroupDao() : null;
     }
 
     public static class MessageConverter implements PropertyConverter<List<Message>, String> {

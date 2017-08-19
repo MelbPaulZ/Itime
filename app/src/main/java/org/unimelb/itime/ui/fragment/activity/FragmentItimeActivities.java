@@ -65,7 +65,6 @@ public class FragmentItimeActivities extends ItimeBaseFragment<ItimeActivitiesMv
         vm.setRightView(rightBtn);
         binding.setVm(vm);
 
-
         toolbarViewModel = new ToolbarViewModel<>(this);
         toolbarViewModel.setRightIconVisibility(View.VISIBLE);
         toolbarViewModel.setRightIcon(getContext().getResources().getDrawable(R.drawable.icon_more));

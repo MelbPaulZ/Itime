@@ -261,4 +261,17 @@ public class DBManager {
         List<FriendRequest> list = qb.list();
         return list;
     }
+
+    public synchronized void insertMessageGroups(List<MessageGroup> messageGroup) {
+        if(messageGroup==null){
+            return;
+        }
+        DaoSession daoSession = daoMaster.newSession();
+        MessageGroupDao messageGroupDao = daoSession.getMessageGroupDao();
+        for (MessageGroup msgGroup: messageGroup) {
+            messageGroupDao.insertOrReplace(msgGroup);
+        }
+    }
+
+
 }
