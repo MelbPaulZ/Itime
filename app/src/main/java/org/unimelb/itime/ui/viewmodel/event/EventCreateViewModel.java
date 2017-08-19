@@ -88,14 +88,18 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
-                    event.setIsAllDay(true);
+                    EventUtil.notAllDayToAllDay(event);
+//                    event.setIsAllDay(true);
                 }else{
-                    event.setIsAllDay(false);
+//                    event.setIsAllDay(false);
+                    EventUtil.allDayToNotAllDay(event);
                 }
                 setEvent(event);
             }
         };
     }
+
+
 
 
 

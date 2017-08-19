@@ -121,6 +121,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
         Fragment fragment = getFrom();
         if (fragment instanceof FragmentEventCreate){
             event.setTimeslot(selectedTimeslotsMap);
+            event.setDuration(selectDuration);
             ((FragmentEventCreate) fragment).setEvent(event);
             getFragmentManager().popBackStack();
         }else if (fragment instanceof FragmentEventDetail){
@@ -148,6 +149,8 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
         }
     }
 
+    private int selectDuration = 60; // default one hour
+
     private void initView(){
         timeSlotView = (TimeSlotView) binding.getRoot().findViewById(R.id.timeslot_view);
         // ensure set config before set mode
@@ -157,8 +160,10 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
         timeSlotView.setOnTimeslotDurationChangedListener(duration -> {
             if (duration == -1){
                 //switch to all day mode
+                selectDuration = EventUtil.allDayMinutes;
                 timeSlotView.setViewMode(TimeSlotView.ViewMode.ALL_DAY_CREATE);
             }else{
+                selectDuration = (int)duration/1000/60;
                 timeSlotView.setViewMode(TimeSlotView.ViewMode.NON_ALL_DAY_CREATE);
                 timeSlotView.setTimeslotDuration(duration,false);
             }
@@ -234,6 +239,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
             newSlot.setIsAllDay(true);
             //ensure set the start time correctly, otherwise it cannot be shown
             newSlot.setStartTime(dayBeginMilliseconds);
+            newSlot.setEndTime(dayBeginMilliseconds);
             timeSlotView.addTimeSlot(newSlot);
 
             selectedTimeslotsMap.put(newSlot.getTimeslotUid(),newSlot);

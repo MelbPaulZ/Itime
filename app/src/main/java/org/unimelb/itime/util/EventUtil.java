@@ -14,6 +14,7 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.ITimeComparable;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.Meeting;
+import org.unimelb.itime.bean.TZoneTime;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.bean.TimeslotInvitee;
 import org.unimelb.itime.bean.User;
@@ -57,6 +58,7 @@ public class EventUtil extends BaseUtil{
 
     private static String TAG = "EventUtil";
     public final static long allDayMilliseconds = 24 * 60 * 60 * 1000;
+    public final static int allDayMinutes = 24 * 60;
 
     public static Calendar getBeginOfDayCalendar(Calendar cal) {
         Calendar calendar = Calendar.getInstance();
@@ -234,14 +236,15 @@ public class EventUtil extends BaseUtil{
     }
 
 
-    public static String HOUR_MIN = "kk:mm";
+    public static String HOUR_MIN = "HH:mm";
     public static String HOUR_MIN_A = "hh:mm a";
     public static String WEEK_DAY_MONTH = "EEE, dd MMM";
-    public static String HOUR_MIN_WEEK_DAY_MONTH = "kk:mm a EEE,dd MMM";
+    public static String HOUR_MIN_WEEK_DAY_MONTH = "HH:mm a EEE,dd MMM";
     public static String DAY_MONTH_YEAR = "dd MMM yyyy";
     public static String TIME_ZONE_PATTERN = "yyyy-MM-dd'T'HH:mm:ssZZZZZ";
     public static String UPDATE_CREATE_AT = "yyyy-MM-dd kk:mm:ss";
     public static String MONTH_YEAR = "MMMM yyyy";
+    public static String YEAR_MONTH_DAY = "yyyy-MM-dd";
 
     public static String getFormatTimeString(long time, String format){
         Calendar c = Calendar.getInstance();
@@ -263,6 +266,23 @@ public class EventUtil extends BaseUtil{
 
     public static Date parseTimeZoneToDate(String dateTime) {
         return parseTimeZoneToDate(dateTime, null);
+    }
+
+    public static String parseTimeZoneToAllDayDate(String dateTime){
+        Date d = parseTimeZoneToDate(dateTime);
+        SimpleDateFormat fmt = new SimpleDateFormat(YEAR_MONTH_DAY);
+        String formatString = fmt.format(d);
+        return formatString;
+    }
+
+    public static String parseAllDayToTimeZone(String date){
+        Date d = parseTimeZoneToDate(date, YEAR_MONTH_DAY);
+        Calendar c=  Calendar.getInstance();
+        d.setHours(c.get(Calendar.HOUR_OF_DAY));
+        d.setMinutes(c.get(Calendar.MINUTE));
+        SimpleDateFormat fmt = new SimpleDateFormat(TIME_ZONE_PATTERN);
+        String formatString = fmt.format(d);
+        return formatString;
     }
 
     public static boolean isSameDay(Calendar c1, Calendar c2){
@@ -849,5 +869,30 @@ public class EventUtil extends BaseUtil{
             }
         }
         return false;
+    }
+
+    /**
+     * Use this when event need to transfer from not allday to allday
+     */
+    public static void notAllDayToAllDay(Event event){
+        event.setIsAllDay(true);
+        TZoneTime start = event.getStart();
+        start.setDate(parseTimeZoneToAllDayDate(event.getStart().getDateTime()));
+        event.setStart(start);
+        TZoneTime end = event.getEnd();
+        end.setDate(parseTimeZoneToAllDayDate(event.getEnd().getDateTime()));
+        event.setEnd(end);
+    }
+
+    public static void allDayToNotAllDay(Event event){
+        event.setIsAllDay(false);
+        TZoneTime start = event.getStart();
+        start.setDateTime(parseAllDayToTimeZone(event.getStart().getDate()));
+        start.setTimeZone(TimeZone.getDefault().getID());
+        event.setStart(start);
+        TZoneTime end = event.getEnd();
+        end.setDateTime(parseAllDayToTimeZone(event.getEnd().getDate()));
+        end.setTimeZone(TimeZone.getDefault().getID());
+        event.setEnd(end);
     }
 }

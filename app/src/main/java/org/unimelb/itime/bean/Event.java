@@ -225,8 +225,14 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
     @Override
     public long getStartTime() {
-        long time = EventUtil.parseTimeZoneToDate(start.getDateTime()).getTime();
+        long time = 0;
+        if (!isAllDay){
+            time = EventUtil.parseTimeZoneToDate(start.getDateTime()).getTime();
+        }else{
+            time = EventUtil.parseTimeZoneToDate(start.getDate(), EventUtil.YEAR_MONTH_DAY).getTime();
+        }
         return time;
+
     }
 
     @Override
@@ -238,8 +244,14 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
 
     @Override
     public long getEndTime() {
-        long time = EventUtil.parseTimeZoneToDate(end.getDateTime()).getTime();
+        long time = 0;
+        if (!isAllDay) {
+            time = EventUtil.parseTimeZoneToDate(end.getDateTime()).getTime();
+        }else{
+            time = EventUtil.parseTimeZoneToDate(end.getDate(), EventUtil.YEAR_MONTH_DAY).getTime();
+        }
         return time;
+
     }
 
     @Override

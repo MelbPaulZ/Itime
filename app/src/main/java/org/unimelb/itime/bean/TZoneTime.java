@@ -35,6 +35,14 @@ public class TZoneTime implements Serializable, Cloneable{
         this.timeZone = timeZone;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     @Override
     protected TZoneTime clone() {
         TZoneTime tZoneTime = null;

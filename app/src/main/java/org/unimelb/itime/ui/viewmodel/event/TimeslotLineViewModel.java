@@ -38,6 +38,9 @@ public class TimeslotLineViewModel extends BaseObservable {
     }
 
     public String getEndTimeString(TimeSlot timeSlot){
+        if (timeSlot.isAllDay()){
+            return "24:00";
+        }
         String hourMin = EventUtil.getFormatTimeString(timeSlot.getEndTime(), "kk:mm");
         return String.format(context.getString(R.string.event_timeslot_single_end_time), hourMin);
     }
