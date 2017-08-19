@@ -358,7 +358,7 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         switch (taskId){
             case EventCreatePresenter.TASK_REFRESH_EVENT:
                 if(contentViewModel!=null && data instanceof Event){
-                    setData(event);
+                    setData((Event)data);
                 }
         }
 //        if (taskId == EventPresenter.TASK_TIMESLOT_ACCEPT){
@@ -476,28 +476,4 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
 //            }
 //        });
 //    }
-
-    public PopupMenu.OnItemClickListener getOnMenuItemClick(){
-        return (position, item) -> {
-            if(position==0){
-                viewChange();
-            }
-            Toast.makeText(getContext(), item.name, Toast.LENGTH_SHORT).show();
-        };
-    }
-
-    public ArrayList<PopupMenu.Item> getMenuList(){
-        ArrayList<PopupMenu.Item> list = new ArrayList<>();
-        list.add(new PopupMenu.Item(R.drawable.icon_calendar_blue_notext, "edit"));
-        list.add(new PopupMenu.Item(R.drawable.icon_calendar_blue_notext, "add"));
-        list.add(new PopupMenu.Item( R.drawable.icon_calendar_blue_notext, "invite"));
-        list.add(new PopupMenu.Item( R.drawable.icon_calendar_blue_notext, "duration"));
-
-//
-//        list.add(new PopupMenu.Item("edit"));
-//        list.add(new PopupMenu.Item("add"));
-//        list.add(new PopupMenu.Item("invite"));
-//        list.add(new PopupMenu.Item("duration"));
-        return list;
-    }
 }

@@ -100,6 +100,7 @@ public class MainContactFragment extends ItimeBaseFragment<MainContactsMvpView, 
     public void onResume(){
         super.onResume();
         presenter.loadContacts();
+        presenter.getRequestFriendListFromServer();
 //        networkBarViewModel.setShow(!NetworkUtil.getInstance(getContext()).isAvailable());
 //        viewModel.resetView();
     }

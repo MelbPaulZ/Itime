@@ -27,6 +27,7 @@ import org.unimelb.itime.databinding.ActivityMainBinding;
 import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.messageevent.MessageEvent;
+import org.unimelb.itime.messageevent.MessageNewFriendRequest;
 import org.unimelb.itime.service.RemoteService;
 import org.unimelb.itime.ui.fragment.EmptyFragment;
 import org.unimelb.itime.ui.fragment.activity.FragmentItimeActivities;
@@ -86,6 +87,13 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         if (messageEvent.task == MessageEvent.RELOAD_ITIME_ACTIVITIES){
             viewModel.updateUnreadActivitiesNumberAndVisibility();
         }
+    }
+
+    @Subscribe
+    public void setNewFriendRequestCount(MessageNewFriendRequest message){
+
+        viewModel.setUnReadFriendRequest(message.count);
+
     }
 
     @NonNull

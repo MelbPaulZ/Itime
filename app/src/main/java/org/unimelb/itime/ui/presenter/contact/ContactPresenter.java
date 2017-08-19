@@ -252,7 +252,8 @@ public class ContactPresenter<T extends TaskBasedMvpView> extends MvpBasePresent
         ItimeSubscriber<HttpResult<List<FriendRequest>>> subscriber = new ItimeSubscriber<HttpResult<List<FriendRequest>>>() {
             @Override
             public void onHttpError(Throwable e) {
-
+                e.printStackTrace();
+                System.out.println(e.toString());
             }
 
             @Override
@@ -348,7 +349,8 @@ public class ContactPresenter<T extends TaskBasedMvpView> extends MvpBasePresent
                         result.add(request);
                     }
 
-                    EventBus.getDefault().post(new MessageNewFriendRequest(0));
+                    EventBus.getDefault().post(new MessageNewFriendRequest(countUnread(list)));
+
                     if(getView()!=null) {
                         getView().onTaskSuccess(TASK_REQUEST_LIST, result);
                     }
@@ -357,6 +359,22 @@ public class ContactPresenter<T extends TaskBasedMvpView> extends MvpBasePresent
         };
 
         HttpUtil.subscribe(dbObservable, subscriber);
+    }
+
+    private int countUnread(List<FriendRequest> list){
+        int count=0;
+        for(FriendRequest request:list){
+            if(request.isSender()){
+                if(!request.isRead()){
+                    count++;
+                }
+            }else{
+                if(!request.isRead()){
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
 }

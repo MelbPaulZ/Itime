@@ -422,21 +422,26 @@ public class EventDetailViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                long firstAcceptTimeslot = 0;
-                HashMap<String, Object> params = new HashMap<>();
-                ArrayList<String> timeslotUids = new ArrayList<>();
-                for(TimeSlot timeSlot:selectedTimeSlots){
-                    timeslotUids.add(timeSlot.getTimeslotUid());
-                    if (firstAcceptTimeslot == 0) {
-                        // this is for recording where to scroll, first accept timeslot
-                        firstAcceptTimeslot = timeSlot.getStartTime();
+                if (selectedTimeSlots.isEmpty()) {
+                    if(presenter!=null)
+                        Toast.makeText(context, presenter.getContext().getString(R.string.event_detail_alert_empty_vote), Toast.LENGTH_SHORT).show();
+                } else {
+                    long firstAcceptTimeslot = 0;
+                    HashMap<String, Object> params = new HashMap<>();
+                    ArrayList<String> timeslotUids = new ArrayList<>();
+                    for (TimeSlot timeSlot : selectedTimeSlots) {
+                        timeslotUids.add(timeSlot.getTimeslotUid());
+                        if (firstAcceptTimeslot == 0) {
+                            // this is for recording where to scroll, first accept timeslot
+                            firstAcceptTimeslot = timeSlot.getStartTime();
+                        }
                     }
+                    params.put("timeslots", timeslotUids);
+                    presenter.acceptTimeslots(
+                            event,
+                            params,
+                            firstAcceptTimeslot);
                 }
-                params.put("timeslots", timeslotUids);
-                presenter.acceptTimeslots(
-                        event,
-                        params,
-                        firstAcceptTimeslot);
             }
         };
     }
@@ -447,6 +452,8 @@ public class EventDetailViewModel extends BaseObservable{
             public void onClick(View view) {
                 if(mvpView!=null && !selectedTimeSlots.isEmpty()){
                     mvpView.gotoConfirm(selectedTimeSlots.get(0));
+                }else if(selectedTimeSlots.isEmpty()){
+                    Toast.makeText(context, context.getString(R.string.event_detail_alert_empty_confirm), Toast.LENGTH_SHORT).show();
                 }
             }
         };
