@@ -401,7 +401,17 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     }
 
     private void showTimeSlotNotSaveDialog(){
-
+        getDialogBuidler()
+                .positiveText(R.string.event_detail_dialog_keep_voting)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        getActivity().finish();
+                    }
+                })
+                .negativeText(R.string.event_detail_dialog_discard)
+                .title(R.string.event_detail_alert_unsaved_vote)
+                .show();
     }
 
     @Override

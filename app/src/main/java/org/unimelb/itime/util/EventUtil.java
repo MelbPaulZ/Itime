@@ -628,7 +628,7 @@ public class EventUtil extends BaseUtil{
     public static String getInviteeStatus(Event event){
         for (Invitee invitee:event.getInvitee().values()
                 ) {
-            if (invitee.getUserUid().equals(event.getHostUserUid())){
+            if (invitee.getInviteeUid().equals(event.getSelf())){
                 return invitee.getStatus();
             }
         }

@@ -76,6 +76,9 @@
     <string name="event_detail_peoplenotgoing">People not going</string>
     <string name="event_detail_decided_not_to_go">You\'ve decided not to go</string>
     <string name="event_detail_alert_empty_vote">Please select at least 1 timeslot</string>
+    <string name="event_detail_alert_unsaved_vote">You have unsaved votes. Do you want to discard them?</string>
+    <string name="event_detail_dialog_discard">Discard</string>
+    <string name="event_detail_dialog_keep_voting">Keep voting</string>
     <string name="event_detail_alert_empty_confirm">Please select 1 timeslot</string>
     <string name="event_detail_changemind">Change your mind? Please choose some timeslots above</string>
     <string name="event_detail_toolbar_mute">Mute</string>
