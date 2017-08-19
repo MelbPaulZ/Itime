@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 
+import com.android.databinding.library.baseAdapters.BR;
 import com.developer.paul.closabledatabindingview.closableItem.ButtonItem;
 
 import org.unimelb.itime.R;
@@ -74,6 +75,13 @@ public class EventCreatePrivateViewModel extends EventCreateViewModel {
     }
 
     @Override
+    public void setEvent(Event event) {
+        this.event = event;
+        resetButtonsAndRows();
+        notifyPropertyChanged(BR.event);
+    }
+
+    @Override
     protected void resetButtonsAndRows() {
         super.resetButtonsAndRows();
         if (event.getReminder()!=-1){
@@ -83,6 +91,8 @@ public class EventCreatePrivateViewModel extends EventCreateViewModel {
             addButton(getString(R.string.alert_toolbar_btn));
             removeItem(rowItems, getString(R.string.alert_toolbar_btn));
         }
+        notifyPropertyChanged(BR.rowItems);
+        notifyPropertyChanged(BR.buttonItems);
     }
 
     @Override
@@ -124,6 +134,7 @@ public class EventCreatePrivateViewModel extends EventCreateViewModel {
         addInList(getString(R.string.alert_toolbar_btn),
                 presenter.getContext().getResources().getDrawable(R.drawable.icon_event_toolbar_alert),
                 alertString, onClickListener, onDeleteListener);
+        notifyPropertyChanged(BR.rowItems);
     }
 
 

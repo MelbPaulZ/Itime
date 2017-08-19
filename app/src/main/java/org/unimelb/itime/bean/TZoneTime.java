@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class TZoneTime implements Serializable, Cloneable{
     private String dateTime = "";
     private String timeZone = "";
+    private String date = "";
 
     public TZoneTime() {
     }

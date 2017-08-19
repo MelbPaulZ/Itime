@@ -82,7 +82,6 @@ implements EventCreateMvpView, ToolbarInterface{
             // rotate screen
             event = (Event) savedInstanceState.getSerializable(getString(R.string.event));
         }
-
     }
 
     public void setEvent(Event event) {
