@@ -241,6 +241,7 @@ public class EventUtil extends BaseUtil{
     public static String DAY_MONTH_YEAR = "dd MMM yyyy";
     public static String TIME_ZONE_PATTERN = "yyyy-MM-dd'T'HH:mm:ssZZZZZ";
     public static String UPDATE_CREATE_AT = "yyyy-MM-dd kk:mm:ss";
+    public static String MONTH_YEAR = "MMMM yyyy";
 
     public static String getFormatTimeString(long time, String format){
         Calendar c = Calendar.getInstance();
@@ -789,6 +790,24 @@ public class EventUtil extends BaseUtil{
         }
 
         return new TimeSlot[] {latestOutdated, latestFuture};
+    }
+
+    /**
+     * If event not confirm, return the nearest time in timeslots (compare to current time)
+     * if it is confirmed, just return the start time of event
+     * @param event
+     * @return
+     */
+    public static long getNearestTime(Event event){
+        boolean isConfirmed = event.isConfirmed();
+        if (isConfirmed){
+            return event.getStartTime();
+        }
+
+        TimeSlot[] timeSlots = EventUtil.getNearestTimeslot(event.getTimeslot());
+        TimeSlot target = timeSlots[timeSlots[1] != null ? 1 : 0];
+
+        return target.getStartTime();
     }
 
     public static Event transformRepeatEventToLatestInstance(Event event){

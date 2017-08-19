@@ -23,6 +23,7 @@ import java.util.Calendar;
 
 public class EventCreateActivity extends ItimeBaseActivity {
     public static final int CREATE_EVENT = 1001;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -69,23 +69,66 @@
 
         </LinearLayout>
 
+        
         <!--date picker-->
-        <com.github.sundeepk.compactcalendarview.ITimeTimeslotCalendar xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/icon_calendar_arrowleft"
+                android:layout_gravity="left"
+                android:layout_weight="1"
+                android:onClick="@{()->vm.onClickCalendarBack()}"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:text="@{vm.getMonthYearString(vm.selectDate)}"
+                android:gravity="center"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:onClick="@{() -> vm.onClickCalendarNext()}"
+                android:src="@drawable/icon_calendar_arrowright"/>
+
+
+        </LinearLayout>
+        
+        <com.github.sundeepk.compactcalendarview.ITimeTimeslotCalendar
+            xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/compactcalendar_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/whiteFour"
-            app:compactCalendarBackgroundColor="#FFFFFF"
-            app:compactCalendarCurrentDayBackgroundColor="#E57373"
-            app:compactCalendarCurrentSelectedDayBackgroundColor="@color/calendar_today"
-            app:compactCalendarMultiEventIndicatorColor="#fff"
-            app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="false"
-            app:compactCalendarTargetHeight="220dp"
-            app:compactCalendarTextColor="#000000"
-            app:compactCalendarTextSize="12sp"
             app:itimeTimeslotCircleColor="#1677FB"
-            app:itimeTimeslotTextColor="#FFFFFF" />
+            app:itimeTimeslotTextColor="#FFFFFF"
+            app:compactCalendarTargetHeight="220dp"
+            app:compactCalendarTextSize="12sp"
+            app:itimeTitleTextSize="12sp"
+            app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="false"
+            app:compactCalendarBackgroundColor="#FFFFFF"
+            app:compactCalendarTextColor="#000000"
+            app:compactUseThreeLetterAbbreviation="true"
+            app:compactCalendarCurrentSelectedDayBackgroundColor="#9e9e9e"
+            app:compactCalendarCurrentSelectedTodayBackgroundColor="@color/calendar_today"
+            app:compactCalendarCurrentDayUnselectedTextColor="@color/calendar_today"
+            app:compactCalendarCurrentDayBackgroundColor="@android:color/transparent"
+            app:compactCalendarMultiEventIndicatorColor="#fff"
+            app:compactCalenderTitleColor="#757575" />
 
         <TextView style="@style/itime_bottom_divider_line"
             android:layout_marginStart="20dp"

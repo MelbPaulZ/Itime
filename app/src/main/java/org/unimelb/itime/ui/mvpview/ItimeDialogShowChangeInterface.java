@@ -6,4 +6,6 @@ package org.unimelb.itime.ui.mvpview;
 
 public interface ItimeDialogShowChangeInterface {
     void onShowPage(int startOrEnd);
+    void onBackCalendar();
+    void onNextCalendar();
 }

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.aigestudio.wheelpicker.WheelPicker;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
@@ -44,6 +45,7 @@ public class FragmentEventTime extends DialogFragment implements Cancellable, It
     private ItimeDialogSaveCallBack itimeDialogSaveCallBack;
     private ITimeTimeslotCalendar datePicker;
     private int firstShowStartOrEnd;
+    private boolean changeEndTime = false;
 
 
     @Nullable
@@ -73,14 +75,15 @@ public class FragmentEventTime extends DialogFragment implements Cancellable, It
 
         vm = new EventTimeViewModel(getActivity(),this);
         vm.setEvent(event);
+        vm.setSelectDate(EventUtil.parseTimeZoneToDate(event.getStart().getDateTime()));
         binding.setVm(vm);
 
         curStartCalendar = Calendar.getInstance();
         curEndCalendar = Calendar.getInstance();
         curStartCalendar.setTime(EventUtil.parseTimeZoneToDate(event.getStart().getDateTime()));
         curEndCalendar.setTime(EventUtil.parseTimeZoneToDate(event.getEnd().getDateTime()));
-
         datePicker = (ITimeTimeslotCalendar) binding.getRoot().findViewById(R.id.compactcalendar_view);
+
         datePicker.setBodyListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(Date date) {
@@ -88,16 +91,24 @@ public class FragmentEventTime extends DialogFragment implements Cancellable, It
                 c.setTime(date);
                 if (vm.getSelectTime() == EventTimeViewModel.EVENT_TIME_START_TIME){
                     curStartCalendar.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE));
+                    if (!changeEndTime){
+                        curEndCalendar.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE), curStartCalendar.get(Calendar.HOUR_OF_DAY), curStartCalendar.get(Calendar.MINUTE));
+                        curEndCalendar.roll(Calendar.HOUR_OF_DAY, 1);
+                    }
                 }else if (vm.getSelectTime() == EventTimeViewModel.EVENT_TIME_END_TIME){
                     curEndCalendar.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE));
+                    changeEndTime = true;
                 }
+                vm.setSelectDate(date);
             }
 
             @Override
             public void onMonthScroll(Date date) {
-
+                vm.setSelectDate(date);
             }
         });
+
+
 
         hourPicker = (WheelPicker) binding.getRoot().findViewById(R.id.event_hour_wheel_picker);
         hourPicker.setSelectedItemTextColor(getResources().getColor(R.color.azure));
@@ -111,8 +122,13 @@ public class FragmentEventTime extends DialogFragment implements Cancellable, It
             public void onItemSelected(WheelPicker picker, Object data, int position) {
                 if (vm.getSelectTime() == EventTimeViewModel.EVENT_TIME_START_TIME){
                     curStartCalendar.set(Calendar.HOUR_OF_DAY, position);
+                    if (!changeEndTime){
+                        curEndCalendar.set(Calendar.HOUR_OF_DAY,position);
+                        curEndCalendar.roll(Calendar.HOUR_OF_DAY, 1);
+                    }
                 }else if (vm.getSelectTime() == EventTimeViewModel.EVENT_TIME_END_TIME){
                     curEndCalendar.set(Calendar.HOUR_OF_DAY, position);
+                    changeEndTime = true;
                 }
             }
         });
@@ -129,14 +145,29 @@ public class FragmentEventTime extends DialogFragment implements Cancellable, It
             public void onItemSelected(WheelPicker picker, Object data, int position) {
                 if (vm.getSelectTime() == EventTimeViewModel.EVENT_TIME_START_TIME){
                     curStartCalendar.set(Calendar.MINUTE, position);
+                    if (!changeEndTime){
+                        curEndCalendar.set(Calendar.MINUTE, position);
+                    }
                 }else if (vm.getSelectTime() == EventTimeViewModel.EVENT_TIME_END_TIME){
                     curEndCalendar.set(Calendar.MINUTE, position);
+                    changeEndTime = true;
                 }
             }
         });
 
         updateShowingCalendar(firstShowStartOrEnd);
+        if (!changeEndTime && firstShowStartOrEnd == EventTimeViewModel.EVENT_TIME_START_TIME){
+            updateShowingCalendar(EventTimeViewModel.EVENT_TIME_END_TIME);
+        }
         vm.setSelectTime(firstShowStartOrEnd);
+    }
+
+    public void onBackCalendar(){
+        datePicker.getCalendarView().showPreviousMonth();
+    }
+
+    public void onNextCalendar(){
+        datePicker.getCalendarView().showNextMonth();
     }
 
     // TODO: 24/6/17 calendar show, david add
@@ -192,8 +223,16 @@ public class FragmentEventTime extends DialogFragment implements Cancellable, It
         dismiss();
     }
 
+    private boolean checkTimeValidation(){
+        return curStartCalendar.getTimeInMillis()/(1000*60)< curEndCalendar.getTimeInMillis()/(1000*60);
+    }
+
     @Override
     public void save() {
+        if (!checkTimeValidation()){
+            Toast.makeText(getContext(), "End Time Cannot before start time", Toast.LENGTH_SHORT).show();
+            return;
+        }
         event.getStart().setDateTime(EventUtil.getFormatTimeString(curStartCalendar.getTimeInMillis(), EventUtil.TIME_ZONE_PATTERN));
         event.getEnd().setDateTime(EventUtil.getFormatTimeString(curEndCalendar.getTimeInMillis(), EventUtil.TIME_ZONE_PATTERN));
         if (itimeDialogSaveCallBack!=null){

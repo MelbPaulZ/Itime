@@ -233,6 +233,11 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         }
     }
 
+    @Override
+    public void onDelete() {
+        presenter.deleteEvent(event);
+    }
+
     public void viewChange() {
 //        FragmentEventCreateAddContact fragment = new FragmentEventCreateAddContact();
 //        fragment.setEvent(event);
@@ -360,6 +365,10 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
                 if(contentViewModel!=null && data instanceof Event){
                     setData((Event)data);
                 }
+                break;
+            case EventCreatePresenter.TASK_EVENT_DELETE:
+                getActivity().finish();
+                break;
         }
 //        if (taskId == EventPresenter.TASK_TIMESLOT_ACCEPT){
 //            toCalendar(Activity.RESULT_OK);

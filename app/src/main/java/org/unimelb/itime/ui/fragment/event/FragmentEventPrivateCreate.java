@@ -37,6 +37,7 @@ import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.event.EventCreatePrivateViewModel;
 import org.unimelb.itime.util.EventUtil;
 
+import java.util.Date;
 import java.util.HashMap;
 
 import static org.unimelb.itime.ui.fragment.event.FragmentEventCreate.REQ_LOCATION;
@@ -81,7 +82,6 @@ implements EventCreateMvpView, ToolbarInterface{
             // rotate screen
             event = (Event) savedInstanceState.getSerializable(getString(R.string.event));
         }
-
     }
 
     public void setEvent(Event event) {
@@ -258,13 +258,12 @@ implements EventCreateMvpView, ToolbarInterface{
     public void onTaskSuccess(int taskId, Object data) {
         if (taskId == EventCreatePresenter.TASK_EVENT_CREATE){
             EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_EVENT));
-            getActivity().setResult(Activity.RESULT_OK);
-            getActivity().finish();
+            // scroll calendar to event
+            getBaseActivity().finishWithScrollDate(Activity.RESULT_OK,new Date(event.getStartTime()));
         } else if (taskId == EventCreatePresenter.TASK_EVENT_UPDATE){
             FragmentEventDetail fragmentEventDetail = (FragmentEventDetail) getFrom();
             fragmentEventDetail.setData(event);
             getFragmentManager().popBackStack();
-
         }
     }
 

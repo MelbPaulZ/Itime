@@ -30,4 +30,5 @@ public interface EventDetailMvpView extends TaskBasedMvpView, ItimeCommonMvpView
     void toDuplicate(Event event);
 
     void gotoEdit();
+    void onDelete();
 }

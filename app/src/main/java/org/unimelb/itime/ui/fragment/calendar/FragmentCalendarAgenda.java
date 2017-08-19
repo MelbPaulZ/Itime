@@ -36,7 +36,7 @@ import david.itimecalendar.calendar.ui.monthview.DayViewAllDay;
  */
 
 public class FragmentCalendarAgenda extends ItimeBaseFragment<CalendarMvpView, CalendarPresenter<CalendarMvpView>> implements CalendarMvpView,
-        ToolbarInterface {
+        ToolbarInterface, FragmentCalendar.CalendarListener {
     private View root;
     private EventManager eventManager;
     private MonthAgendaView agendaView;
@@ -157,5 +157,12 @@ public class FragmentCalendarAgenda extends ItimeBaseFragment<CalendarMvpView, C
     @Override
     public void onTaskError(int taskId, Object data) {
 
+    }
+
+    @Override
+    public void scrollToDate(Date date, boolean toTime) {
+        if (agendaView != null){
+            agendaView.scrollToDate(date);
+        }
     }
 }

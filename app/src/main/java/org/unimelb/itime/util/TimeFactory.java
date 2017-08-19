@@ -6,6 +6,7 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.bean.TimeSlot;
 
 import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -25,6 +26,7 @@ public class TimeFactory {
     public static String HOUR_MIN_WEEK_DAY_MONTH = "kk:mm a EEE,dd MMM";
     public static String DAY_MONTH_YEAR = "dd MMM yyyy";
     public static String TIME_ZONE_PATTERN = "yyyy-MM-dd'T'HH:mm:ssZZZZZ";
+    public static String UTC_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     public static String[] getTimeStrings(Context context, TimeSlot timeSlot){
         String[] result = new String[2];
@@ -88,6 +90,17 @@ public class TimeFactory {
         return fmt.format(c.getTime());
     }
 
+    public static Long getFormatTimeLong(String time, String format){
+        SimpleDateFormat fmt = new SimpleDateFormat(format);
+        try {
+            return fmt.parse(time).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        throw new RuntimeException(time + "Cannot be converted by " + format);
+    }
+
     /**
      * Return days & hours & minutes which means the diff between the
      * input time and current time
@@ -103,5 +116,9 @@ public class TimeFactory {
         long hours = TimeUnit.MILLISECONDS.toHours(diff)%24;
         long minutes = TimeUnit.MILLISECONDS.toMinutes(diff)%60;
         return new long[] {days,hours,minutes,minutesTotal};
+    }
+
+    public static Long getUpdatedAtLong(String updatedAt){
+        return getFormatTimeLong(updatedAt, UTC_PATTERN);
     }
 }

@@ -19,6 +19,7 @@ import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.activity.EventDetailActivity;
+import org.unimelb.itime.ui.fragment.calendar.FragmentCalendar.CalendarListener;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.util.EventUtil;
@@ -39,7 +40,7 @@ import david.itimecalendar.calendar.util.MyCalendar;
  * Created by yuhaoliu on 8/06/2017.
  */
 
-public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView, EventCreatePresenter<CalendarMvpView>> implements CalendarMvpView, ToolbarInterface {
+public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView, EventCreatePresenter<CalendarMvpView>> implements CalendarMvpView, ToolbarInterface, CalendarListener {
     private static final String TAG = "lifecycle";
     private View root;
     private EventManager eventManager;
@@ -230,10 +231,11 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
 
     }
 
-    public void scrollToDate(Date targetDate, boolean toTime){
+    @Override
+    public void scrollToDate(Date date, boolean toTime) {
         if(monthDayView == null){
-
+            return;
         }
-        monthDayView.scrollToDate(targetDate,toTime);
+        monthDayView.scrollToDate(date,toTime);
     }
 }
