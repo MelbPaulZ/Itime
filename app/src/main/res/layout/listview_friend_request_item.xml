@@ -6,7 +6,7 @@
         <import type="org.unimelb.itime.bean.FriendRequest"/>
         <variable
             name="viewModel"
-            type="org.unimelb.itime.ui.viewmodel.contact.FrendRequestItemViewModel"/>
+            type="org.unimelb.itime.ui.viewmodel.contact.FriendRequestItemViewModel"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -44,7 +44,8 @@
                 android:layout_alignParentLeft="true"
                 android:id="@+id/user_info"
                 android:layout_weight="1"
-                android:layout_toLeftOf="@+id/buttonPart">
+                android:layout_toLeftOf="@+id/buttonPart"
+                android:onClick="@{viewModel.onClickListener}">
                 <include layout="@layout/listview_user_info_part"
                     app:viewModel="@{viewModel}"/>
             </FrameLayout>
@@ -62,25 +63,25 @@
                 android:gravity="center"
                 android:background="@drawable/bg_cornor_border_blue"
                 android:text="@string/friend_requests_btn_accept"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_small"
+                android:textColor="@color/brand_main"
+                android:textSize="@dimen/font_tiny"
                 android:layout_centerInParent="true"
                 android:id="@+id/acceptButton"
-                android:visibility="@{viewModel.displayStatus.equals(FriendRequest.DISPLAY_STATUS_ACCEPT)? View.VISIBLE : View.GONE}"
-                android:onClick="@{viewModel.onClickListener}"
+                android:visibility="@{viewModel.status==viewModel.STATUS_RECEIVE? View.VISIBLE : View.GONE}"
+                android:onClick="@{viewModel.onAcceptClick}"
                 />
 
-            <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:gravity="center"-->
-                <!--android:text="@string/friend_requests_btn_request_sent"-->
-                <!--android:textColor="@color/text_indication"-->
-                <!--android:textSize="@dimen/font_tiny"-->
-                <!--android:layout_centerInParent="true"-->
-                <!--android:id="@+id/addedTextView"-->
-                <!--android:visibility="@{viewModel.displayStatus.equals(FriendRequest.DISPLAY_STATUS_ADDED)? View.VISIBLE : View.GONE}"-->
-                <!--/>-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/friend_requests_btn_request_sent"
+                android:textColor="@color/text_indication"
+                android:textSize="@dimen/font_tiny"
+                android:layout_centerInParent="true"
+                android:id="@+id/addedTextView"
+                android:visibility="@{viewModel.status==viewModel.STATUS_SENT? View.VISIBLE : View.GONE}"
+                />
 
             <ImageView
                 android:layout_width="60dp"
@@ -88,7 +89,7 @@
                 android:gravity="center"
                 android:src="@drawable/icon_contacts_added"
                 android:layout_centerInParent="true"
-                android:visibility="@{viewModel.displayStatus.equals(FriendRequest.DISPLAY_STATUS_ACCEPTED)? View.VISIBLE : View.GONE}"
+                android:visibility="@{viewModel.status==viewModel.STATUS_ADDED? View.VISIBLE : View.GONE}"
                 />
             </RelativeLayout>
         </RelativeLayout>

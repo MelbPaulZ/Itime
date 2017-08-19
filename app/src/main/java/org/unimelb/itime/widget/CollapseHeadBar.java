@@ -28,6 +28,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import org.unimelb.itime.R;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.databinding.MenuEventDetailToolbarBinding;
 import org.unimelb.itime.databinding.ToolbarCollapseHeadbarBinding;
 import org.unimelb.itime.ui.viewmodel.event.EventDetailViewModel;
@@ -115,8 +116,6 @@ public class CollapseHeadBar extends AppBarLayout {
                 R.styleable.CollapseHeadBar_collapseheaderbar_name);
         title = a.getString(
                 R.styleable.CollapseHeadBar_collapseheaderbar_title);
-//        backgroundImage = a.getString(
-//                R.styleable.CollapseHeadBar_collapseheaderbar_backgroundimg);
         backgroundImage = "http://cdn2.jianshu.io/assets/default_avatar/9-cceda3cf5072bcdd77e8ca4f21c40998.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/144/h/144";
         invieeCount = a.getInt(
                 R.styleable.CollapseHeadBar_collapseheaderbar_inviteeCount, 0);
@@ -199,32 +198,33 @@ public class CollapseHeadBar extends AppBarLayout {
 
     private void loadBackground(){
 
+
         this.setBackgroundColor(getResources().getColor(R.color.lightblue));
+
+        backTarget = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                BitmapDrawable drawable = new BitmapDrawable(bitmap);
+                setBlurBackground(drawable);
+                Drawable trans = new ColorDrawable(Color.parseColor(trans_color));
+                LayerDrawable backDrawable = new LayerDrawable(new Drawable[] {drawable, trans});
+                CollapseHeadBar.this.setBackground(backDrawable);
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        };
 
         if(backgroundImage ==null|| backgroundImage.isEmpty()){
 
         }else {
-            backTarget = new Target() {
-                @Override
-                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                    BitmapDrawable drawable = new BitmapDrawable(bitmap);
-                    setBlurBackground(drawable);
-                    Drawable trans = new ColorDrawable(Color.parseColor(trans_color));
-                    LayerDrawable backDrawable = new LayerDrawable(new Drawable[] {drawable, trans});
-                    CollapseHeadBar.this.setBackground(backDrawable);
-                }
-
-                @Override
-                public void onBitmapFailed(Drawable errorDrawable) {
-
-                }
-
-                @Override
-                public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                }
-            };
-
             Picasso.with(getContext()).load(backgroundImage)
                     .resize(getResources().getDisplayMetrics().widthPixels, SizeUtil.dip2px(getContext(), 225))
                     .centerCrop()

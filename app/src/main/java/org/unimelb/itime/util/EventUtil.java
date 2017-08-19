@@ -884,7 +884,7 @@ public class EventUtil extends BaseUtil{
         event.setEnd(end);
     }
 
-    public static void allDayToNotAllDay(Event event){
+    public static void allDayToNotAllDay(Event event) {
         event.setIsAllDay(false);
         TZoneTime start = event.getStart();
         start.setDateTime(parseAllDayToTimeZone(event.getStart().getDate()));
@@ -894,5 +894,13 @@ public class EventUtil extends BaseUtil{
         end.setDateTime(parseAllDayToTimeZone(event.getEnd().getDate()));
         end.setTimeZone(TimeZone.getDefault().getID());
         event.setEnd(end);
+    }
+    public static Event duplicateEvent(Event event){
+        Event e = event.clone();
+        e.getInvitee().clear();
+        e.getTimeslot().clear();
+        e.getTimeslotInvitee().clear();
+        e.setEventUid(AppUtil.generateUuid());
+        return e;
     }
 }

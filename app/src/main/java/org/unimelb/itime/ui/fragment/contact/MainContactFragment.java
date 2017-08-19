@@ -22,6 +22,7 @@ import org.unimelb.itime.messageevent.MessageEditContact;
 import org.unimelb.itime.messageevent.MessageNewFriendRequest;
 import org.unimelb.itime.messageevent.MessageRemoveContact;
 import org.unimelb.itime.ui.activity.MoreFriendsActivity;
+import org.unimelb.itime.ui.activity.NewFriendActivity;
 import org.unimelb.itime.ui.activity.ProfileActivity;
 import org.unimelb.itime.ui.activity.SearchActivity;
 import org.unimelb.itime.ui.mvpview.contact.MainContactsMvpView;
@@ -99,6 +100,7 @@ public class MainContactFragment extends ItimeBaseFragment<MainContactsMvpView, 
     public void onResume(){
         super.onResume();
         presenter.loadContacts();
+        presenter.getRequestFriendListFromServer();
 //        networkBarViewModel.setShow(!NetworkUtil.getInstance(getContext()).isAvailable());
 //        viewModel.resetView();
     }
@@ -106,9 +108,9 @@ public class MainContactFragment extends ItimeBaseFragment<MainContactsMvpView, 
 
 
     public void goToNewFriendFragment() {
-//        Intent intent = new Intent();
-//        intent.setClass(getActivity(), FriendRequestActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), NewFriendActivity.class);
+        startActivity(intent);
     }
 
     public void goToProfileFragment(View view, Contact user) {

@@ -12,7 +12,7 @@ import com.android.databinding.library.baseAdapters.BR;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.FriendRequest;
-import org.unimelb.itime.bean.FriendRequestWrapper;
+import org.unimelb.itime.ui.mvpview.contact.FriendRequestMvpView;
 import org.unimelb.itime.ui.presenter.contact.ContactPresenter;
 import org.unimelb.itime.widget.listview.UserInfoViewModel;
 
@@ -21,9 +21,15 @@ import org.unimelb.itime.widget.listview.UserInfoViewModel;
  * Created by 37925 on 2016/12/9.
  */
 
-public class FrendRequestItemViewModel extends UserInfoViewModel<FriendRequest>{
+public class FriendRequestItemViewModel extends UserInfoViewModel<FriendRequest>{
 
+    public final static int STATUS_ADDED = 0;
+    public final static int STATUS_RECEIVE = 1;
+    public final static int STATUS_SENT = 2;
+
+    private int status = 0;
     private ContactPresenter presenter;
+    private FriendRequestMvpView mvpView;
     private View.OnClickListener onClickListener;
     private boolean showNewFriendsLabel = false;
     private boolean showReceivedLabel = false;
@@ -64,7 +70,21 @@ public class FrendRequestItemViewModel extends UserInfoViewModel<FriendRequest>{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(mvpView!=null){
+                    mvpView.toProfile(getData().getUser().getUserUid());
+                }
+            }
+        };
+    }
 
+    @Bindable
+    public View.OnClickListener getOnAcceptClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(presenter!=null){
+                    presenter.acceptRequest(getData().getFreqUid());
+                }
             }
         };
     }
@@ -84,25 +104,36 @@ public class FrendRequestItemViewModel extends UserInfoViewModel<FriendRequest>{
         notifyPropertyChanged(BR.displayStatus);
     }
 
-    public FrendRequestItemViewModel(ContactPresenter presenter){
+    public FriendRequestItemViewModel(ContactPresenter presenter){
         this.presenter = presenter;
     }
 
-//    @Bindable
-//    public SpannableString getName(){
-//        return changeMatchColor(friendRequestWrapper.getName(), friendRequestWrapper.getMatchStr());
-//    }
-//
-//    @Bindable
-//    public SpannableString getContactId(){
-//        return changeMatchColor(friendRequestWrapper.getUserId(), friendRequestWrapper.getMatchStr());
-//    }
-
-    public boolean getShowDetail() {
-        return false;
+    @Bindable
+    public SpannableString getSecondInfo() {
+        String s = "";
+        if(getData().getCommonContact()!=0){
+            s = String.format(presenter.getContext().getString(R.string.contact_mutual_friends), getData().getCommonContact());
+            return new SpannableString(s);
+        }else{
+            return super.getSecondInfo();
+        }
     }
 
-    public void setShowDetail(boolean showDetail) {
+    @Bindable
+    public int getStatus() {
+        return status;
+    }
 
+    public void setStatus(int status) {
+        this.status = status;
+        notifyPropertyChanged(BR.status);
+    }
+
+    public FriendRequestMvpView getMvpView() {
+        return mvpView;
+    }
+
+    public void setMvpView(FriendRequestMvpView mvpView) {
+        this.mvpView = mvpView;
     }
 }

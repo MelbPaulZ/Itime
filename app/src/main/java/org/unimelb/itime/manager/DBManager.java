@@ -20,7 +20,9 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.EventDao;
 import org.unimelb.itime.bean.FriendRequest;
 import org.unimelb.itime.bean.FriendRequestDao;
+import org.unimelb.itime.bean.Message;
 import org.unimelb.itime.bean.MessageGroup;
+import org.unimelb.itime.bean.MessageGroupDao;
 import org.unimelb.itime.bean.User;
 import org.unimelb.itime.bean.UserDao;
 import org.unimelb.itime.util.UserUtil;
@@ -249,12 +251,14 @@ public class DBManager {
         blockDao.delete(block);
     }
 
-    public synchronized void insertMessageGroup(MessageGroup messageGroup){
-        if (messageGroup == null){
-            return;
-        }
-
+    public List<FriendRequest> getAllFriendRequest(){
         DaoSession daoSession = daoMaster.newSession();
-
+        FriendRequestDao friendRequestDao = daoSession.getFriendRequestDao();
+        QueryBuilder<FriendRequest> qb = friendRequestDao.queryBuilder();
+        qb.where(qb.or(FriendRequestDao.Properties.FreqUserUid.eq(UserUtil.getInstance(context).getUserUid()),
+                FriendRequestDao.Properties.UserUid.eq(UserUtil.getInstance(context).getUserUid())));
+        qb.orderDesc(FriendRequestDao.Properties.UpdatedAt);
+        List<FriendRequest> list = qb.list();
+        return list;
     }
 }

@@ -310,6 +310,8 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginTop="@dimen/s2"
                                 android:id="@+id/note_text"
+                                android:maxLines="4"
+                                android:ellipsize="end"
                                 android:textSize="@dimen/font_large"
                                 android:textColor="@color/text_body"/>
                             <TextView
@@ -318,6 +320,7 @@
                                 android:text="@string/event_detail_note_read_all"
                                 android:textColor="@color/brand_main"
                                 android:textSize="@dimen/font_small"
+                                android:id="@+id/readAllText"
                                 android:layout_below="@id/note_text"
                                 android:onClick="@{contentVM.onAllNoteClick()}"/>
                         </RelativeLayout>
@@ -439,6 +442,7 @@
         app:scalablelayout_expandheight="800dp"
         app:scalablelayout_status="@{contentVM.bottomSheetStatus}"
         android:visibility="@{contentVM.canVote ? View.VISIBLE:View.GONE}"
+        android:id="@+id/timeSlotSheet"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -527,6 +531,7 @@
             android:paddingLeft="@dimen/s2"
             android:background="@color/white"
             android:layout_weight="1"
+            android:descendantFocusability= "blocksDescendants"
             app:items = "@{contentVM.timeSlotsItems}"
             app:itemBinding="@{contentVM.timeSlotItemBinding}"
             app:onItemClickListener="@{contentVM.onTimeSlotClick}"
@@ -542,7 +547,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/standard_detail_cell_height"
-                android:textColor="@color/brand_warning"
+                android:textColor="@color/brand_main"
                 android:text="@string/event_detail_icannotgoatalltimeslots"
                 android:gravity="center"
                 android:textSize="@dimen/font_large"
@@ -551,16 +556,25 @@
                 android:visibility="@{(contentVM.status == contentVM.STATUS_NEED_VOTE || contentVM.status == contentVM.STATUS_VOTED)?View.VISIBLE:View.GONE}"
                 />
 
-            <!--can't go button for status-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/standard_detail_cell_height"
-                android:textColor="@color/brand_warning"
-                android:text="@string/event_detail_icannotgoatalltimeslots"
+                android:textColor="@color/text_body"
+                android:text="@string/event_detail_decided_not_to_go"
                 android:gravity="center"
                 android:textSize="@dimen/font_large"
-                android:background="@drawable/selector_warning_button"
-                android:visibility="@{(contentVM.status == contentVM.STATUS_NOT_GOING_PENDING)?View.VISIBLE:View.GONE}"
+                android:background="@color/white"
+                android:visibility="@{contentVM.status == contentVM.STATUS_NOT_GOING_PENDING?View.VISIBLE:View.GONE}"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_detail_cell_height"
+                android:textColor="@color/text_indication"
+                android:text="@string/event_detail_changemind"
+                android:gravity="center"
+                android:textSize="@dimen/font_tiny"
+                android:background="@color/white"
+                android:visibility="@{contentVM.status == contentVM.STATUS_NOT_GOING_PENDING?View.VISIBLE:View.GONE}"
                 />
 
             <!--submit disabled-->
@@ -572,6 +586,7 @@
                 android:text="@{contentVM.submitBtnString}"
                 android:gravity="center"
                 android:textSize="@dimen/font_large"
+                android:onClick="@{contentVM.onSubmitVoteClick()}"
                 android:visibility="@{(contentVM.status == contentVM.STATUS_NEED_VOTE &amp; contentVM.selectedTimeSlots.empty)?View.VISIBLE:View.GONE}"
                 />
 
@@ -724,8 +739,6 @@
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/s1"
                 android:layout_alignParentRight="true" />
-
-
         </RelativeLayout>
     </FrameLayout>
 

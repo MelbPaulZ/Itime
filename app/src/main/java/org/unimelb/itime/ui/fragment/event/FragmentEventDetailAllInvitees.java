@@ -13,6 +13,7 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.databinding.FragmentCreateEventAddInviteeBinding;
 import org.unimelb.itime.databinding.FragmentEventDetailAllInviteeBinding;
 import org.unimelb.itime.ui.fragment.meeting.CusSwipeViewPager;
@@ -25,6 +26,7 @@ import org.unimelb.itime.ui.mvpview.event.EventCreateAddInviteeMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.event.EventCreateAddInviteeViewModel;
+import org.unimelb.itime.ui.viewmodel.event.EventDetailAllInviteesViewModel;
 import org.unimelb.itime.ui.viewmodel.event.EventDetailViewModel;
 
 import java.util.ArrayList;
@@ -37,10 +39,13 @@ import java.util.List;
 public class FragmentEventDetailAllInvitees  extends ItimeBaseFragment<EventDetailAllInviteeMvpView, EventCreatePresenter<EventDetailAllInviteeMvpView>>
         implements EventCreateAddInviteeMvpView, ToolbarInterface {
 
+    public static final int MODE_EVENT = 1;
+    public static final int MODE_TIMESLOT = 2;
     private FragmentEventDetailAllInviteeBinding binding;
     private FragmentEventCreateAddInvitee fragmentEventCreateAddInvitee;
     private Event event;
-    private EventDetailViewModel contentVM;
+    private TimeSlot timeSlot;
+    private EventDetailAllInviteesViewModel contentVM;
     private ToolbarViewModel toolbarVM;
     private PagerAdapterMeeting adapter;
     private FragmentEventDetailInviteeList goingFragment = new FragmentEventDetailInviteeList();
@@ -48,6 +53,8 @@ public class FragmentEventDetailAllInvitees  extends ItimeBaseFragment<EventDeta
     private FragmentEventDetailInviteeList noReplyFragment = new FragmentEventDetailInviteeList();
     private TabLayout tabLayout;
     private final int TAB_COUNT = 3;
+    private int startMode = 1;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,6 +94,16 @@ public class FragmentEventDetailAllInvitees  extends ItimeBaseFragment<EventDeta
         return binding.getRoot();
     }
 
+    public int getStartMode() {
+        return startMode;
+    }
+
+    public void setStartMode(int startMode) {
+        this.startMode = startMode;
+    }
+
+
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -94,16 +111,20 @@ public class FragmentEventDetailAllInvitees  extends ItimeBaseFragment<EventDeta
         if(toolbarVM==null) {
             toolbarVM = new ToolbarViewModel(this);
             toolbarVM.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
-            toolbarVM.setRightIcon(getResources().getDrawable(R.drawable.icon_contacts_edit));
-            toolbarVM.setRightEnable(true);
-            toolbarVM.setTitle(
-                    String.format(getString(R.string.event_detail_all_invitee_title), contentVM.getInviteeNum()));
+//            toolbarVM.setRightIcon(getResources().getDrawable(R.drawable.icon_contacts_edit));
+//            toolbarVM.setRightEnable(true);
         }
 
-        if(contentVM!=null){
-            binding.setContentVM(contentVM);
-        }
+        contentVM = new EventDetailAllInviteesViewModel();
+        binding.setContentVM(contentVM);
         binding.setToolbarVM(toolbarVM);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.setmData(initFragments());
+        adapter.notifyDataSetChanged();
         tabLayout.removeAllTabs();
         tabLayout.addTab(tabLayout.newTab().setText(
                 String.format(getString(R.string.event_detail_all_invitee_tag_going), contentVM.getRepliedNum())));
@@ -113,14 +134,16 @@ public class FragmentEventDetailAllInvitees  extends ItimeBaseFragment<EventDeta
                 String.format(getString(R.string.event_detail_all_invitee_tag_noreply), contentVM.getNoReplyNum())));
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        adapter.setmData(initFragments());
-        adapter.notifyDataSetChanged();
-    }
-
     private List<Fragment> initFragments(){
+        if(startMode==MODE_EVENT && event!=null){
+            contentVM.generateByEvent(event);
+        }else if(startMode==MODE_TIMESLOT && event!=null && timeSlot!=null){
+            contentVM.generateByTimeSlot(event, timeSlot);
+        }
+
+        toolbarVM.setTitle(
+                String.format(getString(R.string.event_detail_all_invitee_title), contentVM.getInviteeNum()));
+
         goingFragment.setInvitees(contentVM.getGoingInvitees());
         notGoingFragment.setInvitees(contentVM.getNotGoingInvitees());
         noReplyFragment.setInvitees(contentVM.getNoReplyInvitees());
@@ -129,7 +152,6 @@ public class FragmentEventDetailAllInvitees  extends ItimeBaseFragment<EventDeta
         mData.add(goingFragment);
         mData.add(notGoingFragment);
         mData.add(noReplyFragment);
-
         return mData;
     }
 
@@ -141,12 +163,12 @@ public class FragmentEventDetailAllInvitees  extends ItimeBaseFragment<EventDeta
         this.event = event;
     }
 
-    public EventDetailViewModel getContentVM() {
-        return contentVM;
+    public TimeSlot getTimeSlot() {
+        return timeSlot;
     }
 
-    public void setContentVM(EventDetailViewModel contentVM) {
-        this.contentVM = contentVM;
+    public void setTimeSlot(TimeSlot timeSlot) {
+        this.timeSlot = timeSlot;
     }
 
     @Override

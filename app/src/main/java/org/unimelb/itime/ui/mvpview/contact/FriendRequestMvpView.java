@@ -8,5 +8,5 @@ import org.unimelb.itime.ui.mvpview.TaskBasedMvpView;
  */
 
 public interface FriendRequestMvpView extends ItimeBaseMvpView, TaskBasedMvpView {
-    void toProfile();
+    void toProfile(String userUid);
 }

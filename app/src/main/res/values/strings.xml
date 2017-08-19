@@ -60,7 +60,7 @@
     <string name="event_detail_pleaseselect1timeslot">Please select 1 timeslot</string>
     <string name="event_detail_submit_vote">Submit Vote</string>
     <string name="event_detail_submit_n_vote">Submit Vote (%1$d/%2$d)</string>
-    <string name="event_detail_voted_for_n_timeslots">Voted for %1$d Timeslots</string>
+    <string name="event_detail_voted_for_n_timeslots">You\'ve voted for %1$d Timeslots</string>
     <string name="event_detail_confirm">Confirm</string>
     <string name="event_detail_Going">Going</string>
     <string name="event_detail_notgoing">Not Going</string>
@@ -74,6 +74,10 @@
     <string name="event_detail_setyouralert">Set your alert</string>
     <string name="event_detail_youcannotchangeafterconfirmation">You cannot change timeslot after confirmation!</string>
     <string name="event_detail_peoplenotgoing">People not going</string>
+    <string name="event_detail_decided_not_to_go">You\'ve decided not to go</string>
+    <string name="event_detail_alert_empty_vote">Please select at least 1 timeslot</string>
+    <string name="event_detail_alert_empty_confirm">Please select 1 timeslot</string>
+    <string name="event_detail_changemind">Change your mind? Please choose some timeslots above</string>
     <string name="event_detail_toolbar_mute">Mute</string>
     <string name="event_detail_toolbar_muted">Unmute</string>
     <string name="event_detail_toolbar_pin">Pin</string>
@@ -83,7 +87,7 @@
     <string name="event_detail_toolbar_share">Share</string>
     <string name="event_detail_toolbar_delete">Delete Event</string>
     <string name="event_detail_toolbar_duplicate">Duplicate</string>
-    <string name="event_detail_toolbar_history">Response history</string>
+    <string name="event_detail_toolbar_history">Activities</string>
     <string name="event_detail_toolbar_remind">Remind everyone</string>
     <string name="event_create_inviteothers">Invite Others</string>
     <string name="event_create_onlymyself">Only Myself</string>
@@ -311,6 +315,7 @@ join iTime</string>
     <string name="profile_request_sent">Request Sent</string>
     <string name="contact_mutual_friends">%1$d mutual friends</string>
     <string name="alias_title">Alias</string>
+    <string name="friend_request_title">Friend Requests</string>
     <string name="edit_alias_alert_msg">Alias should be %1$d to %2$d letters</string>
     <string name="edit_name_alert_msg">Name should be %1$d to %2$d letters</string>
     <string name="edit_alias_alert">Too long alias</string>

@@ -12,9 +12,12 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.databinding.library.baseAdapters.BR;
@@ -27,6 +30,7 @@ import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.ui.mvpview.event.EventDetailMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.util.AppUtil;
+import org.unimelb.itime.util.CalendarUtil;
 import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.widget.PhotoViewLayout;
 import org.unimelb.itime.widget.ScalableLayout;
@@ -78,6 +82,7 @@ public class EventDetailViewModel extends BaseObservable{
     private int originalStatus;
     private boolean host;
     private boolean canVote = false;
+    private ScalableLayout timeSlotSheet;
 
     private int repliedNum = 0;
     private int cantGoNum = 0;
@@ -101,6 +106,9 @@ public class EventDetailViewModel extends BaseObservable{
     private int bottomSheetStatus;
     private String repeatString="";
     private String sheetLeftText = "";
+
+    private TextView noteTextView;
+    private TextView readAllTextView;
 
     @Bindable
     public String getRepeatString() {
@@ -224,6 +232,9 @@ public class EventDetailViewModel extends BaseObservable{
             }
         }else{
             setCanVote(false);
+        }
+        if(timeSlotSheet!=null){
+            timeSlotSheet.notifyRemeasure();
         }
         notifyPropertyChanged(BR.status);
     }
@@ -411,21 +422,26 @@ public class EventDetailViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                long firstAcceptTimeslot = 0;
-                HashMap<String, Object> params = new HashMap<>();
-                ArrayList<String> timeslotUids = new ArrayList<>();
-                for(TimeSlot timeSlot:selectedTimeSlots){
-                    timeslotUids.add(timeSlot.getTimeslotUid());
-                    if (firstAcceptTimeslot == 0) {
-                        // this is for recording where to scroll, first accept timeslot
-                        firstAcceptTimeslot = timeSlot.getStartTime();
+                if (selectedTimeSlots.isEmpty()) {
+                    if(presenter!=null)
+                        Toast.makeText(context, presenter.getContext().getString(R.string.event_detail_alert_empty_vote), Toast.LENGTH_SHORT).show();
+                } else {
+                    long firstAcceptTimeslot = 0;
+                    HashMap<String, Object> params = new HashMap<>();
+                    ArrayList<String> timeslotUids = new ArrayList<>();
+                    for (TimeSlot timeSlot : selectedTimeSlots) {
+                        timeslotUids.add(timeSlot.getTimeslotUid());
+                        if (firstAcceptTimeslot == 0) {
+                            // this is for recording where to scroll, first accept timeslot
+                            firstAcceptTimeslot = timeSlot.getStartTime();
+                        }
                     }
+                    params.put("timeslots", timeslotUids);
+                    presenter.acceptTimeslots(
+                            event,
+                            params,
+                            firstAcceptTimeslot);
                 }
-                params.put("timeslots", timeslotUids);
-                presenter.acceptTimeslots(
-                        event,
-                        params,
-                        firstAcceptTimeslot);
             }
         };
     }
@@ -436,6 +452,8 @@ public class EventDetailViewModel extends BaseObservable{
             public void onClick(View view) {
                 if(mvpView!=null && !selectedTimeSlots.isEmpty()){
                     mvpView.gotoConfirm(selectedTimeSlots.get(0));
+                }else if(selectedTimeSlots.isEmpty()){
+                    Toast.makeText(context, context.getString(R.string.event_detail_alert_empty_confirm), Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -495,6 +513,7 @@ public class EventDetailViewModel extends BaseObservable{
         for(TimeSlot timeSlot:event.getTimeslot().values()){
             EventDetailTimeSlotItemViewModel vm = new EventDetailTimeSlotItemViewModel(context);
             vm.setTimeSlot(timeSlot);
+            vm.setMvpView(mvpView);
             if(selectedTimeSlots.contains(timeSlot)){
                 vm.setSelected(true);
             }else{
@@ -878,13 +897,13 @@ public class EventDetailViewModel extends BaseObservable{
         }
 
         generateAvatarList();
-        setCalendarType("iTime");
+        setCalendarType(CalendarUtil.getInstance(context).getCalendarName(event));
 
         setTimeSlots(new ArrayList<>(event.getTimeslot().values()));
         setShowTimeSlotSheet(true);
         setTimeSlotBottomSheetButtonVisibilities();
         generateEventTimeString();
-        setAlertString("Alert 15 minutes before");
+        setAlertString(AppUtil.getDefaultAlertStr(event.getReminder()));
 
         initStatus(event);
         originalStatus = getStatus();
@@ -1020,7 +1039,9 @@ public class EventDetailViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(mvpView!=null){
+                    mvpView.toResponse();
+                }
             }
         };
     }
@@ -1029,7 +1050,9 @@ public class EventDetailViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(mvpView!=null){
+                    mvpView.toDuplicate(event);
+                }
             }
         };
     }
@@ -1087,4 +1110,49 @@ public class EventDetailViewModel extends BaseObservable{
         this.sheetLeftText = sheetLeftText;
         notifyPropertyChanged(BR.sheetLeftText);
     }
+
+    public ScalableLayout getTimeSlotSheet() {
+        return timeSlotSheet;
+    }
+
+    public void setTimeSlotSheet(ScalableLayout timeSlotSheet) {
+        this.timeSlotSheet = timeSlotSheet;
+    }
+
+    public void setNodeViews(TextView note, TextView readAll) {
+        noteTextView = note;
+        readAllTextView = readAll;
+
+        noteTextView.post(new Runnable() {
+            @Override
+            public void run() {
+                Layout l = noteTextView.getLayout();
+                if (l != null) {
+                    int lines = l.getLineCount();
+                    if (lines > 0) {
+                        if (l.getEllipsisCount(lines - 1) > 0) {
+                            readAllTextView.setVisibility(View.VISIBLE);
+                        }
+                    }
+                } else {
+                    readAllTextView.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
+
+//        ViewTreeObserver vto = noteTextView.getViewTreeObserver();
+//        vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//            @Override
+//            public boolean on() {
+//                int lineCount = noteTextView.getLineCount();
+//                if(lineCount>=noteTextView.getMaxLines()){
+//                    readAllTextView.setVisibility(View.VISIBLE);
+//                }else{
+//                    readAll.setVisibility(View.GONE);
+//                }
+//                return true;
+//            }
+//        });
 }
