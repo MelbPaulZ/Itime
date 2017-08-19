@@ -241,6 +241,7 @@ public class EventUtil extends BaseUtil{
     public static String DAY_MONTH_YEAR = "dd MMM yyyy";
     public static String TIME_ZONE_PATTERN = "yyyy-MM-dd'T'HH:mm:ssZZZZZ";
     public static String UPDATE_CREATE_AT = "yyyy-MM-dd kk:mm:ss";
+    public static String MONTH_YEAR = "MMMM yyyy";
 
     public static String getFormatTimeString(long time, String format){
         Calendar c = Calendar.getInstance();

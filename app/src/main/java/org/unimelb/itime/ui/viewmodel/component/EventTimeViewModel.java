@@ -11,8 +11,11 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.ui.mvpview.ItimeDialogShowChangeInterface;
 import org.unimelb.itime.ui.mvpview.component.Cancellable;
+import org.unimelb.itime.util.EventUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Paul on 19/6/17.
@@ -26,12 +29,37 @@ public class EventTimeViewModel extends BaseObservable{
     private Cancellable cancellable;
     private ItimeDialogShowChangeInterface itimeDialogShowChangeInterface;
     private Event event;
+    private Date selectDate;
 
     public EventTimeViewModel(Context context, Object views) {
         this.selectTime = EVENT_TIME_START_TIME;
         this.context = context;
         this.cancellable = (Cancellable) views;
         this.itimeDialogShowChangeInterface = (ItimeDialogShowChangeInterface) views;
+    }
+
+    @Bindable
+    public Date getSelectDate() {
+        return selectDate;
+    }
+
+    public void setSelectDate(Date selectDate) {
+        this.selectDate = selectDate;
+        notifyPropertyChanged(BR.selectDate);
+    }
+
+    public String getMonthYearString(Date date){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(EventUtil.MONTH_YEAR);
+        String s = simpleDateFormat.format(date);
+        return s;
+    }
+
+    public void onClickCalendarBack(){
+        itimeDialogShowChangeInterface.onBackCalendar();
+    }
+
+    public void onClickCalendarNext(){
+        itimeDialogShowChangeInterface.onNextCalendar();
     }
 
     @Bindable
@@ -107,5 +135,7 @@ public class EventTimeViewModel extends BaseObservable{
             }
         };
     }
+
+
 
 }
