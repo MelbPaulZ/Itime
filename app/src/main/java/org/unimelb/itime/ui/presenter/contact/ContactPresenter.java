@@ -6,13 +6,17 @@ import android.util.Log;
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
 import org.unimelb.itime.base.ItimeBaseMvpView;
 import org.unimelb.itime.base.ItimeBasePresenter;
 import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.FriendRequest;
+import org.unimelb.itime.bean.FriendRequestResult;
 import org.unimelb.itime.bean.RecomandContact;
+import org.unimelb.itime.bean.RequestReadBody;
 import org.unimelb.itime.bean.User;
 import org.unimelb.itime.manager.DBManager;
+import org.unimelb.itime.messageevent.MessageNewFriendRequest;
 import org.unimelb.itime.others.ItimeSubscriber;
 import org.unimelb.itime.restfulapi.ContactApi;
 import org.unimelb.itime.restfulapi.FriendRequestApi;
@@ -22,6 +26,7 @@ import org.unimelb.itime.ui.mvpview.TaskBasedMvpView;
 import org.unimelb.itime.ui.mvpview.contact.AddFriendsMvpView;
 import org.unimelb.itime.ui.mvpview.contact.MainContactsMvpView;
 import org.unimelb.itime.util.HttpUtil;
+import org.unimelb.itime.util.TokenUtil;
 import org.unimelb.itime.util.UserUtil;
 
 import java.util.ArrayList;
@@ -29,6 +34,7 @@ import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.functions.Func1;
 
 /**
  * Created by Qiushuo Huang on 2017/6/21.
@@ -36,24 +42,31 @@ import rx.Subscriber;
 
 public class ContactPresenter<T extends TaskBasedMvpView> extends MvpBasePresenter<T> {
 
-    private static final String TAG = "AddFriend";
+    private static final String TAG = "ContactPresenter";
     public static final int TASK_SEARCH_USER = 1112;
     public static final int TASK_INVITE = 1113;
     public static final int TASK_MYSELF = 1114;
     public static final int TAST_ALL_CONTACT = 1115;
     public static final int TASK_RECOMMEND = 1116;
     public static final int TASK_ADD = 1117;
+    public static final int TASK_REQUEST_LIST = 1118;
+    public static final int TASK_REQUEST_ACCEPT = 1119;
     public static final int ERROR_INVALID_EMAIL = 2224;
+
+
     private Context context;
     private UserApi userApi;
     private ContactApi contactApi;
     private FriendRequestApi requestApi;
+    private DBManager dbManager;
+
 
     public ContactPresenter(Context context){
         this.context = context;
         userApi = HttpUtil.createService(context, UserApi.class);
         contactApi = HttpUtil.createService(context, ContactApi.class);
         requestApi = HttpUtil.createService(context, FriendRequestApi.class);
+        dbManager = DBManager.getInstance(context);
     }
 
     public Context getContext(){
@@ -233,4 +246,117 @@ public class ContactPresenter<T extends TaskBasedMvpView> extends MvpBasePresent
         };
         HttpUtil.subscribe(observable, subscriber);
     }
+
+    public void acceptRequest(String requestUid){
+        Observable<HttpResult<List<FriendRequest>>> observable = requestApi.confirm(requestUid);
+        ItimeSubscriber<HttpResult<List<FriendRequest>>> subscriber = new ItimeSubscriber<HttpResult<List<FriendRequest>>>() {
+            @Override
+            public void onHttpError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(HttpResult<List<FriendRequest>> result) {
+                if (result.getStatus()!=1){
+
+                }else {
+                    dbManager.insertFriendRequest(result.getData().get(0));
+                    if(getView()!=null){
+                        getView().onTaskSuccess(TASK_REQUEST_ACCEPT, requestUid);
+                    }
+                }
+            }
+        };
+
+        HttpUtil.subscribe(observable, subscriber);
+    }
+
+    // Set requests status to read
+    public void setRead(String[] requestIds){
+        Observable<HttpResult<Void>> observable = requestApi.read(new RequestReadBody(requestIds));
+        ItimeSubscriber<HttpResult<Void>> subscriber = new ItimeSubscriber<HttpResult<Void>>() {
+            @Override
+            public void onHttpError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(HttpResult<Void> result) {
+                if (result.getStatus()!=1){
+
+                }else {
+                    EventBus.getDefault().post(new MessageNewFriendRequest(0));
+                }
+            }
+        };
+        HttpUtil.subscribe(observable, subscriber);
+    }
+
+    public void getRequestFriendList() {
+        List<FriendRequest> requests = dbManager.getAllFriendRequest();
+        if(requests!=null){
+            if(getView()!=null) {
+                getView().onTaskSuccess(TASK_REQUEST_LIST, requests);
+            }
+        }
+        getRequestFriendListFromServer();
+    }
+
+    public void getRequestFriendListFromServer(){
+        String syncToken = TokenUtil.getInstance(context).getFriendRequestToken(
+                UserUtil.getInstance(context).getUserUid());
+        Observable<HttpResult<FriendRequestResult>> observable = requestApi.list(syncToken);
+        Observable<List<FriendRequest>> dbObservable = observable.map(new Func1<HttpResult<FriendRequestResult>, List<FriendRequest>>() {
+            @Override
+            public List<FriendRequest> call(HttpResult<FriendRequestResult> result) {
+                Log.d(TAG, "onNext: " + result.getInfo());
+                if (result.getStatus()!=1){
+                    return null;
+                }else {
+                    TokenUtil.getInstance(context).setFriendRequestToken(
+                            UserUtil.getInstance(context).getUserUid(), result.getSyncToken());
+                    for(FriendRequest request:result.getData().getSend()) {
+                        request.setSender(true);
+                    }
+                    for(FriendRequest request:result.getData().getReceive()) {
+                        request.setSender(false);
+                    }
+                    DBManager.getInstance(context).insertOrReplace(result.getData().getSend());
+                    DBManager.getInstance(context).insertOrReplace(result.getData().getReceive());
+                    return DBManager.getInstance(context).getAllFriendRequest();
+                }
+            }
+        });
+
+        ItimeSubscriber<List<FriendRequest>> subscriber = new ItimeSubscriber<List<FriendRequest>>() {
+            @Override
+            public void onHttpError(Throwable e) {
+                if(getView()!=null) {
+                    getView().onTaskError(TASK_REQUEST_LIST, null);
+                }
+            }
+
+            @Override
+            public void onNext(List<FriendRequest> list) {
+                if (list == null){
+                    if(getView()!=null) {
+                        getView().onTaskError(TASK_REQUEST_LIST, null);
+                    }
+                }else {
+                    List<FriendRequest> result = new ArrayList<>();
+                    for(FriendRequest request:list) {
+                        result.add(request);
+                    }
+
+                    EventBus.getDefault().post(new MessageNewFriendRequest(0));
+                    if(getView()!=null) {
+                        getView().onTaskSuccess(TASK_REQUEST_LIST, result);
+                    }
+                }
+            }
+        };
+
+        HttpUtil.subscribe(dbObservable, subscriber);
+    }
+
 }

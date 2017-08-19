@@ -831,4 +831,13 @@ public class EventUtil extends BaseUtil{
         }
         return false;
     }
+
+    public static Event duplicateEvent(Event event){
+        Event e = event.clone();
+        e.getInvitee().clear();
+        e.getTimeslot().clear();
+        e.getTimeslotInvitee().clear();
+        e.setEventUid(AppUtil.generateUuid());
+        return e;
+    }
 }

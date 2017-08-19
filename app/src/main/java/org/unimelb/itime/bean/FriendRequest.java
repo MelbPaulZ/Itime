@@ -42,6 +42,8 @@ public class FriendRequest implements ITimeUserInfoInterface, Serializable {
     private String createdAt;
     private String updatedAt;
     private String displayStatus;
+    private int commonContact = 0;
+    private boolean sender = false;
 
     @Convert(converter = User.UserConverter.class , columnType = String.class)
     private User userDetail;
@@ -67,9 +69,9 @@ public class FriendRequest implements ITimeUserInfoInterface, Serializable {
         this.displayStatus = displayStatus;
     }
 
-    @Generated(hash = 1050218959)
+    @Generated(hash = 293944008)
     public FriendRequest(String source, String note, String status, String freqUid, String userUid, String freqUserUid, String userId, int isRead, String createdAt, String updatedAt, String displayStatus,
-                         User userDetail) {
+            int commonContact, boolean sender, User userDetail) {
         this.source = source;
         this.note = note;
         this.status = status;
@@ -81,6 +83,8 @@ public class FriendRequest implements ITimeUserInfoInterface, Serializable {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.displayStatus = displayStatus;
+        this.commonContact = commonContact;
+        this.sender = sender;
         this.userDetail = userDetail;
     }
 
@@ -192,5 +196,25 @@ public class FriendRequest implements ITimeUserInfoInterface, Serializable {
     @Override
     public String getSecondInfo() {
         return userDetail.getUserId();
+    }
+
+    public int getCommonContact() {
+        return commonContact;
+    }
+
+    public void setCommonContact(int commonContact) {
+        this.commonContact = commonContact;
+    }
+
+    public boolean isSender() {
+        return sender;
+    }
+
+    public void setSender(boolean sender) {
+        this.sender = sender;
+    }
+
+    public boolean getSender() {
+        return this.sender;
     }
 }

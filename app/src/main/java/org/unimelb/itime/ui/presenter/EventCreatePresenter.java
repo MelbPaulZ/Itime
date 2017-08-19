@@ -15,6 +15,7 @@ import org.unimelb.itime.base.ItimeBasePresenter;
 import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Invitee;
+import org.unimelb.itime.bean.MessageGroup;
 import org.unimelb.itime.bean.PhotoUrl;
 import org.unimelb.itime.bean.User;
 import org.unimelb.itime.manager.DBManager;
@@ -604,6 +605,15 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
             }
         };
         HttpUtil.subscribe(observable, subscriber);
+    }
+
+    public MessageGroup getMessageGroup(String eventUid) {
+        List<MessageGroup> result =  DBManager.getInstance(context).find(MessageGroup.class, "eventUid",  eventUid);
+        if(result.isEmpty()){
+            return null;
+        }else {
+            return result.get(0);
+        }
     }
 
     private class ImageUploadWrapper{

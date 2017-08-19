@@ -310,6 +310,8 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginTop="@dimen/s2"
                                 android:id="@+id/note_text"
+                                android:maxLines="4"
+                                android:ellipsize="end"
                                 android:textSize="@dimen/font_large"
                                 android:textColor="@color/text_body"/>
                             <TextView
@@ -318,6 +320,7 @@
                                 android:text="@string/event_detail_note_read_all"
                                 android:textColor="@color/brand_main"
                                 android:textSize="@dimen/font_small"
+                                android:id="@+id/readAllText"
                                 android:layout_below="@id/note_text"
                                 android:onClick="@{contentVM.onAllNoteClick()}"/>
                         </RelativeLayout>
@@ -439,6 +442,7 @@
         app:scalablelayout_expandheight="800dp"
         app:scalablelayout_status="@{contentVM.bottomSheetStatus}"
         android:visibility="@{contentVM.canVote ? View.VISIBLE:View.GONE}"
+        android:id="@+id/timeSlotSheet"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -527,6 +531,7 @@
             android:paddingLeft="@dimen/s2"
             android:background="@color/white"
             android:layout_weight="1"
+            android:descendantFocusability= "blocksDescendants"
             app:items = "@{contentVM.timeSlotsItems}"
             app:itemBinding="@{contentVM.timeSlotItemBinding}"
             app:onItemClickListener="@{contentVM.onTimeSlotClick}"

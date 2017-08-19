@@ -21,11 +21,13 @@ public interface EventDetailMvpView extends TaskBasedMvpView, ItimeCommonMvpView
     void viewUserProfile(String userUid);
     void onViewGoingInvitees();
     void toAllInvitees();
+    void toTimeSlotInvitees(TimeSlot timeSlot);
     void openUrl(String url);
     void showAllNote();
     void gotoConfirm(TimeSlot timeSlot);
     void onRejectAll();
     void remindEveryone();
+    void toDuplicate(Event event);
 
     void gotoEdit();
 }

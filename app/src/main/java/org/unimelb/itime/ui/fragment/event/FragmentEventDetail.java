@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -26,17 +27,22 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.MessageGroup;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.databinding.DialogEventDetailNoteBinding;
 import org.unimelb.itime.databinding.FragmentEventDetailBinding;
 import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.ui.activity.EventCreateActivity;
+import org.unimelb.itime.ui.activity.ItimeActivitiesActivity;
+import org.unimelb.itime.ui.activity.ProfileActivity;
+import org.unimelb.itime.ui.fragment.activity.FragmentItimeActivitiesDetail;
 import org.unimelb.itime.ui.fragment.calendar.FragmentCalendarTimeslot;
 import org.unimelb.itime.ui.fragment.calendar.FragmentCalendarViewInCalendar;
 import org.unimelb.itime.ui.mvpview.event.EventDetailMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.viewmodel.event.EventDetailViewModel;
 import org.unimelb.itime.util.EventUtil;
+import org.unimelb.itime.util.OtherUtil;
 import org.unimelb.itime.widget.CollapseHeadBar;
 import org.unimelb.itime.widget.popupmenu.ModalPopupView;
 import org.unimelb.itime.widget.popupmenu.PopupMenu;
@@ -53,8 +59,10 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     private FragmentEventDetailBinding binding;
     private Event event;
     private FragmentEventDetailConfirm confirmFragment;
+    private FragmentEventCreate eventCreateFragment;
     private FragmentEventDetailAllInvitees allInviteesFragment;
     private CollapseHeadBar headBar;
+    private FragmentItimeActivitiesDetail activitiesFragment = new FragmentItimeActivitiesDetail();
 
     private EventDetailViewModel contentViewModel;
     // for displaying timeslots
@@ -108,13 +116,12 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         contentViewModel = new EventDetailViewModel(getPresenter());
         contentViewModel.setEvent(event);
         contentViewModel.setShowEventDetailTips(false);
+        contentViewModel.setTimeSlotSheet(binding.timeSlotSheet);
         initToolbar();
         initAllNotePop();
         binding.setContentVM(contentViewModel);
+        contentViewModel.setNodeViews(binding.noteText, binding.readAllText);
         contentViewModel.setToolbarCollapseColor(getResources().getColor(R.color.lightBlueTwo));
-//        EventBus.getDefault().register(this); paul  move this to onCreate
-
-//        initBottomSheet();
     }
 
 
@@ -132,11 +139,6 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         }
     }
 
-//    public void setData(Event event, List<WrapperTimeSlot> wrapperList){
-//        this.event = event;
-//        this.wrapperTimeSlotList = wrapperList;
-//    }
-
     private void initAllNotePop(){
         allNotePop = new ModalPopupView(getContext());
         noteBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_event_detail_note, new FrameLayout(getContext()), false);
@@ -150,8 +152,6 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         headBar = binding.appBar;
         headBar.setViewModel(contentViewModel);
     }
-
-
 
     private void toCalendar(int resultCode) {
         Intent intent = new Intent();
@@ -196,15 +196,13 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     @Override
     public void viewInviteeResponse(TimeSlot timeSlot) {
 
-//        InviteeTimeslotFragment inviteeTimeslotFragment = new InviteeTimeslotFragment();
-//        inviteeTimeslotFragment.setData(this.event, replyData.get(timeSlot.getTimeslotUid()), timeSlot);
-//        getBaseActivity().openFragment(inviteeTimeslotFragment);
+
     }
 
 
     @Override
     public void openUrl(String url){
-
+        OtherUtil.openUrl(getContext(), url);
     }
 
     @Override
@@ -243,17 +241,33 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
 
     @Override
     public void toResponse() {
-//        EventResponseFragment eventResponseFragment = new EventResponseFragment();
-//        eventResponseFragment.setData(event);
-//        getBaseActivity().openFragment(eventResponseFragment);
+        MessageGroup messageGroup = presenter.getMessageGroup(event.getEventUid());
+        if(messageGroup!=null) {
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), ItimeActivitiesActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(ItimeActivitiesActivity.ACTIVITIES_MEETING, messageGroup);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
     }
 
     public void toAllInvitees(){
-
-            allInviteesFragment=new FragmentEventDetailAllInvitees();
-
+        if(allInviteesFragment==null) {
+            allInviteesFragment = new FragmentEventDetailAllInvitees();
+        }
         allInviteesFragment.setEvent(event);
-        allInviteesFragment.setContentVM(contentViewModel);
+        allInviteesFragment.setStartMode(FragmentEventDetailAllInvitees.MODE_EVENT);
+        getBaseActivity().openFragment(allInviteesFragment);
+    }
+
+    public void toTimeSlotInvitees(TimeSlot timeSlot){
+        if(allInviteesFragment==null) {
+            allInviteesFragment = new FragmentEventDetailAllInvitees();
+        }
+        allInviteesFragment.setEvent(event);
+        allInviteesFragment.setTimeSlot(timeSlot);
+        allInviteesFragment.setStartMode(FragmentEventDetailAllInvitees.MODE_TIMESLOT);
         getBaseActivity().openFragment(allInviteesFragment);
     }
 
@@ -285,6 +299,16 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
 //        EventConfirmInviteeFragment confirmInviteeFragment = new EventConfirmInviteeFragment();
 //        confirmInviteeFragment.setEvent(event);
 //        getBaseActivity().openFragment(confirmInviteeFragment);
+    }
+
+    public void toDuplicate(Event event){
+
+        Event e = EventUtil.duplicateEvent(event);
+        if(eventCreateFragment==null){
+            eventCreateFragment = new FragmentEventCreate();
+        }
+        eventCreateFragment.setEvent(e);
+        getBaseActivity().openFragment(eventCreateFragment);
     }
 
     public void onRejectAll(){
@@ -359,9 +383,16 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
 
     @Override
     public void onBack() {
-        getActivity().finish(); // paul add.
+        if(contentViewModel.isSelectedTimeSlotsChanged()){
+            showTimeSlotNotSaveDialog();
+        }else{
+            getActivity().finish();
+        }
 //        toCalendar(EventPresenter.TASK_BACK);
-        getBaseActivity().onBackPressed();
+    }
+
+    private void showTimeSlotNotSaveDialog(){
+
     }
 
     @Override

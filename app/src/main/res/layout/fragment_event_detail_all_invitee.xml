@@ -5,7 +5,7 @@
     <data>
         <variable
             name="contentVM"
-            type="org.unimelb.itime.ui.viewmodel.event.EventDetailViewModel"/>
+            type="org.unimelb.itime.ui.viewmodel.event.EventDetailAllInviteesViewModel"/>
         <variable
             name="toolbarVM"
             type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>

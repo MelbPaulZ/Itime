@@ -24,7 +24,6 @@ public class ItimeActivitiesActivity extends ItimeBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itime_activities);
 
-
         MessageGroup messageGroup = (MessageGroup) getIntent().getSerializableExtra(ACTIVITIES_MEETING);
         FragmentItimeActivitiesDetail fragment = new FragmentItimeActivitiesDetail();
         fragment.setMessageGroup(messageGroup);

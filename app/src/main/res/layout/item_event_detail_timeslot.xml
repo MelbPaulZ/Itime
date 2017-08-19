@@ -71,6 +71,15 @@
         android:layout_marginRight="@dimen/s3"
         android:layout_toLeftOf="@id/inviteeCount"
         />
+    <!--click place holder-->
+    <View
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:onClick="@{vm.onSeeInviteesClick()}"
+        android:layout_alignParentRight="true"
+        android:focusable = "false">
+    </View>
+
 </RelativeLayout>
 
 </layout>

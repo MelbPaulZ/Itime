@@ -640,4 +640,8 @@ public class ScalableLayout extends LinearLayout{
                 break;
         }
     }
+
+    public void notifyRemeasure(){
+        firstMeasure = true;
+    }
 }

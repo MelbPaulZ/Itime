@@ -11,6 +11,7 @@ import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.TimeSlot;
+import org.unimelb.itime.ui.mvpview.event.EventDetailMvpView;
 import org.unimelb.itime.util.TimeFactory;
 
 import java.util.ArrayList;
@@ -31,6 +32,15 @@ public class EventDetailTimeSlotItemViewModel extends BaseObservable {
     private boolean outdated;
     private boolean conflict;
     private Context context;
+    private EventDetailMvpView mvpView;
+
+    public EventDetailMvpView getMvpView() {
+        return mvpView;
+    }
+
+    public void setMvpView(EventDetailMvpView mvpView) {
+        this.mvpView = mvpView;
+    }
 
     public EventDetailTimeSlotItemViewModel(Context context){
         this.context = context;
@@ -140,5 +150,16 @@ public class EventDetailTimeSlotItemViewModel extends BaseObservable {
     public void setInviteePhotos(List<String> inviteePhotos) {
         this.inviteePhotos = inviteePhotos;
         notifyPropertyChanged(BR.inviteePhotos);
+    }
+
+    public View.OnClickListener onSeeInviteesClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mvpView!=null){
+                    mvpView.toTimeSlotInvitees(timeSlot);
+                }
+            }
+        };
     }
 }
