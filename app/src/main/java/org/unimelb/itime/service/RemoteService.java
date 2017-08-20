@@ -40,6 +40,7 @@ import org.unimelb.itime.restfulapi.MessageApi;
 import org.unimelb.itime.restfulresponse.HttpResult;
 import org.unimelb.itime.restfulresponse.WebSocketRes;
 import org.unimelb.itime.ui.activity.MainActivity;
+import org.unimelb.itime.ui.presenter.MeetingPresenter;
 import org.unimelb.itime.ui.presenter.UserPresenter;
 import org.unimelb.itime.util.AppUtil;
 import org.unimelb.itime.util.EventUtil;
@@ -247,6 +248,9 @@ public class RemoteService extends Service {
         switch (task) {
             case WebSocketRes.SYNC_EVENT:
                 fetchEvents();
+                break;
+            case WebSocketRes.SYNC_MEETING:
+                fetchMeetings();
                 break;
             case WebSocketRes.SYNC_INBOX:
                 fetchMessages();
@@ -535,19 +539,6 @@ public class RemoteService extends Service {
         Observable<HttpResult<List<Meeting>>> observable = meetingApi.list(synToken) // -1 will fetch all events
                 .map(ret -> {
                     if (ret.getData().size() > 0) {
-                        /**
-                         * For testing
-                         */
-//                        for (Meeting meeting:ret.getData()
-//                             ) {
-//                            if (meeting.getMeetingUid().equals("37f5cb90-742d-11e7-b6c0-edac18bb7971")){
-//                                //for filter
-//                                ArrayList<Meeting> data = new ArrayList<Meeting>();
-//                                data.add(meeting);
-//                                dbManager.insertOrReplace(data);
-//                            }
-//                        }
-
                         //update db
                         dbManager.insertOrReplace(ret.getData());
 
@@ -570,6 +561,7 @@ public class RemoteService extends Service {
 
             @Override
             public void onNext(final HttpResult<List<Meeting>> result) {
+                MeetingPresenter.outOfDate = true;
                 EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_MEETING));
             }
         };
@@ -602,7 +594,6 @@ public class RemoteService extends Service {
             }
         };
         HttpUtil.subscribe(observable, subscriber);
-
     }
 
 

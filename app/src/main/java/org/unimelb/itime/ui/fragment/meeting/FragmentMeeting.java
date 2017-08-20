@@ -150,6 +150,8 @@ public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPr
         fragmentComing.setData(meetings.comingResult);
     }
 
+
+
     @Override
     public void onMeetingClick(Meeting meeting) {
         Intent intent = new Intent(getActivity(), EventDetailActivity.class);
@@ -168,7 +170,6 @@ public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPr
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
-
         getPresenter().getData();
     }
 

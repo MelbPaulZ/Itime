@@ -138,14 +138,8 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
             }
 
             case INVITEE_CONFIRM:{
-                event.setTimeslot(selectedTimeslotsMap);
-                event.setDuration(selectDuration);
-                ((FragmentEventDetail) fragment).setData(event);
+                ((FragmentEventDetail) fragment).setSelectedTimeslot(new ArrayList<>(selectedTimeslotsMap.values()));
                 getFragmentManager().popBackStack();
-//                event.setTimeslot(selectedTimeslotsMap);
-//                event.setDuration(selectDuration);
-//                ((FragmentEventCreate) fragment).setEvent(event);
-//                getFragmentManager().popBackStack();
                 break;
             }
         }
