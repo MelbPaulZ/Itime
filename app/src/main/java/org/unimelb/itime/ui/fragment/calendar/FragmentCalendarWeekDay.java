@@ -129,7 +129,7 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
         }
 
         @Override
-        public void onEventDragging(DraggableEventView draggableEventView, MyCalendar myCalendar, int i, int i1, String s) {
+        public void onEventDragging(DraggableEventView draggableEventView, MyCalendar myCalendar, int i, int i1, int viewX, int viewY, String s) {
 
         }
 
