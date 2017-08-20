@@ -78,7 +78,8 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_detail, container, false);
+        if(binding==null)
+            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_detail, container, false);
         return binding.getRoot();
     }
 
@@ -113,17 +114,17 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        contentViewModel = new EventDetailViewModel(getPresenter());
-        contentViewModel.setEvent(event);
-        contentViewModel.setShowEventDetailTips(false);
-        contentViewModel.setTimeSlotSheet(binding.timeSlotSheet);
-        initToolbar();
-        initAllNotePop();
-        binding.setContentVM(contentViewModel);
-        contentViewModel.setNodeViews(binding.noteText, binding.readAllText);
-        contentViewModel.setToolbarCollapseColor(getResources().getColor(R.color.lightBlueTwo));
-        if(event!=null)
-            presenter.refreshEvent(event.getEventUid());
+        if(contentViewModel==null) {
+            contentViewModel = new EventDetailViewModel(getPresenter());
+            contentViewModel.setEvent(event);
+            contentViewModel.setShowEventDetailTips(false);
+            contentViewModel.setTimeSlotSheet(binding.timeSlotSheet);
+            initToolbar();
+            initAllNotePop();
+            binding.setContentVM(contentViewModel);
+            contentViewModel.setNodeViews(binding.noteText, binding.readAllText);
+            contentViewModel.setToolbarCollapseColor(getResources().getColor(R.color.lightBlueTwo));
+        }
     }
 
 
