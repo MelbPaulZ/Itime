@@ -122,6 +122,8 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         binding.setContentVM(contentViewModel);
         contentViewModel.setNodeViews(binding.noteText, binding.readAllText);
         contentViewModel.setToolbarCollapseColor(getResources().getColor(R.color.lightBlueTwo));
+        if(event!=null)
+            presenter.refreshEvent(event.getEventUid());
     }
 
 
@@ -248,12 +250,15 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     public void toResponse() {
         MessageGroup messageGroup = presenter.getMessageGroup(event.getEventUid());
         if(messageGroup!=null) {
-            Intent intent = new Intent();
-            intent.setClass(getActivity(), ItimeActivitiesActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(ItimeActivitiesActivity.ACTIVITIES_MEETING, messageGroup);
-            intent.putExtras(bundle);
-            startActivity(intent);
+//            Intent intent = new Intent();
+//            intent.setClass(getActivity(), ItimeActivitiesActivity.class);
+//            Bundle bundle = new Bundle();
+//            bundle.putSerializable(ItimeActivitiesActivity.ACTIVITIES_MEETING, messageGroup);
+//            intent.putExtras(bundle);
+//            startActivity(intent);
+            FragmentItimeActivitiesDetail fragmentItimeActivitiesDetail = new FragmentItimeActivitiesDetail();
+            fragmentItimeActivitiesDetail.setMessageGroup(messageGroup);
+            getBaseActivity().openFragment(fragmentItimeActivitiesDetail);
         }
     }
 
@@ -364,6 +369,7 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
             case EventCreatePresenter.TASK_REFRESH_EVENT:
                 if(contentViewModel!=null && data instanceof Event){
                     setData((Event)data);
+
                 }
                 break;
             case EventCreatePresenter.TASK_EVENT_DELETE:
@@ -403,10 +409,10 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     private void showTimeSlotNotSaveDialog(){
         getDialogBuidler()
                 .positiveText(R.string.event_detail_dialog_keep_voting)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        getActivity().finish();
+                        getBaseActivity().onBackPressed();
                     }
                 })
                 .negativeText(R.string.event_detail_dialog_discard)
@@ -455,8 +461,7 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     @Override
     public void onResume(){
         super.onResume();
-        if(event!=null)
-            presenter.refreshEvent(event.getEventUid());
+        contentViewModel.generateTimeSlotItems();
 //        initTips();
 //        if(timeslotShow) {
 //            bottomSheet.show();

@@ -508,7 +508,7 @@ public class EventDetailViewModel extends BaseObservable{
         this.timeSlotsItems = timeSlotsItems;
     }
 
-    private void generateTimeSlotItems(){
+    public void generateTimeSlotItems(){
         timeSlotsItems.clear();
         for(TimeSlot timeSlot:event.getTimeslot().values()){
             EventDetailTimeSlotItemViewModel vm = new EventDetailTimeSlotItemViewModel(context);
@@ -554,7 +554,6 @@ public class EventDetailViewModel extends BaseObservable{
 
     public void setTimeSlots(List<TimeSlot> timeSlots) {
         this.timeSlots = timeSlots;
-        generateTimeSlotItems();
         notifyPropertyChanged(BR.timeSlots);
     }
 
@@ -879,7 +878,6 @@ public class EventDetailViewModel extends BaseObservable{
     public void setEvent(Event event) {
         this.event = event;
         setSoloEvent(event.getEventType().equals(Event.TYPE_SOLO));
-
         if (event.getPhoto() != null){
             setPhotoUrls(event.getPhoto());
         }
@@ -893,6 +891,7 @@ public class EventDetailViewModel extends BaseObservable{
             setHost(false);
             //must be called before setTimeSlots
             setSelectedTimeSlots(EventUtil.getMyVoteTimeSlot(event));
+            originalSelectedTimeSlots.clear();
             originalSelectedTimeSlots.addAll(getSelectedTimeSlots());
         }
 

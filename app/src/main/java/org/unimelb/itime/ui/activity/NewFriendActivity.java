@@ -26,7 +26,7 @@ public class NewFriendActivity extends ItimeBaseActivity {
         setContentView(R.layout.activity_event_create);
 
         FriendRequestFragment fragment = new FriendRequestFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.frag_container_event_create,fragment, FragmentEventCreate.class.getSimpleName()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frag_container_event_create,fragment, FragmentEventCreate.class.getSimpleName()).commit();
     }
 
     @Override

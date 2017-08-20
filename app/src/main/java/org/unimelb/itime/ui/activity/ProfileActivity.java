@@ -36,7 +36,7 @@ public class ProfileActivity extends ItimeBaseActivity {
             fragment.setUserUid(userUid);
         }
         fragment.setStartMode(ProfileFragment.MODE_CONTACT);
-        getSupportFragmentManager().beginTransaction().add(R.id.frag_container_event_create,fragment, FragmentEventCreate.class.getSimpleName()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frag_container_event_create,fragment, FragmentEventCreate.class.getSimpleName()).commit();
     }
 
     @NonNull
