@@ -706,6 +706,9 @@ public class EventUtil extends BaseUtil{
     }
 
     public static void generateNeededHostAttributes(Context context, Event event){
+        if (event.getSummary().equals("")){
+            event.setSummary(context.getString(R.string.event_default_title));
+        }
         event.setShowLevel(1);
         event.setEventUid(AppUtil.generateUuid());
         event.setHostUserUid(UserUtil.getInstance(context).getUserUid());

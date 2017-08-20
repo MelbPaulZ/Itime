@@ -15,6 +15,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Switch;
 
+import org.unimelb.itime.widget.BadgeView;
+
 /**
  * Created by Paul on 2/6/17.
  */
@@ -55,6 +57,12 @@ public class ItimeBaseViewModel extends BaseObservable {
             InputMethodManager imm = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
         }
+    }
+
+    @BindingAdapter("android:badgeNumber")
+    public static void setBadgeNumber(BadgeView badgeNumber, int number){
+        badgeNumber.setNumber(number + "");
+        badgeNumber.invalidate();
     }
 
 
