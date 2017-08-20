@@ -23,6 +23,7 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Location;
 import org.unimelb.itime.databinding.FragmentEventCreateBinding;
 import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.activity.LocationActivity;
 import org.unimelb.itime.ui.fragment.calendar.FragmentCalendarTimeslot;
 import org.unimelb.itime.ui.fragment.component.FragmentEventTime;
@@ -113,14 +114,25 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
 
     @Override
     public void onBack() {
-        getDialogBuidler()
-                .content(R.string.event_create_cancel_dialog_content)
-                .contentColor(getResources().getColor(R.color.black))
-                .contentGravity(GravityEnum.CENTER)
-                .negativeText(R.string.event_dialog_discard)
-                .positiveText(R.string.event_dialog_keep_editing)
-                .onNegative((dialog, which) -> getActivity().finish())
-                .show();
+        if (getActivity() instanceof EventCreateActivity) {
+            getDialogBuidler()
+                    .content(R.string.event_create_cancel_dialog_content)
+                    .contentColor(getResources().getColor(R.color.black))
+                    .contentGravity(GravityEnum.CENTER)
+                    .negativeText(R.string.event_dialog_discard)
+                    .positiveText(R.string.event_dialog_keep_editing)
+                    .onNegative((dialog, which) -> getActivity().finish())
+                    .show();
+        }else{
+            getDialogBuidler()
+                    .content(R.string.event_edit_cancel_dialog_content)
+                    .contentColor(getResources().getColor(R.color.black))
+                    .contentGravity(GravityEnum.CENTER)
+                    .negativeText(R.string.event_dialog_discard)
+                    .positiveText(R.string.event_dialog_keep_editing)
+                    .onNegative(((dialog, which) -> getFragmentManager().popBackStack()))
+                    .show();
+        }
     }
 
     @Override

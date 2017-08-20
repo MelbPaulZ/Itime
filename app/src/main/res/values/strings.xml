@@ -126,6 +126,7 @@
     <!--Title-->
     <string name="event_create_title_suggested">SUGGESTED</string>
     <string name="event_create_title_recent">RECENT</string>
+    <string name="event_default_title">New Event</string>
 
     <!--Duration-->
     <string name="event_create_duration">Duration</string>
@@ -242,6 +243,7 @@
 
     <!--event dialog-->
     <string name="event_create_cancel_dialog_content">Are you sure you want to discard this event?</string>
+    <string name="event_edit_cancel_dialog_content">Are you sure you want to discard this edit?</string>
     <string name="event_dialog_discard">Discard</string>
     <string name="event_dialog_keep_editing">Keep editing</string>
 
