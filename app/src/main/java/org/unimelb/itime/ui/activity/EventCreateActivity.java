@@ -55,7 +55,7 @@ public class EventCreateActivity extends ItimeBaseActivity {
             fragment = new FragmentEventPrivateCreate();
             ((FragmentEventPrivateCreate)fragment).setEvent(ev);
         }
-        getSupportFragmentManager().beginTransaction().add(R.id.frag_container_event_create,fragment, FragmentEventCreate.class.getSimpleName()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frag_container_event_create,fragment, FragmentEventCreate.class.getSimpleName()).commit();
     }
 
     @Override

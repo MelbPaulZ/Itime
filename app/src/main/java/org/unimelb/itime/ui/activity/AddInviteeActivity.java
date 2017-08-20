@@ -36,7 +36,7 @@ public class AddInviteeActivity extends ItimeBaseActivity {
         FragmentEventCreateAddInvitee fragment = new FragmentEventCreateAddInvitee();
         event.setEventUid("1");
         fragment.setEvent(event);
-        getSupportFragmentManager().beginTransaction().add(R.id.frag_container_event_create,fragment, FragmentEventCreate.class.getSimpleName()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frag_container_event_create,fragment, FragmentEventCreate.class.getSimpleName()).commit();
     }
 
     @Override

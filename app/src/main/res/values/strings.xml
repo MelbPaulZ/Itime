@@ -215,7 +215,8 @@
     <string name="timeslot_alert_outdated_select">Timeslot outdated</string>
     <string name="timeslot_alert_conflict_select">You may have conflict on the timeslot</string>
     <string name="timeslot_alert_outdated_create">You can\'t create outdated timeslots</string>
-    <string name="timeslot_alert_max_count">Only %1$d slot(s) can be selected</string>
+    <string name="timeslot_alert_create_max_count">Only %1$d slot(s) can be created</string>
+    <string name="timeslot_alert_selected_max_count">Only %1$d slot(s) can be selected</string>
 
     <!--Event Time-->
     <string name="event_time_picker_start">Start</string>

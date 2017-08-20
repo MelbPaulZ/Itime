@@ -95,6 +95,6 @@ implements ToolbarInterface{
 
     @Override
     public void onBack() {
-        getActivity().finish();
+        getActivity().onBackPressed();
     }
 }

@@ -13,10 +13,12 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import org.unimelb.itime.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Qiushuo Huang on 2017/5/2.
@@ -56,7 +58,7 @@ public class ScalableLayout extends LinearLayout{
     private int hideHeight = 80;
     private static final int velocity = 5;
     private int moveCount;
-    private RecyclerView recyclerView;
+    private View recyclerView;
     private boolean firstMeasure = true;
 
 
@@ -158,13 +160,13 @@ public class ScalableLayout extends LinearLayout{
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-    public RecyclerView getRecyclerView(){
+    public View getRecyclerView(){
         if(recyclerView == null){
             int count = getChildCount();
             for(int i = 0;i<count;i++){
                 View child = getChildAt(i);
-                if(child instanceof RecyclerView){
-                    recyclerView = (RecyclerView) child;
+                if(child instanceof ListView){
+                    recyclerView =  child;
                     break;
                 }
             }

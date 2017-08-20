@@ -27,7 +27,7 @@ public class ItimeActivitiesActivity extends ItimeBaseActivity {
         MessageGroup messageGroup = (MessageGroup) getIntent().getSerializableExtra(ACTIVITIES_MEETING);
         FragmentItimeActivitiesDetail fragment = new FragmentItimeActivitiesDetail();
         fragment.setMessageGroup(messageGroup);
-        getSupportFragmentManager().beginTransaction().add(getFragmentContainerId(), fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(getFragmentContainerId(), fragment).commit();
     }
 
 

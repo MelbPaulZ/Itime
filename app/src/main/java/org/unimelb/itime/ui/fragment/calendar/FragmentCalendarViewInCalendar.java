@@ -153,7 +153,7 @@ public class FragmentCalendarViewInCalendar extends ItimeBaseFragment<CalendarMv
         }
 
         @Override
-        public void onEventDragging(DraggableEventView draggableEventView, MyCalendar myCalendar, int i, int i1, String locationTime) {
+        public void onEventDragging(DraggableEventView draggableEventView, MyCalendar myCalendar, int i, int i1, int viewX, int viewY, String locationTime) {
 
         }
 
