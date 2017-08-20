@@ -59,7 +59,7 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         super.onCreate(savedInstanceState);
         viewModel = new MainTabBarViewModel(this);
         viewModel.setContext(getApplicationContext());
-        viewModel.setUnReadNum(0+"");
+        viewModel.setUnReadActivitiesNumber(0);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setTabBarVM(viewModel);
         viewModel.updateUnreadActivitiesNumberAndVisibility(); // ?? what the fuck not work?
@@ -70,9 +70,7 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
     protected void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
-
     }
-
     //    @Subscribe
 //    public void refreshMeeting(MessageEvent messageEvent){
 //        if (messageEvent.task == MessageEvent.RELOAD_MEETING){

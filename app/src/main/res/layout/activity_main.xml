@@ -83,18 +83,18 @@
                 <!--android:gravity="center"-->
                 <!--android:background="@drawable/icon_notice_number"/>-->
 
-                <TextView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_centerHorizontal="true"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:text="@{tabBarVM.unReadNum}"
-                    android:visibility="@{tabBarVM.visible}"
-                    android:layout_toRightOf="@id/anchor"
-                    android:layout_alignParentTop="true"
-                    android:gravity="center"
-                    android:background="@drawable/icon_notice_number"/>
+                <!--<TextView-->
+                    <!--android:layout_width="20dp"-->
+                    <!--android:layout_height="20dp"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:textSize="10sp"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:text="@{tabBarVM.unReadActivitiesNumber}"-->
+                    <!--android:visibility="@{tabBarVM.unReadActivitiesVisibility}"-->
+                    <!--android:layout_toRightOf="@id/anchor"-->
+                    <!--android:layout_alignParentTop="true"-->
+                    <!--android:gravity="center"-->
+                    <!--android:background="@drawable/icon_notice_number"/>-->
             </RelativeLayout>
 
             <RelativeLayout
@@ -141,7 +141,7 @@
                     android:layout_toRightOf="@id/contactAnchor"
                     android:layout_alignParentTop="true"
                     android:visibility="@{tabBarVM.unReadActivitiesVisibility}"
-                    app:number="@{String.valueOf(tabBarVM.unReadActivitiesNumber)}"
+                    android:badgeNumber="@{tabBarVM.unReadActivitiesNumber}"
                     />
             </RelativeLayout>
 
