@@ -23,12 +23,12 @@
                 android:background="@color/white">
 
                 <org.unimelb.itime.widget.RoundImageView
+                    android:id="@+id/profile_photo"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginStart="14.5dp"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentStart="true"
-                    app:smallAvatar='@{"http://avatar.csdn.net/A/9/C/1_waldmer.jpg"}' />
+                    android:layout_alignParentStart="true"/>
 
                 <FrameLayout
                     android:layout_width="265.5dp"

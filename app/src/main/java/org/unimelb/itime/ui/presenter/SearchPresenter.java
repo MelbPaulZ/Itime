@@ -23,6 +23,7 @@ import rx.schedulers.Schedulers;
  */
 
 public class SearchPresenter<V extends SearchMvpView> extends ItimeBasePresenter<V> {
+
     public enum Scope{
         MEETING, EVENT, CONTACT
     }
