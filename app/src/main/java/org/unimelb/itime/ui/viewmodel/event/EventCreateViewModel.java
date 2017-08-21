@@ -288,6 +288,8 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             addButton(getString(R.string.repeat_toolbar_btn));
             removeItem(rowItems, getString(R.string.repeat_toolbar_btn));
         }
+        notifyPropertyChanged(BR.rowItems);
+        notifyPropertyChanged(BR.buttonItems);
 
     }
 
