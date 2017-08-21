@@ -84,7 +84,7 @@ public interface EventApi {
             @Path("calendarUid") String calendarUid,
             @Path("eventUid") String eventUid,
             @Query("type") String type,
-            @Query("originalStartTime") long originalStartTime,
+            @Query("originalStartTime") String originalStartTime,
             @Query("syncToken") String syncToken);
 
 
@@ -93,7 +93,7 @@ public interface EventApi {
             @Path("calendarUid") String calendarUid,
             @Path("eventUid") String eventUid,
             @Query("type") String type,
-            @Query("originalStartTime") long originalStartTime,
+            @Query("originalStartTime") String originalStartTime,
             @Query("syncToken") String syncToken);
 
     @POST("event/timeslot/accept/{calendarUid}/{eventUid}")

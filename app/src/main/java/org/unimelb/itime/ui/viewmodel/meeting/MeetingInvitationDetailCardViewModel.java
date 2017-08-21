@@ -24,8 +24,4 @@ public class MeetingInvitationDetailCardViewModel extends MeetingInvitationBaseC
 
         return View.VISIBLE;
     }
-
-    public int getSideBarColor(){
-        return cardTemplate.sidebarColor;
-    }
 }

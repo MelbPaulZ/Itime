@@ -134,6 +134,10 @@ public class MeetingInvitationBaseCardViewModel extends MeetingBaseCardViewModel
         return cardTemplate.getPhotoUrl(meeting);
     }
 
+    public int getSideBarColor(){
+        return cardTemplate.sidebarColor;
+    }
+
     /************ Invitation ********** End of card content configuration **********************************************/
 
     public int getPhotoVisibility(){

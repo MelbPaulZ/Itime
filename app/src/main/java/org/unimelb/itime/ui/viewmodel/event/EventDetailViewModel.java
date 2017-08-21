@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.webkit.URLUtil;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.PhotoUrl;
 import org.unimelb.itime.bean.TimeSlot;
+import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.mvpview.event.EventDetailMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.util.AppUtil;
@@ -56,6 +58,7 @@ public class EventDetailViewModel extends BaseObservable{
     public static final int STATUS_CANCELED = 8;
     public static final int STATUS_EXPIRED = 9;
     public static final int STATUS_NOT_GOING_PENDING = 10;
+    public static final int STATUS_NEED_DECIDE = 11;
 
     private EventCreatePresenter<EventDetailMvpView> presenter;
     private Event event;
@@ -63,6 +66,7 @@ public class EventDetailViewModel extends BaseObservable{
     private Context context;
     private boolean showEventDetailTips = false;
     private boolean showTips = false;
+    private boolean canSeeEachOther = true;
     private int[] alertTimes;
     private String alertString = "";
     private Invitee hostInvitee;
@@ -123,6 +127,16 @@ public class EventDetailViewModel extends BaseObservable{
     public boolean isSelectedTimeSlotsChanged(){
         return !(selectedTimeSlots.containsAll(originalSelectedTimeSlots)
                 && originalSelectedTimeSlots.containsAll(selectedTimeSlots));
+    }
+
+    @Bindable
+    public boolean isCanSeeEachOther() {
+        return canSeeEachOther;
+    }
+
+    public void setCanSeeEachOther(boolean canSeeEachOther) {
+        this.canSeeEachOther = canSeeEachOther;
+        notifyPropertyChanged(BR.canSeeEachOther);
     }
 
     @Bindable
@@ -188,6 +202,7 @@ public class EventDetailViewModel extends BaseObservable{
                             status = STATUS_NOT_GOING;
                             break;
                         case Invitee.STATUS_NEEDSACTION:
+                            status = STATUS_NEED_DECIDE;
                             break;
                     }
                 }
@@ -314,17 +329,21 @@ public class EventDetailViewModel extends BaseObservable{
                         }
                     }
                 if(!isHost()) {
-                    if (isSelectedTimeSlotsChanged()) {
-                        setStatus(STATUS_NEED_VOTE);
-                    } else{
-                        setStatus(originalStatus);
-                    }
+                    updateStatus();
                 }
                 notifyPropertyChanged(BR.selectedTimeSlots);
                 notifyPropertyChanged(BR.submitBtnString);
                 notifyPropertyChanged(BR.votedBtnString);
             }
         };
+    }
+
+    private void updateStatus(){
+        if (isSelectedTimeSlotsChanged()) {
+            setStatus(STATUS_NEED_VOTE);
+        } else{
+            setStatus(originalStatus);
+        }
     }
 
     @Bindable
@@ -459,6 +478,32 @@ public class EventDetailViewModel extends BaseObservable{
         };
     }
 
+    public View.OnClickListener onSnackGoingClicked(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(status==STATUS_NOT_GOING||status==STATUS_NEED_DECIDE){
+                    Event orgEvent = EventManager.getInstance(context).getCurrentEvent();
+                    presenter.acceptEvent(event.getCalendarUid(),
+                            event.getEventUid(),
+                            EventCreatePresenter.UPDATE_ALL,
+                            event.getStart().getDateTime());
+                }
+            }
+        };
+    }
+
+    public View.OnClickListener onSnackNotGoingClicked(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(status==STATUS_GOING||status==STATUS_NEED_DECIDE){
+                    presenter.quitEvent(event.getCalendarUid(), event.getEventUid(), EventCreatePresenter.UPDATE_ALL, event.getStart().getDateTime());
+                }
+            }
+        };
+    }
+
     public View.OnClickListener onCantGoAllClick(){
         return new View.OnClickListener() {
             @Override
@@ -514,6 +559,7 @@ public class EventDetailViewModel extends BaseObservable{
             EventDetailTimeSlotItemViewModel vm = new EventDetailTimeSlotItemViewModel(context);
             vm.setTimeSlot(timeSlot);
             vm.setMvpView(mvpView);
+            vm.setShowInvitee(canSeeEachOther);
             if(selectedTimeSlots.contains(timeSlot)){
                 vm.setSelected(true);
             }else{
@@ -521,6 +567,7 @@ public class EventDetailViewModel extends BaseObservable{
             }
             timeSlotsItems.add(vm);
         }
+        updateStatus();
     }
 
     public View.OnClickListener getOnTimeSlotSheetClickListener(){
@@ -824,22 +871,6 @@ public class EventDetailViewModel extends BaseObservable{
         notifyPropertyChanged(BR.alertString);
     }
 
-    /**
-     * confirm event click left button to accept event
-     * @return
-     */
-    public View.OnClickListener acceptEvent(){
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Event orgEvent = EventManager.getInstance(context).getCurrentEvent();
-                presenter.acceptEvent(event.getCalendarUid(),
-                            event.getEventUid(),
-                            EventCreatePresenter.UPDATE_ALL,
-                            event.getStartTime());
-            }
-        };
-    }
 
     /**
      * invitee click left button for unconfirm event
@@ -895,6 +926,7 @@ public class EventDetailViewModel extends BaseObservable{
             originalSelectedTimeSlots.addAll(getSelectedTimeSlots());
         }
 
+        initCanSeeEachOther();
         generateAvatarList();
         setCalendarType(CalendarUtil.getInstance(context).getCalendarName(event));
 
@@ -909,6 +941,10 @@ public class EventDetailViewModel extends BaseObservable{
         notifyPropertyChanged(BR.submitBtnString);
         notifyPropertyChanged(BR.event);
 //        setCalendarType(CalendarUtil.getInstance(context).getCalendarName(event));
+    }
+
+    public void initCanSeeEachOther(){
+        setCanSeeEachOther(isHost()||event.getShowLevel()==Event.CAN_SEE_EACH_OTHER);
     }
 
     private void generateAvatarList(){

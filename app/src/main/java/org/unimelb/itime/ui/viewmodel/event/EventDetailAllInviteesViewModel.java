@@ -1,10 +1,12 @@
 package org.unimelb.itime.ui.viewmodel.event;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import com.android.databinding.library.baseAdapters.BR;
 
+import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.TimeSlot;
@@ -22,6 +24,9 @@ public class EventDetailAllInviteesViewModel extends BaseObservable {
     private int noReplyNum = 0;
     private int inviteeNum = 0;
     private Event event;
+    private boolean timeslotMode = false;
+    private String labelString = "";
+    private Context context;
 
     private List<Invitee> goingInvitees = new ArrayList<>();
     private List<Invitee> notGoingInvitees = new ArrayList<>();
@@ -35,6 +40,16 @@ public class EventDetailAllInviteesViewModel extends BaseObservable {
     public void setRepliedNum(int repliedNum) {
         this.repliedNum = repliedNum;
         notifyPropertyChanged(BR.repliedNum);
+    }
+
+    @Bindable
+    public boolean isTimeslotMode() {
+        return timeslotMode;
+    }
+
+    public void setTimeslotMode(boolean timeslotMode) {
+        this.timeslotMode = timeslotMode;
+        notifyPropertyChanged(BR.timeslotMode);
     }
 
     @Bindable
@@ -97,6 +112,7 @@ public class EventDetailAllInviteesViewModel extends BaseObservable {
                     break;
             }
         }
+        setTimeslotMode(false);
         setRepliedNum(goingInvitees.size());
         setCantGoNum(notGoingInvitees.size());
         setNoReplyNum(noReplyInvitees.size());
@@ -119,10 +135,12 @@ public class EventDetailAllInviteesViewModel extends BaseObservable {
             }
         }
 
+        setTimeslotMode(true);
         setRepliedNum(goingInvitees.size());
         setCantGoNum(notGoingInvitees.size());
         setNoReplyNum(noReplyInvitees.size());
         setInviteeNum(event.getInvitee().size());
+        setLabelString(String.format(context.getString(R.string.event_detail_voted_n_people_voted), getRepliedNum()));
     }
 
     public Event getEvent() {
@@ -131,5 +149,23 @@ public class EventDetailAllInviteesViewModel extends BaseObservable {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    @Bindable
+    public String getLabelString() {
+        return labelString;
+    }
+
+    public void setLabelString(String labelString) {
+        this.labelString = labelString;
+        notifyPropertyChanged(BR.labelString);
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 }

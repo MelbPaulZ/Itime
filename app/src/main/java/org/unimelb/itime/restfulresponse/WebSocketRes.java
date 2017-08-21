@@ -7,6 +7,7 @@ package org.unimelb.itime.restfulresponse;
 public class WebSocketRes {
     public static final String SYNC_USER = "sync_user";
     public static final String SYNC_CONTACT= "sync_contact";
+    public static final String SYNC_MEETING = "sync_meeting";
     public static final String SYNC_EVENT = "sync_event";
     public static final String SYNC_INBOX = "sync_inbox";
     public static final String SYNC_SETTING = "sync_setting";

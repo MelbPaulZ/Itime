@@ -96,6 +96,10 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
     }
 
     public void createEvent(Event event){
+        if (getView() != null){
+            getView().onTaskStart(TASK_EVENT_CREATE);
+        }
+
         EventUtil.generateNeededHostAttributes(getContext(), event);
         if (event.getEventType().equals(Event.TYPE_GROUP)){
             EventUtil.generateGroupEventAttributes(getContext(), event);
@@ -134,6 +138,9 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
      * @param event
      */
     public void updateEvent(final Event event){
+        if (getView() != null){
+            getView().onTaskStart(TASK_EVENT_UPDATE);
+        }
 
         Event orgEvent = DBManager.getInstance(getContext()).getEvent(event.getEventUid());
         String syncToken = TokenUtil.getInstance(getContext()).getEventToken(UserUtil.getInstance(getContext()).getUserUid());
@@ -365,7 +372,8 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
         HttpUtil.subscribe(observable,subscriber);
     }
 
-    public void quitEvent(String calendarUid, String eventUid, String type, long originalStartTime){
+    public void quitEvent(String calendarUid, String eventUid, String type, String originalStartTime){
+
         if (getView()!=null){
             getView().onTaskStart(TASK_EVENT_REJECT);
         }
@@ -401,7 +409,8 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
         HttpUtil.subscribe(observable, subscriber);
     }
 
-    public void acceptEvent(String calendarUid, String eventUid, String type, long orgStartTime){
+    public void acceptEvent(String calendarUid, String eventUid, String type, String orgStartTime){
+
         if (getView()!=null){
             getView().onTaskStart(TASK_TIMESLOT_ACCEPT);
         }

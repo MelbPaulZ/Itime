@@ -89,13 +89,12 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
 
     @Override
     public void onTaskStart(int taskId) {
-        Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-        startActivity(intent);
-        getActivity().finish();
+        showProgressDialog();
     }
 
     @Override
     public void onTaskSuccess(int taskId, Object data) {
+        hideProgressDialog();
         if (taskId == EventCreatePresenter.TASK_EVENT_CREATE){
             Intent intent = new Intent(getActivity(), EventDetailActivity.class);
             List<Event> eventList = (List<Event>) data;

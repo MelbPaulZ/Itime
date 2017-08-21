@@ -32,6 +32,7 @@ public class EventDetailTimeSlotItemViewModel extends BaseObservable {
     private boolean outdated;
     private boolean conflict;
     private Context context;
+    private boolean showInvitee = true;
     private EventDetailMvpView mvpView;
 
     public EventDetailMvpView getMvpView() {
@@ -161,5 +162,13 @@ public class EventDetailTimeSlotItemViewModel extends BaseObservable {
                 }
             }
         };
+    }
+
+    public boolean isShowInvitee() {
+        return showInvitee;
+    }
+
+    public void setShowInvitee(boolean showInvitee) {
+        this.showInvitee = showInvitee;
     }
 }
