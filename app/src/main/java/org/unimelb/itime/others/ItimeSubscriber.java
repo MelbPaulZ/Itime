@@ -20,6 +20,7 @@ public abstract class ItimeSubscriber<T> extends Subscriber<T> implements HttpUt
     @Override
     public void onError(Throwable e) {
         EventBus.getDefault().post(new MessageNetwork(MessageNetwork.NETWORK_ERROR));
+        e.printStackTrace();
         onHttpError(e);
     }
 

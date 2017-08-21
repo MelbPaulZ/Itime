@@ -365,7 +365,8 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
         HttpUtil.subscribe(observable,subscriber);
     }
 
-    public void quitEvent(String calendarUid, String eventUid, String type, long originalStartTime){
+    public void quitEvent(String calendarUid, String eventUid, String type, String originalStartTime){
+
         if (getView()!=null){
             getView().onTaskStart(TASK_EVENT_REJECT);
         }
@@ -401,7 +402,8 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
         HttpUtil.subscribe(observable, subscriber);
     }
 
-    public void acceptEvent(String calendarUid, String eventUid, String type, long orgStartTime){
+    public void acceptEvent(String calendarUid, String eventUid, String type, String orgStartTime){
+
         if (getView()!=null){
             getView().onTaskStart(TASK_TIMESLOT_ACCEPT);
         }

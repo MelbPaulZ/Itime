@@ -56,7 +56,7 @@
                             android:paddingLeft="@dimen/s1"
                             android:elevation="5dp"
                             android:onClick="@{contentVM.onAllInviteesClick}"
-                            android:visibility="@{contentVM.soloEvent?View.GONE:View.VISIBLE}">
+                            android:visibility="@{contentVM.soloEvent||(!contentVM.canSeeEachOther)?View.GONE:View.VISIBLE}">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -668,7 +668,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_detail_cell_height"
-            android:visibility="@{contentVM.status == contentVM.STATUS_GOING || contentVM.status == contentVM.STATUS_NOT_GOING? View.VISIBLE:View.GONE}"
+            android:visibility="@{contentVM.status == contentVM.STATUS_GOING || contentVM.status == contentVM.STATUS_NOT_GOING||contentVM.status == contentVM.STATUS_NEED_DECIDE? View.VISIBLE:View.GONE}"
             android:background="@color/white"
             android:paddingLeft="@dimen/s1"
             android:paddingRight="@dimen/s1"
@@ -683,27 +683,30 @@
                 android:layout_alignParentLeft="true"
                 android:textSize="@dimen/font_large"
                 android:textColor="@color/text_body"
-                android:text="@string/event_detail_youare"/>
+                android:text="@{contentVM.status==contentVM.STATUS_NEED_DECIDE?@string/event_detail_please_decide:@string/event_detail_youare}"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:textSize="@dimen/font_large"
-                android:textColor="@{contentVM.status == contentVM.STATUS_NOT_GOING ? @color/brand_warning : @color/text_detail_label}"
+                android:textColor="@{contentVM.status == contentVM.STATUS_NOT_GOING ? @color/brand_warning : @color/warmGrey}"
                 android:text="@string/event_detail_notgoing"
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/s1"
                 android:layout_alignParentRight="true"
-                android:id="@+id/status_notgoing_textview"/>
+                android:id="@+id/status_notgoing_textview"
+                android:onClick="@{contentVM.onSnackNotGoingClicked()}"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:textSize="@dimen/font_large"
-                android:textColor="@{contentVM.status == contentVM.STATUS_GOING ? @color/brand_main : @color/text_detail_label}"
+                android:textColor="@{contentVM.status == contentVM.STATUS_GOING ? @color/brand_main : @color/warmGrey}"
                 android:text="@string/event_detail_Going"
                 android:textStyle="bold"
+                android:onClick="@{contentVM.onSnackGoingClicked()}"
                 android:layout_marginRight="@dimen/s1"
                 android:layout_toLeftOf="@id/status_notgoing_textview"/>
 
@@ -729,16 +732,6 @@
                 android:textSize="@dimen/font_large"
                 android:textColor="@color/text_body"
                 android:text="@{contentVM.status == contentVM.STATUS_CANCELED ? @string/event_detail_eventcanceled : @string/event_detail_invitationexpired}"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/font_large"
-                android:textColor="@{contentVM.archived ? @color/text_detail_label :@color/brand_main }"
-                android:text="@{contentVM.archived ? @string/event_detail_archived : @string/event_detail_archived}"
-                android:textStyle="bold"
-                android:layout_marginLeft="@dimen/s1"
-                android:layout_alignParentRight="true" />
         </RelativeLayout>
     </FrameLayout>
 

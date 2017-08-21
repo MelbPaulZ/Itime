@@ -5,6 +5,7 @@
     <variable
         name="vm"
         type="org.unimelb.itime.ui.viewmodel.event.EventDetailTimeSlotItemViewModel"/>
+    <import type="android.view.View"/>
 </data>
 
 <RelativeLayout
@@ -46,6 +47,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:id="@+id/rightLabel"
+        android:visibility="@{vm.showInvitee?View.VISIBLE:View.GONE}"
         android:background="@drawable/icon_event_disclosure"/>
 
     <TextView
@@ -57,6 +59,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/s3"
         android:id="@+id/inviteeCount"
+        android:visibility="@{vm.showInvitee?View.VISIBLE:View.GONE}"
         android:layout_toLeftOf="@id/rightLabel"/>
 
     <org.unimelb.itime.widget.PileupView
@@ -68,6 +71,7 @@
         app:pileup_images="@{vm.inviteePhotos}"
         android:layout_centerVertical="true"
         android:id="@+id/pileup_avatars"
+        android:visibility="@{vm.showInvitee?View.VISIBLE:View.GONE}"
         android:layout_marginRight="@dimen/s3"
         android:layout_toLeftOf="@id/inviteeCount"
         />
@@ -77,6 +81,7 @@
         android:layout_height="match_parent"
         android:onClick="@{vm.onSeeInviteesClick()}"
         android:layout_alignParentRight="true"
+        android:visibility="@{vm.showInvitee?View.VISIBLE:View.GONE}"
         android:focusable = "false">
     </View>
 

@@ -115,7 +115,10 @@ public class FragmentEventDetailAllInvitees  extends ItimeBaseFragment<EventDeta
 //            toolbarVM.setRightEnable(true);
         }
 
-        contentVM = new EventDetailAllInviteesViewModel();
+        if(contentVM==null) {
+            contentVM = new EventDetailAllInviteesViewModel();
+            contentVM.setContext(getContext());
+        }
         binding.setContentVM(contentVM);
         binding.setToolbarVM(toolbarVM);
     }
@@ -137,12 +140,15 @@ public class FragmentEventDetailAllInvitees  extends ItimeBaseFragment<EventDeta
     private List<Fragment> initFragments(){
         if(startMode==MODE_EVENT && event!=null){
             contentVM.generateByEvent(event);
+            toolbarVM.setTitle(
+                    String.format(getString(R.string.event_detail_all_invitee_title), contentVM.getInviteeNum()));
         }else if(startMode==MODE_TIMESLOT && event!=null && timeSlot!=null){
             contentVM.generateByTimeSlot(event, timeSlot);
+            toolbarVM.setTitle(
+                    String.format(getString(R.string.event_detail_all_invitee_title), contentVM.getRepliedNum()));
         }
 
-        toolbarVM.setTitle(
-                String.format(getString(R.string.event_detail_all_invitee_title), contentVM.getInviteeNum()));
+
 
         goingFragment.setInvitees(contentVM.getGoingInvitees());
         notGoingFragment.setInvitees(contentVM.getNotGoingInvitees());

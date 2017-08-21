@@ -9,19 +9,18 @@
         <variable
             name="toolbarVM"
             type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
+        <import type="android.view.View"/>
     </data>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- search bar -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/white"
-            android:elevation="6dp">
+            android:background="@color/white">
 
             <include layout="@layout/toolbar"
                 app:vm="@{toolbarVM}"/>
@@ -32,12 +31,18 @@
                 android:layout_height="34dp"
                 android:layout_marginTop="6.5dp"
                 style="@style/TabBarStyle"
+                android:visibility="@{contentVM.timeslotMode?View.GONE:View.VISIBLE}"
                 />
-        </LinearLayout>
-        <!-- meeting part -->
+            </LinearLayout>
+
+            <TextView
+                style="@style/ListLableTextStyle"
+                android:text="@{contentVM.labelString}"
+                android:visibility="@{contentVM.timeslotMode?View.VISIBLE:View.GONE}"/>
+
         <org.unimelb.itime.ui.fragment.meeting.CusSwipeViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </LinearLayout>
 </layout>
