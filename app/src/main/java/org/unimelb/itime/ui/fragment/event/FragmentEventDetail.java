@@ -49,6 +49,7 @@ import org.unimelb.itime.widget.popupmenu.PopupMenu;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Paul on 4/09/2016.
@@ -139,6 +140,12 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         this.event = event;
         if(contentViewModel!=null){
             contentViewModel.setEvent(event);
+        }
+    }
+
+    public void setSelectedTimeslot(List<TimeSlot> timeslot){
+        if (contentViewModel != null){
+            contentViewModel.setSelectedTimeSlots(timeslot);
         }
     }
 

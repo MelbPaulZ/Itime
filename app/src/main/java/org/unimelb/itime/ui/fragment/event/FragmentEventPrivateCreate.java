@@ -130,19 +130,30 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void onBack() {
-        new MaterialDialog.Builder(getContext())
-                .content(R.string.event_create_cancel_dialog_content)
-                .contentColor(getResources().getColor(R.color.black))
-                .contentGravity(GravityEnum.CENTER)
-                .negativeText(R.string.event_dialog_discard)
-                .positiveText(R.string.event_dialog_keep_editing)
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        getActivity().finish();
-                    }
-                })
-                .show();
+        if (getActivity() instanceof EventCreateActivity) {
+            new MaterialDialog.Builder(getContext())
+                    .content(R.string.event_create_cancel_dialog_content)
+                    .contentColor(getResources().getColor(R.color.black))
+                    .contentGravity(GravityEnum.CENTER)
+                    .negativeText(R.string.event_dialog_discard)
+                    .positiveText(R.string.event_dialog_keep_editing)
+                    .onNegative(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            getActivity().finish();
+                        }
+                    })
+                    .show();
+        } else{
+            getDialogBuidler()
+                    .content(R.string.event_edit_cancel_dialog_content)
+                    .contentColor(getResources().getColor(R.color.black))
+                    .contentGravity(GravityEnum.CENTER)
+                    .negativeText(R.string.event_dialog_discard)
+                    .positiveText(R.string.event_dialog_keep_editing)
+                    .onNegative(((dialog, which) -> getFragmentManager().popBackStack()))
+                    .show();
+        }
     }
 
     @Override

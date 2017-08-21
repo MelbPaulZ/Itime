@@ -41,7 +41,6 @@ public class FragmentCalendarAgenda extends ItimeBaseFragment<CalendarMvpView, C
     private EventManager eventManager;
     private MonthAgendaView agendaView;
     private FragmentCalendar.OnDateChanged onDateChanged;
-    private CalendarConfig config = new CalendarConfig();
 
     @Nullable
     @Override

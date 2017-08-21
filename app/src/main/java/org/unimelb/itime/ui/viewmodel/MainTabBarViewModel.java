@@ -2,8 +2,6 @@ package org.unimelb.itime.ui.viewmodel;
 
 import android.content.Context;
 import android.databinding.Bindable;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 
 import com.android.databinding.library.baseAdapters.BR;
@@ -26,8 +24,8 @@ import org.unimelb.itime.R;
 public class MainTabBarViewModel extends ItimeBaseViewModel{
 
     private MainTabBarView mvpView;
-    private String unReadNum;
-    private int visible;
+//    private String unReadNum;
+//    private int visible;
     private int unReadFriendRequest;
     private Context context;
     private int unReadActivitiesNumber = -1;
@@ -96,27 +94,27 @@ public class MainTabBarViewModel extends ItimeBaseViewModel{
         };
     }
 
-    @Bindable
-    public int getVisible(){
-        return visible;
-    }
+//    @Bindable
+//    public int getVisible(){
+//        return visible;
+//    }
 
 
-    @Bindable
-    public String getUnReadNum() {
-        return unReadNum;
-    }
-
-    public void setUnReadNum(String unReadNum) {
-        this.unReadNum = unReadNum;
-        if (unReadNum.equals("0")){
-            visible =  View.GONE;
-        }else{
-            visible = View.VISIBLE;
-        }
-        notifyPropertyChanged(BR.unReadNum);
-        notifyPropertyChanged(BR.visible);
-    }
+//    @Bindable
+//    public String getUnReadNum() {
+//        return unReadNum;
+//    }
+//
+//    public void setUnReadNum(String unReadNum) {
+//        this.unReadNum = unReadNum;
+//        if (unReadNum.equals("0")){
+//            visible =  View.GONE;
+//        }else{
+//            visible = View.VISIBLE;
+//        }
+//        notifyPropertyChanged(BR.unReadNum);
+//        notifyPropertyChanged(BR.visible);
+//    }
 
     @Bindable
     public int getUnReadFriendRequest() {
@@ -150,6 +148,10 @@ public class MainTabBarViewModel extends ItimeBaseViewModel{
         return unReadActivitiesNumber;
     }
 
+    public String getUnReadActivityNumber(int unReadNumber){
+        return unReadNumber + "";
+    }
+
 
     // this has to be called everytime there is activity update...
     public void updateUnreadActivitiesNumberAndVisibility(){
@@ -170,7 +172,6 @@ public class MainTabBarViewModel extends ItimeBaseViewModel{
         if (count == 0){
             unMute = false;
         }
-        Log.i("aaa", "updateUnreadActivitiesNumberAndVisibility: " + count);
         setUnReadActivitiesNumber(count);
         setUnReadActivitiesVisibility(unMute? View.VISIBLE : View.GONE);
     }

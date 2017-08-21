@@ -37,6 +37,8 @@ import rx.schedulers.Schedulers;
  */
 
 public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresenter<V>{
+    public static boolean outOfDate = false;
+
     private FilterResult filterResult;
 
     public static class FilterResult implements Serializable{
@@ -120,6 +122,7 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
 
             @Override
             public void onNext(FilterResult filterResult) {
+                outOfDate = false;
                 MeetingPresenter.this.filterResult = filterResult;
                 if (getView() != null){
                     getView().onDataLoaded(filterResult);
@@ -135,6 +138,12 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
 
     public void getData(){
         if (getView() == null){
+            return;
+        }
+
+        if (outOfDate){
+            loadDataFromDB();
+            outOfDate = false;
             return;
         }
 

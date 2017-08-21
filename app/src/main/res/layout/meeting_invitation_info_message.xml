@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="vm"
@@ -67,7 +67,8 @@
             android:layout_alignBottom="@id/info_container"
             android:background="@drawable/itime_round_corner_card_bg_tl_bl"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:bg_color="@{vm.getSideBarColor}">
             <ImageView
                 android:id="@+id/status_icon"
                 android:layout_width="18dp"
@@ -78,6 +79,7 @@
                 android:id="@+id/icon_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@{vm.getIconTextColor}"
                 android:textSize="10sp"
                 android:text="@{vm.getIconText}" />
         </LinearLayout>
