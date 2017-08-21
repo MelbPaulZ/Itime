@@ -596,24 +596,12 @@ public class EventManager {
 
     /********************************** Paul Paul 改 *********************************************/
 
-
-
     public Event getCurrentEvent() {
         return currentEvent;
     }
 
     public void setCurrentEvent(Event currentEvent) {
         this.currentEvent = currentEvent;
-    }
-
-    public String getHostInviteeUid(Event event) {
-//        for (Invitee invitee : event.getInvitee()) {
-//            if (invitee.getIsHost() == 1) {
-//                // 1 means is host
-//                return invitee.getInviteeUid();
-//            }
-//        }
-        return null;
     }
 
     public Context getContext() {
