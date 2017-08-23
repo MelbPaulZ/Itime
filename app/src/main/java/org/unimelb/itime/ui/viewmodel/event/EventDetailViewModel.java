@@ -34,6 +34,7 @@ import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.util.AppUtil;
 import org.unimelb.itime.util.CalendarUtil;
 import org.unimelb.itime.util.EventUtil;
+import org.unimelb.itime.util.TimeFactory;
 import org.unimelb.itime.widget.PhotoViewLayout;
 import org.unimelb.itime.widget.ScalableLayout;
 import org.unimelb.itime.widget.popupmenu.PopupMenu;
@@ -89,6 +90,7 @@ public class EventDetailViewModel extends BaseObservable{
     private boolean host;
     private boolean canVote = false;
     private ScalableLayout timeSlotSheet;
+    private boolean confirmed;
 
     private int repliedNum = 0;
     private int cantGoNum = 0;
@@ -223,6 +225,16 @@ public class EventDetailViewModel extends BaseObservable{
     public void setCanVote(boolean canVote) {
         this.canVote = canVote;
         notifyPropertyChanged(BR.canVote);
+    }
+
+    @Bindable
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
+        notifyPropertyChanged(BR.confirmed);
     }
 
     @Bindable
@@ -361,9 +373,15 @@ public class EventDetailViewModel extends BaseObservable{
     }
 
     private void generateEventTimeString(){
-        setEventTimeString(EventUtil.getFormatTimeString(event.getStartTime(), EventUtil.HOUR_MIN_WEEK_DAY_MONTH)
-                + "→\n"
-                + EventUtil.getFormatTimeString(event.getEndTime(), EventUtil.HOUR_MIN_WEEK_DAY_MONTH));
+        TimeSlot tmpTimeSlot = new TimeSlot();
+        tmpTimeSlot.setIsAllDay(event.isAllDay());
+        tmpTimeSlot.setEndTime(event.getEndTime());
+        tmpTimeSlot.setStartTime(event.getStartTime());
+
+        String[] timeStrings = TimeFactory.getTimeStrings(context,tmpTimeSlot );
+        setEventTimeString(timeStrings[0]
+                + "\n"
+                + timeStrings[1]);
     }
 
     @Bindable
@@ -916,6 +934,8 @@ public class EventDetailViewModel extends BaseObservable{
         if (event.getPhoto() != null){
             setPhotoUrls(event.getPhoto());
         }
+
+        setConfirmed(EventUtil.isConfirmed(event));
 
         EventUtil.initTimeSlotVoteStatus(event);
         setVoteStatus(event);

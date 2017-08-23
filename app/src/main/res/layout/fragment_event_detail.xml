@@ -194,7 +194,7 @@
                             android:layout_marginTop="@dimen/s1"
                             android:paddingRight="@dimen/s1"
                             android:paddingLeft="@dimen/s1"
-                            android:visibility="@{contentVM.status == contentVM.STATUS_CONFIRMED &amp; contentVM.eventTimeString.empty?View.GONE:View.VISIBLE}"
+                            android:visibility="@{contentVM.confirmed &amp; (!contentVM.eventTimeString.empty)?View.VISIBLE:View.GONE}"
                             >
                             <TextView
                                 android:layout_width="wrap_content"
@@ -236,7 +236,7 @@
                                 android:paddingBottom="@dimen/s3"
                                 android:paddingLeft="@dimen/s2"
                                 android:paddingRight="@dimen/s2"
-                                android:visibility="@{(!contentVM.alertString.empty)&amp;(contentVM.status==contentVM.STATUS_CONFIRMED || contentVM.status==contentVM.STATUS_GOING)?View.VISIBLE:View.GONE}"
+                                android:visibility="@{(!contentVM.alertString.empty)?View.VISIBLE:View.GONE}"
                                 android:onClick="@{contentVM.onAlertTimeClicked()}"
                                 android:text="@{contentVM.alertString}"
                                 android:textColor="@color/brand_main"
@@ -502,7 +502,7 @@
             android:layout_height="wrap_content"
             android:paddingRight="@dimen/s2"
             android:paddingLeft="@dimen/s2"
-            android:layout_marginBottom="10dp"
+            android:paddingBottom="10dp"
             android:orientation="vertical"
             android:gravity="center_vertical"
             android:background="@color/white"
