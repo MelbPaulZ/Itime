@@ -221,7 +221,7 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
         for (Meeting meeting:fields
              ) {
             Event event = meeting.getEvent();
-            if (event.getStartTime() > todayBegin){
+            if (event.getStartTime() > todayBegin && event.isConfirmed()){
                 comingResult.add(meeting);
             }
         }

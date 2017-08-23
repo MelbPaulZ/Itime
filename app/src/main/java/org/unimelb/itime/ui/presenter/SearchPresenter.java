@@ -54,7 +54,8 @@ public class SearchPresenter<V extends SearchMvpView> extends ItimeBasePresenter
         this.scope = scope;
     }
 
-    public void search(final String searchStr){
+    public void search(final String input){
+        final String searchStr = input.toLowerCase();
         if (scope == null){
             throw new RuntimeException("Scope cannot be null");
         }

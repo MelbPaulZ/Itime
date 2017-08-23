@@ -45,8 +45,8 @@ public class SearchEventPresenter<V extends SearchEventMvpView> extends ItimeBas
     }
 
 
-    public void search(final String searchStr){
-
+    public void search(final String input){
+        String searchStr = input.toLowerCase();
         Observable<List<Map.Entry<Long,List<Event>>>> observable = Observable.create(subscriber -> {
             //init dataSet
             List<Map.Entry<Long,List<Event>>> result = searchEvent(searchStr);

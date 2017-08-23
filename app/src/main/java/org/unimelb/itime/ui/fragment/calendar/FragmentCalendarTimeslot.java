@@ -58,7 +58,6 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     private Event event;
     private Mode mode = Mode.HOST_CREATE;
 
-    // TODO: 14/8/17 add max setting logic
     private int selectMax = 1;
 
     private transient List<TimeSlot> preSelectedSlots = new ArrayList<>();
@@ -119,7 +118,6 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     @Override
     public void onNext() {
         Fragment fragment = getFrom();
-
 
         switch (mode){
             case HOST_CREATE:{
@@ -217,6 +215,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
 
     private void linkEventTimeslots(Event event, List<TimeSlot> selectedTimeslots){
         List<TimeSlot> timeSlots = new ArrayList<>(event.getTimeslot().values());
+
         //upgrade map
         switch (mode){
             case HOST_CREATE:

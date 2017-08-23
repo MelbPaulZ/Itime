@@ -83,7 +83,6 @@ public class SearchEventViewModel extends BaseObservable {
                 refreshResultHint();
                 clearResults();
                 presenter.search(searchStr);
-                Log.i("Search", "afterTextChanged: ");
             }
         };
     }
