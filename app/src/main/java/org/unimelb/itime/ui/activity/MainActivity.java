@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -54,6 +55,9 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
 
     private ActivityMainBinding binding;
     private MainTabBarViewModel viewModel;
+
+    public static boolean hasNewActivities = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +75,16 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
         super.onStart();
         EventBus.getDefault().register(this);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (hasNewActivities){
+            FragmentItimeActivities.needUpdateActivities = true;
+            viewModel.updateUnreadActivitiesNumberAndVisibility();
+        }
+    }
+
     //    @Subscribe
 //    public void refreshMeeting(MessageEvent messageEvent){
 //        if (messageEvent.task == MessageEvent.RELOAD_MEETING){
@@ -81,15 +95,15 @@ public class MainActivity extends ItimeBaseActivity implements MainTabBarView{
     @Subscribe
     public void refreshActivities(MessageEvent messageEvent){
         if (messageEvent.task == MessageEvent.RELOAD_ITIME_ACTIVITIES){
+            FragmentItimeActivities.needUpdateActivities = true;
             viewModel.updateUnreadActivitiesNumberAndVisibility();
+            hasNewActivities = false;
         }
     }
 
     @Subscribe
     public void setNewFriendRequestCount(MessageNewFriendRequest message){
-
         viewModel.setUnReadFriendRequest(message.count);
-
     }
 
     @NonNull

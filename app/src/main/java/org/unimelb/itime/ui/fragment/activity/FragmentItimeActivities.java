@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,8 @@ public class FragmentItimeActivities extends ItimeBaseFragment<ItimeActivitiesMv
     private ToolbarViewModel toolbarViewModel;
     private View rightBtn;
 
+    public static boolean needUpdateActivities = false;
+
     @Override
     public ItimeActivitiesPresenter<ItimeActivitiesMvpView> createPresenter() {
         return new ItimeActivitiesPresenter<>(getContext());
@@ -53,6 +56,16 @@ public class FragmentItimeActivities extends ItimeBaseFragment<ItimeActivitiesMv
             binding = DataBindingUtil.inflate(inflater, R.layout.fragment_itime_activities, container, false);
         }
         return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (needUpdateActivities){
+            Log.i("paulpaul", "onResume: " + "fragment update messageGroup");
+            vm.setMessageGroups(getMessageViewGroups());
+            needUpdateActivities = false;
+        }
     }
 
     @Override
