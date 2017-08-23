@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 
+import org.unimelb.itime.R;
 import org.unimelb.itime.base.C;
 
 import java.util.List;
@@ -128,23 +129,23 @@ public class AppUtil {
 
     public static String[] getAllAlertStr(Context context){
         return new String[]{
-//                context.getString(R.string.none),
-//                context.getString(R.string.at_the_time_of_the_event),
-//                context.getString(R.string.five_mintues_before),
-//                context.getString(R.string.fifteen_minutes_before),
-//                context.getString(R.string.thirty_minutes_before),
-//                context.getString(R.string.one_hour_before),
-//                context.getString(R.string.two_hours_before),
-//                context.getString(R.string.one_day_before),
-//                context.getString(R.string.two_days_before),
-//                context.getString(R.string.one_week_before)
+                context.getString(R.string.alert_str_no_alert),
+                context.getString(R.string.alert_str_at_the_time_of_the_event),
+                context.getString(R.string.alert_str_five_mintues_before),
+                context.getString(R.string.alert_str_fifteen_minutes_before),
+                context.getString(R.string.alert_str_thirty_minutes_before),
+                context.getString(R.string.alert_str_one_hour_before),
+                context.getString(R.string.alert_str_two_hours_before),
+                context.getString(R.string.alert_str_one_day_before),
+                context.getString(R.string.alert_str_two_days_before),
+                context.getString(R.string.alert_str_one_week_before)
         };
     }
 
     public static String getDefaultAlertStr(int key){
         switch (key){
             case -1:
-                return "None";
+                return "No Alert";
             case 0:
                 return "At the time of the event";
             case 5:

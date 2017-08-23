@@ -31,4 +31,6 @@ public interface EventDetailMvpView extends TaskBasedMvpView, ItimeCommonMvpView
 
     void gotoEdit();
     void onDelete();
+
+    void showAlerTimeDialog();
 }

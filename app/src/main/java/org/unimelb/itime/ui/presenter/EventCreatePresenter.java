@@ -336,7 +336,7 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
         HashMap<String, Object> params = new HashMap<>();
         params.put("reminder", event.getReminder());
         // orgCalendarUid to get the previous org event in server link
-        String orgCalendarUid = EventManager.getInstance(context).getCurrentEvent().getCalendarUid();
+        String orgCalendarUid = event.getCalendarUid();
         final String syncToken = getEventToken();
 
         Observable<HttpResult<List<Event>>> observable = eventApi.reminderUpdate(
@@ -348,6 +348,7 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
         ItimeSubscriber<HttpResult<List<Event>>> subscriber = new ItimeSubscriber<HttpResult<List<Event>>>() {
             @Override
             public void onHttpError(Throwable e) {
+                e.printStackTrace();
                 if(getView() != null){
                     getView().onTaskError(TASK_EVENT_UPDATE, e.getMessage());
                 }

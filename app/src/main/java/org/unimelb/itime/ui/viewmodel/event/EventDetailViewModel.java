@@ -37,8 +37,10 @@ import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.widget.PhotoViewLayout;
 import org.unimelb.itime.widget.ScalableLayout;
 import org.unimelb.itime.widget.popupmenu.PopupMenu;
+import org.unimelb.itime.widget.popupmenu.SelectAlertTimeDialog;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -109,10 +111,12 @@ public class EventDetailViewModel extends BaseObservable{
     private LayerDrawable bottomSheetHeaderDrawable;
     private int bottomSheetStatus;
     private String repeatString="";
+    private String untilDateString="";
     private String sheetLeftText = "";
 
     private TextView noteTextView;
     private TextView readAllTextView;
+
 
     @Bindable
     public String getRepeatString() {
@@ -931,16 +935,36 @@ public class EventDetailViewModel extends BaseObservable{
         setCalendarType(CalendarUtil.getInstance(context).getCalendarName(event));
 
         setTimeSlots(new ArrayList<>(event.getTimeslot().values()));
-        setShowTimeSlotSheet(true);
+        if(showTimeSlotSheet) {
+            setShowTimeSlotSheet(true);
+        }
         setTimeSlotBottomSheetButtonVisibilities();
         generateEventTimeString();
         setAlertString(AppUtil.getDefaultAlertStr(event.getReminder()));
 
         initStatus(event);
         originalStatus = getStatus();
+        generateTimeSlotItems();
+
+        setRepeatString(generateRepeatString());
+        setUntilDateString(generateUntilString());
+
         notifyPropertyChanged(BR.submitBtnString);
         notifyPropertyChanged(BR.event);
 //        setCalendarType(CalendarUtil.getInstance(context).getCalendarName(event));
+    }
+
+    private String generateRepeatString(){
+        return String.format(getContext().getString(R.string.repeat_prefix),EventUtil.getRepeatString(context, event));
+    }
+
+    private String generateUntilString(){
+        Date until = event.getRule().getUntil();
+        if(until!=null) {
+            return EventUtil.getFormatTimeString(until.getTime(), EventUtil.HOUR_MIN_WEEK_DAY_MONTH);
+        }else{
+            return "";
+        }
     }
 
     public void initCanSeeEachOther(){
@@ -1136,6 +1160,18 @@ public class EventDetailViewModel extends BaseObservable{
         };
     }
 
+    public View.OnClickListener onAlertTimeClicked(){
+        return new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                if(mvpView!=null){
+                    mvpView.showAlerTimeDialog();
+                }
+            }
+        };
+    }
+
     @Bindable
     public String getSheetLeftText() {
         return sheetLeftText;
@@ -1190,4 +1226,15 @@ public class EventDetailViewModel extends BaseObservable{
 //                return true;
 //            }
 //        });
+
+
+    @Bindable
+    public String getUntilDateString() {
+        return untilDateString;
+    }
+
+    public void setUntilDateString(String untilDateString) {
+        this.untilDateString = untilDateString;
+        notifyPropertyChanged(BR.untilDateString);
+    }
 }

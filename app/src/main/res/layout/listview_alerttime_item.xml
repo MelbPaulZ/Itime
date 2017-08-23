@@ -3,7 +3,7 @@
     <data>
         <variable
             name="vm"
-            type="org.unimelb.itime.widget.SelectAlertTimeDialog.ItemViewModel"/>
+            type="org.unimelb.itime.widget.popupmenu.SelectAlertTimeDialog.ItemViewModel"/>
         <import type="android.view.View"/>
     </data>
 
@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:textColor="@{vm.selected?@color/brand_main:@color/text_body}"
         android:textSize="@dimen/font_large"
+        android:text="@{vm.timeString}"
         android:layout_marginLeft="24dp"
         android:layout_weight="1"
         android:layout_gravity="center_vertical"/>
