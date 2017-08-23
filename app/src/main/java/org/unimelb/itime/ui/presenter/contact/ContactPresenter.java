@@ -365,11 +365,11 @@ public class ContactPresenter<T extends TaskBasedMvpView> extends MvpBasePresent
         int count=0;
         for(FriendRequest request:list){
             if(request.isSender()){
-                if(!request.isRead()){
+                if(!request.senderIsRead()){
                     count++;
                 }
             }else{
-                if(!request.isRead()){
+                if(!request.receiverIsRead()){
                     count++;
                 }
             }

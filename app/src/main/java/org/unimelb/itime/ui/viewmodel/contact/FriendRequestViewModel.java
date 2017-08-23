@@ -79,10 +79,8 @@ public class FriendRequestViewModel extends BaseObservable {
             FriendRequestItemViewModel itemViewModel = new FriendRequestItemViewModel(presenter);
             itemViewModel.setData(request);
             itemViewModel.setMvpView(mvpView);
-            if(!request.isRead()){
-                unreadIds.add(request.getFreqUid());
-            }
-            if(!request.isSender() && !request.isRead() &&
+
+            if(!request.isSender() && !request.receiverIsRead() &&
                     request.getStatus().equals(FriendRequest.STATUS_CONFIRMED)){
                 newRequsts.add(itemViewModel);
                 itemViewModel.setStatus(FriendRequestItemViewModel.STATUS_ADDED);

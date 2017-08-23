@@ -518,12 +518,12 @@ public class RemoteService extends Service {
                 } else {
                     int count = 0;
                     for (FriendRequest request : result.getData().getSend()) {
-                        if (!request.isRead()) {
+                        if (!request.senderIsRead()) {
                             count++;
                         }
                     }
                     for (FriendRequest request : result.getData().getReceive()) {
-                        if (!request.isRead()) {
+                        if (!request.receiverIsRead()) {
                             count++;
                         }
                     }

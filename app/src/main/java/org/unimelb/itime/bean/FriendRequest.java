@@ -38,7 +38,8 @@ public class FriendRequest implements ITimeUserInfoInterface, Serializable {
     //receiver uid
     private String freqUserUid;
     private String userId;
-    private int isRead;
+    private int senderIsRead;
+    private int receiverIsRead;
     private String createdAt;
     private String updatedAt;
     private String displayStatus;
@@ -69,8 +70,8 @@ public class FriendRequest implements ITimeUserInfoInterface, Serializable {
         this.displayStatus = displayStatus;
     }
 
-    @Generated(hash = 293944008)
-    public FriendRequest(String source, String note, String status, String freqUid, String userUid, String freqUserUid, String userId, int isRead, String createdAt, String updatedAt, String displayStatus,
+    @Generated(hash = 1510939072)
+    public FriendRequest(String source, String note, String status, String freqUid, String userUid, String freqUserUid, String userId, int senderIsRead, int receiverIsRead, String createdAt, String updatedAt, String displayStatus,
             int commonContact, boolean sender, User userDetail) {
         this.source = source;
         this.note = note;
@@ -79,7 +80,8 @@ public class FriendRequest implements ITimeUserInfoInterface, Serializable {
         this.userUid = userUid;
         this.freqUserUid = freqUserUid;
         this.userId = userId;
-        this.isRead = isRead;
+        this.senderIsRead = senderIsRead;
+        this.receiverIsRead = receiverIsRead;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.displayStatus = displayStatus;
@@ -146,18 +148,6 @@ public class FriendRequest implements ITimeUserInfoInterface, Serializable {
         this.userId = userId;
     }
 
-    public boolean isRead() {
-        return isRead>0;
-    }
-
-    public void setRead(boolean read) {
-       if(read){
-           isRead =1;
-       }else{
-           isRead = 0;
-       }
-    }
-
     public String getCreatedAt() {
         return createdAt;
     }
@@ -174,14 +164,29 @@ public class FriendRequest implements ITimeUserInfoInterface, Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public int getIsRead() {
-        return this.isRead;
+    public int getSenderIsRead() {
+        return senderIsRead;
     }
 
-    public void setIsRead(int isRead) {
-        this.isRead = isRead;
+    public void setSenderIsRead(int senderIsRead) {
+        this.senderIsRead = senderIsRead;
     }
 
+    public int getReceiverIsRead() {
+        return receiverIsRead;
+    }
+
+    public void setReceiverIsRead(int receiverIsRead) {
+        this.receiverIsRead = receiverIsRead;
+    }
+
+    public boolean senderIsRead(){
+        return senderIsRead==1;
+    }
+
+    public boolean receiverIsRead(){
+        return receiverIsRead==1;
+    }
 
     @Override
     public String getShowPhoto() {
