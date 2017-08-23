@@ -32,6 +32,8 @@ import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.viewmodel.event.EventCreateViewModel;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 
+import java.util.ArrayList;
+
 /**
  * Created by Paul on 2/6/17.
  */
@@ -197,7 +199,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         FragmentCalendarTimeslot fragment = new FragmentCalendarTimeslot();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setMode(FragmentCalendarTimeslot.Mode.HOST_CREATE);
-        fragment.setEvent(cpyEvent, null);
+        fragment.setEvent(cpyEvent, new ArrayList<>(cpyEvent.getTimeslot().values()));
         getBaseActivity().openFragment(fragment);
     }
 

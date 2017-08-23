@@ -235,6 +235,7 @@
                     android:layout_height="18dp"
                     android:textSize="10sp"
                     android:textColor="@color/white"
+                    android:gravity="center"
                     android:layout_toRightOf="@id/contactsAnchor"
                     android:layout_alignParentTop="true"
                     android:background="@drawable/icon_notice_number"

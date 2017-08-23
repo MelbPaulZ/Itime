@@ -203,6 +203,7 @@
     <string name="repeat_everyweek_cus">Every%1$sweek</string>
     <string name="repeat_every_month_cus">Every%1$smonth</string>
     <string name="repeat_every_year_cus">Every%1$syear</string>
+    <string name="repeat_prefix">Repeat %1$s</string>
 
     <!--alert-->
     <string name="event_alert_none">None</string>
@@ -359,4 +360,15 @@ join iTime</string>
     <string name="network_error_retry">RETRY</string>
     <string name="network_error_please_try_again">Network error, please check your network and try again.</string>
     <string name="network_error_bar_message">Network disconnected. Please check network.</string>
+
+    <string name="alert_str_no_alert">No alert</string>
+    <string name="alert_str_at_the_time_of_the_event">At the time of the event</string>
+    <string name="alert_str_five_mintues_before">5 minutes before</string>
+    <string name="alert_str_fifteen_minutes_before">15 minutes before</string>
+    <string name="alert_str_thirty_minutes_before">30 minutes before</string>
+    <string name="alert_str_one_hour_before">1 hour before</string>
+    <string name="alert_str_two_hours_before">2 hours before</string>
+    <string name="alert_str_one_day_before">1 day before</string>
+    <string name="alert_str_two_days_before">2 days before</string>
+    <string name="alert_str_one_week_before">1 week before</string>
 </resources>

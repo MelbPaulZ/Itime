@@ -5,6 +5,9 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableBoolean;
 import android.graphics.drawable.Drawable;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 
 import org.unimelb.itime.BR;
@@ -90,24 +93,44 @@ public class ToolbarTimeslotViewModel <V extends ToolbarInterface & ToolbarTimes
         return View.GONE;
     }
 
-    public String getTitle(Context context, List<TimeSlot> selectedTimeslot, TimeSlot confirmedTimeslot){
+    public SpannableString getTitle(Context context, List<TimeSlot> selectedTimeslot, TimeSlot confirmedTimeslot){
         String title = "";
 
         if (confirmedTimeslot != null){
-            return title;
+            return new SpannableString(title);
         }
 
         int selectedCount = selectedTimeslot.size();
         if (selectedCount == 0){
-            return context.getResources().getString(R.string.toolbar_choose_timeslots);
+            return new SpannableString(context.getResources().getString(R.string.toolbar_choose_timeslots));
         }
 
         if (this.mode == FragmentCalendarTimeslot.Mode.HOST_CREATE
                 || this.mode == FragmentCalendarTimeslot.Mode.INVITEE_CONFIRM){
-            return String.format(context.getString(R.string.toolbar_timeslots_select), selectedCount, 7);
+            String timeslotInfo = String.format(
+                    context.getString(R.string.toolbar_timeslots_select)
+                    , selectedCount
+                    , context.getResources().getInteger(R.integer.timeslot_create_max_count));
+            return changeMatchColor(context, timeslotInfo, String.valueOf(selectedCount));
         }
 
-        return title;
+        return new SpannableString(title);
+    }
+
+    private SpannableString changeMatchColor(Context context, String str, String matchStr){
+        SpannableString span = new SpannableString(str);
+        if(matchStr.equals("")){
+            return span;
+        }
+        int begin = str.toLowerCase().indexOf(matchStr.toLowerCase());
+        int end = begin+matchStr.length();
+        if(begin==-1){
+            return span;
+        }
+        span.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.brand_main)),
+                begin, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        return span;
     }
 
     public String getConfirmedTimeslotStartTime(TimeSlot confirmedTimeslot){
