@@ -80,11 +80,10 @@ public class FriendRequestViewModel extends BaseObservable {
             itemViewModel.setData(request);
             itemViewModel.setMvpView(mvpView);
 
-            if(!request.isSender() && !request.receiverIsRead() &&
+            if(request.isSender() && !request.senderIsRead() &&
                     request.getStatus().equals(FriendRequest.STATUS_CONFIRMED)){
                 newRequsts.add(itemViewModel);
                 itemViewModel.setStatus(FriendRequestItemViewModel.STATUS_ADDED);
-
             }else if(request.isSender() &&
                     request.getStatus().equals(FriendRequest.STATUS_SENT)){
                 sentRequsts.add(itemViewModel);
@@ -93,6 +92,12 @@ public class FriendRequestViewModel extends BaseObservable {
             }else if(!request.isSender() && request.getStatus().equals(FriendRequest.STATUS_SENT)){
                 recRequsts.add(itemViewModel);
                 itemViewModel.setStatus(FriendRequestItemViewModel.STATUS_RECEIVE);
+            }
+
+            if(request.isSender()&&!request.senderIsRead()){
+                unreadIds.add(request.getFreqUid());
+            }else if(!request.isSender()&&!request.receiverIsRead()){
+                unreadIds.add(request.getFreqUid());
             }
         }
 
