@@ -138,7 +138,6 @@ public class FragmentItimeActivities extends ItimeBaseFragment<ItimeActivitiesMv
 
     private MessageGroup getMessageGroupByUid(int messageGroupUid){
         return DBManager.getInstance(getContext()).find(MessageGroup.class, "messageGroupUid", messageGroupUid).get(0);
-//        return DBManager.getInstance(getContext()).find(MessageGroup.class, "messageGroupUid", 42).get(0);
     }
     @Override
     public void onClickViewMore(int messageGroupUid) {
