@@ -904,9 +904,10 @@ public class EventUtil extends BaseUtil{
     }
     public static Event duplicateEvent(Event event){
         Event e = event.clone();
-        e.getInvitee().clear();
         e.getTimeslot().clear();
         e.getTimeslotInvitee().clear();
+        String[] emptyRecurrence = {};
+        e.setRecurrence(emptyRecurrence);
         e.setEventUid(AppUtil.generateUuid());
         return e;
     }
