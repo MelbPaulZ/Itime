@@ -117,7 +117,7 @@ dependencies {
     }
 
     //permission control
-//    apt 'com.zhy:mpermission-compiler:1.0.0'
+    compile 'com.zhy:mpermission-compiler:1.0.0'
     compile 'com.zhy:mpermission-api:1.0.0'
 
     //dependent material design
@@ -142,5 +142,8 @@ dependencies {
 
     // support lambda
     compile 'com.annimon:stream:1.0.3'
+
+    // QR code
+    compile 'com.google.zxing:core:3.3.0'
 
 }

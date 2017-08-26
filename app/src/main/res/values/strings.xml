@@ -310,6 +310,18 @@
     <string name="contact_user_not_found_dialog_title">User Not Found</string>
     <string name="contact_user_not_found_dialog_message">Invite\n%1$s\nto
 join iTime</string>
+    <string name="my_qr_code_explain">Scan the QR code to add me on Timegenii</string>
+    <string name="my_qr_code_title">My QR Code</string>
+    <string name="save_to_album">Save Photo</string>
+    <string name="scan_qr_code">Scan QR code</string>
+    <string name="scan_qr_code_album">Album</string>
+    <string name="qr_code">QR Code</string>
+    <string name="scan_qr_code_explain">Align QR code within frame to scan</string>
+    <string name="save_qr_code_success">Save qr code success</string>
+    <string name="save_qr_code_failed">Save qr code failed</string>
+    <string name="cannot_find_user">Can not find this user</string>
+    <string name="need_permission">Need permissions</string>
+
     <string name="contact_recommend_add">Add</string>
     <string name="contact_add_by_email">Add by Email</string>
     <string name="contact_scan_qr_code">Scan QR Code</string>
