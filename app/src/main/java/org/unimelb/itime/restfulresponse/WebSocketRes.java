@@ -13,6 +13,7 @@ public class WebSocketRes {
     public static final String SYNC_SETTING = "sync_setting";
     public static final String SYNC_CALENDAR = "sync_calendar";
     public static final String SYNC_FRIEND_REQUEST = "sync_friend_request";
+    public static final String SYNC_MESSAGE = "sync_message";
     private String type;
 
     public WebSocketRes() {

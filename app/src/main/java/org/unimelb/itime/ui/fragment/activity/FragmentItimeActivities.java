@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.activity.ActivityMessageGroupViewModel;
 import org.unimelb.itime.ui.viewmodel.activity.ActivityMessageViewModel;
 import org.unimelb.itime.ui.viewmodel.activity.ItimeActivitiesViewModel;
+import org.unimelb.itime.util.MessageGroupUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +43,8 @@ public class FragmentItimeActivities extends ItimeBaseFragment<ItimeActivitiesMv
     private ToolbarViewModel toolbarViewModel;
     private View rightBtn;
 
+    public static boolean needUpdateActivities = false;
+
     @Override
     public ItimeActivitiesPresenter<ItimeActivitiesMvpView> createPresenter() {
         return new ItimeActivitiesPresenter<>(getContext());
@@ -53,6 +57,16 @@ public class FragmentItimeActivities extends ItimeBaseFragment<ItimeActivitiesMv
             binding = DataBindingUtil.inflate(inflater, R.layout.fragment_itime_activities, container, false);
         }
         return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (needUpdateActivities){
+            Log.i("paulpaul", "onResume: " + "fragment update messageGroup");
+            vm.setMessageGroups(getMessageViewGroups());
+            needUpdateActivities = false;
+        }
     }
 
     @Override
@@ -75,7 +89,7 @@ public class FragmentItimeActivities extends ItimeBaseFragment<ItimeActivitiesMv
     private List<ActivityMessageGroupViewModel> getMessageViewGroups(){
         DBManager dbManager = DBManager.getInstance(getContext());
         List<MessageGroup> messageGroups = dbManager.getAll(MessageGroup.class);
-
+        MessageGroupUtil.sortMessageGroupByTime(messageGroups);
         if (vm.getMessageGroups().size() == 0) {
             List<ActivityMessageGroupViewModel> activityMessageGroupViewModels = new ArrayList<>();
 
@@ -125,7 +139,6 @@ public class FragmentItimeActivities extends ItimeBaseFragment<ItimeActivitiesMv
 
     private MessageGroup getMessageGroupByUid(int messageGroupUid){
         return DBManager.getInstance(getContext()).find(MessageGroup.class, "messageGroupUid", messageGroupUid).get(0);
-//        return DBManager.getInstance(getContext()).find(MessageGroup.class, "messageGroupUid", 42).get(0);
     }
     @Override
     public void onClickViewMore(int messageGroupUid) {

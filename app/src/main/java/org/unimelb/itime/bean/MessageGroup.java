@@ -38,8 +38,8 @@ public class MessageGroup implements Serializable{
     private String eventUid = "";
     private boolean isMute;
     private int deleteLevel;
-    private String createAt = "";
-    private String updateAt = "";
+    private String createdAt = "";
+    private String updatedAt = "";
     private boolean isArchived = false;
 
     @Convert(converter = MessageConverter.class, columnType = String.class)
@@ -51,9 +51,14 @@ public class MessageGroup implements Serializable{
     @Generated(hash = 745534098)
     private transient MessageGroupDao myDao;
 
-    @Generated(hash = 1832732690)
+
+    @Generated(hash = 1950961560)
+    public MessageGroup() {
+    }
+
+    @Generated(hash = 39062078)
     public MessageGroup(int type, String title, String status, int messageGroupUid, int userUid,
-            String eventUid, boolean isMute, int deleteLevel, String createAt, String updateAt,
+            String eventUid, boolean isMute, int deleteLevel, String createdAt, String updatedAt,
             boolean isArchived, List<Message> message) {
         this.type = type;
         this.title = title;
@@ -63,14 +68,10 @@ public class MessageGroup implements Serializable{
         this.eventUid = eventUid;
         this.isMute = isMute;
         this.deleteLevel = deleteLevel;
-        this.createAt = createAt;
-        this.updateAt = updateAt;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.isArchived = isArchived;
         this.message = message;
-    }
-
-    @Generated(hash = 1950961560)
-    public MessageGroup() {
     }
 
     public int getMessageGroupUid() {
@@ -129,20 +130,20 @@ public class MessageGroup implements Serializable{
         this.deleteLevel = deleteLevel;
     }
 
-    public String getCreateAt() {
-        return createAt;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreateAt(String createAt) {
-        this.createAt = createAt;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public String getUpdateAt() {
-        return updateAt;
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdateAt(String updateAt) {
-        this.updateAt = updateAt;
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public String getStatus() {

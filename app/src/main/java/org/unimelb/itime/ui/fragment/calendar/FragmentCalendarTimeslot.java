@@ -172,9 +172,11 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
             if (duration == -1){
                 //switch to all day mode
                 selectDuration = EventUtil.allDayMinutes;
+                event.setIsAllDay(true);
                 timeSlotView.setViewMode(TimeSlotView.ViewMode.ALL_DAY_CREATE);
             }else{
                 selectDuration = (int)duration/1000/60;
+                event.setIsAllDay(false);
                 timeSlotView.setViewMode(TimeSlotView.ViewMode.NON_ALL_DAY_CREATE);
                 timeSlotView.setTimeslotDuration(duration,false);
             }

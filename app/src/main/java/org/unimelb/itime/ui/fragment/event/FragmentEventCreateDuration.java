@@ -84,6 +84,7 @@ public class FragmentEventCreateDuration extends ItimeBaseFragment<EventCreateDu
             @Override
             public void onItemSelected(WheelPicker picker, Object data, int position) {
                 vm.setDuration(getDurationData().get(position));
+                event.setIsAllDay(position == 6);
             }
         });
     }
