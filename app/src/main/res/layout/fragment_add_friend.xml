@@ -59,7 +59,8 @@
         android:layout_height="@dimen/standard_detail_cell_height"
         android:orientation="horizontal"
         android:background="@color/white"
-        android:paddingLeft="15dp">
+        android:paddingLeft="15dp"
+        android:onClick="@{mainViewModel.onScanQRClick()}">
         <ImageView
             android:layout_width="35dp"
             android:layout_height="35dp"

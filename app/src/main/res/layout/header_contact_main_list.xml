@@ -71,15 +71,15 @@
             android:layout_weight="1"
             />
 
-        <TextView
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:layout_marginRight="30dp"
-            android:textSize="10sp"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/icon_notice_number"/>
+        <!--<TextView-->
+            <!--android:layout_width="10dp"-->
+            <!--android:layout_height="10dp"-->
+            <!--android:layout_marginRight="30dp"-->
+            <!--android:textSize="10sp"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:background="@drawable/icon_notice_number"/>-->
     </LinearLayout>
     <include layout="@layout/line"/>
 

@@ -173,7 +173,7 @@ public class EventCreateSearchInviteeViewModel extends BaseObservable {
                 UserInfoViewModel<Contact> contact = results.get(i);
                 boolean contain = false;
                 for(Invitee invitee: invitees){
-                    if(invitee.getUserUid().equals(contact.getData().getUserUid())){
+                    if(invitee.getUserUid().equals(contact.getData().getUserDetail().getUserUid())){
                         invitees.remove(invitee);
                         contain=true;
                         break;
@@ -196,7 +196,7 @@ public class EventCreateSearchInviteeViewModel extends BaseObservable {
                 UserInfoViewModel<Contact> contact = recent.get(i);
                 boolean contain = false;
                 for (Invitee invitee : invitees) {
-                    if (invitee.getUserUid().equals(contact.getData().getUserUid())) {
+                    if (invitee.getUserUid().equals(contact.getData().getUserDetail().getUserUid())) {
                         invitees.remove(invitee);
                         contain = true;
                         break;
