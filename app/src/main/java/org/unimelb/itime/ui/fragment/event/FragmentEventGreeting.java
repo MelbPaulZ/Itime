@@ -35,7 +35,11 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
     private EventGreetingViewModel vm;
     private ToolbarViewModel toolbarVM;
     private Event event;
+    private FragmentEventCreate.Mode taskMode;
 
+    public void setTaskMode(FragmentEventCreate.Mode taskMode) {
+        this.taskMode = taskMode;
+    }
 
     @Override
     public EventCreatePresenter<EventGreetingMvpView> createPresenter() {
@@ -56,6 +60,13 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        Toast.makeText(getContext(), taskMode.name(), Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
@@ -73,10 +84,10 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
 
     @Override
     public void onNext() {
-        if (getActivity() instanceof EventCreateActivity) {
+        if (taskMode == FragmentEventCreate.Mode.CREATE) {
             event.setEventType(Event.TYPE_GROUP);
             presenter.createEvent(event);
-        }else if (getActivity() instanceof EventDetailActivity){
+        }else if (taskMode == FragmentEventCreate.Mode.UPDATE){
             EventUtil.generateGroupEventAttributes(getContext(), event);
             presenter.updateEvent(event);
         }

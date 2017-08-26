@@ -238,10 +238,12 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         if (event.getEventType().equals(Event.TYPE_GROUP)){
             FragmentEventCreate fragment = new FragmentEventCreate();
             fragment.setEvent(event);
+            fragment.setTaskMode(FragmentEventCreate.Mode.UPDATE);
             getBaseActivity().openFragment(fragment);
         }else if (event.getEventType().equals(Event.TYPE_SOLO)){
             FragmentEventPrivateCreate fragment = new FragmentEventPrivateCreate();
             fragment.setEvent(event);
+            fragment.setTaskMode(FragmentEventCreate.Mode.UPDATE);
             getBaseActivity().openFragment(fragment);
         }
     }
@@ -344,13 +346,20 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     }
 
     public void toDuplicate(Event event){
-
         Event e = EventUtil.duplicateEvent(event);
-        if(eventCreateFragment==null){
-            eventCreateFragment = new FragmentEventCreate();
+        if (event.getEventType() == Event.TYPE_GROUP) {
+            if (eventCreateFragment == null) {
+                eventCreateFragment = new FragmentEventCreate();
+            }
+            eventCreateFragment.setTaskMode(FragmentEventCreate.Mode.UPDATE);
+            eventCreateFragment.setEvent(e);
+            getBaseActivity().openFragment(eventCreateFragment);
+        }else{
+            FragmentEventPrivateCreate soloFragment = new FragmentEventPrivateCreate();
+            soloFragment.setEvent(e);
+            soloFragment.setTaskMode(FragmentEventCreate.Mode.UPDATE);
+            getBaseActivity().openFragment(soloFragment);
         }
-        eventCreateFragment.setEvent(e);
-        getBaseActivity().openFragment(eventCreateFragment);
     }
 
     public void onRejectAll(){

@@ -10,7 +10,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="83dp"
-    android:background="@color/whiteFive">
+    android:background="@color/whiteFive"
+    android:onClick="@{messageViewGroup.onClickMessage(messageViewGroup.message)}">
 
     <org.unimelb.itime.widget.RoundImageView
         android:id="@+id/activity_meeting_message_icon"
