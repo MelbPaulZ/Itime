@@ -634,6 +634,8 @@ public class EventDetailViewModel extends BaseObservable{
     public void setSelectedTimeSlots(List<TimeSlot> selectedTimeSlots) {
         this.selectedTimeSlots = selectedTimeSlots;
         notifyPropertyChanged(BR.selectedTimeSlots);
+        notifyPropertyChanged(BR.votedBtnString);
+        notifyPropertyChanged(BR.submitBtnString);
     }
 
     @Bindable
