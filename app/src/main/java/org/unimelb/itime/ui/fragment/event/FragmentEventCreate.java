@@ -45,6 +45,15 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     private ToolbarViewModel toolbarViewModel;
     private Event event;
     public final static int REQ_LOCATION = 1001;
+    public Mode taskMode = Mode.CREATE;
+
+    public enum Mode{
+        CREATE, UPDATE
+    }
+
+    public void setTaskMode(Mode taskMode) {
+        this.taskMode = taskMode;
+    }
 
     FragmentEventCreateAddInvitee fragmentEventCreateAddInvitee;
 
@@ -62,6 +71,12 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
             // rotate screen
             event = (Event) savedInstanceState.getSerializable(getString(R.string.event));
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Toast.makeText(getContext(), taskMode.name(), Toast.LENGTH_SHORT).show();
     }
 
     private void init(){
@@ -108,6 +123,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
             toTimeslot(event);
         }else {
             FragmentEventGreeting fragment = new FragmentEventGreeting();
+            fragment.setTaskMode(taskMode);
             Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
             fragment.setEvent(cpyEvent);
             getBaseActivity().openFragment(fragment);

@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.GravityEnum;
@@ -52,7 +53,11 @@ implements EventCreateMvpView, ToolbarInterface{
     private EventCreatePrivateViewModel vm;
     private ToolbarViewModel toolbarVM;
     private Event event;
+    private FragmentEventCreate.Mode taskMode = FragmentEventCreate.Mode.CREATE;
 
+    public void setTaskMode(FragmentEventCreate.Mode taskMode) {
+        this.taskMode = taskMode;
+    }
 
     @Override
     public EventCreatePresenter<EventCreateMvpView> createPresenter() {
@@ -67,6 +72,7 @@ implements EventCreateMvpView, ToolbarInterface{
         }
         return binding.getRoot();
     }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -107,6 +113,8 @@ implements EventCreateMvpView, ToolbarInterface{
     @Override
     public void onResume() {
         super.onResume();
+        Toast.makeText(getContext(), taskMode.name(), Toast.LENGTH_SHORT).show();
+
     }
 
     private HashMap<String, Integer> getOrderHashMap(){
@@ -121,9 +129,9 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void onNext() {
-        if (getActivity() instanceof EventCreateActivity) {
+        if (taskMode == FragmentEventCreate.Mode.CREATE) {
             presenter.createEvent(event);
-        }else if (getActivity() instanceof EventDetailActivity){
+        }else if (taskMode == FragmentEventCreate.Mode.UPDATE){
             presenter.updateEvent(event);
         }
     }

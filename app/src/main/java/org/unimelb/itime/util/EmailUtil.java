@@ -81,6 +81,9 @@ public class EmailUtil {
     }
 
     public boolean isEmail(String input){
+        if (input == null){
+            return false;
+        }
         String email = input.trim();
         return emailPattern.matcher(email).matches();
     }
