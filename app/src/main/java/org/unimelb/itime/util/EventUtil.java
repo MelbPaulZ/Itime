@@ -860,6 +860,17 @@ public class EventUtil extends BaseUtil{
         return null;
     }
 
+    public static Event getRepeatedInstanceWithinScope(Event event,long startDate, long endDate){
+        List<Long> futureRst = event.getRule().getOccurrenceDates(startDate, endDate);
+
+        if (futureRst.size() != 0){
+            event.setStartTime(futureRst.get(pastRst.size() - 1));
+            return event;
+        }
+
+        return null;
+    }
+
     public static boolean isExpired(long timeMillisecond) {
         long nowTime = Calendar.getInstance().getTimeInMillis();
         return nowTime >= timeMillisecond;
