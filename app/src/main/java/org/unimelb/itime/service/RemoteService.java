@@ -224,6 +224,7 @@ public class RemoteService extends Service {
 
             @Override
             public void onConnectError() {
+                Log.i(TAG, "onConnectError: " + "websocket connect error");
                 NetworkUtil.getInstance(context).setAvailable(false);
             }
 

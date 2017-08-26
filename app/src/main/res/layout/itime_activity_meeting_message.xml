@@ -31,7 +31,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="30dp"
         android:textColor="@color/brownishGrey"
-        android:text="@{messageViewGroup.message.title}"
+        android:text="@{messageViewGroup.getActivityDisplayMessage(messageViewGroup.message)}"
         />
 
     <TextView

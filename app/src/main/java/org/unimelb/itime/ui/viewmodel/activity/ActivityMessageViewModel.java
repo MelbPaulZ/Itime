@@ -3,7 +3,10 @@ package org.unimelb.itime.ui.viewmodel.activity;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.graphics.Color;
 import android.icu.util.TimeUnit;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 
 import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
@@ -50,6 +53,14 @@ public class ActivityMessageViewModel extends BaseObservable{
         if (mvpView!=null){
             mvpView.onClickViewMore(message.getMessageGroupUid());
         }
+    }
+
+    public SpannableString getActivityDisplayMessage(Message message){
+        String totalString = message.getDisplayName() + " " + message.getSubtitle1();
+        SpannableString spannableString = new SpannableString(totalString);
+        spannableString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, message.getDisplayName().length(), 0);
+        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#6d6d6d")), message.getDisplayName().length()+1, totalString.length(), 0);
+        return spannableString;
     }
 
     public String getTimeString(Message message){

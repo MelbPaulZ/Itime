@@ -27,6 +27,7 @@ import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.activity.ActivityMessageGroupViewModel;
 import org.unimelb.itime.ui.viewmodel.activity.ActivityMessageViewModel;
 import org.unimelb.itime.ui.viewmodel.activity.ItimeActivitiesViewModel;
+import org.unimelb.itime.util.MessageGroupUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +89,7 @@ public class FragmentItimeActivities extends ItimeBaseFragment<ItimeActivitiesMv
     private List<ActivityMessageGroupViewModel> getMessageViewGroups(){
         DBManager dbManager = DBManager.getInstance(getContext());
         List<MessageGroup> messageGroups = dbManager.getAll(MessageGroup.class);
-
+        MessageGroupUtil.sortMessageGroupByTime(messageGroups);
         if (vm.getMessageGroups().size() == 0) {
             List<ActivityMessageGroupViewModel> activityMessageGroupViewModels = new ArrayList<>();
 
