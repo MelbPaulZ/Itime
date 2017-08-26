@@ -1,6 +1,7 @@
 package org.unimelb.itime.ui.viewmodel.activity;
 
 import android.databinding.Bindable;
+import android.view.View;
 
 import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
@@ -55,4 +56,5 @@ public class ItimeActivitiesDetailViewModel extends ItimeBaseViewModel {
         this.messages = messages;
         notifyPropertyChanged(BR.messages);
     }
+
 }
