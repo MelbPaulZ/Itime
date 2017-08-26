@@ -194,6 +194,7 @@ public class RemoteService extends Service {
     private void firstFetchData(){
         fetchCalendar();
         fetchContact();
+        fetchEvents(); //paul add
 //        fetchFriendRequest();
 //        fetchMessages();
         fetchMeetings();
@@ -224,6 +225,7 @@ public class RemoteService extends Service {
 
             @Override
             public void onConnectError() {
+                Log.i(TAG, "onConnectError: " + "websocket connect error");
                 NetworkUtil.getInstance(context).setAvailable(false);
             }
 
@@ -240,6 +242,7 @@ public class RemoteService extends Service {
                 String s = objects[0].toString();
                 Gson gson = new Gson();
                 WebSocketRes webSocketRes = gson.fromJson(s, WebSocketRes.class);
+                Log.i(TAG, "call: " + webSocketRes.getType());
                 runTask(webSocketRes.getType());
             }
         });
@@ -254,7 +257,7 @@ public class RemoteService extends Service {
                 fetchMeetings();
                 break;
             case WebSocketRes.SYNC_INBOX:
-                fetchMessages();
+                fetchITimeActivities();
                 break;
             case WebSocketRes.SYNC_USER:
                 Log.i(TAG, "runTask:  user" + AppUtil.getUidForDevice());
@@ -274,6 +277,9 @@ public class RemoteService extends Service {
             case WebSocketRes.SYNC_FRIEND_REQUEST:
                 Log.i(TAG, "runTask: friend");
                 fetchFriendRequest();
+                break;
+            case WebSocketRes.SYNC_MESSAGE:
+                fetchMessages();
                 break;
         }
     }
@@ -342,7 +348,7 @@ public class RemoteService extends Service {
                 if (!isStart) {
                     return;
                 }
-                fetchEvents();
+                fetchITimeActivities();
                 //todo need to notify ui changes
             }
         };
@@ -518,12 +524,12 @@ public class RemoteService extends Service {
                 } else {
                     int count = 0;
                     for (FriendRequest request : result.getData().getSend()) {
-                        if (!request.isRead()) {
+                        if (!request.senderIsRead()) {
                             count++;
                         }
                     }
                     for (FriendRequest request : result.getData().getReceive()) {
-                        if (!request.isRead()) {
+                        if (!request.receiverIsRead()) {
                             count++;
                         }
                     }
@@ -591,6 +597,8 @@ public class RemoteService extends Service {
 
             @Override
             public void onNext(HttpResult<List<MessageGroup>> listHttpResult) {
+                MainActivity.hasNewActivities = true;
+                Log.i("paulpaul", "onNext: " + "service update messageGroup");
                 EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_ITIME_ACTIVITIES));
             }
         };

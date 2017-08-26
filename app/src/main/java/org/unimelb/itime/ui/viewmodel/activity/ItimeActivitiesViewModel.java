@@ -50,6 +50,8 @@ public class ItimeActivitiesViewModel extends ItimeBaseViewModel {
         initPopup();
     }
 
+
+
     @Bindable
     public List<ActivityMessageGroupViewModel> getMessageGroups() {
         return messageGroups;
@@ -61,17 +63,21 @@ public class ItimeActivitiesViewModel extends ItimeBaseViewModel {
     }
 
     public void updateMessageGroups(List<MessageGroup> newMessageGroups){
+        List<ActivityMessageGroupViewModel> newMessageGroup = new ArrayList<>();
         for (MessageGroup messageGroup: newMessageGroups){
             ActivityMessageGroupViewModel groupViewModel = findViewModelByMessageGroup(messageGroup);
             if (groupViewModel == null){
                 // create new message group viewmodel if this is not exist
                 groupViewModel = new ActivityMessageGroupViewModel(presenter.getContext(), messageGroup);
-                messageGroups.add(0, groupViewModel);
+                groupViewModel.setMvpView(presenter.getView());
+                newMessageGroup.add(0, groupViewModel);
             }else{
                 // update message
                 groupViewModel.setMessageGroup(messageGroup);
+                newMessageGroup.add(groupViewModel);
             }
         }
+        setMessageGroups(newMessageGroup);
     }
 
 

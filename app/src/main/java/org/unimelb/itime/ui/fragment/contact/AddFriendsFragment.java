@@ -26,6 +26,8 @@ import org.unimelb.itime.ui.mvpview.contact.AddFriendsMvpView;
 import org.unimelb.itime.ui.presenter.contact.ContactPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.contact.AddFriendsViewModel;
+import org.unimelb.itime.util.EmailUtil;
+import org.unimelb.itime.widget.QRCode.CaptureActivityContact;
 
 import java.util.List;
 
@@ -75,6 +77,7 @@ public class AddFriendsFragment extends ItimeBaseFragment<AddFriendsMvpView, Con
     }
 
     public void goToSettingFragment(){
+        Toast.makeText(baseActivity, "TODO Go to setting", Toast.LENGTH_SHORT).show();
 //        if(settingMyProfileFragment == null) {
 //            settingMyProfileFragment = new SettingMyProfileFragment();
 //        }
@@ -86,51 +89,52 @@ public class AddFriendsFragment extends ItimeBaseFragment<AddFriendsMvpView, Con
     }
 
 
-//    /**
-//     * Added by Qiushuo Huang
-//     * @param requestCode
-//     * @param permissions
-//     * @param grantResults
-//     */
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        switch (requestCode) {
-//            case REQ_QRCODE: {
-//                if (allPermissionGranted(grantResults)) {
-//                    startQRCodeScanner();
-//                } else {
-//                    showToast(getString(R.string.need_permission));
-//                }
-//                break;
-//            }
-//        }
-//    }
+    /**
+     * Added by Qiushuo Huang
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQ_QRCODE: {
+                if (allPermissionGranted(grantResults)) {
+                    startQRCodeScanner();
+                } else {
+                    showToast(getString(R.string.need_permission));
+                }
+                break;
+            }
+        }
+    }
 
-//    @PermissionGrant(REQ_QRCODE)
-//    public void startQRCodeScanner(){
-//        startActivityForResult(new Intent(getActivity(), CaptureActivityContact.class), 0);
-//    }
-//
-//    @PermissionDenied(REQ_QRCODE)
-//    public void permissionError(){
-//        showToast(getString(R.string.need_permission));
-//    }
+    @PermissionGrant(REQ_QRCODE)
+    public void startQRCodeScanner(){
+        startActivityForResult(new Intent(getActivity(), CaptureActivityContact.class), 0);
+    }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == getActivity().RESULT_OK) {
-//            Bundle bundle = data.getExtras();
-//            if (bundle != null) {
-//                String result = bundle.getString("result");
-//                if(ContactCheckUtil.getInsstance().isEmail(result)) {
-//                    presenter.findFriend(result);
-//                }else{
-//                    onTaskError(AddFriendsPresenter.TASK_SEARCH_USER, null);
-//                }
-//            }
-//        }
-//    }
+    @PermissionDenied(REQ_QRCODE)
+    public void permissionError(){
+        showToast(getString(R.string.need_permission));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == getActivity().RESULT_OK) {
+            Bundle bundle = data.getExtras();
+            if (bundle != null) {
+                String result = bundle.getString("result");
+                if(EmailUtil.getInstance(getContext()).isEmail(result)) {
+                    presenter.findFriend(result);
+                }else{
+//                    onTaskError(ContactPresenter.TASK_SEARCH_USER, null);
+                    Toast.makeText(baseActivity, R.string.contact_user_not_found_dialog_title, Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
 
     public void sendInviteEmail(){
         String email = mainViewModel.getPureSearchText();

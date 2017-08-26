@@ -289,6 +289,17 @@ public class AddFriendsViewModel extends BaseObservable {
         };
     }
 
+    public View.OnClickListener onScanQRClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mvpView!=null){
+                    mvpView.goToScanQRCode();
+                }
+            }
+        };
+    }
+
     public View.OnClickListener onClearClick(){
 
         return new View.OnClickListener() {

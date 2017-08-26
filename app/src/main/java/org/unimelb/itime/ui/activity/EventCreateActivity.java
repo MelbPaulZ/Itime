@@ -53,6 +53,7 @@ public class EventCreateActivity extends ItimeBaseActivity {
             ev.setStatus(Event.STATUS_CONFIRMED);
 
             fragment = new FragmentEventPrivateCreate();
+            ((FragmentEventPrivateCreate)fragment).setTaskMode(FragmentEventCreate.Mode.CREATE);
             ((FragmentEventPrivateCreate)fragment).setEvent(ev);
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.frag_container_event_create,fragment, FragmentEventCreate.class.getSimpleName()).commit();

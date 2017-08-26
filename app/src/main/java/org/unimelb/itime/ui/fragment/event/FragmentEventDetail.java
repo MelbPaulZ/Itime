@@ -46,6 +46,7 @@ import org.unimelb.itime.util.OtherUtil;
 import org.unimelb.itime.widget.CollapseHeadBar;
 import org.unimelb.itime.widget.popupmenu.ModalPopupView;
 import org.unimelb.itime.widget.popupmenu.PopupMenu;
+import org.unimelb.itime.widget.popupmenu.SelectAlertTimeDialog;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -65,12 +66,14 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     private CollapseHeadBar headBar;
     private FragmentItimeActivitiesDetail activitiesFragment = new FragmentItimeActivitiesDetail();
 
+
     private EventDetailViewModel contentViewModel;
     // for displaying timeslots
 //    private List<SubTimeslotViewModel> timeslotVMList;
 //    private List<WrapperTimeSlot> wrapperTimeSlotList;
     private ModalPopupView allNotePop;
     private DialogEventDetailNoteBinding noteBinding;
+    private SelectAlertTimeDialog selectAlertTimeDialog;
 
     private boolean timeslotShow = true;
 
@@ -235,10 +238,12 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         if (event.getEventType().equals(Event.TYPE_GROUP)){
             FragmentEventCreate fragment = new FragmentEventCreate();
             fragment.setEvent(event);
+            fragment.setTaskMode(FragmentEventCreate.Mode.UPDATE);
             getBaseActivity().openFragment(fragment);
         }else if (event.getEventType().equals(Event.TYPE_SOLO)){
             FragmentEventPrivateCreate fragment = new FragmentEventPrivateCreate();
             fragment.setEvent(event);
+            fragment.setTaskMode(FragmentEventCreate.Mode.UPDATE);
             getBaseActivity().openFragment(fragment);
         }
     }
@@ -246,6 +251,27 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     @Override
     public void onDelete() {
         presenter.deleteEvent(event);
+    }
+
+    @Override
+    public void showAlerTimeDialog() {
+        if(selectAlertTimeDialog == null){
+            selectAlertTimeDialog = new SelectAlertTimeDialog(getContext());
+            selectAlertTimeDialog.setListener(getOnTimeClickListener());
+        }
+        selectAlertTimeDialog.setSelectedTime(event.getReminder());
+        selectAlertTimeDialog.show(getView());
+    }
+
+    private SelectAlertTimeDialog.OnTimeClickListener getOnTimeClickListener(){
+        return new SelectAlertTimeDialog.OnTimeClickListener() {
+            @Override
+            public void onClick(View v, int time) {
+                Event e = event.clone();
+                e.setReminder(time);
+                presenter.updateReminder(e);
+            }
+        };
     }
 
     public void viewChange() {
@@ -320,13 +346,20 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     }
 
     public void toDuplicate(Event event){
-
         Event e = EventUtil.duplicateEvent(event);
-        if(eventCreateFragment==null){
-            eventCreateFragment = new FragmentEventCreate();
+        if (event.getEventType() == Event.TYPE_GROUP) {
+            if (eventCreateFragment == null) {
+                eventCreateFragment = new FragmentEventCreate();
+            }
+            eventCreateFragment.setTaskMode(FragmentEventCreate.Mode.UPDATE);
+            eventCreateFragment.setEvent(e);
+            getBaseActivity().openFragment(eventCreateFragment);
+        }else{
+            FragmentEventPrivateCreate soloFragment = new FragmentEventPrivateCreate();
+            soloFragment.setEvent(e);
+            soloFragment.setTaskMode(FragmentEventCreate.Mode.UPDATE);
+            getBaseActivity().openFragment(soloFragment);
         }
-        eventCreateFragment.setEvent(e);
-        getBaseActivity().openFragment(eventCreateFragment);
     }
 
     public void onRejectAll(){
@@ -376,8 +409,10 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         switch (taskId){
             case EventCreatePresenter.TASK_REFRESH_EVENT:
                 if(contentViewModel!=null && data instanceof Event){
-                    setData((Event)data);
-
+                    Event e = (Event) data;
+                    if(!event.equals(e)) {
+                        setData((Event) data);
+                    }
                 }
                 break;
             case EventCreatePresenter.TASK_EVENT_DELETE:
@@ -469,7 +504,6 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     @Override
     public void onResume(){
         super.onResume();
-        contentViewModel.generateTimeSlotItems();
 //        initTips();
 //        if(timeslotShow) {
 //            bottomSheet.show();

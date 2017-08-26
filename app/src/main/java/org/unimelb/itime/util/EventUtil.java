@@ -766,6 +766,10 @@ public class EventUtil extends BaseUtil{
         TimeSlot firstTimeSlot = getFirstTimeSlot(event.getTimeslot());
         event.setStartTime(firstTimeSlot.getStartTime());
         event.setEndTime(firstTimeSlot.getEndTime());
+        if (event.isAllDay()){
+            event.getStart().setDate(parseTimeZoneToAllDayDate(event.getStart().getDateTime()));
+            event.getEnd().setDate(parseTimeZoneToAllDayDate(event.getEnd().getDateTime()));
+        }
         event.setHostUserUid(UserUtil.getInstance(context).getUserUid());
         event.setUserUid(UserUtil.getInstance(context).getUserUid());
         event.setSelf(UserUtil.getInstance(context).getUserUid());

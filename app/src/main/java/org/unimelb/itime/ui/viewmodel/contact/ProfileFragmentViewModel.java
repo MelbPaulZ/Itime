@@ -23,9 +23,7 @@ import java.util.List;
  */
 
 public class ProfileFragmentViewModel extends BaseObservable {
-//    private AlertDialog blockDialog;
-//    private AlertDialog deleteDialog;
-//    private ActionSheetDialog popupWindow;
+
     private ProfileMvpView mvpView;
     private Contact contact;
     private String requestId;

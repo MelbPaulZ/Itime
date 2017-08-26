@@ -22,6 +22,7 @@
         android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
         bind:layoutManager="@{NonScrollLinearLayoutManager.linear(context)}"
         bind:items="@{vm.items}"
         bind:itemBinding="@{vm.itemBinding}"/>
