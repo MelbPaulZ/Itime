@@ -903,12 +903,15 @@ public class EventUtil extends BaseUtil{
         event.setEnd(end);
     }
     public static Event duplicateEvent(Event event){
-        Event e = event.clone();
-        e.getTimeslot().clear();
-        e.getTimeslotInvitee().clear();
-        String[] emptyRecurrence = {};
-        e.setRecurrence(emptyRecurrence);
-        e.setEventUid(AppUtil.generateUuid());
+        Event e = new Event();
+        for(Map.Entry<String, Invitee> entry:event.getInvitee().entrySet()){
+            Invitee oldInvitee = entry.getValue();
+            Invitee invitee = new Invitee();
+            invitee.setUserId(oldInvitee.getUserId());
+            invitee.setUserUid(oldInvitee.getUserUid());
+            e.getInvitee().put(entry.getKey(), invitee);
+        }
+        e.setEventType(event.getEventType());
         return e;
     }
 }
