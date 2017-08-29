@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.GravityEnum;
 import com.daimajia.swipe.util.Attributes;
 
 import org.unimelb.itime.R;
@@ -69,9 +70,9 @@ public class FragmentArchive extends ItimeBaseFragment<MeetingMvpView,MeetingPre
         toolbarViewModel.setLeftEnable(true);
         toolbarViewModel.setLeftIcon(context.getResources().getDrawable(R.drawable.icon_calendar_arrowleft));
         toolbarViewModel.setTitle(getResources().getString(R.string.meeting_tag_archive));
-        toolbarViewModel.setRightEnable(true);
-        toolbarViewModel.setRightText(getResources().getString(R.string.meeting_tag_archive_clear_all));
-        toolbarViewModel.setRightTextColor(context.getResources().getColor(R.color.brand_warning));
+        toolbarViewModel.setRightEnable(false);
+//        toolbarViewModel.setRightText(getResources().getString(R.string.meeting_tag_archive_clear_all));
+//        toolbarViewModel.setRightTextColor(context.getResources().getColor(R.color.brand_warning));
         binding.setVmToolbar(toolbarViewModel);
     }
 
@@ -111,8 +112,19 @@ public class FragmentArchive extends ItimeBaseFragment<MeetingMvpView,MeetingPre
      */
     @Override
     public void onNext() {
-        mAdapter.notifyItemRangeRemoved(0,filterResult.archiveResult.size());
-        meetingPresenter.deleteAllArchive();
+        getDialogBuidler()
+                .content(R.string.meeting_archive_dialog_clear_alert_msg_content)
+                .title(R.string.meeting_archive_dialog_alert_msg_title)
+                .contentColor(getResources().getColor(R.color.black))
+                .contentGravity(GravityEnum.CENTER)
+                .negativeText(R.string.meeting_archive_dialog_delete)
+                .positiveText(R.string.meeting_archive_dialog_cancel)
+                .onNegative((dialog, which) -> {
+                    mAdapter.notifyItemRangeRemoved(0,filterResult.archiveResult.size());
+                    meetingPresenter.deleteAllArchive();
+                })
+                .onPositive((dialog, which) -> dialog.dismiss())
+                .show();
     }
 
     @Override
@@ -142,5 +154,20 @@ public class FragmentArchive extends ItimeBaseFragment<MeetingMvpView,MeetingPre
         Intent intent = new Intent(getActivity(), EventDetailActivity.class);
         intent.putExtra(EventDetailActivity.EVENT, meeting.getEvent());
         getActivity().startActivity(intent);
+    }
+
+    @Override
+    public void onTaskStart(int taskId) {
+
+    }
+
+    @Override
+    public void onTaskSuccess(int taskId, Object data) {
+
+    }
+
+    @Override
+    public void onTaskError(int taskId, Object data) {
+
     }
 }

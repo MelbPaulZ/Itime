@@ -36,43 +36,43 @@ public class MeetingInvitationBaseCardViewModel extends MeetingBaseCardViewModel
 
     static {
         cardsMap.put(1,new CardTemplate(
-                1, View.VISIBLE, "Vote", R.color.white, R.drawable.icon_meetings_vote, R.color.brand_main, R.color.black
+                1, View.VISIBLE, R.string.meeting_status_vote, R.color.white, R.drawable.icon_meetings_vote, R.color.brand_main, R.color.black
         ));
         cardsMap.put(2,new CardTemplate(
-                2, View.GONE, "Voted", R.color.brand_main, R.drawable.icon_meetings_voted, R.color.transparent, R.color.brand_main
+                2, View.GONE, R.string.meeting_status_voted, R.color.brand_main, R.drawable.icon_meetings_voted, R.color.transparent, R.color.brand_main
         ));
         cardsMap.put(3,new CardTemplate(
-                3, View.GONE, "Going", R.color.brand_main, R.drawable.icon_meetings_going, R.color.transparent, R.color.brand_main
+                3, View.GONE, R.string.meeting_status_going, R.color.brand_main, R.drawable.icon_meetings_going, R.color.transparent, R.color.brand_main
         ));
         cardsMap.put(4,new CardTemplate(
-                4, View.VISIBLE, "Not Going", R.color.red, R.drawable.icon_meetings_notgoing, R.color.transparent, R.color.black
+                4, View.VISIBLE, R.string.meeting_status_not_going, R.color.red, R.drawable.icon_meetings_notgoing, R.color.transparent, R.color.black
         ));
         cardsMap.put(5,new CardTemplate(
-                5, View.GONE, "Revote", R.color.white, R.drawable.icon_meetings_vote, R.color.brand_main, R.color.brand_main
+                5, View.GONE, R.string.meeting_status_revote, R.color.white, R.drawable.icon_meetings_vote, R.color.brand_main, R.color.brand_main
         ));
         cardsMap.put(6,new CardTemplate(
-                6, View.GONE, "Decide", R.color.white, R.drawable.icon_meetings_decide, R.color.brand_main, R.color.brand_main
+                6, View.GONE, R.string.meeting_status_decide, R.color.white, R.drawable.icon_meetings_decide, R.color.brand_main, R.color.brand_main
         ));
         cardsMap.put(7,new CardTemplate(
-                7, View.GONE, "Going", R.color.brand_main, R.drawable.icon_meetings_going, R.color.transparent, R.color.brand_main
+                7, View.GONE, R.string.meeting_status_going, R.color.brand_main, R.drawable.icon_meetings_going, R.color.transparent, R.color.brand_main
         ));
         cardsMap.put(8,new CardTemplate(
-                8, View.GONE, "Not Going", R.color.red, R.drawable.icon_meetings_notgoing, R.color.transparent, R.color.brand_main
+                8, View.GONE, R.string.meeting_status_not_going, R.color.red, R.drawable.icon_meetings_notgoing, R.color.transparent, R.color.brand_main
         ));
         cardsMap.put(9,new CardTemplate(
-                9, View.GONE, "Voted", R.color.brand_main, R.drawable.icon_meetings_voted, R.color.transparent, R.color.brand_main
+                9, View.GONE, R.string.meeting_status_voted, R.color.brand_main, R.drawable.icon_meetings_voted, R.color.transparent, R.color.brand_main
         ));
         cardsMap.put(10,new CardTemplate(
-                10, View.GONE, "Not Going", R.color.red, R.drawable.icon_meetings_notgoing, R.color.transparent, R.color.brand_main
+                10, View.GONE, R.string.meeting_status_not_going, R.color.red, R.drawable.icon_meetings_notgoing, R.color.transparent, R.color.brand_main
         ));
         cardsMap.put(11,new CardTemplate(
-                11, View.GONE, "Cancelled", R.color.text_indication, R.drawable.icon_meetings_cancelled, R.color.white, R.color.transparent
+                11, View.GONE, R.string.meeting_status_cancelled, R.color.text_indication, R.drawable.icon_meetings_cancelled, R.color.white, R.color.transparent
         ));
         cardsMap.put(12,new CardTemplate(
-                12, View.GONE, "Cancelled", R.color.text_indication, R.drawable.icon_meetings_cancelled, R.color.white, R.color.transparent
+                12, View.GONE, R.string.meeting_status_cancelled, R.color.text_indication, R.drawable.icon_meetings_cancelled, R.color.white, R.color.transparent
         ));
         cardsMap.put(13,new CardTemplate(
-                13, View.VISIBLE, "Decide", R.color.white, R.drawable.icon_meetings_decide, R.color.brand_main, R.color.black
+                13, View.VISIBLE, R.string.meeting_status_decide, R.color.white, R.drawable.icon_meetings_decide, R.color.brand_main, R.color.black
         ));
     }
 
@@ -103,7 +103,7 @@ public class MeetingInvitationBaseCardViewModel extends MeetingBaseCardViewModel
 
     /*********** Invitation *********** Start of card content configuration **********************************************/
     public String getSysMsg(){
-        return cardTemplate.getSysMsg(meeting);
+        return cardTemplate.getSysMsg(context, meeting);
     }
 
     public int getSysTextColor(){
@@ -119,7 +119,7 @@ public class MeetingInvitationBaseCardViewModel extends MeetingBaseCardViewModel
     }
 
     public String getIconText(){
-        return cardTemplate.iconText;
+        return cardTemplate.getIconText(context);
     }
 
     public String getTitle(){

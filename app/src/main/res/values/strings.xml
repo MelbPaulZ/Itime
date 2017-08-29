@@ -301,6 +301,22 @@
     <string name="meeting_reminder_time_day" >%1$dd</string>
     <string name="meeting_reminder_time_hour" >%1$dh</string>
     <string name="meeting_reminder_time_min" >%1$dmin</string>
+    <string name="meeting_sys_msg_invitation"> invite you to</string>
+    <string name="meeting_sys_msg_wait_host_confirm">Pending host confirmation</string>
+    <string name="meeting_sys_msg_confirmed">Confirmed</string>
+    <string name="meeting_sys_msg_updated">…changed</string>
+    <string name="meeting_sys_msg_diff_timeslot_confirmed">Different timeslot confirmed</string>
+    <string name="meeting_status_vote">Vote</string>
+    <string name="meeting_status_voted">Voted</string>
+    <string name="meeting_status_going">Going</string>
+    <string name="meeting_status_not_going">Not Going</string>
+    <string name="meeting_status_revote">Revote</string>
+    <string name="meeting_status_decide">Decide</string>
+    <string name="meeting_status_cancelled">Cancelled</string>
+    <string name="meeting_archive_dialog_alert_msg_title">Clear All Event?</string>
+    <string name="meeting_archive_dialog_clear_alert_msg_content">Everything about this event will be deleted</string>
+    <string name="meeting_archive_dialog_delete">Delete</string>
+    <string name="meeting_archive_dialog_cancel">Cancel</string>
     <string name="search">Search</string>
     
     <!--contacts-->
@@ -308,8 +324,7 @@
     <string name="contact_find_more_friends">Find More Friends</string>
     <string name="contact_my_profile">My Profile</string>
     <string name="contact_user_not_found_dialog_title">User Not Found</string>
-    <string name="contact_user_not_found_dialog_message">Invite\n%1$s\nto
-join iTime</string>
+    <string name="contact_user_not_found_dialog_message">Invite\n%1$s\nto join iTime</string>
     <string name="my_qr_code_explain">Scan the QR code to add me on Timegenii</string>
     <string name="my_qr_code_title">My QR Code</string>
     <string name="save_to_album">Save Photo</string>
@@ -383,4 +398,8 @@ join iTime</string>
     <string name="alert_str_one_day_before">1 day before</string>
     <string name="alert_str_two_days_before">2 days before</string>
     <string name="alert_str_one_week_before">1 week before</string>
+    <string name="meeting_placeholder_invitation">This is where you find all invitations \n sent to you</string>
+    <string name="meeting_placeholder_hosting">Create a meeting and it will show up here</string>
+    <string name="meeting_placeholder_coming">This is where you find all meetings \n you are going to attend</string>
+
 </resources>

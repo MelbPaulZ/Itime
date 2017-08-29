@@ -199,7 +199,13 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
                 selectMax = getContext().getResources().getInteger(R.integer.timeslot_create_max_count);
                 break;
             case HOST_CONFIRM:
+                if (slots.size() > 0 && slots.get(0).isAllDay()){
+                    mode = TimeSlotView.ViewMode.ALL_DAY_SELECT;
+                }else {
+                    mode = TimeSlotView.ViewMode.NON_ALL_DAY_SELECT;
+                }
                 selectMax = getContext().getResources().getInteger(R.integer.timeslot_confirm_max_count);
+                break;
             case INVITEE_CONFIRM:
                 if (slots.size() > 0 && slots.get(0).isAllDay()){
                     mode = TimeSlotView.ViewMode.ALL_DAY_SELECT;
@@ -207,6 +213,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
                     mode = TimeSlotView.ViewMode.NON_ALL_DAY_SELECT;
                 }
                 selectMax = event.getTimeslot().size();
+                toolbarVM.setMaxCount(selectMax);
                 break;
             default:
                 mode = null;
@@ -323,7 +330,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
                             wrapperTimeSlot.setSelected(true);
                         }else {
                             Toast.makeText(getContext()
-                                    , String.format(getContext().getString(R.string.timeslot_alert_create_max_count), selectMax)
+                                    , String.format(getContext().getString(R.string.timeslot_alert_selected_max_count), selectMax)
                                     , Toast.LENGTH_LONG).show();
                         }
                     }else {

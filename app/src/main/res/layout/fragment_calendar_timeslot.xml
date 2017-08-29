@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|center_horizontal"
                     android:gravity="center"
-                    android:text="@{toolbarVM.getTitle(context,toolbarVM.selectedTimeslot, toolbarVM.confirmedTimeslot)}"
+                    android:text="@{toolbarVM.getTitle(context,toolbarVM.selectedTimeslot, toolbarVM.confirmedTimeslot, toolbarVM.maxCount)}"
                     android:textColor="@color/brownishGreyTwo"
                     android:textSize="@dimen/font_large"
                     android:textStyle="bold" />

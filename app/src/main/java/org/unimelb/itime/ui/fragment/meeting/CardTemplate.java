@@ -1,5 +1,8 @@
 package org.unimelb.itime.ui.fragment.meeting;
 
+import android.content.Context;
+
+import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.util.EventUtil;
 
@@ -8,9 +11,8 @@ import org.unimelb.itime.util.EventUtil;
  */
 
 public class CardTemplate {
-    public int type;
 
-    public String iconText;
+    public int type;
     public int photoVisibility;
     public int iconTextColor;
     public int iconSrc;
@@ -18,14 +20,20 @@ public class CardTemplate {
     public int sidebarColor;
     public int sysMsgTextColor;
 
-    public CardTemplate(int type, int photoVisibility, String iconText, int iconTextColor, int iconSrc, int sidebarColor, int sysMsgTextColor) {
+    private int iconTextResId;
+
+    public CardTemplate(int type, int photoVisibility, int iconTextResId, int iconTextColor, int iconSrc, int sidebarColor, int sysMsgTextColor) {
         this.type = type;
         this.photoVisibility = photoVisibility;
-        this.iconText = iconText;
+        this.iconTextResId = iconTextResId;
         this.iconTextColor = iconTextColor;
         this.iconSrc = iconSrc;
         this.sidebarColor = sidebarColor;
         this.sysMsgTextColor = sysMsgTextColor;
+    }
+
+    public String getIconText(Context context){
+        return context.getResources().getString(iconTextResId);
     }
 
     public String getTitle(Meeting meeting) {
@@ -40,23 +48,23 @@ public class CardTemplate {
         return EventUtil.getEventHostUser(meeting.getEvent()).getPhoto();
     }
 
-    public String getSysMsg(Meeting meeting) {
+    public String getSysMsg(Context context, Meeting meeting) {
         switch (type){
             case 1:case 4:case 13:
-                return EventUtil.getEventHostUser(meeting.getEvent()).getPersonalAlias() + " invite you to";
+                return EventUtil.getEventHostUser(meeting.getEvent()).getPersonalAlias() + context.getString(R.string.meeting_sys_msg_invitation);
             case 2:
-                return "Pending host confirmation";
+                return context.getString(R.string.meeting_sys_msg_wait_host_confirm);
             case 3:case 10:
-                return "Confirmed";
+                return context.getString(R.string.meeting_sys_msg_confirmed);
             case 5:case 7:case 8:case 9:
                 String fields = "";
                 for (String field:meeting.getUpdateField()
                      ) {
                     fields += field + ",";
                 }
-                return fields + "...changed";
+                return fields + context.getString(R.string.meeting_sys_msg_updated);
             case 6:
-                return "Different timeslot confirmed";
+                return context.getString(R.string.meeting_sys_msg_diff_timeslot_confirmed);
             case 11: case 12:
                 return "";
             default:

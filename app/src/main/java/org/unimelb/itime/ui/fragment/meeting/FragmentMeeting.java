@@ -210,4 +210,19 @@ public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPr
             getPresenter().refreshDisplayData();
         }
     }
+
+    @Override
+    public void onTaskStart(int taskId) {
+
+    }
+
+    @Override
+    public void onTaskSuccess(int taskId, Object data) {
+
+    }
+
+    @Override
+    public void onTaskError(int taskId, Object data) {
+
+    }
 }

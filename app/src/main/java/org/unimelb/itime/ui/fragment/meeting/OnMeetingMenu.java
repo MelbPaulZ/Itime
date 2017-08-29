@@ -1,6 +1,7 @@
 package org.unimelb.itime.ui.fragment.meeting;
 
-import org.unimelb.itime.bean.Event;
+import android.util.Log;
+
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.ui.mvpview.MeetingMvpView;
 import org.unimelb.itime.ui.presenter.MeetingPresenter;
@@ -28,27 +29,29 @@ public class OnMeetingMenu implements RecyclerViewAdapterMeetings.OnMenuListener
 
     @Override
     public void onPin(Meeting obj) {
-        meetingPresenter.updateItem(obj);
+        meetingPresenter.pinOpt(obj,obj.getEvent().isPinned());
         int index = data.indexOf(obj);
         mAdapter.notifyItemChanged(index);
     }
 
     @Override
     public void onMute(Meeting obj) {
-        meetingPresenter.updateItem(obj);
+        meetingPresenter.muteOpt(obj, obj.getEvent().isMute());
         int index = data.indexOf(obj);
         mAdapter.notifyItemChanged(index);
     }
 
     @Override
     public void onArchive(Meeting obj) {
-        meetingPresenter.updateItem(obj);
+        meetingPresenter.archiveOpt(obj, true);
         int index = data.indexOf(obj);
         data.remove(index);
 
         filterResult.archiveResult.add(obj);
-
         mAdapter.notifyItemRemoved(index);
+        if (mAdapter.getItemCount() == 0){
+            mAdapter.notifyDatasetChanged();
+        }
     }
 
     @Override
@@ -66,6 +69,6 @@ public class OnMeetingMenu implements RecyclerViewAdapterMeetings.OnMenuListener
         mAdapter.notifyItemRemoved(index);
 
         restoreItem(obj, filterResult);
-        meetingPresenter.updateItem(obj);
+        meetingPresenter.restoreOpt(obj);
     }
 }
