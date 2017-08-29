@@ -1,6 +1,7 @@
 package org.unimelb.itime.ui.mvpview.activity;
 
 import org.unimelb.itime.base.ItimeBaseMvpView;
+import org.unimelb.itime.bean.Message;
 import org.unimelb.itime.bean.MessageGroup;
 
 /**
@@ -10,4 +11,5 @@ import org.unimelb.itime.bean.MessageGroup;
 public interface ItimeActivitiesMvpView extends ItimeBaseMvpView {
     void onClickViewMore(int messageGroupUid);
     void onDisplayMessages(MessageGroup messageGroup);
+    void onReadMessages(Message message);
 }

@@ -90,6 +90,7 @@ public class ActivityMessageViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mvpView.onReadMessages(message);
                 Intent intent = new Intent(context, EventDetailActivity.class);
                 Event event = DBManager.getInstance(context).getEvent(message.getEventUid());
                 if (event == null){
