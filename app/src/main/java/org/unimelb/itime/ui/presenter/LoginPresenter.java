@@ -19,7 +19,7 @@ import org.unimelb.itime.restfulapi.UserApi;
 import org.unimelb.itime.restfulresponse.HttpResult;
 import org.unimelb.itime.restfulresponse.UserLoginRes;
 import org.unimelb.itime.restfulresponse.ValidateRes;
-import org.unimelb.itime.ui.mvpview.LoginMvpView;
+import org.unimelb.itime.ui.mvpview.TaskBasedMvpView;
 import org.unimelb.itime.util.AuthUtil;
 import org.unimelb.itime.util.HttpUtil;
 import org.unimelb.itime.util.UserUtil;
@@ -38,7 +38,7 @@ import rx.Observable;
 /**
  * Created by yinchuandong on 11/08/2016.
  */
-public class LoginPresenter extends MvpBasePresenter<LoginMvpView> {
+public class LoginPresenter<V extends TaskBasedMvpView> extends MvpBasePresenter<V> {
     private static final String TAG = "LoginPresenter";
 
     public static int TASK_LOGIN = 1000;
@@ -64,10 +64,9 @@ public class LoginPresenter extends MvpBasePresenter<LoginMvpView> {
 
     public void loginByEmail(String email, String password) {
 
-        LoginMvpView view = getView();
-        if (view != null) {
+        if (getView() != null) {
             // call retrofit
-            view.onTaskStart(TASK_LOGIN);
+            getView().onTaskStart(TASK_LOGIN);
         }
         AuthUtil.clearJwtToken(context);
         Observable<HttpResult<UserLoginRes>> observable = userApi.login(email, password);

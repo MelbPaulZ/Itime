@@ -8,6 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Theme.App.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">#c5c5c5</item>
+        <item name="colorControlActivated">#222222</item>
+        <item name="colorControlHighlight">#222222</item>
+    </style>
+
     <style name="ITimeTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name = "android:windowBackground">@color/app_bg</item>
     </style>

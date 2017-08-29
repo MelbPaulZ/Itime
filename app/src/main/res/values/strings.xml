@@ -383,4 +383,11 @@ join iTime</string>
     <string name="alert_str_one_day_before">1 day before</string>
     <string name="alert_str_two_days_before">2 days before</string>
     <string name="alert_str_one_week_before">1 week before</string>
+
+    <!--login-->
+    <string name="login">Log In</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login_main_string1">Forget your password?</string>
+    <string name="login_main_string2">Reset by Email.</string>
 </resources>

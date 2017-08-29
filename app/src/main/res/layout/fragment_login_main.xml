@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="toolbarVM"
+            type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.login.LoginMainViewModel"/>
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/toolbar"
+        android:layout_height="56dp"
+        android:layout_width="match_parent"
+        vm="@{toolbarVM}"/>
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/icon_login_loginarrow"/>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:textColor="@color/text_body"
+        android:textSize="@dimen/font_huge"
+        android:layout_marginTop="@dimen/padding_10"
+        android:layout_gravity="center"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/padding_10"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:hint="@string/email"
+        android:textSize="14sp"
+        android:theme="@style/Theme.App.Base"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:theme="@style/Theme.App.Base"
+        android:hint="@string/password"
+        android:focusableInTouchMode="true"
+        android:textSize="14sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp">
+        <TextView
+            android:id="@+id/login_main_tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_5"
+            android:paddingRight="0dp"
+            android:textColor="@color/text_body"
+            android:text="@string/login_main_string1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:padding="@dimen/padding_5"
+            android:textStyle="bold"
+            android:textColor="@color/text_body"
+            android:text="@string/login_main_string2"
+            android:layout_toRightOf="@id/login_main_tv1"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
+</layout>
