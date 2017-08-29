@@ -860,6 +860,17 @@ public class EventUtil extends BaseUtil{
         return null;
     }
 
+//    public static Event getRepeatedInstanceWithinScope(Event event,long startDate, long endDate){
+//        List<Long> futureRst = event.getRule().getOccurrenceDates(startDate, endDate);
+//
+//        if (futureRst.size() != 0){
+//            event.setStartTime(futureRst.get(pastRst.size() - 1));
+//            return event;
+//        }
+//
+//        return null;
+//    }
+
     public static boolean isExpired(long timeMillisecond) {
         long nowTime = Calendar.getInstance().getTimeInMillis();
         return nowTime >= timeMillisecond;
@@ -903,11 +914,15 @@ public class EventUtil extends BaseUtil{
         event.setEnd(end);
     }
     public static Event duplicateEvent(Event event){
-        Event e = event.clone();
-        e.getInvitee().clear();
-        e.getTimeslot().clear();
-        e.getTimeslotInvitee().clear();
-        e.setEventUid(AppUtil.generateUuid());
+        Event e = new Event();
+        for(Map.Entry<String, Invitee> entry:event.getInvitee().entrySet()){
+            Invitee oldInvitee = entry.getValue();
+            Invitee invitee = new Invitee();
+            invitee.setUserId(oldInvitee.getUserId());
+            invitee.setUserUid(oldInvitee.getUserUid());
+            e.getInvitee().put(entry.getKey(), invitee);
+        }
+        e.setEventType(event.getEventType());
         return e;
     }
 }

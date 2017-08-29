@@ -23,6 +23,9 @@ import rx.Observable;
 public interface EventApi {
     public static final int OPERATION_TRUE = 1;
     public static final int OPERATION_FALSE = 2;
+
+    int TRUE = 1;
+    int FALSE = 0;
     String REASON = "reason";
 
     @GET("event/list/{calendarUid}")

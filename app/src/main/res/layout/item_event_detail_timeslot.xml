@@ -63,11 +63,7 @@
         android:layout_toLeftOf="@id/rightLabel"/>
 
     <org.unimelb.itime.widget.PileupView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:pileup_ratio="0.5"
-        app:pileup_maxNum="3"
-        app:pileup_imageSize="14dp"
+        style="@style/PileupStyle"
         app:pileup_images="@{vm.inviteePhotos}"
         android:layout_centerVertical="true"
         android:id="@+id/pileup_avatars"

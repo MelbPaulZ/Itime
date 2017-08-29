@@ -698,7 +698,7 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
     public void muteEvent(Event event, boolean isMute){
 
         String syncToken = TokenUtil.getInstance(getContext()).getEventToken(UserUtil.getInstance(getContext()).getUserUid());
-        int mute = isMute?EventApi.OPERATION_TRUE:EventApi.OPERATION_FALSE;
+        int mute = isMute?EventApi.TRUE:EventApi.FALSE;
 
         Observable<HttpResult<List<Event>>> observable = eventApi.mute(event.getCalendarUid(), event.getEventUid(), mute, syncToken);
         Subscriber<HttpResult<List<Event>>> subscriber = new Subscriber<HttpResult<List<Event>>>() {
@@ -729,7 +729,7 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
     public void pinEvent(Event event, boolean isPin){
 
         String syncToken = TokenUtil.getInstance(getContext()).getEventToken(UserUtil.getInstance(getContext()).getUserUid());
-        int pin = isPin?EventApi.OPERATION_TRUE:EventApi.OPERATION_FALSE;
+        int pin = isPin?EventApi.TRUE:EventApi.FALSE;
 
         Observable<HttpResult<List<Event>>> observable = eventApi.pin(event.getCalendarUid(), event.getEventUid(), pin, syncToken);
         Subscriber<HttpResult<List<Event>>> subscriber = new Subscriber<HttpResult<List<Event>>>() {
@@ -760,7 +760,7 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
     public void archiveEvent(Event event, boolean isArchive){
 
         String syncToken = TokenUtil.getInstance(getContext()).getEventToken(UserUtil.getInstance(getContext()).getUserUid());
-        int archive = isArchive?EventApi.OPERATION_TRUE:EventApi.OPERATION_FALSE;
+        int archive = isArchive?EventApi.TRUE:EventApi.FALSE;
 
         Observable<HttpResult<List<Event>>> observable = eventApi.archive(event.getCalendarUid(), event.getEventUid(), archive, syncToken);
         Subscriber<HttpResult<List<Event>>> subscriber = new Subscriber<HttpResult<List<Event>>>() {

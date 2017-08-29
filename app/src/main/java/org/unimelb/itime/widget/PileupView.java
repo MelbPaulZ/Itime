@@ -67,7 +67,7 @@ public class PileupView extends ViewGroup {
         } finally {
             arr.recycle();
         }
-        borderColor = getResources().getColor(R.color.grey);
+        borderColor = getResources().getColor(R.color.white);
     }
 
     @Override

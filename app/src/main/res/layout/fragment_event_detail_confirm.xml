@@ -137,11 +137,7 @@
                 android:layout_toRightOf="@id/going_count"/>
 
             <org.unimelb.itime.widget.PileupView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:pileup_ratio="0.5"
-                app:pileup_maxNum="3"
-                app:pileup_imageSize="14dp"
+                style="@style/PileupStyle"
                 app:pileup_images="@{vm.goInvitees}"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
@@ -176,11 +172,7 @@
                 android:layout_toRightOf="@id/not_going_count"/>
 
             <org.unimelb.itime.widget.PileupView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:pileup_ratio="0.5"
-                app:pileup_maxNum="3"
-                app:pileup_imageSize="14dp"
+                style="@style/PileupStyle"
                 app:pileup_images="@{vm.notGoInvitees}"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"

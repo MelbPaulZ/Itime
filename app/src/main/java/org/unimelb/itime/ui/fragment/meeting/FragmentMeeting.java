@@ -58,7 +58,7 @@ public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPr
         binding.getRoot().findViewById(R.id.search_bar).setOnClickListener(onSearchClick());
         binding.getRoot().findViewById(R.id.archive_entrance).setOnClickListener(onArchiveClick());
         RoundImageView profileView = (RoundImageView)binding.getRoot().findViewById(R.id.profile_photo);
-        Picasso.with(getContext()).load(UserUtil.getInstance().getUser().getPhoto()).into(profileView);
+        Picasso.with(getContext()).load(UserUtil.getInstance(getContext()).getUser().getPhoto()).into(profileView);
 
         final TabLayout tabLayout = (TabLayout) binding.getRoot().findViewById(R.id.tab_layout);
 

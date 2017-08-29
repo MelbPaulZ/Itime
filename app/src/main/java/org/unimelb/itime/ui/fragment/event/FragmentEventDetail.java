@@ -351,13 +351,13 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
             if (eventCreateFragment == null) {
                 eventCreateFragment = new FragmentEventCreate();
             }
-            eventCreateFragment.setTaskMode(FragmentEventCreate.Mode.UPDATE);
+
             eventCreateFragment.setEvent(e);
             getBaseActivity().openFragment(eventCreateFragment);
         }else{
             FragmentEventPrivateCreate soloFragment = new FragmentEventPrivateCreate();
             soloFragment.setEvent(e);
-            soloFragment.setTaskMode(FragmentEventCreate.Mode.UPDATE);
+
             getBaseActivity().openFragment(soloFragment);
         }
     }
@@ -504,6 +504,8 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     @Override
     public void onResume(){
         super.onResume();
+        contentViewModel.setSelectedTimeSlots(contentViewModel.getSelectedTimeSlots());
+        contentViewModel.generateTimeSlotItems();
 //        initTips();
 //        if(timeslotShow) {
 //            bottomSheet.show();
