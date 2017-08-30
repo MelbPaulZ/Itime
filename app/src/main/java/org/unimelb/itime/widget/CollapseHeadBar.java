@@ -126,45 +126,48 @@ public class CollapseHeadBar extends AppBarLayout {
     }
 
     private void initContentView(){
-        binding =  DataBindingUtil.inflate(LayoutInflater.from(getContext()),R.layout.toolbar_collapse_headbar, this, false);
-        if(vm!=null){
-            binding.setContentVM(vm);
-        }
-        contentView = (CollapsingToolbarLayout) binding.getRoot();
-//        setContentScrim(new ColorDrawable(Color.parseColor("#6E000000")));
-        avatarView = (ImageView) contentView.findViewById(R.id.avatarView);
-        smallTitle = (TextView) contentView.findViewById(R.id.smallTitle);
-        bigTitleView = (TextView) contentView.findViewById(R.id.bigTitle);
-        nameView = (TextView) contentView.findViewById(R.id.nameTextView);
-        statusIcons = (LinearLayout) contentView.findViewById(R.id.statusIcons);
-        inviteeCountView = (TextView) contentView.findViewById(R.id.inviteeCount);
-
-        if(inviteeCountView.getText().toString().isEmpty()){
-            inviteeCountView.setVisibility(GONE);
-        }
-
-        leftButton = contentView.findViewById(R.id.leftButton);
-        rightButton = contentView.findViewById(R.id.rightButton);
-
-        initMenu();
-
-        setTitle(title);
-        setName(name);
-        setInvieeCount(invieeCount);
-        loadAvatar();
-        loadBackground();
-        this.addView(contentView);
-
-        this.addOnOffsetChangedListener(new OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                int maxScroll = appBarLayout.getTotalScrollRange();
-                float percentage = (float) Math.abs(verticalOffset) / (float) maxScroll;
-
-                handleAlphaOnTitle(percentage);
-                handleToolbarTitleVisibility(percentage);
+        if(binding==null) {
+            binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.toolbar_collapse_headbar, this, false);
+            if (vm != null) {
+                binding.setContentVM(vm);
             }
-        });
+            contentView = (CollapsingToolbarLayout) binding.getRoot();
+//        setContentScrim(new ColorDrawable(Color.parseColor("#6E000000")));
+            avatarView = (ImageView) contentView.findViewById(R.id.avatarView);
+            smallTitle = (TextView) contentView.findViewById(R.id.smallTitle);
+            bigTitleView = (TextView) contentView.findViewById(R.id.bigTitle);
+            nameView = (TextView) contentView.findViewById(R.id.nameTextView);
+            statusIcons = (LinearLayout) contentView.findViewById(R.id.statusIcons);
+            inviteeCountView = (TextView) contentView.findViewById(R.id.inviteeCount);
+
+            if (inviteeCountView.getText().toString().isEmpty()) {
+                inviteeCountView.setVisibility(GONE);
+            }
+
+            leftButton = contentView.findViewById(R.id.leftButton);
+            rightButton = contentView.findViewById(R.id.rightButton);
+
+            initMenu();
+
+            setTitle(title);
+            setName(name);
+            setInvieeCount(invieeCount);
+            loadAvatar();
+            loadBackground();
+            this.addOnOffsetChangedListener(new OnOffsetChangedListener() {
+                @Override
+                public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                    int maxScroll = appBarLayout.getTotalScrollRange();
+                    float percentage = (float) Math.abs(verticalOffset) / (float) maxScroll;
+
+                    handleAlphaOnTitle(percentage);
+                    handleToolbarTitleVisibility(percentage);
+                }
+            });
+            setTitileVisibility();
+        }
+
+        this.addView(binding.getRoot());
     }
 
     private void setContentScrim(Drawable scrimDrawable){
@@ -273,6 +276,8 @@ public class CollapseHeadBar extends AppBarLayout {
             if(!mIsTheTitleVisible) {
                 startAlphaAnimation(smallTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
                 mIsTheTitleVisible = true;
+            }else{
+                smallTitle.setVisibility(View.VISIBLE);
             }
 
         } else {
@@ -280,8 +285,31 @@ public class CollapseHeadBar extends AppBarLayout {
             if (mIsTheTitleVisible) {
                 startAlphaAnimation(smallTitle, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
                 mIsTheTitleVisible = false;
+            }else{
+                smallTitle.setVisibility(View.INVISIBLE);
             }
         }
+    }
+
+    private void setTitileVisibility(){
+        int maxScroll = getTotalScrollRange();
+        float percentage = (float) Math.abs(computeVerticalScrollOffset()) / (float) maxScroll;
+
+        handleAlphaOnTitle(percentage);
+        handleToolbarTitleVisibility(percentage);
+//        if(mIsTheTitleContainerVisible) {
+//            bigTitleView.setVisibility(View.VISIBLE);
+//            statusIcons.setVisibility(View.VISIBLE);
+//        }else{
+//            bigTitleView.setVisibility(View.INVISIBLE);
+//            statusIcons.setVisibility(View.INVISIBLE);
+//        }
+//
+//        if(mIsTheTitleVisible) {
+//            smallTitle.setVisibility(View.VISIBLE);
+//        }else{
+//            smallTitle.setVisibility(View.INVISIBLE);
+//        }
     }
 
     private void handleAlphaOnTitle(float percentage) {
@@ -290,14 +318,19 @@ public class CollapseHeadBar extends AppBarLayout {
                 startAlphaAnimation(bigTitleView, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
                 startAlphaAnimation(statusIcons, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
                 mIsTheTitleContainerVisible = false;
+            } else{
+                bigTitleView.setVisibility(View.INVISIBLE);
+                statusIcons.setVisibility(View.INVISIBLE);
             }
 
         } else {
-
             if (!mIsTheTitleContainerVisible) {
                 startAlphaAnimation(bigTitleView, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
                 startAlphaAnimation(statusIcons, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
                 mIsTheTitleContainerVisible = true;
+            }else{
+                bigTitleView.setVisibility(View.VISIBLE);
+                statusIcons.setVisibility(View.VISIBLE);
             }
         }
     }
