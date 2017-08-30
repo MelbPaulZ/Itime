@@ -76,10 +76,14 @@ public class MeetingUtil extends BaseUtil{
                     // TODO: 18/7/17 return card 11 or 12 : dif on second title (repeated and instances)
                     return 11;
 
-                }else {
+                }else if (userInviteeStatus.equals(Invitee.STATUS_DECLINED)){
                     //event still in active
-                    if (userInviteeStatus.equals(Invitee.STATUS_DECLINED)){
-                        return 4;
+                    return 4;
+                }else if (userInviteeStatus.equals(Invitee.STATUS_NEEDSACTION)){
+                    if (isUpdated){
+                        return 8;
+                    }else {
+                        return 10;
                     }
                 }
             }

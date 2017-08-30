@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.daimajia.swipe.util.Attributes;
 
@@ -24,20 +25,17 @@ import java.util.List;
  */
 
 public class FragmentInvitation extends Fragment {
+    private View bgView;
     private RecyclerView recyclerView;
     private RecyclerViewAdapterMeetings mAdapter;
     private Context context;
     private List<Meeting> data;
-    private MeetingPresenter.FilterResult filterResult;
     private MeetingPresenter<MeetingMvpView> meetingPresenter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.meeting_recyclerview, container, false);
-        context = getContext();
-
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        View view = initView(inflater, container, savedInstanceState);
         // Layout Managers:
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         // Item Decorator:
@@ -46,6 +44,15 @@ public class FragmentInvitation extends Fragment {
         // Adapter:
         mAdapter = new RecyclerViewAdapterMeetings(context, RecyclerViewAdapterMeetings.Mode.INVITATION, meetingPresenter);
         mAdapter.setMode(Attributes.Mode.Single);
+        mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                updateVisibility();
+            }
+
+
+        });
         if (data != null){
             mAdapter.setData(data);
             mAdapter.notifyDatasetChanged();
@@ -77,16 +84,41 @@ public class FragmentInvitation extends Fragment {
     }
 
     public void setData(MeetingPresenter.FilterResult filterResult){
-        this.filterResult = filterResult;
         this.data = filterResult.invitationResult;
         if (mAdapter != null){
             mAdapter.setOnMenuListener(new OnMeetingMenu(meetingPresenter,mAdapter,data,filterResult));
             mAdapter.setData(data);
             mAdapter.notifyDatasetChanged();
         }
+
+        updateVisibility();
     }
 
     public void setMeetingPresenter(MeetingPresenter<MeetingMvpView> meetingPresenter) {
         this.meetingPresenter = meetingPresenter;
+    }
+
+    private View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
+        context = getContext();
+        FrameLayout wrapper = new FrameLayout(context);
+
+        this.bgView = inflater.inflate(R.layout.meeting_invitation_placeholder, wrapper, false);
+        FrameLayout.LayoutParams layoutParamsBgView = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        wrapper.addView(bgView,layoutParamsBgView);
+
+        View recyclerView = inflater.inflate(R.layout.meeting_recyclerview, wrapper, false);
+        this.recyclerView = (RecyclerView) recyclerView.findViewById(R.id.recycler_view);
+        FrameLayout.LayoutParams layoutParamsRecyclerView = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        wrapper.addView(recyclerView, layoutParamsRecyclerView);
+
+        return wrapper;
+    }
+
+    private void updateVisibility(){
+        if (this.data != null && this.data.size() != 0){
+            recyclerView.setVisibility(View.VISIBLE);
+        }else {
+            recyclerView.setVisibility(View.GONE );
+        }
     }
 }

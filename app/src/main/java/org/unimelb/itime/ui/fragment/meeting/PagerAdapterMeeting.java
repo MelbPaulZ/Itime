@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 public class PagerAdapterMeeting extends FragmentStatePagerAdapter{
-    int mNumOfTabs;
+    private int mNumOfTabs;
 
     private List<Fragment> mData = new ArrayList<>();
 

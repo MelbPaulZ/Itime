@@ -38,7 +38,7 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
     private Comparator<Meeting> invitationComparator = (m1, m2) -> {
         Long long1 = TimeFactory.getUpdatedAtLong(m1.getUpdatedAt());
         Long long2 = TimeFactory.getUpdatedAtLong(m2.getUpdatedAt());
-        return long1.compareTo(long2);
+        return long2.compareTo(long1);
     };
     private Comparator<Meeting> hostingComparator = (m1, m2) -> {
         long currentTime = Calendar.getInstance().getTimeInMillis();

@@ -46,8 +46,6 @@ implements ToolbarInterface, EventLocationMvpView, GoogleApiClient.OnConnectionF
     private String TAG = "FragmentEventLocation";
     private EventLocationPresenter.PlaceAutoCompleteAdapter mAdapter;
 
-
-
     protected GoogleApiClient mGoogleApiClient;
 
     public void setLocation(String location) {

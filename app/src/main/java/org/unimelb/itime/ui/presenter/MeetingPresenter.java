@@ -40,6 +40,7 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
     public static boolean outOfDate = false;
 
     private FilterResult filterResult;
+    private EventCreatePresenter<MeetingMvpView> eventPresenter;
 
     public static class FilterResult implements Serializable{
         public List<Meeting> invitationResult;
@@ -50,6 +51,7 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
 
     public MeetingPresenter(Context context) {
         super(context);
+        this.eventPresenter = new EventCreatePresenter<>(context);
     }
 
     private void transformRepeatedMeeting(FilterResult filterResult){
@@ -79,24 +81,38 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
             AbstractDao<Meeting, Void> meetingDao = DBManager.getInstance(getContext()).getQueryDao(Meeting.class);
             AbstractDao<Event, Void> eventDao = DBManager.getInstance(getContext()).getQueryDao(Event.class);
 
+
+            //get visible events in meeting
+            List<Event> showMeetingSet = eventDao.queryBuilder().where(
+                    EventDao.Properties.DeleteLevel.eq(0),
+                    EventDao.Properties.EventType.eq(Event.TYPE_GROUP)
+            ).list();
+
+            Collection<String> visibleEventKeys = Stream.of(showMeetingSet).map(Event::getEventUid).collect(Collectors.toList());
+
             //get archive meetings
             List<Event> archiveEvents = eventDao.queryBuilder().where(
+                    EventDao.Properties.EventUid.in(visibleEventKeys),
                     EventDao.Properties.IsArchived.eq(true)
             ).list();
 
-            Collection<String> keys = Stream.of(archiveEvents).map(event -> event.getEventUid()).collect(Collectors.toList());
+            // set of event uid which is archived and not deleted
+            Collection<String> archiveEventKeys = Stream.of(archiveEvents).map(Event::getEventUid).collect(Collectors.toList());
 
             List<Meeting> archiveResult = meetingDao.queryBuilder().where(
-                    MeetingDao.Properties.EventUid.in(keys)
+                    MeetingDao.Properties.EventUid.in(archiveEventKeys)
             ).list();
 
             List<Meeting> hostingResult = meetingDao.queryBuilder().where(
-                    MeetingDao.Properties.EventUid.notIn(keys),
+                    MeetingDao.Properties.EventUid.in(visibleEventKeys),
+                    MeetingDao.Properties.EventUid.notIn(archiveEventKeys),
                     MeetingDao.Properties.HostUserUid.eq(userUid)
             ).list();
 
             List<Meeting> invitationResult = meetingDao.queryBuilder().where(
-                    MeetingDao.Properties.EventUid.notIn(keys),MeetingDao.Properties.HostUserUid.notEq(userUid)
+                    MeetingDao.Properties.EventUid.in(visibleEventKeys),
+                    MeetingDao.Properties.EventUid.notIn(archiveEventKeys),
+                    MeetingDao.Properties.HostUserUid.notEq(userUid)
             ).list();
 
             filterResult.archiveResult = archiveResult == null ? new ArrayList<>() : archiveResult;
@@ -169,40 +185,34 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
         }
     }
 
-    public void updateItem(Meeting data){
-
+    public void pinOpt(Meeting data, boolean value){
+        eventPresenter.pinEvent(data.getEvent(),value);
     }
 
-//    public void pinOpt(Meeting data, boolean value){
-//        data.getEvent().setIsPinned(value);
-//        data.getEvent().update();
-//        data.update();
-//    }
-//
-//    public void muteOpt(Meeting data, boolean value){
-//        data.getEvent().setIsMute(value);
-//        data.getEvent().update();
-//        data.update();
-//    }
-//
-//    public void archiveOpt(Meeting data, boolean value){
-//        data.getEvent().setIsArchived(value);
-//        data.getEvent().update();
-//        data.update();
-//    }
+    public void muteOpt(Meeting data, boolean value){
+        eventPresenter.muteEvent(data.getEvent(),value);
+    }
+
+    public void archiveOpt(Meeting data, boolean value){
+        eventPresenter.archiveEvent(data.getEvent(),value);
+    }
 
     public void deleteOpt(Meeting data){
+        eventPresenter.deleteEvent(data.getEvent());
     }
 
     public void deleteAllArchive(){
+        List<Meeting> trash = new ArrayList<>(this.filterResult.archiveResult);
         this.filterResult.archiveResult.clear();
+        for (Meeting meeting:trash
+             ) {
+            eventPresenter.deleteEvent(meeting.getEvent());
+        }
     }
 
-//    public void restoreOpt(Meeting data){
-//        data.getEvent().setIsArchived(false);
-//        data.getEvent().update();
-//        data.update();
-//    }
+    public void restoreOpt(Meeting data){
+        eventPresenter.archiveEvent(data.getEvent(),false);
+    }
 
 
     /**

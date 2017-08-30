@@ -59,70 +59,25 @@ public class Contact implements ITimeUserInfoInterface, Serializable {
         blockLevel = 0;
     }
 
-//@Generated(hash = 283800893)
-//    public Contact(String userUid, String contactUid, int relationship, int ratingVisibility, int eventVisibility, String source, String aliasName, String aliasPhoto, int catchCount, long nextCatchupTime, long lastCatchupTime, String note, String status, int blockLevel) {
-//        this.userUid = userUid;
-//        this.contactUid = contactUid;
-//        this.relationship = relationship;
-//        this.ratingVisibility = ratingVisibility;
-//        this.eventVisibility = eventVisibility;
-//        this.source = source;
-//        this.aliasName = aliasName;
-//        this.aliasPhoto = aliasPhoto;
-//        this.catchCount = catchCount;
-//        this.nextCatchupTime = nextCatchupTime;
-//        this.lastCatchupTime = lastCatchupTime;
-//        this.note = note;
-//        this.status = status;
-//        this.blockLevel = blockLevel;
-//    }
-
-@Generated(hash = 900700935)
-public Contact(String userUid, String contactUid, int relationship, int ratingVisibility, int eventVisibility, String source, String aliasName, String aliasPhoto, int catchCount, long nextCatchupTime, long lastCatchupTime, String note, String status, int blockLevel,
-        User userDetail) {
-    this.userUid = userUid;
-    this.contactUid = contactUid;
-    this.relationship = relationship;
-    this.ratingVisibility = ratingVisibility;
-    this.eventVisibility = eventVisibility;
-    this.source = source;
-    this.aliasName = aliasName;
-    this.aliasPhoto = aliasPhoto;
-    this.catchCount = catchCount;
-    this.nextCatchupTime = nextCatchupTime;
-    this.lastCatchupTime = lastCatchupTime;
-    this.note = note;
-    this.status = status;
-    this.blockLevel = blockLevel;
-    this.userDetail = userDetail;
-}
-
-    
-
-    
-
-    
-
-    //    @Generated(hash = 283800893)
-//    public Contact(String userUid, String contactUid, int relationship, int ratingVisibility, int eventVisibility, String source, String aliasName, String aliasPhoto, int catchCount, long nextCatchupTime, long lastCatchupTime, String note, String status, int blockLevel) {
-//        this.userUid = userUid;
-//        this.contactUid = contactUid;
-//        this.relationship = relationship;
-//        this.ratingVisibility = ratingVisibility;
-//        this.eventVisibility = eventVisibility;
-//        this.source = source;
-//        this.aliasName = aliasName;
-//        this.aliasPhoto = aliasPhoto;
-//        this.catchCount = catchCount;
-//        this.nextCatchupTime = nextCatchupTime;
-//        this.lastCatchupTime = lastCatchupTime;
-//        this.note = note;
-//        this.status = status;
-//        this.blockLevel = blockLevel;
-//    }
-
-
-
+    @Generated(hash = 900700935)
+    public Contact(String userUid, String contactUid, int relationship, int ratingVisibility, int eventVisibility, String source, String aliasName, String aliasPhoto, int catchCount, long nextCatchupTime, long lastCatchupTime, String note, String status, int blockLevel,
+            User userDetail) {
+        this.userUid = userUid;
+        this.contactUid = contactUid;
+        this.relationship = relationship;
+        this.ratingVisibility = ratingVisibility;
+        this.eventVisibility = eventVisibility;
+        this.source = source;
+        this.aliasName = aliasName;
+        this.aliasPhoto = aliasPhoto;
+        this.catchCount = catchCount;
+        this.nextCatchupTime = nextCatchupTime;
+        this.lastCatchupTime = lastCatchupTime;
+        this.note = note;
+        this.status = status;
+        this.blockLevel = blockLevel;
+        this.userDetail = userDetail;
+    }
 
     @Generated(hash = 672515148)
     public Contact() {

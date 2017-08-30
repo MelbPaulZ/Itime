@@ -10,7 +10,7 @@ import java.util.List;
  * Created by yuhaoliu on 13/7/17.
  */
 
-public interface MeetingMvpView extends ItimeBaseMvpView {
+public interface MeetingMvpView extends TaskBasedMvpView, ItimeBaseMvpView {
     void onDataLoaded(MeetingPresenter.FilterResult meetings);
     void onMeetingClick(Meeting meeting);
 }
