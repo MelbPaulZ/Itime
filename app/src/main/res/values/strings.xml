@@ -31,6 +31,7 @@
     <string name="toolbar_activities">Activities</string>
     <string name="toolbar_mute">Mute</string>
     <string name="toolbar_view_in_calendar">Calendar</string>
+    <string name="toolbar_login">LOGIN</string>
 
     <!--Event-->
     <string name="event">Event</string>
@@ -390,4 +391,8 @@ join iTime</string>
     <string name="password">Password</string>
     <string name="login_main_string1">Forget your password?</string>
     <string name="login_main_string2">Reset by Email.</string>
+    <string name="logging">Logging</string>
+    <string name="reset_your_password">Reset Your Password</string>
+    <string name="reset_your_password_second_text">Please enter your registered Email</string>
+    <string name="reset">RESET</string>
 </resources>

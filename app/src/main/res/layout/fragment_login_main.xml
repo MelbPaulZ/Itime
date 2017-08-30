@@ -31,55 +31,99 @@
         android:layout_marginTop="@dimen/padding_10"
         android:layout_gravity="center"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/padding_10"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:hint="@string/email"
-        android:textSize="14sp"
-        android:theme="@style/Theme.App.Base"
-        android:focusableInTouchMode="true"
-        android:focusable="true"
-        />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:theme="@style/Theme.App.Base"
-        android:hint="@string/password"
-        android:focusableInTouchMode="true"
-        android:textSize="14sp" />
-
+    <!--email input-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_10"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp">
-        <TextView
-            android:id="@+id/login_main_tv1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/padding_5"
-            android:paddingRight="0dp"
-            android:textColor="@color/text_body"
-            android:text="@string/login_main_string1"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:padding="@dimen/padding_5"
-            android:textStyle="bold"
-            android:textColor="@color/text_body"
-            android:text="@string/login_main_string2"
-            android:layout_toRightOf="@id/login_main_tv1"/>
+        <AutoCompleteTextView
+            android:id="@+id/auto_complete_email"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:hint="@string/email"
+            android:textSize="14sp"
+            android:text="@={vm.loginEmail}"
+            android:maxLines="1"
+            android:theme="@style/Theme.App.Base"
+            android:focusableInTouchMode="true"
+            android:focusable="true"
+
+            />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:padding="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/icon_searchbar_clear"
+            android:onClick="@{()->vm.cleanEmail()}"/>
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--password part-->
+        <RelativeLayout
+            android:id="@+id/login_password_part"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:theme="@style/Theme.App.Base"
+                android:hint="@string/password"
+                android:focusableInTouchMode="true"
+                android:textSize="14sp"
+                android:maxLines="1"
+                android:text="@={vm.loginPassWord}"
+                />
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:padding="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/icon_searchbar_clear"
+                android:onClick="@{()->vm.cleanPassWord()}"/>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_below="@id/login_password_part">
+            <TextView
+                android:id="@+id/login_main_tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_5"
+                android:paddingRight="0dp"
+                android:textColor="@color/text_body"
+                android:text="@string/login_main_string1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_5"
+                android:textStyle="bold"
+                android:textColor="@color/text_body"
+                android:text="@string/login_main_string2"
+                android:onClick="@{()->vm.onclickResetByEmail()}"
+                android:layout_toRightOf="@id/login_main_tv1"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
 
 </LinearLayout>
 </layout>

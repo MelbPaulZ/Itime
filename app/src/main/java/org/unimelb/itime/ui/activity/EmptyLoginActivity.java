@@ -109,7 +109,6 @@ public class EmptyLoginActivity extends ItimeBaseActivity<LoginMvpView,LoginPres
         Intent intent = new Intent(this,RemoteService.class);
         startService(intent);
 
-//        getPresenter().loginByEmail(username,password);
     }
 
     @Override
@@ -142,5 +141,10 @@ public class EmptyLoginActivity extends ItimeBaseActivity<LoginMvpView,LoginPres
     @Override
     public void onTaskError(int taskId, Object data) {
         Toast.makeText(getApplicationContext(),"Login Failed /(ㄒoㄒ)/~~",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void toResetPassword() {
+
     }
 }

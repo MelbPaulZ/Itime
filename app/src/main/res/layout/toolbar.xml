@@ -69,6 +69,7 @@
         <!--android:textSize="17sp" />-->
 
         <TextView
+            android:visibility="@{vm.dividerVisibility}"
             style="@style/itime_bottom_divider_line" />
 
 

@@ -26,6 +26,7 @@ public class ToolbarViewModel<V extends ToolbarInterface> extends BaseObservable
     private boolean rightEnable;
     private Drawable rightIcon;
     private int rightIconVisibility = View.GONE;
+    private int dividerVisibility = View.VISIBLE;
 
     V view;
 
@@ -131,5 +132,15 @@ public class ToolbarViewModel<V extends ToolbarInterface> extends BaseObservable
     public void setRightIconVisibility(int rightIconVisibility) {
         this.rightIconVisibility = rightIconVisibility;
         notifyPropertyChanged(BR.rightIconVisibility);
+    }
+
+    @Bindable
+    public int getDividerVisibility() {
+        return dividerVisibility;
+    }
+
+    public void setDividerVisibility(int dividerVisibility) {
+        this.dividerVisibility = dividerVisibility;
+        notifyPropertyChanged(BR.dividerVisibility);
     }
 }
