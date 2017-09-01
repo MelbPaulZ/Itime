@@ -67,6 +67,14 @@ public interface EventApi {
             @Query("originalStartTime") long originalStartTime,
             @Query("syncToken") String syncToken);
 
+    @POST("event/invitee/delete/{calendarUid}/{eventUid}")
+    Observable<HttpResult<List<Event>>> inviteeDelete(
+            @Path("calendarUid") String calendarUid,
+            @Path("eventUid") String eventUid,
+            @Query("type") String type,
+            @Query("originalStartTime") long originalStartTime,
+            @Query("syncToken") String syncToken);
+
     @POST("event/delete/{calendarUid}/{eventUid}")
     Observable<HttpResult<List<Event>>> delete(
             @Path("calendarUid") String calendarUid,
@@ -146,6 +154,9 @@ public interface EventApi {
             @Path("eventUid") String eventUid,
             @Path("operation") int operation,
             @Query("syncToken") String syncToken);
+
+    @GET("event/list_default_cover_photo")
+    Observable<HttpResult<List<String>>> getDefaultCoverPhotos();
 
 //    @POST("event/update_cover_photo/{calendarUid}/{eventUid}")//body parameter(x-xxx-form-urlencode):
 //    ObservableList<HttpResult<List<Event>> archive(

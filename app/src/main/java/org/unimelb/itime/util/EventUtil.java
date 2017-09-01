@@ -14,6 +14,7 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.ITimeComparable;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.Meeting;
+import org.unimelb.itime.bean.PhotoUrl;
 import org.unimelb.itime.bean.TZoneTime;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.bean.TimeslotInvitee;
@@ -26,6 +27,7 @@ import org.unimelb.itime.util.rulefactory.FrequencyEnum;
 import org.unimelb.itime.util.rulefactory.RuleFactory;
 import org.unimelb.itime.util.rulefactory.RuleModel;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.sql.Time;
 import java.text.DateFormat;
@@ -924,5 +926,37 @@ public class EventUtil extends BaseUtil{
         }
         e.setEventType(event.getEventType());
         return e;
+    }
+
+    public static ArrayList<PhotoUrl> fromStringToPhotoUrlList(Context context, ArrayList<String> urls) {
+        ArrayList<PhotoUrl> arrayList = new ArrayList<>();
+        for (String url : urls) {
+            // here should update photoUrl, as Chuandong Request
+            PhotoUrl photoUrl = new PhotoUrl();
+            photoUrl.setLocalPath(url);
+            photoUrl.setFilename(getPhotoFileName(url));
+            photoUrl.setSuccess(false);
+            photoUrl.setPhotoUid(AppUtil.generateUuid());
+            photoUrl.setEventUid(EventManager.getInstance(context).getCurrentEvent().getEventUid());
+            arrayList.add(photoUrl);
+        }
+        return arrayList;
+    }
+
+    public static PhotoUrl fromStringToPhotoUrl(Context context, String url) {
+        // here should update photoUrl, as Chuandong Request
+        PhotoUrl photoUrl = new PhotoUrl();
+        photoUrl.setLocalPath(url);
+        photoUrl.setFilename(getPhotoFileName(url));
+        photoUrl.setSuccess(false);
+        photoUrl.setPhotoUid(AppUtil.generateUuid());
+        photoUrl.setEventUid(EventManager.getInstance(context).getCurrentEvent().getEventUid());
+        return photoUrl;
+    }
+
+    private static String getPhotoFileName(String url) {
+        File f = new File(url);
+        String name = f.getName();
+        return name;
     }
 }

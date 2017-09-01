@@ -15,14 +15,22 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.bean.ImageItem;
+import com.lzy.imagepicker.ui.ImageGridActivity;
+import com.zhy.m.permission.PermissionDenied;
+import com.zhy.m.permission.PermissionGrant;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.Location;
+import org.unimelb.itime.bean.PhotoUrl;
 import org.unimelb.itime.databinding.FragmentEventCreateBinding;
 import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.ui.activity.CameraActivity;
 import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.activity.LocationActivity;
 import org.unimelb.itime.ui.fragment.calendar.FragmentCalendarTimeslot;
@@ -31,8 +39,11 @@ import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.viewmodel.event.EventCreateViewModel;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
+import org.unimelb.itime.util.EventUtil;
+import org.unimelb.itime.widget.PicassoImageLoader;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Paul on 2/6/17.
@@ -44,7 +55,15 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     private EventCreateViewModel vm;
     private ToolbarViewModel toolbarViewModel;
     private Event event;
-    public final static int REQ_LOCATION = 1001;
+    public final static int REQ_LOCATION = 1000;
+    public final static int REQ_INVITEE = 1001;
+    public final static int REQ_TIMESLOT = 1002;
+    public final static int REQ_CUSTOM_REPEAT = 1003;
+    public final static int REQ_PHOTO = 1004;
+
+    public final static int REQUEST_CAMERA_PERMISSION = 100;
+    public final static int REQUEST_PHOTO_PERMISSION = 101;
+    public final static int REQUEST_LOCATION_PERMISSION = 102;
     public Mode taskMode = Mode.CREATE;
 
     public enum Mode{
@@ -250,6 +269,29 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
             event.setLocation(location);
             vm.setEvent(event);
         }
+
+        if (requestCode == REQ_PHOTO && resultCode == Activity.RESULT_OK) {
+            String result = data.getStringExtra(CameraActivity.KEY_RESULT);
+            PhotoUrl photoUrl = EventUtil.fromStringToPhotoUrl(getContext(), result);
+            List<PhotoUrl> photos = new ArrayList<>();
+            photos.add(photoUrl);
+            event.setPhoto(photos);
+            setEvent(event);
+            toPhotoGridPage();
+        }
+
+        if(data!=null) {
+            if (requestCode == REQ_PHOTO && resultCode == ImagePicker.RESULT_CODE_ITEMS) {
+                ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                List<PhotoUrl> photoUrls = new ArrayList<>();
+                for (int i = 0; i < images.size(); i++) {
+                    photoUrls.add(EventUtil.fromStringToPhotoUrl(getContext(), images.get(i).path));
+                }
+                event.setPhoto(photoUrls);
+                setEvent(event);
+                toPhotoGridPage();
+            }
+        }
     }
 
 
@@ -266,6 +308,57 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     @Override
     public void onTaskError(int taskId, Object data) {
 
+    }
+
+    /**
+     * only photo related permission granted, then can go to photo picker
+     */
+    @PermissionGrant(REQUEST_PHOTO_PERMISSION)
+    public void startPhotoPicker() {
+        ImagePicker imagePicker = ImagePicker.getInstance();
+        imagePicker.setImageLoader(new PicassoImageLoader());   //设置图片加载器
+        imagePicker.setMultiMode(true);
+        imagePicker.setShowCamera(false);
+        imagePicker.setSelectLimit(9);
+
+        Intent intent = new Intent(getActivity(), ImageGridActivity.class);
+        startActivityForResult(intent, REQ_PHOTO);
+    }
+
+//    @Override
+//    public void toPhotoPickerPage() {
+//        if(event.getPhoto().isEmpty()) {
+//            openPhotoActionSheetDialog();
+//        }else{
+//            toPhotoGridPage();
+//        }
+//    }
+
+    private void toPhotoGridPage(){
+        EventPhotoFragment eventPhotoFragment = new EventPhotoFragment();
+        eventPhotoFragment.setEvent(event);
+        getBaseActivity().openFragment(eventPhotoFragment);
+    }
+
+    @PermissionGrant(REQUEST_CAMERA_PERMISSION)
+    public void openCamera() {
+        Intent intent = new Intent(getActivity(), CameraActivity.class);
+        startActivityForResult(intent, REQ_PHOTO);
+    }
+
+    @PermissionDenied(REQUEST_LOCATION_PERMISSION)
+    public void locationDenied(){
+        Toast.makeText(getContext(), "need location permission", Toast.LENGTH_SHORT).show();
+    }
+
+    @PermissionDenied(REQUEST_PHOTO_PERMISSION)
+    public void photoDenied(){
+        Toast.makeText(getContext(), "need photo permission", Toast.LENGTH_SHORT).show();
+    }
+
+    @PermissionDenied(REQUEST_CAMERA_PERMISSION)
+    public void cameraDenied(){
+        Toast.makeText(getContext(), "need camera permission", Toast.LENGTH_SHORT).show();
     }
 }
 

@@ -756,27 +756,27 @@
 
         </RelativeLayout>
 
-        <!--statusbar archived part-->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/standard_detail_cell_height"
-            android:visibility="@{contentVM.status == contentVM.STATUS_CANCELED || contentVM.status == contentVM.STATUS_EXPIRED? View.VISIBLE:View.GONE}"
-            android:background="@color/white"
-            android:paddingLeft="@dimen/s1"
-            android:paddingRight="@dimen/s1"
-            android:layout_gravity="bottom"
-            >
-            <include layout="@layout/line"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:textSize="@dimen/font_large"
-                android:textColor="@color/text_body"
-                android:text="@{contentVM.status == contentVM.STATUS_CANCELED ? @string/event_detail_eventcanceled : @string/event_detail_invitationexpired}"/>
-        </RelativeLayout>
+        <!--&lt;!&ndash;statusbar archived part&ndash;&gt;-->
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/standard_detail_cell_height"-->
+            <!--android:visibility="@{contentVM.status == contentVM.STATUS_CANCELED || contentVM.status == contentVM.STATUS_EXPIRED? View.VISIBLE:View.GONE}"-->
+            <!--android:background="@color/white"-->
+            <!--android:paddingLeft="@dimen/s1"-->
+            <!--android:paddingRight="@dimen/s1"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--&gt;-->
+            <!--<include layout="@layout/line"-->
+                <!--/>-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:textSize="@dimen/font_large"-->
+                <!--android:textColor="@color/text_body"-->
+                <!--android:text="@{contentVM.status == contentVM.STATUS_CANCELED ? @string/event_detail_eventcanceled : @string/event_detail_invitationexpired}"/>-->
+        <!--</RelativeLayout>-->
     </FrameLayout>
 
 

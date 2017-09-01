@@ -116,7 +116,7 @@ public class CollapseHeadBar extends AppBarLayout {
                 R.styleable.CollapseHeadBar_collapseheaderbar_name);
         title = a.getString(
                 R.styleable.CollapseHeadBar_collapseheaderbar_title);
-        backgroundImage = "http://cdn2.jianshu.io/assets/default_avatar/9-cceda3cf5072bcdd77e8ca4f21c40998.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/144/h/144";
+        backgroundImage = "http://itime-1254199931.image.myqcloud.com/coverphoto_1.png";
         invieeCount = a.getInt(
                 R.styleable.CollapseHeadBar_collapseheaderbar_inviteeCount, 0);
         collapseColor = getResources().getColor(R.color.lightBlueTwo);

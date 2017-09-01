@@ -665,13 +665,15 @@ public class EventDetailViewModel extends BaseObservable{
         return new PhotoViewLayout.ImageClickListener() {
             @Override
             public void onBigImageClick(ImageView view, int position) {
-                Toast.makeText(context, photoUrls.get(position).getUrl(), Toast.LENGTH_SHORT).show();
+                if(mvpView!=null){
+                    mvpView.toBigPhoto(position);
+                }
             }
 
             @Override
             public void onSmallImageClick() {
-                if(presenter.getView()!=null) {
-                    presenter.getView().gotoGridView();
+                if(mvpView!=null){
+                    mvpView.gotoGridView();
                 }
             }
         };
@@ -1143,7 +1145,7 @@ public class EventDetailViewModel extends BaseObservable{
             @Override
             public void onClick(View view) {
                 if (mvpView!=null){
-                    mvpView.onDelete();
+//                    mvpView.onDelete();
                 }
             }
         };
@@ -1249,6 +1251,45 @@ public class EventDetailViewModel extends BaseObservable{
 //            }
 //        });
 
+    public void showDeleteDialog(){
+//        PopupMenu menu = new PopupMenu(presenter.getContext());
+//        ArrayList<PopupMenu.Item>menuItem = new ArrayList<>();
+//
+//        menuItem.add(new PopupMenu.Item(R.drawable.icon_contacts_edit,
+//                presenter.getContext().getResources().getString(R.string.profile_edit_alias)));
+//
+//        if(isAlreadyContact()){
+//            menuItem.add(new PopupMenu.Item(R.drawable.icon_contacts_delete,
+//                    presenter.getContext().getResources().getString(R.string.profile_delete), R.color.brand_warning));
+//        }
+//
+//        menu.setItems(menuItem);
+//
+//        onMenuItemClicked = new PopupMenu.OnItemClickListener() {
+//            @Override
+//            public void onClick(int position, PopupMenu.Item item) {
+//                if(mvpView==null){
+//                    return;
+//                }
+//                switch (position){
+//                    case 0:
+//                        mvpView.goToEditAlias();
+//                        break;
+//                    case 1:
+//                        if(!getBlocked()){
+//                            mvpView.showBlockDialog();
+//                        } else {
+//                            presenter.unblockUser(contact);
+//                        }
+//                        break;
+//                    case 2:
+//                        mvpView.showDeleteDialog();
+//                        break;
+//                }
+//            }
+//        };
+//        menu.setOnItemClickListener(onMenuItemClicked);
+    }
 
     @Bindable
     public String getUntilDateString() {

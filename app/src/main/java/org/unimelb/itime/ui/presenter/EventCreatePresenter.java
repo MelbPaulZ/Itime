@@ -200,6 +200,7 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
         DBManager.getInstance(getContext()).insertOrReplace(Arrays.asList(ev));
     }
 
+    @Deprecated
     public void deleteEvent(Event event) {
         if (getView()!=null){
             getView().onTaskStart(TASK_EVENT_DELETE);
@@ -231,18 +232,34 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
         HttpUtil.subscribe(observable, subscriber);
     }
 
-    public void deleteAllEvent(Event event) {
+    public void deleteEvent(Event event, boolean deleteAllRecurrence, boolean isHost) {
         if (getView()!=null){
             getView().onTaskStart(TASK_EVENT_DELETE);
         }
+        Observable<HttpResult<List<Event>>> observable;
         String syncToken = getEventToken();
-        Observable<HttpResult<List<Event>>> observable = eventApi.delete(
-                event.getCalendarUid(),
-                event.getEventUid(),
-                UPDATE_ALL,
-                event.getStartTime(),
-                syncToken);
+        String deleteFlag = "";
+        if(deleteAllRecurrence){
+            deleteFlag = UPDATE_ALL;
+        }else{
+            deleteFlag = UPDATE_THIS;
+        }
 
+        if(isHost) {
+            observable = eventApi.delete(
+                    event.getCalendarUid(),
+                    event.getEventUid(),
+                    deleteFlag,
+                    event.getStartTime(),
+                    syncToken);
+        }else{
+            observable = eventApi.inviteeDelete(
+                    event.getCalendarUid(),
+                    event.getEventUid(),
+                    deleteFlag,
+                    event.getStartTime(),
+                    syncToken);
+        }
         ItimeSubscriber<HttpResult<List<Event>>> subscriber = new ItimeSubscriber<HttpResult<List<Event>>>() {
             @Override
             public void onHttpError(Throwable e) {
@@ -264,7 +281,6 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
         };
         HttpUtil.subscribe(observable, subscriber);
     }
-
 
     /**
      * upload the photo file to a file server,

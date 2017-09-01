@@ -1,1 +1,3 @@
 include ':app', ':closabledatabindingview'
+include ':app', ':imagepicker'
+include ':app', ':IOSDialog'

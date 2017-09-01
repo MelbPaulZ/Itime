@@ -50,6 +50,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 
+
     // add dependecies following
     //mvp
     compile 'com.hannesdorfmann.mosby:mvp:2.0.1'
@@ -96,6 +97,8 @@ dependencies {
     compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
     compile project(':closabledatabindingview')
     compile 'com.bigkoo:alertview:1.0.3'
+    compile project(':imagepicker')
+    compile project(':IOSDialog')
 
     //vendor
     compile 'org.unimelb.itime.calendar:itimerecycleviewgroup:1.0.0'
