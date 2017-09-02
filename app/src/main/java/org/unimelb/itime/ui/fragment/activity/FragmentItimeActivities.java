@@ -155,10 +155,13 @@ public class FragmentItimeActivities extends ItimeBaseFragment<ItimeActivitiesMv
         List<ActivityMessageGroupViewModel> msgGroups = vm.getMessageGroups();
         for (ActivityMessageGroupViewModel viewmodel: msgGroups){
             if (viewmodel.getMessageGroup().getMessageGroupUid() == message.getMessageGroupUid()){
-                for (ActivityMessageViewModel msgs: viewmodel.getMessageGroups()){
-                    msgs.getMessage().setRead(true);
-                }
-                break; // TODO: 26/8/17 test this click read 
+                viewmodel.readMessages();
+                onDisplayMessages(viewmodel.getMessageGroup());
+//                for (ActivityMessageViewModel msgs: viewmodel.getMessageGroups()){
+//                    msgs.getMessage().setRead(true);
+//                }
+//                vm.setMessageGroups(vm.getMessageGroups());
+//                break; // TODO: 26/8/17 test this click read
             }
         }
     }

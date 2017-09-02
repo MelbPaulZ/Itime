@@ -80,7 +80,7 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
         }
     };
 
-    private void readMessages(){
+    public void readMessages(){
         for (ActivityMessageViewModel messageViewModel : messageGroups){
             messageViewModel.getMessage().setRead(true);
         }
