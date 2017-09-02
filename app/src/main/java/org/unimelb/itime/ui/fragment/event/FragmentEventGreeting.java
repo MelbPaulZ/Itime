@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import org.unimelb.itime.R;
@@ -62,7 +64,7 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
     @Override
     public void onResume() {
         super.onResume();
-        Toast.makeText(getContext(), taskMode.name(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), taskMode.name(), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -80,6 +82,23 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
         toolbarVM.setRightText(getString(R.string.toolbar_send));
         toolbarVM.setRightEnable(true);
         binding.setToolbarVM(toolbarVM);
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EditText editText = (EditText) getActivity().findViewById(R.id.greeting_edit_text);
+        editText.requestFocus();
+        InputMethodManager imm = (InputMethodManager)getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+
     }
 
     @Override

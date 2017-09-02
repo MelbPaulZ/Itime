@@ -57,6 +57,8 @@
             android:hint="@string/event_greeting_hint"
             android:textColorHint="@color/whiteTwo"
             android:background="@color/transparent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:onEditTextChange="@{vm.onGreetingChangeListener()}"
             />
 

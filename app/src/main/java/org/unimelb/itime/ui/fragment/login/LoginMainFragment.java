@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
@@ -70,7 +71,7 @@ public class LoginMainFragment extends ItimeBaseFragment<LoginMvpView, LoginPres
             }else{
                 toolbarViewModel.setRightEnable(true);
             }
-            if (loginEmail.contains("@")){
+            if (loginEmail.contains("@") && loginEmail.length()>=2){
                 adapter = new ArrayAdapter(getContext(),R.layout.login_list_item_1, vm.getPopupStrings());
                 emailAutoComplete.setAdapter(adapter);
             }else{
@@ -119,5 +120,16 @@ public class LoginMainFragment extends ItimeBaseFragment<LoginMvpView, LoginPres
     public void toResetPassword() {
         LoginResetPasswordFragment fragment = new LoginResetPasswordFragment();
         getBaseActivity().openFragment(fragment);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+//        AutoCompleteTextView t = (AutoCompleteTextView) getActivity().findViewById(R.id.auto_complete_email);
+//        InputMethodManager inputMethodManager =
+//                (InputMethodManager)getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
+//        inputMethodManager.toggleSoftInputFromWindow(
+//                t.getApplicationWindowToken(),
+//                InputMethodManager.SHOW_FORCED, 0);
     }
 }

@@ -50,7 +50,7 @@
             android:theme="@style/Theme.App.Base"
             android:focusableInTouchMode="true"
             android:focusable="true"
-
+            android:dropDownHeight="100dp"
             />
         <ImageView
             android:layout_width="20dp"
