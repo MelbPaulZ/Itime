@@ -10,6 +10,7 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseActivity;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.ui.fragment.activity.FragmentItimeActivities;
+import org.unimelb.itime.ui.fragment.event.FragmentEventCreateSentFragment;
 import org.unimelb.itime.ui.fragment.event.FragmentEventGreeting;
 
 /**
@@ -42,8 +43,9 @@ public class TestActivity extends ItimeBaseActivity {
 //        FragmentEventTime fragment = new FragmentEventTime();
 //        fragment.setEvent(getMockEvent());
 //        FragmentEventGreeting fragment = new FragmentEventGreeting();
-        FragmentEventGreeting fragment = new FragmentEventGreeting();
-        fragment.setEvent(getMockEvent());
+        FragmentEventCreateSentFragment fragment = new FragmentEventCreateSentFragment();
+//        FragmentEventGreeting fragment = new FragmentEventGreeting();
+//        fragment.setEvent(getMockEvent());
         getSupportFragmentManager().beginTransaction().add(getFragmentContainerId(), fragment).commit();
     }
 

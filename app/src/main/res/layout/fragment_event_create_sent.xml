@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.event.EventCreateSentViewModel"/>
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+    </data>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/event_create_sent_icon"
+        android:layout_marginTop="59dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/icon_event_invitationsent"
+        />
+
+    <TextView
+        android:id="@+id/event_create_sent_title"
+        android:layout_below="@id/event_create_sent_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/event_invitation_sent"
+        android:textSize="@dimen/font_huge"
+        android:textColor="@color/text_body"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/event_create_reject_text"
+        android:layout_below="@id/event_create_sent_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="37.5dp"
+        android:layout_marginRight="37.5dp"
+        android:textColor="@color/warmGrey"
+        android:textSize="@dimen/font_normal"
+        android:text="@string/invitation_sent_reject_text"
+        android:layout_marginTop="20dp"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@id/event_create_reject_text"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="62.5dp"
+        android:layout_marginRight="62.5dp"
+        android:overScrollMode="never"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="62.5dp"
+        android:layout_marginRight="62.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="60dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/dialog_done"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:onClick="@{()->vm.onClickDone()}"
+        android:textColor="@drawable/selector_btn_text_bottom"
+        android:background="@drawable/btn_blue_selector"
+        />
+
+</RelativeLayout>
+</layout>

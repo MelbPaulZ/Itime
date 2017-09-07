@@ -107,6 +107,8 @@
     <string name="event_detail_dialog_remind_title">Every invitee will recieve a system reminder </string>
     <string name="event_detail_dialog_cantgo_message">You can leave a message (Optional)</string>
     <string name="event_detail_dialog_cantgo_hint">Why you can\'t go</string>
+    <string name="event_invitation_sent">Invitation Sent</string>
+    <string name="invitation_sent_reject_text">Your invitation is successfully sent, but rejected by some invitees because they have blocked you:</string>
 
     <!--Event Create Add Invitee-->
     <string name="event_create_addinvitee">Add Invitee</string>
