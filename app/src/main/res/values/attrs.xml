@@ -13,6 +13,15 @@
         <attr name="border_outside_color" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="PhotoGridView">
+        <attr name="photos" format="reference"/>
+        <attr name="editable" format="boolean"/>
+        <attr name="itemOnClickListener" format="reference"/>
+        <attr name="addMoreOnClickListener" format="reference"/>
+        <attr name="spacing" format="dimension"/>
+        <attr name="maxnum" format="integer"/>
+    </declare-styleable>
+
     <declare-styleable name="CollapseHeadBar">
         <attr name="collapseheaderbar_name" format="string"/>
         <attr name="collapseheaderbar_title" format="string"/>

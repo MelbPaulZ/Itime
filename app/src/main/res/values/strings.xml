@@ -4,6 +4,7 @@
     <!--dialog string-->
 
     <string name="dialog_ok">OK</string>
+    <string name="dialog_leave">Leave</string>
     <string name="dialog_done">Done</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_invite">Invite</string>
@@ -80,7 +81,9 @@
     <string name="event_detail_decided_not_to_go">You\'ve decided not to go</string>
     <string name="event_detail_alert_empty_vote">Please select at least 1 timeslot</string>
     <string name="event_detail_alert_unsaved_vote">You have unsaved votes. Do you want to discard them?</string>
+    <string name="event_detail_alert_unsaved_confirm">You haven\'t confirmed the timeslot. Do you want to discard it?</string>
     <string name="event_detail_dialog_discard">Discard</string>
+    <string name="event_detail_dialog_stay">Stay</string>
     <string name="event_detail_dialog_keep_voting">Keep voting</string>
     <string name="event_detail_alert_empty_confirm">Please select 1 timeslot</string>
     <string name="event_detail_changemind">Change your mind? Please choose some timeslots above</string>
@@ -302,6 +305,22 @@
     <string name="meeting_reminder_time_day" >%1$dd</string>
     <string name="meeting_reminder_time_hour" >%1$dh</string>
     <string name="meeting_reminder_time_min" >%1$dmin</string>
+    <string name="meeting_sys_msg_invitation"> invite you to</string>
+    <string name="meeting_sys_msg_wait_host_confirm">Pending host confirmation</string>
+    <string name="meeting_sys_msg_confirmed">Confirmed</string>
+    <string name="meeting_sys_msg_updated">…changed</string>
+    <string name="meeting_sys_msg_diff_timeslot_confirmed">Different timeslot confirmed</string>
+    <string name="meeting_status_vote">Vote</string>
+    <string name="meeting_status_voted">Voted</string>
+    <string name="meeting_status_going">Going</string>
+    <string name="meeting_status_not_going">Not Going</string>
+    <string name="meeting_status_revote">Revote</string>
+    <string name="meeting_status_decide">Decide</string>
+    <string name="meeting_status_cancelled">Cancelled</string>
+    <string name="meeting_archive_dialog_alert_msg_title">Clear All Event?</string>
+    <string name="meeting_archive_dialog_clear_alert_msg_content">Everything about this event will be deleted</string>
+    <string name="meeting_archive_dialog_delete">Delete</string>
+    <string name="meeting_archive_dialog_cancel">Cancel</string>
     <string name="search">Search</string>
     
     <!--contacts-->
@@ -309,8 +328,7 @@
     <string name="contact_find_more_friends">Find More Friends</string>
     <string name="contact_my_profile">My Profile</string>
     <string name="contact_user_not_found_dialog_title">User Not Found</string>
-    <string name="contact_user_not_found_dialog_message">Invite\n%1$s\nto
-join iTime</string>
+    <string name="contact_user_not_found_dialog_message">Invite\n%1$s\nto join iTime</string>
     <string name="my_qr_code_explain">Scan the QR code to add me on Timegenii</string>
     <string name="my_qr_code_title">My QR Code</string>
     <string name="save_to_album">Save Photo</string>
@@ -395,4 +413,14 @@ join iTime</string>
     <string name="reset_your_password">Reset Your Password</string>
     <string name="reset_your_password_second_text">Please enter your registered Email</string>
     <string name="reset">RESET</string>
+    <string name="meeting_placeholder_invitation">This is where you find all invitations \n sent to you</string>
+    <string name="meeting_placeholder_hosting">Create a meeting and it will show up here</string>
+    <string name="meeting_placeholder_coming">This is where you find all meetings \n you are going to attend</string>
+
+    <!--photo-->
+    <string name="photo_title">Photos</string>
+    <string name="take_photo">Take photo</string>
+    <string name="choose_from_photos">Choose from Photos</string>
+    <string name="cancel_photos_alert_msg">You haven\'t upload these photos, are you sure to discard photo editing?</string>
+    <string name="delete_this_photo">Delete this photo?</string>
 </resources>

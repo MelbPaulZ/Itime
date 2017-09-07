@@ -50,6 +50,9 @@ import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.bean.ImageItem;
+import com.lzy.imagepicker.ui.ImageGridActivity;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseActivity;
@@ -58,6 +61,7 @@ import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.databinding.ActivityQrCodeScanBinding;
 import org.unimelb.itime.ui.activity.MyQRCodeActivity;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
+import org.unimelb.itime.widget.PicassoImageLoader;
 import org.unimelb.itime.widget.QRCode.camera.CameraManager;
 import org.unimelb.itime.widget.QRCode.decode.DecodeThread;
 import org.unimelb.itime.widget.QRCode.utils.BeepManager;
@@ -92,7 +96,7 @@ public final class CaptureActivityContact extends Activity implements ToolbarInt
     private CaptureActivityHandler handler;
     private InactivityTimer inactivityTimer;
     private BeepManager beepManager;
-//    private ImagePicker imagePicker;
+    private ImagePicker imagePicker;
     private ToolbarViewModel toolbarViewModel;
 
     private int preview;
@@ -133,11 +137,11 @@ public final class CaptureActivityContact extends Activity implements ToolbarInt
 
 
 
-//        imagePicker = ImagePicker.getInstance();
-//        imagePicker.setImageLoader(new PicassoImageLoader());   //设置图片加载器
-//        imagePicker.setMultiMode(false);
-//        imagePicker.setShowCamera(false);
-//        imagePicker.setCrop(false);        //允许裁剪（单选才有效）
+        imagePicker = ImagePicker.getInstance();
+        imagePicker.setImageLoader(new PicassoImageLoader());   //设置图片加载器
+        imagePicker.setMultiMode(false);
+        imagePicker.setShowCamera(false);
+        imagePicker.setCrop(false);        //允许裁剪（单选才有效）
 
         scanPreview = binding.capturePreview;
         scanContainer = binding.captureContainer;
@@ -168,58 +172,54 @@ public final class CaptureActivityContact extends Activity implements ToolbarInt
 
             Intent intent = new Intent();
             intent.setClass(this, MyQRCodeActivity.class);
-
             startActivity(intent);
 
     }
 
     public void goToPhotos(){
-//
-//        Intent intent = new Intent(this, ImageGridActivity.class);
-//        startActivityForResult(intent, REQUEST_CODE);
+        Intent intent = new Intent(this, ImageGridActivity.class);
+        startActivityForResult(intent, REQUEST_CODE);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
 
-//        if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
-//            switch (requestCode) {
-//                case REQUEST_CODE:
-//                    ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
-//                    photo_path = images.get(0).path;
-//                    new Thread(new Runnable() {
-//
-//                        @Override
-//                        public void run() {
-//
-//                            Result result = scanningImage(photo_path);
-//                            // String result = decode(photo_path);
-//                            if (result == null) {
-//                                Looper.prepare();
-//                                Toast.makeText(getApplicationContext(), "图片格式有误", Toast.LENGTH_SHORT)
-//                                        .show();
-//                                Looper.loop();
-//                            } else {
-//                                Log.i("123result", result.toString());
-//                                String recode = result.toString();
-//                                Intent data = new Intent();
-//                                data.putExtra("result", recode);
-//                                setResult(RESULT_OK, data);
-//                                CaptureActivityContact.this.finish();
-//                            }
-//                        }
-//                    }).start();
-//                    break;
-//            }
-//        }
+        if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
+            switch (requestCode) {
+                case REQUEST_CODE:
+                    ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                    photo_path = images.get(0).path;
+                    new Thread(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            Result result = scanningImage(photo_path);
+                            // String result = decode(photo_path);
+                            if (result == null) {
+                                Looper.prepare();
+                                Toast.makeText(getApplicationContext(), "图片格式有误", Toast.LENGTH_SHORT)
+                                        .show();
+                                Looper.loop();
+                            } else {
+                                Log.i("123result", result.toString());
+                                String recode = result.toString();
+                                Intent data = new Intent();
+                                data.putExtra("result", recode);
+                                setResult(RESULT_OK, data);
+                                CaptureActivityContact.this.finish();
+                            }
+                        }
+                    }).start();
+                    break;
+            }
+        }
     }
 
     protected Result scanningImage(String path) {
         if (TextUtils.isEmpty(path)) {
-
             return null;
-
         }
         // DecodeHintType 和EncodeHintType
         Hashtable<DecodeHintType, String> hints = new Hashtable<DecodeHintType, String>();
@@ -235,6 +235,10 @@ public final class CaptureActivityContact extends Activity implements ToolbarInt
             sampleSize = 1;
         options.inSampleSize = sampleSize;
         scanBitmap = BitmapFactory.decodeFile(path, options);
+
+        if(scanBitmap==null){
+            return null;
+        }
 
         int width = scanBitmap.getWidth();
         int height = scanBitmap.getHeight();

@@ -59,7 +59,7 @@ public class NetworkUtil {
             //获取移动数据连接的信息
             NetworkInfo dataNetworkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 
-            mobile = dataNetworkInfo.isConnected();
-            wifi = wifiNetworkInfo.isConnected();
+            mobile = dataNetworkInfo == null ? false : dataNetworkInfo.isConnected();
+            wifi = wifiNetworkInfo == null ? false : wifiNetworkInfo.isConnected();
     }
 }

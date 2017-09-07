@@ -84,7 +84,10 @@ public class PopupMenu {
 	 */
 	public void showLocation(View view) {
 		modalPopupView.showAtLocation(view, 0, 0);
+	}
 
+	public void showInMiddle(View view) {
+		modalPopupView.show(view);
 	}
 
 	// dip转换为px

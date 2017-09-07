@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.daimajia.swipe.util.Attributes;
 
@@ -26,6 +27,7 @@ import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
  */
 
 public class FragmentHosting extends Fragment {
+    private View bgView;
     private RecyclerView recyclerView;
     private RecyclerViewAdapterMeetings mAdapter;
     private Context context;
@@ -35,8 +37,7 @@ public class FragmentHosting extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.meeting_recyclerview, container, false);
-        context = getContext();
+        View view = initView(inflater, container, savedInstanceState);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         // Layout Managers:
@@ -48,6 +49,13 @@ public class FragmentHosting extends Fragment {
         // Adapter:
         mAdapter = new RecyclerViewAdapterMeetings(context, RecyclerViewAdapterMeetings.Mode.HOSTING, meetingPresenter);
         mAdapter.setMode(Attributes.Mode.Single);
+        mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                updateVisibility();
+            }
+        });
         if (data != null){
             mAdapter.setData(data);
             mAdapter.notifyDatasetChanged();
@@ -99,5 +107,29 @@ public class FragmentHosting extends Fragment {
 
     public void setMeetingPresenter(MeetingPresenter<MeetingMvpView> meetingPresenter) {
         this.meetingPresenter = meetingPresenter;
+    }
+
+    private View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
+        context = getContext();
+        FrameLayout wrapper = new FrameLayout(context);
+
+        this.bgView = inflater.inflate(R.layout.meeting_hosting_placeholder, wrapper, false);
+        FrameLayout.LayoutParams layoutParamsBgView = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        wrapper.addView(bgView,layoutParamsBgView);
+
+        View recyclerView = inflater.inflate(R.layout.meeting_recyclerview, wrapper, false);
+        this.recyclerView = (RecyclerView) recyclerView.findViewById(R.id.recycler_view);
+        FrameLayout.LayoutParams layoutParamsRecyclerView = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        wrapper.addView(recyclerView, layoutParamsRecyclerView);
+
+        return wrapper;
+    }
+
+    private void updateVisibility(){
+        if (this.data != null && this.data.size() != 0){
+            recyclerView.setVisibility(View.VISIBLE);
+        }else {
+            recyclerView.setVisibility(View.GONE );
+        }
     }
 }

@@ -65,12 +65,10 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     private FragmentEventDetailAllInvitees allInviteesFragment;
     private CollapseHeadBar headBar;
     private FragmentItimeActivitiesDetail activitiesFragment = new FragmentItimeActivitiesDetail();
+    private EventPhotoFragment eventPhotoFragment;
 
 
     private EventDetailViewModel contentViewModel;
-    // for displaying timeslots
-//    private List<SubTimeslotViewModel> timeslotVMList;
-//    private List<WrapperTimeSlot> wrapperTimeSlotList;
     private ModalPopupView allNotePop;
     private DialogEventDetailNoteBinding noteBinding;
     private SelectAlertTimeDialog selectAlertTimeDialog;
@@ -99,6 +97,9 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         }
     }
 
+    public View getView(){
+        return binding.getRoot();
+    }
 
     private void initStatusBar(){
         getActivity().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -220,13 +221,25 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
 
     @Override
     public void gotoGridView() {
-//        if(eventPhotoFragment==null){
-//            eventPhotoFragment = new EventPhotoFragment();
-//        }
-//        eventPhotoFragment.setEvent(event);
-//        eventPhotoFragment.setEditable(false);
-//        getBaseActivity().openFragment(eventPhotoFragment);
+        if(eventPhotoFragment==null){
+            eventPhotoFragment = new EventPhotoFragment();
+            eventPhotoFragment.setEditable(false);
+        }
+        eventPhotoFragment.setEvent(event);
+        getBaseActivity().openFragment(eventPhotoFragment);
     }
+
+    @Override
+    public void toBigPhoto(int position){
+        if(eventPhotoFragment==null){
+            eventPhotoFragment = new EventPhotoFragment();
+            eventPhotoFragment.setEditable(false);
+        }
+        eventPhotoFragment.setEvent(event);
+        getBaseActivity().openFragment(eventPhotoFragment);
+        eventPhotoFragment.openBigPhoto(position);
+    }
+
 
     public void showAllNote(){
         if(allNotePop!=null){
@@ -249,8 +262,8 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     }
 
     @Override
-    public void onDelete() {
-        presenter.deleteEvent(event);
+    public void onDelete(boolean deleteAll, boolean host) {
+        presenter.deleteEvent(event, deleteAll, host);
     }
 
     @Override
@@ -362,6 +375,7 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         }
     }
 
+
     public void onRejectAll(){
         getDialogBuidler()
                 .positiveText(R.string.dialog_ok)
@@ -450,17 +464,31 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     }
 
     private void showTimeSlotNotSaveDialog(){
-        getDialogBuidler()
-                .positiveText(R.string.event_detail_dialog_keep_voting)
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        getBaseActivity().onBackPressed();
-                    }
-                })
-                .negativeText(R.string.event_detail_dialog_discard)
-                .title(R.string.event_detail_alert_unsaved_vote)
-                .show();
+        if(contentViewModel.isHost()) {
+            getDialogBuidler()
+                    .positiveText(R.string.event_detail_dialog_stay)
+                    .onNegative(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            getBaseActivity().onBackPressed();
+                        }
+                    })
+                    .negativeText(R.string.event_detail_dialog_discard)
+                    .title(R.string.event_detail_alert_unsaved_confirm)
+                    .show();
+        }else {
+            getDialogBuidler()
+                    .positiveText(R.string.event_detail_dialog_keep_voting)
+                    .onNegative(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            getBaseActivity().onBackPressed();
+                        }
+                    })
+                    .negativeText(R.string.event_detail_dialog_discard)
+                    .title(R.string.event_detail_alert_unsaved_vote)
+                    .show();
+        }
     }
 
     @Override
@@ -506,12 +534,6 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         super.onResume();
         contentViewModel.setSelectedTimeSlots(contentViewModel.getSelectedTimeSlots());
         contentViewModel.generateTimeSlotItems();
-//        initTips();
-//        if(timeslotShow) {
-//            bottomSheet.show();
-//        }else{
-//            bottomSheet.hide();
-//        }
     }
 
     @Override
@@ -519,29 +541,4 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
-
-    //    public void initBottomSheet(){
-//        final TextView show=binding.showButton;
-//        bottomSheet =binding.multibottomlayout;
-//        show.setOnClickListener(
-//                new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        bottomSheet.toggle();
-//                    }
-//                }
-//        );
-//        bottomSheet.setOnStateChangeListener(new MultiBottomSheetLayout.OnStateChangeListener() {
-//            @Override
-//            public void onStateChange(int newState) {
-//                if(newState == MultiBottomSheetLayout.STATE_EXPANDED){
-//                    show.setText("hide");
-//                    timeslotShow=true;
-//                }else{
-//                    show.setText("show");
-//                    timeslotShow=false;
-//                }
-//            }
-//        });
-//    }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="trans">#00000000</color>
+    <color name="black">#030303</color>
+    <color name="alertdialog_line">#aaaaaa</color>
+    <color name="actionsheet_blue">#0076FF</color>
+    <color name="actionsheet_red">#FD4A2E</color>
+    <color name="actionsheet_gray">#8F8F8F</color>
+    <color name="text_gray">#4A4A4A</color>
+    <color name="background_normal">#FFFFFF</color>
+    <color name="background_pressed">#F0F0F0</color>
+
+</resources>

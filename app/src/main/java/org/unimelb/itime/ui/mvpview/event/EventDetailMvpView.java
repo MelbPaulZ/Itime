@@ -1,5 +1,7 @@
 package org.unimelb.itime.ui.mvpview.event;
 
+import android.view.View;
+
 import org.unimelb.itime.base.ItimeCommonMvpView;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.TimeSlot;
@@ -28,9 +30,11 @@ public interface EventDetailMvpView extends TaskBasedMvpView, ItimeCommonMvpView
     void onRejectAll();
     void remindEveryone();
     void toDuplicate(Event event);
+    void toBigPhoto(int position);
 
     void gotoEdit();
-    void onDelete();
+    void onDelete(boolean deleteAll, boolean host);
+    View getView();
 
     void showAlerTimeDialog();
 }

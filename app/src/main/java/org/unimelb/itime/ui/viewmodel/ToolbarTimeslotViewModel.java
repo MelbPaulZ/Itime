@@ -34,9 +34,10 @@ public class ToolbarTimeslotViewModel <V extends ToolbarInterface & ToolbarTimes
     private TimeSlot confirmedTimeslot = null;
     @Bindable
     private ObservableBoolean isTimeslotEnable = new ObservableBoolean(true);
-
     @Bindable
     private ObservableBoolean rightBtnClickable = new ObservableBoolean(false);
+    @Bindable
+    private int maxCount = 0;
 
     private V view;
     private FragmentCalendarTimeslot.Mode mode;
@@ -45,6 +46,15 @@ public class ToolbarTimeslotViewModel <V extends ToolbarInterface & ToolbarTimes
         this.view = view;
         this.mode = view.getTimeSlotViewMode();
         this.timeSlotView = view.getTimeSlotView();
+    }
+
+    public int getMaxCount() {
+        return maxCount;
+    }
+
+    public void setMaxCount(int maxCount) {
+        this.maxCount = maxCount;
+        notifyPropertyChanged(BR.maxCount);
     }
 
     public void setSelectedTimeslot(List<TimeSlot> selectedTimeslot) {
@@ -93,7 +103,7 @@ public class ToolbarTimeslotViewModel <V extends ToolbarInterface & ToolbarTimes
         return View.GONE;
     }
 
-    public SpannableString getTitle(Context context, List<TimeSlot> selectedTimeslot, TimeSlot confirmedTimeslot){
+    public SpannableString getTitle(Context context, List<TimeSlot> selectedTimeslot, TimeSlot confirmedTimeslot, int maxCount){
         String title = "";
 
         if (confirmedTimeslot != null){
@@ -105,12 +115,19 @@ public class ToolbarTimeslotViewModel <V extends ToolbarInterface & ToolbarTimes
             return new SpannableString(context.getResources().getString(R.string.toolbar_choose_timeslots));
         }
 
-        if (this.mode == FragmentCalendarTimeslot.Mode.HOST_CREATE
-                || this.mode == FragmentCalendarTimeslot.Mode.INVITEE_CONFIRM){
+        if (this.mode == FragmentCalendarTimeslot.Mode.HOST_CREATE){
             String timeslotInfo = String.format(
                     context.getString(R.string.toolbar_timeslots_select)
                     , selectedCount
                     , context.getResources().getInteger(R.integer.timeslot_create_max_count));
+            return changeMatchColor(context, timeslotInfo, String.valueOf(selectedCount));
+        }
+
+        if (this.mode == FragmentCalendarTimeslot.Mode.INVITEE_CONFIRM){
+            String timeslotInfo = String.format(
+                    context.getString(R.string.toolbar_timeslots_select)
+                    , selectedCount
+                    , maxCount);
             return changeMatchColor(context, timeslotInfo, String.valueOf(selectedCount));
         }
 

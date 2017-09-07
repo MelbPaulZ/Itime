@@ -50,6 +50,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 
+
     // add dependecies following
     //mvp
     compile 'com.hannesdorfmann.mosby:mvp:2.0.1'
@@ -71,7 +72,6 @@ dependencies {
     compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:2.1.0'
 
     //google place
-    compile 'com.google.android.gms:play-services-auth:10.2.0'
     compile 'pub.devrel:easypermissions:0.2.1'
     compile('com.google.api-client:google-api-client-android:1.22.0') {
         exclude group: 'org.apache.httpcomponents'
@@ -79,10 +79,14 @@ dependencies {
     compile('com.google.apis:google-api-services-calendar:v3-rev249-1.22.0') {
         exclude group: 'org.apache.httpcomponents'
     }
-    compile 'com.google.android.gms:play-services-location:10.2.0'
-    compile 'com.google.android.gms:play-services-gcm:10.2.0'
-    compile 'com.google.android.gms:play-services-identity:10.2.0'
-    compile 'com.google.android.gms:play-services-places:10.2.0'
+
+//    compile 'com.google.android.gms:play-services:10.2.1'
+//    compile 'com.google.android.gms:play-services:10.2.1'
+    compile 'com.google.android.gms:play-services-auth:10.2.1'
+    compile 'com.google.android.gms:play-services-location:10.2.1'
+    compile 'com.google.android.gms:play-services-gcm:10.2.1'
+    compile 'com.google.android.gms:play-services-identity:10.2.1'
+    compile 'com.google.android.gms:play-services-places:10.2.1'
 
     // new leancloud
     compile ('cn.leancloud.android:avoscloud-sdk:v3.+')
@@ -93,6 +97,8 @@ dependencies {
     compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
     compile project(':closabledatabindingview')
     compile 'com.bigkoo:alertview:1.0.3'
+    compile project(':imagepicker')
+    compile project(':IOSDialog')
 
     //vendor
     compile 'org.unimelb.itime.calendar:itimerecycleviewgroup:1.0.0'
@@ -145,5 +151,8 @@ dependencies {
 
     // QR code
     compile 'com.google.zxing:core:3.3.0'
+}
 
+configurations.all {
+    exclude module: 'play-services-auth'
 }

@@ -105,8 +105,8 @@ public class BindLoader extends BaseObservable {
         if (!url.getUrl().equals("")){
             Picasso.with(context)//
                     .load(url.getUrl())//
-                    .placeholder(R.drawable.default_image)//
-                    .error(R.drawable.default_image)//
+                    .placeholder(R.drawable.icon_details_photo_placeholder)//
+                    .error(R.drawable.icon_details_photo_placeholder)//
                     .memoryPolicy(NO_CACHE, NO_STORE)
                     .resize(displaysMetrics.widthPixels, displaysMetrics.heightPixels)//
                     .centerInside()//
@@ -116,8 +116,8 @@ public class BindLoader extends BaseObservable {
             if (file.exists()){
                 Picasso.with(context)//
                         .load(new File(url.getLocalPath()))//
-                        .placeholder(R.drawable.default_image)//
-                        .error(R.drawable.default_image)//
+                        .placeholder(R.drawable.icon_details_photo_placeholder)//
+                        .error(R.drawable.icon_details_photo_placeholder)//
                         .memoryPolicy(NO_CACHE, NO_STORE)
                         .resize(displaysMetrics.widthPixels, displaysMetrics.heightPixels)//
                         .centerInside()//
