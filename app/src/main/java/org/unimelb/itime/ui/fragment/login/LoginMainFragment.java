@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -81,6 +83,29 @@ public class LoginMainFragment extends ItimeBaseFragment<LoginMvpView, LoginPres
         binding.setVm(vm);
 
         emailAutoComplete = (AutoCompleteTextView) binding.getRoot().findViewById(R.id.auto_complete_email);
+        emailAutoComplete.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    vm.setEmailTextCleanVisibility(View.VISIBLE);
+                }else{
+                    vm.setEmailTextCleanVisibility(View.GONE);
+                }
+
+            }
+        });
+
+        EditText passwordEditText = (EditText) getActivity().findViewById(R.id.login_password_edittext);
+        passwordEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    vm.setPasswordCleanVisibility(View.VISIBLE);
+                }else{
+                    vm.setPasswordCleanVisibility(View.GONE);
+                }
+            }
+        });
 
     }
 

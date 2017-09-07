@@ -47,6 +47,7 @@
             android:textSize="14sp"
             android:text="@={vm.loginEmail}"
             android:maxLines="1"
+            android:inputType="text"
             android:theme="@style/Theme.App.Base"
             android:focusableInTouchMode="true"
             android:focusable="true"
@@ -59,7 +60,8 @@
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:background="@drawable/icon_searchbar_clear"
-            android:onClick="@{()->vm.cleanEmail()}"/>
+            android:onClick="@{()->vm.cleanEmail()}"
+            android:visibility="@{vm.emailTextCleanVisibility}"/>
 
     </RelativeLayout>
 
@@ -75,6 +77,7 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp">
             <EditText
+                android:id="@+id/login_password_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
@@ -83,6 +86,7 @@
                 android:focusableInTouchMode="true"
                 android:textSize="14sp"
                 android:maxLines="1"
+                android:inputType="textPassword"
                 android:text="@={vm.loginPassWord}"
                 />
             <ImageView
@@ -92,7 +96,8 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/icon_searchbar_clear"
-                android:onClick="@{()->vm.cleanPassWord()}"/>
+                android:onClick="@{()->vm.cleanPassWord()}"
+                android:visibility="@{vm.passwordCleanVisibility}"/>
         </RelativeLayout>
 
 

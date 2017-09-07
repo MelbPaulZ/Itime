@@ -21,6 +21,9 @@ public class LoginMainViewModel extends ItimeBaseViewModel {
     private String loginEmail = "";
     private String loginPassWord = "";
     private TextChangeListener textChangeListener;
+    private int emailTextCleanVisibility = View.GONE;
+    private int passwordCleanVisibility = View.GONE;
+
     private String[] postFixAutoCompletes = new String[]{
         "student.monash.edu","student.unimelb.edu.au","student.rmit.edu.au","student.monash.edu"
     };
@@ -94,4 +97,23 @@ public class LoginMainViewModel extends ItimeBaseViewModel {
         return matchString;
     }
 
+    @Bindable
+    public int getEmailTextCleanVisibility() {
+        return emailTextCleanVisibility;
+    }
+
+    public void setEmailTextCleanVisibility(int emailTextCleanVisibility) {
+        this.emailTextCleanVisibility = emailTextCleanVisibility;
+        notifyPropertyChanged(BR.emailTextCleanVisibility);
+    }
+
+    @Bindable
+    public int getPasswordCleanVisibility() {
+        return passwordCleanVisibility;
+    }
+
+    public void setPasswordCleanVisibility(int passwordCleanVisibility) {
+        this.passwordCleanVisibility = passwordCleanVisibility;
+        notifyPropertyChanged(BR.passwordCleanVisibility);
+    }
 }
