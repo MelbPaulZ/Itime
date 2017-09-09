@@ -59,6 +59,7 @@ implements EventCreateMvpView, ToolbarInterface{
     private EventCreatePrivateViewModel vm;
     private ToolbarViewModel toolbarVM;
     private Event event;
+    private boolean hasChange = false;
     private FragmentEventCreate.Mode taskMode = FragmentEventCreate.Mode.CREATE;
 
     public void setTaskMode(FragmentEventCreate.Mode taskMode) {
@@ -140,10 +141,15 @@ implements EventCreateMvpView, ToolbarInterface{
         }else if (taskMode == FragmentEventCreate.Mode.UPDATE){
             presenter.updateEvent(event);
         }
+        hasChange = true;
     }
 
     @Override
     public void onBack() {
+        if (!hasChange){
+            getActivity().finish();
+            return;
+        }
         if (getActivity() instanceof EventCreateActivity) {
             new MaterialDialog.Builder(getContext())
                     .content(R.string.event_create_cancel_dialog_content)
@@ -172,6 +178,7 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void toNote(Event event) {
+        hasChange = true;
         FragmentEventCreateNote fragment = new FragmentEventCreateNote();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
@@ -180,6 +187,7 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void toUrl(Event event) {
+        hasChange = true;
         FragmentEventCreateUrl fragment = new FragmentEventCreateUrl();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
@@ -188,6 +196,7 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void toRepeat(Event event) {
+        hasChange = true;
         FragmentEventRepeat fragment = new FragmentEventRepeat();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
@@ -202,6 +211,7 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void toCalendars(Event event) {
+        hasChange = true;
         FragmentEventCalendar fragment = new FragmentEventCalendar();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
@@ -210,6 +220,7 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void toLocation(Event event) {
+        hasChange = true;
         Intent intent = new Intent(getActivity(), LocationActivity.class);
         intent.putExtra(getString(R.string.location_string1), event.getLocation().getLocationString1());
         startActivityForResult(intent, REQ_LOCATION);
@@ -217,6 +228,7 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void toTitle(Event event) {
+        hasChange = true;
         FragmentEventCreateTitle fragment = new FragmentEventCreateTitle();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
@@ -230,6 +242,7 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void toAlert(Event event) {
+        hasChange = true;
         FragmentEventCreateAlert fragment = new FragmentEventCreateAlert();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
@@ -262,6 +275,7 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void toPhoto() {
+        hasChange = true;
         startPhotoPicker();
     }
 

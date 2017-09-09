@@ -3,6 +3,7 @@ package org.unimelb.itime.restfulapi;
 import android.databinding.ObservableList;
 
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.RecommandRequest;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.restfulresponse.HttpResult;
 
@@ -123,8 +124,8 @@ public interface EventApi {
 
     @POST("event/timeslot/recommend")
     Observable<HttpResult<List<TimeSlot>>> recommend(
-            @Body HashMap<String, Object> params
-    );
+            @Body RecommandRequest recommandRequest
+            );
 
     // waiting for testing
     @POST("event/reminder/update/{calendarUid}/{eventUid}")
