@@ -84,7 +84,7 @@ public class EventDetailViewModel extends BaseObservable{
     private List<TimeSlot> selectedTimeSlots = new ArrayList<>();
     private List<TimeSlot> originalSelectedTimeSlots = new ArrayList<>();
     private ObservableList<EventDetailTimeSlotItemViewModel> timeSlotsItems = new ObservableArrayList<>();
-    private boolean showTimeSlotSheet = true;
+    private boolean showTimeSlotSheet = false;
     private int status = STATUS_NEED_CONFIRM;
     private int originalStatus;
     private boolean host;
@@ -251,6 +251,8 @@ public class EventDetailViewModel extends BaseObservable{
             setCanVote(true);
             switch (status){
                 case STATUS_NEED_CONFIRM:
+                    setSheetLeftText(context.getString(R.string.event_detail_sheet_left_confirm_a_timeslot));
+                    break;
                 case STATUS_NEED_VOTE:
                     setSheetLeftText(context.getString(R.string.event_detail_sheet_left_choosetimeslots));
                     break;
@@ -959,9 +961,6 @@ public class EventDetailViewModel extends BaseObservable{
         setCalendarType(CalendarUtil.getInstance(context).getCalendarName(event));
 
         setTimeSlots(new ArrayList<>(event.getTimeslot().values()));
-        if(showTimeSlotSheet) {
-            setShowTimeSlotSheet(true);
-        }
         setTimeSlotBottomSheetButtonVisibilities();
         generateEventTimeString();
         setAlertString(AppUtil.getDefaultAlertStr(event.getReminder()));
@@ -969,6 +968,9 @@ public class EventDetailViewModel extends BaseObservable{
         initStatus(event);
         originalStatus = getStatus();
         generateTimeSlotItems();
+        if(getStatus()==STATUS_NEED_VOTE) {
+            setShowTimeSlotSheet(true);
+        }
 
         setRepeatString(generateRepeatString());
         setUntilDateString(generateUntilString());

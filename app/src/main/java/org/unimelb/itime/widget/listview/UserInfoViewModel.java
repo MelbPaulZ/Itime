@@ -22,6 +22,11 @@ import org.unimelb.itime.util.CharacterParser;
  */
 
 public class UserInfoViewModel<T> extends BaseObservable {
+
+    public static final int TYPE_USER = 1;
+    public static final int TYPE_EMAIL = 0;
+
+    private int type = TYPE_USER;
     private String pinyin;
     private T data;
     private boolean showDetail = true;
@@ -208,5 +213,13 @@ public class UserInfoViewModel<T> extends BaseObservable {
             return true;
         }
         return false;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

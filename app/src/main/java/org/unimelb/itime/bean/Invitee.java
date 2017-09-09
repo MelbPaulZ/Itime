@@ -74,6 +74,7 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
 
     @Convert(converter = Invitee.UserConverter.class , columnType = String.class)
     private User user = new User();
+
     public static class UserConverter implements PropertyConverter<User,String> {
         Gson gson = new Gson();
 
@@ -200,7 +201,7 @@ public class Invitee implements ITimeUserInfoInterface, ITimeInviteeInterface, S
             return user.getPersonalAlias();
         }
 
-        return "";
+        return aliasName;
     }
 
     public void setAliasName(String aliasName) {

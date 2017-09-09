@@ -16,12 +16,15 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Invitee;
+import org.unimelb.itime.bean.User;
 import org.unimelb.itime.ui.mvpview.event.EventCreateSearchInviteeMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
+import org.unimelb.itime.util.EmailUtil;
 import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.widget.OnRecyclerItemClickListener;
 import org.unimelb.itime.widget.listview.UserInfoViewModel;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +47,7 @@ public class EventCreateSearchInviteeViewModel extends BaseObservable {
     private List<UserInfoViewModel> contacts = new ArrayList<>();
     private String searchStr = "";
     private Event event;
+    private List<String> autoEmails;
 
 
     public View.OnClickListener onBackClick(){
@@ -102,6 +106,24 @@ public class EventCreateSearchInviteeViewModel extends BaseObservable {
             if(vm.tryMatch(tmp)){
                 results.add(vm);
             }
+        }
+        autoEmails = EmailUtil.getInstance(presenter.getContext()).getAutoCompleteLists(searchStr);
+        if (autoEmails.isEmpty()) {
+        } else {
+                addEmailInvitees(autoEmails);
+            }
+        }
+
+    private void addEmailInvitees(List<String> autoEmails){
+        for(String email: autoEmails){
+            User user = new User();
+            user.setPersonalAlias(email);
+            user.setUserId(email);
+            UserInfoViewModel<User> vm = new UserInfoViewModel<>();
+            vm.setType(UserInfoViewModel.TYPE_EMAIL);
+            vm.setData(user);
+            results.add(vm);
+            vm.setMatchStr(searchStr);
         }
     }
 
@@ -170,17 +192,29 @@ public class EventCreateSearchInviteeViewModel extends BaseObservable {
         return new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                UserInfoViewModel<Contact> contact = results.get(i);
+                UserInfoViewModel userInfo = results.get(i);
                 boolean contain = false;
                 for(Invitee invitee: invitees){
-                    if(invitee.getUserUid().equals(contact.getData().getUserDetail().getUserUid())){
-                        invitees.remove(invitee);
-                        contain=true;
-                        break;
+                    if(userInfo.getType()==UserInfoViewModel.TYPE_USER) {
+                        if (invitee.getUserId().equals(((Contact)(userInfo.getData())).getUserDetail().getUserId())) {
+                            invitees.remove(invitee);
+                            contain = true;
+                            break;
+                        }
+                    } else{
+                        if (invitee.getUserId().equals(((User)(userInfo.getData())).getUserId())){
+                            invitees.remove(invitee);
+                            contain = true;
+                            break;
+                        }
                     }
                 }
                 if(!contain) {
-                    invitees.add(0, EventUtil.generateInvitee(event, contact.getData()));
+                    if(userInfo.getType()==UserInfoViewModel.TYPE_USER) {
+                        invitees.add(0, EventUtil.generateInvitee(event, ((Contact) (userInfo.getData()))));
+                    } else{
+                        invitees.add(0, EventUtil.generateInvitee(event, ((User)(userInfo.getData())).getUserId()));
+                    }
                 }
                 if(mvpView!=null){
                     mvpView.goBack();
@@ -196,7 +230,7 @@ public class EventCreateSearchInviteeViewModel extends BaseObservable {
                 UserInfoViewModel<Contact> contact = recent.get(i);
                 boolean contain = false;
                 for (Invitee invitee : invitees) {
-                    if (invitee.getUserUid().equals(contact.getData().getUserDetail().getUserUid())) {
+                    if (invitee.getUserId().equals(contact.getData().getUserDetail().getUserId())) {
                         invitees.remove(invitee);
                         contain = true;
                         break;

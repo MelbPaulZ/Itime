@@ -53,6 +53,7 @@
     <string name="event_detail_itime_contact_title">iTime Contacts</string>
     <string name="event_detail_youmayhaveconfilict">You may have conflict on the timeslot</string>
     <string name="event_detail_sheet_left_choosetimeslots">Choose Timeslots</string>
+    <string name="event_detail_sheet_left_confirm_a_timeslot">Confirm a Timeslot</string>
     <string name="event_detail_sheet_left_voted">Voted</string>
     <string name="event_detail_sheet_left_not_going">Not Going</string>
     <string name="event_detail_view_in_calendar">View in calendar</string>
