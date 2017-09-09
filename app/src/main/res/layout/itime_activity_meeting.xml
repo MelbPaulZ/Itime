@@ -43,19 +43,13 @@
                         android:visibility="@{messageGroupViewModel.getMuteVisibility(messageGroupViewModel.messageGroup)}"
                         android:background="@drawable/icon_meetings_muted" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="4dp"
-                        android:layout_toEndOf="@id/itime_activity_meeting_icon"
-                        android:text="@{messageGroupViewModel.messageGroup.title}" />
 
                     <!--arrow-->
                     <ImageView
                         android:id="@+id/itime_activity_mute_red_dot"
                         style="@style/itimeCellRightIcon"
                         android:background="@{messageGroupViewModel.getIcon(context, messageGroupViewModel.showDetail)}" />
+
 
                     <!--red dot-->
                     <ImageView
@@ -66,19 +60,9 @@
                         android:visibility="@{messageGroupViewModel.getUnNumberMuteDotVisibility(messageGroupViewModel.messageGroup)}"
                         android:background="@drawable/icon_badge_small" />
 
-                    <!--<TextView-->
-                        <!--android:layout_width="18dp"-->
-                        <!--android:layout_height="18dp"-->
-                        <!--android:layout_centerVertical="true"-->
-                        <!--android:layout_toStartOf="@id/itime_activity_mute_red_dot"-->
-                        <!--android:visibility="@{messageGroupViewModel.getNumberredMuteDotVisibility(messageGroupViewModel.messageGroup)}"-->
-                        <!--android:background="@drawable/icon_badge_large"-->
-                        <!--android:textAlignment="center"-->
-                        <!--android:textColor="@color/white"-->
-                        <!--android:text="@{}"-->
-                        <!--/>-->
 
                     <org.unimelb.itime.widget.BadgeView
+                        android:id="@+id/itime_activity_mute_red"
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:layout_centerVertical="true"
@@ -86,6 +70,16 @@
                         android:visibility="@{messageGroupViewModel.getNumberredMuteDotVisibility(messageGroupViewModel.messageGroup)}"
                         app:number="@{messageGroupViewModel.getUnReadMessageNumber(messageGroupViewModel.messageGroup)}"
                         />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="4dp"
+                        android:layout_toStartOf="@id/itime_activity_mute_red"
+                        android:layout_toEndOf="@id/itime_activity_meeting_icon"
+                        android:layout_marginEnd="10dp"
+                        android:text="@{messageGroupViewModel.messageGroup.title}" />
 
                     <!--todo numbered dot-->
 
