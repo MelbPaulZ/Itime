@@ -114,6 +114,7 @@ public class EventUtil extends BaseUtil{
         return copyEvent;
     }
 
+
     public static CharSequence[] getRepeatEventChangeOptions(Context context) {
         CharSequence[] sequences = new CharSequence[3];
         sequences[0] = context.getString(R.string.dialog_save_for_this_event_only);
