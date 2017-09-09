@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     private EventCreateViewModel vm;
     private ToolbarViewModel toolbarViewModel;
     private Event event;
+    private Event originEvent;
     public final static int REQ_LOCATION = 1000;
     public final static int REQ_INVITEE = 1001;
     public final static int REQ_TIMESLOT = 1002;
@@ -125,6 +127,8 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
 
     public void setEvent(Event event) {
         this.event = event;
+        this.originEvent = EventUtil.copyEvent(event);
+
     }
 
     @Nullable
@@ -151,6 +155,10 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
 
     @Override
     public void onBack() {
+        if (originEvent.equals(event)){
+            getActivity().finish();
+            return;
+        }
         if (getActivity() instanceof EventCreateActivity) {
             getDialogBuidler()
                     .content(R.string.event_create_cancel_dialog_content)
@@ -255,6 +263,11 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
             fragmentEventCreateAddInvitee = new FragmentEventCreateAddInvitee();
         fragmentEventCreateAddInvitee.setEvent(event);
         getBaseActivity().openFragment(fragmentEventCreateAddInvitee);
+    }
+
+    @Override
+    public void toPhoto() {
+        startPhotoPicker();
     }
 
     @Override

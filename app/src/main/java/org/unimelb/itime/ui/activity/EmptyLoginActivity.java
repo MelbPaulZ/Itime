@@ -17,7 +17,7 @@ import org.unimelb.itime.base.ItimeBaseActivity;
 import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.service.RemoteService;
-import org.unimelb.itime.ui.mvpview.LoginMvpView;
+import org.unimelb.itime.ui.mvpview.login.LoginMvpView;
 import org.unimelb.itime.ui.presenter.LoginPresenter;
 import org.unimelb.itime.util.UserUtil;
 
@@ -33,7 +33,7 @@ import david.itimecalendar.calendar.ui.monthview.MonthView;
  * Created by yuhaoliu on 27/7/17.
  */
 
-public class EmptyLoginActivity extends ItimeBaseActivity<LoginMvpView,LoginPresenter> implements LoginMvpView
+public class EmptyLoginActivity extends ItimeBaseActivity<LoginMvpView,LoginPresenter<LoginMvpView>> implements LoginMvpView
 {
 
     private static final String TAG = "EmptyLoginActivity";
@@ -109,7 +109,6 @@ public class EmptyLoginActivity extends ItimeBaseActivity<LoginMvpView,LoginPres
         Intent intent = new Intent(this,RemoteService.class);
         startService(intent);
 
-//        getPresenter().loginByEmail(username,password);
     }
 
     @Override
@@ -123,10 +122,7 @@ public class EmptyLoginActivity extends ItimeBaseActivity<LoginMvpView,LoginPres
         return new LoginPresenter(getApplicationContext());
     }
 
-    @Override
-    public void onPageChange(int task) {
 
-    }
 
     @Override
     public void onTaskStart(int taskId) {
@@ -145,5 +141,10 @@ public class EmptyLoginActivity extends ItimeBaseActivity<LoginMvpView,LoginPres
     @Override
     public void onTaskError(int taskId, Object data) {
         Toast.makeText(getApplicationContext(),"Login Failed /(ㄒoㄒ)/~~",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void toResetPassword() {
+
     }
 }

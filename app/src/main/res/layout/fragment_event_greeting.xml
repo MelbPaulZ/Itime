@@ -51,12 +51,16 @@
             android:id="@+id/greeting_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="100dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="17dp"
             android:layout_marginEnd="16dp"
             android:hint="@string/event_greeting_hint"
             android:textColorHint="@color/whiteTwo"
             android:background="@color/transparent"
+            android:focusable="true"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
             android:onEditTextChange="@{vm.onGreetingChangeListener()}"
             />
 

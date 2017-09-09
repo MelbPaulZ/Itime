@@ -17,10 +17,15 @@
         <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/whiteFive">
+        android:background="@color/whiteFive"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/toolbar"
+            bind:vm="@{toolbarvm}" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -28,13 +33,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/whiteFive"
                 android:orientation="vertical">
-
-                <include
-                    layout="@layout/toolbar"
-                    bind:vm="@{toolbarvm}" />
 
                 <!--Invitee-->
                 <RelativeLayout
@@ -52,11 +53,11 @@
 
                     <org.unimelb.itime.widget.PileupView
                         android:id="@+id/pileup_avatars"
+                        style="@style/PileupStyle"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="44dp"
-                        app:pileup_images="@{vm.mockAvatorLists}"
-                        style="@style/PileupStyle" />
+                        app:pileup_images="@{vm.mockAvatorLists}" />
 
 
                     <TextView
@@ -82,27 +83,27 @@
                         android:textColor="@{vm.getTitleColor(vm.event)}" />
                 </RelativeLayout>
 
-                <!--Duration-->
-                <RelativeLayout
-                    style="@style/ItimeRelativeCell"
-                    android:background="@drawable/bg_divider_bottom"
-                    android:onClick="@{vm.onClickDuration()}">
+                <!--&lt;!&ndash;Duration&ndash;&gt;-->
+                <!--<RelativeLayout-->
+                <!--style="@style/ItimeRelativeCell"-->
+                <!--android:background="@drawable/bg_divider_bottom"-->
+                <!--android:onClick="@{vm.onClickDuration()}">-->
 
-                    <ImageView
-                        style="@style/ItimeCellLeftIcon"
-                        android:background="@drawable/icon_event_duration" />
+                <!--<ImageView-->
+                <!--style="@style/ItimeCellLeftIcon"-->
+                <!--android:background="@drawable/icon_event_duration" />-->
 
-                    <TextView
-                        style="@style/itimeCellTitle"
-                        android:text="@string/event_duration_title" />
+                <!--<TextView-->
+                <!--style="@style/itimeCellTitle"-->
+                <!--android:text="@string/event_duration_title" />-->
 
-                    <TextView
-                        style="@style/itimeCellRightContent"
-                        android:text="@{vm.getDurationString(vm.event)}" />
+                <!--<TextView-->
+                <!--style="@style/itimeCellRightContent"-->
+                <!--android:text="@{vm.getDurationString(vm.event)}" />-->
 
-                    <TextView style="@style/ItimeDisclosure" />
+                <!--<TextView style="@style/ItimeDisclosure" />-->
 
-                </RelativeLayout>
+                <!--</RelativeLayout>-->
 
                 <!--Add a timeslot-->
                 <RelativeLayout
@@ -173,7 +174,6 @@
                     </RelativeLayout>
                 </RelativeLayout>
 
-
                 <!--Location-->
                 <RelativeLayout
                     style="@style/ItimeRelativeCell"
@@ -210,10 +210,10 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="10dp"
                         android:layout_marginStart="45dp"
-                        android:text="@{vm.event.location.locationString2}"
-                        android:textColor="@color/warmGrey"
                         android:ellipsize="end"
                         android:maxLines="1"
+                        android:text="@{vm.event.location.locationString2}"
+                        android:textColor="@color/warmGrey"
                         android:textSize="11sp"
                         android:visibility="@{vm.getLocationStringVisibility(vm.event)}" />
 
@@ -250,7 +250,7 @@
                     android:orientation="vertical"
                     ClosableBaseLinearLayout:orderHashMap="@{vm.orderHashMap}"
                     ClosableBaseLinearLayout:closableItems="@{vm.rowItems}"
-                     />
+                    />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -264,10 +264,10 @@
                         android:animateLayoutChanges="true"
                         ClosableBaseLinearLayout:orderHashMap="@{vm.orderHashMap}"
                         ClosableBaseLinearLayout:closableItems="@{vm.buttonItems}"
-                         />
+                        />
                 </RelativeLayout>
 
             </LinearLayout>
         </ScrollView>
-    </RelativeLayout>
+    </LinearLayout>
 </layout>

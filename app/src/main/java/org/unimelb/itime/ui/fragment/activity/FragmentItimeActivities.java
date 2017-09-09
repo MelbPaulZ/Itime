@@ -63,7 +63,6 @@ public class FragmentItimeActivities extends ItimeBaseFragment<ItimeActivitiesMv
     public void onResume() {
         super.onResume();
         if (needUpdateActivities){
-            Log.i("paulpaul", "onResume: " + "fragment update messageGroup");
             vm.setMessageGroups(getMessageViewGroups());
             needUpdateActivities = false;
         }
@@ -92,7 +91,6 @@ public class FragmentItimeActivities extends ItimeBaseFragment<ItimeActivitiesMv
         MessageGroupUtil.sortMessageGroupByTime(messageGroups);
         if (vm.getMessageGroups().size() == 0) {
             List<ActivityMessageGroupViewModel> activityMessageGroupViewModels = new ArrayList<>();
-
             for (MessageGroup messageGroup : messageGroups) {
                 ActivityMessageGroupViewModel msgGroupVM = new ActivityMessageGroupViewModel(getContext(), messageGroup);
                 msgGroupVM.setMvpView(this);
@@ -150,5 +148,21 @@ public class FragmentItimeActivities extends ItimeBaseFragment<ItimeActivitiesMv
     @Override
     public void onDisplayMessages(MessageGroup messageGroup) {
         presenter.readMessageGroup(messageGroup);
+    }
+
+    @Override
+    public void onReadMessages(Message message) {
+        List<ActivityMessageGroupViewModel> msgGroups = vm.getMessageGroups();
+        for (ActivityMessageGroupViewModel viewmodel: msgGroups){
+            if (viewmodel.getMessageGroup().getMessageGroupUid() == message.getMessageGroupUid()){
+                viewmodel.readMessages();
+                onDisplayMessages(viewmodel.getMessageGroup());
+//                for (ActivityMessageViewModel msgs: viewmodel.getMessageGroups()){
+//                    msgs.getMessage().setRead(true);
+//                }
+//                vm.setMessageGroups(vm.getMessageGroups());
+//                break; // TODO: 26/8/17 test this click read
+            }
+        }
     }
 }

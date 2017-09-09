@@ -69,7 +69,7 @@ public class ActivityMessageViewModel extends BaseObservable{
     }
 
     public String getTimeString(Message message){
-        Date date = EventUtil.parseTimeZoneToDate(message.getUpdatedAt(), EventUtil.UPDATE_CREATE_AT);
+        Date date = EventUtil.parseTimeZoneToDate(message.getCreatedAt(), EventUtil.UPDATE_CREATE_AT);
         if (date == null){
             return "";
         }
@@ -90,6 +90,7 @@ public class ActivityMessageViewModel extends BaseObservable{
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mvpView.onReadMessages(message);
                 Intent intent = new Intent(context, EventDetailActivity.class);
                 Event event = DBManager.getInstance(context).getEvent(message.getEventUid());
                 if (event == null){

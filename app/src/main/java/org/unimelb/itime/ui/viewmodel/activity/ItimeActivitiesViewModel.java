@@ -104,10 +104,8 @@ public class ItimeActivitiesViewModel extends ItimeBaseViewModel {
         menu = new PopupMenu(presenter.getContext());
         List<PopupMenu.Item> menuItem = new ArrayList<>();
 
-        menuItem.add(new PopupMenu.Item(R.drawable.icon_contacts_invitenew,
+        menuItem.add(new PopupMenu.Item(R.drawable.icon_activities_read,
                 presenter.getContext().getResources().getString(R.string.mark_all_read)));
-
-
         menu.setItems(menuItem);
 
         PopupMenu.OnItemClickListener onMenuItemClicked = new PopupMenu.OnItemClickListener() {

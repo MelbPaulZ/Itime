@@ -32,6 +32,7 @@
     <string name="toolbar_activities">Activities</string>
     <string name="toolbar_mute">Mute</string>
     <string name="toolbar_view_in_calendar">Calendar</string>
+    <string name="toolbar_login">LOGIN</string>
 
     <!--Event-->
     <string name="event">Event</string>
@@ -107,11 +108,17 @@
     <string name="event_detail_dialog_remind_title">Every invitee will recieve a system reminder </string>
     <string name="event_detail_dialog_cantgo_message">You can leave a message (Optional)</string>
     <string name="event_detail_dialog_cantgo_hint">Why you can\'t go</string>
+<<<<<<< HEAD
     <string name="event_detail_delete_dialog_title">Delete this event</string>
     <string name="event_detail_delete_dialog_repeat_title">Delete a repeating event</string>
     <string name="event_detail_delete_dialog_message">Invitees will be notified that this event was cancelled and everything about this event will be deleted</string>
     <string name="event_detail_delete_dialog_input_hints">Leave a comment for your invitees (optional)</string>
     <string name="event_detail_delete_dialog_cancel">Cancel</string>
+=======
+    <string name="event_invitation_sent">Invitation Sent</string>
+    <string name="invitation_sent_reject_text">Your invitation is successfully sent, but rejected by some invitees because they have blocked you:</string>
+
+>>>>>>> 2ec1b2c68727505c88cbc8d81139cc814aca15cf
     <!--Event Create Add Invitee-->
     <string name="event_create_addinvitee">Add Invitee</string>
     <string name="event_create_addinvitee_typeemailhere">Type Email here</string>
@@ -406,6 +413,17 @@
     <string name="alert_str_one_day_before">1 day before</string>
     <string name="alert_str_two_days_before">2 days before</string>
     <string name="alert_str_one_week_before">1 week before</string>
+
+    <!--login-->
+    <string name="login">Log In</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login_main_string1">Forget your password?</string>
+    <string name="login_main_string2">Reset by Email.</string>
+    <string name="logging">Logging</string>
+    <string name="reset_your_password">Reset Your Password</string>
+    <string name="reset_your_password_second_text">Please enter your registered Email</string>
+    <string name="reset">RESET</string>
     <string name="meeting_placeholder_invitation">This is where you find all invitations \n sent to you</string>
     <string name="meeting_placeholder_hosting">Create a meeting and it will show up here</string>
     <string name="meeting_placeholder_coming">This is where you find all meetings \n you are going to attend</string>

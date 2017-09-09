@@ -1,5 +1,6 @@
 package org.unimelb.itime.base;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -190,5 +191,15 @@ public abstract class ItimeBaseActivity<V extends MvpView, P extends MvpBasePres
         intent.putExtra(FragmentCalendar.SCROLL_TO_DATE, date);
         this.setResult(resultCode,intent);
         this.finish();
+    }
+
+    public boolean isServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

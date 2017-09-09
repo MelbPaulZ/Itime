@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import org.unimelb.itime.R;
@@ -62,7 +64,7 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
     @Override
     public void onResume() {
         super.onResume();
-        Toast.makeText(getContext(), taskMode.name(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), taskMode.name(), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -80,6 +82,17 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
         toolbarVM.setRightText(getString(R.string.toolbar_send));
         toolbarVM.setRightEnable(true);
         binding.setToolbarVM(toolbarVM);
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EditText editText = (EditText) getActivity().findViewById(R.id.greeting_edit_text);
+        editText.requestFocus();
+        InputMethodManager imm = (InputMethodManager)getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
     }
 
     @Override
@@ -107,11 +120,14 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
     public void onTaskSuccess(int taskId, Object data) {
         hideProgressDialog();
         if (taskId == EventCreatePresenter.TASK_EVENT_CREATE){
-            Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-            List<Event> eventList = (List<Event>) data;
-            intent.putExtra(EventDetailActivity.EVENT, eventList.get(0));
-            startActivity(intent);
-            getActivity().finish();
+//            Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+//            List<Event> eventList = (List<Event>) data;
+//            intent.putExtra(EventDetailActivity.EVENT, eventList.get(0));
+//            startActivity(intent);
+//            getActivity().finish();
+            FragmentEventCreateSentFragment fragment = new FragmentEventCreateSentFragment();
+            fragment.setEvent(event);
+            getBaseActivity().openFragment(fragment);
         }else if (taskId == EventCreatePresenter.TASK_EVENT_UPDATE){
             Toast.makeText(getContext(), "update event successfully", Toast.LENGTH_SHORT).show();
             getActivity().finish();
