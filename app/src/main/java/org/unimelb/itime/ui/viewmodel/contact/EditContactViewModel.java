@@ -68,12 +68,12 @@ public class EditContactViewModel extends BaseObservable {
 
     @Bindable
     public int getRemainLength() {
+        toolbarViewModel.setRightEnable(UserValidator.getInstance(presenter.getContext()).isValidName(alias));
         return UserValidator.NAME_MAX_LENGTH - alias.length();
     }
 
     public void setRemainLength(int remainLength) {
         this.remainLength = remainLength;
-        toolbarViewModel.setRightEnable(UserValidator.getInstance(presenter.getContext()).isValidName(alias));
         notifyPropertyChanged(BR.remainLength);
     }
 }
