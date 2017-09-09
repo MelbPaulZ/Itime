@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.databinding.FragmentEventCreateSentBinding;
 import org.unimelb.itime.ui.mvpview.event.EventCreateSentMvpView;
 import org.unimelb.itime.ui.presenter.event.EventCreateSentPrensenter;
@@ -21,11 +22,11 @@ import org.unimelb.itime.ui.viewmodel.event.EventCreateSentViewModel;
 
 public class FragmentEventCreateSentFragment extends ItimeBaseFragment<EventCreateSentMvpView,
         EventCreateSentPrensenter<EventCreateSentMvpView>>
-implements EventCreateSentMvpView, ToolbarInterface{
+implements EventCreateSentMvpView{
 
     private FragmentEventCreateSentBinding binding;
     private EventCreateSentViewModel vm;
-
+    private Event event;
 
     @Nullable
     @Override
@@ -40,6 +41,7 @@ implements EventCreateSentMvpView, ToolbarInterface{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         vm = new EventCreateSentViewModel(getPresenter());
+        vm.setEvent(event);
         binding.setVm(vm);
     }
 
@@ -49,12 +51,11 @@ implements EventCreateSentMvpView, ToolbarInterface{
     }
 
     @Override
-    public void onNext() {
-
+    public void onClickDone() {
+        getActivity().finish();
     }
 
-    @Override
-    public void onBack() {
-
+    public void setEvent(Event event) {
+        this.event = event;
     }
 }

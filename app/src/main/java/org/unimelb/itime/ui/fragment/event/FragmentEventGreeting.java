@@ -126,11 +126,14 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
     public void onTaskSuccess(int taskId, Object data) {
         hideProgressDialog();
         if (taskId == EventCreatePresenter.TASK_EVENT_CREATE){
-            Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-            List<Event> eventList = (List<Event>) data;
-            intent.putExtra(EventDetailActivity.EVENT, eventList.get(0));
-            startActivity(intent);
-            getActivity().finish();
+//            Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+//            List<Event> eventList = (List<Event>) data;
+//            intent.putExtra(EventDetailActivity.EVENT, eventList.get(0));
+//            startActivity(intent);
+//            getActivity().finish();
+            FragmentEventCreateSentFragment fragment = new FragmentEventCreateSentFragment();
+            fragment.setEvent(event);
+            getBaseActivity().openFragment(fragment);
         }else if (taskId == EventCreatePresenter.TASK_EVENT_UPDATE){
             Toast.makeText(getContext(), "update event successfully", Toast.LENGTH_SHORT).show();
             getActivity().finish();

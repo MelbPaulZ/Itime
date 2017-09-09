@@ -7,5 +7,6 @@ import org.unimelb.itime.base.ItimeBaseMvpView;
  */
 
 public interface EventCreateSentMvpView extends ItimeBaseMvpView {
+    void onClickDone();
 
 }

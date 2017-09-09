@@ -41,6 +41,7 @@
         android:layout_marginRight="37.5dp"
         android:textColor="@color/warmGrey"
         android:textSize="@dimen/font_normal"
+        android:visibility="@{vm.contentVisibility}"
         android:text="@string/invitation_sent_reject_text"
         android:layout_marginTop="20dp"
         />
