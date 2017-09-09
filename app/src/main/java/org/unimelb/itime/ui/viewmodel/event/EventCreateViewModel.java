@@ -1,5 +1,6 @@
 package org.unimelb.itime.ui.viewmodel.event;
 
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.DataBindingUtil;
@@ -627,6 +628,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
                     @Override
                     public void onItemClick(Object o, int position) {
                         Toast.makeText(presenter.getContext(), position + "", Toast.LENGTH_SHORT).show();
+                        ((EventCreateMvpView)presenter.getView()).toPhoto();
                     }
                 })
                 .build()

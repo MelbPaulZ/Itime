@@ -15,6 +15,9 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.ui.ImageGridActivity;
+import com.zhy.m.permission.PermissionGrant;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -37,11 +40,14 @@ import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.event.EventCreatePrivateViewModel;
 import org.unimelb.itime.util.EventUtil;
+import org.unimelb.itime.widget.PicassoImageLoader;
 
 import java.util.Date;
 import java.util.HashMap;
 
+import static org.unimelb.itime.ui.fragment.event.FragmentEventCreate.REQUEST_PHOTO_PERMISSION;
 import static org.unimelb.itime.ui.fragment.event.FragmentEventCreate.REQ_LOCATION;
+import static org.unimelb.itime.ui.fragment.event.FragmentEventCreate.REQ_PHOTO;
 
 /**
  * Created by Paul on 15/6/17.
@@ -252,6 +258,23 @@ implements EventCreateMvpView, ToolbarInterface{
     @Override
     public void toInvitee(Event event) {
         // dont write anything here, solo event does not have this method
+    }
+
+    @Override
+    public void toPhoto() {
+        startPhotoPicker();
+    }
+
+    @PermissionGrant(REQUEST_PHOTO_PERMISSION)
+    public void startPhotoPicker() {
+        ImagePicker imagePicker = ImagePicker.getInstance();
+        imagePicker.setImageLoader(new PicassoImageLoader());   //设置图片加载器
+        imagePicker.setMultiMode(true);
+        imagePicker.setShowCamera(false);
+        imagePicker.setSelectLimit(9);
+
+        Intent intent = new Intent(getActivity(), ImageGridActivity.class);
+        startActivityForResult(intent, REQ_PHOTO);
     }
 
     @Override
