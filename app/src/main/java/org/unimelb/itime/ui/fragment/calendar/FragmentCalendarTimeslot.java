@@ -96,6 +96,8 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
         setTimeslotViewMode(mode,event);
         linkEventTimeslots(event, preSelectedSlots);
 
+
+
         //scroll to latest timeslot
         if (event.getTimeslot() == null || event.getTimeslot().size() == 0){
             return;
@@ -425,7 +427,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
 
         @Override
         public void onDateChanged(Date date) {
-
+//            presenter.fetchRecommendedTimeslots(event, date);
         }
     };
 
