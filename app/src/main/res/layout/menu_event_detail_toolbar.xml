@@ -77,7 +77,7 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/icon_details_archive_underedit"
+                android:src="@{vm.event.archived? @drawable/icon_details_restore: @drawable/icon_details_archive_underedit}"
                 android:layout_gravity="center_horizontal"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -180,7 +180,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_detail_cell_height"
         android:orientation="horizontal"
-        android:visibility="@{vm.host?View.VISIBLE:View.GONE}"
         android:onClick="@{listener.onDeleteClick()}">
         <ImageView
             android:layout_width="20dp"
