@@ -630,6 +630,7 @@ public class ScalableLayout extends LinearLayout{
         if(status==currentStatus){
             return;
         }
+
         switch (status){
             case STATUS_COLLAPSE:
                 collapse();

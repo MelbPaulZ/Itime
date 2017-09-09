@@ -232,7 +232,7 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
         HttpUtil.subscribe(observable, subscriber);
     }
 
-    public void deleteEvent(Event event, boolean deleteAllRecurrence, boolean isHost) {
+    public void deleteEvent(Event event, boolean deleteAllRecurrence, boolean isHost, String reason) {
         if (getView()!=null){
             getView().onTaskStart(TASK_EVENT_DELETE);
         }
@@ -245,19 +245,23 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
             deleteFlag = UPDATE_THIS;
         }
 
+        HashMap<String, Object> paras = new HashMap<>();
+        paras.put("reason", reason);
+
+
         if(isHost) {
             observable = eventApi.delete(
                     event.getCalendarUid(),
                     event.getEventUid(),
                     deleteFlag,
-                    event.getStartTime(),
+                    paras,
                     syncToken);
         }else{
             observable = eventApi.inviteeDelete(
                     event.getCalendarUid(),
                     event.getEventUid(),
                     deleteFlag,
-                    event.getStartTime(),
+                    paras,
                     syncToken);
         }
         ItimeSubscriber<HttpResult<List<Event>>> subscriber = new ItimeSubscriber<HttpResult<List<Event>>>() {

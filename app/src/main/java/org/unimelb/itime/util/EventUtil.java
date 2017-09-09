@@ -477,6 +477,7 @@ public class EventUtil extends BaseUtil{
         user.setUserId(email);
         invitee.setUser(user);
         invitee.setAliasName(email);
+        invitee.setUserId(email);
         invitee.setUserUid("-1");
         invitee.setEventUid(event.getEventUid());
         return invitee;
@@ -765,9 +766,9 @@ public class EventUtil extends BaseUtil{
     }
 
     public static void generateGroupEventAttributes(Context context, Event event){
-        for (Invitee invitee : event.getInvitee().values()){
-            invitee.setEventUid(event.getEventUid());
-        }
+//        for (Invitee invitee : event.getInvitee().values()){
+//            invitee.setEventUid(event.getEventUid());
+//        }
 
         TimeSlot firstTimeSlot = getFirstTimeSlot(event.getTimeslot());
         event.setStartTime(firstTimeSlot.getStartTime());

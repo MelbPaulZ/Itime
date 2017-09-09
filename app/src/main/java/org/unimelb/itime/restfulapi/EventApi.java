@@ -65,7 +65,7 @@ public interface EventApi {
             @Path("calendarUid") String calendarUid,
             @Path("eventUid") String eventUid,
             @Query("type") String type,
-            @Query("originalStartTime") long originalStartTime,
+            @Body HashMap<String, Object> params,
             @Query("syncToken") String syncToken);
 
     @POST("event/invitee/delete/{calendarUid}/{eventUid}")
@@ -73,7 +73,7 @@ public interface EventApi {
             @Path("calendarUid") String calendarUid,
             @Path("eventUid") String eventUid,
             @Query("type") String type,
-            @Query("originalStartTime") long originalStartTime,
+            @Body HashMap<String, Object> params,
             @Query("syncToken") String syncToken);
 
     @POST("event/delete/{calendarUid}/{eventUid}")

@@ -970,6 +970,10 @@ public class EventDetailViewModel extends BaseObservable{
         generateTimeSlotItems();
         if(getStatus()==STATUS_NEED_VOTE) {
             setShowTimeSlotSheet(true);
+            setBottomSheetStatus(ScalableLayout.STATUS_COLLAPSE);
+        }else{
+            setShowTimeSlotSheet(false);
+            setBottomSheetStatus(ScalableLayout.STATUS_HIDE);
         }
 
         setRepeatString(generateRepeatString());
@@ -1147,7 +1151,7 @@ public class EventDetailViewModel extends BaseObservable{
             @Override
             public void onClick(View view) {
                 if (mvpView!=null){
-//                    mvpView.onDelete();
+                    mvpView.onDelete(event.getRecurrence().length!=0, isHost());
                 }
             }
         };
