@@ -23,7 +23,7 @@ public class ToolbarViewModel<V extends ToolbarInterface> extends BaseObservable
     private Drawable leftIcon;
     private int rightTextColor;
     private boolean leftEnable;
-    private boolean rightEnable;
+    private boolean rightEnable = true;
     private Drawable rightIcon;
     private int rightIconVisibility = View.GONE;
     private int dividerVisibility = View.VISIBLE;

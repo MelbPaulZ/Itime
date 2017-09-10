@@ -20,5 +20,6 @@ public interface EventCreateMvpView extends TaskBasedMvpView {
     void toAlert(Event event);
     void showPopupDialog(int startOrEnd);
     void toInvitee(Event event);
+    void toPhoto();
 }
 

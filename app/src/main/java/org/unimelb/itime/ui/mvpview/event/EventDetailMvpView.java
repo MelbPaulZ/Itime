@@ -33,7 +33,7 @@ public interface EventDetailMvpView extends TaskBasedMvpView, ItimeCommonMvpView
     void toBigPhoto(int position);
 
     void gotoEdit();
-    void onDelete(boolean deleteAll, boolean host);
+    void onDelete(boolean repeat, boolean isHost);
     View getView();
 
     void showAlerTimeDialog();

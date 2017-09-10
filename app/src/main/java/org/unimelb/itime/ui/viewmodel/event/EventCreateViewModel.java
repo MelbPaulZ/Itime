@@ -1,5 +1,6 @@
 package org.unimelb.itime.ui.viewmodel.event;
 
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.DataBindingUtil;
@@ -53,6 +54,8 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     protected List<RowItem> rowItems = new ArrayList<>();
     protected Event event;
     protected EventCreateMvpView mvpView;
+    private boolean hasChange;
+
 
     protected List<String> mockAvatorLists = new ArrayList<>();
 
@@ -76,26 +79,15 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         notifyPropertyChanged(BR.buttonItems);
     }
 
-//    private void mockData(){
-//        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
-//        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
-//        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
-//
-//    }
 
     public CompoundButton.OnCheckedChangeListener onAlldayChangeListener(){
-        return new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    EventUtil.notAllDayToAllDay(event);
-//                    event.setIsAllDay(true);
-                }else{
-//                    event.setIsAllDay(false);
-                    EventUtil.allDayToNotAllDay(event);
-                }
-                setEvent(event);
+        return (buttonView, isChecked) -> {
+            if (isChecked){
+                EventUtil.notAllDayToAllDay(event);
+            }else{
+                EventUtil.allDayToNotAllDay(event);
             }
+            setEvent(event);
         };
     }
 
@@ -135,7 +127,6 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     public List<String> getMockAvatorLists() {
         return mockAvatorLists;
     }
-
 
 
     public String getTitleString(Event event){
@@ -627,6 +618,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
                     @Override
                     public void onItemClick(Object o, int position) {
                         Toast.makeText(presenter.getContext(), position + "", Toast.LENGTH_SHORT).show();
+                        ((EventCreateMvpView)presenter.getView()).toPhoto();
                     }
                 })
                 .build()

@@ -93,14 +93,13 @@
                 />
         </RelativeLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:items="@{vm.inviteeItems}"
             app:itemBinding="@{vm.itemBinding}"
             app:onItemClickListener="@{vm.onItemClick}"
-            app:layoutManager="@{LayoutManagers.linear()}"
             />
         </LinearLayout>
     </LinearLayout>

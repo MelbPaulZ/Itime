@@ -96,12 +96,6 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
     }
 
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-
-    }
-
-    @Override
     public void onNext() {
         if (taskMode == FragmentEventCreate.Mode.CREATE) {
             event.setEventType(Event.TYPE_GROUP);

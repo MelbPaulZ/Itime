@@ -51,6 +51,9 @@ public class FragmentEventCreateTitle extends ItimeBaseFragment<EventCreateTitle
 
         vm = new EventCreateTitleViewModel(getPresenter());
         vm.setEvent(event);
+        vm.setOnTitleChangeInterface((isOk) ->{
+           toolbarViewModel.setRightEnable(isOk);
+        });
         binding.setVm(vm);
 
         toolbarViewModel = new ToolbarViewModel<>(this);
@@ -58,6 +61,7 @@ public class FragmentEventCreateTitle extends ItimeBaseFragment<EventCreateTitle
         toolbarViewModel.setTitle(getString(R.string.toolbar_event));
         toolbarViewModel.setRightText(getString(R.string.toolbar_done));
         toolbarViewModel.setRightEnable(true);
+
         binding.setToolbarVM(toolbarViewModel);
 
     }

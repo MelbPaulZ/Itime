@@ -30,6 +30,12 @@ public class EventCreateTitleViewModel extends ItimeBaseViewModel {
 
     private Event event;
     private List<TitleRowViewModel> titleRows = new ArrayList<>();
+    private OnTitleChangeInterface onTitleChangeInterface;
+
+    public void setOnTitleChangeInterface(OnTitleChangeInterface onTitleChangeInterface) {
+        this.onTitleChangeInterface = onTitleChangeInterface;
+    }
+
     public OnItemBind<TitleRowViewModel> onItemBind = new OnItemBind<TitleRowViewModel>() {
         @Override
         public void onItemBind(ItemBinding itemBinding, int position, TitleRowViewModel item) {
@@ -40,6 +46,14 @@ public class EventCreateTitleViewModel extends ItimeBaseViewModel {
             }
         }
     };
+
+    public int getSuggestedRecentVisibility(Event event){
+        if (event.getSummary().length()==0){
+            return View.VISIBLE;
+        }else{
+            return View.GONE;
+        }
+    }
 
 
     private EventCreateTitlePresenter<EventCreateTitleMvpView> presenter;
@@ -79,6 +93,9 @@ public class EventCreateTitleViewModel extends ItimeBaseViewModel {
             @Override
             public void afterTextChanged(Editable s) {
                 setEvent(event);
+                if (onTitleChangeInterface!=null){
+                    onTitleChangeInterface.onTitleChange(s.length() <= TITLE_COUNT_LIMIT);
+                }
             }
         };
     }
@@ -141,5 +158,9 @@ public class EventCreateTitleViewModel extends ItimeBaseViewModel {
             this.title = title;
             notifyPropertyChanged(BR.title);
         }
+    }
+
+    public interface OnTitleChangeInterface{
+        void onTitleChange(boolean b);
     }
 }

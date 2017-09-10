@@ -15,13 +15,16 @@ import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
+import org.unimelb.itime.bean.Calendar;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.databinding.FragmentCalendarTimeslotBinding;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.messageevent.MessageEvent;
+import org.unimelb.itime.messageevent.MessageRefreshTimeSlots;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
 import org.unimelb.itime.ui.fragment.event.FragmentEventDetail;
 import org.unimelb.itime.ui.fragment.event.FragmentEventDetailConfirm;
@@ -31,6 +34,7 @@ import org.unimelb.itime.ui.viewmodel.ToolbarTimeslotViewModel;
 import org.unimelb.itime.util.EventUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -64,6 +68,10 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     private int selectMax = 1;
 
     private transient List<TimeSlot> preSelectedSlots = new ArrayList<>();
+    private transient List<TimeSlot> rcdTimeslots = new ArrayList<>();
+    private transient Date currentFirstDate = new Date();
+
+    private List<TimeSlotView.DurationItem> items = initList();
 
     @Nullable
     @Override
@@ -92,7 +100,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     }
 
     private void setDurationBarItems(){
-        List<TimeSlotView.DurationItem> items = initList();
+
         if (mode != Mode.HOST_CREATE){
             timeSlotView.setTimeslotDurationItems(items,0);
             return;
@@ -195,16 +203,19 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
 
     private int selectDuration = 60; // default one hour
 
-    private boolean isSetting = true;
-
     private void initView(){
         timeSlotView = (TimeSlotView) binding.getRoot().findViewById(R.id.timeslot_view);
         // ensure set config before set mode
         timeSlotView.getCalendarConfig().unconfirmedIncluded = false;
 
         timeSlotView.setEventPackage(eventManager.getEventsPackage());
-        timeSlotView.setOnTimeslotDurationChangedListener((duration) -> {
-            if (isSetting){
+        timeSlotView.setOnTimeslotDurationChangedListener(new TimeSlotView.OnTimeslotDurationListener() {
+            @Override
+            public void onTimeslotDurationChanged(long duration) {
+                if (mode != Mode.HOST_CREATE){
+                    return;
+                }
+
                 if (duration == -1){
                     //switch to all day mode
                     selectDuration = EventUtil.allDayMinutes;
@@ -217,54 +228,60 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
                     timeSlotView.setTimeslotDuration(duration,false);
                 }
 
-                isSetting =false;
-            }else {
-                showDurationChangeDialog(duration);
+                if(mode == Mode.HOST_CREATE){
+                    event.setDuration(selectDuration);
+                    presenter.fetchRecommendedTimeslots(event, currentFirstDate);
+                }
             }
 
-            return true;
+            @Override
+            public void onTimeslotDurationBarClick() {
+                showDurationChangeDialog();
+            }
         });
 
         timeSlotView.setITimeCalendarTimeslotViewListener(listener);
     }
 
-    private void showDurationChangeDialog(long duration){
+    private void showDurationChangeDialog(){
         AlertDialog.Builder builder;
         Context context = getContext();
         builder = new AlertDialog.Builder(context);
-        builder.setTitle("Change duration")
-                .setMessage("Are you sure you want to delete all existing timeslots?")
+        builder.setTitle(R.string.title_duration_change)
+                .setMessage(R.string.warning_duration_change)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        clearTimeslots();
-                        // continue with delete
-                        if (duration == -1){
-                            //switch to all day mode
-                            selectDuration = EventUtil.allDayMinutes;
-                            event.setIsAllDay(true);
-                            timeSlotView.setViewMode(TimeSlotView.ViewMode.ALL_DAY_CREATE);
-                        }else{
-                            selectDuration = (int)duration/1000/60;
-                            event.setIsAllDay(false);
-                            timeSlotView.setViewMode(TimeSlotView.ViewMode.NON_ALL_DAY_CREATE);
-                            timeSlotView.setTimeslotDuration(duration,false);
-                        }
+                        clearSelectedTimeslot();
+                        clearRecommendedTimeslot();
+                        timeSlotView.getDurationBar().expandDurationBar();
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // do nothing
+                        dialog.dismiss();
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
 
-    private void clearTimeslots(){
+    private void clearSelectedTimeslot(){
         for (TimeSlot timeslot:selectedTimeslotsMap.values()
              ) {
             timeSlotView.removeTimeslot(timeslot);
         }
+
+        selectedTimeslotsMap.clear();
+    }
+
+    private void clearRecommendedTimeslot(){
+        for (TimeSlot timeslot:rcdTimeslots
+                ) {
+            timeSlotView.removeTimeslot(timeslot);
+        }
+
+        rcdTimeslots.clear();
     }
 
     private void setTimeslotViewMode(Mode upperMode, Event event){
@@ -276,8 +293,6 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
                     mode = TimeSlotView.ViewMode.ALL_DAY_CREATE;
                 }else {
                     mode = TimeSlotView.ViewMode.NON_ALL_DAY_CREATE;
-//                    long duration = slots.get(0).getEndTime() - slots.get(0).getStartTime();
-//                    timeSlotView.setTimeslotDuration(duration,false);
                 }
 
                 selectMax = getContext().getResources().getInteger(R.integer.timeslot_create_max_count);
@@ -457,14 +472,19 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
 
         @Override
         public void onRcdTimeSlotClick(RcdRegularTimeSlotView v) {
-            v.getWrapper().setSelected(true);
-            TimeSlot newSlot = new TimeSlot();
-            newSlot.setStartTime(v.getWrapper().getTimeSlot().getStartTime());
-            newSlot.setEndTime(v.getWrapper().getTimeSlot().getEndTime());
-            timeSlotView.addTimeSlot(newSlot);
+            if (selectedTimeslotsMap.size() < selectMax){
+                v.getWrapper().setSelected(true);
+                TimeSlot newSlot = new TimeSlot();
+                newSlot.setStartTime(v.getWrapper().getTimeSlot().getStartTime());
+                newSlot.setEndTime(v.getWrapper().getTimeSlot().getEndTime());
+                timeSlotView.addTimeSlot(newSlot);
 
-            selectedTimeslotsMap.put(newSlot.getTimeslotUid(),newSlot);
-            updateToolbarTimeslot();
+                selectedTimeslotsMap.put(newSlot.getTimeslotUid(),newSlot);
+                updateToolbarTimeslot();
+            }else {
+                Toast.makeText(getContext(), String.format(getContext().getString(R.string.timeslot_alert_create_max_count), selectMax)
+                        , Toast.LENGTH_LONG).show();
+            }
         }
 
         @Override
@@ -509,7 +529,10 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
 
         @Override
         public void onDateChanged(Date date) {
-
+            currentFirstDate = date;
+            if (mode == Mode.HOST_CREATE){
+                presenter.fetchRecommendedTimeslots(event, date);
+            }
         }
     };
 
@@ -542,5 +565,30 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRcdArrive(MessageRefreshTimeSlots msg){
+        clearRecommendedTimeslot();
+        List<TimeSlot> rcdTimeslot = msg.getRcdTimeslots();
+        if (rcdTimeslot == null || rcdTimeslot.size() == 0){
+            return;
+        }
+
+        long currentDuration = items.get(timeSlotView.getDurationBar().getCurrentSelectedPosition()).duration;
+        if (rcdTimeslot.size() >0){
+            for (TimeSlot timeslot:rcdTimeslot
+                 ) {
+                long start = timeslot.getStartTime();
+                timeslot.setEndTime(start + currentDuration);
+
+                rcdTimeslots.add(timeslot);
+                timeSlotView.addTimeSlot(timeslot);
+            }
+        }
+
+        Collections.sort(rcdTimeslot);
+        Date toDate = new Date(rcdTimeslot.get(0).getStartTime());
+//        timeSlotView.scrollToDate(toDate, true);
     }
 }

@@ -5,6 +5,7 @@ import android.databinding.Bindable;
 
 import com.android.databinding.library.baseAdapters.BR;
 
+import org.unimelb.itime.base.ItimeBaseViewModel;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.ui.presenter.LocalPresenter;
 
@@ -12,7 +13,7 @@ import org.unimelb.itime.ui.presenter.LocalPresenter;
  * Created by Paul on 6/6/17.
  */
 
-public class EventCreateUrlViewModel extends BaseObservable{
+public class EventCreateUrlViewModel extends ItimeBaseViewModel{
 
     private LocalPresenter presenter;
     private Event event;

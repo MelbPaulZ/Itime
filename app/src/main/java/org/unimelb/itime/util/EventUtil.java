@@ -114,6 +114,7 @@ public class EventUtil extends BaseUtil{
         return copyEvent;
     }
 
+
     public static CharSequence[] getRepeatEventChangeOptions(Context context) {
         CharSequence[] sequences = new CharSequence[3];
         sequences[0] = context.getString(R.string.dialog_save_for_this_event_only);
@@ -476,6 +477,7 @@ public class EventUtil extends BaseUtil{
         user.setUserId(email);
         invitee.setUser(user);
         invitee.setAliasName(email);
+        invitee.setUserId(email);
         invitee.setUserUid("-1");
         invitee.setEventUid(event.getEventUid());
         return invitee;
@@ -764,9 +766,9 @@ public class EventUtil extends BaseUtil{
     }
 
     public static void generateGroupEventAttributes(Context context, Event event){
-        for (Invitee invitee : event.getInvitee().values()){
-            invitee.setEventUid(event.getEventUid());
-        }
+//        for (Invitee invitee : event.getInvitee().values()){
+//            invitee.setEventUid(event.getEventUid());
+//        }
 
         TimeSlot firstTimeSlot = getFirstTimeSlot(event.getTimeslot());
         event.setStartTime(firstTimeSlot.getStartTime());
@@ -962,4 +964,5 @@ public class EventUtil extends BaseUtil{
         String name = f.getName();
         return name;
     }
+
 }

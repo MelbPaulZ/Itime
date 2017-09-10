@@ -6,6 +6,7 @@ import android.databinding.Bindable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.view.View;
+import android.widget.AdapterView;
 
 import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
@@ -97,21 +98,16 @@ public class EventCreateAddInviteeViewModel extends BaseObservable {
     }
 
 
-    public OnRecyclerItemClickListener.OnItemClickListener getOnItemClick(){
-        return new OnRecyclerItemClickListener.OnItemClickListener() {
+    public AdapterView.OnItemClickListener getOnItemClick(){
+        return new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
-                UserInfoViewModel<Invitee> invitee = inviteeItems.get(position);
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                UserInfoViewModel<Invitee> invitee = inviteeItems.get(i);
                 if(invitees.contains(invitee.getData())){
                     invitees.remove(invitee.getData());
                     inviteeItems.remove(invitee);
                 }
                 nextEnable(!inviteeItems.isEmpty());
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-                onItemClick(view, position);
             }
         };
     }

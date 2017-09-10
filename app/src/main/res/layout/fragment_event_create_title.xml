@@ -54,6 +54,7 @@
         android:layout_height="wrap_content"
         app:layoutManager="@{LayoutManagers.linear()}"
         android:overScrollMode="never"
+        android:visibility="@{vm.getSuggestedRecentVisibility(vm.event)}"
         app:items="@{vm.titleRows}"
         app:itemBinding="@{vm.onItemBind}"
         />

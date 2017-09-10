@@ -262,8 +262,28 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     }
 
     @Override
-    public void onDelete(boolean deleteAll, boolean host) {
-        presenter.deleteEvent(event, deleteAll, host);
+    public void onDelete(boolean repeat, boolean host) {
+        MaterialDialog.Builder builder = getDialogBuidler().positiveText(R.string.dialog_delete_delete)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        presenter.deleteEvent(event, true, host, dialog.getInputEditText().getText().toString());
+                    }
+                })
+                .negativeText(R.string.dialog_cancel)
+                .content(R.string.event_detail_delete_dialog_message)
+                .input(R.string.event_detail_delete_dialog_input_hints, 0, true, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+
+                    }
+                });
+        if(repeat){
+            builder.title(R.string.event_detail_delete_dialog_repeat_title);
+        }else{
+            builder.title(R.string.event_detail_delete_dialog_title);
+        }
+        builder.show();
     }
 
     @Override

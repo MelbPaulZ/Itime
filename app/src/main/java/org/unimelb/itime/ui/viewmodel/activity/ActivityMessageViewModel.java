@@ -69,7 +69,7 @@ public class ActivityMessageViewModel extends BaseObservable{
     }
 
     public String getTimeString(Message message){
-        Date date = EventUtil.parseTimeZoneToDate(message.getUpdatedAt(), EventUtil.UPDATE_CREATE_AT);
+        Date date = EventUtil.parseTimeZoneToDate(message.getCreatedAt(), EventUtil.UPDATE_CREATE_AT);
         if (date == null){
             return "";
         }

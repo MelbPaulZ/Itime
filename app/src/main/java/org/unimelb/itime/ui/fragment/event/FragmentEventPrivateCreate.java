@@ -15,6 +15,9 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.ui.ImageGridActivity;
+import com.zhy.m.permission.PermissionGrant;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -37,11 +40,14 @@ import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.event.EventCreatePrivateViewModel;
 import org.unimelb.itime.util.EventUtil;
+import org.unimelb.itime.widget.PicassoImageLoader;
 
 import java.util.Date;
 import java.util.HashMap;
 
+import static org.unimelb.itime.ui.fragment.event.FragmentEventCreate.REQUEST_PHOTO_PERMISSION;
 import static org.unimelb.itime.ui.fragment.event.FragmentEventCreate.REQ_LOCATION;
+import static org.unimelb.itime.ui.fragment.event.FragmentEventCreate.REQ_PHOTO;
 
 /**
  * Created by Paul on 15/6/17.
@@ -53,6 +59,7 @@ implements EventCreateMvpView, ToolbarInterface{
     private EventCreatePrivateViewModel vm;
     private ToolbarViewModel toolbarVM;
     private Event event;
+    private boolean hasChange = false;
     private FragmentEventCreate.Mode taskMode = FragmentEventCreate.Mode.CREATE;
 
     public void setTaskMode(FragmentEventCreate.Mode taskMode) {
@@ -134,10 +141,15 @@ implements EventCreateMvpView, ToolbarInterface{
         }else if (taskMode == FragmentEventCreate.Mode.UPDATE){
             presenter.updateEvent(event);
         }
+        hasChange = true;
     }
 
     @Override
     public void onBack() {
+        if (!hasChange){
+            getActivity().finish();
+            return;
+        }
         if (getActivity() instanceof EventCreateActivity) {
             new MaterialDialog.Builder(getContext())
                     .content(R.string.event_create_cancel_dialog_content)
@@ -166,6 +178,7 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void toNote(Event event) {
+        hasChange = true;
         FragmentEventCreateNote fragment = new FragmentEventCreateNote();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
@@ -174,6 +187,7 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void toUrl(Event event) {
+        hasChange = true;
         FragmentEventCreateUrl fragment = new FragmentEventCreateUrl();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
@@ -182,6 +196,7 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void toRepeat(Event event) {
+        hasChange = true;
         FragmentEventRepeat fragment = new FragmentEventRepeat();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
@@ -196,6 +211,7 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void toCalendars(Event event) {
+        hasChange = true;
         FragmentEventCalendar fragment = new FragmentEventCalendar();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
@@ -204,6 +220,7 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void toLocation(Event event) {
+        hasChange = true;
         Intent intent = new Intent(getActivity(), LocationActivity.class);
         intent.putExtra(getString(R.string.location_string1), event.getLocation().getLocationString1());
         startActivityForResult(intent, REQ_LOCATION);
@@ -211,6 +228,7 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void toTitle(Event event) {
+        hasChange = true;
         FragmentEventCreateTitle fragment = new FragmentEventCreateTitle();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
@@ -224,6 +242,7 @@ implements EventCreateMvpView, ToolbarInterface{
 
     @Override
     public void toAlert(Event event) {
+        hasChange = true;
         FragmentEventCreateAlert fragment = new FragmentEventCreateAlert();
         Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
         fragment.setEvent(cpyEvent);
@@ -252,6 +271,24 @@ implements EventCreateMvpView, ToolbarInterface{
     @Override
     public void toInvitee(Event event) {
         // dont write anything here, solo event does not have this method
+    }
+
+    @Override
+    public void toPhoto() {
+        hasChange = true;
+        startPhotoPicker();
+    }
+
+    @PermissionGrant(REQUEST_PHOTO_PERMISSION)
+    public void startPhotoPicker() {
+        ImagePicker imagePicker = ImagePicker.getInstance();
+        imagePicker.setImageLoader(new PicassoImageLoader());   //设置图片加载器
+        imagePicker.setMultiMode(true);
+        imagePicker.setShowCamera(false);
+        imagePicker.setSelectLimit(9);
+
+        Intent intent = new Intent(getActivity(), ImageGridActivity.class);
+        startActivityForResult(intent, REQ_PHOTO);
     }
 
     @Override

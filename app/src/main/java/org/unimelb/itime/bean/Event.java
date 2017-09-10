@@ -99,7 +99,7 @@ public class Event implements ITimeEventInterface<Event>, Serializable, Cloneabl
     private transient RuleModel rule;
     private String note = "";
     private String coverPhoto = "";
-    private int duration;
+    private int duration = 60;
     private String greeting = "";
     private boolean isArchived;
     private boolean isMute;
