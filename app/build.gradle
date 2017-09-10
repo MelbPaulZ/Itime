@@ -44,9 +44,16 @@ dependencies {
 //        exclude group: 'com.android.support', module: 'support-annotations'
 //    })
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:support-v4:25.3.1'
+    compile ('com.android.support:appcompat-v7:25.3.1'){
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+        exclude group: 'com.android.support'
+    }
+    compile ('com.android.support:design:25.3.1'){
+        exclude group: 'com.android.support'
+    }
+    compile ('com.android.support:support-v4:25.3.1'){
+        exclude group: 'com.android.support'
+    }
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 
@@ -73,20 +80,10 @@ dependencies {
 
     //google place
     compile 'pub.devrel:easypermissions:0.2.1'
-    compile('com.google.api-client:google-api-client-android:1.22.0') {
-        exclude group: 'org.apache.httpcomponents'
-    }
-    compile('com.google.apis:google-api-services-calendar:v3-rev249-1.22.0') {
-        exclude group: 'org.apache.httpcomponents'
-    }
 
-//    compile 'com.google.android.gms:play-services:10.2.1'
-//    compile 'com.google.android.gms:play-services:10.2.1'
-    compile 'com.google.android.gms:play-services-auth:10.2.1'
-    compile 'com.google.android.gms:play-services-location:10.2.1'
-    compile 'com.google.android.gms:play-services-gcm:10.2.1'
-    compile 'com.google.android.gms:play-services-identity:10.2.1'
-    compile 'com.google.android.gms:play-services-places:10.2.1'
+    compile ('com.google.android.gms:play-services:10.2.1'){
+        exclude group: 'com.google.guava'
+    }
 
     // new leancloud
     compile ('cn.leancloud.android:avoscloud-sdk:v3.+')
@@ -111,9 +108,11 @@ dependencies {
 
     //RXJava and retrofit
     compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.1.6'
+//    compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile ('com.squareup.retrofit2:converter-gson:2.1.0'){
+        exclude group : 'com.google.code.gson'
+    }
     compile 'com.squareup.retrofit2:converter-scalars:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
 
