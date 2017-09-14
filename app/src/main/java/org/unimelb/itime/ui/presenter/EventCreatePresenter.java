@@ -734,12 +734,12 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
 
             @Override
             public void onNext(HttpResult<List<Event>> result) {
-//                updateEventToken(result.getSyncToken());
-//                synchronizeLocal(result.getData());
-////                EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_EVENT));
-//                if(getView() != null){
-//                    getView().onTaskSuccess(TASK_EVENT_CREATE, result.getData());
-//                }
+                updateEventToken(result.getSyncToken());
+                synchronizeLocal(result.getData());
+                EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_EVENT));
+                if(getView() != null){
+                    getView().onTaskSuccess(TASK_EVENT_CREATE, result.getData());
+                }
             }
         };
         HttpUtil.subscribe(observable, subscriber);

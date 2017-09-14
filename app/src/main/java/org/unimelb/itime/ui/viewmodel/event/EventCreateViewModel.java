@@ -36,6 +36,8 @@ import org.unimelb.itime.util.rulefactory.RuleModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -201,6 +203,12 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     }
 
     public void setTimeslot(List<TimeslotLineViewModel> timeslot) {
+        Collections.sort(timeslot, new Comparator<TimeslotLineViewModel>() {
+            @Override
+            public int compare(TimeslotLineViewModel o1, TimeslotLineViewModel o2) {
+                return (int) (o1.getTimeslot().getStartTime() - o2.getTimeslot().getStartTime());
+            }
+        });
         this.timeslot = timeslot;
         notifyPropertyChanged(BR.timeslot);
     }

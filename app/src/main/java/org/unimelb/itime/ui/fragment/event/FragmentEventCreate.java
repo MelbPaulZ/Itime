@@ -67,15 +67,11 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     public final static int REQUEST_CAMERA_PERMISSION = 100;
     public final static int REQUEST_PHOTO_PERMISSION = 101;
     public final static int REQUEST_LOCATION_PERMISSION = 102;
-    public Mode taskMode = Mode.CREATE;
 
     public enum Mode{
         CREATE, UPDATE
     }
 
-    public void setTaskMode(Mode taskMode) {
-        this.taskMode = taskMode;
-    }
 
     FragmentEventCreateAddInvitee fragmentEventCreateAddInvitee;
 
@@ -98,12 +94,11 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     @Override
     public void onResume() {
         super.onResume();
-        Toast.makeText(getContext(), taskMode.name(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Create", Toast.LENGTH_SHORT).show();
     }
 
     private void init(){
         if (vm==null) {
-//            mockEvent();
             vm = new EventCreateViewModel(getPresenter());
             vm.setEvent(event);
             binding.setVm(vm);
@@ -144,9 +139,12 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     public void onNext() {
         if (event.getTimeslot().size() == 0){
             toTimeslot(event);
-        }else {
+        }
+        else if (event.getInvitee().size() == 0){
+            toInvitee(event);
+        } else {
             FragmentEventGreeting fragment = new FragmentEventGreeting();
-            fragment.setTaskMode(taskMode);
+            fragment.setTaskMode(Mode.CREATE);
             Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
             fragment.setEvent(cpyEvent);
             getBaseActivity().openFragment(fragment);
@@ -161,25 +159,15 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
             return;
         }
 
-        if (getActivity() instanceof EventCreateActivity) {
-            getDialogBuidler()
-                    .content(R.string.event_create_cancel_dialog_content)
-                    .contentColor(getResources().getColor(R.color.black))
-                    .contentGravity(GravityEnum.CENTER)
-                    .negativeText(R.string.event_dialog_discard)
-                    .positiveText(R.string.event_dialog_keep_editing)
-                    .onNegative((dialog, which) -> getActivity().finish())
-                    .show();
-        }else{
-            getDialogBuidler()
-                    .content(R.string.event_edit_cancel_dialog_content)
-                    .contentColor(getResources().getColor(R.color.black))
-                    .contentGravity(GravityEnum.CENTER)
-                    .negativeText(R.string.event_dialog_discard)
-                    .positiveText(R.string.event_dialog_keep_editing)
-                    .onNegative(((dialog, which) -> getFragmentManager().popBackStack()))
-                    .show();
-        }
+        getDialogBuidler()
+                .content(R.string.event_create_cancel_dialog_content)
+                .contentColor(getResources().getColor(R.color.black))
+                .contentGravity(GravityEnum.CENTER)
+                .negativeText(R.string.event_dialog_discard)
+                .positiveText(R.string.event_dialog_keep_editing)
+                .onNegative((dialog, which) -> getActivity().finish())
+                .show();
+
     }
 
     @Override
