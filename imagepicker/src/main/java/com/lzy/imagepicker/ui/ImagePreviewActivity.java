@@ -9,12 +9,15 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.R;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.view.SuperCheckBox;
+
+import org.w3c.dom.Text;
 
 /**
  * ================================================
@@ -32,7 +35,7 @@ public class ImagePreviewActivity extends ImagePreviewBaseActivity implements Im
     private boolean isOrigin;                      //是否选中原图
     private SuperCheckBox mCbCheck;                //是否选中当前图片的CheckBox
     private SuperCheckBox mCbOrigin;               //原图
-    private Button mBtnOk;                         //确认图片的选择
+    private TextView mBtnOk;                         //确认图片的选择
     private View bottomBar;
 
     @Override
@@ -42,7 +45,7 @@ public class ImagePreviewActivity extends ImagePreviewBaseActivity implements Im
         isOrigin = getIntent().getBooleanExtra(ImagePreviewActivity.ISORIGIN, false);
         imagePicker.addOnImageSelectedListener(this);
 
-        mBtnOk = (Button) topBar.findViewById(R.id.btn_ok);
+        mBtnOk = (TextView) topBar.findViewById(R.id.btn_ok);
         mBtnOk.setVisibility(View.VISIBLE);
         mBtnOk.setOnClickListener(this);
         mBtnOk.setAllCaps(false);
