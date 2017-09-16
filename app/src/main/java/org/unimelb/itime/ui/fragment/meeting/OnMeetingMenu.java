@@ -31,7 +31,9 @@ public class OnMeetingMenu implements RecyclerViewAdapterMeetings.OnMenuListener
     public void onPin(Meeting obj) {
         meetingPresenter.pinOpt(obj,obj.getEvent().isPinned());
         int index = data.indexOf(obj);
-        mAdapter.notifyItemChanged(index);
+//        mAdapter.notifyItemChanged(index);
+        mAdapter.closeAllItems();
+        mAdapter.notifyDatasetChanged();
     }
 
     @Override

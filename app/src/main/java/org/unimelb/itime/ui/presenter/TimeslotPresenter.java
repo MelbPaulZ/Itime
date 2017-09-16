@@ -18,6 +18,7 @@ import org.unimelb.itime.restfulresponse.HttpResult;
 import org.unimelb.itime.ui.mvpview.calendar.TimeslotMvpView;
 import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.util.HttpUtil;
+import org.unimelb.itime.util.TimeFactory;
 
 import java.util.Date;
 import java.util.List;
@@ -76,7 +77,8 @@ public class TimeslotPresenter <V extends TimeslotMvpView> extends ItimeBasePres
             @Override
             public void onNext(HttpResult<List<TimeSlot>> listHttpResult) {
                 //post rcd timeslots
-                EventBus.getDefault().post(new MessageRefreshTimeSlots(listHttpResult.getData()));
+                String dateStr = TimeFactory.getFormatTimeString(startTime, TimeFactory.DAY_MONTH_YEAR);
+                EventBus.getDefault().post(new MessageRefreshTimeSlots(listHttpResult.getData(),dateStr));
             }
         };
         HttpUtil.subscribe(observable, subscriber);
