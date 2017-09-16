@@ -164,6 +164,9 @@
         <!-- Services -->
         <service android:name=".service.RemoteService"/>
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="d5dce6ddff0a7721014e2459500e9c6a2e1571e8" />
     </application>
 
 </manifest>
