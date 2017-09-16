@@ -71,7 +71,10 @@ import rx.schedulers.Schedulers;
                 method = "setMenuItems"),
         @BindingMethod(type = CollapseHeadBar.class,
         attribute = "app:collapseheaderbar_inviteeCount",
-        method = "setInviteeCount")
+        method = "setInviteeCount"),
+        @BindingMethod(type = CollapseHeadBar.class,
+                attribute = "app:collapseheaderbar_onBackgroundClick",
+                method = "setOnBackgroundClickListener")
 })
 
 public class CollapseHeadBar extends AppBarLayout {
@@ -93,6 +96,7 @@ public class CollapseHeadBar extends AppBarLayout {
     private TextView inviteeCountView;
     private View leftButton;
     private View rightButton;
+    private View contentPart;
     private ModalPopupView menu;
     private int invieeCount;
 
@@ -105,6 +109,7 @@ public class CollapseHeadBar extends AppBarLayout {
     private ToolbarCollapseHeadbarBinding binding;
     private MenuEventDetailToolbarBinding menuBinding;
     private OnMenuClickListener onMenuClickListener;
+    private OnClickListener onBackgroundClickListener;
 
     public CollapseHeadBar(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -132,6 +137,15 @@ public class CollapseHeadBar extends AppBarLayout {
                 binding.setContentVM(vm);
             }
             contentView = (CollapsingToolbarLayout) binding.getRoot();
+            contentPart = binding.contentPart;
+            contentPart.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(onBackgroundClickListener!=null){
+                        onBackgroundClickListener.onClick(view);
+                    }
+                }
+            });
 //        setContentScrim(new ColorDrawable(Color.parseColor("#6E000000")));
             avatarView = (ImageView) contentView.findViewById(R.id.avatarView);
             smallTitle = (TextView) contentView.findViewById(R.id.smallTitle);
@@ -533,5 +547,9 @@ public class CollapseHeadBar extends AppBarLayout {
         public void setVm(EventDetailViewModel vm) {
             this.vm = vm;
         }
+    }
+
+    public void setOnBackgroundClickListener(OnClickListener listener){
+        onBackgroundClickListener = listener;
     }
 }

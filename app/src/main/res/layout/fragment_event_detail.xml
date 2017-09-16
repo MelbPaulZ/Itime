@@ -29,6 +29,7 @@
                     app:collapseheaderbar_name="@{contentVM.hostInvitee.aliasName}"
                     app:collapseheaderbar_title="@{contentVM.event.summary}"
                     app:collapseheaderbar_onLeftClick="@{contentVM.onBackClick()}"
+                    app:collapseheaderbar_onBackgroundClick="@{contentVM.onBackgroundClicked}"
                     >
                 </org.unimelb.itime.widget.CollapseHeadBar>
 

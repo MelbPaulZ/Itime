@@ -44,6 +44,7 @@ import org.unimelb.itime.ui.viewmodel.event.EventDetailViewModel;
 import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.util.OtherUtil;
 import org.unimelb.itime.widget.CollapseHeadBar;
+import org.unimelb.itime.widget.OnRecyclerItemClickListener;
 import org.unimelb.itime.widget.popupmenu.ModalPopupView;
 import org.unimelb.itime.widget.popupmenu.PopupMenu;
 import org.unimelb.itime.widget.popupmenu.SelectAlertTimeDialog;
@@ -66,6 +67,7 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
     private CollapseHeadBar headBar;
     private FragmentItimeActivitiesDetail activitiesFragment = new FragmentItimeActivitiesDetail();
     private EventPhotoFragment eventPhotoFragment;
+    private ChangeCoverFragment changeCoverFragment;
 
 
     private EventDetailViewModel contentViewModel;
@@ -121,9 +123,10 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         super.onActivityCreated(savedInstanceState);
         if(contentViewModel==null) {
             contentViewModel = new EventDetailViewModel(getPresenter());
+            contentViewModel.setTimeSlotSheet(binding.timeSlotSheet);
             contentViewModel.setEvent(event);
             contentViewModel.setShowEventDetailTips(false);
-            contentViewModel.setTimeSlotSheet(binding.timeSlotSheet);
+
             initToolbar();
             initAllNotePop();
             binding.setContentVM(contentViewModel);
@@ -293,6 +296,37 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         }
         selectAlertTimeDialog.setSelectedTime(event.getReminder());
         selectAlertTimeDialog.show(getView());
+    }
+
+    @Override
+    public void toChangeCover() {
+        PopupMenu menu = new PopupMenu(presenter.getContext());
+        ArrayList<PopupMenu.Item> menuItem = new ArrayList<>();
+
+        menuItem.add(new PopupMenu.Item(presenter.getContext().getResources().getString(R.string.event_change_cover)));
+
+        menu.setItems(menuItem);
+
+        PopupMenu.OnItemClickListener onMenuItemClicked = new PopupMenu.OnItemClickListener() {
+            @Override
+            public void onClick(int position, PopupMenu.Item item) {
+                switch (position){
+                    case 0:
+                        toChangeCoverFragment();
+                        break;
+                }
+            }
+        };
+        menu.setOnItemClickListener(onMenuItemClicked);
+        menu.showInMiddle(getView());
+    }
+
+    public void toChangeCoverFragment(){
+        if(changeCoverFragment==null) {
+            changeCoverFragment = new ChangeCoverFragment();
+        }
+        changeCoverFragment.setEvent(event);
+        getBaseActivity().openFragment(changeCoverFragment);
     }
 
     private SelectAlertTimeDialog.OnTimeClickListener getOnTimeClickListener(){
@@ -553,6 +587,7 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         super.onResume();
         contentViewModel.setSelectedTimeSlots(contentViewModel.getSelectedTimeSlots());
         contentViewModel.generateTimeSlotItems();
+        contentViewModel.initTimeSheet();
     }
 
     @Override

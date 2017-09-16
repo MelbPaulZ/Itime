@@ -67,8 +67,8 @@
     <string name="event_detail_voted_for_n_timeslots">You\'ve voted for %1$d Timeslots</string>
     <string name="event_detail_voted_n_people_voted">%1$d PEOPLE VOTED</string>
     <string name="event_detail_confirm">Confirm</string>
-    <string name="event_detail_Going">GOING</string>
-    <string name="event_detail_notgoing">Not GOING</string>
+    <string name="event_detail_Going">Going</string>
+    <string name="event_detail_notgoing">Not Going</string>
     <string name="event_detail_archive">Archive</string>
     <string name="event_detail_archived">Archived</string>
     <string name="event_detail_eventcanceled">Event Canceled</string>
@@ -128,6 +128,8 @@
     <string name="event_detail_all_invitee_tag_going">%1$d Going</string>
     <string name="event_detail_all_invitee_tag_notgoing">%1$d Not Going</string>
     <string name="event_detail_all_invitee_tag_noreply">%1$d No Reply</string>
+    <string name="event_change_cover">Change Cover Photo</string>
+    <string name="event_change_cover_title">Change Cover Photo</string>
 
     <!--Timeslots-->
     <string name="event_candidate_timeslots">%1$d Candidate Timeslots: </string>
@@ -282,6 +284,7 @@
     <string name="event_type_group">event type group</string>
     <string name="event_status_repeated">Repeated</string>
 
+
     <!-- event status-->
     <string name="event_status_pending">Pending</string>
     <string name="event_status_cancel">Cancel</string>
@@ -433,6 +436,7 @@
     <string name="choose_from_photos">Choose from Photos</string>
     <string name="cancel_photos_alert_msg">You haven\'t upload these photos, are you sure to discard photo editing?</string>
     <string name="delete_this_photo">Delete this photo?</string>
+    <string name="cover_collections">iTime Cover Collections</string>
     <string name="title_duration_change">Change duration</string>
     <string name="warning_duration_change">Are you sure you want to delete all existing timeslots?</string>
 </resources>
