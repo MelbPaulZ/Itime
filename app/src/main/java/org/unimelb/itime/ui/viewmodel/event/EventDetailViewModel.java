@@ -198,9 +198,7 @@ public class EventDetailViewModel extends BaseObservable{
 
 
         if(event.getStatus().equals(Event.STATUS_CONFIRMED)){
-            if(isHost()){
-                status = STATUS_CONFIRMED;
-            } else {
+
                 if(myStatus!=null) {
                     switch (myStatus) {
                         case Invitee.STATUS_ACCEPTED:
@@ -215,7 +213,7 @@ public class EventDetailViewModel extends BaseObservable{
                     }
                 }
             }
-        }
+
             setStatus(status);
     }
 

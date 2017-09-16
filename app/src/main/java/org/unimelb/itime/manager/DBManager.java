@@ -223,6 +223,16 @@ public class DBManager {
         return list;
     }
 
+    public synchronized List<Block> getWhoBlockMe() {
+        DaoSession daoSession = daoMaster.newSession();
+        BlockDao blockDao = daoSession.getBlockDao();
+        QueryBuilder<Block> qb = blockDao.queryBuilder();
+        qb.where(qb.and(BlockDao.Properties.BlockUserUid.eq(UserUtil.getInstance(context).getUserUid()),
+                BlockDao.Properties.BlockLevel.gt(0)));
+        List<Block> list = qb.list();
+        return list;
+    }
+
     public synchronized void insertBlock(Block block) {
         if(block==null){
             return;
