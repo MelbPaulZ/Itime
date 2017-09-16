@@ -18,7 +18,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
-import org.unimelb.itime.bean.Calendar;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.databinding.FragmentCalendarTimeslotBinding;
@@ -32,8 +31,11 @@ import org.unimelb.itime.ui.mvpview.calendar.TimeslotMvpView;
 import org.unimelb.itime.ui.presenter.TimeslotPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarTimeslotViewModel;
 import org.unimelb.itime.util.EventUtil;
+import org.unimelb.itime.util.TimeFactory;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -54,6 +56,8 @@ import david.itimecalendar.calendar.wrapper.WrapperTimeSlot;
 public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView, TimeslotPresenter<TimeslotMvpView>>
         implements TimeslotMvpView, ToolbarTimeslotViewModel.ToolbarTimeSlotComponents {
 
+    private Map<String, List<TimeSlot>> rcdCheckedDates = new HashMap<>();
+
     public enum Mode{
         HOST_CREATE, HOST_CONFIRM, INVITEE_CONFIRM
     }
@@ -72,6 +76,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     private transient Date currentFirstDate = new Date();
 
     private List<TimeSlotView.DurationItem> items = initList();
+    private int scope;
 
     @Nullable
     @Override
@@ -128,6 +133,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+         scope = getResources().getInteger(R.integer.timeslot_view_scope);
         toolbarVM = new ToolbarTimeslotViewModel<>(this);
         binding.setToolbarVM(toolbarVM);
         setTimeslotViewMode(mode,event);
@@ -228,10 +234,8 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
                     timeSlotView.setTimeslotDuration(duration,false);
                 }
 
-                if(mode == Mode.HOST_CREATE){
-                    event.setDuration(selectDuration);
-                    presenter.fetchRecommendedTimeslots(event, currentFirstDate);
-                }
+                event.setDuration(selectDuration);
+                presenter.fetchRecommendedTimeslots(event, currentFirstDate);
             }
 
             @Override
@@ -251,6 +255,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
                 .setMessage(R.string.warning_duration_change)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        rcdCheckedDates.clear();
                         clearSelectedTimeslot();
                         clearRecommendedTimeslot();
                         timeSlotView.getDurationBar().expandDurationBar();
@@ -337,7 +342,6 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
                 break;
         }
 
-
         for (TimeSlot timeslot:selectedTimeslots
                 ) {
             selectedTimeslotsMap.put(timeslot.getTimeslotUid(), timeslot);
@@ -362,6 +366,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     }
 
     private ITimeCalendarTimeslotViewListener listener = new ITimeCalendarTimeslotViewListener(){
+
         @Override
         public void onAllDayRcdTimeslotClick(long dayBeginMilliseconds) {
             TimeSlot newSlot = new TimeSlot();
@@ -531,7 +536,28 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
         public void onDateChanged(Date date) {
             currentFirstDate = date;
             if (mode == Mode.HOST_CREATE){
-                presenter.fetchRecommendedTimeslots(event, date);
+                Date today = new Date();
+                if (date.getTime() < today.getTime()){
+                    return;
+                }
+
+                boolean needFetch = false;
+                // add checked date to recorder
+                for (int i = 0; i < scope; i++) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(date);
+                    calendar.add(Calendar.DATE, i);
+                    String dateStr = TimeFactory.getFormatTimeString(date, TimeFactory.DAY_MONTH_YEAR);
+
+                    if (!rcdCheckedDates.containsKey(dateStr)){
+                        rcdCheckedDates.put(dateStr,null);
+                        needFetch = true;
+                    }
+                }
+
+                if (needFetch){
+                    presenter.fetchRecommendedTimeslots(event, date);
+                }
             }
         }
     };
@@ -569,7 +595,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRcdArrive(MessageRefreshTimeSlots msg){
-        clearRecommendedTimeslot();
+//        clearRecommendedTimeslot();
         List<TimeSlot> rcdTimeslot = msg.getRcdTimeslots();
         if (rcdTimeslot == null || rcdTimeslot.size() == 0){
             return;
@@ -587,8 +613,8 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
             }
         }
 
-        Collections.sort(rcdTimeslot);
-        Date toDate = new Date(rcdTimeslot.get(0).getStartTime());
+//        Collections.sort(rcdTimeslot);
+//        Date toDate = new Date(rcdTimeslot.get(0).getStartTime());
 //        timeSlotView.scrollToDate(toDate, true);
     }
 }

@@ -9,6 +9,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -90,6 +91,12 @@ public class TimeFactory {
         return fmt.format(c.getTime());
     }
 
+    public static String getFormatTimeString(Date date, String format){
+        SimpleDateFormat fmt = new SimpleDateFormat(format);
+        return fmt.format(date);
+    }
+
+
     public static Long getFormatTimeLong(String time, String format){
         SimpleDateFormat fmt = new SimpleDateFormat(format);
         try {
@@ -121,4 +128,5 @@ public class TimeFactory {
     public static Long getUpdatedAtLong(String updatedAt){
         return getFormatTimeLong(updatedAt, UTC_PATTERN);
     }
+
 }

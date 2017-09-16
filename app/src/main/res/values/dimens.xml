@@ -77,4 +77,6 @@
     <dimen name="meeting_event_status_bar_height">20dp</dimen>
     <integer name="search_result_max_show_c">2</integer>
     <integer name="search_result_max_show_c_disabled">-1</integer>
+
+    <integer name="timeslot_view_scope">3</integer>
 </resources>

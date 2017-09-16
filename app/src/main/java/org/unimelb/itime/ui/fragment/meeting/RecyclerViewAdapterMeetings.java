@@ -36,12 +36,25 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
 
     private Comparator<Meeting> comingComparator = Meeting::compareTo;
     private Comparator<Meeting> invitationComparator = (m1, m2) -> {
+        if (m1.getEvent().isPinned() && !m2.getEvent().isPinned()){
+            return -1;
+        }else if (!m1.getEvent().isPinned() && m2.getEvent().isPinned()){
+            return 1;
+        }
+
         Long long1 = TimeFactory.getUpdatedAtLong(m1.getUpdatedAt());
         Long long2 = TimeFactory.getUpdatedAtLong(m2.getUpdatedAt());
         return long2.compareTo(long1);
     };
     private Comparator<Meeting> hostingComparator = (m1, m2) -> {
         long currentTime = Calendar.getInstance().getTimeInMillis();
+
+        if (m1.getEvent().isPinned() && !m2.getEvent().isPinned()){
+            return -1;
+        }else if (!m1.getEvent().isPinned() && m2.getEvent().isPinned()){
+            return 1;
+        }
+
         long m1StartTime = EventUtil.getNearestTime(m1.getEvent());
         long m2StartTime = EventUtil.getNearestTime(m2.getEvent());
 

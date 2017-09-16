@@ -9,13 +9,23 @@ import java.util.List;
  */
 
 public class MessageRefreshTimeSlots {
-    List<TimeSlot> rcdTimeslots;
+    private List<TimeSlot> rcdTimeslots;
+    private String rcdDate;
 
-    public MessageRefreshTimeSlots(List<TimeSlot> rcdTimeslots) {
+    public MessageRefreshTimeSlots(List<TimeSlot> rcdTimeslots, String rcdDate) {
+        this.rcdDate =rcdDate;
         this.rcdTimeslots = rcdTimeslots;
     }
 
     public List<TimeSlot> getRcdTimeslots() {
         return rcdTimeslots;
+    }
+
+    public String getRcdDate() {
+        return rcdDate;
+    }
+
+    public void setRcdDate(String rcdDate) {
+        this.rcdDate = rcdDate;
     }
 }
