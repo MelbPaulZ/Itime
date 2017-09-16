@@ -587,6 +587,7 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         super.onResume();
         contentViewModel.setSelectedTimeSlots(contentViewModel.getSelectedTimeSlots());
         contentViewModel.generateTimeSlotItems();
+        contentViewModel.initTimeSheet();
     }
 
     @Override

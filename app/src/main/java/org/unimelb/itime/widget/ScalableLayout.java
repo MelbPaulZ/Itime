@@ -342,6 +342,9 @@ public class ScalableLayout extends LinearLayout{
         if(firstMeasure) {
             firstMeasure = false;
             setOffsets();
+            if(currentStatus==STATUS_HIDE){
+                setTranslationY(collapseHeight-hideHeight);
+            }
         }
     }
 
@@ -350,7 +353,6 @@ public class ScalableLayout extends LinearLayout{
         expandHeight = Math.min(this.getMeasuredHeight(), expandHeight);
 //        hideHeight = Math.min(getChildAt(0).getMeasuredHeight(), hideHeight);
         setHeight(collapseHeight);
-        currentStatus = STATUS_COLLAPSE;
     }
 
     public void refreshLayout(){
@@ -674,22 +676,23 @@ public class ScalableLayout extends LinearLayout{
         }
     }
 
-    public void setStatusImmediately(int status){
-        if(status==currentStatus || this.getVisibility()!=VISIBLE){
-            return;
-        }
-
-        switch (status){
-            case STATUS_COLLAPSE:
-                collapse(true);
-                break;
-            case STATUS_HIDE:
-                hide(true);
-                break;
-            case STATUS_EXPAND:
-                expand(true);
-                break;
-        }
+    public void setInitStatus(int status){
+        this.currentStatus = status;
+//        if(status==currentStatus || this.getVisibility()!=VISIBLE){
+//            return;
+//        }
+//
+//        switch (status){
+//            case STATUS_COLLAPSE:
+//                collapse(true);
+//                break;
+//            case STATUS_HIDE:
+//                hide(true);
+//                break;
+//            case STATUS_EXPAND:
+//                expand(true);
+//                break;
+//        }
     }
 
     public void notifyRemeasure(){

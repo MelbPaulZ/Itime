@@ -14,8 +14,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.webkit.URLUtil;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,10 +36,8 @@ import org.unimelb.itime.util.TimeFactory;
 import org.unimelb.itime.widget.PhotoViewLayout;
 import org.unimelb.itime.widget.ScalableLayout;
 import org.unimelb.itime.widget.popupmenu.PopupMenu;
-import org.unimelb.itime.widget.popupmenu.SelectAlertTimeDialog;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -970,15 +966,6 @@ public class EventDetailViewModel extends BaseObservable{
         initStatus(event);
         originalStatus = getStatus();
         generateTimeSlotItems();
-        if(getStatus()==STATUS_NEED_VOTE) {
-            setShowTimeSlotSheet(true);
-            timeSlotSheet.setStatusImmediately(ScalableLayout.STATUS_COLLAPSE);
-            bottomSheetStatus = ScalableLayout.STATUS_COLLAPSE;
-        }else{
-            setShowTimeSlotSheet(false);
-            timeSlotSheet.setStatusImmediately(ScalableLayout.STATUS_HIDE);
-            bottomSheetStatus = ScalableLayout.STATUS_HIDE;
-        }
 
         setRepeatString(generateRepeatString());
         setUntilDateString(generateUntilString());
@@ -986,6 +973,18 @@ public class EventDetailViewModel extends BaseObservable{
         notifyPropertyChanged(BR.submitBtnString);
         notifyPropertyChanged(BR.event);
 //        setCalendarType(CalendarUtil.getInstance(context).getCalendarName(event));
+    }
+
+    public void initTimeSheet(){
+        if(getStatus()==STATUS_NEED_VOTE) {
+            setShowTimeSlotSheet(true);
+            timeSlotSheet.setInitStatus(ScalableLayout.STATUS_COLLAPSE);
+            bottomSheetStatus = ScalableLayout.STATUS_COLLAPSE;
+        }else{
+            setShowTimeSlotSheet(false);
+            timeSlotSheet.setInitStatus(ScalableLayout.STATUS_HIDE);
+            bottomSheetStatus = ScalableLayout.STATUS_HIDE;
+        }
     }
 
     private String generateRepeatString(){
