@@ -150,8 +150,28 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
 
         TimeSlot[] timeSlots = EventUtil.getNearestTimeslot(event.getTimeslot());
         TimeSlot targetTimeSlot = timeSlots[1] != null ? timeSlots[1]:timeSlots[0];
-        timeSlotView.scrollToDate(new Date(targetTimeSlot.getStartTime()),true);
+        Date d = new Date(targetTimeSlot.getStartTime());
 
+        timeSlotView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                timeSlotView.scrollToDate(d,true); // scroll time not working...
+                timeSlotView.refresh();
+            }
+        },500);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+//        if (event.getTimeslot() == null || event.getTimeslot().size() == 0){
+//            return;
+//        }
+//
+//        TimeSlot[] timeSlots = EventUtil.getNearestTimeslot(event.getTimeslot());
+//        TimeSlot targetTimeSlot = timeSlots[1] != null ? timeSlots[1]:timeSlots[0];
+//        Date d = new Date(targetTimeSlot.getStartTime());
+//        timeSlotView.scrollToDate(d,true); // scroll time not working...
     }
 
     @Override

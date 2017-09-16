@@ -41,9 +41,12 @@
         <!--android:supportsRtl="true"-->
         <!--android:theme="@style/ITimeTheme">-->
 
+        <!--<meta-data-->
+            <!--android:name="com.google.android.geo.API_KEY"-->
+            <!--android:value="AIzaSyDVSb7ficOd7TJP5H7oSAeLUNXVMC_3pyg"/>-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDVSb7ficOd7TJP5H7oSAeLUNXVMC_3pyg"/>
+            android:value="AIzaSyDtbF847zbYxL_tYnwtNMUYBtaDLSsUuRA"/>
 
         <activity
             android:name=".ui.activity.MainActivity"
