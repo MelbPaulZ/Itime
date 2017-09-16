@@ -1,4 +1,19 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 apply plugin: 'com.antfortune.freeline'
 apply plugin: 'org.greenrobot.greendao' // apply plugin
 apply plugin: 'me.tatarka.retrolambda' // apply plugin
@@ -20,13 +35,13 @@ android {
         enabled true
     }
 
-//    buildTypes {
-//        release {
-//            minifyEnabled true
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//        }
-//
-//    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+    }
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8
@@ -150,6 +165,9 @@ dependencies {
 
     // QR code
     compile 'com.google.zxing:core:3.3.0'
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
 }
 
 configurations.all {

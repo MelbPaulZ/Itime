@@ -74,6 +74,12 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
 
         vm = new EventGreetingViewModel(getPresenter());
         vm.setEvent(event);
+        vm.setGreetingMessageInterface(new EventGreetingViewModel.GreetingMessageInterface() {
+            @Override
+            public void isTextLengthValid(boolean isValid) {
+                toolbarVM.setRightEnable(isValid);
+            }
+        });
         binding.setVm(vm);
 
         toolbarVM = new ToolbarViewModel<>(this);

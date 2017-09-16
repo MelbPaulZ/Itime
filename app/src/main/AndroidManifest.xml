@@ -33,6 +33,13 @@
         android:supportsRtl="true"
         android:name="android.support.multidex.MultiDexApplication"
         android:theme="@style/ITimeTheme">
+    <!--<application-->
+        <!--android:allowBackup="true"-->
+        <!--android:icon="@mipmap/ic_launcher"-->
+        <!--android:label="@string/app_name"-->
+        <!--android:roundIcon="@mipmap/ic_launcher_round"-->
+        <!--android:supportsRtl="true"-->
+        <!--android:theme="@style/ITimeTheme">-->
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -157,6 +164,9 @@
         <!-- Services -->
         <service android:name=".service.RemoteService"/>
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="d5dce6ddff0a7721014e2459500e9c6a2e1571e8" />
     </application>
 
 </manifest>

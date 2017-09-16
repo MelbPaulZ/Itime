@@ -240,6 +240,9 @@ public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCust
         }else if (fragment instanceof FragmentEventPrivateCreate){
             ((FragmentEventPrivateCreate) fragment).setEvent(event);
             getFragmentManager().popBackStack(FragmentEventPrivateCreate.class.getSimpleName(), 0 );
+        }else if (fragment instanceof FragmentEventEdit){
+            ((FragmentEventEdit) fragment).setEvent(event);
+            getFragmentManager().popBackStack(FragmentEventEdit.class.getSimpleName(), 0 );
         }
         getBaseActivity().backFragmentBottomUp(fragment);
     }

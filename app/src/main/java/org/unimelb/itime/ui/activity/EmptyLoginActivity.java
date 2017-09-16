@@ -11,6 +11,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 import org.greenrobot.eventbus.EventBus;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseActivity;
@@ -52,6 +54,7 @@ public class EmptyLoginActivity extends ItimeBaseActivity<LoginMvpView,LoginPres
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_login);
 
         initWidget();

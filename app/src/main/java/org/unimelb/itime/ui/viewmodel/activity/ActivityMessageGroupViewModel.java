@@ -21,6 +21,7 @@ import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.ui.mvpview.activity.ItimeActivitiesMvpView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import me.tatarka.bindingcollectionadapter2.ItemBinding;

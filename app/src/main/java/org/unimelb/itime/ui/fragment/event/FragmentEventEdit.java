@@ -59,15 +59,8 @@ public class FragmentEventEdit extends ItimeBaseFragment<EventCreateMvpView, Eve
     public final static int REQUEST_CAMERA_PERMISSION = 100;
     public final static int REQUEST_PHOTO_PERMISSION = 101;
     public final static int REQUEST_LOCATION_PERMISSION = 102;
-    public FragmentEventCreate.Mode taskMode = FragmentEventCreate.Mode.CREATE;
 
-    public enum Mode{
-        CREATE, UPDATE
-    }
 
-    public void setTaskMode(FragmentEventCreate.Mode taskMode) {
-        this.taskMode = taskMode;
-    }
 
     FragmentEventCreateAddInvitee fragmentEventCreateAddInvitee;
 
@@ -94,7 +87,7 @@ public class FragmentEventEdit extends ItimeBaseFragment<EventCreateMvpView, Eve
             vm.setEvent(event);
             binding.setVm(vm);
             toolbarViewModel = new ToolbarViewModel<>(this);
-            toolbarViewModel.setTitle(getString(R.string.new_event_toolbar_title));
+            toolbarViewModel.setTitle(getString(R.string.edit_event_toolbar_title));
             toolbarViewModel.setRightText(getString(R.string.new_event_toolbar_next));
             toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_close));
             toolbarViewModel.setRightEnable(true);
@@ -102,6 +95,12 @@ public class FragmentEventEdit extends ItimeBaseFragment<EventCreateMvpView, Eve
         }else{
             vm.setEvent(event);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Toast.makeText(getContext(), "Edit", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -132,7 +131,7 @@ public class FragmentEventEdit extends ItimeBaseFragment<EventCreateMvpView, Eve
             toTimeslot(event);
         }else {
             FragmentEventGreeting fragment = new FragmentEventGreeting();
-            fragment.setTaskMode(taskMode);
+            fragment.setTaskMode(FragmentEventCreate.Mode.UPDATE);
             Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
             fragment.setEvent(cpyEvent);
             getBaseActivity().openFragment(fragment);
@@ -143,29 +142,19 @@ public class FragmentEventEdit extends ItimeBaseFragment<EventCreateMvpView, Eve
     @Override
     public void onBack() {
         if (!hasChange){
-            getActivity().finish();
+            getFragmentManager().popBackStack();
             return;
         }
 
-        if (getActivity() instanceof EventCreateActivity) {
-            getDialogBuidler()
-                    .content(R.string.event_create_cancel_dialog_content)
-                    .contentColor(getResources().getColor(R.color.black))
-                    .contentGravity(GravityEnum.CENTER)
-                    .negativeText(R.string.event_dialog_discard)
-                    .positiveText(R.string.event_dialog_keep_editing)
-                    .onNegative((dialog, which) -> getActivity().finish())
-                    .show();
-        }else{
-            getDialogBuidler()
-                    .content(R.string.event_edit_cancel_dialog_content)
-                    .contentColor(getResources().getColor(R.color.black))
-                    .contentGravity(GravityEnum.CENTER)
-                    .negativeText(R.string.event_dialog_discard)
-                    .positiveText(R.string.event_dialog_keep_editing)
-                    .onNegative(((dialog, which) -> getFragmentManager().popBackStack()))
-                    .show();
-        }
+        getDialogBuidler()
+                .content(R.string.event_edit_cancel_dialog_content)
+                .contentColor(getResources().getColor(R.color.black))
+                .contentGravity(GravityEnum.CENTER)
+                .negativeText(R.string.event_dialog_discard)
+                .positiveText(R.string.event_dialog_keep_editing)
+                .onNegative(((dialog, which) -> getFragmentManager().popBackStack()))
+                .show();
+
     }
 
     @Override

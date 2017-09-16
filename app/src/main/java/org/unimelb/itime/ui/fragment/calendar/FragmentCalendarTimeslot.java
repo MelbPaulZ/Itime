@@ -27,6 +27,7 @@ import org.unimelb.itime.messageevent.MessageRefreshTimeSlots;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
 import org.unimelb.itime.ui.fragment.event.FragmentEventDetail;
 import org.unimelb.itime.ui.fragment.event.FragmentEventDetailConfirm;
+import org.unimelb.itime.ui.fragment.event.FragmentEventEdit;
 import org.unimelb.itime.ui.mvpview.calendar.TimeslotMvpView;
 import org.unimelb.itime.ui.presenter.TimeslotPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarTimeslotViewModel;
@@ -170,7 +171,11 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
             case HOST_CREATE:{
                 event.setTimeslot(selectedTimeslotsMap);
                 event.setDuration(selectDuration);
-                ((FragmentEventCreate) fragment).setEvent(event);
+                if (getFrom() instanceof FragmentEventCreate) {
+                    ((FragmentEventCreate) fragment).setEvent(event);
+                }else if (getFrom() instanceof FragmentEventEdit){
+                    ((FragmentEventEdit) fragment).setEvent(event);
+                }
                 getFragmentManager().popBackStack();
                 break;
             }

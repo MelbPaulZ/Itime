@@ -31,6 +31,7 @@
     <string name="toolbar_timeslots_select">%1$d/%2$d Timeslots</string>
     <string name="toolbar_activities">Activities</string>
     <string name="toolbar_mute">Mute</string>
+    <string name="toolbar_unmute">Unmute</string>
     <string name="toolbar_view_in_calendar">Calendar</string>
     <string name="toolbar_login">LOGIN</string>
 
@@ -172,6 +173,7 @@
     <string name="event_location_hint">No Location</string>
     <string name="event_calendars_title">Calendars</string>
     <string name="new_event_toolbar_title">New Event</string>
+    <string name="edit_event_toolbar_title">Edit Event</string>
     <string name="new_event_toolbar_next">Next</string>
 
     <!--Event buttons-->
