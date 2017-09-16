@@ -26,10 +26,19 @@ public class EventGreetingViewModel extends ItimeBaseViewModel {
 
     private int EDIT_COUNT_LIMIT = 140;
     private int EDIT_COUNT_THRESHOLD = 20;
+    private GreetingMessageInterface greetingMessageInterface;
 
     public EventGreetingViewModel(EventCreatePresenter<EventGreetingMvpView> presenter) {
         this.presenter = presenter;
         this.mvpView = presenter.getView();
+    }
+
+    public void setGreetingMessageInterface(GreetingMessageInterface greetingMessageInterface) {
+        this.greetingMessageInterface = greetingMessageInterface;
+    }
+
+    public interface GreetingMessageInterface{
+        void isTextLengthValid(boolean isValid);
     }
 
     @Bindable
@@ -58,6 +67,9 @@ public class EventGreetingViewModel extends ItimeBaseViewModel {
             public void afterTextChanged(Editable s) {
                 event.setGreeting(s.toString());
                 setEvent(event);
+                if (greetingMessageInterface!=null){
+                    greetingMessageInterface.isTextLengthValid(s.toString().length()<=EDIT_COUNT_LIMIT);
+                }
             }
         };
     }

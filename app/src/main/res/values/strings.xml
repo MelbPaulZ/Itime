@@ -31,6 +31,7 @@
     <string name="toolbar_timeslots_select">%1$d/%2$d Timeslots</string>
     <string name="toolbar_activities">Activities</string>
     <string name="toolbar_mute">Mute</string>
+    <string name="toolbar_unmute">Unmute</string>
     <string name="toolbar_view_in_calendar">Calendar</string>
     <string name="toolbar_login">LOGIN</string>
 
@@ -174,6 +175,7 @@
     <string name="event_location_hint">No Location</string>
     <string name="event_calendars_title">Calendars</string>
     <string name="new_event_toolbar_title">New Event</string>
+    <string name="edit_event_toolbar_title">Edit Event</string>
     <string name="new_event_toolbar_next">Next</string>
 
     <!--Event buttons-->
@@ -434,5 +436,10 @@
     <string name="choose_from_photos">Choose from Photos</string>
     <string name="cancel_photos_alert_msg">You haven\'t upload these photos, are you sure to discard photo editing?</string>
     <string name="delete_this_photo">Delete this photo?</string>
+<<<<<<< HEAD
     <string name="cover_collections">iTime Cover Collections</string>
+=======
+    <string name="title_duration_change">Change duration</string>
+    <string name="warning_duration_change">Are you sure you want to delete all existing timeslots?</string>
+>>>>>>> 674dfc19c9752d7879b752185a8635ab97399c82
 </resources>

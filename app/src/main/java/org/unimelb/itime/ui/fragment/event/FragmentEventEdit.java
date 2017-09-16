@@ -4,18 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.GravityEnum;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
@@ -26,21 +21,18 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
-import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.Location;
 import org.unimelb.itime.bean.PhotoUrl;
 import org.unimelb.itime.databinding.FragmentEventCreateBinding;
-import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.activity.CameraActivity;
 import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.activity.LocationActivity;
 import org.unimelb.itime.ui.fragment.calendar.FragmentCalendarTimeslot;
-import org.unimelb.itime.ui.fragment.component.FragmentEventTime;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
-import org.unimelb.itime.ui.viewmodel.event.EventCreateViewModel;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
+import org.unimelb.itime.ui.viewmodel.event.EventCreateViewModel;
 import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.widget.PicassoImageLoader;
 
@@ -48,11 +40,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Paul on 2/6/17.
+ * Created by Paul on 9/9/17.
  */
 
-public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, EventCreatePresenter<EventCreateMvpView>>
-        implements EventCreateMvpView, ToolbarInterface{
+public class FragmentEventEdit extends ItimeBaseFragment<EventCreateMvpView, EventCreatePresenter<EventCreateMvpView>>
+        implements EventCreateMvpView, ToolbarInterface {
     private FragmentEventCreateBinding binding;
     private EventCreateViewModel vm;
     private ToolbarViewModel toolbarViewModel;
@@ -68,9 +60,6 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     public final static int REQUEST_PHOTO_PERMISSION = 101;
     public final static int REQUEST_LOCATION_PERMISSION = 102;
 
-    public enum Mode{
-        CREATE, UPDATE
-    }
 
 
     FragmentEventCreateAddInvitee fragmentEventCreateAddInvitee;
@@ -91,11 +80,6 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Toast.makeText(getContext(), "Create", Toast.LENGTH_SHORT).show();
-    }
 
     private void init(){
         if (vm==null) {
@@ -103,7 +87,7 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
             vm.setEvent(event);
             binding.setVm(vm);
             toolbarViewModel = new ToolbarViewModel<>(this);
-            toolbarViewModel.setTitle(getString(R.string.new_event_toolbar_title));
+            toolbarViewModel.setTitle(getString(R.string.edit_event_toolbar_title));
             toolbarViewModel.setRightText(getString(R.string.new_event_toolbar_next));
             toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_close));
             toolbarViewModel.setRightEnable(true);
@@ -111,6 +95,12 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         }else{
             vm.setEvent(event);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Toast.makeText(getContext(), "Edit", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -139,12 +129,9 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     public void onNext() {
         if (event.getTimeslot().size() == 0){
             toTimeslot(event);
-        }
-        else if (event.getInvitee().size() == 0){
-            toInvitee(event);
-        } else {
+        }else {
             FragmentEventGreeting fragment = new FragmentEventGreeting();
-            fragment.setTaskMode(Mode.CREATE);
+            fragment.setTaskMode(FragmentEventCreate.Mode.UPDATE);
             Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
             fragment.setEvent(cpyEvent);
             getBaseActivity().openFragment(fragment);
@@ -155,17 +142,17 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
     @Override
     public void onBack() {
         if (!hasChange){
-            getActivity().finish();
+            getFragmentManager().popBackStack();
             return;
         }
 
         getDialogBuidler()
-                .content(R.string.event_create_cancel_dialog_content)
+                .content(R.string.event_edit_cancel_dialog_content)
                 .contentColor(getResources().getColor(R.color.black))
                 .contentGravity(GravityEnum.CENTER)
                 .negativeText(R.string.event_dialog_discard)
                 .positiveText(R.string.event_dialog_keep_editing)
-                .onNegative((dialog, which) -> getActivity().finish())
+                .onNegative(((dialog, which) -> getFragmentManager().popBackStack()))
                 .show();
 
     }
@@ -374,4 +361,3 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         Toast.makeText(getContext(), "need camera permission", Toast.LENGTH_SHORT).show();
     }
 }
-

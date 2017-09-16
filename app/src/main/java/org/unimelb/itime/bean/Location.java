@@ -19,6 +19,8 @@ public class Location implements Serializable{
     private String locationLatitude = "";
     private String locationLongitude = "";
 
+
+
     @Generated(hash = 1765972794)
     public Location(String locationString1, String locationString2,
             String locationNote, String locationLatitude,
@@ -73,4 +75,6 @@ public class Location implements Serializable{
     public void setLocationLongitude(String locationLongitude) {
         this.locationLongitude = locationLongitude;
     }
+
+
 }

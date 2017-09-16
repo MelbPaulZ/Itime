@@ -36,6 +36,8 @@ import org.unimelb.itime.util.rulefactory.RuleModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -54,6 +56,8 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     protected List<RowItem> rowItems = new ArrayList<>();
     protected Event event;
     protected EventCreateMvpView mvpView;
+    private boolean hasChange;
+
 
     protected List<String> mockAvatorLists = new ArrayList<>();
 
@@ -77,26 +81,15 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         notifyPropertyChanged(BR.buttonItems);
     }
 
-//    private void mockData(){
-//        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
-//        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
-//        mockAvatorLists.add("http://i.imgur.com/DvpvklR.png");
-//
-//    }
 
     public CompoundButton.OnCheckedChangeListener onAlldayChangeListener(){
-        return new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    EventUtil.notAllDayToAllDay(event);
-//                    event.setIsAllDay(true);
-                }else{
-//                    event.setIsAllDay(false);
-                    EventUtil.allDayToNotAllDay(event);
-                }
-                setEvent(event);
+        return (buttonView, isChecked) -> {
+            if (isChecked){
+                EventUtil.notAllDayToAllDay(event);
+            }else{
+                EventUtil.allDayToNotAllDay(event);
             }
+            setEvent(event);
         };
     }
 
@@ -136,7 +129,6 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     public List<String> getMockAvatorLists() {
         return mockAvatorLists;
     }
-
 
 
     public String getTitleString(Event event){
@@ -211,6 +203,12 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     }
 
     public void setTimeslot(List<TimeslotLineViewModel> timeslot) {
+        Collections.sort(timeslot, new Comparator<TimeslotLineViewModel>() {
+            @Override
+            public int compare(TimeslotLineViewModel o1, TimeslotLineViewModel o2) {
+                return (int) (o1.getTimeslot().getStartTime() - o2.getTimeslot().getStartTime());
+            }
+        });
         this.timeslot = timeslot;
         notifyPropertyChanged(BR.timeslot);
     }

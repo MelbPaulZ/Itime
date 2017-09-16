@@ -11,10 +11,12 @@ import android.widget.Toast;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Message;
 import org.unimelb.itime.bean.MessageGroup;
 import org.unimelb.itime.databinding.FragmentItimeActivitiesDetailBinding;
 import org.unimelb.itime.manager.DBManager;
+import org.unimelb.itime.ui.mvpview.TaskBasedMvpView;
 import org.unimelb.itime.ui.mvpview.activity.ItimeActivitiesDetailMvpView;
 import org.unimelb.itime.ui.presenter.activity.ItimeActivitiesDetailPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 
 public class FragmentItimeActivitiesDetail extends ItimeBaseFragment<ItimeActivitiesDetailMvpView, ItimeActivitiesDetailPresenter<ItimeActivitiesDetailMvpView>>
-implements ToolbarInterface{
+implements ToolbarInterface, ItimeActivitiesDetailMvpView{
     private FragmentItimeActivitiesDetailBinding binding;
     private ToolbarViewModel toolbarVM;
     private ItimeActivitiesDetailViewModel vm;
@@ -57,7 +59,7 @@ implements ToolbarInterface{
 
         toolbarVM = new ToolbarViewModel<>(this);
         toolbarVM.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
-        toolbarVM.setRightText(getString(R.string.toolbar_mute));
+        toolbarVM.setRightText(getString(messageGroup.isMute()?R.string.toolbar_mute:R.string.toolbar_unmute));
         toolbarVM.setRightTextColor(getContext().getResources().getColor(R.color.black));
         binding.setToolbarVM(toolbarVM);
     }
@@ -90,11 +92,30 @@ implements ToolbarInterface{
     @Override
     public void onNext() {
         // mute
-        Toast.makeText(getContext(), "Mute", Toast.LENGTH_SHORT).show();
+        Event event = DBManager.getInstance(getContext()).getEvent(messageGroup.getEventUid());
+        // // TODO: 14/9/17 test on this
+        toolbarVM.setRightText(getString(!event.isMute()?R.string.toolbar_mute:R.string.toolbar_unmute));
+        messageGroup.setMute(!event.isMute());
+        presenter.muteEvent(event, messageGroup.isMute());
     }
 
     @Override
     public void onBack() {
         getActivity().onBackPressed();
+    }
+
+    @Override
+    public void onTaskStart(int taskId) {
+
+    }
+
+    @Override
+    public void onTaskSuccess(int taskId, Object data) {
+
+    }
+
+    @Override
+    public void onTaskError(int taskId, Object data) {
+
     }
 }

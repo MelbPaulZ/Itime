@@ -78,6 +78,8 @@ public class FragmentEventCreateTitle extends ItimeBaseFragment<EventCreateTitle
             ((FragmentEventCreate)fragment).setEvent(event);
         }else if (fragment instanceof FragmentEventPrivateCreate){
             ((FragmentEventPrivateCreate)fragment).setEvent(event);
+        }else if (fragment instanceof FragmentEventEdit){
+            ((FragmentEventEdit) fragment).setEvent(event);
         }
         getFragmentManager().popBackStack();
     }

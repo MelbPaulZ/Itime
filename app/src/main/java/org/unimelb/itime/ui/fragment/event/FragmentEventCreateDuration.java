@@ -108,9 +108,11 @@ public class FragmentEventCreateDuration extends ItimeBaseFragment<EventCreateDu
     @Override
     public void onNext() {
         Fragment fragment = getFrom();
+        event.setDuration(EventUtil.durationString2Int(getContext(), vm.getDuration()));
         if (fragment instanceof FragmentEventCreate){
-            event.setDuration(EventUtil.durationString2Int(getContext(), vm.getDuration()));
             ((FragmentEventCreate) fragment).setEvent(event);
+        }else if (fragment instanceof FragmentEventEdit){
+            ((FragmentEventEdit) fragment).setEvent(event);
         }
         getFragmentManager().popBackStack();
     }

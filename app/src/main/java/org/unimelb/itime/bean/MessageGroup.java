@@ -10,6 +10,7 @@ import org.greenrobot.greendao.converter.PropertyConverter;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.List;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
