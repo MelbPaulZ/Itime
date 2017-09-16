@@ -69,8 +69,8 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
         if (diffM1 < 0 && diffM2 < 0){
             return diffM2.compareTo(diffM1);
         }
-
-        return diffM1.compareTo(diffM2);
+        // one future, one passed
+        return diffM2.compareTo(diffM1);
     };
 
     /**

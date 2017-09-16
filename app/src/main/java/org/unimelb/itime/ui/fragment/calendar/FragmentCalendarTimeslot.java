@@ -134,7 +134,8 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-         scope = getResources().getInteger(R.integer.timeslot_view_scope);
+
+        scope = getResources().getInteger(R.integer.timeslot_view_scope);
         toolbarVM = new ToolbarTimeslotViewModel<>(this);
         binding.setToolbarVM(toolbarVM);
         setTimeslotViewMode(mode,event);
@@ -240,7 +241,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
                 }
 
                 event.setDuration(selectDuration);
-                presenter.fetchRecommendedTimeslots(event, currentFirstDate);
+                fetchRcds(currentFirstDate);
             }
 
             @Override
@@ -541,31 +542,51 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
         public void onDateChanged(Date date) {
             currentFirstDate = date;
             if (mode == Mode.HOST_CREATE){
-                Date today = new Date();
-                if (date.getTime() < today.getTime()){
-                    return;
-                }
-
-                boolean needFetch = false;
-                // add checked date to recorder
-                for (int i = 0; i < scope; i++) {
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTime(date);
-                    calendar.add(Calendar.DATE, i);
-                    String dateStr = TimeFactory.getFormatTimeString(date, TimeFactory.DAY_MONTH_YEAR);
-
-                    if (!rcdCheckedDates.containsKey(dateStr)){
-                        rcdCheckedDates.put(dateStr,null);
-                        needFetch = true;
-                    }
-                }
-
-                if (needFetch){
-                    presenter.fetchRecommendedTimeslots(event, date);
-                }
+                fetchRcds(date);
             }
         }
     };
+
+
+    public static final int FETCH_RANGE = 9;
+
+    private void fetchRcds(Date currentFstDay){
+        Date today = new Date();
+        if (currentFstDay.getTime() < today.getTime()){
+            return;
+        }
+
+        boolean needFetch = false;
+        // add checked date to recorder
+        for (int i = -FETCH_RANGE; i < FETCH_RANGE; i++) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(currentFstDay);
+            calendar.add(Calendar.DATE, i);
+            String dateStr = TimeFactory.getFormatTimeString(currentFstDay, TimeFactory.DAY_MONTH_YEAR);
+
+            if (!rcdCheckedDates.containsKey(dateStr)){
+                rcdCheckedDates.put(dateStr,null);
+                needFetch = true;
+            }
+        }
+
+        if (needFetch){
+            Date end = new Date();
+            Date start = new Date();
+
+            long startFetchTime = currentFstDay.getTime() - FETCH_RANGE * EventUtil.allDayMilliseconds;
+
+            if (startFetchTime < today.getTime()){
+                startFetchTime = today.getTime();
+            }
+
+            long endFetchTime = currentFstDay.getTime() + FETCH_RANGE * EventUtil.allDayMilliseconds;
+            start.setTime(startFetchTime);
+            end.setTime(endFetchTime);
+
+            presenter.fetchRecommendedTimeslots(event, start, end);
+        }
+    }
 
     private List<TimeSlotView.DurationItem> initList(){
         List<TimeSlotView.DurationItem> list= new ArrayList<>();
