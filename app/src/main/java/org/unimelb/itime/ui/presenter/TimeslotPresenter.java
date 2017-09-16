@@ -39,18 +39,6 @@ public class TimeslotPresenter <V extends TimeslotMvpView> extends ItimeBasePres
     }
 
 
-    /**
-     * To david, use this when scroll, need to ensure event has a duration.
-     * @param event
-     * @param startTime
-     */
-    public void fetchRecommendedTimeslots(Event event, Date startTime){
-        Date end = new Date();
-        end.setTime(startTime.getTime() + 3 * 24 * 60 * 60 * 1000);
-        fetchRecommendedTimeslots(event, startTime, end);
-    }
-
-
 
     public void fetchRecommendedTimeslots(Event event, Date startTime, Date endTime){
         RecommandRequest recommandRequest = new RecommandRequest();
