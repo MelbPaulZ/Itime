@@ -41,6 +41,8 @@ import org.unimelb.itime.widget.popupmenu.PopupMenu;
 import org.unimelb.itime.widget.popupmenu.SelectAlertTimeDialog;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -579,6 +581,7 @@ public class EventDetailViewModel extends BaseObservable{
 
     public void generateTimeSlotItems(){
         timeSlotsItems.clear();
+
         for(TimeSlot timeSlot:event.getTimeslot().values()){
             EventDetailTimeSlotItemViewModel vm = new EventDetailTimeSlotItemViewModel(context);
             vm.setTimeSlot(timeSlot);
@@ -591,6 +594,7 @@ public class EventDetailViewModel extends BaseObservable{
             }
             timeSlotsItems.add(vm);
         }
+        Collections.sort(timeSlotsItems);
         updateStatus();
     }
 
@@ -970,10 +974,12 @@ public class EventDetailViewModel extends BaseObservable{
         generateTimeSlotItems();
         if(getStatus()==STATUS_NEED_VOTE) {
             setShowTimeSlotSheet(true);
-            setBottomSheetStatus(ScalableLayout.STATUS_COLLAPSE);
+            timeSlotSheet.setStatusImmediately(ScalableLayout.STATUS_COLLAPSE);
+            bottomSheetStatus = ScalableLayout.STATUS_COLLAPSE;
         }else{
             setShowTimeSlotSheet(false);
-            setBottomSheetStatus(ScalableLayout.STATUS_HIDE);
+            timeSlotSheet.setStatusImmediately(ScalableLayout.STATUS_HIDE);
+            bottomSheetStatus = ScalableLayout.STATUS_HIDE;
         }
 
         setRepeatString(generateRepeatString());
@@ -1228,6 +1234,7 @@ public class EventDetailViewModel extends BaseObservable{
             @Override
             public void run() {
                 Layout l = noteTextView.getLayout();
+                readAllTextView.setVisibility(View.GONE);
                 if (l != null) {
                     int lines = l.getLineCount();
                     if (lines > 0) {
@@ -1235,8 +1242,6 @@ public class EventDetailViewModel extends BaseObservable{
                             readAllTextView.setVisibility(View.VISIBLE);
                         }
                     }
-                } else {
-                    readAllTextView.setVisibility(View.GONE);
                 }
             }
         });
@@ -1306,4 +1311,16 @@ public class EventDetailViewModel extends BaseObservable{
         this.untilDateString = untilDateString;
         notifyPropertyChanged(BR.untilDateString);
     }
+
+    public View.OnClickListener getOnBackgroundClicked(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mvpView!=null){
+                    mvpView.toChangeCover();
+                }
+            }
+        };
+    }
+
 }

@@ -271,15 +271,15 @@ public class ScalableLayout extends LinearLayout{
         int move = moveCount;
         if(move>0){
             if(move>=AUTO_THRESHOLD){
-                getShowAnimator().start();
+                getShowAnimator(false).start();
             } else{
-                getHideAnimator().start();
+                getHideAnimator(false).start();
             }
         }else{
             if(-move>=AUTO_THRESHOLD){
-                getHideAnimator().start();
+                getHideAnimator(false).start();
             }else{
-                getShowAnimator().start();
+                getShowAnimator(false).start();
             }
         }
     }
@@ -288,24 +288,29 @@ public class ScalableLayout extends LinearLayout{
         int move = moveCount;
         if(move>0){
             if(move>=AUTO_THRESHOLD){
-                getExpandAnimator().start();
+                getExpandAnimator(false).start();
             } else{
-                getCollapseAnimator().start();
+                getCollapseAnimator(false).start();
             }
         }else{
             if(-move>=AUTO_THRESHOLD){
-                getCollapseAnimator().start();
+                getCollapseAnimator(false).start();
             }else{
-                getExpandAnimator().start();
+                getExpandAnimator(false).start();
             }
         }
     }
 
-    private ObjectAnimator getExpandAnimator(){
+    private ObjectAnimator getExpandAnimator(boolean immediately){
         int start = getLayoutParams().height;
         int end = expandHeight;
         int time = (end-start)>0?(end-start)/ velocity:0;
-        ObjectAnimator animator =  ObjectAnimator.ofInt(this, "height", start, end).setDuration(time);
+        ObjectAnimator animator =  ObjectAnimator.ofInt(this, "height", start, end);
+        if(immediately){
+            animator.setDuration(0);
+        }else{
+            animator.setDuration(time);
+        }
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
@@ -346,7 +351,6 @@ public class ScalableLayout extends LinearLayout{
 //        hideHeight = Math.min(getChildAt(0).getMeasuredHeight(), hideHeight);
         setHeight(collapseHeight);
         currentStatus = STATUS_COLLAPSE;
-//        Log.e("measuredheight", this.getMeasuredHeight()+":"+hideHeight+":"+expandHeight+":"+collapseHeight);
     }
 
     public void refreshLayout(){
@@ -354,11 +358,16 @@ public class ScalableLayout extends LinearLayout{
         this.requestLayout();
     }
 
-    private ObjectAnimator getCollapseAnimator(){
+    private ObjectAnimator getCollapseAnimator(boolean immediately){
         int start = getLayoutParams().height;
         int end = collapseHeight;
         int time = (start-end)>0?(start-end)/ velocity:0;
-        ObjectAnimator animator =  ObjectAnimator.ofInt(this, "height", start, end).setDuration(time);
+        ObjectAnimator animator =  ObjectAnimator.ofInt(this, "height", start, end);
+        if(immediately){
+            animator.setDuration(0);
+        }else{
+            animator.setDuration(time);
+        }
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
@@ -384,11 +393,16 @@ public class ScalableLayout extends LinearLayout{
         return animator;
     }
 
-    private ObjectAnimator getShowAnimator(){
+    private ObjectAnimator getShowAnimator(boolean immediately){
         int start = (int) getTranslationY();
         int end = 0;
         int time = (start-end)>0?(start-end)/ velocity:0;
-        ObjectAnimator animator = ObjectAnimator.ofInt(this, "scroll", start, end).setDuration(time);
+        ObjectAnimator animator = ObjectAnimator.ofInt(this, "scroll", start, end);
+        if(immediately){
+            animator.setDuration(0);
+        }else{
+            animator.setDuration(time);
+        }
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
@@ -414,12 +428,17 @@ public class ScalableLayout extends LinearLayout{
         return animator;
     }
 
-    private ObjectAnimator getHideAnimator(){
+    private ObjectAnimator getHideAnimator(boolean immediately){
         int start = (int)getTranslationY();
         int end = collapseHeight-hideHeight;
         int time = Math.max((end-start)/ velocity, 0);
 
-        ObjectAnimator animator = ObjectAnimator.ofFloat(this, "translationY", start, end).setDuration(time);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(this, "translationY", start, end);
+        if(immediately){
+            animator.setDuration(1);
+        }else{
+            animator.setDuration(time);
+        }
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
@@ -454,22 +473,27 @@ public class ScalableLayout extends LinearLayout{
         this.requestLayout();
     }
 
-    public void expand(){
+    public void expand(boolean immediately){
         switch (currentStatus){
             case STATUS_EXPAND:
                 break;
             case STATUS_COLLAPSE:
-                getExpandAnimator().start();
+                getExpandAnimator(immediately).start();
                 break;
             case STATUS_HIDE:
-                getHideToExpandAnimator().start();
+                getHideToExpandAnimator(immediately).start();
                 break;
         }
     }
 
-    private ObjectAnimator getHideToExpandAnimator(){
+    private ObjectAnimator getHideToExpandAnimator(boolean immediately){
         lastOffset = 0;
-        ObjectAnimator hideToExpand = ObjectAnimator.ofInt(this, "hideToExpand", 0, expandHeight -hideHeight).setDuration((expandHeight -hideHeight)/ velocity);
+        ObjectAnimator hideToExpand = ObjectAnimator.ofInt(this, "hideToExpand", 0, expandHeight -hideHeight);
+        if(immediately){
+            hideToExpand.setDuration(0);
+        }else{
+            hideToExpand.setDuration((expandHeight -hideHeight)/ velocity);
+        }
         hideToExpand.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
@@ -494,9 +518,14 @@ public class ScalableLayout extends LinearLayout{
         return hideToExpand;
     }
 
-    private ObjectAnimator getExpandToHideAnimator(){
+    private ObjectAnimator getExpandToHideAnimator(boolean immediately){
         lastOffset = 0;
-        ObjectAnimator expandToHide = ObjectAnimator.ofInt(this, "expandToHide", 0, expandHeight -hideHeight).setDuration((expandHeight -hideHeight)/ velocity);
+        ObjectAnimator expandToHide = ObjectAnimator.ofInt(this, "expandToHide", 0, expandHeight -hideHeight);
+        if(immediately){
+            expandToHide.setDuration(0);
+        }else{
+            expandToHide.setDuration((expandHeight -hideHeight)/ velocity);
+        }
         expandToHide.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
@@ -550,29 +579,29 @@ public class ScalableLayout extends LinearLayout{
     }
 
 
-    public void collapse(){
+    public void collapse(boolean immediately){
         switch (currentStatus){
             case STATUS_COLLAPSE:
                 break;
             case STATUS_EXPAND:
-                getCollapseAnimator().start();
+                getCollapseAnimator(immediately).start();
                 break;
             case STATUS_HIDE:
-                getShowAnimator().start();
+                getShowAnimator(immediately).start();
                 break;
 
         }
     }
 
-    public void hide(){
+    public void hide(boolean immediately){
         switch (currentStatus){
             case STATUS_HIDE:
                 break;
             case STATUS_COLLAPSE:
-                getHideAnimator().start();
+                getHideAnimator(immediately).start();
                 break;
             case STATUS_EXPAND:
-                getExpandToHideAnimator().start();
+                getExpandToHideAnimator(immediately).start();
                 break;
         }
     }
@@ -583,9 +612,9 @@ public class ScalableLayout extends LinearLayout{
 
     public void toggle(){
         if(currentStatus!=STATUS_HIDE){
-            hide();
+            hide(false);
         }else {
-            collapse();
+            collapse(false);
         }
     }
 
@@ -627,19 +656,37 @@ public class ScalableLayout extends LinearLayout{
     }
 
     public void setStatus(int status){
-        if(status==currentStatus){
+        if(status==currentStatus || this.getVisibility()!=VISIBLE){
             return;
         }
 
         switch (status){
             case STATUS_COLLAPSE:
-                collapse();
+                collapse(false);
                 break;
             case STATUS_HIDE:
-                hide();
+                hide(false);
                 break;
             case STATUS_EXPAND:
-                expand();
+                expand(false);
+                break;
+        }
+    }
+
+    public void setStatusImmediately(int status){
+        if(status==currentStatus || this.getVisibility()!=VISIBLE){
+            return;
+        }
+
+        switch (status){
+            case STATUS_COLLAPSE:
+                collapse(true);
+                break;
+            case STATUS_HIDE:
+                hide(true);
+                break;
+            case STATUS_EXPAND:
+                expand(true);
                 break;
         }
     }

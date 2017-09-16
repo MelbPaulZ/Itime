@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="toolbarVM"
+            type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
+    </data>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/toolbar"
+        app:vm="@{toolbarVM}" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_detail_cell_height"
+        android:textSize="@dimen/font_large"
+        android:layout_marginLeft="15dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/text_body"
+        android:text="@string/take_photo"
+        android:id="@+id/take_photo"/>
+    <include layout="@layout/line"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_detail_cell_height"
+        android:layout_marginLeft="15dp"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/font_large"
+        android:textColor="@color/text_body"
+        android:id="@+id/choose_from_photos"
+        android:text="@string/choose_from_photos"/>
+    <include layout="@layout/line"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_detail_cell_height"
+        android:textSize="@dimen/font_large"
+        android:layout_marginLeft="15dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/text_body"
+        android:id="@+id/collections"
+        android:text="@string/cover_collections"/>
+    <include layout="@layout/line"/>
+
+</LinearLayout>
+</layout>

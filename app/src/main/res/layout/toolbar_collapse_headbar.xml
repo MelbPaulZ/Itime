@@ -30,8 +30,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="20dp"
+        android:paddingTop="70dp"
+        android:paddingBottom="20dp"
+        android:id="@+id/contentPart"
         app:layout_collapseMode="parallax"
         app:layout_collapseParallaxMultiplier="0.6"
         >

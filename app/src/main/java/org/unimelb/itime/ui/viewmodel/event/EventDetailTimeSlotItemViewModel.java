@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -21,7 +22,7 @@ import java.util.List;
  * Created by Qiushuo Huang on 2017/8/12.
  */
 
-public class EventDetailTimeSlotItemViewModel extends BaseObservable {
+public class EventDetailTimeSlotItemViewModel extends BaseObservable implements Comparable<EventDetailTimeSlotItemViewModel>{
     private Drawable leftIcon;
     private String firstTimeRow = "";
     private String secondTimeRow = "";
@@ -170,5 +171,10 @@ public class EventDetailTimeSlotItemViewModel extends BaseObservable {
 
     public void setShowInvitee(boolean showInvitee) {
         this.showInvitee = showInvitee;
+    }
+
+    @Override
+    public int compareTo(@NonNull EventDetailTimeSlotItemViewModel o) {
+        return this.getTimeSlot().compareTo(o.getTimeSlot());
     }
 }

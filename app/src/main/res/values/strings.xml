@@ -127,6 +127,8 @@
     <string name="event_detail_all_invitee_tag_going">%1$d Going</string>
     <string name="event_detail_all_invitee_tag_notgoing">%1$d Not Going</string>
     <string name="event_detail_all_invitee_tag_noreply">%1$d No Reply</string>
+    <string name="event_change_cover">Change Cover Photo</string>
+    <string name="event_change_cover_title">Change Cover Photo</string>
 
     <!--Timeslots-->
     <string name="event_candidate_timeslots">%1$d Candidate Timeslots: </string>
@@ -280,6 +282,7 @@
     <string name="event_type_group">event type group</string>
     <string name="event_status_repeated">Repeated</string>
 
+
     <!-- event status-->
     <string name="event_status_pending">Pending</string>
     <string name="event_status_cancel">Cancel</string>
@@ -431,4 +434,5 @@
     <string name="choose_from_photos">Choose from Photos</string>
     <string name="cancel_photos_alert_msg">You haven\'t upload these photos, are you sure to discard photo editing?</string>
     <string name="delete_this_photo">Delete this photo?</string>
+    <string name="cover_collections">iTime Cover Collections</string>
 </resources>

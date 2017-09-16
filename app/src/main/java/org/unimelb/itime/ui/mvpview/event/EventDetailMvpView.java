@@ -37,4 +37,6 @@ public interface EventDetailMvpView extends TaskBasedMvpView, ItimeCommonMvpView
     View getView();
 
     void showAlerTimeDialog();
+
+    void toChangeCover();
 }

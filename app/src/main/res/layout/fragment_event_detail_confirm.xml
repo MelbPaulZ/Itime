@@ -182,45 +182,45 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <!--alert part-->
-    <include layout="@layout/line"/>
-    <RelativeLayout
-        style="@style/ItimeRelativeCell"
-        android:background="@drawable/bg_divider_bottom"
-        android:onClick="@{vm.onAlertClick()}"
-        android:layout_marginTop="30dp">
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/s1"
-            android:layout_alignParentLeft="true"
-            android:layout_marginRight="@dimen/s3"
-            android:src="@drawable/icon_event_toolbar_alert"
-            android:id="@+id/alertIcon"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_body"
-            android:textSize="@dimen/font_large"
-            android:layout_centerVertical="true"
-            android:text="@string/event_detail_setyouralert"
-            android:layout_toRightOf="@id/alertIcon"/>
+    <!--&lt;!&ndash;alert part&ndash;&gt;-->
+    <!--<include layout="@layout/line"/>-->
+    <!--<RelativeLayout-->
+        <!--style="@style/ItimeRelativeCell"-->
+        <!--android:background="@drawable/bg_divider_bottom"-->
+        <!--android:onClick="@{vm.onAlertClick()}"-->
+        <!--android:layout_marginTop="30dp">-->
+        <!--<ImageView-->
+            <!--android:layout_width="20dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="@dimen/s1"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_marginRight="@dimen/s3"-->
+            <!--android:src="@drawable/icon_event_toolbar_alert"-->
+            <!--android:id="@+id/alertIcon"/>-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="@color/text_body"-->
+            <!--android:textSize="@dimen/font_large"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:text="@string/event_detail_setyouralert"-->
+            <!--android:layout_toRightOf="@id/alertIcon"/>-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_detail_label"
-            android:textSize="@dimen/font_large"
-            android:layout_centerVertical="true"
-            android:text="@{vm.altertTime}"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="35dp"
-            />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="@color/text_detail_label"-->
+            <!--android:textSize="@dimen/font_large"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:text="@{vm.altertTime}"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginRight="35dp"-->
+            <!--/>-->
 
-        <ImageView style="@style/ItimeDisclosure" />
-    </RelativeLayout>
+        <!--<ImageView style="@style/ItimeDisclosure" />-->
+    <!--</RelativeLayout>-->
 </LinearLayout>
 
         <LinearLayout

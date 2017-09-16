@@ -40,9 +40,11 @@ import org.unimelb.itime.restfulapi.MessageApi;
 import org.unimelb.itime.restfulresponse.HttpResult;
 import org.unimelb.itime.restfulresponse.WebSocketRes;
 import org.unimelb.itime.ui.activity.MainActivity;
+import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.presenter.MeetingPresenter;
 import org.unimelb.itime.ui.presenter.UserPresenter;
 import org.unimelb.itime.util.AppUtil;
+import org.unimelb.itime.util.CoverPhotoUtil;
 import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.util.HttpUtil;
 import org.unimelb.itime.util.NetworkUtil;
@@ -106,6 +108,8 @@ public class RemoteService extends Service {
         initPresenters();
         fetchDomains();
     }
+
+
 
     @Subscribe
     public void receiveMessage(MessageEvent messageEvent){
@@ -191,10 +195,33 @@ public class RemoteService extends Service {
         userPresenter.fetchDomainsFromServer();
     }
 
+    private void fetchCovers(){
+        final String synToken = TokenUtil.getInstance(context).getContactToken(user.getUserUid());
+        Observable<HttpResult<List<String>>> observable = eventApi.getDefaultCoverPhotos();
+        Subscriber<HttpResult<List<String>>> subscriber = new Subscriber<HttpResult<List<String>>>() {
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+            }
+
+            @Override
+            public void onNext(HttpResult<List<String>> ret) {
+                if(ret.getData()!=null){
+                    CoverPhotoUtil.setDefaultPhotos(ret.getData());
+                }
+            }
+        };
+        HttpUtil.subscribe(observable, subscriber);
+    }
+
     private void firstFetchData(){
         fetchCalendar();
         fetchContact();
         fetchEvents(); //paul add
+        fetchCovers();
 //        fetchFriendRequest();
 //        fetchMessages();
         fetchMeetings();
