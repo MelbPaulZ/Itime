@@ -79,6 +79,11 @@
                         android:layout_toStartOf="@id/itime_activity_mute_red"
                         android:layout_toEndOf="@id/itime_activity_meeting_icon"
                         android:layout_marginEnd="10dp"
+                        android:maxLength="15"
+                        android:maxLines="1"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:ellipsize="end"
                         android:text="@{messageGroupViewModel.messageGroup.title}" />
 
                     <!--todo numbered dot-->

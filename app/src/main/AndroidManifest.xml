@@ -154,7 +154,7 @@
         <activity android:name=".ui.activity.SearchActivity"/>
         <activity android:name=".ui.activity.NewFriendActivity"/>
         <activity android:name=".ui.activity.ArchiveActivity"/>
-
+        <activity android:name=".ui.activity.EventCreateResultActivity"/>
         <activity android:name=".ui.activity.TestActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan">

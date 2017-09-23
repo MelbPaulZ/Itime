@@ -17,6 +17,7 @@ import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.databinding.FragmentEventGreetingBinding;
 import org.unimelb.itime.ui.activity.EventCreateActivity;
+import org.unimelb.itime.ui.activity.EventCreateResultActivity;
 import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.mvpview.event.EventGreetingMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
@@ -131,9 +132,13 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
 //            intent.putExtra(EventDetailActivity.EVENT, eventList.get(0));
 //            startActivity(intent);
 //            getActivity().finish();
-            FragmentEventCreateSentFragment fragment = new FragmentEventCreateSentFragment();
-            fragment.setEvent(event);
-            getBaseActivity().openFragment(fragment);
+            Intent intent = new Intent(getActivity(), EventCreateResultActivity.class);
+            intent.putExtra("Event", event);
+            startActivity(intent);
+            getActivity().finish();
+//            FragmentEventCreateSentFragment fragment = new FragmentEventCreateSentFragment();
+//            fragment.setEvent(event);
+//            getBaseActivity().openFragment(fragment);
         }else if (taskId == EventCreatePresenter.TASK_EVENT_UPDATE){
             Toast.makeText(getContext(), "update event successfully", Toast.LENGTH_SHORT).show();
             getActivity().finish();
