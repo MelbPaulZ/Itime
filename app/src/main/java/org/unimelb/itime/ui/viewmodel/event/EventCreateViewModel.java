@@ -341,6 +341,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         for (Invitee invitee: event.getInvitee().values()){
             mockAvatorLists.add(invitee.getAliasPhoto());
         }
+        notifyPropertyChanged(BR.mockAvatorLists);
 
     }
 
