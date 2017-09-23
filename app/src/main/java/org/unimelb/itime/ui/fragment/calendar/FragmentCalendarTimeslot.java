@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -44,6 +45,7 @@ import java.util.List;
 import java.util.Map;
 
 import david.itimecalendar.calendar.listeners.ITimeCalendarTimeslotViewListener;
+import david.itimecalendar.calendar.listeners.ITimeTimeSlotInterface;
 import david.itimecalendar.calendar.ui.unitviews.DraggableTimeSlotView;
 import david.itimecalendar.calendar.ui.unitviews.RcdRegularTimeSlotView;
 import david.itimecalendar.calendar.ui.weekview.TimeSlotView;
@@ -135,6 +137,19 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        timeSlotView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList<TimeSlot> aaa = new ArrayList<>();
+                initSlots(aaa);
+                for (TimeSlot a: aaa
+                        ) {
+                    timeSlotView.addTimeSlot(a);
+                }
+            }
+        },2000);
+
+
         scope = getResources().getInteger(R.integer.timeslot_view_scope);
         toolbarVM = new ToolbarTimeslotViewModel<>(this);
         binding.setToolbarVM(toolbarVM);
@@ -151,7 +166,6 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
         TimeSlot[] timeSlots = EventUtil.getNearestTimeslot(event.getTimeslot());
         TimeSlot targetTimeSlot = timeSlots[1] != null ? timeSlots[1]:timeSlots[0];
         timeSlotView.scrollToDate(new Date(targetTimeSlot.getStartTime()),true);
-
     }
 
     @Override
@@ -219,6 +233,8 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
         timeSlotView = (TimeSlotView) binding.getRoot().findViewById(R.id.timeslot_view);
         // ensure set config before set mode
         timeSlotView.getCalendarConfig().unconfirmedIncluded = false;
+
+
 
         timeSlotView.setEventPackage(eventManager.getEventsPackage());
         timeSlotView.setOnTimeslotDurationChangedListener(new TimeSlotView.OnTimeslotDurationListener() {
@@ -551,6 +567,9 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     public static final int FETCH_RANGE = 9;
 
     private void fetchRcds(Date currentFstDay){
+        if (1==1){
+            return;
+        }
         Date today = new Date();
         if (currentFstDay.getTime() < today.getTime()){
             return;
@@ -633,14 +652,31 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
                  ) {
                 long start = timeslot.getStartTime();
                 timeslot.setEndTime(start + currentDuration);
-
                 rcdTimeslots.add(timeslot);
-                timeSlotView.addTimeSlot(timeslot);
             }
+
+            timeSlotView.addTimeSlotList(rcdTimeslot);
         }
 
 //        Collections.sort(rcdTimeslot);
 //        Date toDate = new Date(rcdTimeslot.get(0).getStartTime());
 //        timeSlotView.scrollToDate(toDate, true);
+    }
+
+    private void initSlots(ArrayList<TimeSlot> slots){
+        Calendar cal = Calendar.getInstance();
+        long startTime = cal.getTimeInMillis();
+        long duration = 3600*1000;
+        long dayInterval = 3 * 3600 * 1000;
+        for (int i = 0; i < 30; i++) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(startTime);
+            slot.setEndTime(startTime+duration);
+            slot.setSystemSuggested(true);
+            slot.setIsAllDay(false);
+            slots.add(slot);
+
+            startTime += dayInterval;
+        }
     }
 }
