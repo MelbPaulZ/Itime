@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,9 @@ import java.util.ArrayList;
 public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreateAddInviteeMvpView, EventCreatePresenter<EventCreateAddInviteeMvpView>>
         implements EventCreateAddInviteeMvpView, ToolbarInterface {
 
+    public static final int MODE_CREATE = 1;
+    public static final int MODE_EDIT = 2;
+
     private FragmentCreateEventAddInviteeBinding binding;
     private FragmentEventCreate fragmentEventCreate;
     private FragmentEventCreateSearchInvitee fragmentSearchInvitee;
@@ -40,11 +44,16 @@ public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreate
     private EventCreateAddInviteeViewModel contentVM;
     private ToolbarViewModel toolbarVM;
     private FragmentEventCreateAddContact addContactFragment;
+    private Fragment from;
+
+    private int mode = 1;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_create_event_add_invitee, container, false);
+        if(binding==null) {
+            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_create_event_add_invitee, container, false);
+        }
         return binding.getRoot();
     }
 
@@ -61,6 +70,7 @@ public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreate
         }
 
         if(contentVM==null) {
+            from = getFrom();
             contentVM = new EventCreateAddInviteeViewModel(getPresenter());
             contentVM.setToolbarViewModel(toolbarVM);
             contentVM.setMvpView(this);
@@ -70,6 +80,14 @@ public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreate
 
         binding.setToolbarVM(toolbarVM);
         binding.setVm(contentVM);
+    }
+
+    public int getMode() {
+        return mode;
+    }
+
+    public void setMode(int mode) {
+        this.mode = mode;
     }
 
     public void setEvent(Event event){
@@ -89,10 +107,22 @@ public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreate
 
     @Override
     public void onNext() {
+        Event event = contentVM.getEditedEvent();
+        if(from instanceof FragmentEventCreate){
+            ((FragmentEventCreate) from).setEvent(event);
+            getFragmentManager().popBackStack(FragmentEventCreate.class.getSimpleName(), 0);
+            return;
+        }
+
+        if(from instanceof FragmentEventEdit){
+            ((FragmentEventEdit) from).setEvent(event);
+            getFragmentManager().popBackStack(FragmentEventEdit.class.getSimpleName(), 0);
+            return;
+        }
+
         if(fragmentEventCreate==null){
             fragmentEventCreate = new FragmentEventCreate();
         }
-        Event event = contentVM.getEditedEvent();
         fragmentEventCreate.setEvent(event);
         getBaseActivity().openFragment(fragmentEventCreate);
     }

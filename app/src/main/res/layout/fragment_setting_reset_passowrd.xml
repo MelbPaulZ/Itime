@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="contentVM"
+            type="org.unimelb.itime.ui.viewmodel.UserProfileViewModel"/>
+        <variable
+            name="toolbarVM"
+            type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
+    </data>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteThree"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <include layout="@layout/toolbar"
+        bind:vm="@{toolbarVM}"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/whiteThree">
+
+        <!--first part-->
+        <TextView
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/setting_reset_password_subtext1"/>
+
+
+        <!--second part-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:background="@drawable/bg_divider_top_bottom">
+            
+            <!--Email part-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_centerVertical="true"
+                    android:text="@string/setting_email"
+                    android:textSize="@dimen/font_middle"
+                    android:textColor="@color/warmGreyTwo"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="99dp"
+                    android:text="@{contentVM.user.email}"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/warmGreyTwo"
+                    android:textSize="@dimen/font_middle"
+                    />
+
+                <TextView
+                    style="@style/itime_bottom_divider_line" />
+            </RelativeLayout>
+
+            <!--password-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/font_middle"
+                    android:textColor="@color/black"
+                    android:text="@string/setting_password"
+                    android:paddingLeft="16dp"/>
+
+                <org.unimelb.itime.widget.PureEditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="99dp"
+                    android:hint="@string/setting_password_hint"
+                    android:textColorHint="@color/pinkishGrey"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/black"
+                    android:background="#00000000"
+                    android:inputType="textPassword"
+                    android:minWidth="200dp"
+                    android:textSize="15sp"
+                    android:text="@={contentVM.password}"
+                    bind:textWatcher = "@{contentVM.onEditTextChanged}"
+                    />
+
+                <TextView
+                    style="@style/itime_bottom_divider_line" />
+
+            </RelativeLayout>
+
+            <!--password confimation-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/font_middle"
+                    android:textColor="@color/black"
+                    android:text="@string/setting_confirm"
+                    android:layout_marginLeft="16dp"/>
+
+                <org.unimelb.itime.widget.PureEditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="99dp"
+                    android:hint="@string/setting_confirm_hint"
+                    android:textColorHint="@color/pinkishGrey"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/black"
+                    android:inputType="textPassword"
+                    android:minWidth="200dp"
+                    android:textSize="15sp"
+                    android:text="@={contentVM.passwordConfirmation}"
+                    bind:textWatcher = "@{contentVM.onEditTextChanged}"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
+</layout>

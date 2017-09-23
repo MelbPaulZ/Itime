@@ -130,4 +130,41 @@
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">normal</item>
     </style>
+
+    <!--the right arrow of each item in event detail page-->
+    <style name="arrow_disclosure_indicator">
+        <item name="android:layout_width">8dp</item>
+        <item name="android:layout_height">13dp</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginEnd">14dp</item>
+        <item name="android:background">@drawable/icon_calendar_arrowright</item>
+    </style>
+
+    <!--cell name-->
+    <style name="itime_blacktitle_17sp">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/font_large</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <!--for setting, subtitle on right, beside the right arrow-->
+    <style name="itime_subtitle_15sp">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_marginRight">33dp</item>
+        <item name="android:textColor">@color/text_detail_label</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <!--toolbar style-->
+    <style name="itime_toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">46dp</item>
+        <item name="android:background">@drawable/bg_divider_top_bottom</item>
+    </style>
 </resources>

@@ -1,0 +1,4144 @@
+0|Afghanistan|0|-1|0|1
+1|Herat|2|0|1|0
+2|Kabul|2|0|1|0
+3|Kandahar|2|0|1|0
+4|Mazar-i Sharif|2|0|1|0
+5|Aland lslands|0|-1|0|0
+6|Albania|0|-1|0|1
+7|Berat|2|6|1|0
+8|Diber|2|6|1|0
+9|Durres|2|6|1|0
+10|Elbasan|2|6|1|0
+11|Fier|2|6|1|0
+12|Gjirokaster|2|6|1|0
+13|Korce|2|6|1|0
+14|Kukes|2|6|1|0
+15|Lezhe|2|6|1|0
+16|Shkoder|2|6|1|0
+17|Tirane|2|6|1|0
+18|Vlore|2|6|1|0
+19|Algeria|0|-1|0|1
+20|Adrar|2|19|1|0
+21|Ain Defla|2|19|1|0
+22|Ain Temouchent|2|19|1|0
+23|Alger|2|19|1|0
+24|Annaba|2|19|1|0
+25|Batna|2|19|1|0
+26|Bechar|2|19|1|0
+27|Bejaia|2|19|1|0
+28|Biskra|2|19|1|0
+29|Blida|2|19|1|0
+30|Bordj Bou Arreridj|2|19|1|0
+31|Bouira|2|19|1|0
+32|Boumerdes|2|19|1|0
+33|Chlef|2|19|1|0
+34|Constantine|2|19|1|0
+35|Djelfa|2|19|1|0
+36|El Bayadh|2|19|1|0
+37|El Oued|2|19|1|0
+38|El Tarf|2|19|1|0
+39|Ghardaia|2|19|1|0
+40|Guelma|2|19|1|0
+41|Illizi|2|19|1|0
+42|Jijel|2|19|1|0
+43|Khenchela|2|19|1|0
+44|Laghouat|2|19|1|0
+45|Mascara|2|19|1|0
+46|Medea|2|19|1|0
+47|Mila|2|19|1|0
+48|Mostaganem|2|19|1|0
+49|Msila|2|19|1|0
+50|Naama|2|19|1|0
+51|Oran|2|19|1|0
+52|Ouargla|2|19|1|0
+53|Oum el Bouaghi|2|19|1|0
+54|Relizane|2|19|1|0
+55|Saida|2|19|1|0
+56|Setif|2|19|1|0
+57|Sidi Bel Abbes|2|19|1|0
+58|Skikda|2|19|1|0
+59|Souk Ahras|2|19|1|0
+60|Tamanghasset|2|19|1|0
+61|Tebessa|2|19|1|0
+62|Tiaret|2|19|1|0
+63|Tindouf|2|19|1|0
+64|Tipaza|2|19|1|0
+65|Tissemsilt|2|19|1|0
+66|Tizi Ouzou|2|19|1|0
+67|Tlemcen|2|19|1|0
+68|American Samoa|0|-1|0|1
+69|Aana|2|68|1|0
+70|Aigaile Tai|2|68|1|0
+71|Atua|2|68|1|0
+72|Faasaleleaga|2|68|1|0
+73|Gagaemauga|2|68|1|0
+74|Gagaifomauga|2|68|1|0
+75|Palauli|2|68|1|0
+76|Satupaitea|2|68|1|0
+77|Savaii|2|68|1|0
+78|Tuamasaga|2|68|1|0
+79|Upolu|2|68|1|0
+80|Vaao Fonoti|2|68|1|0
+81|Vaisigano|2|68|1|0
+82|Andorra|0|-1|0|1
+83|Andorra la Vella|2|82|1|0
+84|Canillo|2|82|1|0
+85|Encamp|2|82|1|0
+86|Escaldes-Engordany|2|82|1|0
+87|La Massana|2|82|1|0
+88|Ordino|2|82|1|0
+89|Sant Julia de Loria|2|82|1|0
+90|Angola|0|-1|0|1
+91|Bengo|2|90|1|0
+92|Benguela|2|90|1|0
+93|Bie|2|90|1|0
+94|Cabinda|2|90|1|0
+95|Cuando Cubango|2|90|1|0
+96|Cuanza Norte|2|90|1|0
+97|Cuanza Sul|2|90|1|0
+98|Cunene|2|90|1|0
+99|Huambo|2|90|1|0
+100|Huila|2|90|1|0
+101|Luanda|2|90|1|0
+102|Lunda Norte|2|90|1|0
+103|Lunda Sul|2|90|1|0
+104|Malanje|2|90|1|0
+105|Moxico|2|90|1|0
+106|Namibe|2|90|1|0
+107|Uige|2|90|1|0
+108|Zaire|2|90|1|0
+109|Anguilla|0|-1|0|0
+110|Antarctica|0|-1|0|0
+111|Antigua and Barbuda|0|-1|0|0
+112|Argentina|0|-1|0|1
+113|Bahia Blanca|2|112|1|0
+114|Buenos Aires|2|112|1|0
+115|Catamarca|2|112|1|0
+116|Comodoro Rivadavia|2|112|1|0
+117|Concordia|2|112|1|0
+118|Cordoba|2|112|1|0
+119|Corrientes|2|112|1|0
+120|Formosa|2|112|1|0
+121|Jujuy|2|112|1|0
+122|La Plata|2|112|1|0
+123|La Rioja|2|112|1|0
+124|Mar del Plata|2|112|1|0
+125|Mendoza|2|112|1|0
+126|Neuquen|2|112|1|0
+127|Parana|2|112|1|0
+128|Posadas|2|112|1|0
+129|Rawson|2|112|1|0
+130|Resistencia|2|112|1|0
+131|Rio Cuarto|2|112|1|0
+132|Rio Gallegos|2|112|1|0
+133|Rosario|2|112|1|0
+134|Salta|2|112|1|0
+135|San Juan|2|112|1|0
+136|San Miguel de Tucuman|2|112|1|0
+137|San Nicolas|2|112|1|0
+138|San Rafael|2|112|1|0
+139|San Luis|2|112|1|0
+140|Santa Fe|2|112|1|0
+141|Santa Rosa|2|112|1|0
+142|Santiago del Estero|2|112|1|0
+143|Trelew|2|112|1|0
+144|Ushuaia|2|112|1|0
+145|Viedma|2|112|1|0
+146|Villa Krause|2|112|1|0
+147|Armenia|0|-1|0|1
+148|Aragacotn|2|147|1|0
+149|Ararat|2|147|1|0
+150|Armavir|2|147|1|0
+151|Gelarkunik|2|147|1|0
+152|Kotayk|2|147|1|0
+153|Lorri|2|147|1|0
+154|Shirak|2|147|1|0
+155|Syunik|2|147|1|0
+156|Tavus|2|147|1|0
+157|VayocJor|2|147|1|0
+158|Yerevan|2|147|1|0
+159|Aruba|0|-1|0|0
+160|Ascension Island|0|-1|0|0
+161|Australia|0|-1|0|1
+162|Canberra|1|161|1|1
+163|Canberra|2|162|1|0
+164|New South Wales|1|161|1|1
+165|Newcastle|2|164|1|0
+166|Sydney|2|164|1|0
+167|Wollongong|2|164|1|0
+168|Northern Territory|1|161|1|1
+169|Darwin|2|168|1|0
+170|Palmerston|2|168|1|0
+171|Queensland|1|161|1|1
+172|Brisbane|2|171|1|0
+173|Cairns|2|171|1|0
+174|Caloundra|2|171|1|0
+175|Gold Coast|2|171|1|0
+176|Toowoomba|2|171|1|0
+177|Townsville|2|171|1|0
+178|South Australia|1|161|1|1
+179|Adelaide|2|178|1|0
+180|Mount Gambier|2|178|1|0
+181|Murray Bridge|2|178|1|0
+182|Port Augusta|2|178|1|0
+183|Port Lincoln|2|178|1|0
+184|Port Pirie|2|178|1|0
+185|Victor Harbor|2|178|1|0
+186|Whyalla|2|178|1|0
+187|Tasmania|1|161|1|1
+188|Burnie|2|187|1|0
+189|Devonport|2|187|1|0
+190|Hobart|2|187|1|0
+191|Launceston|2|187|1|0
+192|Victoria|1|161|1|1
+193|Geelong|2|192|1|0
+194|Melbourne|2|192|1|0
+195|Western Australia|1|161|1|1
+196|Albany|2|195|1|0
+197|Bunbury|2|195|1|0
+198|Fremantle|2|195|1|0
+199|Geraldton|2|195|1|0
+200|Kalgoorlie|2|195|1|0
+201|Mandurah|2|195|1|0
+202|Perth|2|195|1|0
+203|Austria|0|-1|0|1
+204|Burgenland|2|203|1|0
+205|Carinthia|2|203|1|0
+206|Lower Austria|2|203|1|0
+207|Salzburg|2|203|1|0
+208|Styria|2|203|1|0
+209|Tyrol|2|203|1|0
+210|Upper Austria|2|203|1|0
+211|Vienna|2|203|1|0
+212|Vorarlberg|2|203|1|0
+213|Azerbaijan|0|-1|0|1
+214|Abseron|2|213|1|0
+215|Ganca|2|213|1|0
+216|Kalbacar|2|213|1|0
+217|Lankaran|2|213|1|0
+218|Mil-Qarabax|2|213|1|0
+219|Mugan-Salyan|2|213|1|0
+220|Nagorni-Qarabax|2|213|1|0
+221|Naxcivan|2|213|1|0
+222|Priaraks|2|213|1|0
+223|Qazax|2|213|1|0
+224|Saki|2|213|1|0
+225|Sirvan|2|213|1|0
+226|Sumqayit|2|213|1|0
+227|Xacmaz|2|213|1|0
+228|Bahamas|0|-1|0|0
+229|Bahrain|0|-1|0|1
+230|Al-Gharbiyah|2|229|1|0
+231|Al-Hadd|2|229|1|0
+232|Al-Manamah|2|229|1|0
+233|Al-Muharraq|2|229|1|0
+234|Al-Wusta|2|229|1|0
+235|Ar-Rifa|2|229|1|0
+236|Ash-Shamaliyah|2|229|1|0
+237|Hammad|2|229|1|0
+238|Isa|2|229|1|0
+239|Bangladesh|0|-1|0|1
+240|Chittagong|2|239|1|0
+241|Dhaka|2|239|1|0
+242|Khulna|2|239|1|0
+243|Barbados|0|-1|0|0
+244|Belgium|0|-1|0|1
+245|Antwerpen|2|244|1|0
+246|Brabant-Wallone|2|244|1|0
+247|Brussels|2|244|1|0
+248|Hainaut|2|244|1|0
+249|Liege|2|244|1|0
+250|Limburg|2|244|1|0
+251|Luxembourg|2|244|1|0
+252|Namur|2|244|1|0
+253|Oost-Vlaanderen|2|244|1|0
+254|Vlaams-Brabant|2|244|1|0
+255|West-Vlaanderen|2|244|1|0
+256|Belize|0|-1|0|1
+257|Belize|2|256|1|0
+258|Cayo|2|256|1|0
+259|Corozal|2|256|1|0
+260|Orange Walk|2|256|1|0
+261|Stann Creek|2|256|1|0
+262|Toledo|2|256|1|0
+263|Benin|0|-1|0|1
+264|Alibori|2|263|1|0
+265|Atakora|2|263|1|0
+266|Atlantique|2|263|1|0
+267|Bohicon|2|263|1|0
+268|Borgou|2|263|1|0
+269|Collines|2|263|1|0
+270|Donga|2|263|1|0
+271|Kouffo|2|263|1|0
+272|Littoral|2|263|1|0
+273|Mono|2|263|1|0
+274|Oueme|2|263|1|0
+275|Plateau|2|263|1|0
+276|Zou|2|263|1|0
+277|Bermuda|0|-1|0|0
+278|Bhutan|0|-1|0|0
+279|Bolivia|0|-1|0|1
+280|Chuquisaca|2|279|1|0
+281|Cochabamba|2|279|1|0
+282|El Alto|2|279|1|0
+283|El Beni|2|279|1|0
+284|La Paz|2|279|1|0
+285|Oruro|2|279|1|0
+286|Pando|2|279|1|0
+287|Potosi|2|279|1|0
+288|Quillacollo|2|279|1|0
+289|Sacaba|2|279|1|0
+290|Santa Cruz|2|279|1|0
+291|Tarija|2|279|1|0
+292|Bosnia and Herzegovina|0|-1|0|1
+293|Bosansko-Podrinjski|2|292|1|0
+294|Hercegovacko-Bosanski|2|292|1|0
+295|Hercegovacko-Neretvanski|2|292|1|0
+296|Posavski|2|292|1|0
+297|Sarajevo|2|292|1|0
+298|Srednjo-Bosanski|2|292|1|0
+299|Tomislavgrad|2|292|1|0
+300|Tuzlanski-Podrinjski|2|292|1|0
+301|Unsko-Sanski|2|292|1|0
+302|Zapadno-Hercegovaki|2|292|1|0
+303|Zenicko-Dobojski|2|292|1|0
+304|Botswana|0|-1|0|0
+305|Bouvet Island|0|-1|0|0
+306|Brazil|0|-1|0|1
+307|Acre|2|306|1|0
+308|Alagoas|2|306|1|0
+309|Amapa|2|306|1|0
+310|Amazonas|2|306|1|0
+311|Bahia|2|306|1|0
+312|Brasilia|2|306|1|0
+313|Ceara|2|306|1|0
+314|Espirito Santo|2|306|1|0
+315|Goias|2|306|1|0
+316|Maranhao|2|306|1|0
+317|Mato Grosso|2|306|1|0
+318|Mato Grosso do Sul|2|306|1|0
+319|Minas Gerais|2|306|1|0
+320|Para|2|306|1|0
+321|Paraiba|2|306|1|0
+322|Parana|2|306|1|0
+323|Pernambuco|2|306|1|0
+324|Piaui|2|306|1|0
+325|Rio de Janeiro|2|306|1|0
+326|Rio Grande do Norte|2|306|1|0
+327|Rio Grande do Sul|2|306|1|0
+328|Rondonia|2|306|1|0
+329|Roraima|2|306|1|0
+330|Santa Catarina|2|306|1|0
+331|Sao Paulo|2|306|1|0
+332|Sergipe|2|306|1|0
+333|Tocantins|2|306|1|0
+334|British Indian Ocean Territory|0|-1|0|0
+335|Brunei|0|-1|0|0
+336|Bulgaria|0|-1|0|1
+337|Burgas|2|336|1|0
+338|Grad Sofiya|2|336|1|0
+339|Khaskovo|2|336|1|0
+340|Lovech|2|336|1|0
+341|Montana|2|336|1|0
+342|Plovdiv|2|336|1|0
+343|Ruse|2|336|1|0
+344|Sofiya|2|336|1|0
+345|Varna|2|336|1|0
+346|Burkina Faso|0|-1|0|1
+347|Bale|2|346|1|0
+348|Bam|2|346|1|0
+349|Banwa|2|346|1|0
+350|Bazega|2|346|1|0
+351|Bougouriba|2|346|1|0
+352|Boulgou|2|346|1|0
+353|Boulkiemde|2|346|1|0
+354|Comoe|2|346|1|0
+355|Ganzourgou|2|346|1|0
+356|Gnagna|2|346|1|0
+357|Gourma|2|346|1|0
+358|Houet|2|346|1|0
+359|Ioba|2|346|1|0
+360|Kadiogo|2|346|1|0
+361|Kenedougou|2|346|1|0
+362|Komondjari|2|346|1|0
+363|Kompienga|2|346|1|0
+364|Kossi|2|346|1|0
+365|Koulpelogo|2|346|1|0
+366|Kouritenga|2|346|1|0
+367|Kourweogo|2|346|1|0
+368|Leraba|2|346|1|0
+369|Loroum|2|346|1|0
+370|Mouhoun|2|346|1|0
+371|Nahouri|2|346|1|0
+372|Namentenga|2|346|1|0
+373|Nayala|2|346|1|0
+374|Noumbiel|2|346|1|0
+375|Oubritenga|2|346|1|0
+376|Oudalan|2|346|1|0
+377|Passore|2|346|1|0
+378|Poni|2|346|1|0
+379|Sanguie|2|346|1|0
+380|Sanmatenga|2|346|1|0
+381|Seno|2|346|1|0
+382|Sissili|2|346|1|0
+383|Soum|2|346|1|0
+384|Sourou|2|346|1|0
+385|Tapoa|2|346|1|0
+386|Tuy|2|346|1|0
+387|Yagha|2|346|1|0
+388|Yatenga|2|346|1|0
+389|Ziro|2|346|1|0
+390|Zondoma|2|346|1|0
+391|Zoundweogo|2|346|1|0
+392|Burundi|0|-1|0|1
+393|Bubanza|2|392|1|0
+394|Bujumbura Mairie|2|392|1|0
+395|Bujumbura Rural|2|392|1|0
+396|Bururi|2|392|1|0
+397|Cankuzo|2|392|1|0
+398|Cibitoke|2|392|1|0
+399|Gitega|2|392|1|0
+400|Karuzi|2|392|1|0
+401|Kayanza|2|392|1|0
+402|Kirundo|2|392|1|0
+403|Makamba|2|392|1|0
+404|Muramvya|2|392|1|0
+405|Muyinga|2|392|1|0
+406|Mwaro|2|392|1|0
+407|Ngozi|2|392|1|0
+408|Rutana|2|392|1|0
+409|Ruyigi|2|392|1|0
+410|Cambodia|0|-1|0|1
+411|Banteay Mean Chey|2|410|1|0
+412|Bat Dambang|2|410|1|0
+413|Kampong Cham|2|410|1|0
+414|Kampong Chhnang|2|410|1|0
+415|Kampong Spoe|2|410|1|0
+416|Kampong Thum|2|410|1|0
+417|Kampot|2|410|1|0
+418|Kandal|2|410|1|0
+419|Kaoh Kong|2|410|1|0
+420|Kracheh|2|410|1|0
+421|Krong Keb|2|410|1|0
+422|Krong Pailin|2|410|1|0
+423|Krong Preah|2|410|1|0
+424|Mondol Kiri|2|410|1|0
+425|Otdar Mean Chey|2|410|1|0
+426|Phnum Penh|2|410|1|0
+427|Pouthĭsat|2|410|1|0
+428|Preah Vihear|2|410|1|0
+429|Prey Veng|2|410|1|0
+430|Rotanak Kiri|2|410|1|0
+431|Siem Reab|2|410|1|0
+432|Stoeng Treng|2|410|1|0
+433|Svay Rieng|2|410|1|0
+434|Takev|2|410|1|0
+435|Cameroon|0|-1|0|1
+436|Adamaoua|2|435|1|0
+437|Centre|2|435|1|0
+438|Est|2|435|1|0
+439|Extreme-Nord|2|435|1|0
+440|Littoral|2|435|1|0
+441|Nord|2|435|1|0
+442|Nord-Oueste|2|435|1|0
+443|Ouest|2|435|1|0
+444|Sud|2|435|1|0
+445|Sud-Oueste|2|435|1|0
+446|Canada|0|-1|0|1
+447|Abbotsford|2|446|1|0
+448|Barrie|2|446|1|0
+449|Brampton|2|446|1|0
+450|Calgary|2|446|1|0
+451|Cape Breton|2|446|1|0
+452|Charlottetown|2|446|1|0
+453|Edmonton|2|446|1|0
+454|Fredericton|2|446|1|0
+455|Guelph|2|446|1|0
+456|Halifax|2|446|1|0
+457|Hamilton|2|446|1|0
+458|Iqaluit|2|446|1|0
+459|Kelowna|2|446|1|0
+460|Kingston|2|446|1|0
+461|London|2|446|1|0
+462|Montreal|2|446|1|0
+463|Oshawa|2|446|1|0
+464|Ottawa|2|446|1|0
+465|Quebec|2|446|1|0
+466|Regina|2|446|1|0
+467|Saint-John&apos;s|2|446|1|0
+468|Saskatoon|2|446|1|0
+469|Sherbrooke|2|446|1|0
+470|St. Catharines|2|446|1|0
+471|Sudbury|2|446|1|0
+472|Thunder Bay|2|446|1|0
+473|Toronto|2|446|1|0
+474|Trois-Rivieres|2|446|1|0
+475|Vancouver|2|446|1|0
+476|Victoria|2|446|1|0
+477|Whitehorse|2|446|1|0
+478|Windsor|2|446|1|0
+479|Winnipeg|2|446|1|0
+480|Yellowknife|2|446|1|0
+481|Cape Verde|0|-1|0|1
+482|Boa Vista|2|481|1|0
+483|Brava|2|481|1|0
+484|Fogo|2|481|1|0
+485|Maio|2|481|1|0
+486|Mosteiros|2|481|1|0
+487|Paul|2|481|1|0
+488|Porto Novo|2|481|1|0
+489|Praia|2|481|1|0
+490|Ribeira Grande|2|481|1|0
+491|Sal|2|481|1|0
+492|Santa Catarina|2|481|1|0
+493|Santa Cruz|2|481|1|0
+494|Santiago|2|481|1|0
+495|Santo Antao|2|481|1|0
+496|Sao Domingos|2|481|1|0
+497|Sao Filipe|2|481|1|0
+498|Sao Miguel|2|481|1|0
+499|Sao Nicolau|2|481|1|0
+500|Sao Vicente|2|481|1|0
+501|Tarrafal|2|481|1|0
+502|Cayman Islands|0|-1|0|0
+503|Central African Republic|0|-1|0|1
+504|Bamingui-Bangoran|2|503|1|0
+505|Bangui|2|503|1|0
+506|Basse-Kotto|2|503|1|0
+507|Bimbo|2|503|1|0
+508|Haute-Kotto|2|503|1|0
+509|Haut-Mbomou|2|503|1|0
+510|Kemo|2|503|1|0
+511|Lobaye|2|503|1|0
+512|Mambere-Kadei|2|503|1|0
+513|Mbomou|2|503|1|0
+514|Nana-Gribizi|2|503|1|0
+515|Nana-Mambere|2|503|1|0
+516|Ombella-Mpoko|2|503|1|0
+517|Ouaka|2|503|1|0
+518|Ouham|2|503|1|0
+519|Ouham-Pende|2|503|1|0
+520|Sangha-Mbaere|2|503|1|0
+521|Vakaga|2|503|1|0
+522|Chad|0|-1|0|0
+523|Chile|0|-1|0|1
+524|Libertador|2|523|1|0
+525|Magallanes y Antartica Chilena|2|523|1|0
+526|Metropolitana de Santiago|2|523|1|0
+527|Region de Alsen del General Carlos Ibanez del|2|523|1|0
+528|Region de Antofagasta|2|523|1|0
+529|Region de Atacama|2|523|1|0
+530|Region de Coquimbo|2|523|1|0
+531|Region de la Araucania|2|523|1|0
+532|Region de los Lagos|2|523|1|0
+533|Region de Tarapaca|2|523|1|0
+534|Region de Valparaiso|2|523|1|0
+535|Region del Biobio|2|523|1|0
+536|Region del Maule|2|523|1|0
+537|China|0|-1|0|1
+538|Anhui|1|537|1|1
+539|Anqing|2|538|1|0
+540|Bengbu|2|538|1|0
+541|Bozhou|2|538|1|0
+542|Chaohu|2|538|1|0
+543|Chizhou|2|538|1|0
+544|Chuzhou|2|538|1|0
+545|Fuyang|2|538|1|0
+546|Hefei|2|538|1|0
+547|Huaibei|2|538|1|0
+548|Huainan|2|538|1|0
+549|Huangshan|2|538|1|0
+550|Lu&apos;an|2|538|1|0
+551|Ma&apos;anshan|2|538|1|0
+552|Suzhou|2|538|1|0
+553|Tongling|2|538|1|0
+554|Wuhu|2|538|1|0
+555|Xuancheng|2|538|1|0
+556|Beijing|1|537|1|1
+557|Changping|2|556|1|0
+558|Chaoyang|2|556|1|0
+559|Chongwen|2|556|1|0
+560|Daxing|2|556|1|0
+561|Dongcheng|2|556|1|0
+562|Fangshan|2|556|1|0
+563|Fengtai|2|556|1|0
+564|Haidian|2|556|1|0
+565|Huairou|2|556|1|0
+566|Mentougou|2|556|1|0
+567|Miyun|2|556|1|0
+568|Pinggu|2|556|1|0
+569|Shijingshan|2|556|1|0
+570|Shunyi|2|556|1|0
+571|Tongzhou|2|556|1|0
+572|Xicheng|2|556|1|0
+573|Xuanwu|2|556|1|0
+574|Yanqing|2|556|1|0
+575|Chongqing|1|537|1|1
+576|Ba&apos;nan|2|575|1|0
+577|Beibei|2|575|1|0
+578|Bishan|2|575|1|0
+579|Changshou|2|575|1|0
+580|Chengkou|2|575|1|0
+581|Dadukou|2|575|1|0
+582|Dazu|2|575|1|0
+583|Dianjiang|2|575|1|0
+584|Fengdu|2|575|1|0
+585|Fengjie|2|575|1|0
+586|Fuling|2|575|1|0
+587|Hechuan|2|575|1|0
+588|Jiangbei|2|575|1|0
+589|Jiangjin|2|575|1|0
+590|Jiulongpo|2|575|1|0
+591|Kaixian|2|575|1|0
+592|Liangping|2|575|1|0
+593|Nan&apos;an|2|575|1|0
+594|Nanchuan|2|575|1|0
+595|Pengshui Miao-Tujia Autonomous Country|2|575|1|0
+596|Qianjiang|2|575|1|0
+597|Qijiang|2|575|1|0
+598|Rongchang|2|575|1|0
+599|Shapingba|2|575|1|0
+600|Shizhu Tujia Autonomous Country|2|575|1|0
+601|Shuangqiao|2|575|1|0
+602|Tongliang|2|575|1|0
+603|Tongnan|2|575|1|0
+604|Wansheng|2|575|1|0
+605|Wanzhou|2|575|1|0
+606|Wulong|2|575|1|0
+607|Wushan|2|575|1|0
+608|Wuxi|2|575|1|0
+609|Xiushan Tujia-Miao Autonomous Country|2|575|1|0
+610|Yongchuan|2|575|1|0
+611|Youyang Tujia-Miao Autonomous Country|2|575|1|0
+612|Yubei|2|575|1|0
+613|Yunyang|2|575|1|0
+614|Yuzhong|2|575|1|0
+615|Zhongxian|2|575|1|0
+616|Fujian|1|537|1|1
+617|Fuzhou|2|616|1|0
+618|Longyan|2|616|1|0
+619|Nanping|2|616|1|0
+620|Ningde|2|616|1|0
+621|Putian|2|616|1|0
+622|Quanzhou|2|616|1|0
+623|Sanming|2|616|1|0
+624|Xiamen|2|616|1|0
+625|Zhangzhou|2|616|1|0
+626|Gansu|1|537|1|1
+627|Baiyin|2|626|1|0
+628|Dingxi|2|626|1|0
+629|Gannan Tibetan Autonomous Prefecture|2|626|1|0
+630|Jiayuguan|2|626|1|0
+631|Jinchang|2|626|1|0
+632|Jiuquan|2|626|1|0
+633|Lanzhou|2|626|1|0
+634|Linxia Hui Autonomous Prefecture|2|626|1|0
+635|Longnan|2|626|1|0
+636|Pingliang|2|626|1|0
+637|Qingyang|2|626|1|0
+638|Tianshui|2|626|1|0
+639|Wuwei|2|626|1|0
+640|Zhangye|2|626|1|0
+641|Guangdong|1|537|1|1
+642|Chaozhou|2|641|1|0
+643|Dongguan|2|641|1|0
+644|Foshan|2|641|1|0
+645|Guangzhou|2|641|1|0
+646|Heyuan|2|641|1|0
+647|Huizhou|2|641|1|0
+648|Jiangmen|2|641|1|0
+649|Jieyang|2|641|1|0
+650|Maoming|2|641|1|0
+651|Meizhou|2|641|1|0
+652|Qingyuan|2|641|1|0
+653|Shantou|2|641|1|0
+654|Shanwei|2|641|1|0
+655|Shaoguan|2|641|1|0
+656|Shenzhen|2|641|1|0
+657|Yangjiang|2|641|1|0
+658|Yunfu|2|641|1|0
+659|Zhanjiang|2|641|1|0
+660|Zhaoqing|2|641|1|0
+661|Zhongshan|2|641|1|0
+662|Zhuhai|2|641|1|0
+663|Guangxi|1|537|1|1
+664|Baise|2|663|1|0
+665|Beihai|2|663|1|0
+666|Chongzuo|2|663|1|0
+667|Fangchenggang|2|663|1|0
+668|Guigang|2|663|1|0
+669|Guilin|2|663|1|0
+670|Hechi|2|663|1|0
+671|Hezhou|2|663|1|0
+672|Laibin|2|663|1|0
+673|Liuzhou|2|663|1|0
+674|Nanning|2|663|1|0
+675|Qinzhou|2|663|1|0
+676|Wuzhou|2|663|1|0
+677|Yulin|2|663|1|0
+678|Guizhou|1|537|1|1
+679|Anshun|2|678|1|0
+680|Bijie|2|678|1|0
+681|Guiyang|2|678|1|0
+682|Liupanshui|2|678|1|0
+683|Qiandongnan Miao-Dong Autonomous Prefecture|2|678|1|0
+684|Qiannan Buyi Autonomous Prefecture|2|678|1|0
+685|Qianxinan Buyi-Miao Autonomous Prefecture|2|678|1|0
+686|Tongren|2|678|1|0
+687|Zunyi|2|678|1|0
+688|Hainan|1|537|1|1
+689|Baisha Li Autonomous County|2|688|1|0
+690|Baoting Li-Miao Autonomous County|2|688|1|0
+691|Cengmai|2|688|1|0
+692|Danzhou|2|688|1|0
+693|Ding&apos;an|2|688|1|0
+694|Dongfang|2|688|1|0
+695|Haikou|2|688|1|0
+696|Jiang Li Autonomous County|2|688|1|0
+697|Ledong Li Autonomous County|2|688|1|0
+698|Lingao|2|688|1|0
+699|Lingshui Li Autonomous County|2|688|1|0
+700|Nansha Qundao|2|688|1|0
+701|Qionghai|2|688|1|0
+702|Qiongzhong Li-Miao Autonomous County|2|688|1|0
+703|Sanya|2|688|1|0
+704|Tunchang|2|688|1|0
+705|Wanning|2|688|1|0
+706|Wenchang|2|688|1|0
+707|Wuzhishan|2|688|1|0
+708|Xisha Qundao|2|688|1|0
+709|Zhongsha Qundao|2|688|1|0
+710|Hebei|1|537|1|1
+711|Baoding|2|710|1|0
+712|Cangzhou|2|710|1|0
+713|Chengde|2|710|1|0
+714|Handan|2|710|1|0
+715|Hengshui|2|710|1|0
+716|Langfang|2|710|1|0
+717|Qinhuangdao|2|710|1|0
+718|Shijiazhuang|2|710|1|0
+719|Tangshan|2|710|1|0
+720|Xingtai|2|710|1|0
+721|Zhangjiakou|2|710|1|0
+722|Heilongjiang|1|537|1|1
+723|Da Hinggan Ling|2|722|1|0
+724|Daqing|2|722|1|0
+725|Harbin|2|722|1|0
+726|Hegang|2|722|1|0
+727|Heihe|2|722|1|0
+728|Jiamusi|2|722|1|0
+729|Jixi|2|722|1|0
+730|Mudanjiang|2|722|1|0
+731|Qiqihar|2|722|1|0
+732|Qitaihe|2|722|1|0
+733|Shuangyashan|2|722|1|0
+734|Suihua|2|722|1|0
+735|Yichun|2|722|1|0
+736|Henan|1|537|1|1
+737|Anyang|2|736|1|0
+738|Hebi|2|736|1|0
+739|Jiaozuo|2|736|1|0
+740|Jiyuan|2|736|1|0
+741|Kaifeng|2|736|1|0
+742|Luohe|2|736|1|0
+743|Luoyang|2|736|1|0
+744|Nanyang|2|736|1|0
+745|Pingdingshan|2|736|1|0
+746|Puyang|2|736|1|0
+747|Sanmenxia|2|736|1|0
+748|Shangqiu|2|736|1|0
+749|Xinxiang|2|736|1|0
+750|Xinyang|2|736|1|0
+751|Xuchang|2|736|1|0
+752|Zhengzhou|2|736|1|0
+753|Zhoukou|2|736|1|0
+754|Zhumadian|2|736|1|0
+755|Hongkong SAR|1|537|1|0
+756|Hubei|1|537|1|1
+757|Enshi Tujia-Miao Autonomous Prefecture|2|756|1|0
+758|Ezhou|2|756|1|0
+759|Huanggang|2|756|1|0
+760|Huangshi|2|756|1|0
+761|Jingmen|2|756|1|0
+762|Jingzhou|2|756|1|0
+763|Qianjiang|2|756|1|0
+764|Shennongjia|2|756|1|0
+765|Shiyan|2|756|1|0
+766|Suizhou|2|756|1|0
+767|Tianmen|2|756|1|0
+768|Wuhan|2|756|1|0
+769|Xiangfan|2|756|1|0
+770|Xianning|2|756|1|0
+771|Xiantao|2|756|1|0
+772|Xiaogan|2|756|1|0
+773|Yichang|2|756|1|0
+774|Hunan|1|537|1|1
+775|Changde|2|774|1|0
+776|Changsha|2|774|1|0
+777|Chenzhou|2|774|1|0
+778|Hengyang|2|774|1|0
+779|Huaihua|2|774|1|0
+780|Loudi|2|774|1|0
+781|Shaoyang|2|774|1|0
+782|Xiangtan|2|774|1|0
+783|Xiangxi Tujia-Miao Autonomous Prefecture|2|774|1|0
+784|Yiyang|2|774|1|0
+785|Yongzhou|2|774|1|0
+786|Yueyang|2|774|1|0
+787|Zhangjiajie|2|774|1|0
+788|Zhuzhou|2|774|1|0
+789|Inner Mongolia|1|537|1|1
+790|Alxa|2|789|1|0
+791|Baotou|2|789|1|0
+792|Bayannur|2|789|1|0
+793|Chifeng|2|789|1|0
+794|Hohhot|2|789|1|0
+795|Hulun Buir|2|789|1|0
+796|Ordos|2|789|1|0
+797|Tongliao|2|789|1|0
+798|Ulan Qab|2|789|1|0
+799|Wuhai|2|789|1|0
+800|Xilin Gol|2|789|1|0
+801|Xing&apos;an|2|789|1|0
+802|Jiangsu|1|537|1|1
+803|Changzhou|2|802|1|0
+804|Huai&apos;an|2|802|1|0
+805|Lianyungang|2|802|1|0
+806|Nanjing|2|802|1|0
+807|Nantong|2|802|1|0
+808|Suqian|2|802|1|0
+809|Suzhou|2|802|1|0
+810|Taizhou|2|802|1|0
+811|Wuxi|2|802|1|0
+812|Xuzhou|2|802|1|0
+813|Yancheng|2|802|1|0
+814|Yangzhou|2|802|1|0
+815|Zhenjiang|2|802|1|0
+816|Jiangxi|1|537|1|1
+817|Fuzhou|2|816|1|0
+818|Ganzhou|2|816|1|0
+819|Ji&apos;an|2|816|1|0
+820|Jingdezhen|2|816|1|0
+821|Jiujiang|2|816|1|0
+822|Nanchang|2|816|1|0
+823|Pingxiang|2|816|1|0
+824|Shangrao|2|816|1|0
+825|Xinyu|2|816|1|0
+826|Yichun|2|816|1|0
+827|Yingtan|2|816|1|0
+828|Jilin|1|537|1|1
+829|Baicheng|2|828|1|0
+830|Baishan|2|828|1|0
+831|Changchun|2|828|1|0
+832|Jilin|2|828|1|0
+833|Liaoyuan|2|828|1|0
+834|Siping|2|828|1|0
+835|Songyuan|2|828|1|0
+836|Tonghua|2|828|1|0
+837|Yanbian Korean Autonomous Prefecture|2|828|1|0
+838|Liaoning|1|537|1|1
+839|Anshan|2|838|1|0
+840|Benxi|2|838|1|0
+841|Chaoyang|2|838|1|0
+842|Dalian|2|838|1|0
+843|Dandong|2|838|1|0
+844|Fushun|2|838|1|0
+845|Fuxin|2|838|1|0
+846|Huludao|2|838|1|0
+847|Jinzhou|2|838|1|0
+848|Liaoyang|2|838|1|0
+849|Panjin|2|838|1|0
+850|Shenyang|2|838|1|0
+851|Tieling|2|838|1|0
+852|Yingkou|2|838|1|0
+853|Macao SAR|1|537|1|0
+854|Ningxia|1|537|1|1
+855|Guyuan|2|854|1|0
+856|Shizuishan|2|854|1|0
+857|Wuzhong|2|854|1|0
+858|Yinchuan|2|854|1|0
+859|Zhongwei|2|854|1|0
+860|Qinghai|1|537|1|1
+861|Guoluo Tibetan Autonomous Prefecture|2|860|1|0
+862|Haibei Tibetan Autonomous Prefecture|2|860|1|0
+863|Haidong|2|860|1|0
+864|Hainan Tibetan Autonomous Prefecture|2|860|1|0
+865|Haixi Mongol-Tibetan Autonomous Prefecture|2|860|1|0
+866|Huangnan Tibetan Autonomous Prefecture|2|860|1|0
+867|Xining|2|860|1|0
+868|Yushu Tibetan Autonomous Prefecture|2|860|1|0
+869|Shanxi|1|537|1|1
+870|Ankang|2|869|1|0
+871|Baoji|2|869|1|0
+872|Hanzhong|2|869|1|0
+873|Shangluo|2|869|1|0
+874|Tongchuan|2|869|1|0
+875|Weinan|2|869|1|0
+876|Xi&apos;an|2|869|1|0
+877|Xianyang|2|869|1|0
+878|Yan&apos;an|2|869|1|0
+879|Yulin|2|869|1|0
+880|Shandong|1|537|1|1
+881|Binzhou|2|880|1|0
+882|Dezhou|2|880|1|0
+883|Dongying|2|880|1|0
+884|Heze|2|880|1|0
+885|Jinan|2|880|1|0
+886|Jining|2|880|1|0
+887|Laiwu|2|880|1|0
+888|Liaocheng|2|880|1|0
+889|Linyi|2|880|1|0
+890|Qingdao|2|880|1|0
+891|Rizhao|2|880|1|0
+892|Tai&apos;an|2|880|1|0
+893|Weifang|2|880|1|0
+894|Weihai|2|880|1|0
+895|Yantai|2|880|1|0
+896|Zaozhuang|2|880|1|0
+897|Zibo|2|880|1|0
+898|Shanghai|1|537|1|1
+899|Baoshan|2|898|1|0
+900|Changning|2|898|1|0
+901|Chongming|2|898|1|0
+902|Fengxian|2|898|1|0
+903|Hongkou|2|898|1|0
+904|Huangpu|2|898|1|0
+905|Jiading|2|898|1|0
+906|Jing&apos;an|2|898|1|0
+907|Jinshan|2|898|1|0
+908|Luwan|2|898|1|0
+909|Minhang|2|898|1|0
+910|Nanhui|2|898|1|0
+911|Pudongxin|2|898|1|0
+912|Putuo|2|898|1|0
+913|Qingpu|2|898|1|0
+914|Songjiang|2|898|1|0
+915|Xuhui|2|898|1|0
+916|Yangpu|2|898|1|0
+917|Zhabei|2|898|1|0
+918|Shanxi|1|537|1|1
+919|Changzhi|2|918|1|0
+920|Datong|2|918|1|0
+921|Jincheng|2|918|1|0
+922|Jinzhong|2|918|1|0
+923|Linfen|2|918|1|0
+924|luliang|2|918|1|0
+925|Shuozhou|2|918|1|0
+926|Taiyuan|2|918|1|0
+927|Xinzhou|2|918|1|0
+928|Yangquan|2|918|1|0
+929|Yuncheng|2|918|1|0
+930|Sichuan|1|537|1|1
+931|Aba Tibetan-Qiang Autonomous Prefecture|2|930|1|0
+932|Bazhong|2|930|1|0
+933|Chengdu|2|930|1|0
+934|Dazhou|2|930|1|0
+935|Deyang|2|930|1|0
+936|Garze Tibetan Autonomous Prefecture|2|930|1|0
+937|Guang&apos;an|2|930|1|0
+938|Guangyuan|2|930|1|0
+939|Leshan|2|930|1|0
+940|Liangshan Yi Autonomous Prefecture|2|930|1|0
+941|Luzhou|2|930|1|0
+942|Meishan|2|930|1|0
+943|Mianyang|2|930|1|0
+944|Nancong|2|930|1|0
+945|Neijiang|2|930|1|0
+946|Panzhihua|2|930|1|0
+947|Suining|2|930|1|0
+948|Ya&apos;an|2|930|1|0
+949|Yibin|2|930|1|0
+950|Zigong|2|930|1|0
+951|Ziyang|2|930|1|0
+952|Taiwan|1|537|1|1
+953|Changhwa County|2|952|1|0
+954|Chiayi City|2|952|1|0
+955|Chiayi County|2|952|1|0
+956|Hsinchu City|2|952|1|0
+957|Hsinchu County|2|952|1|0
+958|Hualian County|2|952|1|0
+959|Ilan County|2|952|1|0
+960|Kaohsiung City|2|952|1|0
+961|Kaohsiung County|2|952|1|0
+962|Keelung City|2|952|1|0
+963|Miaoli County|2|952|1|0
+964|Nantou County|2|952|1|0
+965|Penghu County|2|952|1|0
+966|Pingtung County|2|952|1|0
+967|Taichung City|2|952|1|0
+968|Taichung County|2|952|1|0
+969|Tainan City|2|952|1|0
+970|Tainan County|2|952|1|0
+971|Taipei City|2|952|1|0
+972|Taipei County|2|952|1|0
+973|Taitung County|2|952|1|0
+974|Taoyuan County|2|952|1|0
+975|Yunnlin County|2|952|1|0
+976|Tianjin|1|537|1|1
+977|Baodi|2|976|1|0
+978|Beichen|2|976|1|0
+979|Dagang|2|976|1|0
+980|Dongli|2|976|1|0
+981|Hangu|2|976|1|0
+982|Hebei|2|976|1|0
+983|Hedong|2|976|1|0
+984|Heping|2|976|1|0
+985|Hexi|2|976|1|0
+986|Hongqiao|2|976|1|0
+987|Jinghai|2|976|1|0
+988|Jinnan|2|976|1|0
+989|Jixian|2|976|1|0
+990|Nankai|2|976|1|0
+991|Ninghe|2|976|1|0
+992|Tanggu|2|976|1|0
+993|Wuqing|2|976|1|0
+994|Xiqing|2|976|1|0
+995|Tibet|1|537|1|1
+996|Lhasa|2|995|1|0
+997|Nagqu|2|995|1|0
+998|Ngari|2|995|1|0
+999|Nyingchi|2|995|1|0
+1000|Qamdo|2|995|1|0
+1001|Shannan|2|995|1|0
+1002|Xigaze|2|995|1|0
+1003|Xinjiang|1|537|1|1
+1004|Aksu|2|1003|1|0
+1005|Alar|2|1003|1|0
+1006|Altay|2|1003|1|0
+1007|Bayingolin Mongol Autonomous Prefecture|2|1003|1|0
+1008|Bortala Mongol Autonomous Prefecture|2|1003|1|0
+1009|Changji Hui Autonomous Prefecture|2|1003|1|0
+1010|Hami|2|1003|1|0
+1011|Hotan|2|1003|1|0
+1012|Ili Kazakh Autonomous Prefecture|2|1003|1|0
+1013|Karamay|2|1003|1|0
+1014|Kashi|2|1003|1|0
+1015|Kizilsu Kirgiz Autonomous Prefecture|2|1003|1|0
+1016|Shihezi|2|1003|1|0
+1017|Tacheng|2|1003|1|0
+1018|Tumsuk|2|1003|1|0
+1019|Turpan|2|1003|1|0
+1020|Urumqi|2|1003|1|0
+1021|Wujiaqu|2|1003|1|0
+1022|Yunnan|1|537|1|1
+1023|Baoshan|2|1022|1|0
+1024|Chuxiong Yi Autonomous Prefecture|2|1022|1|0
+1025|Dali Bai Autonomous Prefecture|2|1022|1|0
+1026|Dehong Dai-Jingpo Autonomous Prefecture|2|1022|1|0
+1027|Diqing Tibetan Autonomous Prefecture|2|1022|1|0
+1028|Honghe Hani-Yi Autonomous Prefecture|2|1022|1|0
+1029|Kunming|2|1022|1|0
+1030|Lijiang|2|1022|1|0
+1031|Lincang|2|1022|1|0
+1032|Nujiang Lisu Autonomous Prefecture|2|1022|1|0
+1033|Pu&apos;er|2|1022|1|0
+1034|Qujing|2|1022|1|0
+1035|Wenshan Zhuang-Miao Autonomous Prefecture|2|1022|1|0
+1036|Xishuangbanna Dai Autonomous Prefecture|2|1022|1|0
+1037|Yuxi|2|1022|1|0
+1038|Zhaotong|2|1022|1|0
+1039|Zhejiang|1|537|1|1
+1040|Hangzhou|2|1039|1|0
+1041|Huzhou|2|1039|1|0
+1042|Jiaxing|2|1039|1|0
+1043|Jinhua|2|1039|1|0
+1044|Lishui|2|1039|1|0
+1045|Ningbo|2|1039|1|0
+1046|Quzhou|2|1039|1|0
+1047|Shaoxing|2|1039|1|0
+1048|Taizhou|2|1039|1|0
+1049|Wenzhou|2|1039|1|0
+1050|Zhoushan|2|1039|1|0
+1051|Christmas Island|0|-1|0|0
+1052|Cocos(Keeling)Islands|0|-1|0|0
+1053|Colombia|0|-1|0|1
+1054|Amazonas|2|1053|1|0
+1055|Antioquia|2|1053|1|0
+1056|Arauca|2|1053|1|0
+1057|Atlantico|2|1053|1|0
+1058|Bogota|2|1053|1|0
+1059|Bolivar|2|1053|1|0
+1060|Boyaca|2|1053|1|0
+1061|Caldas|2|1053|1|0
+1062|Caqueta|2|1053|1|0
+1063|Casanare|2|1053|1|0
+1064|Cauca|2|1053|1|0
+1065|Cesar|2|1053|1|0
+1066|Choco|2|1053|1|0
+1067|Cordoba|2|1053|1|0
+1068|Cundinamarca|2|1053|1|0
+1069|Guainia|2|1053|1|0
+1070|Guaviare|2|1053|1|0
+1071|Huila|2|1053|1|0
+1072|La Guajira|2|1053|1|0
+1073|Magdalena|2|1053|1|0
+1074|Meta|2|1053|1|0
+1075|Narino|2|1053|1|0
+1076|Norte de Santander|2|1053|1|0
+1077|Putumayo|2|1053|1|0
+1078|Quindio|2|1053|1|0
+1079|Risaralda|2|1053|1|0
+1080|San Andres y Providencia|2|1053|1|0
+1081|Santander|2|1053|1|0
+1082|Sucre|2|1053|1|0
+1083|Tolima|2|1053|1|0
+1084|Valle del Cauca|2|1053|1|0
+1085|Vaupes|2|1053|1|0
+1086|Vichada|2|1053|1|0
+1087|Comoros|0|-1|0|0
+1088|Congo|0|-1|0|0
+1089|Congo(DRC)|0|-1|0|0
+1090|Cook Islands|0|-1|0|0
+1091|Costa Rica|0|-1|0|1
+1092|Alajuela|2|1091|1|0
+1093|Cartago|2|1091|1|0
+1094|Guanacaste|2|1091|1|0
+1095|Heredia|2|1091|1|0
+1096|Limon|2|1091|1|0
+1097|Puntarenas|2|1091|1|0
+1098|San Jose|2|1091|1|0
+1099|Cote d&apos;Ivoire|0|-1|0|1
+1100|Agnebi|2|1099|1|0
+1101|Bafing|2|1099|1|0
+1102|Bas-Sassandra|2|1099|1|0
+1103|Denguele|2|1099|1|0
+1104|Fromager|2|1099|1|0
+1105|Haut-Sassandra|2|1099|1|0
+1106|Lacs|2|1099|1|0
+1107|Lagunes|2|1099|1|0
+1108|Marahoue|2|1099|1|0
+1109|Montagnes|2|1099|1|0
+1110|Moyen-Cavally|2|1099|1|0
+1111|Moyen-Comoe|2|1099|1|0
+1112|Nzi-Comoe|2|1099|1|0
+1113|Savanes|2|1099|1|0
+1114|Sud-Bandama|2|1099|1|0
+1115|Sud-Comoe|2|1099|1|0
+1116|Vallee du Bandama|2|1099|1|0
+1117|Worodougou|2|1099|1|0
+1118|Zanzan|2|1099|1|0
+1119|Croatia|0|-1|0|1
+1120|Bjelovarsko-Bilogorska|2|1119|1|0
+1121|Brodsko-Posavska|2|1119|1|0
+1122|Dubrovacko-Neretvanska|2|1119|1|0
+1123|Grad Zagreb|2|1119|1|0
+1124|Istarska|2|1119|1|0
+1125|Karlovacka|2|1119|1|0
+1126|Koprivnicko-Krizevacka|2|1119|1|0
+1127|Krapinsko-Zagorska|2|1119|1|0
+1128|Licko-Senjska|2|1119|1|0
+1129|Medimurska|2|1119|1|0
+1130|Osjecko-Baranjska|2|1119|1|0
+1131|Pozega-Slavonia|2|1119|1|0
+1132|Primorsko-Goranska|2|1119|1|0
+1133|Sibensko-Kninska|2|1119|1|0
+1134|Sisacko-Moslavacka|2|1119|1|0
+1135|Splitsko-Dalmatinska|2|1119|1|0
+1136|Varazdinska|2|1119|1|0
+1137|Viroviticko-Podravska|2|1119|1|0
+1138|Vukovarsko-Srijemska|2|1119|1|0
+1139|Zadarska|2|1119|1|0
+1140|Zagrebacka|2|1119|1|0
+1141|Cuba|0|-1|0|1
+1142|Camaguey|2|1141|1|0
+1143|Ciego de Avila|2|1141|1|0
+1144|Cienfuegos|2|1141|1|0
+1145|Ciudad de la Habana|2|1141|1|0
+1146|Granma|2|1141|1|0
+1147|Guantanamo|2|1141|1|0
+1148|Holguin|2|1141|1|0
+1149|Isla de la Juventud|2|1141|1|0
+1150|La Habana|2|1141|1|0
+1151|Las Tunas|2|1141|1|0
+1152|Manzanillo|2|1141|1|0
+1153|Matanzas|2|1141|1|0
+1154|Mayari|2|1141|1|0
+1155|Pinar del Rio|2|1141|1|0
+1156|Sancti Spiritus|2|1141|1|0
+1157|Santiago de Cuba|2|1141|1|0
+1158|Villa Clara|2|1141|1|0
+1159|Cyprus|0|-1|0|1
+1160|Famagusta|2|1159|1|0
+1161|Kyrenia|2|1159|1|0
+1162|Larnaca|2|1159|1|0
+1163|Limassol|2|1159|1|0
+1164|Nicosia|2|1159|1|0
+1165|Pafos|2|1159|1|0
+1166|Czech Republic|0|-1|0|1
+1167|Jihomoravsky|2|1166|1|0
+1168|Karlovarsky|2|1166|1|0
+1169|Kralovehradecky|2|1166|1|0
+1170|Liberecky|2|1166|1|0
+1171|Moravskoslezsky|2|1166|1|0
+1172|Olomoucky|2|1166|1|0
+1173|Pardubicky|2|1166|1|0
+1174|Plzensky|2|1166|1|0
+1175|Prague|2|1166|1|0
+1176|Stredocesky|2|1166|1|0
+1177|Ustecky|2|1166|1|0
+1178|Vysocina|2|1166|1|0
+1179|Zlinsky|2|1166|1|0
+1180|Denmark|0|-1|0|1
+1181|Aarhus|2|1180|1|0
+1182|Bornholm|2|1180|1|0
+1183|Copenhagen|2|1180|1|0
+1184|Frederiksborg|2|1180|1|0
+1185|Fyn|2|1180|1|0
+1186|Nordjylland|2|1180|1|0
+1187|Ribe|2|1180|1|0
+1188|Ringkoebing|2|1180|1|0
+1189|Roskilde|2|1180|1|0
+1190|Soenderjylland|2|1180|1|0
+1191|Storstroem|2|1180|1|0
+1192|Vejle|2|1180|1|0
+1193|Vestsjaelland|2|1180|1|0
+1194|Viborg|2|1180|1|0
+1195|Djibouti|0|-1|0|1
+1196|Ali Sabih|2|1195|1|0
+1197|Dikhil|2|1195|1|0
+1198|Obock|2|1195|1|0
+1199|Tadjoura|2|1195|1|0
+1200|Dominica|0|-1|0|0
+1201|Dominican Republic|0|-1|0|0
+1202|Ecuador|0|-1|0|1
+1203|Azuay|2|1202|1|0
+1204|Bolivar|2|1202|1|0
+1205|Canar|2|1202|1|0
+1206|Carchi|2|1202|1|0
+1207|Chimborazo|2|1202|1|0
+1208|Cotopaxi|2|1202|1|0
+1209|El Oro|2|1202|1|0
+1210|Esmeraldas|2|1202|1|0
+1211|Galapagos|2|1202|1|0
+1212|Guayas|2|1202|1|0
+1213|Imbabura|2|1202|1|0
+1214|Loja|2|1202|1|0
+1215|Los Rios|2|1202|1|0
+1216|Manabi|2|1202|1|0
+1217|Morona-Santiago|2|1202|1|0
+1218|Napo, Orellana|2|1202|1|0
+1219|Pastaza|2|1202|1|0
+1220|Pichincha|2|1202|1|0
+1221|Sucumbios|2|1202|1|0
+1222|Tungurahua|2|1202|1|0
+1223|Zamora-Chinchipe|2|1202|1|0
+1224|Egypt|0|-1|0|1
+1225|Al Ghurdaqah|2|1224|1|0
+1226|Alexandria|2|1224|1|0
+1227|Aswan|2|1224|1|0
+1228|Cairo|2|1224|1|0
+1229|Shubra al Khaymah|2|1224|1|0
+1230|El Salvador|0|-1|0|1
+1231|Ahuachapan|2|1230|1|0
+1232|Apopa|2|1230|1|0
+1233|Cabanas|2|1230|1|0
+1234|Centro Sur|2|1230|1|0
+1235|Chalatenango|2|1230|1|0
+1236|Cuscatlan|2|1230|1|0
+1237|Delgado|2|1230|1|0
+1238|Ilopango|2|1230|1|0
+1239|Kie-Ntem|2|1230|1|0
+1240|La Libertad|2|1230|1|0
+1241|La Paz|2|1230|1|0
+1242|La Union|2|1230|1|0
+1243|Litoral|2|1230|1|0
+1244|Mejicanos|2|1230|1|0
+1245|Morazan|2|1230|1|0
+1246|San Miguel|2|1230|1|0
+1247|San Salvador|2|1230|1|0
+1248|San Vicente|2|1230|1|0
+1249|Santa Ana|2|1230|1|0
+1250|Sonsonate|2|1230|1|0
+1251|Soyapango|2|1230|1|0
+1252|Usulutan|2|1230|1|0
+1253|Wele-Nzas|2|1230|1|0
+1254|Eritrea|0|-1|0|1
+1255|Anseba|2|1254|1|0
+1256|Debub|2|1254|1|0
+1257|Debubawi Keyih Bahri|2|1254|1|0
+1258|Gash Barka|2|1254|1|0
+1259|Maekel|2|1254|1|0
+1260|Semenawi Keyih Bahri|2|1254|1|0
+1261|Estonia|0|-1|0|1
+1262|Harju|2|1261|1|0
+1263|Hiiu|2|1261|1|0
+1264|Ida-Viru|2|1261|1|0
+1265|Jarva|2|1261|1|0
+1266|Jogeva|2|1261|1|0
+1267|Laane|2|1261|1|0
+1268|Laane-Viru|2|1261|1|0
+1269|Parnu|2|1261|1|0
+1270|Polva|2|1261|1|0
+1271|Rapla|2|1261|1|0
+1272|Saare|2|1261|1|0
+1273|Tartu|2|1261|1|0
+1274|Valga|2|1261|1|0
+1275|Viljandi|2|1261|1|0
+1276|Voru|2|1261|1|0
+1277|Ethiopia|0|-1|0|1
+1278|Adis abeba|2|1277|1|0
+1279|Afar|2|1277|1|0
+1280|Amara|2|1277|1|0
+1281|Binshangul Gumuz|2|1277|1|0
+1282|Dire Dawa|2|1277|1|0
+1283|Gambela Hizboch|2|1277|1|0
+1284|Hareri  Hizb|2|1277|1|0
+1285|Oromiya|2|1277|1|0
+1286|Sumale|2|1277|1|0
+1287|Tigray|2|1277|1|0
+1288|YeDebub Biheroch|2|1277|1|0
+1289|Falkland Islands|0|-1|0|0
+1290|Faroe Islands|0|-1|0|0
+1291|Fiji Islands|0|-1|0|0
+1292|Finland|0|-1|0|1
+1293|Espoo|2|1292|1|0
+1294|Hameenlinna|2|1292|1|0
+1295|Helsinki|2|1292|1|0
+1296|Joensuu|2|1292|1|0
+1297|Kajaani|2|1292|1|0
+1298|Kokkola|2|1292|1|0
+1299|Kotka|2|1292|1|0
+1300|Kuopio|2|1292|1|0
+1301|Lahti|2|1292|1|0
+1302|Lappeenranta|2|1292|1|0
+1303|Mariehamn|2|1292|1|0
+1304|Mikkeli|2|1292|1|0
+1305|Oulu|2|1292|1|0
+1306|Pori|2|1292|1|0
+1307|Porvoo|2|1292|1|0
+1308|Rovaniemi|2|1292|1|0
+1309|Tampere|2|1292|1|0
+1310|Turku|2|1292|1|0
+1311|Vaasa|2|1292|1|0
+1312|Vantaa|2|1292|1|0
+1313|France|0|-1|0|1
+1314|Aix-en-Provence|2|1313|1|0
+1315|Ajaccio|2|1313|1|0
+1316|Amiens|2|1313|1|0
+1317|Arles|2|1313|1|0
+1318|Besancon|2|1313|1|0
+1319|Caen|2|1313|1|0
+1320|Chalons-en-Champagne|2|1313|1|0
+1321|Dijon|2|1313|1|0
+1322|Frejus|2|1313|1|0
+1323|Lille|2|1313|1|0
+1324|Limoges|2|1313|1|0
+1325|Lyon|2|1313|1|0
+1326|Marseille|2|1313|1|0
+1327|Metz|2|1313|1|0
+1328|Montpellier|2|1313|1|0
+1329|Nantes|2|1313|1|0
+1330|Nice|2|1313|1|0
+1331|Orleans|2|1313|1|0
+1332|Paris|2|1313|1|0
+1333|Rennes|2|1313|1|0
+1334|Rouen|2|1313|1|0
+1335|Toulouse|2|1313|1|0
+1336|Valence|2|1313|1|0
+1337|French Polynesia|0|-1|0|0
+1338|French Guiana|0|-1|0|0
+1339|French Southern and Antarctic Lands|0|-1|0|0
+1340|Gabon|0|-1|0|1
+1341|Estuaire|2|1340|1|0
+1342|Haut-Ogooue|2|1340|1|0
+1343|Moyen-Ogooue|2|1340|1|0
+1344|Ngounie|2|1340|1|0
+1345|Nyanga|2|1340|1|0
+1346|Ogooue-Ivindo|2|1340|1|0
+1347|Ogooue-Lolo|2|1340|1|0
+1348|Ogooue-Maritime|2|1340|1|0
+1349|Woleu-Ntem|2|1340|1|0
+1350|Gambia|0|-1|0|0
+1351|Georgia|0|-1|0|0
+1352|Germany|0|-1|0|1
+1353|Ansbach|2|1352|1|0
+1354|Arnsberg|2|1352|1|0
+1355|Augsburg|2|1352|1|0
+1356|Bayreuth|2|1352|1|0
+1357|Berlin|2|1352|1|0
+1358|Bielefeld|2|1352|1|0
+1359|Bochum|2|1352|1|0
+1360|Bremen|2|1352|1|0
+1361|Brunswick|2|1352|1|0
+1362|Chemnitz|2|1352|1|0
+1363|Cologne|2|1352|1|0
+1364|Darmstadt|2|1352|1|0
+1365|Dessau|2|1352|1|0
+1366|Detmold|2|1352|1|0
+1367|Dresden|2|1352|1|0
+1368|Dusseldorf|2|1352|1|0
+1369|Erfurt|2|1352|1|0
+1370|Frankfurt|2|1352|1|0
+1371|Freiburg|2|1352|1|0
+1372|GieBen|2|1352|1|0
+1373|Halle|2|1352|1|0
+1374|Hamburg|2|1352|1|0
+1375|Hannover|2|1352|1|0
+1376|Karlsruhe|2|1352|1|0
+1377|Kassel|2|1352|1|0
+1378|Kiel|2|1352|1|0
+1379|Koblenz|2|1352|1|0
+1380|Landshut|2|1352|1|0
+1381|Leipzig|2|1352|1|0
+1382|Luneburg|2|1352|1|0
+1383|Magdeburg|2|1352|1|0
+1384|Mainz|2|1352|1|0
+1385|Mannheim|2|1352|1|0
+1386|Muenster|2|1352|1|0
+1387|Munich|2|1352|1|0
+1388|Nuremberg|2|1352|1|0
+1389|Potsdam|2|1352|1|0
+1390|Schwerin|2|1352|1|0
+1391|Stuttgart|2|1352|1|0
+1392|Trier|2|1352|1|0
+1393|Wiesbaden|2|1352|1|0
+1394|Wuerzburg|2|1352|1|0
+1395|Ghana|0|-1|0|1
+1396|Ashanti|2|1395|1|0
+1397|Brong Ahafo|2|1395|1|0
+1398|Central|2|1395|1|0
+1399|Eastern|2|1395|1|0
+1400|Greater Accra|2|1395|1|0
+1401|Northern|2|1395|1|0
+1402|Obuasi|2|1395|1|0
+1403|Upper East|2|1395|1|0
+1404|Upper West|2|1395|1|0
+1405|Volta|2|1395|1|0
+1406|Western|2|1395|1|0
+1407|Gibraltar|0|-1|0|0
+1408|Greece|0|-1|0|1
+1409|Athens|2|1408|1|0
+1410|Chanion|2|1408|1|0
+1411|Cyclades|2|1408|1|0
+1412|Dodecanese|2|1408|1|0
+1413|Irakleiou|2|1408|1|0
+1414|Lasithiou|2|1408|1|0
+1415|Lesbos|2|1408|1|0
+1416|Peiraievs|2|1408|1|0
+1417|Rethymnis|2|1408|1|0
+1418|Samos|2|1408|1|0
+1419|Greenland|0|-1|0|0
+1420|Grenada|0|-1|0|0
+1421|Guadeloupe|0|-1|0|0
+1422|Guam|0|-1|0|0
+1423|Guatemala|0|-1|0|1
+1424|Alta Verapaz|2|1423|1|0
+1425|Baja Verapaz|2|1423|1|0
+1426|Chimaltenango|2|1423|1|0
+1427|Chiquimula|2|1423|1|0
+1428|El Progreso|2|1423|1|0
+1429|Escuintla|2|1423|1|0
+1430|Guatemala|2|1423|1|0
+1431|Huehuetenango|2|1423|1|0
+1432|Izabal|2|1423|1|0
+1433|Jalapa|2|1423|1|0
+1434|Jutiapa|2|1423|1|0
+1435|Mixco|2|1423|1|0
+1436|Peten|2|1423|1|0
+1437|Quetzaltenango|2|1423|1|0
+1438|Quiche|2|1423|1|0
+1439|Retalhuleu|2|1423|1|0
+1440|Sacatepequez|2|1423|1|0
+1441|San Marcos|2|1423|1|0
+1442|Santa Rosa|2|1423|1|0
+1443|Solola|2|1423|1|0
+1444|Suchitepequez|2|1423|1|0
+1445|Totonicapan|2|1423|1|0
+1446|Villa Nueva|2|1423|1|0
+1447|Zacapa|2|1423|1|0
+1448|Guernsey|0|-1|0|0
+1449|Guinea|0|-1|0|1
+1450|Boke|2|1449|1|0
+1451|Conakry|2|1449|1|0
+1452|Faranah|2|1449|1|0
+1453|Kankan|2|1449|1|0
+1454|Kindia|2|1449|1|0
+1455|Labe|2|1449|1|0
+1456|Mamou|2|1449|1|0
+1457|Nzerekore|2|1449|1|0
+1458|Guinea-Bissau|0|-1|0|0
+1459|Guyana|0|-1|0|1
+1460|Barima-Waini|2|1459|1|0
+1461|Cuyuni-Mazaruni|2|1459|1|0
+1462|Demerara-Mahaica|2|1459|1|0
+1463|East Berbice-Corentyne|2|1459|1|0
+1464|Essequibo Islands-West Demerara|2|1459|1|0
+1465|Mahaica-Berbice|2|1459|1|0
+1466|Pomeroon-Supenaam|2|1459|1|0
+1467|Potaro-Siparuni|2|1459|1|0
+1468|Upper Demerara-Berbice|2|1459|1|0
+1469|Upper Takutu-Upper Essequibo|2|1459|1|0
+1470|Haiti|0|-1|0|0
+1471|Heard Island and McDonald Islands|0|-1|0|0
+1472|Honduras|0|-1|0|1
+1473|Atlantida|2|1472|1|0
+1474|Choloma|2|1472|1|0
+1475|Choluteca|2|1472|1|0
+1476|Colon|2|1472|1|0
+1477|Comayagua|2|1472|1|0
+1478|Copan|2|1472|1|0
+1479|Cortes|2|1472|1|0
+1480|El Paraiso|2|1472|1|0
+1481|Francisco Morazan|2|1472|1|0
+1482|Gracias a Dios|2|1472|1|0
+1483|Intibuca|2|1472|1|0
+1484|Islas de la Bahia|2|1472|1|0
+1485|La Paz|2|1472|1|0
+1486|Lempira|2|1472|1|0
+1487|Ocotepeque|2|1472|1|0
+1488|Olancho|2|1472|1|0
+1489|Santa Barbara|2|1472|1|0
+1490|Valle|2|1472|1|0
+1491|Yoro|2|1472|1|0
+1492|Hungary|0|-1|0|1
+1493|Bacs-Kiskun|2|1492|1|0
+1494|Baranya|2|1492|1|0
+1495|Bekes|2|1492|1|0
+1496|Borsod-Abauj-Zemplen|2|1492|1|0
+1497|Budapest|2|1492|1|0
+1498|Csongrad|2|1492|1|0
+1499|Fejer|2|1492|1|0
+1500|Gyor-Moson-Sopron|2|1492|1|0
+1501|Hajdu-Bihar|2|1492|1|0
+1502|Heves|2|1492|1|0
+1503|Jasz-Nagykun-Szolnok|2|1492|1|0
+1504|Komarom-Esztergom|2|1492|1|0
+1505|Nograd|2|1492|1|0
+1506|Pest|2|1492|1|0
+1507|Somogy|2|1492|1|0
+1508|Szabolcs-Szatmar-Bereg|2|1492|1|0
+1509|Tolna|2|1492|1|0
+1510|Vas|2|1492|1|0
+1511|Veszprem|2|1492|1|0
+1512|Zala|2|1492|1|0
+1513|Iceland|0|-1|0|0
+1514|India|0|-1|0|1
+1515|Aizawl|2|1514|1|0
+1516|Bangalore|2|1514|1|0
+1517|Bhopal|2|1514|1|0
+1518|Bhubaneswar|2|1514|1|0
+1519|Calcutta|2|1514|1|0
+1520|Chandigarh|2|1514|1|0
+1521|Chennai|2|1514|1|0
+1522|Coimbatore|2|1514|1|0
+1523|Daman|2|1514|1|0
+1524|Diu|2|1514|1|0
+1525|Gangtok|2|1514|1|0
+1526|Imphal|2|1514|1|0
+1527|Indore|2|1514|1|0
+1528|Jabalpur|2|1514|1|0
+1529|Jaipur|2|1514|1|0
+1530|Jalandhar|2|1514|1|0
+1531|Jodhpur|2|1514|1|0
+1532|Karaikal|2|1514|1|0
+1533|Kavaratti|2|1514|1|0
+1534|Kohima|2|1514|1|0
+1535|Madurai|2|1514|1|0
+1536|Mahe|2|1514|1|0
+1537|New Delhi|2|1514|1|0
+1538|Pondicherry|2|1514|1|0
+1539|Sambalpur|2|1514|1|0
+1540|Shillong|2|1514|1|0
+1541|Silvassa|2|1514|1|0
+1542|Trivandrum|2|1514|1|0
+1543|Udaipur|2|1514|1|0
+1544|Yanam|2|1514|1|0
+1545|Indonesia|0|-1|0|1
+1546|Aceh|2|1545|1|0
+1547|Bali|2|1545|1|0
+1548|Banten|2|1545|1|0
+1549|Bengkulu|2|1545|1|0
+1550|Daerah Istimewa Yogyakarta|2|1545|1|0
+1551|Daerah Tingkat I Kalimantan Barat|2|1545|1|0
+1552|Irian Jaya|2|1545|1|0
+1553|Jakarta Raya|2|1545|1|0
+1554|Jambi|2|1545|1|0
+1555|Java Barat|2|1545|1|0
+1556|Java Tengah|2|1545|1|0
+1557|Java Timur|2|1545|1|0
+1558|Kalimantan Selatan|2|1545|1|0
+1559|Kalimantan Tengah|2|1545|1|0
+1560|Kalimantan Timur|2|1545|1|0
+1561|Kepulauan Bangka Belitung|2|1545|1|0
+1562|Lampung|2|1545|1|0
+1563|Maluku|2|1545|1|0
+1564|Nusa Tenggara Barat|2|1545|1|0
+1565|Nusa Tenggara Timur|2|1545|1|0
+1566|Riau|2|1545|1|0
+1567|Sulawesi Selatan|2|1545|1|0
+1568|Sulawesi Tengah|2|1545|1|0
+1569|Sulawesi Tenggara|2|1545|1|0
+1570|Sulawesi Utara|2|1545|1|0
+1571|Sumatera Barat|2|1545|1|0
+1572|Sumatera Selatan|2|1545|1|0
+1573|Sumatera Utara|2|1545|1|0
+1574|Iran|0|-1|0|0
+1575|Iraq|0|-1|0|0
+1576|Ireland|0|-1|0|1
+1577|Carlow|2|1576|1|0
+1578|Cavan|2|1576|1|0
+1579|Clare|2|1576|1|0
+1580|Cork|2|1576|1|0
+1581|Donegal|2|1576|1|0
+1582|Dublin|2|1576|1|0
+1583|Galway|2|1576|1|0
+1584|Kerry|2|1576|1|0
+1585|Kildare|2|1576|1|0
+1586|Kilkenny|2|1576|1|0
+1587|Laois|2|1576|1|0
+1588|Leitrim|2|1576|1|0
+1589|Limerick|2|1576|1|0
+1590|Longford|2|1576|1|0
+1591|Louth|2|1576|1|0
+1592|Mayo|2|1576|1|0
+1593|Meath|2|1576|1|0
+1594|Monaghan|2|1576|1|0
+1595|Offaly|2|1576|1|0
+1596|Roscommon|2|1576|1|0
+1597|Sligo|2|1576|1|0
+1598|Tipperary|2|1576|1|0
+1599|Waterford|2|1576|1|0
+1600|Westmeath|2|1576|1|0
+1601|Wexford|2|1576|1|0
+1602|Wicklow|2|1576|1|0
+1603|Isle of Man|0|-1|0|0
+1604|Israel|0|-1|0|1
+1605|Ashdod|2|1604|1|0
+1606|Bat Yam|2|1604|1|0
+1607|Beersheba|2|1604|1|0
+1608|Haifa|2|1604|1|0
+1609|Holon|2|1604|1|0
+1610|Jerusalem|2|1604|1|0
+1611|Netanya|2|1604|1|0
+1612|Tel Aviv-Yafo|2|1604|1|0
+1613|Italy|0|-1|0|1
+1614|Alessandria|2|1613|1|0
+1615|Ancona|2|1613|1|0
+1616|Aosta|2|1613|1|0
+1617|Ascoli Piceno|2|1613|1|0
+1618|Asti|2|1613|1|0
+1619|Bari|2|1613|1|0
+1620|Benevento|2|1613|1|0
+1621|Bergamo|2|1613|1|0
+1622|Biella|2|1613|1|0
+1623|Bologna|2|1613|1|0
+1624|Brescia|2|1613|1|0
+1625|Brindisi|2|1613|1|0
+1626|Cagliari|2|1613|1|0
+1627|Campobasso|2|1613|1|0
+1628|Caserta|2|1613|1|0
+1629|Catania|2|1613|1|0
+1630|Catanzaro|2|1613|1|0
+1631|Como|2|1613|1|0
+1632|Cosenza|2|1613|1|0
+1633|Crotone|2|1613|1|0
+1634|Cuneo|2|1613|1|0
+1635|Ferrara|2|1613|1|0
+1636|Firenze|2|1613|1|0
+1637|Foggia|2|1613|1|0
+1638|Genova|2|1613|1|0
+1639|Isernia|2|1613|1|0
+1640|L&apos;Aquila|2|1613|1|0
+1641|La Spezia|2|1613|1|0
+1642|Lecce|2|1613|1|0
+1643|Lecco|2|1613|1|0
+1644|Livorno|2|1613|1|0
+1645|Massa-Carrara|2|1613|1|0
+1646|Matera|2|1613|1|0
+1647|Messina|2|1613|1|0
+1648|Milano|2|1613|1|0
+1649|Modena|2|1613|1|0
+1650|Monza e Brianza|2|1613|1|0
+1651|Naples|2|1613|1|0
+1652|Novara|2|1613|1|0
+1653|Nuoro|2|1613|1|0
+1654|Olbia-Tempio|2|1613|1|0
+1655|Oristano|2|1613|1|0
+1656|Palermo|2|1613|1|0
+1657|Parma|2|1613|1|0
+1658|Pavia|2|1613|1|0
+1659|Perugia|2|1613|1|0
+1660|Pisa|2|1613|1|0
+1661|Pordenone|2|1613|1|0
+1662|Potenza|2|1613|1|0
+1663|Reggio Calabria|2|1613|1|0
+1664|Reggio Emilia|2|1613|1|0
+1665|Roma|2|1613|1|0
+1666|Salerno|2|1613|1|0
+1667|Sassari|2|1613|1|0
+1668|Savona|2|1613|1|0
+1669|Siena|2|1613|1|0
+1670|Syracuse|2|1613|1|0
+1671|Taranto|2|1613|1|0
+1672|Trapani|2|1613|1|0
+1673|Trento|2|1613|1|0
+1674|Trieste|2|1613|1|0
+1675|Turin|2|1613|1|0
+1676|Udine|2|1613|1|0
+1677|Venice|2|1613|1|0
+1678|Vercelli|2|1613|1|0
+1679|Viterbo|2|1613|1|0
+1680|Jamaica|0|-1|0|1
+1681|Clarendon|2|1680|1|0
+1682|Hanover|2|1680|1|0
+1683|Kingston|2|1680|1|0
+1684|Manchester|2|1680|1|0
+1685|Portland|2|1680|1|0
+1686|St. Andrews|2|1680|1|0
+1687|St. Ann|2|1680|1|0
+1688|St. Catherine|2|1680|1|0
+1689|St. Elizabeth|2|1680|1|0
+1690|St. James|2|1680|1|0
+1691|St. Mary|2|1680|1|0
+1692|St. Thomas|2|1680|1|0
+1693|Trelawny|2|1680|1|0
+1694|Westmoreland|2|1680|1|0
+1695|Japan|0|-1|0|1
+1696|Aichi|2|1695|1|0
+1697|Akita|2|1695|1|0
+1698|Aomori|2|1695|1|0
+1699|Chiba|2|1695|1|0
+1700|Ehime|2|1695|1|0
+1701|Fukui|2|1695|1|0
+1702|Fukuoka|2|1695|1|0
+1703|Fukushima|2|1695|1|0
+1704|Gifu|2|1695|1|0
+1705|Gunma|2|1695|1|0
+1706|Hiroshima|2|1695|1|0
+1707|Hokkaido|2|1695|1|0
+1708|Hyogo|2|1695|1|0
+1709|Ibaraki|2|1695|1|0
+1710|Ishikawa|2|1695|1|0
+1711|Iwate|2|1695|1|0
+1712|Kagawa|2|1695|1|0
+1713|Kagoshima|2|1695|1|0
+1714|Kanagawa|2|1695|1|0
+1715|Kochi|2|1695|1|0
+1716|Kumamoto|2|1695|1|0
+1717|Kyoto|2|1695|1|0
+1718|Mie|2|1695|1|0
+1719|Miyagi|2|1695|1|0
+1720|Miyazaki|2|1695|1|0
+1721|Nagano|2|1695|1|0
+1722|Nagasaki|2|1695|1|0
+1723|Nara|2|1695|1|0
+1724|Niigata|2|1695|1|0
+1725|Oita|2|1695|1|0
+1726|Okayama|2|1695|1|0
+1727|Okinawa|2|1695|1|0
+1728|Osaka|2|1695|1|0
+1729|Saga|2|1695|1|0
+1730|Saitama|2|1695|1|0
+1731|Shiga|2|1695|1|0
+1732|Shimane|2|1695|1|0
+1733|Shizuoka|2|1695|1|0
+1734|Tochigi|2|1695|1|0
+1735|Tokushima|2|1695|1|0
+1736|Tokyo|2|1695|1|0
+1737|Tottori|2|1695|1|0
+1738|Toyama|2|1695|1|0
+1739|Wakayama|2|1695|1|0
+1740|Yamagata|2|1695|1|0
+1741|Yamaguchi|2|1695|1|0
+1742|Yamanashi|2|1695|1|0
+1743|Jersey|0|-1|0|0
+1744|Jordan|0|-1|0|1
+1745|Allun|2|1744|1|0
+1746|Amman|2|1744|1|0
+1747|Aqaba|2|1744|1|0
+1748|Balqa|2|1744|1|0
+1749|Irbid|2|1744|1|0
+1750|Jarash|2|1744|1|0
+1751|Karak|2|1744|1|0
+1752|Maan|2|1744|1|0
+1753|Madaba|2|1744|1|0
+1754|Mafraq|2|1744|1|0
+1755|Rusayfah|2|1744|1|0
+1756|Tafiela|2|1744|1|0
+1757|Zarqa|2|1744|1|0
+1758|Kazakhstan|0|-1|0|1
+1759|Aksu|2|1758|1|0
+1760|Almaty|2|1758|1|0
+1761|Aqmola|2|1758|1|0
+1762|Aqtobe|2|1758|1|0
+1763|Arkalyk|2|1758|1|0
+1764|Arys|2|1758|1|0
+1765|Astana|2|1758|1|0
+1766|Atyrau|2|1758|1|0
+1767|Balkhash|2|1758|1|0
+1768|Batys Qazaqstan|2|1758|1|0
+1769|Ekibastuz|2|1758|1|0
+1770|Kapchagay|2|1758|1|0
+1771|Karazhal|2|1758|1|0
+1772|Kentau|2|1758|1|0
+1773|Kurchatov|2|1758|1|0
+1774|Leninogorsk|2|1758|1|0
+1775|Lisakovsk|2|1758|1|0
+1776|Mangghystau|2|1758|1|0
+1777|Ongtustik Qazaqstan|2|1758|1|0
+1778|Pavlodar|2|1758|1|0
+1779|Qaraghandy|2|1758|1|0
+1780|Qostanay|2|1758|1|0
+1781|Qyzylorda|2|1758|1|0
+1782|Rudny|2|1758|1|0
+1783|Saran|2|1758|1|0
+1784|Semey|2|1758|1|0
+1785|Shakhtinsk|2|1758|1|0
+1786|Shyghys Qazaqstan|2|1758|1|0
+1787|Soltustik Qazaqstan|2|1758|1|0
+1788|Stepnogorsk|2|1758|1|0
+1789|Tekeli|2|1758|1|0
+1790|Temirtau|2|1758|1|0
+1791|Turkestan|2|1758|1|0
+1792|Zhambyl|2|1758|1|0
+1793|Zhanaozen|2|1758|1|0
+1794|Zhezkazgan|2|1758|1|0
+1795|Zyryanovsk|2|1758|1|0
+1796|Kenya|0|-1|0|1
+1797|Baringo|2|1796|1|0
+1798|Bomet|2|1796|1|0
+1799|Bungoma|2|1796|1|0
+1800|Busia|2|1796|1|0
+1801|Central|2|1796|1|0
+1802|Elgeyo-Marakwet|2|1796|1|0
+1803|Embu|2|1796|1|0
+1804|Garissa|2|1796|1|0
+1805|Homa Bay|2|1796|1|0
+1806|Isiolo|2|1796|1|0
+1807|Kajiado|2|1796|1|0
+1808|Kakamega|2|1796|1|0
+1809|Kericho|2|1796|1|0
+1810|Kiambu|2|1796|1|0
+1811|Kilifi|2|1796|1|0
+1812|Kirinyaga|2|1796|1|0
+1813|Kisii|2|1796|1|0
+1814|Kisumu|2|1796|1|0
+1815|Kitui|2|1796|1|0
+1816|Kwale|2|1796|1|0
+1817|Laikipia|2|1796|1|0
+1818|Lamu|2|1796|1|0
+1819|Machakos|2|1796|1|0
+1820|Makueni|2|1796|1|0
+1821|Mandera|2|1796|1|0
+1822|Marsabit|2|1796|1|0
+1823|Meru|2|1796|1|0
+1824|Migori|2|1796|1|0
+1825|Mombasa|2|1796|1|0
+1826|Muranga|2|1796|1|0
+1827|Nairobi|2|1796|1|0
+1828|Nakuru|2|1796|1|0
+1829|Nandi|2|1796|1|0
+1830|Narok|2|1796|1|0
+1831|Nithi|2|1796|1|0
+1832|Nyamira|2|1796|1|0
+1833|Nyandarua|2|1796|1|0
+1834|Nyeri|2|1796|1|0
+1835|Samburu|2|1796|1|0
+1836|Siaya|2|1796|1|0
+1837|Taita-Taveta|2|1796|1|0
+1838|Tana River|2|1796|1|0
+1839|Trans-Nzoia|2|1796|1|0
+1840|Turkana|2|1796|1|0
+1841|Uasin Gishu|2|1796|1|0
+1842|Vihiga|2|1796|1|0
+1843|Wajir|2|1796|1|0
+1844|West Pokot|2|1796|1|0
+1845|Kiribati|0|-1|0|1
+1846|Gilberts Islands|2|1845|1|0
+1847|Line Islands|2|1845|1|0
+1848|Phoenix Islands|2|1845|1|0
+1849|Korea|0|-1|0|1
+1850|Busan|1|1849|1|0
+1851|Chungcheongbuk-do|1|1849|1|1
+1852|Andong|2|1851|1|0
+1853|Bonghwa County|2|1851|1|0
+1854|Cheongdo County|2|1851|1|0
+1855|Cheongsong County|2|1851|1|0
+1856|Chilgok County|2|1851|1|0
+1857|Gimcheon|2|1851|1|0
+1858|Goryeong County|2|1851|1|0
+1859|Gumi|2|1851|1|0
+1860|Gunwi County|2|1851|1|0
+1861|Gyeongju|2|1851|1|0
+1862|Gyeongsan|2|1851|1|0
+1863|Mungyeong|2|1851|1|0
+1864|Pohang|2|1851|1|0
+1865|Sangju|2|1851|1|0
+1866|Seongju County|2|1851|1|0
+1867|Uiseong County|2|1851|1|0
+1868|Uljin County|2|1851|1|0
+1869|Ulleung County|2|1851|1|0
+1870|Yecheon County|2|1851|1|0
+1871|Yeongcheon|2|1851|1|0
+1872|Yeongdeok County|2|1851|1|0
+1873|Yeongju|2|1851|1|0
+1874|Yeongyang County|2|1851|1|0
+1875|Chungcheongnam-do|1|1849|1|1
+1876|Changnyeong County|2|1875|1|0
+1877|Changwon|2|1875|1|0
+1878|Geochang County|2|1875|1|0
+1879|Geoje|2|1875|1|0
+1880|Gimhae|2|1875|1|0
+1881|Goseong County|2|1875|1|0
+1882|Hadong County|2|1875|1|0
+1883|Haman County|2|1875|1|0
+1884|Hamyang County|2|1875|1|0
+1885|Hapcheon County|2|1875|1|0
+1886|Jinhae|2|1875|1|0
+1887|Jinju|2|1875|1|0
+1888|Masan|2|1875|1|0
+1889|Miryang|2|1875|1|0
+1890|Namhae County|2|1875|1|0
+1891|Sacheon|2|1875|1|0
+1892|Sancheong County|2|1875|1|0
+1893|Tongyeong|2|1875|1|0
+1894|Uiryeong County|2|1875|1|0
+1895|Yangsan|2|1875|1|0
+1896|Daegu|1|1849|1|1
+1897|Daegu|2|1896|1|0
+1898|Dalseong-gun|2|1896|1|0
+1899|Suseong-gu|2|1896|1|0
+1900|Daejeon|1|1849|1|0
+1901|Gangwon-do|1|1849|1|1
+1902|Cheorwon County|2|1901|1|0
+1903|Chuncheon|2|1901|1|0
+1904|Donghae|2|1901|1|0
+1905|Gangneung|2|1901|1|0
+1906|Goseong County|2|1901|1|0
+1907|Hoengseong County|2|1901|1|0
+1908|Hongcheon County|2|1901|1|0
+1909|Hwacheon County|2|1901|1|0
+1910|Inje County|2|1901|1|0
+1911|Jeongseon County|2|1901|1|0
+1912|Pyeongchang County|2|1901|1|0
+1913|Samcheok|2|1901|1|0
+1914|Sokcho|2|1901|1|0
+1915|Taebaek|2|1901|1|0
+1916|Wonju|2|1901|1|0
+1917|Yanggu County|2|1901|1|0
+1918|Yangyang County|2|1901|1|0
+1919|Yeongwol County|2|1901|1|0
+1920|Gwangju|1|1849|1|0
+1921|Jeju-do|1|1849|1|1
+1922|Suwon|2|1921|1|0
+1923|Gyeongsangbuk-do|1|1849|1|1
+1924|Buan County|2|1923|1|0
+1925|Gimje|2|1923|1|0
+1926|Gochang County|2|1923|1|0
+1927|Gunsan|2|1923|1|0
+1928|Iksan|2|1923|1|0
+1929|Imsil County|2|1923|1|0
+1930|Jangsu County|2|1923|1|0
+1931|Jeongeup|2|1923|1|0
+1932|Jeonju|2|1923|1|0
+1933|Jinan County|2|1923|1|0
+1934|Muju County|2|1923|1|0
+1935|Namwon|2|1923|1|0
+1936|Sunchang County|2|1923|1|0
+1937|Wanju County|2|1923|1|0
+1938|Gyeongsangnam-do|1|1849|1|1
+1939|Boseong County|2|1938|1|0
+1940|Damyang County|2|1938|1|0
+1941|Gangjin County|2|1938|1|0
+1942|Goheung County|2|1938|1|0
+1943|Gokseong County|2|1938|1|0
+1944|Gurye County|2|1938|1|0
+1945|Gwangyang|2|1938|1|0
+1946|Haenam County|2|1938|1|0
+1947|Hampyeong County|2|1938|1|0
+1948|Hwasun County|2|1938|1|0
+1949|Jangheung County|2|1938|1|0
+1950|Jangseong County|2|1938|1|0
+1951|Jindo County|2|1938|1|0
+1952|Mokpo|2|1938|1|0
+1953|Muan County|2|1938|1|0
+1954|Naju|2|1938|1|0
+1955|Sinan County|2|1938|1|0
+1956|Suncheon|2|1938|1|0
+1957|Wando County|2|1938|1|0
+1958|Yeongam County|2|1938|1|0
+1959|Yeonggwang County|2|1938|1|0
+1960|Yeosu|2|1938|1|0
+1961|Incheon|1|1849|1|0
+1962|Gyeonggi-do|1|1849|1|1
+1963|Ansan|2|1962|1|0
+1964|Anseong|2|1962|1|0
+1965|Anyang|2|1962|1|0
+1966|Bucheon|2|1962|1|0
+1967|Dongducheon|2|1962|1|0
+1968|Gapyeong County|2|1962|1|0
+1969|Gimpo|2|1962|1|0
+1970|Goyang|2|1962|1|0
+1971|Gunpo|2|1962|1|0
+1972|Guri|2|1962|1|0
+1973|Gwacheon|2|1962|1|0
+1974|Gwangju|2|1962|1|0
+1975|Gwangmyeong|2|1962|1|0
+1976|Hanam|2|1962|1|0
+1977|Hwaseong|2|1962|1|0
+1978|Icheon|2|1962|1|0
+1979|Namyangju|2|1962|1|0
+1980|Osan|2|1962|1|0
+1981|Paju|2|1962|1|0
+1982|Pocheon|2|1962|1|0
+1983|Pyeongtaek|2|1962|1|0
+1984|Seongnam|2|1962|1|0
+1985|Siheung|2|1962|1|0
+1986|Uijeongbu|2|1962|1|0
+1987|Uiwang|2|1962|1|0
+1988|Yangju|2|1962|1|0
+1989|Yangpyeong County|2|1962|1|0
+1990|Yeoju County|2|1962|1|0
+1991|Yeoncheon County|2|1962|1|0
+1992|Yongin|2|1962|1|0
+1993|Jeollabuk-do|1|1849|1|1
+1994|Boeun County|2|1993|1|0
+1995|Cheongju|2|1993|1|0
+1996|Cheongwon County|2|1993|1|0
+1997|Chungju|2|1993|1|0
+1998|Danyang County|2|1993|1|0
+1999|Eumseong County|2|1993|1|0
+2000|Goesan County|2|1993|1|0
+2001|Jecheon|2|1993|1|0
+2002|Jeungpyeong County|2|1993|1|0
+2003|Jincheon County|2|1993|1|0
+2004|Okcheon County|2|1993|1|0
+2005|Yeongdong County|2|1993|1|0
+2006|Jeollanam-do|1|1849|1|1
+2007|Asan|2|2006|1|0
+2008|Boryeong|2|2006|1|0
+2009|Buyeo County|2|2006|1|0
+2010|Cheonan|2|2006|1|0
+2011|Cheongyang County|2|2006|1|0
+2012|Dangjin County|2|2006|1|0
+2013|Geumsan County|2|2006|1|0
+2014|Gongju|2|2006|1|0
+2015|Gyeryong|2|2006|1|0
+2016|Hongseong County|2|2006|1|0
+2017|Nonsan|2|2006|1|0
+2018|Seocheon County|2|2006|1|0
+2019|Seosan|2|2006|1|0
+2020|Taean County|2|2006|1|0
+2021|Yeongi County|2|2006|1|0
+2022|Yesan County|2|2006|1|0
+2023|Seoul|1|1849|1|0
+2024|Ulsan|1|1849|1|0
+2025|Kuwait|0|-1|0|0
+2026|Kyrgyzstan|0|-1|0|1
+2027|Batken|2|2026|1|0
+2028|Bishkek|2|2026|1|0
+2029|Chuy|2|2026|1|0
+2030|Jalal-Abad|2|2026|1|0
+2031|Kant|2|2026|1|0
+2032|Karabalta|2|2026|1|0
+2033|Kara-Kol|2|2026|1|0
+2034|Kok-Jangak|2|2026|1|0
+2035|Mailuu-Suu|2|2026|1|0
+2036|Naryn|2|2026|1|0
+2037|Osh|2|2026|1|0
+2038|Suluktu|2|2026|1|0
+2039|Talas|2|2026|1|0
+2040|Tash-Kumyr|2|2026|1|0
+2041|Uzgen|2|2026|1|0
+2042|Ysyk-Kol|2|2026|1|0
+2043|Laos|0|-1|0|1
+2044|Attapu|2|2043|1|0
+2045|Bokeo|2|2043|1|0
+2046|Bolikhamxai|2|2043|1|0
+2047|Champasak|2|2043|1|0
+2048|Houaphan|2|2043|1|0
+2049|Khammouan|2|2043|1|0
+2050|Louang Namtha|2|2043|1|0
+2051|Louangphrabang|2|2043|1|0
+2052|Oudomxai|2|2043|1|0
+2053|Phongsali|2|2043|1|0
+2054|Saravan|2|2043|1|0
+2055|Savannakhet|2|2043|1|0
+2056|Vientiane|2|2043|1|0
+2057|Xaignabouri|2|2043|1|0
+2058|Xaisomboun|2|2043|1|0
+2059|Xekong|2|2043|1|0
+2060|Xiangkhoang|2|2043|1|0
+2061|Latvia|0|-1|0|1
+2062|Aizkraukles|2|2061|1|0
+2063|Aluksnes|2|2061|1|0
+2064|Balvu|2|2061|1|0
+2065|Bauskas|2|2061|1|0
+2066|Cesu|2|2061|1|0
+2067|Daugavpils|2|2061|1|0
+2068|Dobeles|2|2061|1|0
+2069|Gulbenes|2|2061|1|0
+2070|Jekabpils|2|2061|1|0
+2071|Jelgavas|2|2061|1|0
+2072|Kraslavas|2|2061|1|0
+2073|Kuldigas|2|2061|1|0
+2074|Liepajas|2|2061|1|0
+2075|Limbazu|2|2061|1|0
+2076|Ludzas|2|2061|1|0
+2077|Madonas|2|2061|1|0
+2078|Ogres|2|2061|1|0
+2079|Preilu|2|2061|1|0
+2080|Rezeknes|2|2061|1|0
+2081|Rigas|2|2061|1|0
+2082|Saldus|2|2061|1|0
+2083|Talsu|2|2061|1|0
+2084|Tukuma|2|2061|1|0
+2085|Valkas|2|2061|1|0
+2086|Valmieras|2|2061|1|0
+2087|Ventspils|2|2061|1|0
+2088|Lebanon|0|-1|0|1
+2089|Al-Biqa|2|2088|1|0
+2090|Al-Janub|2|2088|1|0
+2091|An-Nabatiyah|2|2088|1|0
+2092|Ash-Shamal|2|2088|1|0
+2093|Bayrut|2|2088|1|0
+2094|Jabal Lubnan|2|2088|1|0
+2095|Lesotho|0|-1|0|1
+2096|Berea|2|2095|1|0
+2097|Butha-Buthe|2|2095|1|0
+2098|Leribe|2|2095|1|0
+2099|Mafeteng|2|2095|1|0
+2100|Maseru|2|2095|1|0
+2101|Mohales Hoek|2|2095|1|0
+2102|Mokhotlong|2|2095|1|0
+2103|Qachas Nek|2|2095|1|0
+2104|Quthing|2|2095|1|0
+2105|Thaba-Tseka|2|2095|1|0
+2106|Liberia|0|-1|0|1
+2107|Bomi|2|2106|1|0
+2108|Bong|2|2106|1|0
+2109|Bopolu|2|2106|1|0
+2110|Fish Town|2|2106|1|0
+2111|Gbarpolu|2|2106|1|0
+2112|Grand Bassa|2|2106|1|0
+2113|Grand Cape Mount|2|2106|1|0
+2114|Grand Gedeh|2|2106|1|0
+2115|Grand Kru|2|2106|1|0
+2116|Lofa|2|2106|1|0
+2117|Margibi|2|2106|1|0
+2118|Maryland|2|2106|1|0
+2119|Montserrado|2|2106|1|0
+2120|Nimba|2|2106|1|0
+2121|River Cess|2|2106|1|0
+2122|River Gee|2|2106|1|0
+2123|Sinoe|2|2106|1|0
+2124|Libya|0|-1|0|0
+2125|Liechtenstein|0|-1|0|0
+2126|Lithuania|0|-1|0|1
+2127|Akmenes|2|2126|1|0
+2128|Alytus|2|2126|1|0
+2129|Kaunas|2|2126|1|0
+2130|Klaipeda|2|2126|1|0
+2131|Marijampole|2|2126|1|0
+2132|Panevezys|2|2126|1|0
+2133|Siauliai|2|2126|1|0
+2134|Taurages|2|2126|1|0
+2135|Telsiu|2|2126|1|0
+2136|Utenos|2|2126|1|0
+2137|Vilnius|2|2126|1|0
+2138|Luxembourg|0|-1|0|1
+2139|Diekirch|2|2138|1|0
+2140|Grevenmacher|2|2138|1|0
+2141|Luxembourg|2|2138|1|0
+2142|Macedonia,Former Yugoslav Republic of|0|-1|0|0
+2143|Madagascar|0|-1|0|1
+2144|Antananarivo|2|2143|1|0
+2145|Antsiranana|2|2143|1|0
+2146|Fianarantsoa|2|2143|1|0
+2147|Mahajanga|2|2143|1|0
+2148|Toamasina|2|2143|1|0
+2149|Toliary|2|2143|1|0
+2150|Malawi|0|-1|0|1
+2151|Central|2|2150|1|0
+2152|Northern|2|2150|1|0
+2153|Southern|2|2150|1|0
+2154|Malaysia|0|-1|0|1
+2155|Johor|1|2154|1|1
+2156|Batu Pahat|2|2155|1|0
+2157|Johor Bahru|2|2155|1|0
+2158|Kluang|2|2155|1|0
+2159|Kota Tinggi|2|2155|1|0
+2160|Mersing|2|2155|1|0
+2161|Muar|2|2155|1|0
+2162|Pontian|2|2155|1|0
+2163|Segamat|2|2155|1|0
+2164|Kedah|1|2154|1|1
+2165|Baling|2|2164|1|0
+2166|Bandar Baharu|2|2164|1|0
+2167|Kota Setar|2|2164|1|0
+2168|Kuala Muda|2|2164|1|0
+2169|Kubang Pasu|2|2164|1|0
+2170|Kulim|2|2164|1|0
+2171|Langkawi|2|2164|1|0
+2172|Padang Terap|2|2164|1|0
+2173|Pendang|2|2164|1|0
+2174|Kelantan|1|2154|1|1
+2175|Bachok|2|2174|1|0
+2176|Gua Musang|2|2174|1|0
+2177|Jeli|2|2174|1|0
+2178|Kota Bharu|2|2174|1|0
+2179|Kuala Krai|2|2174|1|0
+2180|Machang|2|2174|1|0
+2181|Pasir Mas|2|2174|1|0
+2182|Pasir Putih|2|2174|1|0
+2183|Tanah Merah|2|2174|1|0
+2184|Tumpat|2|2174|1|0
+2185|Kuala Lumpur|1|2154|1|1
+2186|Kuala Lumpur|2|2185|1|0
+2187|Labuan|1|2154|1|1
+2188|Labuan|2|2187|1|0
+2189|Victoria|2|2187|1|0
+2190|Malacca|1|2154|1|1
+2191|Alor Gajah|2|2190|1|0
+2192|Jasin|2|2190|1|0
+2193|Melaka|2|2190|1|0
+2194|Negeri Sembilan|1|2154|1|1
+2195|Jelebu|2|2194|1|0
+2196|Jempol|2|2194|1|0
+2197|Kuala Pilah|2|2194|1|0
+2198|Port Dickson|2|2194|1|0
+2199|Rembau|2|2194|1|0
+2200|Seremban|2|2194|1|0
+2201|Tampin|2|2194|1|0
+2202|Pahang|1|2154|1|1
+2203|Bentong|2|2202|1|0
+2204|Bera|2|2202|1|0
+2205|Cameron Highlands|2|2202|1|0
+2206|Jerantut|2|2202|1|0
+2207|Kuala Lipis|2|2202|1|0
+2208|Kuantan|2|2202|1|0
+2209|Maran|2|2202|1|0
+2210|Pekan|2|2202|1|0
+2211|Raub|2|2202|1|0
+2212|Rompin|2|2202|1|0
+2213|Temerloh|2|2202|1|0
+2214|Perak|1|2154|1|1
+2215|Batu Gajah|2|2214|1|0
+2216|Ipoh|2|2214|1|0
+2217|Kuala Kangsar|2|2214|1|0
+2218|Lumut|2|2214|1|0
+2219|Sungai Siput|2|2214|1|0
+2220|Taiping|2|2214|1|0
+2221|Tanjung Malim|2|2214|1|0
+2222|Teluk Intan|2|2214|1|0
+2223|Perlis|1|2154|1|1
+2224|Kangar|2|2223|1|0
+2225|Pulau Pinang|1|2154|1|1
+2226|Bukit Mertajam|2|2225|1|0
+2227|Butterworth|2|2225|1|0
+2228|George Town|2|2225|1|0
+2229|Nibong Tebal|2|2225|1|0
+2230|Sabah|1|2154|1|1
+2231|Beaufort|2|2230|1|0
+2232|Beluran|2|2230|1|0
+2233|Keningau|2|2230|1|0
+2234|Kinabatangan|2|2230|1|0
+2235|Kota Belud|2|2230|1|0
+2236|Kota Kinabalu|2|2230|1|0
+2237|Kota Marudu|2|2230|1|0
+2238|Kuala Penyu|2|2230|1|0
+2239|Kudat|2|2230|1|0
+2240|Kunak|2|2230|1|0
+2241|Lahad Datu|2|2230|1|0
+2242|Nabawan|2|2230|1|0
+2243|Papar|2|2230|1|0
+2244|Penampang|2|2230|1|0
+2245|Pitas|2|2230|1|0
+2246|Ranau|2|2230|1|0
+2247|Sandakan|2|2230|1|0
+2248|Semporna|2|2230|1|0
+2249|Sipitang|2|2230|1|0
+2250|Tambunan|2|2230|1|0
+2251|Tawau|2|2230|1|0
+2252|Tenom|2|2230|1|0
+2253|Tuaran|2|2230|1|0
+2254|Sarawak|1|2154|1|1
+2255|Betong|2|2254|1|0
+2256|Bintulu|2|2254|1|0
+2257|Kapit|2|2254|1|0
+2258|Kuching|2|2254|1|0
+2259|Limbang|2|2254|1|0
+2260|Miri|2|2254|1|0
+2261|Mukah|2|2254|1|0
+2262|Samarahan|2|2254|1|0
+2263|Sarikei|2|2254|1|0
+2264|Sibu|2|2254|1|0
+2265|Sri Aman|2|2254|1|0
+2266|Selangor|1|2154|1|1
+2267|Gombak|2|2266|1|0
+2268|Hulu Langat|2|2266|1|0
+2269|Hulu Selangor|2|2266|1|0
+2270|Kuala Langat|2|2266|1|0
+2271|Kuala Selangor|2|2266|1|0
+2272|Petaling|2|2266|1|0
+2273|Sabak Bernam|2|2266|1|0
+2274|Sepang|2|2266|1|0
+2275|Terengganu|1|2154|1|1
+2276|Besut|2|2275|1|0
+2277|Dungun|2|2275|1|0
+2278|Hulu|2|2275|1|0
+2279|Kemaman|2|2275|1|0
+2280|Kuala Terengganu|2|2275|1|0
+2281|Marang|2|2275|1|0
+2282|Setiu|2|2275|1|0
+2283|Maldives|0|-1|0|1
+2284|Addu Atoll|2|2283|1|0
+2285|Faadhippolhu|2|2283|1|0
+2286|Felidhu Atoll|2|2283|1|0
+2287|Foammulah|2|2283|1|0
+2288|Hadhdhunmathi|2|2283|1|0
+2289|Kolhumadulu|2|2283|1|0
+2290|Male|2|2283|1|0
+2291|Male Atoll|2|2283|1|0
+2292|Mulakatholhu|2|2283|1|0
+2293|North Ari Atoll|2|2283|1|0
+2294|North Huvadhu Atoll|2|2283|1|0
+2295|North Maalhosmadhulu|2|2283|1|0
+2296|North Miladhunmadhulu|2|2283|1|0
+2297|North Nilandhe Atoll|2|2283|1|0
+2298|North Thiladhunmathi|2|2283|1|0
+2299|South Ari Atoll|2|2283|1|0
+2300|South Huvadhu Atoll|2|2283|1|0
+2301|South Maalhosmadulu|2|2283|1|0
+2302|South Miladhunmadhulu|2|2283|1|0
+2303|South Nilandhe Atoll|2|2283|1|0
+2304|South Thiladhunmathi|2|2283|1|0
+2305|Mali|0|-1|0|1
+2306|Bamako|2|2305|1|0
+2307|Gao|2|2305|1|0
+2308|Kayes|2|2305|1|0
+2309|Kidal|2|2305|1|0
+2310|Koulikoro|2|2305|1|0
+2311|Mopti|2|2305|1|0
+2312|Segou|2|2305|1|0
+2313|Sikasso|2|2305|1|0
+2314|Tombouctou|2|2305|1|0
+2315|Malta|0|-1|0|0
+2316|Marshall Islands|0|-1|0|0
+2317|Martinique|0|-1|0|0
+2318|Mauritania|0|-1|0|1
+2319|Adrar|2|2318|1|0
+2320|Brakna|2|2318|1|0
+2321|Dakhlet Nouadhibou|2|2318|1|0
+2322|El-Acaba|2|2318|1|0
+2323|Gorgol|2|2318|1|0
+2324|Guidimaka|2|2318|1|0
+2325|Hodh ech-Chargui|2|2318|1|0
+2326|Hodh el-Gharbi|2|2318|1|0
+2327|Inchiri|2|2318|1|0
+2328|Nouakchott|2|2318|1|0
+2329|Tagant|2|2318|1|0
+2330|Tiris Zemmour|2|2318|1|0
+2331|Trarza|2|2318|1|0
+2332|Mauritius|0|-1|0|0
+2333|Mayotte|0|-1|0|0
+2334|Mexico|0|-1|0|1
+2335|Acapulco|2|2334|1|0
+2336|Aguascalientes|2|2334|1|0
+2337|Benito Juare|2|2334|1|0
+2338|Campeche|2|2334|1|0
+2339|Carmen|2|2334|1|0
+2340|Celaya|2|2334|1|0
+2341|Cheturnal|2|2334|1|0
+2342|Chihuahua|2|2334|1|0
+2343|Chilpancingo|2|2334|1|0
+2344|Coatzacoalcos|2|2334|1|0
+2345|Colima|2|2334|1|0
+2346|Cuernavaca|2|2334|1|0
+2347|Culiacan|2|2334|1|0
+2348|Durango|2|2334|1|0
+2349|Ensenada|2|2334|1|0
+2350|Guadalajara|2|2334|1|0
+2351|Guanajuato|2|2334|1|0
+2352|Hermosillo|2|2334|1|0
+2353|Irapuato|2|2334|1|0
+2354|Jalapa|2|2334|1|0
+2355|Juarez|2|2334|1|0
+2356|La Paz|2|2334|1|0
+2357|Leon|2|2334|1|0
+2358|Los Mochis|2|2334|1|0
+2359|Matamoros|2|2334|1|0
+2360|Mazatlan|2|2334|1|0
+2361|Merida|2|2334|1|0
+2362|Mexicali|2|2334|1|0
+2363|Mexico City|2|2334|1|0
+2364|Monclova|2|2334|1|0
+2365|Monterrey|2|2334|1|0
+2366|Morelia|2|2334|1|0
+2367|Nogales|2|2334|1|0
+2368|Nuevo Laredo|2|2334|1|0
+2369|Oaxaca|2|2334|1|0
+2370|Obregon|2|2334|1|0
+2371|Orizaba|2|2334|1|0
+2372|Pachuca|2|2334|1|0
+2373|Poza Rica de Hidalgo|2|2334|1|0
+2374|Puebla|2|2334|1|0
+2375|Puerto Vallarta|2|2334|1|0
+2376|Queretaro|2|2334|1|0
+2377|Reynosa|2|2334|1|0
+2378|Saltillo|2|2334|1|0
+2379|San Luis Potosi|2|2334|1|0
+2380|Tampico|2|2334|1|0
+2381|Tapachula|2|2334|1|0
+2382|Tehuacan|2|2334|1|0
+2383|Tepic|2|2334|1|0
+2384|Tijuana|2|2334|1|0
+2385|Tlaxcala|2|2334|1|0
+2386|Toluca|2|2334|1|0
+2387|Torreon|2|2334|1|0
+2388|Tuxtla Gutierrez|2|2334|1|0
+2389|Uruapan|2|2334|1|0
+2390|Valles|2|2334|1|0
+2391|Veracruz|2|2334|1|0
+2392|Victoria|2|2334|1|0
+2393|Villahermosa|2|2334|1|0
+2394|Zacatecas|2|2334|1|0
+2395|Micronesia|0|-1|0|0
+2396|Moldova|0|-1|0|0
+2397|Monaco|0|-1|0|0
+2398|Mongolia|0|-1|0|1
+2399|Arhangay|2|2398|1|0
+2400|Bayanhongor|2|2398|1|0
+2401|Bayan-Ulgiy|2|2398|1|0
+2402|Bulgan|2|2398|1|0
+2403|Darhan-Uul|2|2398|1|0
+2404|Dornod|2|2398|1|0
+2405|Dornogovi|2|2398|1|0
+2406|Dundgovi|2|2398|1|0
+2407|Dzavhan|2|2398|1|0
+2408|Govi-Altay|2|2398|1|0
+2409|Govisumber|2|2398|1|0
+2410|Hentiy|2|2398|1|0
+2411|Hovd|2|2398|1|0
+2412|Hovsgol|2|2398|1|0
+2413|Orhon|2|2398|1|0
+2414|Selenge|2|2398|1|0
+2415|Suhbaatar|2|2398|1|0
+2416|Tov|2|2398|1|0
+2417|Ulaanbaatar hot|2|2398|1|0
+2418|Umnogovi|2|2398|1|0
+2419|Uvorhangay|2|2398|1|0
+2420|Uvs|2|2398|1|0
+2421|Montserrat|0|-1|0|0
+2422|Morocco|0|-1|0|1
+2423|Casablanca|2|2422|1|0
+2424|Fes|2|2422|1|0
+2425|Marrakech|2|2422|1|0
+2426|Meknes|2|2422|1|0
+2427|Oujda|2|2422|1|0
+2428|Rabat|2|2422|1|0
+2429|Tangier|2|2422|1|0
+2430|Tetouan|2|2422|1|0
+2431|Western Sahara|2|2422|1|0
+2432|Mozambique|0|-1|0|0
+2433|Myanmar|0|-1|0|1
+2434|Ayeyarwady|2|2433|1|0
+2435|Bago|2|2433|1|0
+2436|Chin|2|2433|1|0
+2437|Kachin|2|2433|1|0
+2438|Kayah|2|2433|1|0
+2439|Kayin|2|2433|1|0
+2440|Magway|2|2433|1|0
+2441|Mandalay|2|2433|1|0
+2442|Mon|2|2433|1|0
+2443|Rakhine|2|2433|1|0
+2444|Sagaing|2|2433|1|0
+2445|Shan|2|2433|1|0
+2446|Tanintharyi|2|2433|1|0
+2447|Yangon|2|2433|1|0
+2448|Namibia|0|-1|0|1
+2449|Caprivi|2|2448|1|0
+2450|Erongo|2|2448|1|0
+2451|Hardap|2|2448|1|0
+2452|Karas|2|2448|1|0
+2453|Khomas|2|2448|1|0
+2454|Kunene|2|2448|1|0
+2455|Ohangwena|2|2448|1|0
+2456|Okavango|2|2448|1|0
+2457|Omaheke|2|2448|1|0
+2458|Omusati|2|2448|1|0
+2459|Oshana|2|2448|1|0
+2460|Oshikoto|2|2448|1|0
+2461|Otjozondjupa|2|2448|1|0
+2462|Nauru|0|-1|0|0
+2463|Nepal|0|-1|0|1
+2464|Bagmati|2|2463|1|0
+2465|Bheri|2|2463|1|0
+2466|Dhawalagiri|2|2463|1|0
+2467|Gandaki|2|2463|1|0
+2468|Janakpur|2|2463|1|0
+2469|Karnali|2|2463|1|0
+2470|Kosi|2|2463|1|0
+2471|Lumbini|2|2463|1|0
+2472|Mahakali|2|2463|1|0
+2473|Mechi|2|2463|1|0
+2474|Narayani|2|2463|1|0
+2475|Rapti|2|2463|1|0
+2476|Seti|2|2463|1|0
+2477|Sogarmatha|2|2463|1|0
+2478|Netherlands|0|-1|0|1
+2479|&apos;s-Hertogenbosch|2|2478|1|0
+2480|Almere|2|2478|1|0
+2481|Amersfoort|2|2478|1|0
+2482|Amsterdam|2|2478|1|0
+2483|Apeldoorn|2|2478|1|0
+2484|Arnhem|2|2478|1|0
+2485|Assen|2|2478|1|0
+2486|Breda|2|2478|1|0
+2487|Dordrecht|2|2478|1|0
+2488|Ede|2|2478|1|0
+2489|Eindhoven|2|2478|1|0
+2490|Emmen|2|2478|1|0
+2491|Enschede|2|2478|1|0
+2492|Groningen|2|2478|1|0
+2493|Haarlem|2|2478|1|0
+2494|Hague|2|2478|1|0
+2495|Hoofddorp|2|2478|1|0
+2496|Leeuwarden|2|2478|1|0
+2497|Leiden|2|2478|1|0
+2498|Lelystad|2|2478|1|0
+2499|Maastricht|2|2478|1|0
+2500|Middelburg|2|2478|1|0
+2501|Nijmegen|2|2478|1|0
+2502|Rotterdam|2|2478|1|0
+2503|Tilburg|2|2478|1|0
+2504|Utrecht|2|2478|1|0
+2505|Zoetermeer|2|2478|1|0
+2506|Zwolle|2|2478|1|0
+2507|Netherlands Antilles|0|-1|0|0
+2508|New Caledonia|0|-1|0|0
+2509|New Zealand|0|-1|0|1
+2510|Auckland|2|2509|1|0
+2511|Blenheim|2|2509|1|0
+2512|Christchurch|2|2509|1|0
+2513|Dunedin|2|2509|1|0
+2514|Far North|2|2509|1|0
+2515|Gisborne|2|2509|1|0
+2516|Greymouth|2|2509|1|0
+2517|Hamilton|2|2509|1|0
+2518|Hastings|2|2509|1|0
+2519|Invercargill|2|2509|1|0
+2520|Kaipara|2|2509|1|0
+2521|Manukau|2|2509|1|0
+2522|Napier|2|2509|1|0
+2523|Nelson|2|2509|1|0
+2524|New Plymouth|2|2509|1|0
+2525|North Shore|2|2509|1|0
+2526|Palmerston North|2|2509|1|0
+2527|Richmond|2|2509|1|0
+2528|Stratford|2|2509|1|0
+2529|Taumarunui|2|2509|1|0
+2530|Waitakere|2|2509|1|0
+2531|Wanganui|2|2509|1|0
+2532|Whakatane|2|2509|1|0
+2533|Whangarei|2|2509|1|0
+2534|Nicaragua|0|-1|0|1
+2535|Atlantico Norte|2|2534|1|0
+2536|Atlantico Sur|2|2534|1|0
+2537|Boaco|2|2534|1|0
+2538|Carazo|2|2534|1|0
+2539|Chinandega|2|2534|1|0
+2540|Chontales|2|2534|1|0
+2541|Esteli|2|2534|1|0
+2542|Granada|2|2534|1|0
+2543|Jinotega|2|2534|1|0
+2544|Leon|2|2534|1|0
+2545|Madriz|2|2534|1|0
+2546|Managua|2|2534|1|0
+2547|Masaya|2|2534|1|0
+2548|Matagalpa|2|2534|1|0
+2549|Nueva Segovia|2|2534|1|0
+2550|Rio San Juan|2|2534|1|0
+2551|Rivas|2|2534|1|0
+2552|Niger|0|-1|0|1
+2553|Agadez|2|2552|1|0
+2554|Diffa|2|2552|1|0
+2555|Dosso|2|2552|1|0
+2556|Maradi|2|2552|1|0
+2557|Niamey C.U.|2|2552|1|0
+2558|Tahoua|2|2552|1|0
+2559|Tillaberi|2|2552|1|0
+2560|Zinder|2|2552|1|0
+2561|Nigeria|0|-1|0|1
+2562|Abuja|2|2561|1|0
+2563|Ibadan|2|2561|1|0
+2564|Kano|2|2561|1|0
+2565|Lagos|2|2561|1|0
+2566|Ogbomosho|2|2561|1|0
+2567|Niue|0|-1|0|0
+2568|Norfolk Island|0|-1|0|0
+2569|North Korea|0|-1|0|1
+2570|Ch&apos;ongjin|2|2569|1|0
+2571|Haeju|2|2569|1|0
+2572|Hamhung|2|2569|1|0
+2573|Hyesan|2|2569|1|0
+2574|Kaesong|2|2569|1|0
+2575|Kanggye|2|2569|1|0
+2576|Namp&apos;o|2|2569|1|0
+2577|Naseon|2|2569|1|0
+2578|Pyongyang|2|2569|1|0
+2579|Sariwon|2|2569|1|0
+2580|Sinuiju|2|2569|1|0
+2581|Wonsan|2|2569|1|0
+2582|Northern Mariana Islands|0|-1|0|0
+2583|Norway|0|-1|0|1
+2584|Akershus|2|2583|1|0
+2585|Aust-Agder|2|2583|1|0
+2586|Buskerud|2|2583|1|0
+2587|Finnmark|2|2583|1|0
+2588|Hedmark|2|2583|1|0
+2589|Hordaland|2|2583|1|0
+2590|More og Romsdal|2|2583|1|0
+2591|Nordland|2|2583|1|0
+2592|Nord-Trondelag|2|2583|1|0
+2593|Oppland|2|2583|1|0
+2594|Oslo|2|2583|1|0
+2595|Ostfold|2|2583|1|0
+2596|Rogaland|2|2583|1|0
+2597|Sogn og Fjordane|2|2583|1|0
+2598|Sor-Trondelag|2|2583|1|0
+2599|Telemark|2|2583|1|0
+2600|Troms|2|2583|1|0
+2601|Vest-Agder|2|2583|1|0
+2602|Vestfold|2|2583|1|0
+2603|Oman|0|-1|0|1
+2604|Ad-Dakhiliyah|2|2603|1|0
+2605|Al-Batinah|2|2603|1|0
+2606|Al-Wusta|2|2603|1|0
+2607|Ash-Sharqiyah|2|2603|1|0
+2608|Az-Zahirah|2|2603|1|0
+2609|Masqat|2|2603|1|0
+2610|Musandam|2|2603|1|0
+2611|Zufar|2|2603|1|0
+2612|Pakistan|0|-1|0|1
+2613|Faisalabad|2|2612|1|0
+2614|Gujranwala|2|2612|1|0
+2615|Hyderabad|2|2612|1|0
+2616|Islamabad|2|2612|1|0
+2617|Karachi|2|2612|1|0
+2618|Lahore|2|2612|1|0
+2619|Multan|2|2612|1|0
+2620|Peshawar|2|2612|1|0
+2621|Rawalpindi|2|2612|1|0
+2622|Palau|0|-1|0|0
+2623|Palestinian Authority|0|-1|0|1
+2624|Gaza Strip|2|2623|1|0
+2625|West Bank|2|2623|1|0
+2626|Panama|0|-1|0|0
+2627|Papua New Guinea|0|-1|0|1
+2628|Bougainville|2|2627|1|0
+2629|East New Britain|2|2627|1|0
+2630|East Sepik|2|2627|1|0
+2631|Eastern Highlands|2|2627|1|0
+2632|Enga|2|2627|1|0
+2633|Gulf|2|2627|1|0
+2634|Madang|2|2627|1|0
+2635|Manus|2|2627|1|0
+2636|Milne Bay|2|2627|1|0
+2637|Morobe|2|2627|1|0
+2638|New Ireland|2|2627|1|0
+2639|Northern|2|2627|1|0
+2640|Port Moresby|2|2627|1|0
+2641|Sandaun|2|2627|1|0
+2642|Simbu|2|2627|1|0
+2643|Southern Highlands|2|2627|1|0
+2644|West New Britain|2|2627|1|0
+2645|Western|2|2627|1|0
+2646|Western Highlands|2|2627|1|0
+2647|Paraguay|0|-1|0|1
+2648|Alto Paraguay|2|2647|1|0
+2649|Alto Parana|2|2647|1|0
+2650|Amambay|2|2647|1|0
+2651|Asuncion|2|2647|1|0
+2652|Boqueron|2|2647|1|0
+2653|Caaguazu|2|2647|1|0
+2654|Caazapa|2|2647|1|0
+2655|Canindeyu|2|2647|1|0
+2656|Central|2|2647|1|0
+2657|Concepcion|2|2647|1|0
+2658|Cordillera|2|2647|1|0
+2659|Guaira|2|2647|1|0
+2660|Itapua|2|2647|1|0
+2661|Misiones|2|2647|1|0
+2662|Neembucu|2|2647|1|0
+2663|Paraguari|2|2647|1|0
+2664|Presidente Hayes|2|2647|1|0
+2665|San Pedro|2|2647|1|0
+2666|Peru|0|-1|0|1
+2667|Amazonas|2|2666|1|0
+2668|Ancash|2|2666|1|0
+2669|Apurimac|2|2666|1|0
+2670|Arequipa|2|2666|1|0
+2671|Ayacucho|2|2666|1|0
+2672|Cajamarca|2|2666|1|0
+2673|Callao|2|2666|1|0
+2674|Chimbote|2|2666|1|0
+2675|Chincha Alta|2|2666|1|0
+2676|Cusco|2|2666|1|0
+2677|Huancavelica|2|2666|1|0
+2678|Huanuco|2|2666|1|0
+2679|Ica|2|2666|1|0
+2680|Juliaca|2|2666|1|0
+2681|Junin|2|2666|1|0
+2682|La Libertad|2|2666|1|0
+2683|Lambayeque|2|2666|1|0
+2684|Lima|2|2666|1|0
+2685|Loreto|2|2666|1|0
+2686|Madre de Dios|2|2666|1|0
+2687|Moquegua|2|2666|1|0
+2688|Pasco|2|2666|1|0
+2689|Piura|2|2666|1|0
+2690|Puno|2|2666|1|0
+2691|San Martin|2|2666|1|0
+2692|Sullana|2|2666|1|0
+2693|Tacna|2|2666|1|0
+2694|Tumbes|2|2666|1|0
+2695|Ucayali|2|2666|1|0
+2696|Philippines|0|-1|0|1
+2697|Caloocan|2|2696|1|0
+2698|Cebu|2|2696|1|0
+2699|Davao|2|2696|1|0
+2700|Manila|2|2696|1|0
+2701|Pitcairn Islands|0|-1|0|0
+2702|Poland|0|-1|0|1
+2703|Biała Podlaska|2|2702|1|0
+2704|Białystok|2|2702|1|0
+2705|Bydgoszcz|2|2702|1|0
+2706|Bytom|2|2702|1|0
+2707|Chełm|2|2702|1|0
+2708|Chorzow|2|2702|1|0
+2709|Ciechanow|2|2702|1|0
+2710|Dabrowa Gornicza|2|2702|1|0
+2711|Elbląg|2|2702|1|0
+2712|Gdansk|2|2702|1|0
+2713|Gdynia|2|2702|1|0
+2714|Gliwice|2|2702|1|0
+2715|Gorzow Wlkp|2|2702|1|0
+2716|Grudziadz|2|2702|1|0
+2717|Jaworzno|2|2702|1|0
+2718|Jelenia Gora|2|2702|1|0
+2719|Kalisz|2|2702|1|0
+2720|Katowice|2|2702|1|0
+2721|Kielce|2|2702|1|0
+2722|Konin|2|2702|1|0
+2723|Koszalin|2|2702|1|0
+2724|Krakow|2|2702|1|0
+2725|Krosno|2|2702|1|0
+2726|Legnica|2|2702|1|0
+2727|Leszno|2|2702|1|0
+2728|Lodz|2|2702|1|0
+2729|Lomza|2|2702|1|0
+2730|Lublin|2|2702|1|0
+2731|Mysłowice|2|2702|1|0
+2732|Nowy Sacz|2|2702|1|0
+2733|Olsztyn|2|2702|1|0
+2734|Opole|2|2702|1|0
+2735|Ostrołeka|2|2702|1|0
+2736|Piła|2|2702|1|0
+2737|Piotrkow|2|2702|1|0
+2738|Plock|2|2702|1|0
+2739|Poznan|2|2702|1|0
+2740|Przemysl|2|2702|1|0
+2741|Radom|2|2702|1|0
+2742|Ruda Sl|2|2702|1|0
+2743|Rzeszow|2|2702|1|0
+2744|Siedlce|2|2702|1|0
+2745|Siemianowice Sl|2|2702|1|0
+2746|Sieradz|2|2702|1|0
+2747|Skierniewice|2|2702|1|0
+2748|Slupsk|2|2702|1|0
+2749|Sopot|2|2702|1|0
+2750|Sosnowiec|2|2702|1|0
+2751|Suwałki|2|2702|1|0
+2752|Swietochłowice|2|2702|1|0
+2753|Swinoujscie|2|2702|1|0
+2754|Szczecin|2|2702|1|0
+2755|Tarnobrzeg|2|2702|1|0
+2756|Tarnow|2|2702|1|0
+2757|Torun|2|2702|1|0
+2758|Tychy|2|2702|1|0
+2759|Walbrzych|2|2702|1|0
+2760|Warszawa|2|2702|1|0
+2761|Wlocławek|2|2702|1|0
+2762|Wroclaw|2|2702|1|0
+2763|Zabrze|2|2702|1|0
+2764|Zamosc|2|2702|1|0
+2765|Zielona Gora|2|2702|1|0
+2766|Portugal|0|-1|0|1
+2767|Alentejo Central|2|2766|1|0
+2768|Alentejo Litoral|2|2766|1|0
+2769|Alto Alentejo|2|2766|1|0
+2770|Alto Tros-os-Montes|2|2766|1|0
+2771|Ave|2|2766|1|0
+2772|Baixo Alentejo|2|2766|1|0
+2773|Baixo Mondego|2|2766|1|0
+2774|Baixo Vouga|2|2766|1|0
+2775|Beira Interior Norte|2|2766|1|0
+2776|Beira Interior Sul|2|2766|1|0
+2777|Cavado|2|2766|1|0
+2778|Cova da Beira|2|2766|1|0
+2779|Douro|2|2766|1|0
+2780|Entre Douro e Vouga|2|2766|1|0
+2781|Faro|2|2766|1|0
+2782|Funchal|2|2766|1|0
+2783|Leziria do Tejo|2|2766|1|0
+2784|Lisboa|2|2766|1|0
+2785|Medio Tejo|2|2766|1|0
+2786|Minho-Lima|2|2766|1|0
+2787|Oeste|2|2766|1|0
+2788|Peninsula de Setubal|2|2766|1|0
+2789|Pinhal Interior Norte|2|2766|1|0
+2790|Pinhal Interior Sul|2|2766|1|0
+2791|Pinhal Litoral|2|2766|1|0
+2792|Ponta Delgada|2|2766|1|0
+2793|Porto|2|2766|1|0
+2794|Serra da Estrela|2|2766|1|0
+2795|Tamega|2|2766|1|0
+2796|Puerto Rico|0|-1|0|0
+2797|Qatar|0|-1|0|1
+2798|Ad Dawhah|2|2797|1|0
+2799|Al Ghuwariyah|2|2797|1|0
+2800|Al Jumaliyah|2|2797|1|0
+2801|Al Khawr|2|2797|1|0
+2802|Al Wakrah|2|2797|1|0
+2803|Ar Rayyan|2|2797|1|0
+2804|Jariyan al Batnah|2|2797|1|0
+2805|Madinat ach Shamal|2|2797|1|0
+2806|Umm Salal|2|2797|1|0
+2807|Reunion|0|-1|0|0
+2808|Romania|0|-1|0|1
+2809|Alba Iulia|2|2808|1|0
+2810|Alexandria|2|2808|1|0
+2811|Arad|2|2808|1|0
+2812|Bacau|2|2808|1|0
+2813|Baia Mare|2|2808|1|0
+2814|Bistrita|2|2808|1|0
+2815|Botosani|2|2808|1|0
+2816|Braila|2|2808|1|0
+2817|Brasov|2|2808|1|0
+2818|Bucuresti|2|2808|1|0
+2819|Buzau|2|2808|1|0
+2820|Calarasi|2|2808|1|0
+2821|Cluj-Napoca|2|2808|1|0
+2822|Constanta|2|2808|1|0
+2823|Craiova|2|2808|1|0
+2824|Deva|2|2808|1|0
+2825|Drobeta-Turnu Severin|2|2808|1|0
+2826|Focsani|2|2808|1|0
+2827|Galati|2|2808|1|0
+2828|Giurgiu|2|2808|1|0
+2829|Iasi|2|2808|1|0
+2830|Miercurea-Ciuc|2|2808|1|0
+2831|Oradea|2|2808|1|0
+2832|Piatra Neamt|2|2808|1|0
+2833|Pitesti|2|2808|1|0
+2834|Ploiesti|2|2808|1|0
+2835|Resita|2|2808|1|0
+2836|Satu Mare|2|2808|1|0
+2837|Sfantu-Gheorghe|2|2808|1|0
+2838|Sibiu|2|2808|1|0
+2839|Slatina|2|2808|1|0
+2840|Slobozia|2|2808|1|0
+2841|Suceava|2|2808|1|0
+2842|Targovişte|2|2808|1|0
+2843|Timisoara|2|2808|1|0
+2844|Tirgu Mures|2|2808|1|0
+2845|Tirgu-Jiu|2|2808|1|0
+2846|Tulcea|2|2808|1|0
+2847|Vaslui|2|2808|1|0
+2848|XRimnicu Vilcea|2|2808|1|0
+2849|Zalau|2|2808|1|0
+2850|Russia|0|-1|0|1
+2851|Abakan|2|2850|1|0
+2852|Aginskoye|2|2850|1|0
+2853|Anadyr|2|2850|1|0
+2854|Arkhangelsk|2|2850|1|0
+2855|Astrakhan|2|2850|1|0
+2856|Barnaul|2|2850|1|0
+2857|Belgorod|2|2850|1|0
+2858|Birobidzan|2|2850|1|0
+2859|Blagoveshchensk|2|2850|1|0
+2860|Bryansk|2|2850|1|0
+2861|Chabarovsk|2|2850|1|0
+2862|Cheboksary|2|2850|1|0
+2863|Chelyabinsk|2|2850|1|0
+2864|Cherkessk|2|2850|1|0
+2865|Chita|2|2850|1|0
+2866|Elista|2|2850|1|0
+2867|Gorno-Altajsk|2|2850|1|0
+2868|Grozny|2|2850|1|0
+2869|Irkutsk|2|2850|1|0
+2870|Ivanovo|2|2850|1|0
+2871|Izhevsk|2|2850|1|0
+2872|Jakutsk|2|2850|1|0
+2873|Jaroslavl|2|2850|1|0
+2874|Jekaterinburg|2|2850|1|0
+2875|Juzno-Sachalinsk|2|2850|1|0
+2876|Kaliningrad|2|2850|1|0
+2877|Kaluga|2|2850|1|0
+2878|Kazan|2|2850|1|0
+2879|Kemerovo|2|2850|1|0
+2880|Khanty-Mansiysk|2|2850|1|0
+2881|Kirov|2|2850|1|0
+2882|Kostroma|2|2850|1|0
+2883|Krasnodar|2|2850|1|0
+2884|Krasnojarsk|2|2850|1|0
+2885|Kudymkar|2|2850|1|0
+2886|Kurgan|2|2850|1|0
+2887|Kursk|2|2850|1|0
+2888|Kyzyl|2|2850|1|0
+2889|Lipeck|2|2850|1|0
+2890|Magadan|2|2850|1|0
+2891|Magas|2|2850|1|0
+2892|Makhachkala|2|2850|1|0
+2893|Maykop|2|2850|1|0
+2894|Moscow|2|2850|1|0
+2895|Murmansk|2|2850|1|0
+2896|Nalchik|2|2850|1|0
+2897|Naryan-Mar|2|2850|1|0
+2898|Niznij Novgorod|2|2850|1|0
+2899|Novosibirsk|2|2850|1|0
+2900|Omsk|2|2850|1|0
+2901|Orel|2|2850|1|0
+2902|Orenburg|2|2850|1|0
+2903|Palana|2|2850|1|0
+2904|Penza|2|2850|1|0
+2905|Perm|2|2850|1|0
+2906|Petropavlovsk-Kamchatskiy|2|2850|1|0
+2907|Petrozavodsk|2|2850|1|0
+2908|Pskov|2|2850|1|0
+2909|Rostov-na-Donu|2|2850|1|0
+2910|Ryazan|2|2850|1|0
+2911|Salekhard|2|2850|1|0
+2912|Samara|2|2850|1|0
+2913|Saransk|2|2850|1|0
+2914|Saratov|2|2850|1|0
+2915|Smolensk|2|2850|1|0
+2916|St. Peterburg|2|2850|1|0
+2917|Stavropol|2|2850|1|0
+2918|Syktyvkar|2|2850|1|0
+2919|Tambov|2|2850|1|0
+2920|Tomsk|2|2850|1|0
+2921|Tula|2|2850|1|0
+2922|Tver|2|2850|1|0
+2923|Tyumen|2|2850|1|0
+2924|Ufa|2|2850|1|0
+2925|Ulan-Ude|2|2850|1|0
+2926|Uljanovsk|2|2850|1|0
+2927|Ust-Ordynsky|2|2850|1|0
+2928|Velikij Novgorod|2|2850|1|0
+2929|Vladikavkaz|2|2850|1|0
+2930|Vladimir|2|2850|1|0
+2931|Vladivostok|2|2850|1|0
+2932|Volgograd|2|2850|1|0
+2933|Vologda|2|2850|1|0
+2934|Voronezh|2|2850|1|0
+2935|Yoshkar-Ola|2|2850|1|0
+2936|Rwanda|0|-1|0|1
+2937|Butare|2|2936|1|0
+2938|Byumba|2|2936|1|0
+2939|Cyangugu|2|2936|1|0
+2940|Gikongoro|2|2936|1|0
+2941|Gisenyi|2|2936|1|0
+2942|Gitarama|2|2936|1|0
+2943|Kabuga|2|2936|1|0
+2944|Kibungo|2|2936|1|0
+2945|Kibuye|2|2936|1|0
+2946|Kigali-Ngali|2|2936|1|0
+2947|Kigali-Ville|2|2936|1|0
+2948|Nyanza|2|2936|1|0
+2949|Ruhango|2|2936|1|0
+2950|Ruhengeri|2|2936|1|0
+2951|Rwamagana|2|2936|1|0
+2952|Umutara|2|2936|1|0
+2953|Samoa|0|-1|0|0
+2954|San Marino|0|-1|0|0
+2955|Sao Tome and Principe|0|-1|0|0
+2956|Saudi Arabia|0|-1|0|1
+2957|Abha|2|2956|1|0
+2958|Al Bahah|2|2956|1|0
+2959|Al-Hufuf|2|2956|1|0
+2960|Al-Jubayl|2|2956|1|0
+2961|Al-Kharj|2|2956|1|0
+2962|Al-Mubarraz|2|2956|1|0
+2963|Arar|2|2956|1|0
+2964|At Tarif|2|2956|1|0
+2965|Buraydah|2|2956|1|0
+2966|Dammam|2|2956|1|0
+2967|Hafar al-Batin|2|2956|1|0
+2968|Hail|2|2956|1|0
+2969|Jiddah|2|2956|1|0
+2970|Jizan|2|2956|1|0
+2971|Khamis Mushayt|2|2956|1|0
+2972|Makkah|2|2956|1|0
+2973|Medina|2|2956|1|0
+2974|Najran|2|2956|1|0
+2975|Riyad|2|2956|1|0
+2976|Sakaka|2|2956|1|0
+2977|Tabuk|2|2956|1|0
+2978|Yanbu al-Bahr|2|2956|1|0
+2979|Senegal|0|-1|0|1
+2980|Dakar|2|2979|1|0
+2981|Diourbel|2|2979|1|0
+2982|Fatick|2|2979|1|0
+2983|Kaolack|2|2979|1|0
+2984|Kolda|2|2979|1|0
+2985|Louga|2|2979|1|0
+2986|Matam|2|2979|1|0
+2987|Saint-Louis|2|2979|1|0
+2988|Tambacounda|2|2979|1|0
+2989|Thies|2|2979|1|0
+2990|Ziguinchor|2|2979|1|0
+2991|Serbia,Montenegro|0|-1|0|1
+2992|Beograd|2|2991|1|0
+2993|Kragujevac|2|2991|1|0
+2994|Nis|2|2991|1|0
+2995|Novi Sad|2|2991|1|0
+2996|Podgorica|2|2991|1|0
+2997|Pristina|2|2991|1|0
+2998|Subotica|2|2991|1|0
+2999|Zemun|2|2991|1|0
+3000|Seychelles|0|-1|0|0
+3001|Sierra Leone|0|-1|0|1
+3002|Eastern|2|3001|1|0
+3003|Northern|2|3001|1|0
+3004|Southern|2|3001|1|0
+3005|Western|2|3001|1|0
+3006|Singapore|0|-1|0|0
+3007|Slovakia|0|-1|0|1
+3008|Banskobystricky|2|3007|1|0
+3009|Bratislavsky|2|3007|1|0
+3010|Koricky|2|3007|1|0
+3011|Nitriansky|2|3007|1|0
+3012|Prerovsky|2|3007|1|0
+3013|Rilinsky|2|3007|1|0
+3014|Trenriansky|2|3007|1|0
+3015|Trnavsky|2|3007|1|0
+3016|Slovenia|0|-1|0|1
+3017|Dolenjska|2|3016|1|0
+3018|Gorenjska|2|3016|1|0
+3019|Goriska|2|3016|1|0
+3020|Koroska|2|3016|1|0
+3021|Notranjsko-kraska|2|3016|1|0
+3022|Obalno-kraska|2|3016|1|0
+3023|Osrednjeslovenska|2|3016|1|0
+3024|Podravska|2|3016|1|0
+3025|Pomurska|2|3016|1|0
+3026|Savinjska|2|3016|1|0
+3027|Spodnjeposavska|2|3016|1|0
+3028|Zasavska|2|3016|1|0
+3029|Solomon Islands|0|-1|0|1
+3030|Central Islands|2|3029|1|0
+3031|Choiseul|2|3029|1|0
+3032|Guadalcanal|2|3029|1|0
+3033|Honiara|2|3029|1|0
+3034|Isabel|2|3029|1|0
+3035|Makira|2|3029|1|0
+3036|Malaita|2|3029|1|0
+3037|Rennell and Bellona|2|3029|1|0
+3038|Temotu|2|3029|1|0
+3039|Western|2|3029|1|0
+3040|Somalia|0|-1|0|0
+3041|South Africa|0|-1|0|1
+3042|Barkley East|2|3041|1|0
+3043|Beaufort West|2|3041|1|0
+3044|Bisho|2|3041|1|0
+3045|Bloemfontein|2|3041|1|0
+3046|Bredasdorp|2|3041|1|0
+3047|Bronkhorstspruit|2|3041|1|0
+3048|Cape Town|2|3041|1|0
+3049|De Aar|2|3041|1|0
+3050|Dundee|2|3041|1|0
+3051|Durban|2|3041|1|0
+3052|East London|2|3041|1|0
+3053|George|2|3041|1|0
+3054|Giyani|2|3041|1|0
+3055|Groblersdal|2|3041|1|0
+3056|Ixopo|2|3041|1|0
+3057|Johannesburg|2|3041|1|0
+3058|Kimberley|2|3041|1|0
+3059|Klerksdorp|2|3041|1|0
+3060|Kuruman|2|3041|1|0
+3061|Ladysmith|2|3041|1|0
+3062|Middelburg|2|3041|1|0
+3063|Mkuze|2|3041|1|0
+3064|Moorreesburg|2|3041|1|0
+3065|Mount Ayliff|2|3041|1|0
+3066|Nelspruit|2|3041|1|0
+3067|Newcastle|2|3041|1|0
+3068|Nylstroom|2|3041|1|0
+3069|Pietermaritzburg|2|3041|1|0
+3070|Pietersburg|2|3041|1|0
+3071|Port Elizabeth|2|3041|1|0
+3072|Port Shepstone|2|3041|1|0
+3073|Pretoria|2|3041|1|0
+3074|Queenstown|2|3041|1|0
+3075|Randfontein|2|3041|1|0
+3076|Richards Bay|2|3041|1|0
+3077|Rustenburg|2|3041|1|0
+3078|Sasolburg|2|3041|1|0
+3079|Secunda|2|3041|1|0
+3080|Springbok|2|3041|1|0
+3081|Thohoyandou|2|3041|1|0
+3082|Thulamahashe|2|3041|1|0
+3083|Trompsburg|2|3041|1|0
+3084|Ulundi|2|3041|1|0
+3085|Umtata|2|3041|1|0
+3086|Upington|2|3041|1|0
+3087|Vereeniging|2|3041|1|0
+3088|Vryburg|2|3041|1|0
+3089|Welkom|2|3041|1|0
+3090|Witsieshoek|2|3041|1|0
+3091|Worcester|2|3041|1|0
+3092|South Georgia and South Sandwich Islands|0|-1|0|0
+3093|Spain|0|-1|0|1
+3094|Alava|2|3093|1|0
+3095|Albacete|2|3093|1|0
+3096|Alicante|2|3093|1|0
+3097|Almeria|2|3093|1|0
+3098|Asturias|2|3093|1|0
+3099|Avila|2|3093|1|0
+3100|Badajoz|2|3093|1|0
+3101|Baleares|2|3093|1|0
+3102|Barcelona|2|3093|1|0
+3103|Burgos|2|3093|1|0
+3104|Caceres|2|3093|1|0
+3105|Cadiz|2|3093|1|0
+3106|Castellon|2|3093|1|0
+3107|Cludad Real|2|3093|1|0
+3108|Cordoba|2|3093|1|0
+3109|Cuenca|2|3093|1|0
+3110|Gerona|2|3093|1|0
+3111|Granada|2|3093|1|0
+3112|Guadalajara|2|3093|1|0
+3113|Guipuzcoa|2|3093|1|0
+3114|Huelva|2|3093|1|0
+3115|Huesca|2|3093|1|0
+3116|Jaen|2|3093|1|0
+3117|La Coruna|2|3093|1|0
+3118|La Rioja|2|3093|1|0
+3119|Las Palmas|2|3093|1|0
+3120|Leon|2|3093|1|0
+3121|Lleida|2|3093|1|0
+3122|Madrid|2|3093|1|0
+3123|Malaga|2|3093|1|0
+3124|Murcia|2|3093|1|0
+3125|Navarra|2|3093|1|0
+3126|Orense|2|3093|1|0
+3127|Palencia|2|3093|1|0
+3128|Provincia de Lugo|2|3093|1|0
+3129|Provincia de Pontevedra|2|3093|1|0
+3130|Salamanca|2|3093|1|0
+3131|Santa Cruz de Tenerife|2|3093|1|0
+3132|Santander|2|3093|1|0
+3133|Segovia|2|3093|1|0
+3134|Sevilla|2|3093|1|0
+3135|Soria|2|3093|1|0
+3136|Tarragona|2|3093|1|0
+3137|Teruel|2|3093|1|0
+3138|Toledo|2|3093|1|0
+3139|Valencia|2|3093|1|0
+3140|Valladolid|2|3093|1|0
+3141|Vizcaya|2|3093|1|0
+3142|Zamora|2|3093|1|0
+3143|Zaragoza|2|3093|1|0
+3144|Sri Lanka|0|-1|0|1
+3145|Ampara|2|3144|1|0
+3146|Anuradhapura|2|3144|1|0
+3147|Badulla|2|3144|1|0
+3148|Batticaloa|2|3144|1|0
+3149|Colombo|2|3144|1|0
+3150|Galle|2|3144|1|0
+3151|Gampaha|2|3144|1|0
+3152|Hambantota|2|3144|1|0
+3153|Jaffna|2|3144|1|0
+3154|Kalutara|2|3144|1|0
+3155|Kandy|2|3144|1|0
+3156|Kegalle|2|3144|1|0
+3157|Kilinochchi|2|3144|1|0
+3158|Kurunegala|2|3144|1|0
+3159|Mannar|2|3144|1|0
+3160|Matale|2|3144|1|0
+3161|Matara|2|3144|1|0
+3162|Monaragala|2|3144|1|0
+3163|Mullathivu|2|3144|1|0
+3164|Nuwara Eliya|2|3144|1|0
+3165|Polonnaruwa|2|3144|1|0
+3166|Puttalam|2|3144|1|0
+3167|Ratnapura|2|3144|1|0
+3168|Trincomalee|2|3144|1|0
+3169|Vavuniya|2|3144|1|0
+3170|St.Helena|0|-1|0|0
+3171|St.Kitts and Nevis|0|-1|0|0
+3172|St.Lucia|0|-1|0|0
+3173|St.Pierre and Miquelon|0|-1|0|0
+3174|St.Vincent and the Grenadines|0|-1|0|0
+3175|Sudan|0|-1|0|1
+3176|Aali an-Nil|2|3175|1|0
+3177|Al Wasta|2|3175|1|0
+3178|Al-Istiwaiyah|2|3175|1|0
+3179|Al-Khartum|2|3175|1|0
+3180|Ash-Shamaliyah|2|3175|1|0
+3181|Ash-Sharqiyah|2|3175|1|0
+3182|Bahr al-Ghazal|2|3175|1|0
+3183|Darfur|2|3175|1|0
+3184|Kurdufan|2|3175|1|0
+3185|Suriname|0|-1|0|1
+3186|Brokopondo|2|3185|1|0
+3187|Commewijne|2|3185|1|0
+3188|Coronie|2|3185|1|0
+3189|Marowijne|2|3185|1|0
+3190|Nickerie|2|3185|1|0
+3191|Para|2|3185|1|0
+3192|Paramaribo|2|3185|1|0
+3193|Saramacca|2|3185|1|0
+3194|Sipaliwini|2|3185|1|0
+3195|Wanica|2|3185|1|0
+3196|Svalbard and Jan Mayen|0|-1|0|0
+3197|Swaziland|0|-1|0|0
+3198|Sweden|0|-1|0|1
+3199|Blekinge|2|3198|1|0
+3200|Dalarnas|2|3198|1|0
+3201|Gavleborgs|2|3198|1|0
+3202|Gotlands|2|3198|1|0
+3203|Hallands|2|3198|1|0
+3204|Jamtlands|2|3198|1|0
+3205|Jonkopings|2|3198|1|0
+3206|Kalmar|2|3198|1|0
+3207|Kronobergs|2|3198|1|0
+3208|Norrbottens|2|3198|1|0
+3209|Orebro|2|3198|1|0
+3210|Skane|2|3198|1|0
+3211|Sodermanlands|2|3198|1|0
+3212|Stockholms|2|3198|1|0
+3213|Uppsala|2|3198|1|0
+3214|Ustergotland|2|3198|1|0
+3215|Varmlands|2|3198|1|0
+3216|Vasterbottens|2|3198|1|0
+3217|Vasternorrlands|2|3198|1|0
+3218|Vastmanlands|2|3198|1|0
+3219|Vastra Gotalands|2|3198|1|0
+3220|Switzerland|0|-1|0|1
+3221|Aargau|2|3220|1|0
+3222|Appenzell Ausserrhon|2|3220|1|0
+3223|Appenzell Innerrhodn|2|3220|1|0
+3224|Basel Landschaft|2|3220|1|0
+3225|Basel－Sstadt|2|3220|1|0
+3226|Bern|2|3220|1|0
+3227|Freiburg|2|3220|1|0
+3228|Geneve|2|3220|1|0
+3229|Glarus|2|3220|1|0
+3230|Graubünden|2|3220|1|0
+3231|Jura|2|3220|1|0
+3232|Lausanne|2|3220|1|0
+3233|Luzern|2|3220|1|0
+3234|Neuchatel|2|3220|1|0
+3235|Nidwalden|2|3220|1|0
+3236|Obwalden|2|3220|1|0
+3237|Schaffhausen|2|3220|1|0
+3238|Schwyz|2|3220|1|0
+3239|Solothurn|2|3220|1|0
+3240|St.Gallen|2|3220|1|0
+3241|Thurgau|2|3220|1|0
+3242|Ticino|2|3220|1|0
+3243|Uri|2|3220|1|0
+3244|Vaud|2|3220|1|0
+3245|Wallis|2|3220|1|0
+3246|Zug|2|3220|1|0
+3247|Zurich|2|3220|1|0
+3248|Syria|0|-1|0|1
+3249|Al Ghab|2|3248|1|0
+3250|Al Hasakah|2|3248|1|0
+3251|Al Ladhiqiyah|2|3248|1|0
+3252|Al Qunaytirah|2|3248|1|0
+3253|Al-Qamishli|2|3248|1|0
+3254|Ar Raqqah|2|3248|1|0
+3255|As Suwayda|2|3248|1|0
+3256|Dara|2|3248|1|0
+3257|Dayr az Zawr|2|3248|1|0
+3258|Halab|2|3248|1|0
+3259|Hamah|2|3248|1|0
+3260|Hims|2|3248|1|0
+3261|Idlib|2|3248|1|0
+3262|Madinat Dimashq|2|3248|1|0
+3263|Rif Dimashq|2|3248|1|0
+3264|Tartus|2|3248|1|0
+3265|Tajikistan|0|-1|0|1
+3266|Dushanbe|2|3265|1|0
+3267|Isfara|2|3265|1|0
+3268|Kanibadam|2|3265|1|0
+3269|Khorugh|2|3265|1|0
+3270|Khujand|2|3265|1|0
+3271|Kofarnihon|2|3265|1|0
+3272|Kulob|2|3265|1|0
+3273|Kurgan-Tjube|2|3265|1|0
+3274|Nurek|2|3265|1|0
+3275|Pendzhikent|2|3265|1|0
+3276|Rogun|2|3265|1|0
+3277|Sarband|2|3265|1|0
+3278|Taboshar|2|3265|1|0
+3279|Tursunzade|2|3265|1|0
+3280|Ura-Tjube|2|3265|1|0
+3281|Tanzania|0|-1|0|1
+3282|Arusha|2|3281|1|0
+3283|Dar es Salaam|2|3281|1|0
+3284|Dodoma|2|3281|1|0
+3285|Iringa|2|3281|1|0
+3286|Kagera|2|3281|1|0
+3287|Kaskazini Pemba|2|3281|1|0
+3288|Kaskazini Unguja|2|3281|1|0
+3289|Kigoma|2|3281|1|0
+3290|Kilimanjaro|2|3281|1|0
+3291|Kusini Pemba|2|3281|1|0
+3292|Kusini Unguja|2|3281|1|0
+3293|Lindi|2|3281|1|0
+3294|Manyara|2|3281|1|0
+3295|Mara|2|3281|1|0
+3296|Mbeya|2|3281|1|0
+3297|Mjini Magharibi|2|3281|1|0
+3298|Morogoro|2|3281|1|0
+3299|Mtwara|2|3281|1|0
+3300|Mwanza|2|3281|1|0
+3301|Pwani|2|3281|1|0
+3302|Rukwa|2|3281|1|0
+3303|Ruvuma|2|3281|1|0
+3304|Shinyanga|2|3281|1|0
+3305|Singida|2|3281|1|0
+3306|Tabora|2|3281|1|0
+3307|Tanga|2|3281|1|0
+3308|Zanzibar|2|3281|1|0
+3309|Thailand|0|-1|0|1
+3310|Amnat Charoen|2|3309|1|0
+3311|Ang Thong|2|3309|1|0
+3312|Bangkok|2|3309|1|0
+3313|Buri Ram|2|3309|1|0
+3314|Chachoengsao|2|3309|1|0
+3315|Chai Nat|2|3309|1|0
+3316|Chaiyaphum|2|3309|1|0
+3317|Chanthaburi|2|3309|1|0
+3318|Chiang Mai|2|3309|1|0
+3319|Chiang Rai|2|3309|1|0
+3320|Chon Buri|2|3309|1|0
+3321|Chumphon|2|3309|1|0
+3322|Kalasin|2|3309|1|0
+3323|Kamphaeng Phet|2|3309|1|0
+3324|Kanchanaburi|2|3309|1|0
+3325|Khon Kaen|2|3309|1|0
+3326|Krabi|2|3309|1|0
+3327|Lamphun|2|3309|1|0
+3328|Loei|2|3309|1|0
+3329|Lop Buri|2|3309|1|0
+3330|Mae Hong Son|2|3309|1|0
+3331|Maha Sarakham|2|3309|1|0
+3332|Mukdahan|2|3309|1|0
+3333|Nakhon Nayok|2|3309|1|0
+3334|Nakhon Pathom|2|3309|1|0
+3335|Nakhon Phanom|2|3309|1|0
+3336|Nakhon Sawan|2|3309|1|0
+3337|Nakhon Si Thammarat|2|3309|1|0
+3338|Nan|2|3309|1|0
+3339|Narathiwat|2|3309|1|0
+3340|Nong Bua Lamphu|2|3309|1|0
+3341|Nong Khai|2|3309|1|0
+3342|Nonthaburi|2|3309|1|0
+3343|Pathum Thani|2|3309|1|0
+3344|Pattani|2|3309|1|0
+3345|Phangnga|2|3309|1|0
+3346|Phatthalung|2|3309|1|0
+3347|Phayao|2|3309|1|0
+3348|Phetchabun|2|3309|1|0
+3349|Phetchaburi|2|3309|1|0
+3350|Phichit|2|3309|1|0
+3351|Phitsanulok|2|3309|1|0
+3352|Phra Nakhon Si Ayutthaya|2|3309|1|0
+3353|Phrae|2|3309|1|0
+3354|Phuket|2|3309|1|0
+3355|Prachin Buri|2|3309|1|0
+3356|Prachuap Khiri Khan|2|3309|1|0
+3357|Ranong|2|3309|1|0
+3358|Ratchaburi|2|3309|1|0
+3359|Rayong|2|3309|1|0
+3360|Roi Et|2|3309|1|0
+3361|Sa Kaeo|2|3309|1|0
+3362|Sakon Nakhon|2|3309|1|0
+3363|Samut Prakan|2|3309|1|0
+3364|Samut Sakhon|2|3309|1|0
+3365|Samut Songkhram|2|3309|1|0
+3366|Saraburi|2|3309|1|0
+3367|Satun|2|3309|1|0
+3368|Si sa ket|2|3309|1|0
+3369|Sing Buri|2|3309|1|0
+3370|Songkhla|2|3309|1|0
+3371|Sukhothai|2|3309|1|0
+3372|Suphan Buri|2|3309|1|0
+3373|Surat Thani|2|3309|1|0
+3374|Surin|2|3309|1|0
+3375|Tak|2|3309|1|0
+3376|Trang|2|3309|1|0
+3377|Trat|2|3309|1|0
+3378|Ubon Ratchathani|2|3309|1|0
+3379|Udon Thani|2|3309|1|0
+3380|Uthai Thani|2|3309|1|0
+3381|Uttaradit|2|3309|1|0
+3382|Yala|2|3309|1|0
+3383|Yasothon|2|3309|1|0
+3384|Timor-Leste|0|-1|0|1
+3385|Aileu|2|3384|1|0
+3386|Ainaro|2|3384|1|0
+3387|Ambeno|2|3384|1|0
+3388|Baucau|2|3384|1|0
+3389|Bobonaro|2|3384|1|0
+3390|Dili|2|3384|1|0
+3391|Ermera|2|3384|1|0
+3392|Kovalima|2|3384|1|0
+3393|Lautem|2|3384|1|0
+3394|Liquica|2|3384|1|0
+3395|Manatuto|2|3384|1|0
+3396|Manofahi|2|3384|1|0
+3397|Viqueque|2|3384|1|0
+3398|Togo|0|-1|0|1
+3399|Centre|2|3398|1|0
+3400|Kara|2|3398|1|0
+3401|Maritime|2|3398|1|0
+3402|Plateaux|2|3398|1|0
+3403|Savanes|2|3398|1|0
+3404|Tokelau|0|-1|0|0
+3405|Tonga|0|-1|0|1
+3406|Eua|2|3405|1|0
+3407|Haapai|2|3405|1|0
+3408|Niuas|2|3405|1|0
+3409|Tongatapu|2|3405|1|0
+3410|Vavau|2|3405|1|0
+3411|Trinidad and Tobago|0|-1|0|0
+3412|Tristan da Cunha|0|-1|0|0
+3413|Tunisia|0|-1|0|1
+3414|Ariana|2|3413|1|0
+3415|Beja|2|3413|1|0
+3416|Ben Arous|2|3413|1|0
+3417|Bizerte|2|3413|1|0
+3418|Gabes|2|3413|1|0
+3419|Gafsa|2|3413|1|0
+3420|Jendouba|2|3413|1|0
+3421|Kairouan|2|3413|1|0
+3422|Kasserine|2|3413|1|0
+3423|Kebili|2|3413|1|0
+3424|Le Kef|2|3413|1|0
+3425|Mahdia|2|3413|1|0
+3426|Manouba|2|3413|1|0
+3427|Medenine|2|3413|1|0
+3428|Monastir|2|3413|1|0
+3429|Nabeul|2|3413|1|0
+3430|Sfax|2|3413|1|0
+3431|Sidi Bouzid|2|3413|1|0
+3432|Siliana|2|3413|1|0
+3433|Sousse|2|3413|1|0
+3434|Tataouine|2|3413|1|0
+3435|Tozeur|2|3413|1|0
+3436|Tunis|2|3413|1|0
+3437|Zaghouan|2|3413|1|0
+3438|Turkey|0|-1|0|1
+3439|Adana|2|3438|1|0
+3440|Adiyaman|2|3438|1|0
+3441|Afyon|2|3438|1|0
+3442|Agri|2|3438|1|0
+3443|Aksaray|2|3438|1|0
+3444|Amasya|2|3438|1|0
+3445|Ankara|2|3438|1|0
+3446|Antalya|2|3438|1|0
+3447|Ardahan|2|3438|1|0
+3448|Artvin|2|3438|1|0
+3449|Aydin|2|3438|1|0
+3450|Balikesir|2|3438|1|0
+3451|Bartin|2|3438|1|0
+3452|Batman|2|3438|1|0
+3453|Bayburt|2|3438|1|0
+3454|Bilecik|2|3438|1|0
+3455|Bingol|2|3438|1|0
+3456|Bitlis|2|3438|1|0
+3457|Bolu|2|3438|1|0
+3458|Burdur|2|3438|1|0
+3459|Bursa|2|3438|1|0
+3460|Canakkale|2|3438|1|0
+3461|Cankiri|2|3438|1|0
+3462|Corum|2|3438|1|0
+3463|Denizli|2|3438|1|0
+3464|Diyarbakir|2|3438|1|0
+3465|Edirne|2|3438|1|0
+3466|Elazig|2|3438|1|0
+3467|Erzincan|2|3438|1|0
+3468|Erzurum|2|3438|1|0
+3469|Eskisehir|2|3438|1|0
+3470|Gaziantep|2|3438|1|0
+3471|Giresun|2|3438|1|0
+3472|Gumushane|2|3438|1|0
+3473|Hakkari|2|3438|1|0
+3474|Hatay|2|3438|1|0
+3475|Icel|2|3438|1|0
+3476|Igdir|2|3438|1|0
+3477|Isparta|2|3438|1|0
+3478|Istanbul|2|3438|1|0
+3479|Izmir|2|3438|1|0
+3480|Kahraman Maras|2|3438|1|0
+3481|Karabuk|2|3438|1|0
+3482|Karaman|2|3438|1|0
+3483|Kars|2|3438|1|0
+3484|Kastamonu|2|3438|1|0
+3485|Kayseri|2|3438|1|0
+3486|Kilis|2|3438|1|0
+3487|Kirikkale|2|3438|1|0
+3488|Kirklareli|2|3438|1|0
+3489|Kirsehir|2|3438|1|0
+3490|Kocaeli|2|3438|1|0
+3491|Konya|2|3438|1|0
+3492|Kutahya|2|3438|1|0
+3493|Malatya|2|3438|1|0
+3494|Manisa|2|3438|1|0
+3495|Mardin|2|3438|1|0
+3496|Mugla|2|3438|1|0
+3497|Mus|2|3438|1|0
+3498|Nevsehir|2|3438|1|0
+3499|Nigde|2|3438|1|0
+3500|Ordu|2|3438|1|0
+3501|Rize|2|3438|1|0
+3502|Sakarya|2|3438|1|0
+3503|Samsun|2|3438|1|0
+3504|Siirt|2|3438|1|0
+3505|Sinop|2|3438|1|0
+3506|Sirnak|2|3438|1|0
+3507|Sivas|2|3438|1|0
+3508|Tekirdag|2|3438|1|0
+3509|Tokat|2|3438|1|0
+3510|Trabzon|2|3438|1|0
+3511|Tunceli|2|3438|1|0
+3512|Urfa|2|3438|1|0
+3513|Usak|2|3438|1|0
+3514|Van|2|3438|1|0
+3515|Yozgat|2|3438|1|0
+3516|Zonguldak|2|3438|1|0
+3517|Turkmenistan|0|-1|0|1
+3518|Ahal|2|3517|1|0
+3519|Ashgabat|2|3517|1|0
+3520|Balkan|2|3517|1|0
+3521|Dashoguz|2|3517|1|0
+3522|Lebap|2|3517|1|0
+3523|Mary|2|3517|1|0
+3524|Nebitdag|2|3517|1|0
+3525|Turks and Caicos Islands|0|-1|0|0
+3526|Tuvalu|0|-1|0|0
+3527|Uganda|0|-1|0|1
+3528|Adjumani|2|3527|1|0
+3529|Apac|2|3527|1|0
+3530|Arua|2|3527|1|0
+3531|Bugiri|2|3527|1|0
+3532|Bundibugyo|2|3527|1|0
+3533|Bushenyi|2|3527|1|0
+3534|Busia|2|3527|1|0
+3535|Gulu|2|3527|1|0
+3536|Hoima|2|3527|1|0
+3537|Iganga|2|3527|1|0
+3538|Jinja|2|3527|1|0
+3539|Kabale|2|3527|1|0
+3540|Kabarole|2|3527|1|0
+3541|Kaberamaido|2|3527|1|0
+3542|Kalangala|2|3527|1|0
+3543|Kampala|2|3527|1|0
+3544|Kamuli|2|3527|1|0
+3545|Kamwenge|2|3527|1|0
+3546|Kanungu|2|3527|1|0
+3547|Kapchorwa|2|3527|1|0
+3548|Kasese|2|3527|1|0
+3549|Katakwi|2|3527|1|0
+3550|Kayunga|2|3527|1|0
+3551|Kibaale|2|3527|1|0
+3552|Kiboga|2|3527|1|0
+3553|Kisoro|2|3527|1|0
+3554|Kitgum|2|3527|1|0
+3555|Kotido|2|3527|1|0
+3556|Kumi|2|3527|1|0
+3557|Kyenjojo|2|3527|1|0
+3558|Lira|2|3527|1|0
+3559|Luwero|2|3527|1|0
+3560|Masaka|2|3527|1|0
+3561|Masindi|2|3527|1|0
+3562|Mayuge|2|3527|1|0
+3563|Mbale|2|3527|1|0
+3564|Mbarara|2|3527|1|0
+3565|Moroto|2|3527|1|0
+3566|Moyo|2|3527|1|0
+3567|Mpigi|2|3527|1|0
+3568|Mubende|2|3527|1|0
+3569|Mukono|2|3527|1|0
+3570|Nakapiripirit|2|3527|1|0
+3571|Nakasongola|2|3527|1|0
+3572|Nebbi|2|3527|1|0
+3573|Ntungamo|2|3527|1|0
+3574|Pader|2|3527|1|0
+3575|Pallisa|2|3527|1|0
+3576|Rakai|2|3527|1|0
+3577|Rukungiri|2|3527|1|0
+3578|Sembabule|2|3527|1|0
+3579|Sironko|2|3527|1|0
+3580|Soroti|2|3527|1|0
+3581|Tororo|2|3527|1|0
+3582|Wakiso|2|3527|1|0
+3583|Yumbe|2|3527|1|0
+3584|Ukraine|0|-1|0|1
+3585|Cherkasy|2|3584|1|0
+3586|Chernihiv|2|3584|1|0
+3587|Chernivtsi|2|3584|1|0
+3588|Dnipropetrovsk|2|3584|1|0
+3589|Donetsk|2|3584|1|0
+3590|Ivano-Frankivsk|2|3584|1|0
+3591|Kharkiv|2|3584|1|0
+3592|Khersonsrka|2|3584|1|0
+3593|Khmelnytsky|2|3584|1|0
+3594|Kirovohrad|2|3584|1|0
+3595|Kyiv|2|3584|1|0
+3596|Luhansk|2|3584|1|0
+3597|Lviv|2|3584|1|0
+3598|Mykolayiv|2|3584|1|0
+3599|Odessa|2|3584|1|0
+3600|Poltava|2|3584|1|0
+3601|Respublika Krym|2|3584|1|0
+3602|Rivne|2|3584|1|0
+3603|Sumy|2|3584|1|0
+3604|Ternopil|2|3584|1|0
+3605|Vinnytsya|2|3584|1|0
+3606|Volyn|2|3584|1|0
+3607|Zakarpatska|2|3584|1|0
+3608|Zaporizhzhya|2|3584|1|0
+3609|Zhytomyr|2|3584|1|0
+3610|United Arab Emirates|0|-1|0|1
+3611|Abu Dhabi|2|3610|1|0
+3612|Al l&apos;Ayn|2|3610|1|0
+3613|Ash Shariqah|2|3610|1|0
+3614|Dubai|2|3610|1|0
+3615|United Kingdom|0|-1|0|1
+3616|England|1|3615|1|1
+3617|Bath|2|3616|1|0
+3618|Birmingham|2|3616|1|0
+3619|Bradford|2|3616|1|0
+3620|Brighton &amp; Hove|2|3616|1|0
+3621|Bristol|2|3616|1|0
+3622|Cambridge|2|3616|1|0
+3623|Canterbury|2|3616|1|0
+3624|Carlisle|2|3616|1|0
+3625|Chester|2|3616|1|0
+3626|Chichester|2|3616|1|0
+3627|Coventry|2|3616|1|0
+3628|Derby|2|3616|1|0
+3629|Durham|2|3616|1|0
+3630|Ely|2|3616|1|0
+3631|Exeter|2|3616|1|0
+3632|Gloucester|2|3616|1|0
+3633|Hereford|2|3616|1|0
+3634|Kingston upon Hull|2|3616|1|0
+3635|Lancaster|2|3616|1|0
+3636|Leeds|2|3616|1|0
+3637|Leicester|2|3616|1|0
+3638|Lichfield|2|3616|1|0
+3639|Lincoln|2|3616|1|0
+3640|Liverpool|2|3616|1|0
+3641|London|2|3616|1|0
+3642|Manchester|2|3616|1|0
+3643|Newcastle|2|3616|1|0
+3644|Norwich|2|3616|1|0
+3645|Nottingham|2|3616|1|0
+3646|Oxford|2|3616|1|0
+3647|Peterborough|2|3616|1|0
+3648|Plymouth|2|3616|1|0
+3649|Portsmouth|2|3616|1|0
+3650|Preston|2|3616|1|0
+3651|Ripon|2|3616|1|0
+3652|Saint Albans|2|3616|1|0
+3653|Salford|2|3616|1|0
+3654|Salisbury|2|3616|1|0
+3655|Sheffield|2|3616|1|0
+3656|Southampton|2|3616|1|0
+3657|Stoke-on-Trent|2|3616|1|0
+3658|Sunderland|2|3616|1|0
+3659|Truro|2|3616|1|0
+3660|Wakefield|2|3616|1|0
+3661|Wells|2|3616|1|0
+3662|Winchester|2|3616|1|0
+3663|Wolverhampton|2|3616|1|0
+3664|Worcester|2|3616|1|0
+3665|York|2|3616|1|0
+3666|Northern Ireland|1|3615|1|1
+3667|Belfast|2|3666|1|0
+3668|Derry|2|3666|1|0
+3669|Lisburn|2|3666|1|0
+3670|Newry|2|3666|1|0
+3671|Scotland|1|3615|1|1
+3672|Aberdeen|2|3671|1|0
+3673|Dundee|2|3671|1|0
+3674|Edinburgh|2|3671|1|0
+3675|Glasgow|2|3671|1|0
+3676|Inverness|2|3671|1|0
+3677|Stirling|2|3671|1|0
+3678|Wales|1|3615|1|1
+3679|Bangor|2|3678|1|0
+3680|Cardiff|2|3678|1|0
+3681|Newport|2|3678|1|0
+3682|Swansea|2|3678|1|0
+3683|United States|0|-1|0|1
+3684|Alabama|1|3683|1|1
+3685|Birmingham|2|3684|1|0
+3686|Mobile|2|3684|1|0
+3687|Montgomery|2|3684|1|0
+3688|Alaska|1|3683|1|1
+3689|Anchorage|2|3688|1|0
+3690|Fairbanks|2|3688|1|0
+3691|Juneau|2|3688|1|0
+3692|Arizona|1|3683|1|1
+3693|Glendale|2|3692|1|0
+3694|Mesa|2|3692|1|0
+3695|Phoenix|2|3692|1|0
+3696|Scottsdale|2|3692|1|0
+3697|Tempe|2|3692|1|0
+3698|Tucson|2|3692|1|0
+3699|Yuma|2|3692|1|0
+3700|Arkansas|1|3683|1|1
+3701|Fayetteville|2|3700|1|0
+3702|Fort Smith|2|3700|1|0
+3703|Little Rock|2|3700|1|0
+3704|California|1|3683|1|1
+3705|Los Angeles|2|3704|1|0
+3706|San Diego|2|3704|1|0
+3707|San Francisco|2|3704|1|0
+3708|San Jose|2|3704|1|0
+3709|Colorado|1|3683|1|1
+3710|Aspen|2|3709|1|0
+3711|Aurora|2|3709|1|0
+3712|Boulder|2|3709|1|0
+3713|Colorado Springs|2|3709|1|0
+3714|Denver|2|3709|1|0
+3715|Fort Collins|2|3709|1|0
+3716|Grand Junction|2|3709|1|0
+3717|Vail|2|3709|1|0
+3718|Connecticut|1|3683|1|1
+3719|Bridgeport|2|3718|1|0
+3720|Darien|2|3718|1|0
+3721|Greenwich|2|3718|1|0
+3722|Hartford|2|3718|1|0
+3723|Middletown|2|3718|1|0
+3724|New Britain|2|3718|1|0
+3725|New Haven|2|3718|1|0
+3726|Waterbury|2|3718|1|0
+3727|Westport|2|3718|1|0
+3728|Delaware|1|3683|1|1
+3729|Dover|2|3728|1|0
+3730|Newark|2|3728|1|0
+3731|Wilmington|2|3728|1|0
+3732|District of Columbia|1|3683|1|1
+3733|Washington D.C.|2|3732|1|0
+3734|Florida|1|3683|1|1
+3735|Cape Canaveral|2|3734|1|0
+3736|Fort Lauderdale|2|3734|1|0
+3737|Jacksonville|2|3734|1|0
+3738|Key West|2|3734|1|0
+3739|Miami|2|3734|1|0
+3740|Orlando|2|3734|1|0
+3741|St. Petersburg|2|3734|1|0
+3742|Tallahassee|2|3734|1|0
+3743|Tampa|2|3734|1|0
+3744|Georgia|1|3683|1|1
+3745|Atlanta|2|3744|1|0
+3746|Augusta|2|3744|1|0
+3747|Columbus|2|3744|1|0
+3748|Macon|2|3744|1|0
+3749|Savannah|2|3744|1|0
+3750|Hawaii|1|3683|1|1
+3751|Hilo|2|3750|1|0
+3752|Honolulu|2|3750|1|0
+3753|Kailua|2|3750|1|0
+3754|Idaho|1|3683|1|1
+3755|American Falls|2|3754|1|0
+3756|Blackfoot|2|3754|1|0
+3757|Boise|2|3754|1|0
+3758|Coeur d&apos;Alene|2|3754|1|0
+3759|Idaho Falls|2|3754|1|0
+3760|Ketchum|2|3754|1|0
+3761|Lewiston|2|3754|1|0
+3762|Moscow|2|3754|1|0
+3763|Murphy|2|3754|1|0
+3764|Nampa|2|3754|1|0
+3765|Pocatello|2|3754|1|0
+3766|Sun Valley|2|3754|1|0
+3767|Illinois|1|3683|1|1
+3768|Alton|2|3767|1|0
+3769|Aurora|2|3767|1|0
+3770|Bloomington|2|3767|1|0
+3771|Carbondale|2|3767|1|0
+3772|Centralia|2|3767|1|0
+3773|Champaign-Urbana|2|3767|1|0
+3774|Chicago|2|3767|1|0
+3775|Danville|2|3767|1|0
+3776|De Kalb|2|3767|1|0
+3777|Decatur|2|3767|1|0
+3778|East St Louis|2|3767|1|0
+3779|Galesburg|2|3767|1|0
+3780|Normal|2|3767|1|0
+3781|Peoria|2|3767|1|0
+3782|Rock Island|2|3767|1|0
+3783|Rockford|2|3767|1|0
+3784|Springfield|2|3767|1|0
+3785|Waukegan|2|3767|1|0
+3786|Indiana|1|3683|1|1
+3787|Evansville|2|3786|1|0
+3788|Fort Wayne|2|3786|1|0
+3789|Indianapolis|2|3786|1|0
+3790|Iowa|1|3683|1|1
+3791|Cedar Rapids|2|3790|1|0
+3792|Davenport|2|3790|1|0
+3793|Des Moines|2|3790|1|0
+3794|Kansas|1|3683|1|1
+3795|Abilene|2|3794|1|0
+3796|Hutchinson|2|3794|1|0
+3797|Kansas City|2|3794|1|0
+3798|Lawrence|2|3794|1|0
+3799|Leavenworth|2|3794|1|0
+3800|Manhattan|2|3794|1|0
+3801|Overland Park|2|3794|1|0
+3802|Topeka|2|3794|1|0
+3803|Wichita|2|3794|1|0
+3804|Kentucky|1|3683|1|1
+3805|Lexington|2|3804|1|0
+3806|Louisville|2|3804|1|0
+3807|Owensboro|2|3804|1|0
+3808|Louisiana|1|3683|1|1
+3809|Baton Rouge|2|3808|1|0
+3810|New Orleans|2|3808|1|0
+3811|Shreveport|2|3808|1|0
+3812|Maine|1|3683|1|1
+3813|Bangor|2|3812|1|0
+3814|Lewiston|2|3812|1|0
+3815|Portland|2|3812|1|0
+3816|Maryland|1|3683|1|1
+3817|Balitmore|2|3816|1|0
+3818|Gaithersburg|2|3816|1|0
+3819|Rockville|2|3816|1|0
+3820|Massachusetts|1|3683|1|1
+3821|Boston|2|3820|1|0
+3822|Springfield|2|3820|1|0
+3823|Worcester|2|3820|1|0
+3824|Michigan|1|3683|1|1
+3825|Ann Arbor|2|3824|1|0
+3826|Battle Creek|2|3824|1|0
+3827|Bay City|2|3824|1|0
+3828|Dearborn|2|3824|1|0
+3829|Detroit|2|3824|1|0
+3830|Flint|2|3824|1|0
+3831|Grand Rapids|2|3824|1|0
+3832|Kalamazoo|2|3824|1|0
+3833|Lansing|2|3824|1|0
+3834|Muskegon|2|3824|1|0
+3835|Pontiac|2|3824|1|0
+3836|Port Huron|2|3824|1|0
+3837|Saginaw|2|3824|1|0
+3838|Sault Ste Marie|2|3824|1|0
+3839|Warren|2|3824|1|0
+3840|Wyandotte|2|3824|1|0
+3841|Minnesota|1|3683|1|1
+3842|Minneapolis|2|3841|1|0
+3843|Rochester|2|3841|1|0
+3844|Saint Paul|2|3841|1|0
+3845|Mississippi|1|3683|1|1
+3846|Biloxi|2|3845|1|0
+3847|Greenville|2|3845|1|0
+3848|Gulfport|2|3845|1|0
+3849|Hattiesburg|2|3845|1|0
+3850|Jackson|2|3845|1|0
+3851|Meridian|2|3845|1|0
+3852|Vicksburg|2|3845|1|0
+3853|Missouri|1|3683|1|1
+3854|Columbia|2|3853|1|0
+3855|Jefferson City|2|3853|1|0
+3856|Kansas City|2|3853|1|0
+3857|Sanit Louis|2|3853|1|0
+3858|Springfield|2|3853|1|0
+3859|Montana|1|3683|1|1
+3860|Billings|2|3859|1|0
+3861|Great Falls|2|3859|1|0
+3862|Missoula|2|3859|1|0
+3863|Nebraska|1|3683|1|1
+3864|Bellevue|2|3863|1|0
+3865|Lincoln|2|3863|1|0
+3866|Omaha|2|3863|1|0
+3867|Nevada|1|3683|1|1
+3868|Carson City|2|3867|1|0
+3869|Elko|2|3867|1|0
+3870|Henderson|2|3867|1|0
+3871|Las Vegas|2|3867|1|0
+3872|North Las Vegas|2|3867|1|0
+3873|Reno|2|3867|1|0
+3874|Sparks|2|3867|1|0
+3875|Virginia City|2|3867|1|0
+3876|New Hampshire|1|3683|1|1
+3877|Concord|2|3876|1|0
+3878|Manchester|2|3876|1|0
+3879|Nashua|2|3876|1|0
+3880|New Jersey|1|3683|1|1
+3881|Jersey City|2|3880|1|0
+3882|Newark|2|3880|1|0
+3883|Paterson|2|3880|1|0
+3884|New Mexico|1|3683|1|1
+3885|Albuquerque|2|3884|1|0
+3886|Las Cruces|2|3884|1|0
+3887|Roswell|2|3884|1|0
+3888|Santa Fe|2|3884|1|0
+3889|New York|1|3683|1|1
+3890|Buffalo|2|3889|1|0
+3891|New York|2|3889|1|0
+3892|Rochester|2|3889|1|0
+3893|North Carolina|1|3683|1|1
+3894|Asheville|2|3893|1|0
+3895|Chapel Hill|2|3893|1|0
+3896|Charlotte|2|3893|1|0
+3897|Durham|2|3893|1|0
+3898|Greensboro|2|3893|1|0
+3899|Raleigh|2|3893|1|0
+3900|Raleigh-Durham|2|3893|1|0
+3901|North Dakota|1|3683|1|1
+3902|Bismarck|2|3901|1|0
+3903|Fargo|2|3901|1|0
+3904|Grand Forks|2|3901|1|0
+3905|Minot|2|3901|1|0
+3906|Ohio|1|3683|1|1
+3907|Cincinnati|2|3906|1|0
+3908|Cleveland|2|3906|1|0
+3909|Columbus|2|3906|1|0
+3910|Dayton|2|3906|1|0
+3911|Toledo|2|3906|1|0
+3912|Oklahoma|1|3683|1|1
+3913|Norman|2|3912|1|0
+3914|Oklahoma City|2|3912|1|0
+3915|Tulsa|2|3912|1|0
+3916|Oregon|1|3683|1|1
+3917|Bend|2|3916|1|0
+3918|Coos Bay|2|3916|1|0
+3919|Corvallis|2|3916|1|0
+3920|Crater Lake|2|3916|1|0
+3921|Dallas|2|3916|1|0
+3922|Eugene|2|3916|1|0
+3923|Grant&apos;s Pass|2|3916|1|0
+3924|Hood River|2|3916|1|0
+3925|Medford|2|3916|1|0
+3926|Portland|2|3916|1|0
+3927|Salem|2|3916|1|0
+3928|Springfield|2|3916|1|0
+3929|St Helens|2|3916|1|0
+3930|The Dalles|2|3916|1|0
+3931|Tillamook|2|3916|1|0
+3932|Pennsylvania|1|3683|1|1
+3933|Allentown|2|3932|1|0
+3934|Philadephia|2|3932|1|0
+3935|Pittsburgh|2|3932|1|0
+3936|Rhode Island|1|3683|1|1
+3937|Cranston|2|3936|1|0
+3938|Newport|2|3936|1|0
+3939|Pawtucket|2|3936|1|0
+3940|Providence|2|3936|1|0
+3941|Warwick|2|3936|1|0
+3942|Westerly|2|3936|1|0
+3943|Woonsocket|2|3936|1|0
+3944|South Carolina|1|3683|1|1
+3945|Charleston|2|3944|1|0
+3946|Columbia|2|3944|1|0
+3947|North Charleston|2|3944|1|0
+3948|South Dakota|1|3683|1|1
+3949|Aberdeen|2|3948|1|0
+3950|Rapid City|2|3948|1|0
+3951|Sioux Falls|2|3948|1|0
+3952|Tennessee|1|3683|1|1
+3953|Bristol|2|3952|1|0
+3954|Chattanooga|2|3952|1|0
+3955|Johnson City|2|3952|1|0
+3956|Kingsport|2|3952|1|0
+3957|Knoxville|2|3952|1|0
+3958|Memphis|2|3952|1|0
+3959|Nashville|2|3952|1|0
+3960|Smyrna|2|3952|1|0
+3961|Spring Hill|2|3952|1|0
+3962|Tri-City Area|2|3952|1|0
+3963|Texas|1|3683|1|1
+3964|Austin|2|3963|1|0
+3965|Corpus Christi|2|3963|1|0
+3966|Dallas|2|3963|1|0
+3967|El Paso|2|3963|1|0
+3968|Galveston|2|3963|1|0
+3969|Houston|2|3963|1|0
+3970|Laredo|2|3963|1|0
+3971|McAllen|2|3963|1|0
+3972|San Antonio|2|3963|1|0
+3973|Utah|1|3683|1|1
+3974|Layton|2|3973|1|0
+3975|Ogden|2|3973|1|0
+3976|Orem|2|3973|1|0
+3977|Park City|2|3973|1|0
+3978|Provo|2|3973|1|0
+3979|Salt Lake City|2|3973|1|0
+3980|St.George|2|3973|1|0
+3981|West Valley City|2|3973|1|0
+3982|Vermont|1|3683|1|1
+3983|Burlington|2|3982|1|0
+3984|Rutland|2|3982|1|0
+3985|South Burlington|2|3982|1|0
+3986|Virginia|1|3683|1|1
+3987|Chesapeake|2|3986|1|0
+3988|Norfolk|2|3986|1|0
+3989|Virginia Beach|2|3986|1|0
+3990|Washington|1|3683|1|1
+3991|Seattle|2|3990|1|0
+3992|Spokane|2|3990|1|0
+3993|Tacoma|2|3990|1|0
+3994|West Virginia|1|3683|1|1
+3995|Charleston|2|3994|1|0
+3996|Huntington|2|3994|1|0
+3997|Parkersburg|2|3994|1|0
+3998|Wisconsin|1|3683|1|1
+3999|Appleton|2|3998|1|0
+4000|Eau Claire|2|3998|1|0
+4001|Green Bay|2|3998|1|0
+4002|Kenosha|2|3998|1|0
+4003|LaCrosse|2|3998|1|0
+4004|Madison|2|3998|1|0
+4005|Manitowoc|2|3998|1|0
+4006|Milwaukee|2|3998|1|0
+4007|Oshkosh|2|3998|1|0
+4008|Racine|2|3998|1|0
+4009|Sheboygan|2|3998|1|0
+4010|Wausau|2|3998|1|0
+4011|Wyoming|1|3683|1|1
+4012|Casper|2|4011|1|0
+4013|Cheyenne|2|4011|1|0
+4014|Evanston|2|4011|1|0
+4015|Laramie|2|4011|1|0
+4016|Rock Springs|2|4011|1|0
+4017|Sheridan|2|4011|1|0
+4018|United States Minor Outlying Islands|0|-1|0|0
+4019|Uruguay|0|-1|0|1
+4020|Artigas|2|4019|1|0
+4021|Canelones|2|4019|1|0
+4022|Cerro Largo|2|4019|1|0
+4023|Colonia|2|4019|1|0
+4024|Durazno|2|4019|1|0
+4025|Flores|2|4019|1|0
+4026|Florida|2|4019|1|0
+4027|Lavalleja|2|4019|1|0
+4028|Maldonado|2|4019|1|0
+4029|Montevideo|2|4019|1|0
+4030|Paysandu|2|4019|1|0
+4031|Rio Negro|2|4019|1|0
+4032|Rivera|2|4019|1|0
+4033|Rocha|2|4019|1|0
+4034|Salto|2|4019|1|0
+4035|San Jose|2|4019|1|0
+4036|Soriano|2|4019|1|0
+4037|Tacuarembo|2|4019|1|0
+4038|Treinta y Tres|2|4019|1|0
+4039|Uzbekistan|0|-1|0|1
+4040|Andijon|2|4039|1|0
+4041|Buxoro|2|4039|1|0
+4042|Fargona|2|4039|1|0
+4043|Jizzax|2|4039|1|0
+4044|Namangan|2|4039|1|0
+4045|Navoiy|2|4039|1|0
+4046|Qasqadaryo|2|4039|1|0
+4047|Qoraqalpogiston|2|4039|1|0
+4048|Samarqand|2|4039|1|0
+4049|Sirdaryo|2|4039|1|0
+4050|Surxondaryo|2|4039|1|0
+4051|Toshkent|2|4039|1|0
+4052|Toshkent Shahri|2|4039|1|0
+4053|Xorazm|2|4039|1|0
+4054|Vanuatu|0|-1|0|1
+4055|Malampa|2|4054|1|0
+4056|Penama|2|4054|1|0
+4057|Sanma|2|4054|1|0
+4058|Shefa|2|4054|1|0
+4059|Tafea|2|4054|1|0
+4060|Torba|2|4054|1|0
+4061|Vatican City|0|-1|0|0
+4062|Venezuela|0|-1|0|1
+4063|Amazonas|2|4062|1|0
+4064|Anzoategui|2|4062|1|0
+4065|Apure|2|4062|1|0
+4066|Aragua|2|4062|1|0
+4067|Barinas|2|4062|1|0
+4068|Bolivar|2|4062|1|0
+4069|Carabobo|2|4062|1|0
+4070|Caracas|2|4062|1|0
+4071|Cojedes|2|4062|1|0
+4072|Delta Amacuro|2|4062|1|0
+4073|Dependencias Federales|2|4062|1|0
+4074|Estado Nueva Esparta|2|4062|1|0
+4075|Falcon|2|4062|1|0
+4076|Guarico|2|4062|1|0
+4077|Lara|2|4062|1|0
+4078|Merida|2|4062|1|0
+4079|Miranda|2|4062|1|0
+4080|Monagas|2|4062|1|0
+4081|Portuguesa|2|4062|1|0
+4082|Sucre|2|4062|1|0
+4083|Tachira|2|4062|1|0
+4084|Trujillo|2|4062|1|0
+4085|Yaracuy|2|4062|1|0
+4086|Zulia|2|4062|1|0
+4087|Vietnam|0|-1|0|1
+4088|Haiphong|2|4087|1|0
+4089|Hanoi|2|4087|1|0
+4090|Ho Chi Minh City|2|4087|1|0
+4091|Virgin Islands|0|-1|0|0
+4092|Virgin Islands,British|0|-1|0|0
+4093|Wallis and Futuna|0|-1|0|0
+4094|White Russia|0|-1|0|1
+4095|Bresckaja|2|4094|1|0
+4096|Homelskaja|2|4094|1|0
+4097|Hrodzenskaja|2|4094|1|0
+4098|Mahileuskaja|2|4094|1|0
+4099|Minsk|2|4094|1|0
+4100|Vicebskaja|2|4094|1|0
+4101|Yemen|0|-1|0|1
+4102|Abyan|2|4101|1|0
+4103|Adan|2|4101|1|0
+4104|Ad-Dali|2|4101|1|0
+4105|Al-Bayda|2|4101|1|0
+4106|Al-Hudaydah|2|4101|1|0
+4107|Al-Jawf|2|4101|1|0
+4108|Al-Mahrah|2|4101|1|0
+4109|Al-Mahwit|2|4101|1|0
+4110|Amran Sana|2|4101|1|0
+4111|Ash-Shihr|2|4101|1|0
+4112|Dhamar|2|4101|1|0
+4113|Hadramawt|2|4101|1|0
+4114|Hajjah|2|4101|1|0
+4115|Ibb|2|4101|1|0
+4116|Lahij|2|4101|1|0
+4117|Marib|2|4101|1|0
+4118|Sadah|2|4101|1|0
+4119|Sana|2|4101|1|0
+4120|Seiyun|2|4101|1|0
+4121|Shabwah|2|4101|1|0
+4122|Taizz|2|4101|1|0
+4123|Zambia|0|-1|0|1
+4124|Central|2|4123|1|0
+4125|Copperbelt|2|4123|1|0
+4126|Eastern|2|4123|1|0
+4127|Luapula|2|4123|1|0
+4128|Lusaka|2|4123|1|0
+4129|Northern|2|4123|1|0
+4130|North-Western|2|4123|1|0
+4131|Southern|2|4123|1|0
+4132|Western|2|4123|1|0
+4133|Zimbabwe|0|-1|0|1
+4134|Bulawayo|2|4133|1|0
+4135|Harare|2|4133|1|0
+4136|Manicaland|2|4133|1|0
+4137|Mashonaland Central|2|4133|1|0
+4138|Mashonaland East|2|4133|1|0
+4139|Mashonaland West|2|4133|1|0
+4140|Masvingo|2|4133|1|0
+4141|Matabeleland North|2|4133|1|0
+4142|Matabeleland South|2|4133|1|0
+4143|Midlands|2|4133|1|0

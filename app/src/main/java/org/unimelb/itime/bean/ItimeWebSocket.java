@@ -16,7 +16,7 @@ import io.socket.emitter.Emitter;
  */
 
 public class ItimeWebSocket {
-    private static final String SERVER_URL = "http://socket2.timegenii.com";
+    private static final String SERVER_URL = "http://socket.timagic.net";
     private static final String ITIME_MESSAGE = "itime_message";
 
     private String TAG = "ItimeWebSocket";

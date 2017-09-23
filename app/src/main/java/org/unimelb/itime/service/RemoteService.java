@@ -3,7 +3,9 @@ package org.unimelb.itime.service;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
@@ -12,6 +14,7 @@ import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.util.AsyncExecutor;
 import org.unimelb.itime.base.C;
 import org.unimelb.itime.bean.Calendar;
 import org.unimelb.itime.bean.Contact;
@@ -108,7 +111,6 @@ public class RemoteService extends Service {
         initPresenters();
         fetchDomains();
     }
-
 
 
     @Subscribe

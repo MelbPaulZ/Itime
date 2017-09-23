@@ -79,6 +79,15 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.activity.SettingSwitchActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".ui.activity.AddInviteeActivity"
             android:launchMode="singleTask"
@@ -99,6 +108,14 @@
             <!--</intent-filter>-->
         </activity>
 
+        <activity android:name=".ui.activity.ProfilePhotoPickerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".ui.activity.ProfileActivity"
             android:launchMode="singleTask"
@@ -107,6 +124,12 @@
             <!--<action android:name="android.intent.action.MAIN" />-->
             <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
+        </activity>
+
+        <activity
+            android:name=".ui.activity.SettingActivity"
+            android:windowSoftInputMode="adjustPan">
+
         </activity>
 
         <activity
