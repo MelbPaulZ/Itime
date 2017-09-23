@@ -1,7 +1,9 @@
 package org.unimelb.itime.ui.presenter;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -39,6 +41,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 
 import org.unimelb.itime.base.ItimeBaseMvpView;
 import org.unimelb.itime.base.ItimeBasePresenter;
+import org.unimelb.itime.ui.activity.LocationActivity;
 import org.unimelb.itime.ui.mvpview.event.EventLocationMvpView;
 
 import java.util.ArrayList;
@@ -57,11 +60,16 @@ public class EventLocationPresenter<V extends ItimeBaseMvpView> extends ItimeBas
     private String TAG = "EventLocationPresenter";
     public final static int TASK_CURRENT_LOCATION = 1001;
     public final static int TASK_AUTOCOMPLETE_LOCATION = 1002;
+    public static int REQ_LOCATION = 1001;
+    private Activity activity;
     private PlaceAutoCompleteAdapter mAdapter;
+    private EventLocationMvpView mvpView;
 
-    public EventLocationPresenter(Context context, GoogleApiClient mGoogleApiClient) {
+    public EventLocationPresenter(Context context, GoogleApiClient mGoogleApiClient, Activity activity, EventLocationMvpView mvpView) {
         super(context);
         this.mGoogleApiClient = mGoogleApiClient;
+        this.activity = activity;
+        this.mvpView = mvpView;
         currentLocationValidation();
     }
 
@@ -93,6 +101,15 @@ public class EventLocationPresenter<V extends ItimeBaseMvpView> extends ItimeBas
                     case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
                         // Location settings are not satisfied, but this can be fixed
                         // by showing the user a dialog.
+                        try {
+                            // Show the dialog by calling startResolutionForResult(),
+                            // and check the result in onActivityResult().
+                            status.startResolutionForResult(
+                                    activity,
+                                    REQ_LOCATION);
+                        } catch (IntentSender.SendIntentException e) {
+                            // Ignore the error.
+                        }
                         Log.i(TAG, "onResult: " );
                         break;
                     case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
@@ -123,8 +140,8 @@ public class EventLocationPresenter<V extends ItimeBaseMvpView> extends ItimeBas
         result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>() {
             @Override
             public void onResult(@NonNull PlaceLikelihoodBuffer placeLikelihoods) {
-                if (getView()!=null){
-                    ((EventLocationMvpView)getView()).onCurrentLocationSuccess(placeLikelihoods);
+                if (mvpView!=null) {
+                    mvpView.onCurrentLocationSuccess(placeLikelihoods);
                 }
             }
         });

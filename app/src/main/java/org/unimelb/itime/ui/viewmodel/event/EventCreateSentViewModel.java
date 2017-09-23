@@ -39,11 +39,11 @@ public class EventCreateSentViewModel extends ItimeBaseViewModel {
         isSuccessful = true;
         contentVisibility = View.GONE;
         this.event = event;
-        for(Invitee invitee: event.getInvitee().values()){
-//            todo
-            isSuccessful = false;
-            contentVisibility = View.VISIBLE;
-        }
+//        for(Invitee invitee: event.getInvitee().values()){
+////            todo
+//            isSuccessful = false;
+//            contentVisibility = View.VISIBLE;
+//        }
     }
 
     @Bindable
