@@ -1001,7 +1001,7 @@ public class EventDetailViewModel extends BaseObservable{
     }
 
     public void initCanSeeEachOther(){
-        setCanSeeEachOther(isHost()||event.getShowLevel()==Event.CAN_SEE_EACH_OTHER);
+        setCanSeeEachOther(isHost()||event.getInviteeVisibility()==Event.CAN_SEE_EACH_OTHER);
     }
 
     private void generateAvatarList(){

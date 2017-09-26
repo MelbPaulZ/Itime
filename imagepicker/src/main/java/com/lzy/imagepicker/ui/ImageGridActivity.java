@@ -7,12 +7,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.widget.TextViewCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.lzy.imagepicker.ImageDataSource;
 import com.lzy.imagepicker.ImagePicker;
@@ -44,7 +46,7 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
     private boolean isOrigin = false;  //是否选中原图
     private GridView mGridView;  //图片展示控件
     private View mFooterBar;     //底部栏
-    private Button mBtnOk;       //确定按钮
+    private TextView mBtnOk;       //确定按钮
     private Button mBtnDir;      //文件夹切换按钮
     private Button mBtnPre;      //预览按钮
     private ImageFolderAdapter mImageFolderAdapter;    //图片文件夹的适配器
@@ -62,7 +64,7 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
         imagePicker.addOnImageSelectedListener(this);
 
         findViewById(R.id.btn_back).setOnClickListener(this);
-        mBtnOk = (Button) findViewById(R.id.btn_ok);
+        mBtnOk = (TextView) findViewById(R.id.btn_ok);
         mBtnOk.setOnClickListener(this);
         mBtnOk.setAllCaps(false);
         mBtnDir = (Button) findViewById(R.id.btn_dir);

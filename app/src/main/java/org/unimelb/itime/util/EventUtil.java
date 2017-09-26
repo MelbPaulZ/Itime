@@ -720,6 +720,7 @@ public class EventUtil extends BaseUtil{
         event.setEventUid(AppUtil.generateUuid());
         event.setHostUserUid(UserUtil.getInstance(context).getUserUid());
         event.setCalendarUid(CalendarUtil.getInstance(context).getDefaultCalendarUid());
+        event.setCoverPhoto(CoverPhotoUtil.getDefaultCoverPhoto(event));
         if (!EventUtil.isMyselfInEvent(context, event)){
             Invitee invitee = createSelfInviteeForEvent(context, event);
             event.getInvitee().put(event.getInvitee().size() + "", invitee);

@@ -1,9 +1,7 @@
 package org.unimelb.itime.restfulapi;
 
-import android.databinding.ObservableList;
-
 import org.unimelb.itime.bean.Event;
-import org.unimelb.itime.bean.RecommandRequest;
+import org.unimelb.itime.bean.RecommendRequest;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.restfulresponse.HttpResult;
 
@@ -124,7 +122,7 @@ public interface EventApi {
 
     @POST("event/timeslot/recommend")
     Observable<HttpResult<List<TimeSlot>>> recommend(
-            @Body RecommandRequest recommandRequest
+            @Body RecommendRequest recommandRequest
             );
 
     // waiting for testing

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="contentVM"
+            type="org.unimelb.itime.ui.viewmodel.UserProfileViewModel"/>
+        <variable
+            name="toolbarVM"
+            type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel"/>
+    </data>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteThree">
+
+    <include layout="@layout/toolbar"
+        bind:vm="@{toolbarVM}"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="16dp"
+        android:background="@drawable/bg_divider_top_bottom">
+
+        <org.unimelb.itime.widget.ITimeListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            app:onItemClickListener="@{contentVM.onGenderItemClicked()}"
+            app:items="@{contentVM.genderWrapperList}"
+            app:itemBinding="@{contentVM.genderItemView}"
+            />
+    </LinearLayout>
+
+</LinearLayout>
+</layout>

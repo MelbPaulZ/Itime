@@ -186,12 +186,6 @@ public class EventLocationViewModel extends ItimeBaseViewModel {
         for (LocationRowViewModel rowViewModel: getRecentRows()){
             locationRows.add(rowViewModel);
         }
-
-//        searchedLocationRows.add(new LocationRowViewModel("Doug McDonell Build", "123456", TYPE_NEARBY));
-//        searchedLocationRows.add(new LocationRowViewModel("Asssss ddd gfaofaou", "1231231 asdasdasd asdqqrqrewrds adas da dsdad ad ags ea d!! asdasdasdasdasdasadsdasdassaassasasas", TYPE_NEARBY));
-//        searchedLocationRows.add(new LocationRowViewModel("asdad", "123 ", TYPE_NEARBY));
-//        searchedLocationRows.add(new LocationRowViewModel("asa", "asadsda", TYPE_NEARBY));
-
     }
 
     public void setSearchResults(ArrayList<AutocompletePrediction> predictions){

@@ -44,7 +44,7 @@ public class EventCreateAddInviteeViewModel extends BaseObservable {
 
     @Bindable
     public boolean isCanSeeEachOther() {
-        return event.getInviteeVisibility()==Event.CAN_SEE_EACH_OTHER;
+        return canSeeEachOther;
     }
 
     public void nextEnable(boolean enable){
@@ -54,11 +54,6 @@ public class EventCreateAddInviteeViewModel extends BaseObservable {
 
     public void setCanSeeEachOther(boolean canSeeEachOther) {
         this.canSeeEachOther = canSeeEachOther;
-        if(canSeeEachOther){
-            event.setInviteeVisibility(Event.CAN_SEE_EACH_OTHER);
-        }else{
-            event.setInviteeVisibility(Event.CANNOT_SEE_EACH_OTHER);
-        }
         notifyPropertyChanged(com.android.databinding.library.baseAdapters.BR.canSeeEachOther);
     }
 
@@ -205,6 +200,11 @@ public class EventCreateAddInviteeViewModel extends BaseObservable {
         if(selfInvitee!=null)
             newInvitees.put(selfInvitee.getInviteeUid(), selfInvitee);
         event.setInvitee(newInvitees);
+        if(canSeeEachOther){
+            event.setInviteeVisibility(Event.CAN_SEE_EACH_OTHER);
+        }else{
+            event.setInviteeVisibility(Event.CANNOT_SEE_EACH_OTHER);
+        }
         return event;
     }
 }

@@ -43,6 +43,7 @@
                 android:layout_toRightOf="@id/backIcon"
                 app:textWatcher = "@{vm.onEdit}"
                 android:background="@null"
+                android:singleLine="true"
                 />
 
             <ImageView

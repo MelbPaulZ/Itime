@@ -65,7 +65,7 @@
         <!--android:layout_alignParentEnd="true"-->
         <!--android:layout_centerVertical="true"-->
         <!--android:layout_marginRight="14dp"-->
-        <!--android:textColor="@drawable/selector_toolbar_right"-->
+        <!--android:textColor="@drawable/selector_toolbar_text"-->
         <!--android:text="@{vm.rightText}"-->
         <!--android:onClick="@{vm.onCLickRight()}"-->
         <!--android:textSize="17sp" />-->

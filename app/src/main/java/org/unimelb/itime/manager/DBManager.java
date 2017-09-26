@@ -2,10 +2,12 @@ package org.unimelb.itime.manager;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.Property;
 import org.greenrobot.greendao.query.QueryBuilder;
+import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Block;
 import org.unimelb.itime.bean.BlockDao;
 import org.unimelb.itime.bean.Calendar;
@@ -23,10 +25,18 @@ import org.unimelb.itime.bean.FriendRequestDao;
 import org.unimelb.itime.bean.Message;
 import org.unimelb.itime.bean.MessageGroup;
 import org.unimelb.itime.bean.MessageGroupDao;
+import org.unimelb.itime.bean.Region;
+import org.unimelb.itime.bean.RegionDao;
+import org.unimelb.itime.bean.Setting;
+import org.unimelb.itime.bean.SettingDao;
 import org.unimelb.itime.bean.User;
 import org.unimelb.itime.bean.UserDao;
 import org.unimelb.itime.util.UserUtil;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +66,15 @@ public class DBManager {
             }
         }
         return mInstance;
+    }
+
+    public synchronized Setting getSetting(String userUid){
+        DaoSession daoSession = daoMaster.newSession();
+        SettingDao settingDao = daoSession.getSettingDao();
+        QueryBuilder<Setting> qb = settingDao.queryBuilder();
+        qb.where(SettingDao.Properties.UserUid.eq(userUid));
+        List<Setting> list = qb.list();
+        return list.size() > 0 ? list.get(0) : null;
     }
 
     public synchronized void clearDB(){
@@ -95,6 +114,88 @@ public class DBManager {
         List<T> list = qb.where(attr.eq(value)).list();
         return list;
     }
+
+    public synchronized void updateSetting(Setting setting){
+        DaoSession daoSession = daoMaster.newSession();
+        SettingDao settingDao = daoSession.getSettingDao();
+        settingDao.insertOrReplace(setting);
+        // TODO: 28/12/2016 insertOrReplace SettingWrapper to db
+    }
+
+    /************************************************/
+    /**
+     * for selecting region in setting
+     * @param region
+     */
+    public synchronized void insertRegion(Region region){
+        DaoSession daoSession = daoMaster.newSession();
+        RegionDao regionDao = daoSession.getRegionDao();
+        regionDao.insertOrReplace(region);
+    }
+
+    public void initRegion(){
+        InputStream is = context.getResources().openRawResource(R.raw.location);
+
+        BufferedReader r = new BufferedReader(new InputStreamReader(is));
+        String line;
+        try {
+            while ((line = r.readLine()) != null) {
+                String[] seperator = line.split("\\|");
+                if(seperator.length != 6){
+                    break;
+                }
+                // seperator[0] = locationid
+                // seperator[1] = name
+                // seperator[2] = location_type
+                // seperator[3] = parent id
+                // seperator[4] = has_parent
+                // seperator[5] = has_child
+                Region region = new Region();
+                region.setLocationId(Long.parseLong(seperator[0]));
+                region.setName(seperator[1]);
+                region.setLocationType(Integer.parseInt(seperator[2]));
+                region.setParentId(Long.parseLong(seperator[3]));
+                region.setIsVisible(Integer.parseInt(seperator[4]));
+                region.setHasChild(Integer.parseInt(seperator[5]));
+                insertRegion(region);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.i("loadLocation", "initRegion: " +"finish");
+    }
+
+    /**
+     * need to handle if getCountryList is null
+     * @return
+     */
+    public List<Region> getCountryList(){
+        DaoSession daoSession = daoMaster.newSession();
+        RegionDao regionDao = daoSession.getRegionDao();
+        List<Region> countryList = regionDao.queryBuilder().where(
+                RegionDao.Properties.LocationType.eq(0)
+        ).orderAsc(RegionDao.Properties.Name).list();
+        return countryList;
+    }
+
+    public List<Region> getChildRegionList(long locationId){
+        DaoSession daoSession = daoMaster.newSession();
+        RegionDao regionDao = daoSession.getRegionDao();
+        List<Region> cityList = regionDao.queryBuilder().where(
+                RegionDao.Properties.ParentId.eq(locationId)
+        ).orderAsc(RegionDao.Properties.Name).list();
+        return cityList;
+    }
+
+    public Region findCountry(long locationId){
+        DaoSession daoSession = daoMaster.newSession();
+        RegionDao regionDao = daoSession.getRegionDao();
+        Region region = regionDao.queryBuilder().where(
+                RegionDao.Properties.LocationId.eq(locationId)
+        ).unique();
+        return region;
+    }
+
 
     @SuppressWarnings("unchecked")
     public <T extends Object> AbstractDao getQueryDao(Class<T> className){

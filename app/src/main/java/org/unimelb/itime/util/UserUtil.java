@@ -53,7 +53,7 @@ public class UserUtil {
         String userUid = sp.getString(C.spkey.USER_UID, "");
         this.userLoginRes = new UserLoginRes();
         User user = DBManager.getInstance(context).getUser(userUid);
-//        Setting setting = DBManager.getInstance(context).getSetting(userUid);
+        Setting setting = DBManager.getInstance(context).getSetting(userUid);
 
 //        if (userUid.equals("") || user==null || setting == null){
         if (userUid.equals("") || user==null){
@@ -61,7 +61,7 @@ public class UserUtil {
             return;
         }
         this.userLoginRes.setUser(DBManager.getInstance(context).getUser(userUid));
-//        this.userLoginRes.setSetting(DBManager.getInstance(context).getSetting(userUid));
+        this.userLoginRes.setSetting(DBManager.getInstance(context).getSetting(userUid));
         isLogin=true;
     }
 
@@ -91,7 +91,9 @@ public class UserUtil {
         SharedPreferences.Editor editor = sp.edit();
         editor.putString(C.spkey.USER_UID, userLoginRes.getUser().getUserUid());
         editor.apply();
-//        DBManager.getInstance(context).updateSetting(userLoginRes.getSetting());
+        if(userLoginRes.getSetting()!=null) {
+            DBManager.getInstance(context).updateSetting(userLoginRes.getSetting());
+        }
         DBManager.getInstance(context).insertOrReplace(Arrays.asList(userLoginRes.getUser()));
         this.userLoginRes = userLoginRes;
         isLogin=true;

@@ -1,11 +1,16 @@
 package org.unimelb.itime.ui.fragment.event;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.location.LocationProvider;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +23,7 @@ import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.zhy.m.permission.MPermissions;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
@@ -36,15 +42,15 @@ import java.util.ArrayList;
  * Created by Paul on 8/6/17.
  */
 
-public class FragmentEventLocation extends ItimeBaseFragment<EventLocationMvpView, EventLocationPresenter<EventLocationMvpView>>
+public class FragmentEventLocation extends Fragment
 implements ToolbarInterface, EventLocationMvpView, GoogleApiClient.OnConnectionFailedListener{
 
     private String location;
     private FragmentEventLocationBinding binding;
     private ToolbarViewModel toolbarViewModel;
     private EventLocationViewModel vm;
-    private String TAG = "FragmentEventLocation";
     private EventLocationPresenter.PlaceAutoCompleteAdapter mAdapter;
+    private EventLocationPresenter eventLocationPresenter;
 
     protected GoogleApiClient mGoogleApiClient;
 
@@ -52,10 +58,9 @@ implements ToolbarInterface, EventLocationMvpView, GoogleApiClient.OnConnectionF
         this.location = location;
     }
 
-    @Override
     public EventLocationPresenter<EventLocationMvpView> createPresenter() {
         initGoogleApiClient();
-        return new EventLocationPresenter<>(getContext(), mGoogleApiClient);
+        return new EventLocationPresenter<>(getContext(), mGoogleApiClient, getActivity(), this);
     }
 
     private void initGoogleApiClient(){
@@ -70,7 +75,7 @@ implements ToolbarInterface, EventLocationMvpView, GoogleApiClient.OnConnectionF
     private void initAutoCompleteAdapter(){
         mAdapter = new EventLocationPresenter.PlaceAutoCompleteAdapter(getContext(), mGoogleApiClient, getLocationBounds(), null);
         mAdapter.setMvpView(this);
-        getPresenter().setmAdapter(mAdapter);
+        eventLocationPresenter.setmAdapter(mAdapter);
     }
 
     private LatLngBounds getLocationBounds(){
@@ -88,13 +93,19 @@ implements ToolbarInterface, EventLocationMvpView, GoogleApiClient.OnConnectionF
         mAdapter.setBounds(new LatLngBounds(new LatLng(latitude-0.1, longitude-0.1), new LatLng(latitude+0.1, latitude+0.1)));
     }
 
+    private void requestPermission(){
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            MPermissions.requestPermissions(this, EventLocationPresenter.REQ_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+    }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        requestPermission();
+        eventLocationPresenter = createPresenter();
         initAutoCompleteAdapter();
 
-        vm = new EventLocationViewModel(getPresenter());
+        vm = new EventLocationViewModel(eventLocationPresenter);
         vm.setLocationString1(location);
         binding.setVm(vm);
 
@@ -179,4 +190,17 @@ implements ToolbarInterface, EventLocationMvpView, GoogleApiClient.OnConnectionF
     public void onTaskError(int taskId, Object data) {
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        eventLocationPresenter.currentLocationValidation();
+    }
+
+
 }

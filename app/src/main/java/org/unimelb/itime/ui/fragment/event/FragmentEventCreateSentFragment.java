@@ -3,6 +3,7 @@ package org.unimelb.itime.ui.fragment.event;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ implements EventCreateSentMvpView{
         vm = new EventCreateSentViewModel(getPresenter());
         vm.setEvent(event);
         binding.setVm(vm);
+        
     }
 
     @Override
@@ -58,4 +60,6 @@ implements EventCreateSentMvpView{
     public void setEvent(Event event) {
         this.event = event;
     }
+
+
 }

@@ -155,8 +155,8 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     }
 
     public int getLocationHintVisibility(Event event){
-        if (event.getLocation().getLocationString1().equals("") &&
-                event.getLocation().getLocationString2().equals("")){
+        if ("".equals(event.getLocation().getLocationString1()) &&
+                "".equals(event.getLocation().getLocationString2())){
             return View.VISIBLE;
         }
         return View.GONE;
@@ -341,6 +341,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         for (Invitee invitee: event.getInvitee().values()){
             mockAvatorLists.add(invitee.getAliasPhoto());
         }
+        notifyPropertyChanged(BR.mockAvatorLists);
 
     }
 

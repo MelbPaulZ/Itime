@@ -713,7 +713,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_detail_cell_height"
-            android:visibility="@{contentVM.status == contentVM.STATUS_GOING || contentVM.status == contentVM.STATUS_NOT_GOING||contentVM.status == contentVM.STATUS_NEED_DECIDE? View.VISIBLE:View.GONE}"
+            android:visibility="@{(!contentVM.soloEvent) &amp;&amp; (contentVM.status == contentVM.STATUS_GOING || contentVM.status == contentVM.STATUS_NOT_GOING||contentVM.status == contentVM.STATUS_NEED_DECIDE)? View.VISIBLE:View.GONE}"
             android:background="@color/white"
             android:paddingLeft="@dimen/s1"
             android:paddingRight="@dimen/s1"

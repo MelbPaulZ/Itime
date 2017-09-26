@@ -74,6 +74,7 @@ public class LoginPresenter<V extends TaskBasedMvpView> extends MvpBasePresenter
             @Override
             public void onHttpError(Throwable e) {
                 if (getView() != null){
+                    e.printStackTrace();
                     getView().onTaskError(TASK_LOGIN,e.getMessage());
                 }
             }

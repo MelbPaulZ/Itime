@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +17,13 @@ import org.greenrobot.eventbus.Subscribe;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.bean.Meeting;
-import org.unimelb.itime.bean.User;
 import org.unimelb.itime.databinding.FragmentMeetingBinding;
 import org.unimelb.itime.messageevent.MessageEvent;
 import org.unimelb.itime.ui.activity.ArchiveActivity;
 import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.activity.SearchActivity;
+import org.unimelb.itime.ui.activity.SettingActivity;
+import org.unimelb.itime.ui.activity.SettingSwitchActivity;
 import org.unimelb.itime.ui.mvpview.MeetingMvpView;
 import org.unimelb.itime.ui.presenter.MeetingPresenter;
 import org.unimelb.itime.util.UserUtil;
@@ -59,6 +59,7 @@ public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPr
         binding.getRoot().findViewById(R.id.archive_entrance).setOnClickListener(onArchiveClick());
         RoundImageView profileView = (RoundImageView)binding.getRoot().findViewById(R.id.profile_photo);
         Picasso.with(getContext()).load(UserUtil.getInstance(getContext()).getUser().getPhoto()).into(profileView);
+        profileView.setOnClickListener(onProfileClick());
 
         final TabLayout tabLayout = (TabLayout) binding.getRoot().findViewById(R.id.tab_layout);
 
@@ -135,7 +136,8 @@ public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPr
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), SettingActivity.class);
+                startActivity(intent);
             }
         };
     }

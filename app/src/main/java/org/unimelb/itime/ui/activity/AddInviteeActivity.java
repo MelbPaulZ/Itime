@@ -27,6 +27,7 @@ import java.util.Map;
  */
 
 public class AddInviteeActivity extends ItimeBaseActivity {
+
     Event event = new Event();
     @Override
     protected void onCreate(Bundle savedInstanceState) {

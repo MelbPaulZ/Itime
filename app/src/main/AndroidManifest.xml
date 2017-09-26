@@ -41,9 +41,12 @@
         <!--android:supportsRtl="true"-->
         <!--android:theme="@style/ITimeTheme">-->
 
+        <!--<meta-data-->
+            <!--android:name="com.google.android.geo.API_KEY"-->
+            <!--android:value="AIzaSyDVSb7ficOd7TJP5H7oSAeLUNXVMC_3pyg"/>-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDVSb7ficOd7TJP5H7oSAeLUNXVMC_3pyg"/>
+            android:value="AIzaSyDtbF847zbYxL_tYnwtNMUYBtaDLSsUuRA"/>
 
         <activity
             android:name=".ui.activity.MainActivity"
@@ -79,6 +82,15 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.activity.SettingSwitchActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".ui.activity.AddInviteeActivity"
             android:launchMode="singleTask"
@@ -99,6 +111,14 @@
             <!--</intent-filter>-->
         </activity>
 
+        <activity android:name=".ui.activity.ProfilePhotoPickerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".ui.activity.ProfileActivity"
             android:launchMode="singleTask"
@@ -107,6 +127,12 @@
             <!--<action android:name="android.intent.action.MAIN" />-->
             <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
+        </activity>
+
+        <activity
+            android:name=".ui.activity.SettingActivity"
+            android:windowSoftInputMode="adjustPan">
+
         </activity>
 
         <activity
@@ -151,7 +177,7 @@
         <activity android:name=".ui.activity.SearchActivity"/>
         <activity android:name=".ui.activity.NewFriendActivity"/>
         <activity android:name=".ui.activity.ArchiveActivity"/>
-
+        <activity android:name=".ui.activity.EventCreateResultActivity"/>
         <activity android:name=".ui.activity.TestActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan">
