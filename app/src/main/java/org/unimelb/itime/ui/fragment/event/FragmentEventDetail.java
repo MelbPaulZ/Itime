@@ -200,6 +200,7 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         FragmentCalendarTimeslot fragmentCalendarTimeslot = new FragmentCalendarTimeslot();
         fragmentCalendarTimeslot.setEvent(event, contentViewModel.getSelectedTimeSlots());
         fragmentCalendarTimeslot.setMode(mode);
+
         getBaseActivity().openFragment(fragmentCalendarTimeslot);
     }
 

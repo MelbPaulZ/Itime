@@ -3,13 +3,10 @@ package org.unimelb.itime.ui.presenter;
 import android.content.Context;
 import android.util.Log;
 
-import com.developer.paul.itimerecycleviewgroup.LogUtil;
-
 import org.greenrobot.eventbus.EventBus;
 import org.unimelb.itime.base.ItimeBasePresenter;
 import org.unimelb.itime.bean.Event;
-import org.unimelb.itime.bean.RecommandRequest;
-import org.unimelb.itime.bean.RecommandTime;
+import org.unimelb.itime.bean.RecommendRequest;
 import org.unimelb.itime.bean.TZoneTime;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.messageevent.MessageRefreshTimeSlots;
@@ -41,15 +38,15 @@ public class TimeslotPresenter <V extends TimeslotMvpView> extends ItimeBasePres
 
 
     public void fetchRecommendedTimeslots(Event event, Date startTime, Date endTime){
-        RecommandRequest recommandRequest = new RecommandRequest();
+        RecommendRequest recommandRequest = new RecommendRequest();
         recommandRequest.setEvent(event);
         recommandRequest.setDuration(event.getDuration());
         TZoneTime start = new TZoneTime();
         start.setDateTime(EventUtil.getFormatTimeString(startTime.getTime(), EventUtil.TIME_ZONE_PATTERN));
-        recommandRequest.setStartRecommandTime(start);
+        recommandRequest.setStartRecommendTime(start);
         TZoneTime end = new TZoneTime();
         end.setDateTime(EventUtil.getFormatTimeString(endTime.getTime(), EventUtil.TIME_ZONE_PATTERN));
-        recommandRequest.setEndRecommandTime(end);
+        recommandRequest.setEndRecommendTime(end);
         Observable<HttpResult<List<TimeSlot>>> observable = eventApi.recommend(recommandRequest);
         Subscriber<HttpResult<List<TimeSlot>>> subscriber = new Subscriber<HttpResult<List<TimeSlot>>>() {
             @Override
