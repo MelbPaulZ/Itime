@@ -13,6 +13,7 @@ import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseActivity;
 import org.unimelb.itime.ui.fragment.settings.SettingAboutFragment;
+import org.unimelb.itime.ui.fragment.settings.SettingBlockContactsFragment;
 import org.unimelb.itime.ui.fragment.settings.SettingMyProfileFragment;
 import org.unimelb.itime.ui.fragment.settings.SettingNotificationFragment;
 
@@ -75,7 +76,7 @@ public class SettingSwitchActivity extends ItimeBaseActivity{
                     name = SettingMyProfileFragment.class;
                     break;
                 case TASK_TO_BLOCK_USER:
-//                    name = SettingBlockContactsFragment.class;
+                    name = SettingBlockContactsFragment.class;
                     break;
                 case TASK_TO_NOTICIFATION:
                     name = SettingNotificationFragment.class;

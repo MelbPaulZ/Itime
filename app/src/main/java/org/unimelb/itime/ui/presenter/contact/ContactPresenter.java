@@ -9,6 +9,7 @@ import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import org.greenrobot.eventbus.EventBus;
 import org.unimelb.itime.base.ItimeBaseMvpView;
 import org.unimelb.itime.base.ItimeBasePresenter;
+import org.unimelb.itime.bean.Block;
 import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.FriendRequest;
 import org.unimelb.itime.bean.FriendRequestResult;
@@ -51,6 +52,7 @@ public class ContactPresenter<T extends TaskBasedMvpView> extends MvpBasePresent
     public static final int TASK_ADD = 1117;
     public static final int TASK_REQUEST_LIST = 1118;
     public static final int TASK_REQUEST_ACCEPT = 1119;
+    public static final int TASK_BLOCK_LIST = 1120;
     public static final int ERROR_INVALID_EMAIL = 2224;
 
 
@@ -375,6 +377,71 @@ public class ContactPresenter<T extends TaskBasedMvpView> extends MvpBasePresent
             }
         }
         return count;
+    }
+
+    public void getBlockList(){
+        DBManager dbManager = DBManager.getInstance(context);
+        List<Contact> list = blocksToContacts(dbManager.getBlockContacts());
+        if(getView()!=null){
+            getView().onTaskSuccess(TASK_BLOCK_LIST, list);
+        }
+        getBlockListFromServer();
+    }
+
+    public List<Contact> blocksToContacts(List<Block> blocks){
+        List<Contact> result = new ArrayList<>();
+        for(Block block: blocks){
+            Contact contact = new Contact(block.getUserDetail());
+            contact.setBlockLevel(block.getBlockLevel());
+            contact.setRelationship(1);
+            result.add(contact);
+        }
+        return result;
+    }
+
+    private void getBlockListFromServer() {
+        final DBManager dbManager = DBManager.getInstance(context);
+        String syncToken = TokenUtil.getInstance(context).getBlockToken(UserUtil.getInstance(context).getUserUid());
+        Observable<HttpResult<List<Block>>> observable = userApi.listBlock(syncToken);
+        Observable<List<Block>> dbObservable = observable.map(new Func1<HttpResult<List<Block>>, List<Block>>() {
+            @Override
+            public List<Block> call(HttpResult<List<Block>> result) {
+                Log.d(TAG, "onNext: " + result.getInfo());
+                if (result.getStatus() != 1) {
+                    return null;
+                } else {
+                    TokenUtil.getInstance(context)
+                            .setBlockToken(UserUtil.getInstance(context).getUserUid(), result.getSyncToken());
+                    for (Block block : result.getData()) {
+                        dbManager.insertBlock(block);
+                    }
+                    return DBManager.getInstance(context).getBlockContacts();
+                }
+            }
+        });
+
+        ItimeSubscriber<List<Block>> subscriber = new ItimeSubscriber<List<Block>>() {
+            @Override
+            public void onHttpError(Throwable e) {
+                if (getView() != null) {
+                    getView().onTaskError(TASK_BLOCK_LIST, null);
+                }
+            }
+
+            @Override
+            public void onNext(List<Block> list) {
+                if (list == null) {
+                    if (getView() != null) {
+                        getView().onTaskError(TASK_BLOCK_LIST, null);
+                    }
+                } else {
+                    if (getView() != null) {
+                        getView().onTaskSuccess(TASK_BLOCK_LIST, blocksToContacts(list));
+                    }
+                }
+            }
+        };
+        HttpUtil.subscribe(dbObservable, subscriber);
     }
 
 }

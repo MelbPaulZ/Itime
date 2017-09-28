@@ -49,6 +49,7 @@ public class ItimeWebSocket {
             IO.Options options = new IO.Options();
             options.forceNew = true;
             options.reconnection = true;
+            options.transports = new String[]{"websocket"};
             instance.socket = IO.socket(generateUrl(), options);
         } catch (URISyntaxException e) {
             e.printStackTrace();

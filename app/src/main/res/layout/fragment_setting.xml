@@ -114,6 +114,7 @@
                 android:layout_height="44dp"
                 android:paddingLeft="16dp"
                 android:onClick="@{contentVM.onCalendarPreferenceClick()}"
+                android:visibility="gone"
                 >
 
                 <TextView
@@ -195,7 +196,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:paddingLeft="16dp"
-                android:onClick="@{contentVM.onHelpClick()}">
+                android:onClick="@{contentVM.onHelpClick()}"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/itime_blacktitle_17sp"

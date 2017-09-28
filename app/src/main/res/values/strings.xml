@@ -515,6 +515,7 @@
     <string name="setting_thank_report">Thank you for your report !</string>
     <string name="setting_report">Report</string>
     <string name="setting_help_center">Help Center</string>
+    <string name="setting_block_contacts">Block Contacts</string>
 
     <string name="title_activity_settings">Settings</string>
 

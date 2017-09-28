@@ -100,9 +100,9 @@ public class SettingMyProfileFragment extends ItimeBaseFragment<UserMvpView, Use
 
     @Override
     public void toEditRegionPage() {
-//        Fragment fragment = new SettingRegionFragment();
-//        fragment.setTargetFragment(this, REQ_REGION);
-//        getBaseActivity().openFragment(fragment);
+        Fragment fragment = new SettingRegionFragment();
+        fragment.setTargetFragment(this, REQ_REGION);
+        getBaseActivity().openFragment(fragment);
     }
 
     @Override

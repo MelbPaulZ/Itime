@@ -1,4 +1,4 @@
-package org.unimelb.itime.ui.viewmodel;
+package org.unimelb.itime.ui.viewmodel.setting;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
@@ -33,8 +33,8 @@ public class SettingRegionViewModel extends BaseObservable {
     private Context context;
     private UserPresenter<SettingRegionMvpView> presenter;
 
-    public final ObservableList<RegionWrapper> items = new ObservableArrayList<>();
-    public final ItemBinding itemView = ItemBinding.of(BR.regionWrapper, R.layout.listview_region);
+    private ObservableList<RegionWrapper> items = new ObservableArrayList<>();
+    private ItemBinding itemView = ItemBinding.of(BR.regionWrapper, R.layout.listview_region);
 
     private String selectLocationStr="";
     private User user;
@@ -55,6 +55,16 @@ public class SettingRegionViewModel extends BaseObservable {
         }else{
             init(locationId);
         }
+    }
+
+    @Bindable
+    public ObservableList<RegionWrapper> getItems() {
+        return items;
+    }
+
+    @Bindable
+    public ItemBinding getItemView() {
+        return itemView;
     }
 
     private void init(long locationId){

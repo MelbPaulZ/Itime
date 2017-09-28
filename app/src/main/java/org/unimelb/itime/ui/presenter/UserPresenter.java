@@ -103,12 +103,14 @@ public class UserPresenter<V extends TaskBasedMvpView<User>> extends MvpBasePres
             @Override
             public void onNext(HttpResult<User> userHttpResult) {
                 //update UserLoginRes
-                UserUtil.getInstance(getContext()).getUserLoginRes().setUser(userHttpResult.getData());
-                //update sharedPreference
-                UserUtil.getInstance(getContext()).saveLoginUser(UserUtil.getInstance(getContext()).getUserLoginRes());
+                if (userHttpResult.getStatus() == 0) {
+                    UserUtil.getInstance(getContext()).getUserLoginRes().setUser(userHttpResult.getData());
+                    //update sharedPreference
+                    UserUtil.getInstance(getContext()).saveLoginUser(UserUtil.getInstance(getContext()).getUserLoginRes());
 
-                if (getView() != null) {
-                    getView().onTaskSuccess(TASK_USER_UPDATE, userHttpResult.getData());
+                    if (getView() != null) {
+                        getView().onTaskSuccess(TASK_USER_UPDATE, userHttpResult.getData());
+                    }
                 }
             }
         };

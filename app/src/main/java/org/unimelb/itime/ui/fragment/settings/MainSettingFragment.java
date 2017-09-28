@@ -270,6 +270,7 @@ public class MainSettingFragment extends ItimeBaseFragment<MainSettingMvpView,Se
 
     @Override
     public void onBack() {
+        getBaseActivity().onBackPressed();
     }
 
     @Override
