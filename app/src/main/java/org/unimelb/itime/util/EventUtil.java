@@ -783,6 +783,22 @@ public class EventUtil extends BaseUtil{
         event.setSelf(UserUtil.getInstance(context).getUserUid());
     }
 
+    /**
+     * This method ensure the pre-existing inviteeUid will be same as the updated event inviteeUid
+     * @param context
+     * @param event
+     */
+    public static void resetTimeslotUidForExistingInvitees(Context context, Event event){
+        Event orgEvent = DBManager.getInstance(context).getEvent(event.getEventUid());
+        for (Invitee invitee: event.getInvitee().values()){
+            for (Invitee orgInvitee: orgEvent.getInvitee().values()){
+                if (invitee.getUserUid().equals(orgInvitee.getUserUid())){
+                    invitee.setInviteeUid(orgInvitee.getInviteeUid());
+                }
+            }
+        }
+    }
+
     public static TimeSlot getFirstTimeSlot(Map<String,TimeSlot> map){
         long startTime = Long.MAX_VALUE;
         TimeSlot rst = null;

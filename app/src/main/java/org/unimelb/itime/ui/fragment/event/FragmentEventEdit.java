@@ -131,6 +131,7 @@ public class FragmentEventEdit extends ItimeBaseFragment<EventCreateMvpView, Eve
             toTimeslot(event);
         }else {
             EventUtil.generateGroupEventAttributes(getContext(), event);
+            EventUtil.resetTimeslotUidForExistingInvitees(getContext(), event);
             presenter.updateEvent(event);
         }
         hasChange = true;
