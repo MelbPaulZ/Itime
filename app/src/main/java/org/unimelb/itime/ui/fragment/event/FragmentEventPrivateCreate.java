@@ -279,6 +279,11 @@ implements EventCreateMvpView, ToolbarInterface{
         startPhotoPicker();
     }
 
+    @Override
+    public void toGreeting(Event event) {
+//        dont do anything here
+    }
+
     @PermissionGrant(REQUEST_PHOTO_PERMISSION)
     public void startPhotoPicker() {
         ImagePicker imagePicker = ImagePicker.getInstance();

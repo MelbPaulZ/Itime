@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.GravityEnum;
+import com.hannesdorfmann.mosby.mvp.MvpFragment;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
@@ -24,6 +25,7 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Location;
 import org.unimelb.itime.bean.PhotoUrl;
 import org.unimelb.itime.databinding.FragmentEventCreateBinding;
+import org.unimelb.itime.databinding.FragmentEventEditBinding;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.activity.CameraActivity;
 import org.unimelb.itime.ui.activity.EventCreateActivity;
@@ -45,7 +47,7 @@ import java.util.List;
 
 public class FragmentEventEdit extends ItimeBaseFragment<EventCreateMvpView, EventCreatePresenter<EventCreateMvpView>>
         implements EventCreateMvpView, ToolbarInterface {
-    private FragmentEventCreateBinding binding;
+    private FragmentEventEditBinding binding;
     private EventCreateViewModel vm;
     private ToolbarViewModel toolbarViewModel;
     private Event event;
@@ -59,8 +61,6 @@ public class FragmentEventEdit extends ItimeBaseFragment<EventCreateMvpView, Eve
     public final static int REQUEST_CAMERA_PERMISSION = 100;
     public final static int REQUEST_PHOTO_PERMISSION = 101;
     public final static int REQUEST_LOCATION_PERMISSION = 102;
-
-
 
     FragmentEventCreateAddInvitee fragmentEventCreateAddInvitee;
 
@@ -88,7 +88,7 @@ public class FragmentEventEdit extends ItimeBaseFragment<EventCreateMvpView, Eve
             binding.setVm(vm);
             toolbarViewModel = new ToolbarViewModel<>(this);
             toolbarViewModel.setTitle(getString(R.string.edit_event_toolbar_title));
-            toolbarViewModel.setRightText(getString(R.string.new_event_toolbar_next));
+            toolbarViewModel.setRightText(getString(R.string.toolbar_done));
             toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_close));
             toolbarViewModel.setRightEnable(true);
             binding.setToolbarvm(toolbarViewModel);
@@ -119,7 +119,7 @@ public class FragmentEventEdit extends ItimeBaseFragment<EventCreateMvpView, Eve
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (binding==null) {
-            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_create, container, false);
+            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_edit, container, false);
         }
         return binding.getRoot();
     }
@@ -130,11 +130,8 @@ public class FragmentEventEdit extends ItimeBaseFragment<EventCreateMvpView, Eve
         if (event.getTimeslot().size() == 0){
             toTimeslot(event);
         }else {
-            FragmentEventGreeting fragment = new FragmentEventGreeting();
-            fragment.setTaskMode(FragmentEventCreate.Mode.UPDATE);
-            Event cpyEvent = EventManager.getInstance(getContext()).copyEvent(event);
-            fragment.setEvent(cpyEvent);
-            getBaseActivity().openFragment(fragment);
+            EventUtil.generateGroupEventAttributes(getContext(), event);
+            presenter.updateEvent(event);
         }
         hasChange = true;
     }
@@ -258,6 +255,14 @@ public class FragmentEventEdit extends ItimeBaseFragment<EventCreateMvpView, Eve
     }
 
     @Override
+    public void toGreeting(Event event) {
+        FragmentEventGreeting fragmentEventGreeting = new FragmentEventGreeting();
+        fragmentEventGreeting.setMode(FragmentEventGreeting.Mode.EDIT);
+        fragmentEventGreeting.setEvent(event);
+        getBaseActivity().openFragment(fragmentEventGreeting);
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQ_LOCATION && resultCode == Activity.RESULT_OK){
@@ -297,17 +302,20 @@ public class FragmentEventEdit extends ItimeBaseFragment<EventCreateMvpView, Eve
 
     @Override
     public void onTaskStart(int taskId) {
-
+        showProgressDialog();
     }
 
     @Override
     public void onTaskSuccess(int taskId, Object data) {
-
+        hideProgressDialog();
+        FragmentEventDetail fragmentEventDetail = (FragmentEventDetail) getFrom();
+        fragmentEventDetail.setData(event);
+        getFragmentManager().popBackStack();
     }
 
     @Override
     public void onTaskError(int taskId, Object data) {
-
+        Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
     }
 
     /**
