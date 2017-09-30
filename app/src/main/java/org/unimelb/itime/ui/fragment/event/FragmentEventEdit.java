@@ -88,7 +88,7 @@ public class FragmentEventEdit extends ItimeBaseFragment<EventCreateMvpView, Eve
             binding.setVm(vm);
             toolbarViewModel = new ToolbarViewModel<>(this);
             toolbarViewModel.setTitle(getString(R.string.edit_event_toolbar_title));
-            toolbarViewModel.setRightText(getString(R.string.toolbar_done));
+            toolbarViewModel.setRightText(getString(R.string.toolbar_save));
             toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_close));
             toolbarViewModel.setRightEnable(true);
             binding.setToolbarvm(toolbarViewModel);
