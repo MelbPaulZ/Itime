@@ -81,7 +81,10 @@ public class RepeatLineViewModel extends BaseObservable {
         this.onClickCallBack = onClickCallBack;
     }
 
-    public interface OnClickCallBack{
+    public interface
+
+
+    OnClickCallBack{
         void beforeOnClick(RepeatLineViewModel repeatLineViewModel);
         void onClickCustom();
     }

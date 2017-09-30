@@ -126,8 +126,19 @@ implements ToolbarInterface, EventLocationMvpView, GoogleApiClient.OnConnectionF
         return binding.getRoot();
     }
 
+    private void saveLocationToRecent(){
+        if (!"".equals(vm.getLocationString1())) {
+            String secondaryString = vm.getLocationString2();
+            if ("".equals(secondaryString)){
+                secondaryString = getContext().getString(R.string.location_custom_location);
+            }
+            eventLocationPresenter.insertRecentLocation(vm.getLocationString1(), secondaryString);
+        }
+    }
+
     @Override
     public void onNext() {
+        saveLocationToRecent();
         Intent intent = new Intent();
         intent.putExtra(getString(R.string.location_string1), vm.getLocationString1());
         intent.putExtra(getString(R.string.location_string2), vm.getLocationString2());

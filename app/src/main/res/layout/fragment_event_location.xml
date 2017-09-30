@@ -40,9 +40,12 @@
         
         <ImageView
             style="@style/itimeCellRightIcon"
+            android:layout_height="40dp"
+            android:layout_width="40dp"
+            android:padding="10dp"
             android:visibility="@{vm.getHasLocationVisibility(vm.locationString1)}"
             android:onClick="@{vm.onClickClean()}"
-            android:background="@drawable/icon_event_closecell"/>
+            android:src="@drawable/icon_event_closecell"/>
 
         
     </RelativeLayout>
@@ -52,6 +55,7 @@
         style="@style/ItimeRelativeCell44"
         android:animateLayoutChanges="true"
         android:visibility="@{vm.getNoLocationVisibility(vm.locationString1)}"
+        android:onClick="@{vm.onClickNoLocation()}"
         android:background="@drawable/bg_divider_bottom">
 
         <!--No locationString1 show-->
