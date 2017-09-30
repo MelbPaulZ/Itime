@@ -107,8 +107,8 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
     private AlphaAnimation getAlphaAnimation(){
         AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
         alphaAnimation.setDuration(800);
-        alphaAnimation.setInterpolator(new AccelerateInterpolator());
-        alphaAnimation.setFillAfter(true);
+        alphaAnimation.setInterpolator(new LinearInterpolator());
+//        alphaAnimation.setFillAfter(true);
         return alphaAnimation;
     }
 

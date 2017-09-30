@@ -7,6 +7,7 @@ import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.text.style.CharacterStyle;
 import android.text.style.StyleSpan;
@@ -41,10 +42,14 @@ import com.google.android.gms.maps.model.LatLngBounds;
 
 import org.unimelb.itime.base.ItimeBaseMvpView;
 import org.unimelb.itime.base.ItimeBasePresenter;
+import org.unimelb.itime.bean.RecentLocation;
+import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.ui.activity.LocationActivity;
 import org.unimelb.itime.ui.mvpview.event.EventLocationMvpView;
+import org.unimelb.itime.util.UserUtil;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -71,6 +76,12 @@ public class EventLocationPresenter<V extends ItimeBaseMvpView> extends ItimeBas
         this.activity = activity;
         this.mvpView = mvpView;
         currentLocationValidation();
+    }
+
+    @Nullable
+    @Override
+    public V getView() {
+        return (V) mvpView;
     }
 
     public void currentLocationValidation() {
@@ -369,5 +380,19 @@ public class EventLocationPresenter<V extends ItimeBaseMvpView> extends ItimeBas
         }
 
 
+    }
+
+    public void insertRecentLocation(String primaryString, String secondaryString){
+        RecentLocation recentLocation = new RecentLocation();
+        recentLocation.setPrimaryString(primaryString);
+        recentLocation.setSecondaryString(secondaryString);
+        recentLocation.setUserUid(UserUtil.getInstance(getContext()).getUserUid());
+        Calendar c = Calendar.getInstance();
+        recentLocation.setSelectDate(c.getTimeInMillis());
+        DBManager.getInstance(getContext()).insertRecentLocation(recentLocation);
+    }
+
+    public List<RecentLocation> getRecentLocation(){
+        return DBManager.getInstance(getContext()).getRecentLocations();
     }
 }

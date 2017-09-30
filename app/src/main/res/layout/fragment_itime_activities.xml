@@ -24,6 +24,7 @@
         app:layoutManager="@{LayoutManagers.linear()}"
         app:itemBinding="@{vm.onItemBind}"
         app:items="@{vm.messageGroups}"
+        android:background="@color/transparent"
         />
 
 

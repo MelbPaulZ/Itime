@@ -39,6 +39,14 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
     private ToolbarViewModel toolbarVM;
     private Event event;
     private FragmentEventCreate.Mode taskMode;
+    public enum Mode{
+        CREATE, EDIT
+    }
+    private Mode mode = Mode.CREATE;
+
+    public void setMode(Mode mode) {
+        this.mode = mode;
+    }
 
     public void setTaskMode(FragmentEventCreate.Mode taskMode) {
         this.taskMode = taskMode;
@@ -62,12 +70,6 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
         this.event = event;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-//        Toast.makeText(getContext(), taskMode.name(), Toast.LENGTH_SHORT).show();
-
-    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -86,7 +88,11 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
         toolbarVM = new ToolbarViewModel<>(this);
         toolbarVM.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarVM.setTitle(getString(R.string.toolbar_greeting));
-        toolbarVM.setRightText(getString(R.string.toolbar_send));
+        if (mode == Mode.EDIT){
+            toolbarVM.setRightText(getString(R.string.toolbar_done));
+        }else {
+            toolbarVM.setRightText(getString(R.string.toolbar_send));
+        }
         toolbarVM.setRightEnable(true);
         binding.setToolbarVM(toolbarVM);
 
@@ -104,6 +110,12 @@ public class FragmentEventGreeting extends ItimeBaseFragment<EventGreetingMvpVie
 
     @Override
     public void onNext() {
+        if (mode == Mode.EDIT){
+            FragmentEventEdit fragmentEventEdit = (FragmentEventEdit) getFrom();
+            fragmentEventEdit.setEvent(event);
+            getFragmentManager().popBackStack();
+            return;
+        }
         if (taskMode == FragmentEventCreate.Mode.CREATE) {
             event.setEventType(Event.TYPE_GROUP);
             presenter.createEvent(event);
