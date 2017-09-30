@@ -155,6 +155,7 @@ public class RemoteService extends Service {
     }
 
 
+
     /**
      * this method use for register this user in lean cloud
      */
@@ -337,14 +338,14 @@ public class RemoteService extends Service {
      * if haven't load regions, then init regions
      */
     private void loadRegions() {
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                if (DBManager.getInstance(context).getCountryList().size() == 0) {
-//                    DBManager.getInstance(context).initRegion();
-//                }
-//            }
-//        }.start();
+        new Thread() {
+            @Override
+            public void run() {
+                if (DBManager.getInstance(context).getCountryList().size() == 0) {
+                    DBManager.getInstance(context).initRegion();
+                }
+            }
+        }.start();
     }
 
     private void fetchCalendar() {
