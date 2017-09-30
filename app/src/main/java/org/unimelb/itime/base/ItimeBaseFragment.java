@@ -2,7 +2,6 @@ package org.unimelb.itime.base;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,10 +21,6 @@ import com.hannesdorfmann.mosby.mvp.MvpView;
 import com.zhy.m.permission.MPermissions;
 
 import org.unimelb.itime.R;
-import org.unimelb.itime.ui.activity.EventDetailActivity;
-import org.unimelb.itime.ui.fragment.calendar.FragmentCalendar;
-
-import java.util.Date;
 
 /**
  * Created by Paul on 2/6/17.
@@ -35,11 +30,13 @@ public abstract class ItimeBaseFragment<V extends MvpView, P extends MvpPresente
 
     private Fragment from;
 
-    public ItimeBaseActivity getBaseActivity(){
+    public ItimeBaseActivity getBaseActivity() {
         return (ItimeBaseActivity) getActivity();
     }
+
     protected ItimeBaseActivity baseActivity;
     protected ProgressDialog progressDialog;
+
     public Fragment getFrom() {
         return from;
     }
@@ -51,7 +48,7 @@ public abstract class ItimeBaseFragment<V extends MvpView, P extends MvpPresente
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        baseActivity = (ItimeBaseActivity)getActivity();
+        baseActivity = (ItimeBaseActivity) getActivity();
         progressDialog = new ProgressDialog(getActivity());
 
         final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -61,12 +58,12 @@ public abstract class ItimeBaseFragment<V extends MvpView, P extends MvpPresente
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         getBaseActivity().setCurFragment(this);
     }
 
-    protected void showDialog(String title, String msg){
+    protected void showDialog(String title, String msg) {
         new MaterialDialog.Builder(getContext())
                 .content(msg)
                 .contentColor(getResources().getColor(R.color.black))
@@ -76,8 +73,8 @@ public abstract class ItimeBaseFragment<V extends MvpView, P extends MvpPresente
                 .show();
     }
 
-    protected MaterialDialog.Builder getDialogBuidler(){
-       return new MaterialDialog.Builder(getContext());
+    protected MaterialDialog.Builder getDialogBuidler() {
+        return new MaterialDialog.Builder(getContext());
     }
 
 
@@ -91,7 +88,7 @@ public abstract class ItimeBaseFragment<V extends MvpView, P extends MvpPresente
             String negBtnStr,
             View.OnClickListener negClickListener,
             String posBtnStr,
-            View.OnClickListener posClickListener){
+            View.OnClickListener posClickListener) {
 //        new me.fesky.library.widget.ios.AlertDialog(getActivity())
 //                .builder()
 //                .setTitle(title)
@@ -105,7 +102,7 @@ public abstract class ItimeBaseFragment<V extends MvpView, P extends MvpPresente
             String negBtnStr,
             View.OnClickListener negClickListener,
             String posBtnStr,
-            View.OnClickListener posClickListener){
+            View.OnClickListener posClickListener) {
 //        new me.fesky.library.widget.ios.AlertDialog(getActivity())
 //                .builder()
 //                .toggle()
@@ -116,46 +113,53 @@ public abstract class ItimeBaseFragment<V extends MvpView, P extends MvpPresente
     }
 
 
-
     /**
      * this method is for customizing show dialog on click listener
+     *
      * @param title
      * @param msg
      * @param onClickListener
      */
-    protected void showDialog(String title, String msg, View.OnClickListener onClickListener){
-//        new me.fesky.library.widget.ios.AlertDialog(getActivity())
-//                .builder()
-//                .setTitle(title)
-//                .setMsg(msg)
-//                .setPositiveButton(getString(R.string.ok), onClickListener).show();
+    protected void showDialog(String title, String msg, View.OnClickListener onClickListener) {
+        new MaterialDialog.Builder(getContext())
+                .content(msg)
+                .contentColor(getResources().getColor(R.color.black))
+                .contentGravity(GravityEnum.CENTER)
+                .title(title)
+                .positiveText(R.string.dialog_ok)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        onClickListener.onClick(dialog.getView());
+                    }
+                })
+                .show();
     }
 
 
-
-    public void showToast(String msg){
+    public void showToast(String msg) {
         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
 
-    public void showProgressDialog(){
+    public void showProgressDialog() {
         if (!progressDialog.isShowing()) {
             progressDialog.show();
         }
     }
 
-    public void hideProgressDialog(){
+    public void hideProgressDialog() {
         if (progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
     }
 
-    protected void cleanAllStack(){
+    protected void cleanAllStack() {
         getFragmentManager().popBackStack();
     }
 
-    public void cleanStack(){
+    public void cleanStack() {
         int len = getFragmentManager().getBackStackEntryCount();
-        for (int i = 0; i < len-1; i++){
+        for (int i = 0; i < len - 1; i++) {
             String name = getFragmentManager().getBackStackEntryAt(i).getName();
             Fragment frag = getFragmentManager().findFragmentByTag(name);
             getFragmentManager().beginTransaction().remove(frag).commit();
@@ -194,6 +198,7 @@ public abstract class ItimeBaseFragment<V extends MvpView, P extends MvpPresente
 
     /**
      * Added by Qiushuo Huang
+     *
      * @param code
      * @param permissions
      */
@@ -203,6 +208,7 @@ public abstract class ItimeBaseFragment<V extends MvpView, P extends MvpPresente
 
     /**
      * Added by Qiushuo Huang
+     *
      * @param grantResults all requirements
      * @return true if all granted, otherwise false
      */
@@ -222,7 +228,7 @@ public abstract class ItimeBaseFragment<V extends MvpView, P extends MvpPresente
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    public void hideSoftKeyBoard(){
+    public void hideSoftKeyBoard() {
         final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (getView() != null) {
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);

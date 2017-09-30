@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="toolbarVM"
+            type="org.unimelb.itime.ui.viewmodel.ToolbarViewModel" />
+
+        <variable
+            name="contentVM"
+            type="org.unimelb.itime.ui.viewmodel.CalendarImportUniversityViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include layout="@layout/toolbar"
+            bind:vm="@{toolbarVM}"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/whiteThree">
+
+            <!--subtext 1-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/warmGreyTwo"
+                android:text="@string/setting_calendar_import_unimelb_subtext1"
+                android:textSize="@dimen/font_middle"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:background="@color/white">
+
+                <!--email-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp">
+                    <TextView
+                        style="@style/itime_top_divider_line" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_centerVertical="true"
+                        android:textSize="@dimen/font_middle"
+                        android:text="@string/userName"
+                        android:textColor="@color/black"
+                        />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="99dp"
+                        android:background="@null"
+                        android:hint="@string/userName"
+                        android:text="@={contentVM.importCalendarUserName}"
+                        android:textColorHint="@color/warmGreyTwo"
+                        android:maxLines="1"
+                        android:textSize="@dimen/font_middle"
+                        android:textColor="@color/black"
+                        />
+
+                    <TextView
+                        android:layout_marginLeft="16dp"
+                        style="@style/itime_bottom_divider_line" />
+                </RelativeLayout>
+
+
+                <!--password-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_centerVertical="true"
+                        android:textSize="@dimen/font_middle"
+                        android:text="@string/setting_password"
+                        android:textColor="@color/black"
+                        />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="99dp"
+                        android:background="@null"
+                        android:hint="@string/setting_password"
+                        android:text="@={contentVM.importCalendarPassword}"
+                        android:textColorHint="@color/warmGreyTwo"
+                        android:maxLines="1"
+                        android:inputType="textPassword"
+                        android:textSize="@dimen/font_middle"
+                        android:textColor="@color/black"
+                        />
+
+                    <TextView
+                        android:layout_marginLeft="16dp"
+                        style="@style/itime_bottom_divider_line" />
+                </RelativeLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>
