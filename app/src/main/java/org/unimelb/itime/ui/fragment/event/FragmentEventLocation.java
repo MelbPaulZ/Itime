@@ -129,8 +129,9 @@ implements ToolbarInterface, EventLocationMvpView, GoogleApiClient.OnConnectionF
     private void saveLocationToRecent(){
         if (!"".equals(vm.getLocationString1())) {
             String secondaryString = vm.getLocationString2();
-            if ("".equals(secondaryString)){
+            if ("".equals(secondaryString) || secondaryString == null){
                 secondaryString = getContext().getString(R.string.location_custom_location);
+                vm.setLocationString2(secondaryString);
             }
             eventLocationPresenter.insertRecentLocation(vm.getLocationString1(), secondaryString);
         }

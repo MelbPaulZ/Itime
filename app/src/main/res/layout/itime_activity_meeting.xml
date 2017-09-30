@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             app:cardUseCompatPadding="true"
             app:cardBackgroundColor="@color/whiteFour"
+            app:cardElevation="1dp"
             app:cardCornerRadius="@dimen/card_radius">
 
             <RelativeLayout
