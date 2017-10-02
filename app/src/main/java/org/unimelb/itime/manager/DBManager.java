@@ -8,6 +8,8 @@ import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.Property;
 import org.greenrobot.greendao.query.QueryBuilder;
 import org.unimelb.itime.R;
+import org.unimelb.itime.bean.Account;
+import org.unimelb.itime.bean.AccountDao;
 import org.unimelb.itime.bean.Block;
 import org.unimelb.itime.bean.BlockDao;
 import org.unimelb.itime.bean.Calendar;
@@ -407,5 +409,13 @@ public class DBManager {
         }
     }
 
+    public synchronized List<Account> getAllAccounts() {
+        DaoSession daoSession = daoMaster.newSession();
+        AccountDao accountDao = daoSession.getAccountDao();
+        QueryBuilder<Account> qb = accountDao.queryBuilder();
+        qb.where(qb.and(AccountDao.Properties.UserUid.eq(UserUtil.getInstance(context).getUserUid()),
+                AccountDao.Properties.DeleteLevel.eq(0)));
+        return qb.list();
+    }
 
 }

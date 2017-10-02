@@ -63,7 +63,7 @@ public class FragmentEventCreateAddInvitee extends ItimeBaseFragment<EventCreate
 
         if(toolbarVM==null) {
             toolbarVM = new ToolbarViewModel(this);
-            toolbarVM.setLeftIcon(getResources().getDrawable(R.drawable.icon_event_closecell));
+            toolbarVM.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_close));
             toolbarVM.setRightText(getString(R.string.new_event_toolbar_next));
             toolbarVM.setRightEnable(false);
             toolbarVM.setTitle(getString(R.string.event_create_addinvitee));
