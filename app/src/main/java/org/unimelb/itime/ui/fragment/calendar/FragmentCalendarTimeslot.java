@@ -21,6 +21,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.databinding.FragmentCalendarTimeslotBinding;
 import org.unimelb.itime.manager.EventManager;
@@ -72,7 +73,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     private ToolbarTimeslotViewModel toolbarVM;
     private Event event;
     private Mode mode = Mode.HOST_CREATE;
-
+    private int timeslotPageRange = 3;
     private int selectMax = 1;
 
     private transient List<TimeSlot> preSelectedSlots = new ArrayList<>();
@@ -145,6 +146,12 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
         linkEventTimeslots(event, preSelectedSlots);
 
         setDurationBarItems();
+
+        //add self as invitee
+        if (!EventUtil.isMyselfInEvent(getContext(), event)){
+            Invitee invitee = EventUtil.createSelfInviteeForEvent(getContext(), event);
+            event.getInvitee().put(event.getInvitee().size() + "", invitee);
+        }
 
         //scroll to latest timeslot
         if (event.getTimeslot() == null || event.getTimeslot().size() == 0){
@@ -560,27 +567,48 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     };
 
 
-    public static final int FETCH_RANGE = 6;
+    public static final int FETCH_RANGE = 3;
 
     private void fetchRcds(Date currentFstDay){
         Date today = new Date();
 
-        String currentDateStr = TimeFactory.getFormatTimeString(currentFstDay, TimeFactory.DAY_MONTH_YEAR);
+        Date targetFetchStartDate = currentFstDay;
+        boolean needFetch = false;
 
-        if (!rcdCheckedDates.containsKey(currentDateStr)){
+        for (int i = 0; i < timeslotPageRange; i++) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(currentFstDay.getTime());
+            cal.add(Calendar.DATE, i);
+            String currentDateStr = TimeFactory.getFormatTimeString(cal.getTime(), TimeFactory.DAY_MONTH_YEAR);
+            if (!rcdCheckedDates.containsKey(currentDateStr)){
+                targetFetchStartDate = cal.getTime();
+                needFetch = true;
+                break;
+            }
+        }
+
+        if (needFetch){
             Date end = new Date();
             Date start = new Date();
 
-            long startFetchTime = currentFstDay.getTime() - FETCH_RANGE * EventUtil.allDayMilliseconds;
 
-            if (startFetchTime < today.getTime()){
-                startFetchTime = today.getTime();
-            }
+//            if (EventUtil.isSameDay(today, targetFetchStartDate)){
+//                if (targetFetchStartDate.getTime() < today.getTime()){
+//                    targetFetchStartDate.setTime(today.getTime());
+//                }
+//            }else {
+                targetFetchStartDate.setHours(0);
+                targetFetchStartDate.setMinutes(0);
+//            }
 
-            long endFetchTime = currentFstDay.getTime() + FETCH_RANGE * EventUtil.allDayMilliseconds;
+            long startFetchTime = targetFetchStartDate.getTime();
+
+            long endFetchTime = targetFetchStartDate.getTime() + FETCH_RANGE * EventUtil.allDayMilliseconds;
             start.setTime(startFetchTime);
             end.setTime(endFetchTime);
-            Log.i("onRcdArrive", "fetch: C " + currentDateStr + " S: " + start + " E: " + end);
+
+            Log.i("onRcdArrive", "fetch: C " + targetFetchStartDate + " S: " + start + " E: " + end);
+
             presenter.fetchRecommendedTimeslots(event, start, end);
         }else {
             return;
@@ -589,7 +617,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
         // add checked date to recorder
         for (int i = -FETCH_RANGE; i < FETCH_RANGE; i++) {
             Calendar calendar = Calendar.getInstance();
-            calendar.setTime(currentFstDay);
+            calendar.setTime(targetFetchStartDate);
             calendar.add(Calendar.DATE, i);
             String dateStr = TimeFactory.getFormatTimeString(calendar.getTime(), TimeFactory.DAY_MONTH_YEAR);
             Log.i("onRcdArrive", "added: " + dateStr);
@@ -633,6 +661,9 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRcdArrive(MessageRefreshTimeSlots msg){
 //        clearRecommendedTimeslot();
+        Calendar cal = Calendar.getInstance();
+        long nowTime = cal.getTimeInMillis();
+
         List<TimeSlot> rcdTimeslot = msg.getRcdTimeslots();
         if (rcdTimeslot == null || rcdTimeslot.size() == 0){
             return;
@@ -641,20 +672,22 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
 
         long currentDuration = items.get(timeSlotView.getDurationBar().getCurrentSelectedPosition()).duration;
         if (rcdTimeslot.size() >0){
+            List<TimeSlot> validSlots = new ArrayList<>();
 
             for (TimeSlot timeslot:rcdTimeslot
                  ) {
                 long start = timeslot.getStartTime();
+                if (start < nowTime){
+                    continue;
+                }
                 timeslot.setEndTime(start + currentDuration);
                 rcdTimeslots.add(timeslot);
-
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(start);
-                String dateStr = TimeFactory.getFormatTimeString(calendar.getTime(), TimeFactory.DAY_MONTH_YEAR);
-                Log.i("onRcdArrive", "onRcdArrive: " + " loaded rcd: " + dateStr);
+                validSlots.add(timeslot);
             }
 
-            timeSlotView.addTimeSlotList(rcdTimeslot);
+            timeSlotView.addTimeSlotList(validSlots);
         }
 
 //        Collections.sort(rcdTimeslot);

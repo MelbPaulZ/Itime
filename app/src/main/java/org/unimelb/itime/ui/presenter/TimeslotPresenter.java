@@ -19,6 +19,7 @@ import org.unimelb.itime.util.TimeFactory;
 
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -43,9 +44,11 @@ public class TimeslotPresenter <V extends TimeslotMvpView> extends ItimeBasePres
         recommandRequest.setDuration(event.getDuration());
         TZoneTime start = new TZoneTime();
         start.setDateTime(EventUtil.getFormatTimeString(startTime.getTime(), EventUtil.TIME_ZONE_PATTERN));
+        start.setTimeZone(TimeZone.getDefault().getID());
         recommandRequest.setStartRecommendTime(start);
         TZoneTime end = new TZoneTime();
         end.setDateTime(EventUtil.getFormatTimeString(endTime.getTime(), EventUtil.TIME_ZONE_PATTERN));
+        end.setTimeZone(TimeZone.getDefault().getID());
         recommandRequest.setEndRecommendTime(end);
         Observable<HttpResult<List<TimeSlot>>> observable = eventApi.recommend(recommandRequest);
         Subscriber<HttpResult<List<TimeSlot>>> subscriber = new Subscriber<HttpResult<List<TimeSlot>>>() {

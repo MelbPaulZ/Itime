@@ -46,6 +46,7 @@ import java.util.UUID;
 
 import david.itimecalendar.calendar.listeners.ITimeEventInterface;
 
+import static org.unimelb.itime.bean.EventDao.Properties.CalendarUid;
 import static org.unimelb.itime.bean.EventDao.Properties.Timeslot;
 
 
@@ -289,6 +290,16 @@ public class EventUtil extends BaseUtil{
     }
 
     public static boolean isSameDay(Calendar c1, Calendar c2){
+        return c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH)
+                && c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH)
+                && c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR);
+    }
+
+    public static boolean isSameDay(Date d1, Date d2){
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(d1);
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(d2);
         return c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH)
                 && c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH)
                 && c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR);
