@@ -13,6 +13,9 @@ import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseActivity;
 import org.unimelb.itime.ui.fragment.settings.SettingAboutFragment;
+import org.unimelb.itime.ui.fragment.settings.SettingBlockContactsFragment;
+import org.unimelb.itime.ui.fragment.settings.SettingCalendarPreferenceFragment;
+import org.unimelb.itime.ui.fragment.settings.SettingLanguageFragment;
 import org.unimelb.itime.ui.fragment.settings.SettingMyProfileFragment;
 import org.unimelb.itime.ui.fragment.settings.SettingNotificationFragment;
 
@@ -75,13 +78,13 @@ public class SettingSwitchActivity extends ItimeBaseActivity{
                     name = SettingMyProfileFragment.class;
                     break;
                 case TASK_TO_BLOCK_USER:
-//                    name = SettingBlockContactsFragment.class;
+                    name = SettingBlockContactsFragment.class;
                     break;
                 case TASK_TO_NOTICIFATION:
                     name = SettingNotificationFragment.class;
                     break;
                 case TASK_TO_CALENDAR_PREFERENCE:
-//                    name = SettingCalendarPreferenceFragment.class;
+                    name = SettingCalendarPreferenceFragment.class;
                     break;
                 case TASK_TO_HELP_AND_FEEDBACK:
                     break;
@@ -95,7 +98,7 @@ public class SettingSwitchActivity extends ItimeBaseActivity{
                     name = SettingAboutFragment.class;
                     break;
                 case TASK_TO_LANGUAGE:
-//                    name = SettingLanguageFragment.class;
+                    name = SettingLanguageFragment.class;
                     break;
                 default:
                     return;

@@ -60,6 +60,7 @@
             android:hint="@string/event_greeting_hint"
             android:textColorHint="@color/whiteTwo"
             android:background="@color/transparent"
+            android:text="@={vm.event.greeting}"
             android:focusable="true"
             android:gravity="top"
             android:clickable="true"

@@ -16,8 +16,7 @@ import io.socket.emitter.Emitter;
  */
 
 public class ItimeWebSocket {
-//    private static final String SERVER_URL = "http://socket.timagic.net";
-    private static final String SERVER_URL = "http://socket2.timegenii.com";
+    private static final String SERVER_URL = "http://socket.timagic.net";
     private static final String ITIME_MESSAGE = "itime_message";
 
     private String TAG = "ItimeWebSocket";
@@ -50,6 +49,7 @@ public class ItimeWebSocket {
             IO.Options options = new IO.Options();
             options.forceNew = true;
             options.reconnection = true;
+            options.transports = new String[]{"websocket"};
             instance.socket = IO.socket(generateUrl(), options);
         } catch (URISyntaxException e) {
             e.printStackTrace();

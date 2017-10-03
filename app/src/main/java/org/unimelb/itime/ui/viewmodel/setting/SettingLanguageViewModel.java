@@ -13,6 +13,8 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.bean.SpinnerWrapper;
 import org.unimelb.itime.ui.presenter.SettingPresenter;
 
+import me.tatarka.bindingcollectionadapter2.ItemBinding;
+
 
 /**
  * Created by Paul on 18/3/17.
@@ -21,7 +23,7 @@ import org.unimelb.itime.ui.presenter.SettingPresenter;
 public class SettingLanguageViewModel extends BaseObservable {
 
     public final ObservableList<SpinnerWrapper> items = new ObservableArrayList<>();
-//    public final ItemView itemView = ItemView.of(BR.wrapper, R.layout.listview_setting_language);
+    public final ItemBinding itemView = ItemBinding.of(BR.wrapper, R.layout.listview_setting_language);
 
     private SettingPresenter settingPresenter;
     public SettingLanguageViewModel(SettingPresenter settingPresenter) {
@@ -30,9 +32,9 @@ public class SettingLanguageViewModel extends BaseObservable {
     }
 
     private void init(){
-        items.add(new SpinnerWrapper("English", 1));
-        items.add(new SpinnerWrapper("中文", 0));
-
+        items.add(new SpinnerWrapper("English", 2));
+        items.add(new SpinnerWrapper("简体中文", 1));
+        items.add(new SpinnerWrapper("繁体中文", 0));
     }
 
     public ListView.OnItemClickListener onChooseLanguage(){

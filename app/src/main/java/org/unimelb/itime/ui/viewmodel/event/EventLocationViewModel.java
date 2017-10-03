@@ -14,6 +14,7 @@ import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseViewModel;
+import org.unimelb.itime.bean.RecentLocation;
 import org.unimelb.itime.ui.mvpview.event.EventLocationMvpView;
 import org.unimelb.itime.ui.presenter.EventLocationPresenter;
 
@@ -91,8 +92,9 @@ public class EventLocationViewModel extends ItimeBaseViewModel {
             start++;
         }
 
-        locationRowViewModels.add(getRecentTitle());
-
+        if (presenter.getRecentLocation().size()>0) {
+            locationRowViewModels.add(getRecentTitle());
+        }
         for (LocationRowViewModel locationRowViewModel: getRecentRows()){
             locationRowViewModels.add(locationRowViewModel);
         }
@@ -121,8 +123,10 @@ public class EventLocationViewModel extends ItimeBaseViewModel {
     public EventLocationViewModel(EventLocationPresenter<EventLocationMvpView> presenter) {
         this.presenter = presenter;
         mvpView = presenter.getView();
-        mockData();
+        prepareData();
     }
+
+
 
     public TextWatcher locationInputWatcher(){
         return new TextWatcher() {
@@ -176,13 +180,14 @@ public class EventLocationViewModel extends ItimeBaseViewModel {
         notifyPropertyChanged(BR.onItemBind);
     }
 
-    private void mockData(){
-        locationRows.add(new LocationRowViewModel(presenter.getContext().getString(R.string.location_nearby),"", TYPE_NEARBY_TITLE));
-        locationRows.add(new LocationRowViewModel("Doug McDonell Build", "123456", TYPE_NEARBY));
-        locationRows.add(new LocationRowViewModel("House of Cards", "09876544321", TYPE_NEARBY));
-        locationRows.add(new LocationRowViewModel("Asssss ddd gfaofaou", "1231231 asdasdasd asdqqrqrewrds adas da dsdad ad ags ea d!! asdasdasdasdasdasadsdasdassaassasasas", TYPE_NEARBY));
+    private void prepareData(){
+        locationRows.clear();
 
-        locationRows.add(new LocationRowViewModel(presenter.getContext().getString(R.string.location_recent), "", TYPE_RECENT_TITLE));
+        locationRows.add(new LocationRowViewModel(presenter.getContext().getString(R.string.location_nearby),"", TYPE_NEARBY_TITLE));
+
+        if (presenter.getRecentLocation().size()>0) {
+            locationRows.add(new LocationRowViewModel(presenter.getContext().getString(R.string.location_recent), "", TYPE_RECENT_TITLE));
+        }
         for (LocationRowViewModel rowViewModel: getRecentRows()){
             locationRows.add(rowViewModel);
         }
@@ -207,12 +212,20 @@ public class EventLocationViewModel extends ItimeBaseViewModel {
     }
 
     private List<LocationRowViewModel> getRecentRows(){
+        List<RecentLocation> recentLocations = presenter.getRecentLocation();
         List<LocationRowViewModel> recentRows = new ArrayList<>();
-        recentRows.add(new LocationRowViewModel("Recent Address One", "1231231faf asda d faga fas asda a asdad  asda ad adasdas as a", TYPE_RECENT));
-        recentRows.add(new LocationRowViewModel("asdad", "123 ", TYPE_RECENT));
-        recentRows.add(new LocationRowViewModel("asa", "asadsda", TYPE_RECENT));
-        recentRows.add(new LocationRowViewModel("asa", "asadsda", TYPE_RECENT));
+        for (RecentLocation recentLocation: recentLocations){
+            LocationRowViewModel rowViewModel = new LocationRowViewModel(recentLocation.getPrimaryString(), recentLocation.getSecondaryString(), TYPE_RECENT);
+            recentRows.add(rowViewModel);
+        }
         return recentRows;
+//
+//
+//        recentRows.add(new LocationRowViewModel("Recent Address One", "1231231faf asda d faga fas asda a asdad  asda ad adasdas as a", TYPE_RECENT));
+//        recentRows.add(new LocationRowViewModel("asdad", "123 ", TYPE_RECENT));
+//        recentRows.add(new LocationRowViewModel("asa", "asadsda", TYPE_RECENT));
+//        recentRows.add(new LocationRowViewModel("asa", "asadsda", TYPE_RECENT));
+//        return recentRows;
     }
 
     public View.OnClickListener onClickClean(){
@@ -221,6 +234,17 @@ public class EventLocationViewModel extends ItimeBaseViewModel {
             public void onClick(View v) {
                 setLocationString1("");
                 closeKeyBoard(v);
+            }
+        };
+    }
+
+    public View.OnClickListener onClickNoLocation(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mvpView!=null){
+                    mvpView.onChooseLocation("", "");
+                }
             }
         };
     }
@@ -260,18 +284,28 @@ public class EventLocationViewModel extends ItimeBaseViewModel {
         private String str1;
         private String str2;
 
-
+        /**
+         *
+         * @param str1 first row
+         * @param str2 second row
+         * @param type
+         */
         public LocationRowViewModel(String str1, String str2, int type) {
             this.str1 = str1;
             this.str2 = str2;
             this.type = type;
         }
 
+
+
         public View.OnClickListener onClickLocation(){
             return new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     setLocationString1(str1);
+                    if ("".equals(str2)){
+                        str2 = presenter.getContext().getString(R.string.location_custom_location);
+                    }
                     setLocationString2(str2);
                     if (mvpView!=null){
                         mvpView.onChooseLocation(str1, str2);

@@ -91,6 +91,8 @@ public class UserPresenter<V extends TaskBasedMvpView<User>> extends MvpBasePres
             getView().onTaskStart(TASK_USER_UPDATE);
         }
 
+
+        user.setPhone("13333333333");
         Observable<HttpResult<User>> observable = userApi.updateProfile(user);
         ItimeSubscriber<HttpResult<User>> subscriber = new ItimeSubscriber<HttpResult<User>>() {
             @Override
@@ -103,12 +105,18 @@ public class UserPresenter<V extends TaskBasedMvpView<User>> extends MvpBasePres
             @Override
             public void onNext(HttpResult<User> userHttpResult) {
                 //update UserLoginRes
-                UserUtil.getInstance(getContext()).getUserLoginRes().setUser(userHttpResult.getData());
-                //update sharedPreference
-                UserUtil.getInstance(getContext()).saveLoginUser(UserUtil.getInstance(getContext()).getUserLoginRes());
+                if (userHttpResult.getStatus() == 1) {
+                    UserUtil.getInstance(getContext()).getUserLoginRes().setUser(userHttpResult.getData());
+                    //update sharedPreference
+                    UserUtil.getInstance(getContext()).saveLoginUser(UserUtil.getInstance(getContext()).getUserLoginRes());
 
-                if (getView() != null) {
-                    getView().onTaskSuccess(TASK_USER_UPDATE, userHttpResult.getData());
+                    if (getView() != null) {
+                        getView().onTaskSuccess(TASK_USER_UPDATE, userHttpResult.getData());
+                    }
+                }else{
+                    if (getView()!=null){
+                        getView().onTaskError(TASK_USER_UPDATE, null);
+                    }
                 }
             }
         };
@@ -235,9 +243,9 @@ public class UserPresenter<V extends TaskBasedMvpView<User>> extends MvpBasePres
      * in the call back method, onConnect, the location latitude and longitude will be gotten.
      */
     public void getCurrentLocation() {
-        if (getView() != null) {
-            getView().onTaskStart(0);
-        }
+//        if (getView() != null) {
+//            getView().onTaskStart(0);
+//        }
 
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

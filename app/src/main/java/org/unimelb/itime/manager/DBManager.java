@@ -8,6 +8,8 @@ import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.Property;
 import org.greenrobot.greendao.query.QueryBuilder;
 import org.unimelb.itime.R;
+import org.unimelb.itime.bean.Account;
+import org.unimelb.itime.bean.AccountDao;
 import org.unimelb.itime.bean.Block;
 import org.unimelb.itime.bean.BlockDao;
 import org.unimelb.itime.bean.Calendar;
@@ -22,9 +24,13 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.EventDao;
 import org.unimelb.itime.bean.FriendRequest;
 import org.unimelb.itime.bean.FriendRequestDao;
+import org.unimelb.itime.bean.Location;
+import org.unimelb.itime.bean.LocationDao;
 import org.unimelb.itime.bean.Message;
 import org.unimelb.itime.bean.MessageGroup;
 import org.unimelb.itime.bean.MessageGroupDao;
+import org.unimelb.itime.bean.RecentLocation;
+import org.unimelb.itime.bean.RecentLocationDao;
 import org.unimelb.itime.bean.Region;
 import org.unimelb.itime.bean.RegionDao;
 import org.unimelb.itime.bean.Setting;
@@ -343,6 +349,25 @@ public class DBManager {
         blockDao.insertOrReplace(block);
     }
 
+    public synchronized void insertRecentLocation(RecentLocation recentLocation){
+        if (recentLocation == null){
+            return;
+        }
+        DaoSession daoSession = daoMaster.newSession();
+        RecentLocationDao recentLocationDao = daoSession.getRecentLocationDao();
+        recentLocationDao.insertOrReplace(recentLocation);
+    }
+
+    public synchronized List<RecentLocation> getRecentLocations(){
+        DaoSession daoSession = daoMaster.newSession();
+        RecentLocationDao recentLocationDao = daoSession.getRecentLocationDao();
+        QueryBuilder<RecentLocation> qb = recentLocationDao.queryBuilder();
+        qb.where(RecentLocationDao.Properties.UserUid.eq(UserUtil.getInstance(context).getUserUid()))
+                .orderDesc(RecentLocationDao.Properties.SelectDate).limit(10);
+        List<RecentLocation> recentLocations = qb.list();
+        return recentLocations;
+    }
+
     public synchronized void insertDomain(Domain domain) {
         if(domain==null){
             return;
@@ -384,5 +409,13 @@ public class DBManager {
         }
     }
 
+    public synchronized List<Account> getAllAccounts() {
+        DaoSession daoSession = daoMaster.newSession();
+        AccountDao accountDao = daoSession.getAccountDao();
+        QueryBuilder<Account> qb = accountDao.queryBuilder();
+        qb.where(qb.and(AccountDao.Properties.UserUid.eq(UserUtil.getInstance(context).getUserUid()),
+                AccountDao.Properties.DeleteLevel.eq(0)));
+        return qb.list();
+    }
 
 }
