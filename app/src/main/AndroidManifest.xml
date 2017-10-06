@@ -31,7 +31,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name="android.support.multidex.MultiDexApplication"
+        android:name=".base.ITimeApplication"
         android:theme="@style/ITimeTheme">
     <!--<application-->
         <!--android:allowBackup="true"-->
@@ -168,6 +168,8 @@
             <!--</intent-filter>-->
         </activity>
 
+        <activity android:name=".ui.activity.CameraActivity">
+        </activity>
 
         <activity android:name=".ui.activity.ItimeActivitiesActivity"
             android:launchMode="singleTask"

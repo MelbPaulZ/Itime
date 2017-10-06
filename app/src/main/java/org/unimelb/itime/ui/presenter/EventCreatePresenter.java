@@ -364,6 +364,74 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
         }
     }
 
+    public void uploadCover(final PhotoUrl photoUrl, Event event) {
+        if (photoUrl!=null && photoUrl.getLocalPath()!=null && !photoUrl.getLocalPath().equals("")){
+
+            if(getView()!=null){
+                getView().onTaskStart(TASK_UPDATE_COVER);
+            }
+            final List<ImageUploadWrapper> wrappers = new ArrayList<>();
+
+                // create file
+                final String fileName = photoUrl.getPhotoUid()+"_"+System.currentTimeMillis() + ".png";
+
+                File image = new File(photoUrl.getLocalPath());
+                Luban.get(context)
+                        .load(image)                     //传人要压缩的图片
+                        .putGear(Luban.THIRD_GEAR)      //设定压缩档次，默认三挡
+                        .asObservable()
+                        .subscribeOn(Schedulers.from(threadPoolExecutor))
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnError(new Action1<Throwable>() {
+                            @Override
+                            public void call(Throwable throwable) {
+                                throwable.printStackTrace();
+                            }
+                        })
+                        .onErrorResumeNext(new Func1<Throwable, Observable<? extends File>>() {
+                            @Override
+                            public Observable<? extends File> call(Throwable throwable) {
+                                return Observable.empty();
+                            }
+                        })
+                        .subscribe(new Action1<File>() {
+                            @Override
+                            public void call(File file) {
+                                final ImageUploadWrapper wrapper = new ImageUploadWrapper(photoUrl,false);
+                                wrappers.add(wrapper);
+                                final AVFile avFile;
+                                try {
+                                    avFile = AVFile.withFile(fileName,file);
+                                    avFile.saveInBackground(new SaveCallback() {
+                                        @Override
+                                        public void done(AVException e) {
+                                            if (e==null){
+                                                wrapper.getPhoto().setUrl(avFile.getUrl());
+                                                wrapper.setUploaded(true);
+
+                                                if (imageUploadChecker(wrappers)){
+                                                    Toast.makeText(getContext(),"Image Uploaded to leanCloud",Toast.LENGTH_SHORT).show();
+                                                    //start to syn server
+                                                    updateCover(wrapper.getPhoto(), event);
+                                                }else{
+                                                    Log.i(TAG, "done: ");
+                                                }
+                                            }else{
+                                                if (getView() != null){
+                                                    getView().onTaskError(TASK_UPLOAD_IMAGE, null);
+                                                }
+                                            }
+                                        }
+                                    });
+                                } catch (IOException e1) {
+                                    e1.printStackTrace();
+                                    getView().onTaskError(TASK_UPDATE_COVER, null);
+                                }
+                            }
+                        });
+            }
+        }
+
     private boolean imageUploadChecker(List<ImageUploadWrapper> wrappers){
         for (ImageUploadWrapper wrapper:wrappers
                 ) {
