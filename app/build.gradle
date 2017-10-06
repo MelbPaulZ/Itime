@@ -181,6 +181,9 @@ dependencies {
     // support lambda
     compile 'com.annimon:stream:1.0.3'
 
+    //image zip
+    compile 'top.zibin:Luban:1.0.9'
+
     // QR code
     compile 'com.google.zxing:core:3.3.0'
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {

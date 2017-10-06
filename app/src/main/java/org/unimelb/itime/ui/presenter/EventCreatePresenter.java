@@ -42,6 +42,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -49,6 +51,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+import top.zibin.luban.Luban;
 
 import static org.unimelb.itime.ui.presenter.contact.ContactPresenter.TAST_ALL_CONTACT;
 
@@ -83,7 +86,7 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
 
 
     private static final String TAG = "EventCreatePresenter";
-
+    private ExecutorService threadPoolExecutor = Executors.newFixedThreadPool(2);
 
     private EventApi eventApi;
     private PhotoApi photoApi;
@@ -293,72 +296,83 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
      * @param event
      */
     public void uploadImage(final Event event) {
-//        if (event.hasPhoto()){
-//
-//            final List<ImageUploadWrapper> wrappers = new ArrayList<>();
-//
-//            for (final PhotoUrl photoUrl : event.getPhoto()){
-//                // create file
-//                final String fileName = event.getEventUid() + "_" + photoUrl.getPhotoUid() + ".png";
-//
-//                File image = new File(photoUrl.getLocalPath());
-//                Luban.get(context)
-//                        .load(image)                     //传人要压缩的图片
-//                        .putGear(Luban.THIRD_GEAR)      //设定压缩档次，默认三挡
-//                        .asObservable()
-//                        .subscribeOn(Schedulers.from(threadPoolExecutor))
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .doOnError(new Action1<Throwable>() {
-//                            @Override
-//                            public void call(Throwable throwable) {
-//                                throwable.printStackTrace();
-//                            }
-//                        })
-//                        .onErrorResumeNext(new Func1<Throwable, Observable<? extends File>>() {
-//                            @Override
-//                            public Observable<? extends File> call(Throwable throwable) {
-//                                return Observable.empty();
-//                            }
-//                        })
-//                        .subscribe(new Action1<File>() {
-//                            @Override
-//                            public void call(File file) {
-//                                final ImageUploadWrapper wrapper = new ImageUploadWrapper(photoUrl,false);
-//                                wrappers.add(wrapper);
-//                                final AVFile avFile;
-//                                try {
-//                                    avFile = AVFile.withFile(fileName,file);
-//                                    avFile.saveInBackground(new SaveCallback() {
-//                                        @Override
-//                                        public void done(AVException e) {
-//                                            if (e==null){
-//                                                wrapper.getPhoto().setUrl(avFile.getUrl());
-//                                                wrapper.setUploaded(true);
-//
-//                                                if (imageUploadChecker(wrappers)){
-//                                                    Toast.makeText(getContext(),"Image Uploaded to leanCloud",Toast.LENGTH_SHORT).show();
-//                                                    //start to syn server
-//                                                    for (PhotoUrl photoUrl:event.getPhoto()
-//                                                            ) {
-//                                                        updatePhotoToServer(event, photoUrl.getPhotoUid(), photoUrl.getUrl());
-//                                                    }
-//                                                }else{
-//                                                    Log.i(TAG, "done: ");
-//                                                }
-//                                            }else{
-//                                                if (getView() != null){
-//                                                    getView().onTaskError(TASK_UPLOAD_IMAGE, null);
-//                                                }
-//                                            }
-//                                        }
-//                                    });
-//                                } catch (IOException e1) {
-//                                    e1.printStackTrace();
-//                                }
-//                            }
-//                        });
-//            }
-//        }
+        if (event.getPhoto()!=null && !event.getPhoto().isEmpty()){
+
+            final List<ImageUploadWrapper> wrappers = new ArrayList<>();
+
+            for (final PhotoUrl photoUrl : event.getPhoto()){
+                // create file
+                final String fileName = event.getEventUid() + "_" + photoUrl.getPhotoUid() + ".png";
+
+                File image = new File(photoUrl.getLocalPath());
+                Luban.get(context)
+                        .load(image)                     //传人要压缩的图片
+                        .putGear(Luban.THIRD_GEAR)      //设定压缩档次，默认三挡
+                        .asObservable()
+                        .subscribeOn(Schedulers.from(threadPoolExecutor))
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnError(new Action1<Throwable>() {
+                            @Override
+                            public void call(Throwable throwable) {
+                                throwable.printStackTrace();
+                            }
+                        })
+                        .onErrorResumeNext(new Func1<Throwable, Observable<? extends File>>() {
+                            @Override
+                            public Observable<? extends File> call(Throwable throwable) {
+                                return Observable.empty();
+                            }
+                        })
+                        .subscribe(new Action1<File>() {
+                            @Override
+                            public void call(File file) {
+                                final ImageUploadWrapper wrapper = new ImageUploadWrapper(photoUrl,false);
+                                wrappers.add(wrapper);
+                                final AVFile avFile;
+                                try {
+                                    avFile = AVFile.withFile(fileName,file);
+                                    avFile.saveInBackground(new SaveCallback() {
+                                        @Override
+                                        public void done(AVException e) {
+                                            if (e==null){
+                                                wrapper.getPhoto().setUrl(avFile.getUrl());
+                                                wrapper.setUploaded(true);
+
+                                                if (imageUploadChecker(wrappers)){
+                                                    Toast.makeText(getContext(),"Image Uploaded to leanCloud",Toast.LENGTH_SHORT).show();
+                                                    //start to syn server
+                                                    for (PhotoUrl photoUrl:event.getPhoto()
+                                                            ) {
+                                                        updatePhotoToServer(event, photoUrl.getPhotoUid(), photoUrl.getUrl());
+                                                    }
+                                                }else{
+                                                    Log.i(TAG, "done: ");
+                                                }
+                                            }else{
+                                                if (getView() != null){
+                                                    getView().onTaskError(TASK_UPLOAD_IMAGE, null);
+                                                }
+                                            }
+                                        }
+                                    });
+                                } catch (IOException e1) {
+                                    e1.printStackTrace();
+                                }
+                            }
+                        });
+            }
+        }
+    }
+
+    private boolean imageUploadChecker(List<ImageUploadWrapper> wrappers){
+        for (ImageUploadWrapper wrapper:wrappers
+                ) {
+            if (!wrapper.isUploaded()){
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public void updateCover(PhotoUrl photoUrl, Event event){
