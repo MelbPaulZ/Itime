@@ -1,6 +1,8 @@
 package org.unimelb.itime.ui.fragment.event;
 
 import android.databinding.DataBindingUtil;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -34,8 +36,9 @@ public class CoverCollectionFragment extends ItimeBaseFragment implements Toolba
     private ToolbarViewModel toolbarViewModel;
     private FragmentCoverCollectionBinding binding;
     private Event event;
-    private List<PhotoUrl> covers;
+    private ObservableList<PhotoUrl> covers;
     private PhotoGridView gridView;
+    private EventBigCoverFragment eventBigCoverFragment;
 
     @Nullable
     @Override
@@ -47,12 +50,24 @@ public class CoverCollectionFragment extends ItimeBaseFragment implements Toolba
             toolbarViewModel.setTitle(getString(R.string.cover_collections));
             initCovers();
             gridView = binding.gridviewPhoto;
+            gridView.setItemOnClickListener(new PhotoGridView.ItemOnClickListener() {
+                @Override
+                public void onClick(int position, View view) {
+                    if(eventBigCoverFragment == null){
+                        eventBigCoverFragment = new EventBigCoverFragment();
+                    }
+                    eventBigCoverFragment.setPhotos(covers);
+                    eventBigCoverFragment.setPosition(position);
+                    eventBigCoverFragment.setEvent(event);
+                    getBaseActivity().openFragment(eventBigCoverFragment);
+                }
+            });
         }
         return binding.getRoot();
     }
 
     private void initCovers(){
-        covers = new ArrayList<>();
+        covers = new ObservableArrayList<>();
         for(String url:CoverPhotoUtil.getDefaultPhotos()){
             PhotoUrl photo = new PhotoUrl();
             photo.setUrl(url);

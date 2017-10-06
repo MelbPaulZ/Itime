@@ -157,6 +157,13 @@ public interface EventApi {
     @GET("event/list_default_cover_photo")
     Observable<HttpResult<List<String>>> getDefaultCoverPhotos();
 
+    @POST("event/update_cover_photo/{calendarUid}/{eventUid}")
+    Observable<HttpResult<List<Event>>> updateCover(
+            @Path("calendarUid") String calendarUid,
+            @Path("eventUid") String eventUid,
+            @Body HashMap<String, Object> body,
+            @Query("syncToken") String syncToken);
+
 //    @POST("event/update_cover_photo/{calendarUid}/{eventUid}")//body parameter(x-xxx-form-urlencode):
 //    ObservableList<HttpResult<List<Event>> archive(
 //            @Path("calendarUid") String calendarUid,

@@ -75,6 +75,7 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
     public static final int TASK_EVENT_FETCH = 15;
     public static final int TASK_EVENT_CREATE = 16;
     public static final int TASK_REFRESH_EVENT = 17;
+    public static final int TASK_UPDATE_COVER = 18;
 
     public static final String UPDATE_THIS = "this";
     public static final String UPDATE_ALL = "all";
@@ -358,6 +359,37 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
 //                        });
 //            }
 //        }
+    }
+
+    public void updateCover(PhotoUrl photoUrl, Event event){
+        if(getView()!=null){
+            getView().onTaskStart(TASK_UPDATE_COVER);
+            HashMap<String ,Object> body = new HashMap<>();
+            String syncToken = getEventToken();
+            if(photoUrl.getUrl()!=null&&!photoUrl.getUrl().equals("")){
+                body.put("url", photoUrl.getUrl());
+
+                Observable<HttpResult<List<Event>>> observable = eventApi.updateCover(event.getCalendarUid(), event.getEventUid(), body, syncToken);
+                ItimeSubscriber<HttpResult<List<Event>>> subscriber = new ItimeSubscriber<HttpResult<List<Event>>>() {
+                    @Override
+                    public void onHttpError(Throwable e) {
+                        if (getView() != null){
+                            getView().onTaskError(TASK_UPDATE_COVER, null);
+                        }
+                    }
+
+                    @Override
+                    public void onNext(HttpResult<List<Event>> eventHttpResult) {
+                        if(getView()!=null){
+                            getView().onTaskSuccess(TASK_UPDATE_COVER, null);
+                            DBManager.getInstance(getContext()).insertOrReplace(eventHttpResult.getData());
+                            EventBus.getDefault().post(new MessageEvent(MessageEvent.RELOAD_EVENT));
+                        }
+                    }
+                };
+                HttpUtil.subscribe(observable, subscriber);
+            }
+        }
     }
 
     /**

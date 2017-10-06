@@ -8,10 +8,13 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
+import org.unimelb.itime.base.ItimeBaseMvpView;
 import org.unimelb.itime.base.ToolbarInterface;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.PhotoUrl;
 import org.unimelb.itime.databinding.FragmentEventBigphotoBinding;
 import org.unimelb.itime.ui.mvpview.TaskBasedMvpView;
@@ -27,11 +30,12 @@ import me.fesky.library.widget.ios.AlertDialog;
  * Created by Qiushuo Huang on 2017/1/24.
  */
 
-public class EventBigPhotoFragment extends ItimeBaseFragment<TaskBasedMvpView, EventCreatePresenter<TaskBasedMvpView>> implements TaskBasedMvpView, ToolbarInterface {
+public class EventBigCoverFragment extends ItimeBaseFragment<TaskBasedMvpView, EventCreatePresenter<TaskBasedMvpView>> implements TaskBasedMvpView, ToolbarInterface {
     private ToolbarViewModel toolbarViewModel;
     private FragmentEventBigphotoBinding binding;
     private EventBigPhotoViewModel viewModel;
     private ObservableList<PhotoUrl> photos;
+    private Event event;
     private int position;
     private boolean editable;
 
@@ -41,6 +45,14 @@ public class EventBigPhotoFragment extends ItimeBaseFragment<TaskBasedMvpView, E
 
     public void setEditable(boolean editable) {
         this.editable = editable;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     @Nullable
@@ -69,7 +81,7 @@ public class EventBigPhotoFragment extends ItimeBaseFragment<TaskBasedMvpView, E
         viewModel.setPosition(position);
         viewModel.setSize(photos.size());
         viewModel.setPageChangeListener(getOnPageChangeListener());
-        toolbarViewModel.setTitle(getTitleString());
+        toolbarViewModel.setTitle("");
         binding.executePendingBindings();
         binding.viewpager.setCurrentItem(position);
     }
@@ -109,12 +121,8 @@ public class EventBigPhotoFragment extends ItimeBaseFragment<TaskBasedMvpView, E
         toolbarViewModel = new ToolbarViewModel(this);
         toolbarViewModel.setLeftIcon(getContext().getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarViewModel.setTitle(getString(R.string.photo_title));
-        if(isEditable()) {
-            toolbarViewModel.setRightEnable(true);
-            toolbarViewModel.setRightIcon(getResources().getDrawable(R.drawable.icon_contacts_delete));
-        }else{
-            toolbarViewModel.setRightEnable(false);
-        }
+        toolbarViewModel.setRightEnable(true);
+        toolbarViewModel.setRightText(getString(R.string.toolbar_select));
     }
 
     public void setPosition(int position) {
@@ -137,53 +145,28 @@ public class EventBigPhotoFragment extends ItimeBaseFragment<TaskBasedMvpView, E
 
     @Override
     public void onNext() {
-        openAlertDialog();
+        selectCover();
     }
 
-    private void openAlertDialog(){
-        new AlertDialog(getActivity())
-                .builder()
-                .setTitle(getString(R.string.delete_this_photo))
-                .setPositiveButton(getString(R.string.delete), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        deletePhoto();
-                    }
-                })
-                .setNegativeButton(getString(R.string.cancel), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                }).show();
-    }
-
-    private void deletePhoto(){
-        photos.remove(position);
-        if(photos.size()==0){
-            getBaseActivity().onBackPressed();
-        }else {
-            if (position == photos.size()) {
-                position = position - 1;
-            }
-            toolbarViewModel.setTitle(getTitleString());
-            viewModel.setPosition(position);
-            viewModel.setPhotos(photos);
-        }
+    private void selectCover(){
+        presenter.updateCover(photos.get(position), event);
     }
 
     @Override
     public void onTaskStart(int taskId) {
-
+        progressDialog.show();
     }
 
     @Override
     public void onTaskSuccess(int taskId, Object data) {
-
+        progressDialog.hide();
+        getFragmentManager().popBackStack(ChangeCoverFragment.class.getSimpleName(), 0);
+        getFragmentManager().popBackStack();
     }
 
     @Override
     public void onTaskError(int taskId, Object data) {
-
+        progressDialog.hide();
+        Toast.makeText(getContext(), R.string.network_error_please_try_again, Toast.LENGTH_SHORT).show();
     }
 }

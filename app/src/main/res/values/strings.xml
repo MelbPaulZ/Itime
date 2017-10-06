@@ -19,6 +19,7 @@
     <string name="toolbar_cancel">Cancel</string>
     <string name="toolbar_url">URL</string>
     <string name="toolbar_note">Note</string>
+    <string name="toolbar_select">Select</string>
     <string name="toolbar_calendars">Calendars</string>
     <string name="toolbar_location">Location</string>
     <string name="toolbar_event">Event</string>
