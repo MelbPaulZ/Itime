@@ -12,11 +12,16 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.RecentEventTitle;
 import org.unimelb.itime.databinding.FragmentEventCreateTitleBinding;
+import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.ui.mvpview.event.EventCreateTitleMvpView;
 import org.unimelb.itime.ui.presenter.EventCreateTitlePresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.event.EventCreateTitleViewModel;
+import org.unimelb.itime.util.UserUtil;
+
+import java.util.Date;
 
 /**
  * Created by Paul on 9/6/17.
@@ -72,7 +77,8 @@ public class FragmentEventCreateTitle extends ItimeBaseFragment<EventCreateTitle
 
     @Override
     public void onNext() {
-
+        DBManager.getInstance(getContext()).insertRecentTitle(
+                new RecentEventTitle(event.getSummary(), UserUtil.getInstance(getContext()).getUserUid(), new Date().getTime()));
         Fragment fragment = getFrom();
         if (fragment instanceof FragmentEventCreate){
             ((FragmentEventCreate)fragment).setEvent(event);

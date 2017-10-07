@@ -36,6 +36,7 @@
             style="@style/itimeCellEdit"
             android:onFocusChange="@{vm.onInputEditFocusChange}"
             android:onEditTextChange="@{vm.locationInputWatcher}"
+            android:onInitialFocus="@{true}"
             android:minWidth="250dp"
             android:text="@={vm.locationString1}"/>
         
