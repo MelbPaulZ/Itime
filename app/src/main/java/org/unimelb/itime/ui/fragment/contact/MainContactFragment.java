@@ -33,6 +33,7 @@ import org.unimelb.itime.ui.activity.MoreFriendsActivity;
 import org.unimelb.itime.ui.activity.NewFriendActivity;
 import org.unimelb.itime.ui.activity.ProfileActivity;
 import org.unimelb.itime.ui.activity.SearchActivity;
+import org.unimelb.itime.ui.activity.SettingSwitchActivity;
 import org.unimelb.itime.ui.mvpview.contact.MainContactsMvpView;
 import org.unimelb.itime.ui.presenter.contact.ContactPresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
@@ -122,6 +123,12 @@ public class MainContactFragment extends ItimeBaseFragment<MainContactsMvpView, 
         Intent intent = new Intent();
         intent.setClass(getActivity(), NewFriendActivity.class);
         startActivity(intent);
+    }
+
+    public void toMyProfile(){
+        Intent intent = new Intent(getActivity(), SettingSwitchActivity.class);
+        intent.putExtra(SettingSwitchActivity.TASK, SettingSwitchActivity.TASK_TO_MY_PROFILE);
+        startActivityForResult(intent, SettingSwitchActivity.TASK_TO_MY_PROFILE);
     }
 
     public void goToProfileFragment(View view, Contact user) {
