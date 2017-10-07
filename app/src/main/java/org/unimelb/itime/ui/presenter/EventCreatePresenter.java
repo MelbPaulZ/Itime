@@ -99,6 +99,9 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
         this.context = context;
     }
 
+
+
+
     public void createEvent(Event event){
         if (getView() != null){
             getView().onTaskStart(TASK_EVENT_CREATE);
@@ -126,6 +129,7 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
             public void onNext(HttpResult<List<Event>> result) {
                 updateEventToken(result.getSyncToken());
                 synchronizeLocal(result.getData());
+                uploadImage(event);
                 if(getView() != null){
                     getView().onTaskSuccess(TASK_EVENT_CREATE, result.getData());
                 }
@@ -170,6 +174,7 @@ public class EventCreatePresenter<V extends TaskBasedMvpView> extends ItimeBaseP
             public void onNext(HttpResult<List<Event>> listHttpResult) {
                 updateEventToken(listHttpResult.getSyncToken());
                 synchronizeLocal(listHttpResult.getData());
+                uploadImage(event);
                 if(getView() != null){
                     getView().onTaskSuccess(TASK_EVENT_UPDATE, listHttpResult.getData());
                 }
