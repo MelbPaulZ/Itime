@@ -27,4 +27,6 @@ public interface MainContactsMvpView extends ItimeBaseMvpView, TaskBasedMvpView 
     void gotoSearch();
 
     void goToScanQR();
+
+    void toMyProfile();
 }

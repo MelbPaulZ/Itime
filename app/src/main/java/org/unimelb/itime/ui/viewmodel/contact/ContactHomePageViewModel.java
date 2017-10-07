@@ -132,6 +132,17 @@ public class ContactHomePageViewModel extends BaseObservable {
         };
     }
 
+    public View.OnClickListener onMyProfile(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mvpView!=null){
+                    mvpView.toMyProfile();
+                }
+            }
+        };
+    }
+
     private void generateContactVM(List<Contact> contactList){
         contacts.clear();
         Map<String, UserInfoViewModel<Contact>> contactMap = new HashMap<>();
