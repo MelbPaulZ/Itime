@@ -500,7 +500,6 @@ public class EventUtil extends BaseUtil{
         String titleMonth = cal.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault());
         String titleYear = cal.get(Calendar.YEAR) + "";
         String title = titleMonth + " " + titleYear;
-
         return title;
     }
 
@@ -967,6 +966,12 @@ public class EventUtil extends BaseUtil{
         e.setGreeting(event.getGreeting());
         e.setSummary(event.getSummary());
         e.setEventType(event.getEventType());
+        if(event.getEventType().equals(Event.TYPE_SOLO)){
+            Calendar c = Calendar.getInstance();
+            e.setStartTime(c.getTimeInMillis());
+            e.setEndTime(c.getTimeInMillis() + 1000 * 60 * 60);
+            e.setStatus(Event.STATUS_CONFIRMED);
+        }
         return e;
     }
 
