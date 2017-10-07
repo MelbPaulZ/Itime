@@ -118,6 +118,7 @@
     <string name="event_detail_delete_dialog_cancel">Cancel</string>
     <string name="event_invitation_sent">Invitation Sent</string>
     <string name="invitation_sent_reject_text">Your invitation is successfully sent, but rejected by some invitees because they have blocked you:</string>
+    <string name="event_photo">photo</string>
 
     <!--Event Create Add Invitee-->
     <string name="event_create_addinvitee">Add Invitee</string>

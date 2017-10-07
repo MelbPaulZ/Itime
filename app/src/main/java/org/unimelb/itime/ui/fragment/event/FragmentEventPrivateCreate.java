@@ -16,6 +16,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.zhy.m.permission.PermissionGrant;
 
@@ -27,10 +28,12 @@ import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.Location;
+import org.unimelb.itime.bean.PhotoUrl;
 import org.unimelb.itime.bean.TZoneTime;
 import org.unimelb.itime.databinding.FragmentEventPrivateCreateBinding;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.messageevent.MessageEvent;
+import org.unimelb.itime.ui.activity.CameraActivity;
 import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.activity.EventDetailActivity;
 import org.unimelb.itime.ui.activity.LocationActivity;
@@ -42,9 +45,12 @@ import org.unimelb.itime.ui.viewmodel.event.EventCreatePrivateViewModel;
 import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.widget.PicassoImageLoader;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
+import static org.unimelb.itime.ui.fragment.event.FragmentEventCreate.REQUEST_CAMERA_PERMISSION;
 import static org.unimelb.itime.ui.fragment.event.FragmentEventCreate.REQUEST_PHOTO_PERMISSION;
 import static org.unimelb.itime.ui.fragment.event.FragmentEventCreate.REQ_LOCATION;
 import static org.unimelb.itime.ui.fragment.event.FragmentEventCreate.REQ_PHOTO;
@@ -284,6 +290,12 @@ implements EventCreateMvpView, ToolbarInterface{
 //        dont do anything here
     }
 
+    @PermissionGrant(REQUEST_CAMERA_PERMISSION)
+    public void openCamera() {
+        Intent intent = new Intent(getActivity(), CameraActivity.class);
+        startActivityForResult(intent, REQ_PHOTO);
+    }
+
     @PermissionGrant(REQUEST_PHOTO_PERMISSION)
     public void startPhotoPicker() {
         ImagePicker imagePicker = ImagePicker.getInstance();
@@ -308,6 +320,34 @@ implements EventCreateMvpView, ToolbarInterface{
             event.setLocation(location);
             vm.setEvent(event);
         }
+        if (requestCode == REQ_PHOTO && resultCode == Activity.RESULT_OK) {
+            String result = data.getStringExtra(CameraActivity.KEY_RESULT);
+            PhotoUrl photoUrl = EventUtil.fromStringToPhotoUrl(getContext(), result);
+            List<PhotoUrl> photos = new ArrayList<>();
+            photos.add(photoUrl);
+            event.setPhoto(photos);
+            setEvent(event);
+            toPhotoGridPage();
+        }
+
+        if(data!=null) {
+            if (requestCode == REQ_PHOTO && resultCode == ImagePicker.RESULT_CODE_ITEMS) {
+                ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                List<PhotoUrl> photoUrls = new ArrayList<>();
+                for (int i = 0; i < images.size(); i++) {
+                    photoUrls.add(EventUtil.fromStringToPhotoUrl(getContext(), images.get(i).path));
+                }
+                event.setPhoto(photoUrls);
+                setEvent(event);
+                toPhotoGridPage();
+            }
+        }
+    }
+
+    private void toPhotoGridPage(){
+        EventPhotoFragment eventPhotoFragment = new EventPhotoFragment();
+        eventPhotoFragment.setEvent(event);
+        getBaseActivity().openFragment(eventPhotoFragment);
     }
 
     @Override

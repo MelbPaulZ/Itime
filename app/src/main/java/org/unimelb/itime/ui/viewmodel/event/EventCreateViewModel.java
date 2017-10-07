@@ -5,6 +5,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +26,10 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseViewModel;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Invitee;
+import org.unimelb.itime.bean.PhotoUrl;
 import org.unimelb.itime.bean.TimeSlot;
 import org.unimelb.itime.databinding.CellEventCreateRepeatMiddleBinding;
+import org.unimelb.itime.databinding.EventPhotoRowCellBinding;
 import org.unimelb.itime.ui.mvpview.event.EventCreateMvpView;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.util.CalendarUtil;
@@ -287,6 +290,16 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             addButton(getString(R.string.repeat_toolbar_btn));
             removeItem(rowItems, getString(R.string.repeat_toolbar_btn));
         }
+
+        if (event.getPhoto().size()>0){
+            addPhotoToRow();
+            removeItem(buttonItems, getString(R.string.photos_toolbar_btn));
+        }else{
+            addButton(getString(R.string.photos_toolbar_btn));
+            removeItem(rowItems, getString(R.string.photos_toolbar_btn));
+        }
+
+
         notifyPropertyChanged(BR.rowItems);
         notifyPropertyChanged(BR.buttonItems);
 
@@ -343,6 +356,17 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         }
         notifyPropertyChanged(BR.mockAvatorLists);
 
+    }
+
+    public View.OnClickListener onClickPhoto(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mvpView!=null) {
+                    mvpView.toPhoto();
+                }
+            }
+        };
     }
 
     /**
@@ -471,6 +495,97 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
             item.setText(text);
             notifyPropertyChanged(BR.rowItems);
         }
+    }
+
+    public class PhotoUrlViewModel extends BaseObservable{
+        private PhotoUrl photoUrl;
+
+        public PhotoUrlViewModel(PhotoUrl photoUrl) {
+            this.photoUrl = photoUrl;
+        }
+
+        public PhotoUrl getPhotoUrl() {
+            return photoUrl;
+        }
+
+        public void setPhotoUrl(PhotoUrl photoUrl) {
+            this.photoUrl = photoUrl;
+        }
+
+        public View.OnClickListener onClickPhoto(){
+            return new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mvpView!=null) {
+                        mvpView.toPhoto();
+                    }
+                }
+            };
+        }
+    }
+
+    public class PhotoCellViewModel extends BaseObservable{
+        private Event event;
+        /**
+         * the following is for binding photos
+         */
+        private List<PhotoUrlViewModel> photoUrls = new ArrayList<>();
+        private ItemBinding<PhotoUrlViewModel> itemBinding = ItemBinding.of(BR.photoUrlVM, R.layout.recyclerview_photo);
+
+        @Bindable
+        public ItemBinding<PhotoUrlViewModel> getItemBinding() {
+            return itemBinding;
+        }
+
+        public void setItemBinding(ItemBinding<PhotoUrlViewModel> itemBinding) {
+            this.itemBinding = itemBinding;
+            notifyPropertyChanged(BR.itemBinding);
+        }
+
+        @Bindable
+        public List<PhotoUrlViewModel> getPhotoUrls() {
+            if(photoUrls.size() > 3){
+                return photoUrls.subList(photoUrls.size() - 4, photoUrls.size() - 1);
+            }else{
+                return photoUrls;
+            }
+        }
+
+        public void setPhotoUrls(List<PhotoUrlViewModel> photoUrls) {
+            this.photoUrls = photoUrls;
+            notifyPropertyChanged(BR.photoUrls);
+        }
+
+        private List<PhotoUrlViewModel> getPhotoUrlViewModel(List<PhotoUrl> photoUrls){
+            List<PhotoUrlViewModel> photoUrlViewModels = new ArrayList<>();
+            for (PhotoUrl photoUrl : photoUrls){
+                photoUrlViewModels.add(new PhotoUrlViewModel(photoUrl));
+            }
+            return photoUrlViewModels;
+        }
+
+
+        public PhotoCellViewModel(Event event) {
+            this.event = event;
+            this.photoUrls = getPhotoUrlViewModel(event.getPhoto());
+        }
+
+        public void setEvent(Event event) {
+            this.event = event;
+            this.photoUrls = getPhotoUrlViewModel(event.getPhoto());
+        }
+
+        public View.OnClickListener onClickPhoto(){
+            return new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mvpView!=null) {
+                        mvpView.toPhoto();
+                    }
+                }
+            };
+        }
+
     }
 
     public class RepeatCellViewModel extends BaseObservable{
@@ -637,8 +752,12 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
                 .setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onItemClick(Object o, int position) {
-                        Toast.makeText(presenter.getContext(), position + "", Toast.LENGTH_SHORT).show();
-                        ((EventCreateMvpView)presenter.getView()).toPhoto();
+                        if (position == 0){
+                            ((EventCreateMvpView) presenter.getView()).openCamera();
+                        }
+                        if (position == 1 ) {
+                            ((EventCreateMvpView) presenter.getView()).toPhoto();
+                        }
                     }
                 })
                 .build()
@@ -653,22 +772,27 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                photoActionSheetPopup();
+                ((EventCreateMvpView) presenter.getView()).toPhoto();
             }
         };
 
         View.OnClickListener onDeleteListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                event.setPhoto(new ArrayList<>());
                 addButton(getString(R.string.photos_toolbar_btn));
             }
         };
+        PhotoCellViewModel photoCellViewModel = new PhotoCellViewModel(event);
         addInList(getString(R.string.photos_toolbar_btn),
                 presenter.getContext().getResources().getDrawable(R.drawable.icon_event_photo),
                 getString(R.string.photos_toolbar_btn), onClickListener, onDeleteListener, new RowItem.RowCreateInterface() {
                     @Override
                     public View onCreateMiddleView(RowItem rowItem) {
-                        return null; // TODO: 20/6/17 photo layout view
+                        LayoutInflater inflater = LayoutInflater.from(presenter.getContext());
+                        EventPhotoRowCellBinding binding = DataBindingUtil.inflate(inflater, R.layout.event_photo_row_cell, null, false);
+                        binding.setVm(photoCellViewModel);
+                        return binding.getRoot();
                     }
 
                     @Override
@@ -678,6 +802,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
                 });
 
     }
+
 
 
     protected String getString(int stringId){

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="vm"
+            type="org.unimelb.itime.ui.viewmodel.event.EventCreateViewModel.PhotoCellViewModel"/>
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+        <import type="android.support.v7.widget.LinearLayoutManager"/>
+    </data>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:onClick="@{vm.onClickPhoto()}">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/event_photo"
+            android:textSize="@dimen/page_text_size"
+            android:textColor="@color/black"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/photo_recyclerview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="30dp"
+            android:layout_gravity="center_vertical"
+            app:layoutManager="@{LayoutManagers.linear(LinearLayoutManager.HORIZONTAL, true)}"
+            app:items="@{vm.photoUrls}"
+            app:itemBinding="@{vm.itemBinding}"
+            />
+
+        <!--<FrameLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:onClick="@{vm.onClickPhoto()}"/>-->
+
+    </RelativeLayout>
+</layout>
