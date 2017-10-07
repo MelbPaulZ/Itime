@@ -137,7 +137,8 @@
         <!--Time picker-->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="160dp">
+            android:layout_height="160dp"
+            android:visibility="@{vm.getTimePickerVisibility(vm.event)}">
 
             <LinearLayout
                 android:layout_width="80dp"
