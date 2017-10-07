@@ -29,6 +29,8 @@ import org.unimelb.itime.bean.LocationDao;
 import org.unimelb.itime.bean.Message;
 import org.unimelb.itime.bean.MessageGroup;
 import org.unimelb.itime.bean.MessageGroupDao;
+import org.unimelb.itime.bean.RecentEventTitle;
+import org.unimelb.itime.bean.RecentEventTitleDao;
 import org.unimelb.itime.bean.RecentLocation;
 import org.unimelb.itime.bean.RecentLocationDao;
 import org.unimelb.itime.bean.Region;
@@ -366,6 +368,25 @@ public class DBManager {
                 .orderDesc(RecentLocationDao.Properties.SelectDate).limit(10);
         List<RecentLocation> recentLocations = qb.list();
         return recentLocations;
+    }
+
+    public synchronized void insertRecentTitle(RecentEventTitle recentEventTitle){
+        if (recentEventTitle == null){
+            return;
+        }
+        DaoSession daoSession = daoMaster.newSession();
+        RecentEventTitleDao recentEventTitleDao = daoSession.getRecentEventTitleDao();
+        recentEventTitleDao.insertOrReplace(recentEventTitle);
+    }
+
+    public synchronized List<RecentEventTitle> getRecentTitles(){
+        DaoSession daoSession = daoMaster.newSession();
+        RecentEventTitleDao recentEventTitleDao = daoSession.getRecentEventTitleDao();
+        QueryBuilder<RecentEventTitle> qb = recentEventTitleDao.queryBuilder();
+        qb.where(RecentEventTitleDao.Properties.UserUid.eq(UserUtil.getInstance(context).getUserUid()))
+                .orderDesc(RecentEventTitleDao.Properties.Time).limit(5);
+        List<RecentEventTitle> recentEventTitles = qb.list();
+        return recentEventTitles;
     }
 
     public synchronized void insertDomain(Domain domain) {
