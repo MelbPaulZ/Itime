@@ -49,28 +49,32 @@ public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCust
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_repeat_custom, container, false);
+        if (binding == null) {
+            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_repeat_custom, container, false);
+        }
         return binding.getRoot();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initWheel();
+        if (vm==null) {
+            initWheel();
 
-        vm = new EventRepeatCustomViewModel(getPresenter());
-        vm.setGapString((String) freqWheelPicker.getData().get(0));
-        vm.setFrequencyString((String) wheelPicker.getData().get(0));
-        vm.setEvent(event);
-        binding.setVm(vm);
+            vm = new EventRepeatCustomViewModel(getPresenter());
+            vm.setGapString((String) freqWheelPicker.getData().get(0));
+            vm.setFrequencyString((String) wheelPicker.getData().get(0));
+            vm.setEvent(event);
+            binding.setVm(vm);
 
-        toolbarViewModel = new ToolbarViewModel<>(this);
-        toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
-        toolbarViewModel.setTitle(getString(R.string.event_repeat_custom));
-        toolbarViewModel.setRightText(getString(R.string.toolbar_done));
-        toolbarViewModel.setRightEnable(true);
-        binding.setToolbarVM(toolbarViewModel);
+            toolbarViewModel = new ToolbarViewModel<>(this);
+            toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
+            toolbarViewModel.setTitle(getString(R.string.event_repeat_custom));
+            toolbarViewModel.setRightText(getString(R.string.toolbar_done));
+            toolbarViewModel.setRightEnable(true);
+            binding.setToolbarVM(toolbarViewModel);
 
+        }
     }
 
 
@@ -135,6 +139,11 @@ public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCust
 
             }
         });
+
+        // default set value
+        event.getRule().setFrequencyEnum(FrequencyEnum.DAILY);
+        event.getRule().setInterval(1);
+        event.setRecurrence(event.getRule().getRecurrence());
 
     }
 

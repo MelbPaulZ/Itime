@@ -79,8 +79,6 @@
 
                     <TextView
                         style="@style/itimeCellTitle"
-                        android:maxLines="1"
-                        android:ellipsize="end"
                         android:text="@{vm.getTitleString(vm.event)}"
                         android:textColor="@{vm.getTitleColor(vm.event)}" />
                 </RelativeLayout>

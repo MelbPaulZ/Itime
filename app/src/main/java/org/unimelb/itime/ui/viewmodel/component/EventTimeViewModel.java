@@ -31,11 +31,19 @@ public class EventTimeViewModel extends BaseObservable{
     private Event event;
     private Date selectDate;
 
+
     public EventTimeViewModel(Context context, Object views) {
         this.selectTime = EVENT_TIME_START_TIME;
         this.context = context;
         this.cancellable = (Cancellable) views;
         this.itimeDialogShowChangeInterface = (ItimeDialogShowChangeInterface) views;
+    }
+
+    public int getTimePickerVisibility(Event event){
+        if (event.isAllDay()){
+            return View.GONE;
+        }
+        return View.VISIBLE;
     }
 
     @Bindable
