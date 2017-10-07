@@ -15,6 +15,7 @@ import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.databinding.FragmentSearchBinding;
 import org.unimelb.itime.ui.activity.EventDetailActivity;
+import org.unimelb.itime.ui.activity.ProfileActivity;
 import org.unimelb.itime.ui.mvpview.activity.SearchMvpView;
 import org.unimelb.itime.ui.presenter.SearchPresenter;
 import org.unimelb.itime.ui.viewmodel.SearchViewModel;
@@ -104,7 +105,12 @@ public class FragmentMeetingSearch extends ItimeBaseFragment<SearchMvpView, Sear
 
     @Override
     public void onContactClick(Contact contact) {
-
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), ProfileActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ProfileActivity.USER_UID,contact.getUserDetail().getUserUid());
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     @Override
