@@ -2,6 +2,7 @@ package org.unimelb.itime.util;
 
 import android.content.Context;
 
+import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
 
 import java.util.ArrayList;
@@ -23,15 +24,15 @@ public class CoverPhotoUtil {
         CoverPhotoUtil.defaultPhotos = defaultPhotos;
     }
 
-    public static String getDefaultCoverPhoto(Event event){
-        String cover = "";
-        if(defaultPhotos.isEmpty()){
-            return cover;
-        }else {
-            int hash = event.hashCode();
-            int index = hash % defaultPhotos.size();
-            return defaultPhotos.get(index);
-        }
-
+    public static String getDefaultCoverPhoto(Context context, Event event){
+//        String cover = "";
+//        if(defaultPhotos.isEmpty()){
+//            return cover;
+//        }else {
+//            int hash = event.hashCode();
+//            int index = hash % defaultPhotos.size();
+//            return defaultPhotos.get(index);
+//        }
+        return context.getString(R.string.default_cover);
     }
 }

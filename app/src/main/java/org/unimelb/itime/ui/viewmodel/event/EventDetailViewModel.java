@@ -1314,7 +1314,9 @@ public class EventDetailViewModel extends BaseObservable{
             @Override
             public void onClick(View view) {
                 if(mvpView!=null){
-                    mvpView.toChangeCover();
+                    if(isHost()) {
+                        mvpView.toChangeCover();
+                    }
                 }
             }
         };

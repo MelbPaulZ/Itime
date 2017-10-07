@@ -71,6 +71,15 @@ public class EventPhotoFragment extends ItimeBaseFragment<EventPhotoGridMvpView,
 
     public void setEditable(boolean editable) {
         this.editable = editable;
+        if(toolbarViewModel!=null){
+            if(editable) {
+                toolbarViewModel.setRightEnable(true);
+                toolbarViewModel.setRightText(getString(R.string.toolbar_done));
+            }else{
+                toolbarViewModel.setRightEnable(false);
+                toolbarViewModel.setRightText("");
+            }
+        }
     }
 
     public int getMaxNum() {
@@ -138,8 +147,10 @@ public class EventPhotoFragment extends ItimeBaseFragment<EventPhotoGridMvpView,
         toolbarViewModel = new ToolbarViewModel(this);
         toolbarViewModel.setLeftIcon(getContext().getResources().getDrawable(R.drawable.icon_nav_back));
         toolbarViewModel.setTitle(getString(R.string.photo_title));
-        toolbarViewModel.setRightEnable(true);
-        toolbarViewModel.setRightText(getString(R.string.toolbar_done));
+        if(editable) {
+            toolbarViewModel.setRightEnable(true);
+            toolbarViewModel.setRightText(getString(R.string.toolbar_done));
+        }
     }
 
     public void setEvent(Event event) {

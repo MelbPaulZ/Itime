@@ -2,6 +2,7 @@
 <layout>
     <data>
         <import type="android.view.View"/>
+        <import type="org.unimelb.itime.bean.Event"/>
         <variable
             name="contentVM"
             type="org.unimelb.itime.ui.viewmodel.event.EventDetailViewModel"/>
@@ -60,6 +61,7 @@
         android:layout_marginTop="5dp"
         android:layout_below="@id/bigTitle"
         android:layout_centerHorizontal="true"
+        android:visibility="@{contentVM.event.eventType.equals(Event.TYPE_SOLO)? View.GONE:View.VISIBLE}"
         />
 
     <TextView
@@ -72,7 +74,8 @@
         android:textSize="@dimen/font_small"
         android:shadowColor="@color/DarkGray"
         android:id="@+id/nameTextView"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:visibility="@{contentVM.event.eventType.equals(Event.TYPE_SOLO)? View.GONE:View.VISIBLE}"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

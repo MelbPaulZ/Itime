@@ -26,6 +26,7 @@
                     android:layout_height="225dp"
                     android:fitsSystemWindows="true"
                     app:collapseheaderbar_avatar="@{contentVM.hostInvitee.photo}"
+                    app:collapseheaderbar_backgroundimg="@{contentVM.event.coverPhoto}"
                     app:collapseheaderbar_name="@{contentVM.hostInvitee.aliasName}"
                     app:collapseheaderbar_title="@{contentVM.event.summary}"
                     app:collapseheaderbar_onLeftClick="@{contentVM.onBackClick()}"

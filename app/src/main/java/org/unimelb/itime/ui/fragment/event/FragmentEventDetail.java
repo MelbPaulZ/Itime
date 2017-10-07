@@ -301,25 +301,25 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
 
     @Override
     public void toChangeCover() {
-//        PopupMenu menu = new PopupMenu(presenter.getContext());
-//        ArrayList<PopupMenu.Item> menuItem = new ArrayList<>();
-//
-//        menuItem.add(new PopupMenu.Item(presenter.getContext().getResources().getString(R.string.event_change_cover)));
-//
-//        menu.setItems(menuItem);
-//
-//        PopupMenu.OnItemClickListener onMenuItemClicked = new PopupMenu.OnItemClickListener() {
-//            @Override
-//            public void onClick(int position, PopupMenu.Item item) {
-//                switch (position){
-//                    case 0:
-//                        toChangeCoverFragment();
-//                        break;
-//                }
-//            }
-//        };
-//        menu.setOnItemClickListener(onMenuItemClicked);
-//        menu.showInMiddle(getView());
+        PopupMenu menu = new PopupMenu(presenter.getContext());
+        ArrayList<PopupMenu.Item> menuItem = new ArrayList<>();
+
+        menuItem.add(new PopupMenu.Item(presenter.getContext().getResources().getString(R.string.event_change_cover)));
+
+        menu.setItems(menuItem);
+
+        PopupMenu.OnItemClickListener onMenuItemClicked = new PopupMenu.OnItemClickListener() {
+            @Override
+            public void onClick(int position, PopupMenu.Item item) {
+                switch (position){
+                    case 0:
+                        toChangeCoverFragment();
+                        break;
+                }
+            }
+        };
+        menu.setOnItemClickListener(onMenuItemClicked);
+        menu.showInMiddle(getView());
     }
 
     public void toChangeCoverFragment(){
@@ -414,7 +414,7 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
 
     public void toDuplicate(Event event){
         Event e = EventUtil.duplicateEvent(event);
-        if (event.getEventType() == Event.TYPE_GROUP) {
+        if (event.getEventType().equals(Event.TYPE_GROUP)) {
             if (eventCreateFragment == null) {
                 eventCreateFragment = new FragmentEventCreate();
             }
@@ -424,7 +424,6 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         }else{
             FragmentEventPrivateCreate soloFragment = new FragmentEventPrivateCreate();
             soloFragment.setEvent(e);
-
             getBaseActivity().openFragment(soloFragment);
         }
     }

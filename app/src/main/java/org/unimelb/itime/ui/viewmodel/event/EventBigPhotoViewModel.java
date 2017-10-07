@@ -9,6 +9,7 @@ import com.android.databinding.library.baseAdapters.BR;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.PhotoUrl;
+import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.presenter.event.EventBigPhotoPresenter;
 
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -21,12 +22,12 @@ public class EventBigPhotoViewModel extends BaseObservable {
     private ObservableList<PhotoUrl> photos;
     private int position;
     private int size;
-    private EventBigPhotoPresenter presenter;
+    private EventCreatePresenter presenter;
     private PhotoUrl photo;
     private ItemBinding itemView;
     private ViewPager.OnPageChangeListener pageChangeListener;
 
-    public EventBigPhotoViewModel(EventBigPhotoPresenter presenter) {
+    public EventBigPhotoViewModel(EventCreatePresenter presenter) {
         this.presenter = presenter;
     }
 
