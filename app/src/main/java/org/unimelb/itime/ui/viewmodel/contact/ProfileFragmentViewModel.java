@@ -168,7 +168,9 @@ public class ProfileFragmentViewModel extends BaseObservable {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.inviteUser();
+                if(mvpView!=null){
+                    mvpView.goToInviteFragment();
+                }
             }
         };
     }

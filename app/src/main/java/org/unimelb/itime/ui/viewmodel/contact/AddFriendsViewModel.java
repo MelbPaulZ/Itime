@@ -330,6 +330,7 @@ public class AddFriendsViewModel extends BaseObservable {
                 } else {
                     autoEmails = EmailUtil.getInstance(presenter.getContext()).getAutoCompleteLists(editable.toString());
                     if (autoEmails.isEmpty()) {
+                        autoCompleteItems.clear();
                     } else {
                         if (autoEmails.get(0).equals(editable.toString())) {
                             setShowSearchButton(true);

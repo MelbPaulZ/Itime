@@ -20,15 +20,19 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseFragment;
 import org.unimelb.itime.base.ToolbarInterface;
 import org.unimelb.itime.bean.Contact;
+import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.databinding.FragmentProfileBinding;
 import org.unimelb.itime.ui.activity.EventCreateActivity;
 import org.unimelb.itime.ui.mvpview.contact.ProfileMvpView;
 import org.unimelb.itime.ui.presenter.contact.ProfilePresenter;
 import org.unimelb.itime.ui.viewmodel.ToolbarViewModel;
 import org.unimelb.itime.ui.viewmodel.contact.ProfileFragmentViewModel;
+import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.util.FontUtil;
 import org.unimelb.itime.widget.popupmenu.PopupMenu;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -142,11 +146,14 @@ public class ProfileFragment extends ItimeBaseFragment<ProfileMvpView, ProfilePr
 
     @Override
     public void goToInviteFragment(){
-//        Intent intent = new Intent(getActivity(), EventCreateActivity.class);
-//        intent.putExtra("start_time", Calendar.getInstance().getTimeInMillis());
-//        intent.putExtra("contact", contact);
-//        Bundle bundleAnimation = ActivityOptions.makeCustomAnimation(getContext(), R.anim.create_event_animation1, R.anim.create_event_animation2).toBundle();
-//        getActivity().startActivityForResult(intent, CalendarBaseViewFragment.REQ_EVENT_CREATE,bundleAnimation);
+        Intent intent = new Intent(getActivity(), EventCreateActivity.class);
+        intent.putExtra(getString(R.string.event_type), getString(R.string.event_type_group));
+        if(viewModel.isAlreadyContact()) {
+            intent.putExtra(EventCreateActivity.KEY_CONTACT, contact);
+        }else{
+            intent.putExtra(EventCreateActivity.KEY_USER, contact.getUserDetail());
+        }
+        startActivity(intent);
     }
 
     @Override
