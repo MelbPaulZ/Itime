@@ -22,5 +22,6 @@ public interface EventCreateMvpView extends TaskBasedMvpView {
     void toInvitee(Event event);
     void toPhoto();
     void toGreeting(Event event);
+    void openCamera();
 }
 

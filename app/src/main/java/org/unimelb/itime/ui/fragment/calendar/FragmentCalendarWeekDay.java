@@ -168,7 +168,13 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
-        weekView.refresh();
+        weekView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                weekView.scrollToDate(new Date(),true); // scroll time not working...
+                weekView.refresh();
+            }
+        },500);
     }
 
     @Override
