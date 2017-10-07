@@ -123,7 +123,12 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
             return;
         }
 
-        long duration = slots.get(0).getEndTime() - slots.get(0).getStartTime();
+        long duration;
+        if (slots.get(0).isAllDay()){
+            duration = -1;
+        }else {
+            duration = slots.get(0).getEndTime() - slots.get(0).getStartTime();
+        }
         int index = 0;
         for (TimeSlotView.DurationItem item:items
              ) {
@@ -155,6 +160,13 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
 
         //scroll to latest timeslot
         if (event.getTimeslot() == null || event.getTimeslot().size() == 0){
+            timeSlotView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    timeSlotView.scrollToDate(new Date(),true); // scroll time not working...
+                    timeSlotView.refresh();
+                }
+            },500);
             return;
         }
 
@@ -265,7 +277,13 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
 
             @Override
             public void onTimeslotDurationBarClick() {
-                showDurationChangeDialog();
+                if (selectedTimeslotsMap.size() == 0){
+                    rcdCheckedDates.clear();
+                    clearRecommendedTimeslot();
+                    timeSlotView.getDurationBar().expandDurationBar();
+                }else {
+                    showDurationChangeDialog();
+                }
             }
         });
 

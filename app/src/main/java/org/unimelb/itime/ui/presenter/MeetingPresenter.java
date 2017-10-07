@@ -8,6 +8,7 @@ import com.annimon.stream.Stream;
 import com.hannesdorfmann.mosby.mvp.MvpView;
 
 import org.greenrobot.greendao.AbstractDao;
+import org.greenrobot.greendao.query.QueryBuilder;
 import org.unimelb.itime.base.ItimeBasePresenter;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.EventDao;
@@ -81,12 +82,10 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
             AbstractDao<Meeting, Void> meetingDao = DBManager.getInstance(getContext()).getQueryDao(Meeting.class);
             AbstractDao<Event, Void> eventDao = DBManager.getInstance(getContext()).getQueryDao(Event.class);
 
-
             //get visible events in meeting
-            List<Event> showMeetingSet = eventDao.queryBuilder().where(
-                    EventDao.Properties.DeleteLevel.eq(0),
-                    EventDao.Properties.EventType.eq(Event.TYPE_GROUP)
-            ).list();
+            QueryBuilder<Event> qb = eventDao.queryBuilder();
+            qb.where(EventDao.Properties.EventType.eq(Event.TYPE_GROUP),qb.or(EventDao.Properties.DeleteLevel.eq(0), EventDao.Properties.DeleteLevel.eq(2)));
+            List<Event> showMeetingSet =qb.list();
 
             Collection<String> visibleEventKeys = Stream.of(showMeetingSet).map(Event::getEventUid).collect(Collectors.toList());
 
