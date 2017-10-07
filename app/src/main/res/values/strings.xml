@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Itime</string>
     <string name="serverClientId">354425670015-135aobr74423lftrohpoqb9kml25ip43.apps.googleusercontent.com</string>
-
+    <string name="default_cover">http://itime-1254199931.picgz.myqcloud.com/bg_default.png</string>
     <!--dialog string-->
 
     <string name="dialog_ok">OK</string>

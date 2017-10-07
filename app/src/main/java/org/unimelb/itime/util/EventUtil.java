@@ -731,7 +731,7 @@ public class EventUtil extends BaseUtil{
         event.setEventUid(AppUtil.generateUuid());
         event.setHostUserUid(UserUtil.getInstance(context).getUserUid());
         event.setCalendarUid(CalendarUtil.getInstance(context).getDefaultCalendarUid());
-        event.setCoverPhoto(CoverPhotoUtil.getDefaultCoverPhoto(event));
+        event.setCoverPhoto(CoverPhotoUtil.getDefaultCoverPhoto(context, event));
         if (!EventUtil.isMyselfInEvent(context, event)){
             Invitee invitee = createSelfInviteeForEvent(context, event);
             event.getInvitee().put(event.getInvitee().size() + "", invitee);
@@ -957,6 +957,15 @@ public class EventUtil extends BaseUtil{
             invitee.setUserUid(oldInvitee.getUserUid());
             e.getInvitee().put(entry.getKey(), invitee);
         }
+        e.setNote(event.getNote());
+        e.setCalendarUid(event.getCalendarUid());
+        e.setPhoto(event.getPhoto());
+        e.setUrl(event.getUrl());
+        e.setCoverPhoto(event.getCoverPhoto());
+        e.setDescription(event.getDescription());
+        e.setAllDay(event.getIsAllDay());
+        e.setGreeting(event.getGreeting());
+        e.setSummary(event.getSummary());
         e.setEventType(event.getEventType());
         return e;
     }

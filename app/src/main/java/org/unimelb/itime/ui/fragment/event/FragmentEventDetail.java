@@ -414,7 +414,7 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
 
     public void toDuplicate(Event event){
         Event e = EventUtil.duplicateEvent(event);
-        if (event.getEventType() == Event.TYPE_GROUP) {
+        if (event.getEventType().equals(Event.TYPE_GROUP)) {
             if (eventCreateFragment == null) {
                 eventCreateFragment = new FragmentEventCreate();
             }
@@ -424,7 +424,6 @@ public class FragmentEventDetail extends ItimeBaseFragment<EventDetailMvpView, E
         }else{
             FragmentEventPrivateCreate soloFragment = new FragmentEventPrivateCreate();
             soloFragment.setEvent(e);
-
             getBaseActivity().openFragment(soloFragment);
         }
     }

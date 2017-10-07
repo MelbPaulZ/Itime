@@ -7,13 +7,14 @@
         <variable
             name="listener"
             type="org.unimelb.itime.widget.CollapseHeadBar.OnMenuClickListener"/>
+        <import type="org.unimelb.itime.bean.Event"/>
         <import type="android.view.View"/>
     </data>
 
 <LinearLayout
     android:orientation="vertical" android:layout_width="250dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_shadow"
+    android:background="@drawable/bg_toolbar_menu"
     android:paddingTop="25dp"
     android:paddingRight="@dimen/s1"
     android:paddingLeft="@dimen/s1"
@@ -23,7 +24,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center_horizontal"
-        android:paddingBottom="25dp">
+        android:paddingBottom="25dp"
+        android:visibility="@{vm.event.eventType.equals(Event.TYPE_SOLO)? View.GONE:View.VISIBLE}">
 
         <!--mute-->
         <LinearLayout
@@ -116,7 +118,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_detail_cell_height"
         android:orientation="horizontal"
-        android:visibility="@{vm.host?View.VISIBLE:View.GONE}"
+        android:visibility="@{vm.event.eventType.equals(Event.TYPE_GROUP) &amp; vm.host?View.VISIBLE:View.GONE}"
         android:onClick="@{listener.onRemindClick()}">
         <ImageView
             android:layout_width="20dp"
@@ -138,6 +140,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_detail_cell_height"
         android:orientation="horizontal"
+        android:visibility="@{vm.event.eventType.equals(Event.TYPE_SOLO)? View.GONE:View.VISIBLE}"
         android:onClick="@{listener.onHistoryClick()}">
         <ImageView
             android:layout_width="20dp"
