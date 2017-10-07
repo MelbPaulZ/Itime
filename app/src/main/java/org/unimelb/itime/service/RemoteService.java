@@ -578,7 +578,7 @@ public class RemoteService extends Service {
                     if (ret.getData().size() > 0) {
                         //update db
                         dbManager.insertOrReplace(ret.getData());
-
+                        Log.i("loaded", "fetchMeetings: " + ret.getData().size());
                         //update syncToken
                         tokenUtil.setMeetingToken(user.getUserUid(), ret.getSyncToken());
                     }
@@ -593,7 +593,7 @@ public class RemoteService extends Service {
 
             @Override
             public void onError(Throwable e) {
-                Log.i(TAG, "onError: ");
+                Log.i(TAG, "onError: " + e.getMessage());
             }
 
             @Override

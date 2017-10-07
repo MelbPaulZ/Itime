@@ -104,7 +104,7 @@ public class FragmentMeetingSearch extends ItimeBaseFragment<SearchMvpView, Sear
 
     @Override
     public void onContactClick(Contact contact) {
-
+        
     }
 
     @Override

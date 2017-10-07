@@ -150,7 +150,9 @@ public class FragmentCalendarWeekDay extends ItimeBaseFragment<CalendarMvpView, 
 
         @Override
         public void onAllDayEventClick(ITimeEventInterface iTimeEventInterface) {
-
+            Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+            intent.putExtra(EventDetailActivity.EVENT, (Event)iTimeEventInterface);
+            getActivity().startActivity(intent);
         }
     };
 
