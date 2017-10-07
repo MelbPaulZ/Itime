@@ -107,11 +107,9 @@ public class EventCreateSearchInviteeViewModel extends BaseObservable {
                 results.add(vm);
             }
         }
+
         autoEmails = EmailUtil.getInstance(presenter.getContext()).getAutoCompleteLists(searchStr);
-        if (autoEmails.isEmpty()) {
-        } else {
-                addEmailInvitees(autoEmails);
-            }
+            addEmailInvitees(autoEmails);
         }
 
     private void addEmailInvitees(List<String> autoEmails){

@@ -109,23 +109,40 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     }
 
     public String getEventStartDate(Event event){
+
         Date d = EventUtil.parseTimeZoneToDate(event.getStart().getDateTime());
-        return EventUtil.getFormatTimeString(d.getTime(), EventUtil.WEEK_DAY_MONTH);
+        if(d!=null) {
+            return EventUtil.getFormatTimeString(d.getTime(), EventUtil.WEEK_DAY_MONTH);
+        }else{
+            return "";
+        }
     }
 
     public String getEventEndDate(Event event){
         Date d = EventUtil.parseTimeZoneToDate(event.getEnd().getDateTime());
-        return EventUtil.getFormatTimeString(d.getTime(), EventUtil.WEEK_DAY_MONTH);
+        if(d!=null) {
+            return EventUtil.getFormatTimeString(d.getTime(), EventUtil.WEEK_DAY_MONTH);
+        }else{
+            return "";
+        }
     }
 
     public String getEventStartTime(Event event){
         Date d = EventUtil.parseTimeZoneToDate(event.getStart().getDateTime());
-        return EventUtil.getFormatTimeString(d.getTime(), EventUtil.HOUR_MIN);
+        if(d!=null) {
+            return EventUtil.getFormatTimeString(d.getTime(), EventUtil.HOUR_MIN);
+        }else{
+            return "";
+        }
     }
 
     public String getEventEndTime(Event event){
         Date d = EventUtil.parseTimeZoneToDate(event.getEnd().getDateTime());
-        return EventUtil.getFormatTimeString(d.getTime(), EventUtil.HOUR_MIN);
+        if(d!=null) {
+            return EventUtil.getFormatTimeString(d.getTime(), EventUtil.HOUR_MIN);
+        }else{
+            return "";
+        }
     }
 
     @Bindable

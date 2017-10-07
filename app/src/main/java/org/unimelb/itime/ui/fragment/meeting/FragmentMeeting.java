@@ -78,7 +78,6 @@ public class FragmentMeeting extends ItimeBaseFragment<MeetingMvpView, MeetingPr
         viewPager.setSwipingDuration(250);
         viewPager.setAdapter(adapter);
 
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

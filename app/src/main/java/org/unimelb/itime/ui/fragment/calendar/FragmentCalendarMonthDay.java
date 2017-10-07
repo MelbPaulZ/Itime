@@ -191,6 +191,13 @@ public class FragmentCalendarMonthDay extends ItimeBaseFragment<CalendarMvpView,
     @Override
     public void onResume() {
         super.onResume();
+        monthDayView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                monthDayView.scrollToDate(new Date(),true); // scroll time not working...
+                monthDayView.refresh();
+            }
+        },500);
         Log.i(TAG, "onResume: " + "FragmentCalendarMonthDay");
     }
 
