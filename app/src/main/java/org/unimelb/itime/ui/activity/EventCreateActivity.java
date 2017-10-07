@@ -9,11 +9,15 @@ import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseActivity;
+import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.Invitee;
+import org.unimelb.itime.bean.User;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreate;
 import org.unimelb.itime.ui.fragment.event.FragmentEventCreateAddInvitee;
 import org.unimelb.itime.ui.fragment.event.FragmentEventPrivateCreate;
 import org.unimelb.itime.util.CalendarUtil;
+import org.unimelb.itime.util.EventUtil;
 
 import java.util.Calendar;
 
@@ -23,6 +27,8 @@ import java.util.Calendar;
 
 public class EventCreateActivity extends ItimeBaseActivity {
     public static final int CREATE_EVENT = 1001;
+    public static final String KEY_CONTACT = "contact";
+    public static final String KEY_USER = "user";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +44,19 @@ public class EventCreateActivity extends ItimeBaseActivity {
             event.setCalendarUid(CalendarUtil.getInstance(getApplicationContext()).getDefaultCalendarUid());
             addInviteeFragment.setEvent(event);
             fragment = addInviteeFragment;
+
+            Invitee invitee = null;
+            Contact contact = (Contact) getIntent().getSerializableExtra(KEY_CONTACT);
+            User user = (User) getIntent().getSerializableExtra(KEY_USER);
+            if(contact!=null){
+                invitee = EventUtil.generateInvitee(event, contact);
+            }
+            if(user!=null){
+                invitee = EventUtil.generateInvitee(event, user);
+            }
+            if(invitee!=null){
+                event.getInvitee().put(invitee.getUserId(), invitee);
+            }
         }else{
             //For solo event
             //auto-fill solo event detail

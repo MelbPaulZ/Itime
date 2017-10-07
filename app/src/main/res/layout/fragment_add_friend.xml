@@ -137,6 +137,7 @@
                 android:layout_toRightOf="@id/backIcon"
                 app:textWatcher = "@{mainViewModel.onEdit}"
                 android:background="@null"
+                android:singleLine="true"
                 />
 
             <ImageView

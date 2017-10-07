@@ -262,12 +262,6 @@ public class ProfilePresenter<T extends TaskBasedMvpView> extends MvpBasePresent
         HttpUtil.subscribe(observable, subscriber);
     }
 
-    public void inviteUser(){
-//        if(getView()!=null) {
-//            getView().goToInviteFragment();
-//        }
-    }
-
     public void gotoEditAlias() {
 //        if(getView()!=null){
 //            getView().goToEditAlias();
