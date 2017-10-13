@@ -994,7 +994,7 @@ public class EventDetailViewModel extends BaseObservable{
     private String generateUntilString(){
         Date until = event.getRule().getUntil();
         if(until!=null) {
-            return EventUtil.getFormatTimeString(until.getTime(), EventUtil.HOUR_MIN_WEEK_DAY_MONTH);
+            return String.format(getContext().getString(R.string.repeat_prefix), EventUtil.getFormatTimeString(until.getTime(), EventUtil.WEEK_DAY_MONTH));
         }else{
             return "";
         }
