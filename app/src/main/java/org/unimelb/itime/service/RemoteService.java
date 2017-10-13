@@ -223,11 +223,11 @@ public class RemoteService extends Service {
     private void firstFetchData(){
         fetchCalendar();
         fetchContact();
+        // need to fetch meeting after event is fetched
         fetchEvents(); //paul add
         fetchCovers();
 //        fetchFriendRequest();
 //        fetchMessages();
-        fetchMeetings();
         fetchITimeActivities();
     }
 
@@ -426,29 +426,26 @@ public class RemoteService extends Service {
     public void fetchEvents() {
         final String synToken = TokenUtil.getInstance(context).getEventToken(user.getUserUid());
         Observable<HttpResult<List<Event>>> observable = eventApi.list("-1", synToken) // -1 will fetch all events
-                .map(new Func1<HttpResult<List<Event>>, HttpResult<List<Event>>>() {
-                    @Override
-                    public HttpResult<List<Event>> call(HttpResult<List<Event>> ret) {
-                        if (ret.getData().size() > 0) {
-                            //update db
-                            dbManager.insertOrReplace(ret.getData());
+                .map(ret -> {
+                    if (ret.getData().size() > 0) {
+                        //update db
+                        dbManager.insertOrReplace(ret.getData());
 
-                            //if calendar not shown
-                            visibleEventList.clear();
-                            invisibleEventList.clear();
-                            for (Event ev : ret.getData()) {
-                                if (EventUtil.isEventInVisibleCalendar(ev, context)) {
-                                    visibleEventList.add(ev);
-                                } else {
-                                    invisibleEventList.add(ev);
-                                }
+                        //if calendar not shown
+                        visibleEventList.clear();
+                        invisibleEventList.clear();
+                        for (Event ev : ret.getData()) {
+                            if (EventUtil.isEventInVisibleCalendar(ev, context)) {
+                                visibleEventList.add(ev);
+                            } else {
+                                invisibleEventList.add(ev);
                             }
-                            //update syncToken
-                            tokenUtil.setEventToken(user.getUserUid(), ret.getSyncToken());
                         }
-
-                        return ret;
+                        //update syncToken
+                        tokenUtil.setEventToken(user.getUserUid(), ret.getSyncToken());
                     }
+
+                    return ret;
                 });
         Subscriber<HttpResult<List<Event>>> subscriber = new Subscriber<HttpResult<List<Event>>>() {
 
@@ -465,6 +462,9 @@ public class RemoteService extends Service {
                 if (!isStart) {
                     return;
                 }
+                //start to fetch meeting after event is fetched
+                fetchMeetings();
+
                 //sync event manager
                 for (Event event : visibleEventList
                         ) {
@@ -578,7 +578,7 @@ public class RemoteService extends Service {
                     if (ret.getData().size() > 0) {
                         //update db
                         dbManager.insertOrReplace(ret.getData());
-
+                        Log.i("loaded", "fetchMeetings: " + ret.getData().size());
                         //update syncToken
                         tokenUtil.setMeetingToken(user.getUserUid(), ret.getSyncToken());
                     }
@@ -593,7 +593,7 @@ public class RemoteService extends Service {
 
             @Override
             public void onError(Throwable e) {
-                Log.i(TAG, "onError: ");
+                Log.i(TAG, "onError: " + e.getMessage());
             }
 
             @Override

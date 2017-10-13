@@ -12,6 +12,7 @@ import org.unimelb.itime.BR;
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseViewModel;
 import org.unimelb.itime.bean.SpinnerWrapper;
+import org.unimelb.itime.service.RemoteService;
 import org.unimelb.itime.ui.fragment.calendar.FragmentCalendar;
 import org.unimelb.itime.ui.mvpview.calendar.CalendarMvpView;
 import org.unimelb.itime.util.EventUtil;
@@ -66,6 +67,7 @@ public class MainCalendarViewModel extends ItimeBaseViewModel{
     public View.OnClickListener getRestartClickListener(){
         return v -> {
             Context context = v.getContext();
+            context.stopService(new Intent(context, RemoteService.class));
             Intent i = context.getPackageManager()
                     .getLaunchIntentForPackage(context.getPackageName() );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -56,12 +56,14 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
     }
 
     private void transformRepeatedMeeting(FilterResult filterResult){
+        Log.i("loaded", "transformRepeatedMeeting: S");
         List<Meeting> invitationResult = filterResult.invitationResult;
         List<Meeting> hostingResult = filterResult.hostingResult;
         List<Meeting> archiveResult = filterResult.archiveResult;
         transformRepeatedMeeting(invitationResult);
         transformRepeatedMeeting(hostingResult);
         transformRepeatedMeeting(archiveResult);
+        Log.i("loaded", "transformRepeatedMeeting: E");
     }
 
     private void transformRepeatedMeeting(List<Meeting> meetings){
@@ -84,6 +86,9 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
 
             //get visible events in meeting
             QueryBuilder<Event> qb = eventDao.queryBuilder();
+
+            Log.i("loaded meeting", "loadDataFromDB all: " + qb.list().size());
+
             qb.where(EventDao.Properties.EventType.eq(Event.TYPE_GROUP),qb.or(EventDao.Properties.DeleteLevel.eq(0), EventDao.Properties.DeleteLevel.eq(2)));
             List<Event> showMeetingSet =qb.list();
 
@@ -118,9 +123,14 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
             filterResult.invitationResult = invitationResult == null ? new ArrayList<>() : invitationResult;
             filterResult.hostingResult = hostingResult == null ? new ArrayList<>() : hostingResult;
             //handle repeated events
-            transformRepeatedMeeting(filterResult);
+            Log.i("loaded meeting", "loadDataFromDB: before repeat " + invitationResult.size());
+            transformRepeatedMeeting(filterResult);//TODO
+            Log.i("loaded meeting", "loadDataFromDB: before future " + invitationResult.size());
 
             filterResult.comingResult = getFutureMeeting(filterResult);
+
+            Log.i("loaded meeting", "loadDataFromDB: i" + invitationResult.size());
+            Log.i("loaded meeting", "loadDataFromDB: h" + hostingResult.size());
 
             subscriber.onNext(filterResult);
         });
