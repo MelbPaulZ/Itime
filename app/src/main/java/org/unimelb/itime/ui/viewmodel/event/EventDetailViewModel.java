@@ -158,7 +158,7 @@ public class EventDetailViewModel extends BaseObservable{
         notifyPropertyChanged(BR.soloEvent);
     }
 
-    private void initStatus(Event event) {
+    private void  initStatus(Event event) {
         String myStatus = EventUtil.getInviteeStatus(event);
 
         if(event.getStatus().equals(Event.STATUS_CANCELLED)){
@@ -169,7 +169,7 @@ public class EventDetailViewModel extends BaseObservable{
                 }else{
                 status = STATUS_NOT_GOING_PENDING;
             }
-            }
+        }
 
         if(event.getStatus().equals(Event.STATUS_PENDING)){
             if(isHost()){
@@ -354,7 +354,11 @@ public class EventDetailViewModel extends BaseObservable{
 
     private void updateStatus(){
         if (isSelectedTimeSlotsChanged()) {
-            setStatus(STATUS_NEED_VOTE);
+            if(isHost()){
+                setStatus(STATUS_NEED_CONFIRM);
+            }else {
+                setStatus(STATUS_NEED_VOTE);
+            }
         } else{
             setStatus(originalStatus);
         }
