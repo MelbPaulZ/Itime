@@ -1,6 +1,7 @@
 package org.unimelb.itime.ui.fragment.meeting;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Meeting;
@@ -41,6 +42,10 @@ public class CardTemplate {
     }
 
     public String getSubTitle(Meeting meeting) {
+        if (TextUtils.isEmpty(meeting.getEvent().getGreeting())){
+            return "";
+        }
+
         return "\"" + meeting.getEvent().getGreeting() + "\"";
     }
 
