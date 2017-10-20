@@ -80,10 +80,22 @@ public class EventCreateTitleViewModel extends ItimeBaseViewModel {
             }
             if (!invitee.getUserUid().equals(UserUtil.getInstance(presenter.getContext()).getUserUid())) {
                 count ++;
-                if (count < 3 && count < totalInviteeNumber) {
-                    suggestTitle += invitee.getAliasName() + ", ";
+                if (count < 3 && count < totalInviteeNumber ) {
+                    if (TITLE_COUNT_LIMIT - 3>=suggestTitle.length() + invitee.getAliasName().length()) {
+                        suggestTitle += invitee.getAliasName() + ", ";
+                    }else{
+                        suggestTitle = suggestTitle.substring(0, suggestTitle.length()-2);
+                        suggestTitle += "...";
+                        break;
+                    }
                 }else{
-                    suggestTitle +=  invitee.getAliasName();
+                    if (TITLE_COUNT_LIMIT - 3>=suggestTitle.length() + invitee.getAliasName().length()) {
+                        suggestTitle += invitee.getAliasName();
+                    }else{
+                        suggestTitle = suggestTitle.substring(0, suggestTitle.length()-2);
+                        suggestTitle += "...";
+                        break;
+                    }
                 }
             }
         }

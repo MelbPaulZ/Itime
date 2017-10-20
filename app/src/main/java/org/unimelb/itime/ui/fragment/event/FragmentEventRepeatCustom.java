@@ -73,7 +73,8 @@ public class FragmentEventRepeatCustom extends ItimeBaseFragment<EventRepeatCust
             toolbarViewModel.setRightText(getString(R.string.toolbar_done));
             toolbarViewModel.setRightEnable(true);
             binding.setToolbarVM(toolbarViewModel);
-
+        }else{
+            vm.setEvent(event);
         }
     }
 

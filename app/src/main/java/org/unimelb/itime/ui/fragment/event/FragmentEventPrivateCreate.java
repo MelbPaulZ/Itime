@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -101,6 +102,9 @@ implements EventCreateMvpView, ToolbarInterface{
             // rotate screen
             event = (Event) savedInstanceState.getSerializable(getString(R.string.event));
         }
+
+        Switch alldaySwitch = (Switch) binding.getRoot().findViewById(R.id.allday_switch);
+        alldaySwitch.setChecked(event.isAllDay());
     }
 
     public void setEvent(Event event) {
@@ -294,6 +298,11 @@ implements EventCreateMvpView, ToolbarInterface{
     public void openCamera() {
         Intent intent = new Intent(getActivity(), CameraActivity.class);
         startActivityForResult(intent, REQ_PHOTO);
+    }
+
+    @Override
+    public void toPhotoGridView() {
+        toPhotoGridPage();
     }
 
     @PermissionGrant(REQUEST_PHOTO_PERMISSION)
