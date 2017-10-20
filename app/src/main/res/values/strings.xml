@@ -223,6 +223,7 @@
     <string name="repeat_every_month_cus">Every%1$smonth</string>
     <string name="repeat_every_year_cus">Every%1$syear</string>
     <string name="repeat_prefix">Repeat %1$s</string>
+    <string name="until_prefix">Until %1$s</string>
 
     <!--alert-->
     <string name="event_alert_none">None</string>

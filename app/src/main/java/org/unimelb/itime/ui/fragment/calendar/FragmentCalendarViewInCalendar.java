@@ -118,7 +118,13 @@ public class FragmentCalendarViewInCalendar extends ItimeBaseFragment<CalendarMv
         monthDayView.setITimeCalendarMonthDayViewListener(listener);
 
         if (event != null){
-            monthDayView.scrollToDate(new Date(event.getStartTime()),true);
+            monthDayView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    monthDayView.scrollToDate(new Date(event.getStartTime()),true); // scroll time not working...
+                    monthDayView.refresh();
+                }
+            },500);
         }
     }
 
@@ -181,6 +187,7 @@ public class FragmentCalendarViewInCalendar extends ItimeBaseFragment<CalendarMv
 
         @Override
         public void onDateChanged(Date date) {
+            Log.i("123", "onDateChanged: " + date);
             if (onDateChanged != null){
                 onDateChanged.onDateChanged(date);
             }
@@ -238,7 +245,13 @@ public class FragmentCalendarViewInCalendar extends ItimeBaseFragment<CalendarMv
     public void setEvent(Event event) {
         this.event = event;
         if (monthDayView != null){
-            monthDayView.scrollToDate(new Date(event.getStartTime()),true);
+            monthDayView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    monthDayView.scrollToDate(new Date(event.getStartTime()),true); // scroll time not working...
+                    monthDayView.refresh();
+                }
+            },500);
         }
     }
 }
