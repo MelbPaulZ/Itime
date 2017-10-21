@@ -6,17 +6,17 @@
 
     <string name="dialog_ok">OK</string>
     <string name="dialog_leave">Leave</string>
-    <string name="dialog_done">Done</string>
-    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_done">完成</string>
+    <string name="dialog_cancel">取消</string>
     <string name="dialog_invite">Invite</string>
     <string name="dialog_save_for_this_event_only">Save for this event only</string>
     <string name="dialog_save_for_future_events">Save for future events</string>
     <!--toolbar string-->
-    <string name="toolbar_done">Done</string>
+    <string name="toolbar_done">完成</string>
     <string name="toolbar_confirm">Confirm</string>
     <string name="toolbar_vote">Vote</string>
     <string name="toolbar_custom">Custom</string>
-    <string name="toolbar_cancel">Cancel</string>
+    <string name="toolbar_cancel">取消</string>
     <string name="toolbar_url">URL</string>
     <string name="toolbar_note">Note</string>
     <string name="toolbar_select">Select</string>
@@ -39,6 +39,7 @@
 
     <!--Event-->
     <string name="event">Event</string>
+    <string name="new_event">新建事件</string>
     <string name="create_an_event">Create An Event</string>
     <string name="event_detail_header_hosted_by">Hosted by</string>
     <string name="event_detail_header_invitees">invitee</string>
@@ -103,9 +104,9 @@
     <string name="event_detail_toolbar_history">Activities</string>
     <string name="event_detail_toolbar_remind">Remind everyone</string>
     <string name="event_create_inviteothers">Invite Others</string>
-    <string name="event_create_onlymyself">Only Myself</string>
+    <string name="event_create_onlymyself">个人事件</string>
     <string name="event_create_confirm_toolbar">Confirm</string>
-    <string name="event_create_confirm_done">Done</string>
+    <string name="event_create_confirm_done">完成</string>
     <string name="event_detail_dialog_cantgo_title">Can\'t go</string>
     <string name="event_detail_dialog_remind">Remind</string>
     <string name="event_detail_dialog_remind_title">Every invitee will recieve a system reminder </string>
@@ -115,7 +116,7 @@
     <string name="event_detail_delete_dialog_repeat_title">Delete a repeating event</string>
     <string name="event_detail_delete_dialog_message">Invitees will be notified that this event was cancelled and everything about this event will be deleted</string>
     <string name="event_detail_delete_dialog_input_hints">Leave a comment for your invitees (optional)</string>
-    <string name="event_detail_delete_dialog_cancel">Cancel</string>
+    <string name="event_detail_delete_dialog_cancel">取消</string>
     <string name="event_invitation_sent">Invitation Sent</string>
     <string name="invitation_sent_reject_text">Your invitation is successfully sent, but rejected by some invitees because they have blocked you:</string>
     <string name="event_photo">photo</string>
@@ -199,7 +200,7 @@
     <string name="event_repeat_end_repeat">End Repeat</string>
     <string name="event_repeat_never">Never</string>
     <string name="event_repeat_title">Repeat</string>
-    <string name="event_repeat_toolbar_done">Done</string>
+    <string name="event_repeat_toolbar_done">完成</string>
     <string name="event_end_repeat">End Repeat</string>
     <string name="event_end_repeat_on_date">On Date</string>
     <string name="event_repeat_frequency">Frequency</string>
@@ -260,8 +261,8 @@
     <string name="solo_time_arrow">→</string>
 
     <!--Action sheet-->
-    <string name="action_sheet_cancel">Cancel</string>
-    <string name="action_sheet_take_photo">Take Photo</string>
+    <string name="action_sheet_cancel">取消</string>
+    <string name="action_sheet_take_photo">拍照</string>
     <string name="action_sheet_choose_from_photos">Choose From Photos</string>
 
     <!--event dialog-->
@@ -346,13 +347,13 @@
     <string name="contact_my_profile">My Profile</string>
     <string name="contact_user_not_found_dialog_title">User Not Found</string>
     <string name="contact_user_not_found_dialog_message">Invite\n%1$s\nto join iTime</string>
-    <string name="my_qr_code_explain">Scan the QR code to add me on Timegenii</string>
+    <string name="my_qr_code_explain">扫一扫上面的二维码图案，加我iTime好友</string>
     <string name="my_qr_code_title">My QR Code</string>
     <string name="save_to_album">Save Photo</string>
     <string name="scan_qr_code">Scan QR code</string>
     <string name="scan_qr_code_album">Album</string>
     <string name="qr_code">QR Code</string>
-    <string name="scan_qr_code_explain">Align QR code within frame to scan</string>
+    <string name="scan_qr_code_explain">将二维码放入框内，即可自动扫描</string>
     <string name="save_qr_code_success">Save qr code success</string>
     <string name="save_qr_code_failed">Save qr code failed</string>
     <string name="cannot_find_user">Can not find this user</string>
@@ -360,7 +361,7 @@
 
     <string name="contact_recommend_add">Add</string>
     <string name="contact_add_by_email">Add Friend</string>
-    <string name="contact_scan_qr_code">Scan QR Code</string>
+    <string name="contact_scan_qr_code">扫描二维码</string>
     <string name="profile_edit_alias">Edit Alias</string>
     <string name="profile_unblock">Unblock</string>
     <string name="profile_block">Block</string>
@@ -437,7 +438,7 @@
     <!--photo-->
     <string name="photo_title">Photos</string>
     <string name="take_photo">Take photo</string>
-    <string name="choose_from_photos">Choose from Photos</string>
+    <string name="choose_from_photos">从手机相册选择</string>
     <string name="cancel_photos_alert_msg">You haven\'t upload these photos, are you sure to discard photo editing?</string>
     <string name="delete_this_photo">Delete this photo?</string>
     <string name="cover_collections">iTime Cover Collections</string>
@@ -463,26 +464,26 @@
     <string name="inbox_menu_clear_inbox">Clear Message</string>
 
     <string name="setting">Settings</string>
-    <string name="setting_reset_password">Reset Password</string>
+    <string name="setting_reset_password">修改密码</string>
     <string name="my_qr_code">My QR Code</string>
-    <string name="setting_gender">Gender</string>
+    <string name="setting_gender">性别</string>
     <string name="location">Location</string>
-    <string name="region">Region</string>
+    <string name="region">地区</string>
     <string name="all_regions">All Regions</string>
     <string name="search_location">location</string>
     <string name="setting_my_profile">My Profile</string>
     <string name="setting_calendar_pref">Calendar Preferences</string>
     <string name="photo_my_profile">Photo</string>
     <string name="setting_save">Save</string>
-    <string name="setting_male">Male</string>
-    <string name="setting_female">Female</string>
+    <string name="setting_male">男</string>
+    <string name="setting_female">女</string>
     <string name="setting_undefined">Undefined</string>
     <string name="setting_Undefined">Undefined</string>
     <string name="setting_calendar_preference">Calendar Preferences</string>
     <string name="setting_calendars">Calendars</string>
     <string name="setting_language">Language</string>
     <string name="setting_default_calendar">Default Calendar</string>
-    <string name="setting_default_alert">Default Alert</string>
+    <string name="setting_default_alert">默认的提醒时间</string>
     <string name="setting_import_calendar_from">Import Calendar From Other Accounts</string>
     <string name="setting_import_calendar">Import Calendar</string>
     <string name="setting_google_calendar">Google Calendar</string>
@@ -495,10 +496,10 @@
     <string name="setting_in_app_alert_sound">In-App Alert Sound</string>
     <string name="setting_vibrate">Vibrate</string>
     <string name="setting_notifications_subtext3">Specify preference to be notified by Sound or Vibration when receiving new notifications</string>
-    <string name="setting_reset_password_subtext1">Enter a new password for this account. You can use the Email and the password to log in to Timegenii next time.</string>
-    <string name="setting_email">Email</string>
-    <string name="setting_password">Password</string>
-    <string name="setting_confirm">Confirm</string>
+    <string name="setting_reset_password_subtext1">设置新密码后，您下次可以用邮箱+密码登陆iTime，请牢记</string>
+    <string name="setting_email">注册邮箱</string>
+    <string name="setting_password">新密码</string>
+    <string name="setting_confirm">确认密码</string>
     <string name="setting_password_hint">New Timegenii password</string>
     <string name="setting_confirm_hint">Confirm password</string>
     <string name="setting_import_google_calendar_success">Import Google calendar success</string>
@@ -507,9 +508,9 @@
     <string name="setting_itime_calendars">Timegenii Calendars</string>
     <string name="add_calendar">Add Calendar</string>
     <string name="calendar_title">Calendars</string>
-    <string name="setting_edit_calendar">Edit Calendar</string>
+    <string name="setting_edit_calendar">添加日历</string>
     <string name="calendar_name">Calendar Name</string>
-    <string name="delete_calendar">Delete Calendar</string>
+    <string name="delete_calendar">编辑日历</string>
     <string name="success">Success</string>
     <string name="setting_import_melbourne_university_calendar_successfully">Import Melbourne University Calendar Successfully!</string>
     <string name="failure">Failure</string>
@@ -532,8 +533,8 @@
     <string name="end">Ends</string>
     <string name="new_timeslot">New Timeslot</string>
     <string name="password_too_simple">Password Too Simple</string>
-    <string name="password_wrong_length">Your password should be 8 to 16 characters</string>
-    <string name="password_do_not_match">Password do not match</string>
+    <string name="password_wrong_length">密码必须是8-16位的数字、字符组合</string>
+    <string name="password_do_not_match">两次填写的密码不一致</string>
     <string name="reset_password_success">Reset password success</string>
     <string name="access_fail">Access failed, please check your network</string>
 
