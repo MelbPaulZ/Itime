@@ -2,6 +2,7 @@ package org.unimelb.itime.ui.viewmodel.meeting;
 
 import android.content.Context;
 
+import org.unimelb.itime.R;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.ui.fragment.meeting.RecyclerViewAdapterMeetings;
@@ -15,7 +16,6 @@ import org.unimelb.itime.util.MeetingUtil;
  */
 
 public class MeetingHostingDetailCardViewModel extends MeetingHostingBaseCardViewModel {
-    //int[] {goingNum, notGoingNum, votedNum, cantGoNum, noReplyNum}
     private int[] inviteeVotedStatus;
 
     public MeetingHostingDetailCardViewModel(Context context, RecyclerViewAdapterMeetings.Mode mode, MeetingPresenter<MeetingMvpView> meetingPresenter) {
@@ -30,7 +30,7 @@ public class MeetingHostingDetailCardViewModel extends MeetingHostingBaseCardVie
 
     public String getLabelName_1(){
         boolean confirmed = meeting.getEvent().getStatus().equals(Event.STATUS_CONFIRMED);
-        return  confirmed ? "Going":"Voted";
+        return  context.getResources().getString(confirmed ? R.string.meeting_status_going:R.string.meeting_status_voted);
     }
 
     public String getLabelValue_1(){
@@ -43,7 +43,8 @@ public class MeetingHostingDetailCardViewModel extends MeetingHostingBaseCardVie
 
     public String getLabelName_2(){
         boolean confirmed = meeting.getEvent().getStatus().equals(Event.STATUS_CONFIRMED);
-        return  confirmed ? "Not Going":"Can't go";
+//        return  confirmed ? "Not Going":"Can't go";
+        return context.getResources().getString(confirmed ? R.string.meeting_status_not_going : R.string.meeting_status_cannot_go);
     }
 
     public String getLabelValue_2(){
@@ -55,8 +56,7 @@ public class MeetingHostingDetailCardViewModel extends MeetingHostingBaseCardVie
     }
 
     public String getLabelName_3(){
-        boolean confirmed = meeting.getEvent().getStatus().equals(Event.STATUS_CONFIRMED);
-        return  confirmed ? "No reply":"No reply";
+        return  context.getResources().getString(R.string.event_detail_no_reply);
     }
 
     public String getLabelValue_3(){

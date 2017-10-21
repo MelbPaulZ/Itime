@@ -52,7 +52,7 @@
     <string name="event_detail_all_invitees">All Invitees</string>
     <string name="event_detail_replied">Replied</string>
     <string name="event_detail_cant_go">Can\'t go</string>
-    <string name="event_detail_no_reply">No Reply</string>
+    <string name="event_detail_no_reply">无回复</string>
     <string name="event_detail_itime_contact_title">iTime 联系人</string>
     <string name="event_detail_youmayhaveconfilict">You may have conflict on the timeslot</string>
     <string name="event_detail_sheet_left_choosetimeslots">Choose Timeslots</string>
@@ -254,7 +254,7 @@
     <string name="event_note_hint">Note</string>
 
     <!--all day-->
-    <string name="all_day">All Day</string>
+    <string name="all_day">全天</string>
 
     <!--solo select time-->
     <string name="solo_time_arrow">→</string>
@@ -295,50 +295,51 @@
     <string name="event_status_confirmed">Confirmed</string>
 
     <!--activity-->
-    <string name="activity_meeting_show_more">show more…</string>
-    <string name="searchbar_placeholder">Search</string>
-    <string name="yesterday">Yesterday</string>
-    <string name="mark_all_read">Mark all read</string>
+    <string name="activity_meeting_show_more">展开全部</string>
+    <string name="searchbar_placeholder">搜索</string>
+    <string name="yesterday">昨天</string>
+    <string name="mark_all_read">全标已读</string>
 
-    <string name="search_showmore">show more...</string>
+    <string name="search_showmore">展开全部</string>
 
     <!-- meeting -->
-    <string name="pinned">Pin</string>
-    <string name="unpin">Unpin</string>
-    <string name="mute">Mute</string>
-    <string name="unmute">Unmute</string>
-    <string name="archived">Archive</string>
-    <string name="vote">Vote</string>
-    <string name="delete">Delete</string>
-    <string name="restore">Restore</string>
-    <string name="meeting_tag_invitation">Invitation</string>
-    <string name="meeting_tag_hosting">Hosting</string>
-    <string name="meeting_tag_coming">Coming</string>
-    <string name="meeting_tag_archive">Archive</string>
+    <string name="pinned">置顶</string>
+    <string name="unpin">取消置顶</string>
+    <string name="mute">关闭通知</string>
+    <string name="unmute">启用通知</string>
+    <string name="archived">归档</string>
+    <string name="vote">请投票</string>
+    <string name="delete">删除</string>
+    <string name="restore">恢复</string>
+    <string name="meeting_tag_invitation">他人邀请</string>
+    <string name="meeting_tag_hosting">由我组织</string>
+    <string name="meeting_tag_coming">即将前往</string>
+    <string name="meeting_tag_archive">归档</string>
     <string name="meeting_tag_archive_clear_all">Clear All</string>
-    <string name="meeting_reminder_time_future" >In %1$s</string>
-    <string name="meeting_reminder_next_slot" >Next timeslot in %1$s</string>
-    <string name="meeting_reminder_time_ago" >%1$s Ago</string>
-    <string name="meeting_reminder_time_day" >%1$dd</string>
-    <string name="meeting_reminder_time_hour" >%1$dh</string>
-    <string name="meeting_reminder_time_min" >%1$dmin</string>
-    <string name="meeting_sys_msg_invitation"> invite you to</string>
-    <string name="meeting_sys_msg_wait_host_confirm">Pending host confirmation</string>
-    <string name="meeting_sys_msg_confirmed">Confirmed</string>
-    <string name="meeting_sys_msg_updated">…changed</string>
-    <string name="meeting_sys_msg_diff_timeslot_confirmed">Different timeslot confirmed</string>
-    <string name="meeting_status_vote">Vote</string>
-    <string name="meeting_status_voted">Voted</string>
-    <string name="meeting_status_going">Going</string>
-    <string name="meeting_status_not_going">Not Going</string>
-    <string name="meeting_status_revote">Revote</string>
-    <string name="meeting_status_decide">Decide</string>
-    <string name="meeting_status_cancelled">Cancelled</string>
+    <string name="meeting_reminder_time_future" >%1$s后</string>
+    <string name="meeting_reminder_next_slot" >剩余 %1$s</string>
+    <string name="meeting_reminder_time_ago" >%1$s之前</string>
+    <string name="meeting_reminder_time_day" >%1$d天</string>
+    <string name="meeting_reminder_time_hour" >%1$d小时</string>
+    <string name="meeting_reminder_time_min" >%1$d分钟</string>
+    <string name="meeting_sys_msg_invitation"> 邀请您参加</string>
+    <string name="meeting_sys_msg_wait_host_confirm">正在等待邀请人的决定</string>
+    <string name="meeting_sys_msg_confirmed">已决定</string>
+    <string name="meeting_sys_msg_updated">…发生改变</string>
+    <string name="meeting_sys_msg_diff_timeslot_confirmed">邀请人决定时间与您的投票不符</string>
+    <string name="meeting_status_vote">请投票</string>
+    <string name="meeting_status_voted">已投票</string>
+    <string name="meeting_status_going">参加</string>
+    <string name="meeting_status_not_going">不参加</string>
+    <string name="meeting_status_cannot_go">不参加</string>
+    <string name="meeting_status_revote">重新投票</string>
+    <string name="meeting_status_decide">请决定</string>
+    <string name="meeting_status_cancelled">已取消</string>
     <string name="meeting_archive_dialog_alert_msg_title">Clear All Event?</string>
     <string name="meeting_archive_dialog_clear_alert_msg_content">Everything about this event will be deleted</string>
-    <string name="meeting_archive_dialog_delete">Delete</string>
-    <string name="meeting_archive_dialog_cancel">Cancel</string>
-    <string name="search">Search</string>
+    <string name="meeting_archive_dialog_delete">删除</string>
+    <string name="meeting_archive_dialog_cancel">取消</string>
+    <string name="search">搜索</string>
 
     <!--contacts-->
     <string name="contact_friend_request">Friend Requests</string>

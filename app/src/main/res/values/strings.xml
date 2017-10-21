@@ -331,6 +331,7 @@
     <string name="meeting_status_voted">Voted</string>
     <string name="meeting_status_going">Going</string>
     <string name="meeting_status_not_going">Not Going</string>
+    <string name="meeting_status_cannot_go">Can\'t go</string>
     <string name="meeting_status_revote">Revote</string>
     <string name="meeting_status_decide">Decide</string>
     <string name="meeting_status_cancelled">Cancelled</string>
@@ -543,6 +544,7 @@
     <string name = "help_center">Help Center</string>
     <string name = "report_a_problem">Report a Problem</string>
     <string name="pref_header_general">General</string>
+    <string name="new_event">New Event</string>
 
 
 </resources>
