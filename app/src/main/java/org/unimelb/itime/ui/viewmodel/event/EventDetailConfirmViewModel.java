@@ -13,6 +13,7 @@ import org.unimelb.itime.util.TimeFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Qiushuo Huang on 2017/6/26.
@@ -123,10 +124,11 @@ public class EventDetailConfirmViewModel extends BaseObservable {
 
     public void setTimeSlot(TimeSlot timeSlot) {
         this.timeSlot = timeSlot;
-        setStartDate(TimeFactory.getFormatTimeString(timeSlot.getStartTime(), TimeFactory.DAY_MONTH_YEAR));
-        setStartTime(TimeFactory.getFormatTimeString(timeSlot.getStartTime(), TimeFactory.HOUR_MIN_A));
-        setEndDate(TimeFactory.getFormatTimeString(timeSlot.getEndTime(), TimeFactory.DAY_MONTH_YEAR));
-        setEndTime(TimeFactory.getFormatTimeString(timeSlot.getEndTime(), TimeFactory.HOUR_MIN_A));
+        Locale locale = presenter.getContext().getResources().getConfiguration().locale;
+        setStartDate(TimeFactory.getFormatTimeString(timeSlot.getStartTime(), TimeFactory.DAY_MONTH_YEAR, locale));
+        setStartTime(TimeFactory.getFormatTimeString(timeSlot.getStartTime(), TimeFactory.HOUR_MIN_A, locale));
+        setEndDate(TimeFactory.getFormatTimeString(timeSlot.getEndTime(), TimeFactory.DAY_MONTH_YEAR, locale));
+        setEndTime(TimeFactory.getFormatTimeString(timeSlot.getEndTime(), TimeFactory.HOUR_MIN_A, locale));
 
         List<String> goInvitees = new ArrayList<>();
         List<String> notGoInvitees = new ArrayList<>();

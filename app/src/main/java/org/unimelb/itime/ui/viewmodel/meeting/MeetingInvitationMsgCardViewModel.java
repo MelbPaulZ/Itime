@@ -20,7 +20,9 @@ public class MeetingInvitationMsgCardViewModel extends MeetingInvitationBaseCard
 
     public String getSubTitle(){
         return "(" +
-                TimeFactory.getFormatTimeString(meeting.getEvent().getStartTime(),TimeFactory.DAY_MONTH_YEAR)
+                TimeFactory.getFormatTimeString(
+                        meeting.getEvent().getStartTime()
+                        ,TimeFactory.DAY_MONTH_YEAR, locale)
                 + ")";
     }
 

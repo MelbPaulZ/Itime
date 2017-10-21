@@ -37,17 +37,14 @@ import org.unimelb.itime.ui.viewmodel.ToolbarTimeslotViewModel;
 import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.util.TimeFactory;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import david.itimecalendar.calendar.listeners.ITimeCalendarTimeslotViewListener;
-import david.itimecalendar.calendar.listeners.ITimeTimeSlotInterface;
 import david.itimecalendar.calendar.ui.unitviews.DraggableTimeSlotView;
 import david.itimecalendar.calendar.ui.unitviews.RcdRegularTimeSlotView;
 import david.itimecalendar.calendar.ui.weekview.TimeSlotView;
@@ -80,7 +77,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     private transient List<TimeSlot> rcdTimeslots = new ArrayList<>();
     private transient Date currentFirstDate = new Date();
 
-    private List<TimeSlotView.DurationItem> items = initList();
+    private List<TimeSlotView.DurationItem> items;
     private int scope;
 
     @Nullable
@@ -143,9 +140,9 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        items = initList();
         scope = getResources().getInteger(R.integer.timeslot_view_scope);
-        toolbarVM = new ToolbarTimeslotViewModel<>(this);
+        toolbarVM = new ToolbarTimeslotViewModel<>(this, getContext());
         binding.setToolbarVM(toolbarVM);
         setTimeslotViewMode(mode,event);
         linkEventTimeslots(event, preSelectedSlots);
@@ -597,7 +594,9 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(currentFstDay.getTime());
             cal.add(Calendar.DATE, i);
-            String currentDateStr = TimeFactory.getFormatTimeString(cal.getTime(), TimeFactory.DAY_MONTH_YEAR);
+            String currentDateStr = TimeFactory.getFormatTimeString(cal.getTime()
+                    , TimeFactory.DAY_MONTH_YEAR
+                    , getResources().getConfiguration().locale);
             if (!rcdCheckedDates.containsKey(currentDateStr)){
                 targetFetchStartDate = cal.getTime();
                 needFetch = true;
@@ -637,7 +636,9 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(targetFetchStartDate);
             calendar.add(Calendar.DATE, i);
-            String dateStr = TimeFactory.getFormatTimeString(calendar.getTime(), TimeFactory.DAY_MONTH_YEAR);
+            String dateStr = TimeFactory.getFormatTimeString(calendar.getTime()
+                    , TimeFactory.DAY_MONTH_YEAR
+                    , getResources().getConfiguration().locale);
             Log.i("onRcdArrive", "added: " + dateStr);
             if (!rcdCheckedDates.containsKey(dateStr)){
                 rcdCheckedDates.put(dateStr,null);
@@ -651,10 +652,10 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
         for (int i = 1; i < target+1; i++) {
             TimeSlotView.DurationItem item = new TimeSlotView.DurationItem();
             if (i == target){
-                item.showName = "All Day";
+                item.showName = getString(R.string.all_day);
                 item.duration = -1;
             }else{
-                item.showName = "" + i + " hrs";
+                item.showName = "" + i + " " + getString(R.string.label_hours);
                 item.duration = i * 3600 * 1000;
             }
 
@@ -707,9 +708,5 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
 
             timeSlotView.addTimeSlotList(validSlots);
         }
-
-//        Collections.sort(rcdTimeslot);
-//        Date toDate = new Date(rcdTimeslot.get(0).getStartTime());
-//        timeSlotView.scrollToDate(toDate, true);
     }
 }

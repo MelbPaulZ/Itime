@@ -65,7 +65,9 @@ public class TimeslotPresenter <V extends TimeslotMvpView> extends ItimeBasePres
             @Override
             public void onNext(HttpResult<List<TimeSlot>> listHttpResult) {
                 //post rcd timeslots
-                String dateStr = TimeFactory.getFormatTimeString(startTime, TimeFactory.DAY_MONTH_YEAR);
+                String dateStr = TimeFactory.getFormatTimeString(startTime
+                        , TimeFactory.DAY_MONTH_YEAR
+                        , getContext().getResources().getConfiguration().locale);
                 EventBus.getDefault().post(new MessageRefreshTimeSlots(listHttpResult.getData(),dateStr));
             }
         };

@@ -19,6 +19,7 @@ import org.unimelb.itime.util.TimeFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import david.itimecalendar.calendar.ui.weekview.TimeSlotView;
 
@@ -42,7 +43,10 @@ public class ToolbarTimeslotViewModel <V extends ToolbarInterface & ToolbarTimes
     private V view;
     private FragmentCalendarTimeslot.Mode mode;
 
-    public ToolbarTimeslotViewModel(V view) {
+    private Locale locale;
+
+    public ToolbarTimeslotViewModel(V view, Context context) {
+        this.locale = context.getResources().getConfiguration().locale;
         this.view = view;
         this.mode = view.getTimeSlotViewMode();
         this.timeSlotView = view.getTimeSlotView();
@@ -155,7 +159,8 @@ public class ToolbarTimeslotViewModel <V extends ToolbarInterface & ToolbarTimes
             return "";
         }
 
-        return TimeFactory.getFormatTimeString(confirmedTimeslot.getStartTime(),TimeFactory.HOUR_MIN);
+        return TimeFactory.getFormatTimeString(confirmedTimeslot.getStartTime()
+                ,TimeFactory.HOUR_MIN, locale);
     }
 
     public String getConfirmedTimeslotEndTime(TimeSlot confirmedTimeslot){
@@ -163,7 +168,7 @@ public class ToolbarTimeslotViewModel <V extends ToolbarInterface & ToolbarTimes
             return "";
         }
 
-        return TimeFactory.getFormatTimeString(confirmedTimeslot.getEndTime(),TimeFactory.HOUR_MIN);
+        return TimeFactory.getFormatTimeString(confirmedTimeslot.getEndTime(),TimeFactory.HOUR_MIN, locale);
     }
 
     public String getConfirmedTimeslotDate(Context context, TimeSlot confirmedTimeslot){

@@ -24,6 +24,7 @@ import org.unimelb.itime.util.TimeFactory;
 import java.sql.Time;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import static org.unimelb.itime.util.MeetingUtil.getMeetingUpdatedTimeStr;
 
@@ -37,12 +38,13 @@ public class MeetingBaseCardViewModel extends BaseObservable {
     protected Context context;
     protected RecyclerViewAdapterMeetings.Mode mode;
     protected MeetingPresenter<MeetingMvpView> meetingPresenter;
-
+    protected Locale locale;
 
     public MeetingBaseCardViewModel(Context context, RecyclerViewAdapterMeetings.Mode mode, MeetingPresenter<MeetingMvpView> meetingPresenter) {
         this.mode = mode;
         this.context = context;
         this.meetingPresenter = meetingPresenter;
+        this.locale = context.getResources().getConfiguration().locale;
     }
 
     @Bindable

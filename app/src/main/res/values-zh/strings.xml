@@ -24,13 +24,13 @@
     <string name="toolbar_location">Location</string>
     <string name="toolbar_event">Event</string>
     <string name="toolbar_timeslots">时间段</string>
-    <string name="toolbar_choose_timeslots">Choose Timeslots</string>
+    <string name="toolbar_choose_timeslots">选择时间</string>
     <string name="toolbar_alert">Alert</string>
     <string name="toolbar_save">保存</string>
     <string name="toolbar_greeting">打个招呼</string>
     <string name="toolbar_send">Send</string>
     <string name="toolbar_next">继续</string>
-    <string name="toolbar_timeslots_select">%1$d/%2$d Timeslots</string>
+    <string name="toolbar_timeslots_select">%1$d/%2$d 时间段</string>
     <string name="toolbar_activities">动态</string>
     <string name="toolbar_mute">Mute</string>
     <string name="toolbar_unmute">Unmute</string>
@@ -54,13 +54,13 @@
     <string name="event_detail_cant_go">Can\'t go</string>
     <string name="event_detail_no_reply">无回复</string>
     <string name="event_detail_itime_contact_title">iTime 联系人</string>
-    <string name="event_detail_youmayhaveconfilict">You may have conflict on the timeslot</string>
-    <string name="event_detail_sheet_left_choosetimeslots">Choose Timeslots</string>
-    <string name="event_detail_sheet_left_confirm_a_timeslot">Confirm a Timeslot</string>
-    <string name="event_detail_sheet_left_voted">Voted</string>
-    <string name="event_detail_sheet_left_not_going">Not Going</string>
+    <string name="event_detail_youmayhaveconfilict">时间段可能有冲突</string>
+    <string name="event_detail_sheet_left_choosetimeslots">选择时间段</string>
+    <string name="event_detail_sheet_left_confirm_a_timeslot">决定一个时间</string>
+    <string name="event_detail_sheet_left_voted">已投票</string>
+    <string name="event_detail_sheet_left_not_going">不参加</string>
     <string name="event_detail_view_in_calendar">View in calendar</string>
-    <string name="event_detail_icannotgoatalltimeslots">I can\'t go at all timeslot</string>
+    <string name="event_detail_icannotgoatalltimeslots">我无法参见</string>
     <string name="event_detail_thetimeslotisoutdated">The timeslot is outdated</string>
     <string name="event_detail_pleaseselectatleast1timeslot">Please select at least 1 timeslot</string>
     <string name="event_detail_pleaseselect1timeslot">Please select 1 timeslot</string>
@@ -546,5 +546,7 @@
     <string name = "report_a_problem">Report a Problem</string>
     <string name="pref_header_general">General</string>
     <string name="new_event">New Event</string>
-
+    <string name="search_hint">试试搜索关键词</string>
+    <string name="label_hours">小时</string>
+    <string name="label_min">分钟</string>
 </resources>

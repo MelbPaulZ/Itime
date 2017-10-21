@@ -28,11 +28,19 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerView.ViewHolder> {
     public enum Mode {
         INVITATION, HOSTING, COMING,ARCHIVE
     }
+
+
+    private Context mContext;
+    private List<Meeting> mDataset;
+    private OnMenuListener onMenuListener;
+    private Mode mode;
+    private MeetingPresenter presenter;
 
     private Comparator<Meeting> comingComparator = Meeting::compareTo;
     private Comparator<Meeting> invitationComparator = (m1, m2) -> {
@@ -41,9 +49,9 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
         }else if (!m1.getEvent().isPinned() && m2.getEvent().isPinned()){
             return 1;
         }
-
-        Long long1 = TimeFactory.getUpdatedAtLong(m1.getUpdatedAt());
-        Long long2 = TimeFactory.getUpdatedAtLong(m2.getUpdatedAt());
+        Locale locale = mContext.getResources().getConfiguration().locale;
+        Long long1 = TimeFactory.getUpdatedAtLong(m1.getUpdatedAt(), locale);
+        Long long2 = TimeFactory.getUpdatedAtLong(m2.getUpdatedAt(), locale);
         return long2.compareTo(long1);
     };
     private Comparator<Meeting> hostingComparator = (m1, m2) -> {
@@ -124,11 +132,6 @@ public class RecyclerViewAdapterMeetings extends RecyclerSwipeAdapter<RecyclerVi
         }
     }
 
-    private Context mContext;
-    private List<Meeting> mDataset;
-    private OnMenuListener onMenuListener;
-    private Mode mode;
-    private MeetingPresenter presenter;
 
     public RecyclerViewAdapterMeetings(Context mContext, Mode mode, MeetingPresenter presenter) {
         this.mContext = mContext;

@@ -1,5 +1,6 @@
 package org.unimelb.itime.ui.viewmodel;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableField;
@@ -48,7 +49,7 @@ public class SearchViewModel extends BaseObservable {
     public SearchViewModel(SearchPresenter<SearchMvpView> presenter) {
         this.presenter = presenter;
         this.mvpView = presenter.getView();
-        refreshResultHint();
+        refreshResultHint(presenter.getContext());
     }
 
     /**
@@ -135,7 +136,7 @@ public class SearchViewModel extends BaseObservable {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                refreshResultHint();
+                refreshResultHint(presenter.getContext());
                 clearResults();
                 presenter.search(searchStr);
             }
@@ -153,9 +154,9 @@ public class SearchViewModel extends BaseObservable {
         }
     }
 
-    private void refreshResultHint(){
+    private void refreshResultHint(Context context){
         if (searchStr.isEmpty()){
-            setResultHint("Try searching for keywords");
+            setResultHint(context.getString(R.string.search_hint));
         }else{
             setResultHint("");
         }

@@ -545,6 +545,8 @@
     <string name = "report_a_problem">Report a Problem</string>
     <string name="pref_header_general">General</string>
     <string name="new_event">新建事件</string>
-
+    <string name="search_hint">Try searching for keywords</string>
+    <string name="label_hours">hrs</string>
+    <string name="label_min">min</string>
 
 </resources>

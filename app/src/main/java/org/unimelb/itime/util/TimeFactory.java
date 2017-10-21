@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -30,75 +31,76 @@ public class TimeFactory {
     public static String UTC_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     public static String[] getTimeStrings(Context context, TimeSlot timeSlot){
+        Locale locale = context.getResources().getConfiguration().locale;
         String[] result = new String[2];
         if(timeSlot!=null){
             if(timeSlot.isAllDay()){
-                result[0] = getFormatTimeString(timeSlot.getStartTime(), WEEK_DAY_MONTH);
+                result[0] = getFormatTimeString(timeSlot.getStartTime(), WEEK_DAY_MONTH, locale);
                 result[1] = context.getString(R.string.all_day);
 
-            }else if (isDifferentYear(timeSlot)){
-                result[0] = getFormatTimeString(timeSlot.getStartTime(), HOUR_MIN_A)
+            }else if (isDifferentYear(timeSlot, locale)){
+                result[0] = getFormatTimeString(timeSlot.getStartTime(), HOUR_MIN_A, locale)
                 +" "
-                +getFormatTimeString(timeSlot.getStartTime(), WEEK_DAY_MONTH);
+                +getFormatTimeString(timeSlot.getStartTime(), WEEK_DAY_MONTH, locale);
 
-                result[1] = getFormatTimeString(timeSlot.getEndTime(), HOUR_MIN_A)
+                result[1] = getFormatTimeString(timeSlot.getEndTime(), HOUR_MIN_A, locale)
                         +" "
-                        +getFormatTimeString(timeSlot.getEndTime(), DAY_MONTH_YEAR);
+                        +getFormatTimeString(timeSlot.getEndTime(), DAY_MONTH_YEAR, locale);
 
-            }else if(isDifferentDay(timeSlot)){
-                result[0] = getFormatTimeString(timeSlot.getStartTime(), HOUR_MIN_A)
+            }else if(isDifferentDay(timeSlot, locale)){
+                result[0] = getFormatTimeString(timeSlot.getStartTime(), HOUR_MIN_A, locale)
                         +" "
-                        +getFormatTimeString(timeSlot.getStartTime(), WEEK_DAY_MONTH);
+                        +getFormatTimeString(timeSlot.getStartTime(), WEEK_DAY_MONTH, locale);
 
-                result[1] = getFormatTimeString(timeSlot.getEndTime(), HOUR_MIN_A)
+                result[1] = getFormatTimeString(timeSlot.getEndTime(), HOUR_MIN_A, locale)
                         +" "
-                        +getFormatTimeString(timeSlot.getEndTime(), WEEK_DAY_MONTH);
+                        +getFormatTimeString(timeSlot.getEndTime(), WEEK_DAY_MONTH, locale);
             }else{
-                result[0] = getFormatTimeString(timeSlot.getStartTime(), HOUR_MIN_A)
+                result[0] = getFormatTimeString(timeSlot.getStartTime(), HOUR_MIN_A, locale)
                         +" → "
-                        + getFormatTimeString(timeSlot.getEndTime(), HOUR_MIN_A);
-                result[1] = getFormatTimeString(timeSlot.getStartTime(), WEEK_DAY_MONTH);
+                        + getFormatTimeString(timeSlot.getEndTime(), HOUR_MIN_A, locale);
+                result[1] = getFormatTimeString(timeSlot.getStartTime(), WEEK_DAY_MONTH, locale);
             }
         }
         return result;
     }
 
-    public static boolean isDifferentYear(TimeSlot timeSlot){
-        return !getYear(timeSlot.getStartTime()).equals(getYear(timeSlot.getEndTime()));
+    public static boolean isDifferentYear(TimeSlot timeSlot, Locale locale){
+        return !getYear(timeSlot.getStartTime(), locale).equals(getYear(timeSlot.getEndTime(), locale));
     }
 
-    public static boolean isDifferentDay(TimeSlot timeSlot){
-        return !getFormatTimeString(timeSlot.getStartTime(), DAY_MONTH_YEAR)
-                .equals(getFormatTimeString(timeSlot.getEndTime(), DAY_MONTH_YEAR));
+    public static boolean isDifferentDay(TimeSlot timeSlot, Locale local){
+        return !getFormatTimeString(timeSlot.getStartTime(), DAY_MONTH_YEAR,local)
+                .equals(getFormatTimeString(timeSlot.getEndTime(), DAY_MONTH_YEAR,local));
     }
 
-    public static String getYear(long time){
-        return getFormatTimeString(time, YEAR);
+    public static String getYear(long time, Locale locale){
+        return getFormatTimeString(time, YEAR, locale);
     }
 
-    public static String getMonth(long time){
-        return getFormatTimeString(time, MONTH);
+    public static String getMonth(long time, Locale locale){
+        return getFormatTimeString(time, MONTH, locale);
     }
 
-    public static String getDay(long time){
-        return getFormatTimeString(time, DAY);
+    public static String getDay(long time, Locale locale){
+        return getFormatTimeString(time, DAY, locale);
     }
 
-    public static String getFormatTimeString(long time, String format){
+    public static String getFormatTimeString(long time, String format, Locale locale){
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(time);
-        SimpleDateFormat fmt = new SimpleDateFormat(format);
+        SimpleDateFormat fmt = new SimpleDateFormat(format, locale);
         return fmt.format(c.getTime());
     }
 
-    public static String getFormatTimeString(Date date, String format){
-        SimpleDateFormat fmt = new SimpleDateFormat(format);
+    public static String getFormatTimeString(Date date, String format, Locale locale){
+        SimpleDateFormat fmt = new SimpleDateFormat(format, locale);
         return fmt.format(date);
     }
 
 
-    public static Long getFormatTimeLong(String time, String format){
-        SimpleDateFormat fmt = new SimpleDateFormat(format);
+    public static Long getFormatTimeLong(String time, String format, Locale locale){
+        SimpleDateFormat fmt = new SimpleDateFormat(format, locale);
         try {
             return fmt.parse(time).getTime();
         } catch (ParseException e) {
@@ -125,8 +127,8 @@ public class TimeFactory {
         return new long[] {days,hours,minutes,minutesTotal};
     }
 
-    public static Long getUpdatedAtLong(String updatedAt){
-        return getFormatTimeLong(updatedAt, UTC_PATTERN);
+    public static Long getUpdatedAtLong(String updatedAt, Locale locale){
+        return getFormatTimeLong(updatedAt, UTC_PATTERN, locale);
     }
 
 }
