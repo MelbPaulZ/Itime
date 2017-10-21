@@ -1,0 +1,548 @@
+<resources>
+    <string name="app_name">Itime</string>
+    <string name="serverClientId">354425670015-135aobr74423lftrohpoqb9kml25ip43.apps.googleusercontent.com</string>
+    <string name="default_cover">http://itime-1254199931.picgz.myqcloud.com/bg_default.png</string>
+    <!--dialog string-->
+
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_leave">Leave</string>
+    <string name="dialog_done">Done</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_invite">Invite</string>
+    <string name="dialog_save_for_this_event_only">Save for this event only</string>
+    <string name="dialog_save_for_future_events">Save for future events</string>
+    <!--toolbar string-->
+    <string name="toolbar_done">Done</string>
+    <string name="toolbar_confirm">Confirm</string>
+    <string name="toolbar_vote">Vote</string>
+    <string name="toolbar_custom">Custom</string>
+    <string name="toolbar_cancel">Cancel</string>
+    <string name="toolbar_url">URL</string>
+    <string name="toolbar_note">Note</string>
+    <string name="toolbar_select">Select</string>
+    <string name="toolbar_calendars">Calendars</string>
+    <string name="toolbar_location">Location</string>
+    <string name="toolbar_event">Event</string>
+    <string name="toolbar_timeslots">时间段</string>
+    <string name="toolbar_choose_timeslots">Choose Timeslots</string>
+    <string name="toolbar_alert">Alert</string>
+    <string name="toolbar_save">Save</string>
+    <string name="toolbar_greeting">打个招呼</string>
+    <string name="toolbar_send">Send</string>
+    <string name="toolbar_next">继续</string>
+    <string name="toolbar_timeslots_select">%1$d/%2$d Timeslots</string>
+    <string name="toolbar_activities">Activities</string>
+    <string name="toolbar_mute">Mute</string>
+    <string name="toolbar_unmute">Unmute</string>
+    <string name="toolbar_view_in_calendar">Calendar</string>
+    <string name="toolbar_login">LOGIN</string>
+
+    <!--Event-->
+    <string name="event">Event</string>
+    <string name="create_an_event">新建事件</string>
+    <string name="event_detail_header_hosted_by">Hosted by</string>
+    <string name="event_detail_header_invitees">invitee</string>
+    <string name="event_detail_location">Location</string>
+    <string name="event_detail_time">Time</string>
+    <string name="event_detail_note">Note</string>
+    <string name="event_detail_note_read_all">Read All</string>
+    <string name="event_detail_url">URL</string>
+    <string name="event_detail_photo">Photo</string>
+    <string name="event_detail_calendar">Calendar</string>
+    <string name="event_detail_all_invitees">All Invitees</string>
+    <string name="event_detail_replied">Replied</string>
+    <string name="event_detail_cant_go">Can\'t go</string>
+    <string name="event_detail_no_reply">No Reply</string>
+    <string name="event_detail_itime_contact_title">iTime 联系人</string>
+    <string name="event_detail_youmayhaveconfilict">You may have conflict on the timeslot</string>
+    <string name="event_detail_sheet_left_choosetimeslots">Choose Timeslots</string>
+    <string name="event_detail_sheet_left_confirm_a_timeslot">Confirm a Timeslot</string>
+    <string name="event_detail_sheet_left_voted">Voted</string>
+    <string name="event_detail_sheet_left_not_going">Not Going</string>
+    <string name="event_detail_view_in_calendar">View in calendar</string>
+    <string name="event_detail_icannotgoatalltimeslots">I can\'t go at all timeslot</string>
+    <string name="event_detail_thetimeslotisoutdated">The timeslot is outdated</string>
+    <string name="event_detail_pleaseselectatleast1timeslot">Please select at least 1 timeslot</string>
+    <string name="event_detail_pleaseselect1timeslot">Please select 1 timeslot</string>
+    <string name="event_detail_submit_vote">Submit Vote</string>
+    <string name="event_detail_submit_n_vote">Submit Vote (%1$d/%2$d)</string>
+    <string name="event_detail_voted_for_n_timeslots">You\'ve voted for %1$d Timeslots</string>
+    <string name="event_detail_voted_n_people_voted">%1$d PEOPLE VOTED</string>
+    <string name="event_detail_confirm">Confirm</string>
+    <string name="event_detail_Going">Going</string>
+    <string name="event_detail_notgoing">Not Going</string>
+    <string name="event_detail_archive">Archive</string>
+    <string name="event_detail_archived">Archived</string>
+    <string name="event_detail_eventcanceled">Event Canceled</string>
+    <string name="event_detail_invitationexpired">Invitation Expired</string>
+    <string name="event_detail_icantgo">I can\'t go</string>
+    <string name="event_detail_youare">You are:</string>
+    <string name="event_detail_please_decide">Please decide:</string>
+    <string name="event_detail_peoplegoing">People going</string>
+    <string name="event_detail_setyouralert">Set your alert</string>
+    <string name="event_detail_youcannotchangeafterconfirmation">You cannot change timeslot after confirmation!</string>
+    <string name="event_detail_peoplenotgoing">People not going</string>
+    <string name="event_detail_decided_not_to_go">You\'ve decided not to go</string>
+    <string name="event_detail_alert_empty_vote">Please select at least 1 timeslot</string>
+    <string name="event_detail_alert_unsaved_vote">You have unsaved votes. Do you want to discard them?</string>
+    <string name="event_detail_alert_unsaved_confirm">You haven\'t confirmed the timeslot. Do you want to discard it?</string>
+    <string name="event_detail_dialog_discard">Discard</string>
+    <string name="event_detail_dialog_stay">Stay</string>
+    <string name="event_detail_dialog_keep_voting">Keep voting</string>
+    <string name="event_detail_alert_empty_confirm">Please select 1 timeslot</string>
+    <string name="event_detail_changemind">Change your mind? Please choose some timeslots above</string>
+    <string name="event_detail_toolbar_mute">Mute</string>
+    <string name="event_detail_toolbar_muted">Unmute</string>
+    <string name="event_detail_toolbar_pin">Pin</string>
+    <string name="event_detail_toolbar_pinned">Unpin</string>
+    <string name="event_detail_toolbar_archive">Archive</string>
+    <string name="event_detail_toolbar_archived">Archived</string>
+    <string name="event_detail_toolbar_share">Share</string>
+    <string name="event_detail_toolbar_delete">Delete Event</string>
+    <string name="event_detail_toolbar_duplicate">Duplicate</string>
+    <string name="event_detail_toolbar_history">Activities</string>
+    <string name="event_detail_toolbar_remind">Remind everyone</string>
+    <string name="event_create_inviteothers">Invite Others</string>
+    <string name="event_create_onlymyself">个人</string>
+    <string name="event_create_confirm_toolbar">Confirm</string>
+    <string name="event_create_confirm_done">Done</string>
+    <string name="event_detail_dialog_cantgo_title">Can\'t go</string>
+    <string name="event_detail_dialog_remind">Remind</string>
+    <string name="event_detail_dialog_remind_title">Every invitee will recieve a system reminder </string>
+    <string name="event_detail_dialog_cantgo_message">You can leave a message (Optional)</string>
+    <string name="event_detail_dialog_cantgo_hint">Why you can\'t go</string>
+    <string name="event_detail_delete_dialog_title">Delete this event</string>
+    <string name="event_detail_delete_dialog_repeat_title">Delete a repeating event</string>
+    <string name="event_detail_delete_dialog_message">Invitees will be notified that this event was cancelled and everything about this event will be deleted</string>
+    <string name="event_detail_delete_dialog_input_hints">Leave a comment for your invitees (optional)</string>
+    <string name="event_detail_delete_dialog_cancel">Cancel</string>
+    <string name="event_invitation_sent">Invitation Sent</string>
+    <string name="invitation_sent_reject_text">事件的邀请已经成功发出，但是部分受邀人屏蔽了您的账号，所以他们无法收到邀请：</string>
+    <string name="event_photo">photo</string>
+
+    <!--Event Create Add Invitee-->
+    <string name="event_create_addinvitee">添加受邀人</string>
+    <string name="event_create_addinvitee_typeemailhere">在此输入受邀人邮箱</string>
+    <string name="event_create_itimecontacts">iTime联系人</string>
+    <string name="event_create_recent_invitee">最近输入</string>
+    <string name="event_create_peopleinvited">位受邀人</string>
+    <string name="event_create_allowthemtoseeeachothervote">允许受邀人互相看到约见回复</string>
+    <string name="event_detail_all_invitee_title">%1$d Invitees</string>
+    <string name="event_detail_all_invitee_tag_going">%1$d Going</string>
+    <string name="event_detail_all_invitee_tag_notgoing">%1$d Not Going</string>
+    <string name="event_detail_all_invitee_tag_noreply">%1$d No Reply</string>
+    <string name="event_change_cover">Change Cover Photo</string>
+    <string name="event_change_cover_title">Change Cover Photo</string>
+
+    <!--Timeslots-->
+    <string name="event_candidate_timeslots">%1$d Candidate Timeslots: </string>
+    <!--12:00 -> 14:00 -->
+    <string name="event_timeslot_single_start_time">%1$s</string>
+    <string name="event_timeslot_single_end_time">%1$s</string>
+    <!--WED, 20 JUL-->
+    <string name="event_timeslot_single_day">%1$s</string>
+
+
+    <!--Title-->
+    <string name="event_create_title_suggested">推荐标题</string>
+    <string name="event_create_title_recent">RECENT</string>
+    <string name="event_default_title">New Event</string>
+
+    <!--Duration-->
+    <string name="event_create_duration">持续时间</string>
+    <string name="duration_15_minutes">15 minutes</string>
+    <string name="duration_30_minutes">30 minutes</string>
+    <string name="duration_45_minutes">45 minutes</string>
+    <string name="duration_1_hour">1 hour</string>
+    <string name="duration_2_hours">2 hours</string>
+    <string name="duration_6_hours">6 hours</string>
+    <string name="duration_all_day">All Day</string>
+
+    <!--Calendar-->
+    <string name="event_calnedar_itime_calendars">iTime日历</string>
+
+
+    <!--Location-->
+    <string name="locationString1">Location</string>
+    <string name="location_nearby">NEARBY</string>
+    <string name="location_recent">RECENT</string>
+    <string name="location_string1">location_string1</string>
+    <string name="location_string2">location_string2</string>
+    <string name="location_custom_location">Custom Location</string>
+
+    <!--update string here-->
+    <string name="event_invitees_title">受邀人</string>
+    <string name="event_title_hint">输入标题</string>
+    <string name="event_duration_title">Duration</string>
+    <string name="event_add_timeslot">添加一个时间段</string>
+    <string name="event_location_hint">无位置</string>
+    <string name="event_calendars_title">Calendars</string>
+    <string name="new_event_toolbar_title">New Event</string>
+    <string name="edit_event_toolbar_title">Edit Event</string>
+    <string name="new_event_toolbar_next">Next</string>
+
+    <!--Event buttons-->
+    <string name="alert_toolbar_btn">Alert</string>
+    <string name="photos_toolbar_btn">图片</string>
+    <string name="note_toolbar_btn">备注</string>
+    <string name="url_toolbar_btn">网址</string>
+    <string name="repeat_toolbar_btn">重复</string>
+
+    <!--repeats-->
+    <string name="event_no_repeat">不重复</string>
+    <string name="event_repeat_everyday">每天</string>
+    <string name="event_repeat_every_week">每周</string>
+    <string name="event_repeat_every_two_weeks">每两周</string>
+    <string name="event_repeat_every_month">每月</string>
+    <string name="event_repeat_every_year">每年</string>
+    <string name="event_repeat_custom">自行选择</string>
+    <string name="event_repeat_end_repeat">结束重复</string>
+    <string name="event_repeat_never">永不</string>
+    <string name="event_repeat_title">重复</string>
+    <string name="event_repeat_toolbar_done">Done</string>
+    <string name="event_end_repeat">End Repeat</string>
+    <string name="event_end_repeat_on_date">于日期</string>
+    <string name="event_repeat_frequency">Frequency</string>
+    <string name="event_repeat_daily">Daily</string>
+    <string name="event_custom_repeat_every">每</string>
+    <string name="event_custom_repeat_day">天</string>
+    <string name="event_custom_repeat_week">周</string>
+    <string name="event_custom_repeat_month">月</string>
+    <string name="event_custom_repeat_Annually">年</string>
+    <string name="event_custom_wheel_daily">Daily</string>
+    <string name="event_custom_wheel_weekly">Weekly</string>
+    <string name="event_custom_wheel_monthly">Monthly</string>
+    <string name="event_custom_wheel_annually">Annually</string>
+    <string name="event_custom_wheel_year">年</string>
+    <string name="event_custom_wheel_days">天</string>
+    <string name="event_custom_wheel_weeks">周</string>
+    <string name="event_custom_wheel_months">月</string>
+    <string name="event_custom_wheel_years">年</string>
+    <string name="repeat_everyday_cus">Every%1$sday</string>
+    <string name="repeat_everyweek_cus">Every%1$sweek</string>
+    <string name="repeat_every_month_cus">Every%1$smonth</string>
+    <string name="repeat_every_year_cus">Every%1$syear</string>
+    <string name="repeat_prefix">Repeat %1$s</string>
+    <string name="until_prefix">Until %1$s</string>
+
+    <!--alert-->
+    <string name="event_alert_none">None</string>
+    <string name="event_alert_at_time">At time of event</string>
+    <string name="event_alert_5_minutes_before">5 minutes before</string>
+    <string name="event_alert_15_minutes_before">15 minutes before</string>
+    <string name="event_alert_30_minutes_before">30 minutes before</string>
+    <string name="event_alert_1_hour_before">1 hour before</string>
+    <string name="event_alert_2_hours_before">2 hours before</string>
+    <string name="event_alert_1_day_before">1 day before</string>
+    <string name="event_alert_2_days_before">2 days before</string>
+    <string name="event_alert_1_week_before">1 week before</string>
+    <string name="timeslot_alert_outdated_select">Timeslot outdated</string>
+    <string name="timeslot_alert_conflict_select">You may have conflict on the timeslot</string>
+    <string name="timeslot_alert_outdated_create">You can\'t create outdated timeslots</string>
+    <string name="timeslot_alert_create_max_count">Only %1$d slot(s) can be created</string>
+    <string name="timeslot_alert_selected_max_count">Only %1$d slot(s) can be selected</string>
+
+    <!--Event Time-->
+    <string name="event_time_picker_start">Start</string>
+    <string name="event_time_picker_end">End</string>
+
+    <!--greetings-->
+    <string name="event_greeting_title">鼓励受邀人参加！</string>
+    <string name="event_greeting_hint">Enter a message (optional)</string>
+
+    <!--hint-->
+    <string name="event_note_hint">Note</string>
+
+    <!--all day-->
+    <string name="all_day">All Day</string>
+
+    <!--solo select time-->
+    <string name="solo_time_arrow">→</string>
+
+    <!--Action sheet-->
+    <string name="action_sheet_cancel">Cancel</string>
+    <string name="action_sheet_take_photo">Take Photo</string>
+    <string name="action_sheet_choose_from_photos">Choose From Photos</string>
+
+    <!--event dialog-->
+    <string name="event_create_cancel_dialog_content">Are you sure you want to discard this event?</string>
+    <string name="event_edit_cancel_dialog_content">Are you sure you want to discard this edit?</string>
+    <string name="event_dialog_discard">Discard</string>
+    <string name="event_dialog_keep_editing">Keep editing</string>
+
+    <string name="day">Day</string>
+    <string name="week">Week</string>
+    <string name="agenda">Agenda</string>
+
+    <string name="tab_calendar">Calendars</string>
+    <string name="tab_contacts">联系人</string>
+    <string name="tab_meeting">Meetings</string>
+    <string name="tab_soloevent">Solo Event</string>
+    <string name="tab_activities">Activities</string>
+    <string name="tab_message">消息</string>
+    <string name="tab_setting">设置</string>
+
+    <!--bundle only inner pass use-->
+    <string name="event_type">event type</string>
+    <string name="event_type_solo">event type solo</string>
+    <string name="event_type_group">event type group</string>
+    <string name="event_status_repeated">Repeated</string>
+
+
+    <!-- event status-->
+    <string name="event_status_pending">Pending</string>
+    <string name="event_status_cancel">Cancel</string>
+    <string name="event_status_confirmed">Confirmed</string>
+
+    <!--activity-->
+    <string name="activity_meeting_show_more">show more…</string>
+    <string name="searchbar_placeholder">Search</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="mark_all_read">Mark all read</string>
+
+    <string name="search_showmore">show more...</string>
+
+    <!-- meeting -->
+    <string name="pinned">Pin</string>
+    <string name="unpin">Unpin</string>
+    <string name="mute">Mute</string>
+    <string name="unmute">Unmute</string>
+    <string name="archived">Archive</string>
+    <string name="vote">Vote</string>
+    <string name="delete">Delete</string>
+    <string name="restore">Restore</string>
+    <string name="meeting_tag_invitation">Invitation</string>
+    <string name="meeting_tag_hosting">Hosting</string>
+    <string name="meeting_tag_coming">Coming</string>
+    <string name="meeting_tag_archive">Archive</string>
+    <string name="meeting_tag_archive_clear_all">Clear All</string>
+    <string name="meeting_reminder_time_future" >In %1$s</string>
+    <string name="meeting_reminder_next_slot" >Next timeslot in %1$s</string>
+    <string name="meeting_reminder_time_ago" >%1$s Ago</string>
+    <string name="meeting_reminder_time_day" >%1$dd</string>
+    <string name="meeting_reminder_time_hour" >%1$dh</string>
+    <string name="meeting_reminder_time_min" >%1$dmin</string>
+    <string name="meeting_sys_msg_invitation"> invite you to</string>
+    <string name="meeting_sys_msg_wait_host_confirm">Pending host confirmation</string>
+    <string name="meeting_sys_msg_confirmed">Confirmed</string>
+    <string name="meeting_sys_msg_updated">…changed</string>
+    <string name="meeting_sys_msg_diff_timeslot_confirmed">Different timeslot confirmed</string>
+    <string name="meeting_status_vote">Vote</string>
+    <string name="meeting_status_voted">Voted</string>
+    <string name="meeting_status_going">Going</string>
+    <string name="meeting_status_not_going">Not Going</string>
+    <string name="meeting_status_revote">Revote</string>
+    <string name="meeting_status_decide">Decide</string>
+    <string name="meeting_status_cancelled">Cancelled</string>
+    <string name="meeting_archive_dialog_alert_msg_title">Clear All Event?</string>
+    <string name="meeting_archive_dialog_clear_alert_msg_content">Everything about this event will be deleted</string>
+    <string name="meeting_archive_dialog_delete">Delete</string>
+    <string name="meeting_archive_dialog_cancel">Cancel</string>
+    <string name="search">Search</string>
+
+    <!--contacts-->
+    <string name="contact_friend_request">Friend Requests</string>
+    <string name="contact_find_more_friends">Find More Friends</string>
+    <string name="contact_my_profile">My Profile</string>
+    <string name="contact_user_not_found_dialog_title">User Not Found</string>
+    <string name="contact_user_not_found_dialog_message">Invite\n%1$s\nto join iTime</string>
+    <string name="my_qr_code_explain">Scan the QR code to add me on Timegenii</string>
+    <string name="my_qr_code_title">My QR Code</string>
+    <string name="save_to_album">Save Photo</string>
+    <string name="scan_qr_code">Scan QR code</string>
+    <string name="scan_qr_code_album">Album</string>
+    <string name="qr_code">QR Code</string>
+    <string name="scan_qr_code_explain">Align QR code within frame to scan</string>
+    <string name="save_qr_code_success">Save qr code success</string>
+    <string name="save_qr_code_failed">Save qr code failed</string>
+    <string name="cannot_find_user">Can not find this user</string>
+    <string name="need_permission">Need permissions</string>
+
+    <string name="contact_recommend_add">Add</string>
+    <string name="contact_add_by_email">Add Friend</string>
+    <string name="contact_scan_qr_code">Scan QR Code</string>
+    <string name="profile_edit_alias">Edit Alias</string>
+    <string name="profile_unblock">Unblock</string>
+    <string name="profile_block">Block</string>
+    <string name="profile_delete">Delete</string>
+    <string name="profile_profile">Profile</string>
+    <string name="profile_invite_to_new_event">Invite to New Event</string>
+    <string name="profile_add_friend">Add Friend</string>
+    <string name="profile_delete_success">Delete Success</string>
+    <string name="profile_request_sent">Request Sent</string>
+    <string name="contact_mutual_friends">%1$d mutual friends</string>
+    <string name="alias_title">Alias</string>
+    <string name="friend_request_title">Friend Requests</string>
+    <string name="edit_alias_alert_msg">Alias should be %1$d to %2$d letters</string>
+    <string name="edit_name_alert_msg">Name should be %1$d to %2$d letters</string>
+    <string name="edit_alias_alert">Too long alias</string>
+    <string name="dialog_delete_contact_title">Delete this contact?</string>
+    <string name="dialog_delete_contact_message">This person will no longer show in your contact list but can still invite you to events</string>
+    <string name="dialog_block_contact_title">Block this contact?</string>
+    <string name="dialog_block_contact_message">People you block can no longer: \n• Invite you to any events</string>
+    <string name="dialog_block_block">Block</string>
+    <string name="dialog_delete_delete">Delete</string>
+    <string name="contact_search_account_by_email">Search account by Email</string>
+    <string name="contact_search_account">Search Account: </string>
+    <string name="contact_invitation_sent">邀请发送成功</string>
+    <string name="contact_invite_fail">Invite failed, please check your network</string>
+    <string name="transition_name_avatar">transition_name_avatar</string>
+    <string name="morefriends_title">Find More Friends</string>
+    <string name="morefriends_search_by_email">Add by Email</string>
+    <string name="morefriends_scan_qr_code">Scan QR Code</string>
+    <string name="people_you_may_know">PEOPLE YOU MAY KNOW</string>
+    <string name="friend_requests_title">Friend Requests</string>
+    <string name="friend_requests_new_friends">NEW FRIENDS</string>
+    <string name="friend_requests_received">RECEIVED</string>
+    <string name="friend_requests_sent">SENT</string>
+    <string name="friend_requests_btn_request_sent">Request sent</string>
+    <string name="friend_requests_btn_accept">ACCEPT</string>
+
+    <!-- Error msg -->
+    <string name="some_error_happens">Some error happens</string>
+    <string name="alarm_error_msg_event_error">Alarmed event cannot find, error happens</string>
+    <string name="alarm_error_msg_bundle_error">Alarmed event cannot find, error happens</string>
+
+    <string name="network_error_cant_connect">Can’t Connect</string>
+    <string name="network_error_check_your_network_and_try_again">Check your network and try again</string>
+    <string name="network_error_retry">RETRY</string>
+    <string name="network_error_please_try_again">Network error, please check your network and try again.</string>
+    <string name="network_error_bar_message">Network disconnected. Please check network.</string>
+
+    <string name="alert_str_no_alert">No alert</string>
+    <string name="alert_str_at_the_time_of_the_event">At the time of the event</string>
+    <string name="alert_str_five_mintues_before">5 minutes before</string>
+    <string name="alert_str_fifteen_minutes_before">15 minutes before</string>
+    <string name="alert_str_thirty_minutes_before">30 minutes before</string>
+    <string name="alert_str_one_hour_before">1 hour before</string>
+    <string name="alert_str_two_hours_before">2 hours before</string>
+    <string name="alert_str_one_day_before">1 day before</string>
+    <string name="alert_str_two_days_before">2 days before</string>
+    <string name="alert_str_one_week_before">1 week before</string>
+
+    <!--login-->
+    <string name="login">Log In</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login_main_string1">Forget your password?</string>
+    <string name="login_main_string2">Reset by Email.</string>
+    <string name="logging">Logging</string>
+    <string name="reset_your_password">Reset Your Password</string>
+    <string name="reset_your_password_second_text">Please enter your registered Email</string>
+    <string name="reset">RESET</string>
+    <string name="meeting_placeholder_invitation">This is where you find all invitations \n sent to you</string>
+    <string name="meeting_placeholder_hosting">Create a meeting and it will show up here</string>
+    <string name="meeting_placeholder_coming">This is where you find all meetings \n you are going to attend</string>
+
+    <!--photo-->
+    <string name="photo_title">图片</string>
+    <string name="take_photo">Take photo</string>
+    <string name="choose_from_photos">Choose from Photos</string>
+    <string name="cancel_photos_alert_msg">You haven\'t upload these photos, are you sure to discard photo editing?</string>
+    <string name="delete_this_photo">Delete this photo?</string>
+    <string name="cover_collections">iTime Cover Collections</string>
+    <string name="title_duration_change">Change duration</string>
+    <string name="warning_duration_change">Are you sure you want to delete all existing timeslots?</string>
+
+    <!--setting-->
+    <!--setting-->
+    <string name="blocked_users">黑名单</string>
+    <string name="notifications">通知</string>
+    <string name="calendar_preferences">Calendar Preferences</string>
+    <string name="help_and_feedback">帮助与反馈</string>
+    <string name="about">关于iTime</string>
+    <string name="logout">退出登录</string>
+    <string name="rate_itime">Rate ITime</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="profile_photo">Profile Photo</string>
+    <string name="name">名字</string>
+    <string name="userName">User Name</string>
+
+    <string name="inbox_menu_mark_all_read">Mark All Read</string>
+    <string name="inbox_menu_clear_inbox">Clear Message</string>
+
+    <string name="setting">设置</string>
+    <string name="setting_reset_password">Reset Password</string>
+    <string name="my_qr_code">我的二维码</string>
+    <string name="setting_gender">Gender</string>
+    <string name="location">Location</string>
+    <string name="region">Region</string>
+    <string name="all_regions">All Regions</string>
+    <string name="search_location">location</string>
+    <string name="setting_my_profile">个人信息</string>
+    <string name="setting_calendar_pref">Calendar Preferences</string>
+    <string name="photo_my_profile">Photo</string>
+    <string name="setting_save">Save</string>
+    <string name="setting_male">Male</string>
+    <string name="setting_female">Female</string>
+    <string name="setting_undefined">Undefined</string>
+    <string name="setting_Undefined">Undefined</string>
+    <string name="setting_calendar_preference">Calendar Preferences</string>
+    <string name="setting_calendars">Calendars</string>
+    <string name="setting_language">语言</string>
+    <string name="setting_default_calendar">Default Calendar</string>
+    <string name="setting_default_alert">Default Alert</string>
+    <string name="setting_import_calendar_from">Import Calendar From Other Accounts</string>
+    <string name="setting_import_calendar">Import Calendar</string>
+    <string name="setting_google_calendar">Google Calendar</string>
+    <string name="setting_melbourne_university">Melbourne University</string>
+    <string name="setting_notifications_subtext1">Enable or disable TimeGenii Notifications via
+“Settings”->“Notifications” on your iPhone.</string>
+    <string name="setting_notification_default_subtext">Set the default time you would like to be reminded about an event</string>
+    <string name="setting_show_preview_Text">Show Preview Text</string>
+    <string name="setting_notifications_subtext2">Message notifications will contain event summary when enabled</string>
+    <string name="setting_in_app_alert_sound">In-App Alert Sound</string>
+    <string name="setting_vibrate">Vibrate</string>
+    <string name="setting_notifications_subtext3">Specify preference to be notified by Sound or Vibration when receiving new notifications</string>
+    <string name="setting_reset_password_subtext1">Enter a new password for this account. You can use the Email and the password to log in to Timegenii next time.</string>
+    <string name="setting_email">Email</string>
+    <string name="setting_password">Password</string>
+    <string name="setting_confirm">Confirm</string>
+    <string name="setting_password_hint">New Timegenii password</string>
+    <string name="setting_confirm_hint">Confirm password</string>
+    <string name="setting_import_google_calendar_success">Import Google calendar success</string>
+    <string name="setting_import_google_calendar_failed">Import Google calendar failed</string>
+    <string name="setting_calendar_import_unimelb_subtext1">Enter your university account information to import its calendar into Timegenii</string>
+    <string name="setting_itime_calendars">Timegenii Calendars</string>
+    <string name="add_calendar">Add Calendar</string>
+    <string name="calendar_title">日历</string>
+    <string name="setting_edit_calendar">Edit Calendar</string>
+    <string name="calendar_name">Calendar Name</string>
+    <string name="delete_calendar">Delete Calendar</string>
+    <string name="success">Success</string>
+    <string name="setting_import_melbourne_university_calendar_successfully">Import Melbourne University Calendar Successfully!</string>
+    <string name="failure">Failure</string>
+    <string name="unable_to_access_your_current_location">Unable to access your current location</string>
+    <string name="add_an_explanation">Add an explanation ...</string>
+    <string name="setting_report_explanation">We will try our best to solve the problems in time, appreciate for your time and report.</string>
+    <string name="setting_thank_report">Thank you for your report !</string>
+    <string name="setting_report">Report</string>
+    <string name="setting_help_center">Help Center</string>
+    <string name="setting_block_contacts">Block Contacts</string>
+
+    <string name="title_activity_settings">设置</string>
+
+    <string name="duration">Duration</string>
+    <string name="select">Select</string>
+    <string name="selected">Selected</string>
+    <string name="calendar">日历</string>
+    <string name="note">note</string>
+    <string name="starts">Starts</string>
+    <string name="end">Ends</string>
+    <string name="new_timeslot">New Timeslot</string>
+    <string name="password_too_simple">Password Too Simple</string>
+    <string name="password_wrong_length">Your password should be 8 to 16 characters</string>
+    <string name="password_do_not_match">Password do not match</string>
+    <string name="reset_password_success">Reset password success</string>
+    <string name="access_fail">Access failed, please check your network</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name = "help_center">Help Center</string>
+    <string name = "report_a_problem">Report a Problem</string>
+    <string name="pref_header_general">General</string>
+
+
+</resources>
