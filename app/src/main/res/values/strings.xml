@@ -524,15 +524,8 @@
 
     <string name="title_activity_settings">Settings</string>
 
-    <string name="duration">Duration</string>
-    <string name="select">Select</string>
     <string name="selected">Selected</string>
-    <string name="calendar">Calendar</string>
-    <string name="note">note</string>
-    <string name="starts">Starts</string>
-    <string name="end">Ends</string>
     <string name="new_timeslot">New Timeslot</string>
-    <string name="password_too_simple">Password Too Simple</string>
     <string name="password_wrong_length">Your password should be 8 to 16 characters</string>
     <string name="password_do_not_match">Password do not match</string>
     <string name="reset_password_success">Reset password success</string>
@@ -544,8 +537,9 @@
     <string name = "help_center">Help Center</string>
     <string name = "report_a_problem">Report a Problem</string>
     <string name="pref_header_general">General</string>
-    <string name="new_event">新建事件</string>
-    <string name="search_hint">Try searching for keywords</string>
+    <string name="new_event">New Event</string>
+
+    <string name="hour">Try searching for keywords</string>
     <string name="label_hours">hrs</string>
     <string name="label_min">min</string>
 

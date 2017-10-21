@@ -471,31 +471,29 @@
     <string name="location">位置</string>
     <string name="region">地区</string>
     <string name="all_regions">全部地区</string>
-    <string name="search_location">location</string>
+    <string name="search_location">位置</string>
     <string name="setting_my_profile">个人信息</string>
-    <string name="setting_calendar_pref">Calendar Preferences</string>
-    <string name="photo_my_profile">Photo</string>
+    <string name="setting_calendar_pref">日历偏好</string>
+    <string name="photo_my_profile">图片</string>
     <string name="setting_save">保存</string>
     <string name="setting_male">男</string>
     <string name="setting_female">女</string>
-    <string name="setting_undefined">Undefined</string>
-    <string name="setting_Undefined">Undefined</string>
-    <string name="setting_calendar_preference">Calendar Preferences</string>
-    <string name="setting_calendars">Calendars</string>
+    <string name="setting_undefined">未说明</string>
+    <string name="setting_calendars">日历</string>
     <string name="setting_language">语言</string>
-    <string name="setting_default_calendar">Default Calendar</string>
+    <string name="setting_default_calendar">默认日历</string>
     <string name="setting_default_alert">默认的提醒时间</string>
-    <string name="setting_import_calendar_from">Import Calendar From Other Accounts</string>
-    <string name="setting_import_calendar">Import Calendar</string>
-    <string name="setting_google_calendar">Google Calendar</string>
-    <string name="setting_melbourne_university">Melbourne University</string>
-    <string name="setting_notifications_subtext1">Enable or disable TimeGenii Notifications via
+    <string name="setting_import_calendar_from">从其他账号导入日历</string>
+    <string name="setting_import_calendar">导入日历</string>
+    <string name="setting_google_calendar">Google日历</string>
+    <string name="setting_melbourne_university">墨尔本大学</string>
+    <string name="setting_notifications_subtext1">Enable or disable iTime Notifications via
 “Settings”->“Notifications” on your iPhone.</string>
     <string name="setting_notification_default_subtext">Set the default time you would like to be reminded about an event</string>
     <string name="setting_show_preview_Text">通知显示事件详情</string>
     <string name="setting_notifications_subtext2">Message notifications will contain event summary when enabled</string>
     <string name="setting_in_app_alert_sound">In-App Alert Sound</string>
-    <string name="setting_vibrate">Vibrate</string>
+    <string name="setting_vibrate">震动</string>
     <string name="setting_notifications_subtext3">Specify preference to be notified by Sound or Vibration when receiving new notifications</string>
     <string name="setting_reset_password_subtext1">Enter a new password for this account. You can use the Email and the password to log in to Timegenii next time.</string>
     <string name="setting_email">注册邮箱</string>
@@ -507,14 +505,14 @@
     <string name="setting_import_google_calendar_failed">Import Google calendar failed</string>
     <string name="setting_calendar_import_unimelb_subtext1">Enter your university account information to import its calendar into Timegenii</string>
     <string name="setting_itime_calendars">Timegenii Calendars</string>
-    <string name="add_calendar">Add Calendar</string>
+    <string name="add_calendar">添加日历</string>
     <string name="calendar_title">日历</string>
-    <string name="setting_edit_calendar">Edit Calendar</string>
-    <string name="calendar_name">Calendar Name</string>
-    <string name="delete_calendar">Delete Calendar</string>
-    <string name="success">Success</string>
+    <string name="setting_edit_calendar">编辑日历</string>
+    <string name="calendar_name">日历名称</string>
+    <string name="delete_calendar">删除日历</string>
+    <string name="success">成功</string>
     <string name="setting_import_melbourne_university_calendar_successfully">Import Melbourne University Calendar Successfully!</string>
-    <string name="failure">Failure</string>
+    <string name="failure">失败</string>
     <string name="unable_to_access_your_current_location">Unable to access your current location</string>
     <string name="add_an_explanation">Add an explanation ...</string>
     <string name="setting_report_explanation">We will try our best to solve the problems in time, appreciate for your time and report.</string>
@@ -525,27 +523,19 @@
 
     <string name="title_activity_settings">设置</string>
 
-    <string name="duration">Duration</string>
-    <string name="select">Select</string>
-    <string name="selected">Selected</string>
-    <string name="calendar">日历</string>
-    <string name="note">note</string>
-    <string name="starts">Starts</string>
-    <string name="end">Ends</string>
-    <string name="new_timeslot">New Timeslot</string>
-    <string name="password_too_simple">Password Too Simple</string>
-    <string name="password_wrong_length">Your password should be 8 to 16 characters</string>
-    <string name="password_do_not_match">Password do not match</string>
-    <string name="reset_password_success">Reset password success</string>
-    <string name="access_fail">Access failed, please check your network</string>
+    <string name="selected">已选择</string>
+    <string name="new_timeslot">新建时间段</string>
+    <string name="password_wrong_length">密码必须是8\-16位的数字\、字符组合</string>
+    <string name="password_do_not_match">两次填写的密码不一致</string>
+    <string name="reset_password_success">重置成功</string>
+    <string name="access_fail">访问失败，请检查网络</string>
 
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
-    <string name = "help_center">Help Center</string>
-    <string name = "report_a_problem">Report a Problem</string>
-    <string name="pref_header_general">General</string>
-    <string name="new_event">New Event</string>
+    <string name = "help_center">帮助</string>
+    <string name = "report_a_problem">反馈</string>
+    <string name="new_event">新事件</string>
     <string name="search_hint">试试搜索关键词</string>
     <string name="label_hours">小时</string>
     <string name="label_min">分钟</string>
