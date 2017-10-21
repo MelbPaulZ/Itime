@@ -366,6 +366,11 @@ public class FragmentEventCreate extends ItimeBaseFragment<EventCreateMvpView, E
         startActivityForResult(intent, REQ_PHOTO);
     }
 
+    @Override
+    public void toPhotoGridView() {
+        toPhotoGridPage();
+    }
+
     @PermissionDenied(REQUEST_LOCATION_PERMISSION)
     public void locationDenied(){
         Toast.makeText(getContext(), "need location permission", Toast.LENGTH_SHORT).show();

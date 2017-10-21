@@ -97,9 +97,6 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     }
 
 
-
-
-
     public int getAllDayVisibility(Event event){
         return event.getIsAllDay()? View.VISIBLE:View.GONE;
     }
@@ -789,7 +786,8 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((EventCreateMvpView) presenter.getView()).toPhoto();
+                ((EventCreateMvpView) presenter.getView()).toPhotoGridView();
+
             }
         };
 

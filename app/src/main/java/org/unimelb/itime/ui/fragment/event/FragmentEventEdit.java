@@ -355,6 +355,15 @@ public class FragmentEventEdit extends ItimeBaseFragment<EventCreateMvpView, Eve
         startActivityForResult(intent, REQ_PHOTO);
     }
 
+    @Override
+    public void toPhotoGridView() {
+        EventPhotoFragment eventPhotoFragment = new EventPhotoFragment();
+        eventPhotoFragment.setEditable(false);
+        eventPhotoFragment.setEvent(event);
+        getBaseActivity().openFragment(eventPhotoFragment);
+
+    }
+
     @PermissionDenied(REQUEST_LOCATION_PERMISSION)
     public void locationDenied(){
         Toast.makeText(getContext(), "need location permission", Toast.LENGTH_SHORT).show();
