@@ -4,37 +4,37 @@
     <string name="default_cover">http://itime-1254199931.picgz.myqcloud.com/bg_default.png</string>
     <!--dialog string-->
 
-    <string name="dialog_ok">OK</string>
-    <string name="dialog_leave">Leave</string>
+    <string name="dialog_ok">好的</string>
+    <string name="dialog_leave">离开</string>
     <string name="dialog_done">完成</string>
     <string name="dialog_cancel">取消</string>
-    <string name="dialog_invite">Invite</string>
-    <string name="dialog_save_for_this_event_only">Save for this event only</string>
-    <string name="dialog_save_for_future_events">Save for future events</string>
+    <string name="dialog_invite">邀请</string>
+    <string name="dialog_save_for_this_event_only">仅针对此事件储存</string>
+    <string name="dialog_save_for_future_events">针对未来事件储存</string>
     <!--toolbar string-->
     <string name="toolbar_done">完成</string>
-    <string name="toolbar_confirm">Confirm</string>
-    <string name="toolbar_vote">Vote</string>
-    <string name="toolbar_custom">Custom</string>
+    <string name="toolbar_confirm">确认</string>
+    <string name="toolbar_vote">投票</string>
+    <string name="toolbar_custom">自定义</string>
     <string name="toolbar_cancel">取消</string>
-    <string name="toolbar_url">URL</string>
-    <string name="toolbar_note">Note</string>
-    <string name="toolbar_select">Select</string>
-    <string name="toolbar_calendars">Calendars</string>
-    <string name="toolbar_location">Location</string>
-    <string name="toolbar_event">Event</string>
+    <string name="toolbar_url">网址</string>
+    <string name="toolbar_note">备注</string>
+    <string name="toolbar_select">选择</string>
+    <string name="toolbar_calendars">日历</string>
+    <string name="toolbar_location">位置</string>
+    <string name="toolbar_event">事件</string>
     <string name="toolbar_timeslots">时间段</string>
-    <string name="toolbar_choose_timeslots">Choose Timeslots</string>
-    <string name="toolbar_alert">Alert</string>
+    <string name="toolbar_choose_timeslots">选择时间段</string>
+    <string name="toolbar_alert">提醒</string>
     <string name="toolbar_save">保存</string>
     <string name="toolbar_greeting">打个招呼</string>
-    <string name="toolbar_send">Send</string>
+    <string name="toolbar_send">发送</string>
     <string name="toolbar_next">继续</string>
-    <string name="toolbar_timeslots_select">%1$d/%2$d Timeslots</string>
+    <string name="toolbar_timeslots_select">%1$d/%2$d  个时间段</string>
     <string name="toolbar_activities">动态</string>
-    <string name="toolbar_mute">Mute</string>
-    <string name="toolbar_unmute">Unmute</string>
-    <string name="toolbar_view_in_calendar">Calendar</string>
+    <string name="toolbar_mute">关闭通知</string>
+    <string name="toolbar_unmute">开启通知</string>
+    <string name="toolbar_view_in_calendar">日历</string>
     <string name="toolbar_login">登录</string>
 
     <!--Event-->
