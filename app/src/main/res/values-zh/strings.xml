@@ -6,17 +6,17 @@
 
     <string name="dialog_ok">OK</string>
     <string name="dialog_leave">Leave</string>
-    <string name="dialog_done">Done</string>
-    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_done">完成</string>
+    <string name="dialog_cancel">取消</string>
     <string name="dialog_invite">Invite</string>
     <string name="dialog_save_for_this_event_only">Save for this event only</string>
     <string name="dialog_save_for_future_events">Save for future events</string>
     <!--toolbar string-->
-    <string name="toolbar_done">Done</string>
+    <string name="toolbar_done">完成</string>
     <string name="toolbar_confirm">Confirm</string>
     <string name="toolbar_vote">Vote</string>
     <string name="toolbar_custom">Custom</string>
-    <string name="toolbar_cancel">Cancel</string>
+    <string name="toolbar_cancel">取消</string>
     <string name="toolbar_url">URL</string>
     <string name="toolbar_note">Note</string>
     <string name="toolbar_select">Select</string>
@@ -26,16 +26,16 @@
     <string name="toolbar_timeslots">时间段</string>
     <string name="toolbar_choose_timeslots">Choose Timeslots</string>
     <string name="toolbar_alert">Alert</string>
-    <string name="toolbar_save">Save</string>
+    <string name="toolbar_save">保存</string>
     <string name="toolbar_greeting">打个招呼</string>
     <string name="toolbar_send">Send</string>
     <string name="toolbar_next">继续</string>
     <string name="toolbar_timeslots_select">%1$d/%2$d Timeslots</string>
-    <string name="toolbar_activities">Activities</string>
+    <string name="toolbar_activities">动态</string>
     <string name="toolbar_mute">Mute</string>
     <string name="toolbar_unmute">Unmute</string>
     <string name="toolbar_view_in_calendar">Calendar</string>
-    <string name="toolbar_login">LOGIN</string>
+    <string name="toolbar_login">登录</string>
 
     <!--Event-->
     <string name="event">Event</string>
@@ -105,7 +105,7 @@
     <string name="event_create_inviteothers">Invite Others</string>
     <string name="event_create_onlymyself">个人</string>
     <string name="event_create_confirm_toolbar">Confirm</string>
-    <string name="event_create_confirm_done">Done</string>
+    <string name="event_create_confirm_done">完成</string>
     <string name="event_detail_dialog_cantgo_title">Can\'t go</string>
     <string name="event_detail_dialog_remind">Remind</string>
     <string name="event_detail_dialog_remind_title">Every invitee will recieve a system reminder </string>
@@ -115,8 +115,8 @@
     <string name="event_detail_delete_dialog_repeat_title">Delete a repeating event</string>
     <string name="event_detail_delete_dialog_message">Invitees will be notified that this event was cancelled and everything about this event will be deleted</string>
     <string name="event_detail_delete_dialog_input_hints">Leave a comment for your invitees (optional)</string>
-    <string name="event_detail_delete_dialog_cancel">Cancel</string>
-    <string name="event_invitation_sent">Invitation Sent</string>
+    <string name="event_detail_delete_dialog_cancel">取消</string>
+    <string name="event_invitation_sent">邀请已发送</string>
     <string name="invitation_sent_reject_text">事件的邀请已经成功发出，但是部分受邀人屏蔽了您的账号，所以他们无法收到邀请：</string>
     <string name="event_photo">photo</string>
 
@@ -199,7 +199,7 @@
     <string name="event_repeat_end_repeat">结束重复</string>
     <string name="event_repeat_never">永不</string>
     <string name="event_repeat_title">重复</string>
-    <string name="event_repeat_toolbar_done">Done</string>
+    <string name="event_repeat_toolbar_done">完成</string>
     <string name="event_end_repeat">End Repeat</string>
     <string name="event_end_repeat_on_date">于日期</string>
     <string name="event_repeat_frequency">Frequency</string>
@@ -226,16 +226,16 @@
     <string name="until_prefix">Until %1$s</string>
 
     <!--alert-->
-    <string name="event_alert_none">None</string>
-    <string name="event_alert_at_time">At time of event</string>
-    <string name="event_alert_5_minutes_before">5 minutes before</string>
-    <string name="event_alert_15_minutes_before">15 minutes before</string>
-    <string name="event_alert_30_minutes_before">30 minutes before</string>
-    <string name="event_alert_1_hour_before">1 hour before</string>
-    <string name="event_alert_2_hours_before">2 hours before</string>
-    <string name="event_alert_1_day_before">1 day before</string>
-    <string name="event_alert_2_days_before">2 days before</string>
-    <string name="event_alert_1_week_before">1 week before</string>
+    <string name="event_alert_none">无</string>
+    <string name="event_alert_at_time">事件发生时</string>
+    <string name="event_alert_5_minutes_before">5分钟前</string>
+    <string name="event_alert_15_minutes_before">15分钟前</string>
+    <string name="event_alert_30_minutes_before">30分钟前</string>
+    <string name="event_alert_1_hour_before">1小时前</string>
+    <string name="event_alert_2_hours_before">2小时前</string>
+    <string name="event_alert_1_day_before">1天前</string>
+    <string name="event_alert_2_days_before">2天前</string>
+    <string name="event_alert_1_week_before">1周前</string>
     <string name="timeslot_alert_outdated_select">Timeslot outdated</string>
     <string name="timeslot_alert_conflict_select">You may have conflict on the timeslot</string>
     <string name="timeslot_alert_outdated_create">You can\'t create outdated timeslots</string>
@@ -260,9 +260,9 @@
     <string name="solo_time_arrow">→</string>
 
     <!--Action sheet-->
-    <string name="action_sheet_cancel">Cancel</string>
-    <string name="action_sheet_take_photo">Take Photo</string>
-    <string name="action_sheet_choose_from_photos">Choose From Photos</string>
+    <string name="action_sheet_cancel">取消</string>
+    <string name="action_sheet_take_photo">拍照</string>
+    <string name="action_sheet_choose_from_photos">从手机相册选择</string>
 
     <!--event dialog-->
     <string name="event_create_cancel_dialog_content">Are you sure you want to discard this event?</string>
@@ -290,9 +290,9 @@
 
 
     <!-- event status-->
-    <string name="event_status_pending">Pending</string>
-    <string name="event_status_cancel">Cancel</string>
-    <string name="event_status_confirmed">Confirmed</string>
+    <string name="event_status_pending">待决定</string>
+    <string name="event_status_cancel">取消</string>
+    <string name="event_status_confirmed">已决定</string>
 
     <!--activity-->
     <string name="activity_meeting_show_more">展开全部</string>
@@ -315,6 +315,7 @@
     <string name="meeting_tag_hosting">由我组织</string>
     <string name="meeting_tag_coming">即将前往</string>
     <string name="meeting_tag_archive">归档</string>
+
     <string name="meeting_tag_archive_clear_all">Clear All</string>
     <string name="meeting_reminder_time_future" >%1$s后</string>
     <string name="meeting_reminder_next_slot" >剩余 %1$s</string>
@@ -342,10 +343,10 @@
     <string name="search">搜索</string>
 
     <!--contacts-->
-    <string name="contact_friend_request">Friend Requests</string>
-    <string name="contact_find_more_friends">Find More Friends</string>
-    <string name="contact_my_profile">My Profile</string>
-    <string name="contact_user_not_found_dialog_title">User Not Found</string>
+    <string name="contact_friend_request">朋友邀请</string>
+    <string name="contact_find_more_friends">查找认识的人</string>
+    <string name="contact_my_profile">个人信息</string>
+    <string name="contact_user_not_found_dialog_title">用户不存在</string>
     <string name="contact_user_not_found_dialog_message">Invite\n%1$s\nto join iTime</string>
     <string name="my_qr_code_explain">Scan the QR code to add me on Timegenii</string>
     <string name="my_qr_code_title">My QR Code</string>
@@ -360,31 +361,31 @@
     <string name="need_permission">Need permissions</string>
 
     <string name="contact_recommend_add">Add</string>
-    <string name="contact_add_by_email">Add Friend</string>
-    <string name="contact_scan_qr_code">Scan QR Code</string>
-    <string name="profile_edit_alias">Edit Alias</string>
+    <string name="contact_add_by_email">添加朋友</string>
+    <string name="contact_scan_qr_code">扫描二维码</string>
+    <string name="profile_edit_alias">设置别名、备注</string>
     <string name="profile_unblock">Unblock</string>
-    <string name="profile_block">Block</string>
-    <string name="profile_delete">Delete</string>
+    <string name="profile_block">加入黑名单</string>
+    <string name="profile_delete">删除</string>
     <string name="profile_profile">Profile</string>
     <string name="profile_invite_to_new_event">Invite to New Event</string>
     <string name="profile_add_friend">Add Friend</string>
     <string name="profile_delete_success">Delete Success</string>
     <string name="profile_request_sent">Request Sent</string>
-    <string name="contact_mutual_friends">%1$d mutual friends</string>
-    <string name="alias_title">Alias</string>
+    <string name="contact_mutual_friends">%1$d 共同朋友</string>
+    <string name="alias_title">备注</string>
     <string name="friend_request_title">Friend Requests</string>
     <string name="edit_alias_alert_msg">Alias should be %1$d to %2$d letters</string>
     <string name="edit_name_alert_msg">Name should be %1$d to %2$d letters</string>
     <string name="edit_alias_alert">Too long alias</string>
     <string name="dialog_delete_contact_title">Delete this contact?</string>
     <string name="dialog_delete_contact_message">This person will no longer show in your contact list but can still invite you to events</string>
-    <string name="dialog_block_contact_title">Block this contact?</string>
+    <string name="dialog_block_contact_title">将此联系人加入黑名单？</string>
     <string name="dialog_block_contact_message">People you block can no longer: \n• Invite you to any events</string>
     <string name="dialog_block_block">Block</string>
     <string name="dialog_delete_delete">Delete</string>
-    <string name="contact_search_account_by_email">Search account by Email</string>
-    <string name="contact_search_account">Search Account: </string>
+    <string name="contact_search_account_by_email">通过邮箱地址查找用户</string>
+    <string name="contact_search_account">查找用户</string>
     <string name="contact_invitation_sent">邀请发送成功</string>
     <string name="contact_invite_fail">Invite failed, please check your network</string>
     <string name="transition_name_avatar">transition_name_avatar</string>
@@ -393,11 +394,11 @@
     <string name="morefriends_scan_qr_code">Scan QR Code</string>
     <string name="people_you_may_know">PEOPLE YOU MAY KNOW</string>
     <string name="friend_requests_title">Friend Requests</string>
-    <string name="friend_requests_new_friends">NEW FRIENDS</string>
-    <string name="friend_requests_received">RECEIVED</string>
-    <string name="friend_requests_sent">SENT</string>
-    <string name="friend_requests_btn_request_sent">Request sent</string>
-    <string name="friend_requests_btn_accept">ACCEPT</string>
+    <string name="friend_requests_new_friends">新的联系人</string>
+    <string name="friend_requests_received">收到的邀请</string>
+    <string name="friend_requests_sent">已发送的邀请</string>
+    <string name="friend_requests_btn_request_sent">邀请已发送</string>
+    <string name="friend_requests_btn_accept">接受</string>
 
     <!-- Error msg -->
     <string name="some_error_happens">Some error happens</string>
@@ -422,18 +423,18 @@
     <string name="alert_str_one_week_before">1 week before</string>
 
     <!--login-->
-    <string name="login">Log In</string>
+    <string name="login">登录</string>
     <string name="email">Email</string>
-    <string name="password">Password</string>
+    <string name="password">密码</string>
     <string name="login_main_string1">Forget your password?</string>
     <string name="login_main_string2">Reset by Email.</string>
     <string name="logging">Logging</string>
     <string name="reset_your_password">Reset Your Password</string>
     <string name="reset_your_password_second_text">Please enter your registered Email</string>
     <string name="reset">RESET</string>
-    <string name="meeting_placeholder_invitation">This is where you find all invitations \n sent to you</string>
-    <string name="meeting_placeholder_hosting">Create a meeting and it will show up here</string>
-    <string name="meeting_placeholder_coming">This is where you find all meetings \n you are going to attend</string>
+    <string name="meeting_placeholder_invitation">这里显示所有的约见邀请</string>
+    <string name="meeting_placeholder_hosting">这里显示你创建的约见</string>
+    <string name="meeting_placeholder_coming">这里显示你即将参加的约见</string>
 
     <!--photo-->
     <string name="photo_title">图片</string>
@@ -464,26 +465,26 @@
     <string name="inbox_menu_clear_inbox">Clear Message</string>
 
     <string name="setting">设置</string>
-    <string name="setting_reset_password">Reset Password</string>
+    <string name="setting_reset_password">修改密码</string>
     <string name="my_qr_code">我的二维码</string>
-    <string name="setting_gender">Gender</string>
+    <string name="setting_gender">性别</string>
     <string name="location">Location</string>
-    <string name="region">Region</string>
-    <string name="all_regions">All Regions</string>
+    <string name="region">地区</string>
+    <string name="all_regions">全部地区</string>
     <string name="search_location">location</string>
     <string name="setting_my_profile">个人信息</string>
     <string name="setting_calendar_pref">Calendar Preferences</string>
     <string name="photo_my_profile">Photo</string>
-    <string name="setting_save">Save</string>
-    <string name="setting_male">Male</string>
-    <string name="setting_female">Female</string>
+    <string name="setting_save">保存</string>
+    <string name="setting_male">男</string>
+    <string name="setting_female">女</string>
     <string name="setting_undefined">Undefined</string>
     <string name="setting_Undefined">Undefined</string>
     <string name="setting_calendar_preference">Calendar Preferences</string>
     <string name="setting_calendars">Calendars</string>
     <string name="setting_language">语言</string>
     <string name="setting_default_calendar">Default Calendar</string>
-    <string name="setting_default_alert">Default Alert</string>
+    <string name="setting_default_alert">默认的提醒时间</string>
     <string name="setting_import_calendar_from">Import Calendar From Other Accounts</string>
     <string name="setting_import_calendar">Import Calendar</string>
     <string name="setting_google_calendar">Google Calendar</string>
@@ -491,13 +492,13 @@
     <string name="setting_notifications_subtext1">Enable or disable TimeGenii Notifications via
 “Settings”->“Notifications” on your iPhone.</string>
     <string name="setting_notification_default_subtext">Set the default time you would like to be reminded about an event</string>
-    <string name="setting_show_preview_Text">Show Preview Text</string>
+    <string name="setting_show_preview_Text">通知显示事件详情</string>
     <string name="setting_notifications_subtext2">Message notifications will contain event summary when enabled</string>
     <string name="setting_in_app_alert_sound">In-App Alert Sound</string>
     <string name="setting_vibrate">Vibrate</string>
     <string name="setting_notifications_subtext3">Specify preference to be notified by Sound or Vibration when receiving new notifications</string>
     <string name="setting_reset_password_subtext1">Enter a new password for this account. You can use the Email and the password to log in to Timegenii next time.</string>
-    <string name="setting_email">Email</string>
+    <string name="setting_email">注册邮箱</string>
     <string name="setting_password">Password</string>
     <string name="setting_confirm">Confirm</string>
     <string name="setting_password_hint">New Timegenii password</string>
@@ -544,6 +545,6 @@
     <string name = "help_center">Help Center</string>
     <string name = "report_a_problem">Report a Problem</string>
     <string name="pref_header_general">General</string>
-
+    <string name="new_event">New Event</string>
 
 </resources>
