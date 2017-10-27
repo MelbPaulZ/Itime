@@ -1,19 +1,19 @@
 {
   "project_info": {
-    "project_number": "198214728870",
-    "project_id": "itime-a99c0"
+    "project_number": "537606835698",
+    "project_id": "itime-141607"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:198214728870:android:9587f5a46842c446",
+        "mobilesdk_app_id": "1:537606835698:android:9587f5a46842c446",
         "android_client_info": {
           "package_name": "org.unimelb.itime"
         }
       },
       "oauth_client": [
         {
-          "client_id": "198214728870-0bpobksd14uqskpeeq49i5e2rq9ht7v8.apps.googleusercontent.com",
+          "client_id": "537606835698-64tvnpm9ne0hq8lp1geue24fi7h993t3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "org.unimelb.itime",
@@ -21,13 +21,13 @@
           }
         },
         {
-          "client_id": "198214728870-qh2hpu4t8v91vq7s1ht9mcq5tsmc2na0.apps.googleusercontent.com",
+          "client_id": "537606835698-2uibk1l06ut89quf0otroj3ojjp7r9u0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAPk4exGaaD2iiI5m9dIs5n0GAQpdO8MWs"
+          "current_key": "AIzaSyCy8KC5PZ8l-UnTTB4PWz22-Xi7cv1BAhU"
         }
       ],
       "services": {
