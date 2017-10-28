@@ -64,7 +64,7 @@
     <string name="event_detail_sheet_left_voted">已投票</string>
     <string name="event_detail_sheet_left_not_going">不参加</string>
     <string name="event_detail_view_in_calendar">日历中查看</string>
-    <string name="event_detail_icannotgoatalltimeslots">我无法参见</string>
+    <string name="event_detail_icannotgoatalltimeslots">我无法参加</string>
     <string name="event_detail_thetimeslotisoutdated">时间段已过期</string>
     <string name="event_detail_pleaseselectatleast1timeslot">请至少选择一个时间段</string>
     <string name="event_detail_pleaseselect1timeslot">请选择一个时间段</string>
@@ -84,7 +84,7 @@
     <string name="event_detail_please_decide">请决定:</string>
     <string name="event_detail_peoplegoing">人参加</string>
     <string name="event_detail_setyouralert">设置提醒</string>
-    <string name="event_detail_youcannotchangeafterconfirmation">确认后无法再修改事件</string>
+    <string name="event_detail_youcannotchangeafterconfirmation">确认后无法再修改时间</string>
     <string name="event_detail_peoplenotgoing">人无法参加</string>
     <string name="event_detail_decided_not_to_go">已决定不参加</string>
     <string name="event_detail_alert_empty_vote">请至少选择一个时间段</string>
@@ -117,7 +117,7 @@
     <string name="event_detail_dialog_cantgo_hint">原因</string>
     <string name="event_detail_delete_dialog_title">删除此事件</string>
     <string name="event_detail_delete_dialog_repeat_title">删除重复事件</string>
-    <string name="event_detail_delete_dialog_message">该事件所有信息将会被删除，受邀人将会收到删除通知</string>
+    <string name="event_detail_delete_dialog_message">该约见将会被删除，所有受邀人将会收到取消约见的通知</string>
     <string name="event_detail_delete_dialog_input_hints">给受邀人留言（选填）</string>
     <string name="event_detail_delete_dialog_cancel">取消</string>
     <string name="event_invitation_sent">邀请已发送</string>
@@ -281,7 +281,7 @@
     <string name="tab_calendar">日历</string>
     <string name="tab_contacts">联系人</string>
     <string name="tab_meeting">约见</string>
-    <string name="tab_soloevent">单人事件</string>
+    <string name="tab_soloevent">个人事件</string>
     <string name="tab_activities">动态</string>
     <string name="tab_message">消息</string>
     <string name="tab_setting">设置</string>
