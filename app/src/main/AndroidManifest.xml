@@ -43,9 +43,12 @@
         <!--<meta-data-->
             <!--android:name="com.google.android.geo.API_KEY"-->
             <!--android:value="AIzaSyDVSb7ficOd7TJP5H7oSAeLUNXVMC_3pyg"/>-->
+        <!--<meta-data-->
+            <!--android:name="com.google.android.geo.API_KEY"-->
+            <!--android:value="AIzaSyDtbF847zbYxL_tYnwtNMUYBtaDLSsUuRA"/>-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDtbF847zbYxL_tYnwtNMUYBtaDLSsUuRA"/>
+            android:value="AIzaSyBkJdTxEPt37qJ8nSF4Tjx7P0W2XryGbXY"/>
 
         <activity
             android:name=".ui.activity.MainActivity"

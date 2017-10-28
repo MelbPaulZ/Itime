@@ -86,8 +86,7 @@ public class FragmentItimeActivities extends ItimeBaseFragment<ItimeActivitiesMv
     }
 
     private List<ActivityMessageGroupViewModel> getMessageViewGroups(){
-        DBManager dbManager = DBManager.getInstance(getContext());
-        List<MessageGroup> messageGroups = dbManager.getAll(MessageGroup.class);
+        List<MessageGroup> messageGroups = DBManager.getInstance(getContext()).getAllAvailableMessageGroup();
         MessageGroupUtil.sortMessageGroupByTime(messageGroups);
         if (vm.getMessageGroups().size() == 0) {
             List<ActivityMessageGroupViewModel> activityMessageGroupViewModels = new ArrayList<>();

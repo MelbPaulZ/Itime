@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Itime</string>
-    <string name="serverClientId">354425670015-135aobr74423lftrohpoqb9kml25ip43.apps.googleusercontent.com</string>
+    <!--<string name="serverClientId">354425670015-135aobr74423lftrohpoqb9kml25ip43.apps.googleusercontent.com</string>-->
+    <!--<string name="serverClientId">537606835698-2uibk1l06ut89quf0otroj3ojjp7r9u0.apps.googleusercontent.com</string>-->
+    <!--<string name="serverClientId">537606835698-r3kj0rk2jkd839a5i56v7n0jvklngahu.apps.googleusercontent.com</string>-->
+    <string name="serverClientId">198214728870-4lr8558oe2qfnophucb6lei6dlea4rjg.apps.googleusercontent.com</string>
+    <!--<string name="serverClientId">537606835698-64tvnpm9ne0hq8lp1geue24fi7h993t3.apps.googleusercontent.com</string>-->
     <string name="default_cover">http://itime-1254199931.picgz.myqcloud.com/bg_default.png</string>
     <!--dialog string-->
 
