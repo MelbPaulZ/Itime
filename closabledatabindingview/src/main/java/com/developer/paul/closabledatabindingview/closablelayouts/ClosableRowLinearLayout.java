@@ -119,7 +119,7 @@ public class ClosableRowLinearLayout extends ClosableBaseLinearLayout{
 //            );
             RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) v.getLayoutParams();
             if (lp == null){
-                    lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             }
             lp.leftMargin = ClosableDataBindingUtil.dxTodp(getContext(), TEXT_LEFT_MARGIN);
             lp.bottomMargin = ClosableDataBindingUtil.dxTodp(getContext(), 20);
@@ -134,7 +134,7 @@ public class ClosableRowLinearLayout extends ClosableBaseLinearLayout{
             ClosableRelativeLayout rowLayout = new ClosableRelativeLayout(getContext());
             rowLayout.setBackground(getResources().getDrawable(R.drawable.bg_divider_bottom));
             int height = ClosableDataBindingUtil.dxTodp(getContext(), ROW_HEIGHT);
-            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             rowLayout.setLayoutParams(lp);
             rowLayout.setMinimumHeight(height);
             rowLayout.setClosableItem(rowItem);
@@ -157,6 +157,7 @@ public class ClosableRowLinearLayout extends ClosableBaseLinearLayout{
             TextView displayText = new TextView(getContext());
             displayText.setText(text);
             displayText.setTextSize(16);
+            displayText.setPadding(20,20,20,20);
             displayText.setTextColor(Color.parseColor("#030303"));
             displayText.setMinWidth(ClosableDataBindingUtil.dxTodp(getContext(), 157));
             displayText.setOnClickListener(leftClickListener);

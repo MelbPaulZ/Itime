@@ -19,6 +19,7 @@ import org.unimelb.itime.bean.Message;
 import org.unimelb.itime.bean.MessageGroup;
 import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.ui.mvpview.activity.ItimeActivitiesMvpView;
+import org.unimelb.itime.util.ActivityMessageUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,6 +59,7 @@ public class ActivityMessageGroupViewModel extends BaseObservable {
     private void initMessages(){
         messageGroups.clear();
         int size = messageGroup.getMessage().size() <= 4? messageGroup.getMessage().size(): 4 ;
+        ActivityMessageUtil.sortActivityMessageViewModelByTime(messageGroup.getMessage());
         for (int i = 0 ; i < size ; i++){
             ActivityMessageViewModel v = new ActivityMessageViewModel(messageGroup.getMessage().get(i));
             v.setContext(context);

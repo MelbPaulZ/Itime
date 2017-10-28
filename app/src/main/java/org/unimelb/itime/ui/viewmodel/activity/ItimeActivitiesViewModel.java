@@ -11,11 +11,16 @@ import org.unimelb.itime.R;
 import org.unimelb.itime.base.ItimeBaseViewModel;
 import org.unimelb.itime.bean.MessageGroup;
 import org.unimelb.itime.messageevent.MessageEvent;
+import org.unimelb.itime.messageevent.MessageUrl;
 import org.unimelb.itime.ui.mvpview.activity.ItimeActivitiesMvpView;
 import org.unimelb.itime.ui.presenter.activity.ItimeActivitiesPresenter;
+import org.unimelb.itime.util.ActivityMessageUtil;
+import org.unimelb.itime.util.EventUtil;
 import org.unimelb.itime.widget.popupmenu.PopupMenu;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import me.tatarka.bindingcollectionadapter2.ItemBinding;

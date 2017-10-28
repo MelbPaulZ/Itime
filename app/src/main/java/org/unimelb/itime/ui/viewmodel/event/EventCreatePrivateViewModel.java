@@ -16,6 +16,7 @@ import org.unimelb.itime.util.EventUtil;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * Created by Paul on 15/6/17.
@@ -60,7 +61,7 @@ public class EventCreatePrivateViewModel extends EventCreateViewModel {
     public String getEventStartDate(Event event) {
         if (event.isAllDay()){
             Date d = EventUtil.parseTimeZoneToDate(event.getStart().getDate(), EventUtil.YEAR_MONTH_DAY);
-            return EventUtil.getFormatTimeString(d.getTime(), EventUtil.WEEK_DAY_MONTH);
+            return EventUtil.getFormatTimeString(d.getTime(), EventUtil.getWeekDayMonthPattern());
         }
         return super.getEventStartDate(event);
     }
@@ -69,7 +70,7 @@ public class EventCreatePrivateViewModel extends EventCreateViewModel {
     public String getEventEndDate(Event event) {
         if (event.isAllDay()){
             Date d = EventUtil.parseTimeZoneToDate(event.getEnd().getDate(), EventUtil.YEAR_MONTH_DAY);
-            return EventUtil.getFormatTimeString(d.getTime(), EventUtil.WEEK_DAY_MONTH);
+            return EventUtil.getFormatTimeString(d.getTime(), EventUtil.getWeekDayMonthPattern());
         }
         return super.getEventEndDate(event);
     }
