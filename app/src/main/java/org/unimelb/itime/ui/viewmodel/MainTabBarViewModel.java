@@ -7,6 +7,7 @@ import android.view.View;
 import com.android.databinding.library.baseAdapters.BR;
 
 import org.unimelb.itime.base.ItimeBaseViewModel;
+import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Message;
 import org.unimelb.itime.bean.MessageGroup;
 import org.unimelb.itime.manager.DBManager;
@@ -15,9 +16,14 @@ import org.unimelb.itime.widget.ITimeShootMenu;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 
 import org.unimelb.itime.R;
+
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+
 /**
  * Created by yinchuandong on 16/08/2016.
  */
@@ -155,7 +161,8 @@ public class MainTabBarViewModel extends ItimeBaseViewModel{
 
     // this has to be called everytime there is activity update...
     public void updateUnreadActivitiesNumberAndVisibility(){
-        List<MessageGroup> msgGroups = DBManager.getInstance(getContext()).getAll(MessageGroup.class);
+        List<MessageGroup> msgGroups = DBManager.getInstance(getContext()).getAllAvailableMessageGroup();
+
         int count = 0;
         boolean unMute = false;
         for (MessageGroup messageGroup : msgGroups){

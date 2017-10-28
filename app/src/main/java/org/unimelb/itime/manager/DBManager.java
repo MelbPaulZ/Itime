@@ -419,6 +419,17 @@ public class DBManager {
         return list;
     }
 
+    public List<MessageGroup> getAllAvailableMessageGroup(){
+        DaoSession daoSession = daoMaster.newSession();
+        MessageGroupDao messageGroupDao = daoSession.getMessageGroupDao();
+        QueryBuilder<MessageGroup> qb = messageGroupDao.queryBuilder();
+        qb.where(qb.and(MessageGroupDao.Properties.Status.notEq(Event.STATUS_CANCELLED),
+                MessageGroupDao.Properties.UserUid.eq(UserUtil.getInstance(context).getUserUid())));
+        qb.orderDesc(MessageGroupDao.Properties.CreatedAt);
+        List<MessageGroup> list = qb.list();
+        return list;
+    }
+
     public synchronized void insertMessageGroups(List<MessageGroup> messageGroup) {
         if(messageGroup==null){
             return;
