@@ -100,7 +100,6 @@ public class FragmentEventEdit extends ItimeBaseFragment<EventCreateMvpView, Eve
     @Override
     public void onResume() {
         super.onResume();
-        Toast.makeText(getContext(), "Edit", Toast.LENGTH_SHORT).show();
     }
 
 

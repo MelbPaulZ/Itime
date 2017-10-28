@@ -51,9 +51,7 @@ public class FragmentEventTime extends DialogFragment implements Cancellable, It
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (binding==null){
-            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_time, container, false);
-        }
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_time, container, false);
 
         setDialogPosition();
 
@@ -80,7 +78,8 @@ public class FragmentEventTime extends DialogFragment implements Cancellable, It
 
         curStartCalendar = Calendar.getInstance();
         curEndCalendar = Calendar.getInstance();
-        curStartCalendar.setTime(EventUtil.parseTimeZoneToDate(event.getStart().getDateTime()));
+        String startDateTime = event.getStart().getDateTime();
+        curStartCalendar.setTime(EventUtil.parseTimeZoneToDate(startDateTime));
         curEndCalendar.setTime(EventUtil.parseTimeZoneToDate(event.getEnd().getDateTime()));
         datePicker = (ITimeTimeslotCalendar) binding.getRoot().findViewById(R.id.compactcalendar_view);
 
@@ -158,6 +157,7 @@ public class FragmentEventTime extends DialogFragment implements Cancellable, It
         updateShowingCalendar(firstShowStartOrEnd);
         if (!changeEndTime && firstShowStartOrEnd == EventTimeViewModel.EVENT_TIME_START_TIME){
             updateShowingCalendar(EventTimeViewModel.EVENT_TIME_END_TIME);
+            updateShowingCalendar(EventTimeViewModel.EVENT_TIME_START_TIME); // fix bug when click again but end time display
         }
         vm.setSelectTime(firstShowStartOrEnd);
     }
@@ -173,7 +173,8 @@ public class FragmentEventTime extends DialogFragment implements Cancellable, It
     // TODO: 24/6/17 calendar show, david add
     private void updateShowingCalendar(int selectTime){
         if (selectTime == EventTimeViewModel.EVENT_TIME_START_TIME){
-            hourPicker.setSelectedItemPosition(curStartCalendar.get(Calendar.HOUR_OF_DAY));
+            int hour = curStartCalendar.get(Calendar.HOUR_OF_DAY);
+            hourPicker.setSelectedItemPosition(hour);
             minutePicker.setSelectedItemPosition(curStartCalendar.get(Calendar.MINUTE));
         }else if (selectTime == EventTimeViewModel.EVENT_TIME_END_TIME){
             hourPicker.setSelectedItemPosition(curEndCalendar.get(Calendar.HOUR_OF_DAY));

@@ -121,7 +121,7 @@ implements EventCreateMvpView, ToolbarInterface{
         binding.setVm(vm);
         toolbarVM = new ToolbarViewModel<>(this);
         toolbarVM.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_back));
-        toolbarVM.setTitle(getString(R.string.new_event));
+        toolbarVM.setTitle(taskMode == FragmentEventCreate.Mode.CREATE? getString(R.string.new_event): getString(R.string.edit_event_toolbar_title));
         toolbarVM.setRightText(getString(R.string.toolbar_save));
         toolbarVM.setRightEnable(true);
         binding.setToolbarVM(toolbarVM);

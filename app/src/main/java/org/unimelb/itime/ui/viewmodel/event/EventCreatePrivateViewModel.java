@@ -56,7 +56,23 @@ public class EventCreatePrivateViewModel extends EventCreateViewModel {
         };
     }
 
+    @Override
+    public String getEventStartDate(Event event) {
+        if (event.isAllDay()){
+            Date d = EventUtil.parseTimeZoneToDate(event.getStart().getDate(), EventUtil.YEAR_MONTH_DAY);
+            return EventUtil.getFormatTimeString(d.getTime(), EventUtil.WEEK_DAY_MONTH);
+        }
+        return super.getEventStartDate(event);
+    }
 
+    @Override
+    public String getEventEndDate(Event event) {
+        if (event.isAllDay()){
+            Date d = EventUtil.parseTimeZoneToDate(event.getEnd().getDate(), EventUtil.YEAR_MONTH_DAY);
+            return EventUtil.getFormatTimeString(d.getTime(), EventUtil.WEEK_DAY_MONTH);
+        }
+        return super.getEventEndDate(event);
+    }
 
 
     @Override
