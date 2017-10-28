@@ -1,5 +1,7 @@
 package org.unimelb.itime.util;
 
+import android.content.Context;
+
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.Meeting;
@@ -17,11 +19,11 @@ import java.util.Locale;
 
 public class MeetingUtil extends BaseUtil{
 
-    public static int getCardTypeInvitation(Meeting meeting)
+    public static int getCardTypeInvitation(Meeting meeting, Context context)
     {
         // beans entity
         Event event = meeting.getEvent();
-        Invitee userInvitee = EventUtil.getUserInvitee(event);
+        Invitee userInvitee = EventUtil.getUserInvitee(event, context);
         // attrs which are used for get card type
         String eventStatus = event.getStatus();
         String userInviteeStatus = userInvitee.getStatus();

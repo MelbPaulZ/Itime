@@ -109,7 +109,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
 
         Date d = EventUtil.parseTimeZoneToDate(event.getStart().getDateTime());
         if(d!=null) {
-            return EventUtil.getFormatTimeString(d.getTime(), EventUtil.WEEK_DAY_MONTH);
+            return EventUtil.getFormatTimeString(d.getTime(), EventUtil.getWeekDayMonthPattern());
         }else{
             return "";
         }
@@ -118,7 +118,7 @@ public class EventCreateViewModel extends ItimeBaseViewModel{
     public String getEventEndDate(Event event){
         Date d = EventUtil.parseTimeZoneToDate(event.getEnd().getDateTime());
         if(d!=null) {
-            return EventUtil.getFormatTimeString(d.getTime(), EventUtil.WEEK_DAY_MONTH);
+            return EventUtil.getFormatTimeString(d.getTime(), EventUtil.getWeekDayMonthPattern());
         }else{
             return "";
         }

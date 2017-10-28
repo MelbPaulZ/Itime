@@ -16,16 +16,18 @@
             android:layout_height="wrap_content"
             android:text="@{wrapper.name}"
             android:textSize="15sp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:layout_centerVertical="true"
             android:textColor="@color/black"
             />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_centerVertical="true"
             android:src="@drawable/icon_calendar_check_mark"
             android:visibility="@{wrapper.isSelecte==1? View.VISIBLE: View.INVISIBLE}"/>

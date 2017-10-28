@@ -787,7 +787,6 @@ public class EventDetailViewModel extends BaseObservable{
     public EventDetailViewModel(EventCreatePresenter<EventDetailMvpView> presenter) {
         this.presenter = presenter;
         this.context = getContext();
-//        this.wrapperTimeSlotList = new ArrayList<>();
         alertTimes = AppUtil.getDefaultAlertMins();
         mvpView = presenter.getView();
         init();
@@ -998,7 +997,7 @@ public class EventDetailViewModel extends BaseObservable{
     private String generateUntilString(){
         Date until = event.getRule().getUntil();
         if(until!=null) {
-            return String.format(getContext().getString(R.string.repeat_prefix), EventUtil.getFormatTimeString(until.getTime(), EventUtil.WEEK_DAY_MONTH));
+            return String.format(getContext().getString(R.string.until_prefix), EventUtil.getFormatTimeString(until.getTime(), EventUtil.getWeekDayMonthPattern()));
         }else{
             return "";
         }

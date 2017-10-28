@@ -160,7 +160,7 @@ public class MeetingInvitationBaseCardViewModel extends MeetingBaseCardViewModel
     }
 
     protected CardTemplate getCardInvitation(Meeting meeting) {
-        int type = getCardTypeInvitation(meeting);
+        int type = getCardTypeInvitation(meeting, context);
         return cardsMap.get(type);
     }
 }

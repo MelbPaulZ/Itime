@@ -1,5 +1,6 @@
 package org.unimelb.itime.ui.viewmodel;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.text.Editable;
@@ -11,6 +12,7 @@ import android.widget.AdapterView;
 import com.android.databinding.library.baseAdapters.BR;
 
 import org.unimelb.itime.R;
+import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.ui.mvpview.calendar.SearchEventMvpView;
 import org.unimelb.itime.ui.presenter.SearchEventPresenter;
@@ -39,7 +41,7 @@ public class SearchEventViewModel extends BaseObservable {
     public SearchEventViewModel(SearchEventPresenter<SearchEventMvpView> presenter) {
         this.presenter = presenter;
         this.mvpView = presenter.getView();
-        refreshResultHint();
+        refreshResultHint(presenter.getContext());
     }
 
     /**
@@ -80,16 +82,16 @@ public class SearchEventViewModel extends BaseObservable {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                refreshResultHint();
+                refreshResultHint(presenter.getContext());
                 clearResults();
                 presenter.search(searchStr);
             }
         };
     }
 
-    private void refreshResultHint(){
+    private void refreshResultHint(Context context){
         if (searchStr.isEmpty()){
-            setResultHint("Try searching for keywords");
+            setResultHint(context.getString(R.string.search_hint));
         }else{
             setResultHint("");
         }

@@ -35,13 +35,13 @@ public class TimeFactory {
         String[] result = new String[2];
         if(timeSlot!=null){
             if(timeSlot.isAllDay()){
-                result[0] = getFormatTimeString(timeSlot.getStartTime(), WEEK_DAY_MONTH, locale);
+                result[0] = getFormatTimeString(timeSlot.getStartTime(), EventUtil.getWeekDayMonthPattern(), locale);
                 result[1] = context.getString(R.string.all_day);
 
             }else if (isDifferentYear(timeSlot, locale)){
                 result[0] = getFormatTimeString(timeSlot.getStartTime(), HOUR_MIN_A, locale)
                 +" "
-                +getFormatTimeString(timeSlot.getStartTime(), WEEK_DAY_MONTH, locale);
+                +getFormatTimeString(timeSlot.getStartTime(), EventUtil.getWeekDayMonthPattern(), locale);
 
                 result[1] = getFormatTimeString(timeSlot.getEndTime(), HOUR_MIN_A, locale)
                         +" "
@@ -50,16 +50,16 @@ public class TimeFactory {
             }else if(isDifferentDay(timeSlot, locale)){
                 result[0] = getFormatTimeString(timeSlot.getStartTime(), HOUR_MIN_A, locale)
                         +" "
-                        +getFormatTimeString(timeSlot.getStartTime(), WEEK_DAY_MONTH, locale);
+                        +getFormatTimeString(timeSlot.getStartTime(), EventUtil.getWeekDayMonthPattern(), locale);
 
                 result[1] = getFormatTimeString(timeSlot.getEndTime(), HOUR_MIN_A, locale)
                         +" "
-                        +getFormatTimeString(timeSlot.getEndTime(), WEEK_DAY_MONTH, locale);
+                        +getFormatTimeString(timeSlot.getEndTime(), EventUtil.getWeekDayMonthPattern(), locale);
             }else{
                 result[0] = getFormatTimeString(timeSlot.getStartTime(), HOUR_MIN_A, locale)
                         +" → "
                         + getFormatTimeString(timeSlot.getEndTime(), HOUR_MIN_A, locale);
-                result[1] = getFormatTimeString(timeSlot.getStartTime(), WEEK_DAY_MONTH, locale);
+                result[1] = getFormatTimeString(timeSlot.getStartTime(), EventUtil.getWeekDayMonthPattern(), locale);
             }
         }
         return result;

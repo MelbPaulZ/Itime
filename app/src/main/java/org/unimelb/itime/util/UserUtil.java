@@ -38,13 +38,6 @@ public class UserUtil {
         return instance;
     }
 
-    public static UserUtil getInstance(){
-        if(instance == null) {
-            throw new RuntimeException("User has not initialised yet");
-        }
-        return instance;
-    }
-
     /**
      * restore all persistent information to instance
      */
@@ -111,7 +104,12 @@ public class UserUtil {
     }
 
     public String getUserUid(){
-        return instance.getUser().getUserUid();
+        User user = instance.getUser();
+        if (user == null){
+            return null;
+        }else {
+            return instance.getUser().getUserUid();
+        }
     }
 
     public Setting getSetting(){

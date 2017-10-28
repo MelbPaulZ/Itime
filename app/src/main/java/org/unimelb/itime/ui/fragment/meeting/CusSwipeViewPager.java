@@ -34,6 +34,11 @@ public class CusSwipeViewPager extends ViewPager {
         return swipeEnable && super.onInterceptTouchEvent(ev);
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        return swipeEnable && super.onTouchEvent(ev);
+    }
+
     public boolean isSwipeEnable() {
         return swipeEnable;
     }

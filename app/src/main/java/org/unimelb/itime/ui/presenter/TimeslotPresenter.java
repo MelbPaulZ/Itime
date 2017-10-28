@@ -2,6 +2,7 @@ package org.unimelb.itime.ui.presenter;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.unimelb.itime.base.ItimeBasePresenter;
@@ -39,18 +40,18 @@ public class TimeslotPresenter <V extends TimeslotMvpView> extends ItimeBasePres
 
 
     public void fetchRecommendedTimeslots(Event event, Date startTime, Date endTime){
-        RecommendRequest recommandRequest = new RecommendRequest();
-        recommandRequest.setEvent(event);
-        recommandRequest.setDuration(event.getDuration());
+        RecommendRequest recommendRequest = new RecommendRequest();
+        recommendRequest.setEvent(event);
+        recommendRequest.setDuration(event.getDuration());
         TZoneTime start = new TZoneTime();
         start.setDateTime(EventUtil.getFormatTimeString(startTime.getTime(), EventUtil.TIME_ZONE_PATTERN));
         start.setTimeZone(TimeZone.getDefault().getID());
-        recommandRequest.setStartRecommendTime(start);
+        recommendRequest.setStartRecommendTime(start);
         TZoneTime end = new TZoneTime();
         end.setDateTime(EventUtil.getFormatTimeString(endTime.getTime(), EventUtil.TIME_ZONE_PATTERN));
         end.setTimeZone(TimeZone.getDefault().getID());
-        recommandRequest.setEndRecommendTime(end);
-        Observable<HttpResult<List<TimeSlot>>> observable = eventApi.recommend(recommandRequest);
+        recommendRequest.setEndRecommendTime(end);
+        Observable<HttpResult<List<TimeSlot>>> observable = eventApi.recommend(recommendRequest);
         Subscriber<HttpResult<List<TimeSlot>>> subscriber = new Subscriber<HttpResult<List<TimeSlot>>>() {
             @Override
             public void onCompleted() {
@@ -59,7 +60,7 @@ public class TimeslotPresenter <V extends TimeslotMvpView> extends ItimeBasePres
 
             @Override
             public void onError(Throwable e) {
-                Log.i(TAG, "onError: " + e.getMessage());
+                Toast.makeText(getContext(), "Recommend Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
             }
 
             @Override

@@ -82,7 +82,7 @@ public class ActivityMessageViewModel extends BaseObservable{
         }else if (EventUtil.isYesterDay(c, todayC)){
             return context.getString(R.string.yesterday);
         }else{
-            return EventUtil.getFormatTimeString(c.getTimeInMillis(), EventUtil.WEEK_DAY_MONTH);
+            return EventUtil.getFormatTimeString(c.getTimeInMillis(), EventUtil.getWeekDayMonthPattern());
         }
     }
 
