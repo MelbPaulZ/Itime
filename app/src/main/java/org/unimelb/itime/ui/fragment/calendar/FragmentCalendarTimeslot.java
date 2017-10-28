@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -58,6 +57,7 @@ import david.itimecalendar.calendar.wrapper.WrapperTimeSlot;
 public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView, TimeslotPresenter<TimeslotMvpView>>
         implements TimeslotMvpView, ToolbarTimeslotViewModel.ToolbarTimeSlotComponents {
 
+    private static final String TAG = "onRcdArrive";
     private Map<String, List<TimeSlot>> rcdCheckedDates = new HashMap<>();
 
     public enum Mode{
@@ -269,7 +269,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
                 event.setDuration(selectDuration);
                 // min start date one hour late than current time
                 Date fetchDate = new Date(currentFirstDate.getTime() + 3600 * 1000);
-                fetchRcds(fetchDate);
+                handleFetchRcdsRequest(fetchDate);
             }
 
             @Override
@@ -576,55 +576,89 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
         public void onDateChanged(Date date) {
             currentFirstDate = date;
             if (mode == Mode.HOST_CREATE){
-                fetchRcds(date);
+                Log.i(TAG, "onDateChanged: ");
+                handleFetchRcdsRequest(date);
             }
         }
     };
 
-
-    public static final int FETCH_RANGE = 3;
-
-    private void fetchRcds(Date currentFstDay){
+    private void handleFetchRcdsRequest(Date currentFstDay){
         Date today = new Date();
 
-        Date targetFetchStartDate = currentFstDay;
-        boolean needFetch = false;
+        Calendar endChecker = Calendar.getInstance();
+        endChecker.setTimeInMillis(currentFstDay.getTime());
+        endChecker.add(Calendar.DATE, 3);
+        String nextPageFirstDate = TimeFactory.getFormatTimeString(endChecker.getTime()
+                , TimeFactory.DAY_MONTH_YEAR
+                , getResources().getConfiguration().locale);
 
-        for (int i = 0; i < timeslotPageRange; i++) {
+        Calendar startChecker = Calendar.getInstance();
+        startChecker.setTimeInMillis(currentFstDay.getTime());
+        startChecker.add(Calendar.DATE, -3);
+        String previousPageLastDate = TimeFactory.getFormatTimeString(startChecker.getTime()
+                , TimeFactory.DAY_MONTH_YEAR
+                , getResources().getConfiguration().locale);
+
+        if (rcdCheckedDates.containsKey(nextPageFirstDate) && rcdCheckedDates.containsKey(previousPageLastDate)){
+            Log.i(TAG, "rcdCheckedDates.containsKey(nextPageFirstDate && previousPageLastDate) " + nextPageFirstDate);
+            return;
+        }
+
+        // confirm fetching recommended timeslots
+        //clear map
+        clearRecommendedTimeslot();
+        rcdCheckedDates.clear();
+
+        Date targetFetchStartDate = null;
+        long todayTime = today.getTime();
+
+        for (int i = -timeslotPageRange; i < timeslotPageRange * 2; i++) {
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(currentFstDay.getTime());
             cal.add(Calendar.DATE, i);
+
+            long currentDayBeginTime = EventUtil.getDayBeginMilliseconds(currentFstDay.getTime());
+            long currentDayEndTime = EventUtil.getDayEndMilliseconds(currentFstDay.getTime());
+
+            // the day before today
+            if (currentDayEndTime < todayTime){
+                Log.i(TAG, "currentDayEndTime < todayTime" + currentFstDay);
+                continue;
+            }
+
             String currentDateStr = TimeFactory.getFormatTimeString(cal.getTime()
                     , TimeFactory.DAY_MONTH_YEAR
                     , getResources().getConfiguration().locale);
+
+            // currentDateStr day have not fetched before
             if (!rcdCheckedDates.containsKey(currentDateStr)){
-                targetFetchStartDate = cal.getTime();
-                needFetch = true;
+                if (currentDayBeginTime < todayTime && currentDayEndTime > todayTime){// today
+                    targetFetchStartDate = today;
+                }else {// future
+                    targetFetchStartDate = currentFstDay;
+                }
+                Log.i(TAG, "handleFetchRcdsRequest: prepare fetch " + targetFetchStartDate);
                 break;
+            }else {
+                Log.i(TAG, "handleFetchRcdsRequest: already include " + currentDateStr);
             }
         }
 
-        if (needFetch){
+        // need to fetch
+        if (targetFetchStartDate != null){
             Date end = new Date();
             Date start = new Date();
 
-
-//            if (EventUtil.isSameDay(today, targetFetchStartDate)){
-//                if (targetFetchStartDate.getTime() < today.getTime()){
-//                    targetFetchStartDate.setTime(today.getTime());
-//                }
-//            }else {
-                targetFetchStartDate.setHours(0);
-                targetFetchStartDate.setMinutes(0);
-//            }
+            targetFetchStartDate.setHours(0);
+            targetFetchStartDate.setMinutes(0);
 
             long startFetchTime = targetFetchStartDate.getTime();
 
-            long endFetchTime = targetFetchStartDate.getTime() + FETCH_RANGE * EventUtil.allDayMilliseconds;
+            long endFetchTime = targetFetchStartDate.getTime() + timeslotPageRange * 3 * EventUtil.allDayMilliseconds;
             start.setTime(startFetchTime);
             end.setTime(endFetchTime);
 
-            Log.i("onRcdArrive", "fetch: C " + targetFetchStartDate + " S: " + start + " E: " + end);
+            Log.i(TAG, "fetch: C " + targetFetchStartDate + " S: " + start + " E: " + end);
 
             presenter.fetchRecommendedTimeslots(event, start, end);
         }else {
@@ -632,14 +666,14 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
         }
 
         // add checked date to recorder
-        for (int i = -FETCH_RANGE; i < FETCH_RANGE; i++) {
+        for (int i = -timeslotPageRange; i < timeslotPageRange * 2; i++) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(targetFetchStartDate);
             calendar.add(Calendar.DATE, i);
             String dateStr = TimeFactory.getFormatTimeString(calendar.getTime()
                     , TimeFactory.DAY_MONTH_YEAR
                     , getResources().getConfiguration().locale);
-            Log.i("onRcdArrive", "added: " + dateStr);
+            Log.i(TAG, "added: " + dateStr);
             if (!rcdCheckedDates.containsKey(dateStr)){
                 rcdCheckedDates.put(dateStr,null);
             }
@@ -687,7 +721,7 @@ public class FragmentCalendarTimeslot extends ItimeBaseFragment<TimeslotMvpView,
         if (rcdTimeslot == null || rcdTimeslot.size() == 0){
             return;
         }
-        Log.i("onRcdArrive", "onRcdArrive: " + " loaded " + msg.getRcdTimeslots().size());
+        Log.i(TAG, "onRcdArrive: " + " loaded " + msg.getRcdTimeslots().size());
 
         long currentDuration = items.get(timeSlotView.getDurationBar().getCurrentSelectedPosition()).duration;
         if (rcdTimeslot.size() >0){

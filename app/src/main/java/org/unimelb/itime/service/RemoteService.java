@@ -269,6 +269,10 @@ public class RemoteService extends Service {
         itimeWebSocket.setOnItimeMessage(new Emitter.Listener() {
             @Override
             public void call(Object... objects) {
+                User user = UserUtil.getInstance(context).getUser();
+                if (user == null){
+                    return;
+                }
                 String s = objects[0].toString();
                 Gson gson = new Gson();
                 WebSocketRes webSocketRes = gson.fromJson(s, WebSocketRes.class);

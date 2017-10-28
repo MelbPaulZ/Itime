@@ -2,9 +2,12 @@ package org.unimelb.itime.ui.presenter;
 
 import android.content.Context;
 
+import org.greenrobot.greendao.AbstractDao;
+import org.greenrobot.greendao.query.QueryBuilder;
 import org.unimelb.itime.base.ItimeBasePresenter;
 import org.unimelb.itime.bean.Contact;
 import org.unimelb.itime.bean.Event;
+import org.unimelb.itime.bean.EventDao;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.ui.mvpview.activity.SearchMvpView;
@@ -191,13 +194,21 @@ public class SearchPresenter<V extends SearchMvpView> extends ItimeBasePresenter
      * @param <T>
      */
     private <T> void initDataFromDB(final Class<T> tClass) {
-        List<T> data = DBManager.getInstance(context).getAll(tClass);
 
         if (tClass == Meeting.class) {
+            List<T> data = DBManager.getInstance(context).getAll(tClass);
+
             meetingDataSet = (List<Meeting>) data;
         } else if (tClass == Event.class) {
-            eventDataSet = (List<Event>) data;
+            AbstractDao<Event, Void> eventDao = DBManager.getInstance(getContext()).getQueryDao(Event.class);
+            QueryBuilder<Event> qb = eventDao.queryBuilder();
+            qb.where(EventDao.Properties.EventType.eq(Event.TYPE_SOLO),qb.or(EventDao.Properties.DeleteLevel.eq(0), EventDao.Properties.DeleteLevel.eq(2)));
+            List<Event> showMeetingSet =qb.list();
+
+            eventDataSet = showMeetingSet;
         } else if (tClass == Contact.class) {
+            List<T> data = DBManager.getInstance(context).getAll(tClass);
+
             contactDataSet = (List<Contact>) data;
         }
     }

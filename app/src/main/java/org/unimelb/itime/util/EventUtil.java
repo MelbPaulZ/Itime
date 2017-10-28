@@ -21,6 +21,7 @@ import org.unimelb.itime.bean.TimeslotInvitee;
 import org.unimelb.itime.bean.User;
 import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.manager.EventManager;
+import org.unimelb.itime.ui.activity.SplashActivity;
 import org.unimelb.itime.ui.presenter.EventCreatePresenter;
 import org.unimelb.itime.ui.presenter.MeetingPresenter;
 import org.unimelb.itime.util.rulefactory.FrequencyEnum;
@@ -242,7 +243,8 @@ public class EventUtil extends BaseUtil{
 
     public static String HOUR_MIN = "HH:mm";
     public static String HOUR_MIN_A = "hh:mm a";
-    public static String WEEK_DAY_MONTH = "EEE, dd MMM";
+    public static String WEEK_DAY_MONTH_EN = "EEE, dd MMM";
+    public static String WEEK_DAY_MONTH_ZH = "MM月dd日 EEE";
     public static String HOUR_MIN_WEEK_DAY_MONTH = "HH:mm a EEE,dd MMM";
     public static String DAY_MONTH_YEAR = "dd MMM yyyy";
     public static String TIME_ZONE_PATTERN = "yyyy-MM-dd'T'HH:mm:ssZZZZZ";
@@ -250,10 +252,19 @@ public class EventUtil extends BaseUtil{
     public static String MONTH_YEAR = "MMMM yyyy";
     public static String YEAR_MONTH_DAY = "yyyy-MM-dd";
 
+
+    public static String getWeekDayMonthPattern(){
+        if (SplashActivity.currentLocale == Locale.CHINESE){
+            return WEEK_DAY_MONTH_ZH;
+        }else {
+            return WEEK_DAY_MONTH_EN;
+        }
+    }
+
     public static String getFormatTimeString(long time, String format){
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(time);
-        SimpleDateFormat fmt = new SimpleDateFormat(format);
+        SimpleDateFormat fmt = new SimpleDateFormat(format, SplashActivity.currentLocale);
         return fmt.format(c.getTime());
     }
 
@@ -614,10 +625,10 @@ public class EventUtil extends BaseUtil{
      * @param event
      * @return
      */
-    public static Invitee getUserInvitee(Event event){
+    public static Invitee getUserInvitee(Event event, Context context){
         for (Invitee invitee:event.getInvitee().values()
                 ) {
-            if (invitee.getUserUid().equals(UserUtil.getInstance().getUserUid())){
+            if (invitee.getUserUid().equals(UserUtil.getInstance(context).getUserUid())){
                 return invitee;
             }
         }

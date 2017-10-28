@@ -127,7 +127,7 @@ public class EventRepeatCustomViewModel extends BaseObservable {
 
             Calendar cYear = Calendar.getInstance();
             if (c.get(Calendar.YEAR) == cYear.get(Calendar.YEAR)){
-                return EventUtil.getFormatTimeString(c.getTimeInMillis(), EventUtil.WEEK_DAY_MONTH);
+                return EventUtil.getFormatTimeString(c.getTimeInMillis(), EventUtil.getWeekDayMonthPattern());
             }else{
                 return EventUtil.getFormatTimeString(c.getTimeInMillis(), EventUtil.DAY_MONTH_YEAR);
             }

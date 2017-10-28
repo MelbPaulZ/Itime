@@ -46,7 +46,7 @@ public class TimeslotLineViewModel extends BaseObservable {
     }
 
     public String getDateString(TimeSlot timeslot){
-        String dateString = EventUtil.getFormatTimeString(timeslot.getStartTime(), EventUtil.WEEK_DAY_MONTH);
+        String dateString = EventUtil.getFormatTimeString(timeslot.getStartTime(), EventUtil.getWeekDayMonthPattern());
         return String.format(context.getString(R.string.event_timeslot_single_day), dateString);
     }
 }

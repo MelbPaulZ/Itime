@@ -1,6 +1,7 @@
 package org.unimelb.itime.ui.presenter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.annimon.stream.Collectors;
@@ -12,12 +13,14 @@ import org.greenrobot.greendao.query.QueryBuilder;
 import org.unimelb.itime.base.ItimeBasePresenter;
 import org.unimelb.itime.bean.Event;
 import org.unimelb.itime.bean.EventDao;
+import org.unimelb.itime.bean.Invitee;
 import org.unimelb.itime.bean.Meeting;
 import org.unimelb.itime.bean.MeetingDao;
 import org.unimelb.itime.manager.DBManager;
 import org.unimelb.itime.manager.EventManager;
 import org.unimelb.itime.ui.mvpview.MeetingMvpView;
 import org.unimelb.itime.util.EventUtil;
+import org.unimelb.itime.util.MeetingUtil;
 import org.unimelb.itime.util.UserUtil;
 
 import java.io.Serializable;
@@ -240,7 +243,10 @@ public class MeetingPresenter <V extends MeetingMvpView> extends ItimeBasePresen
         for (Meeting meeting:fields
              ) {
             Event event = meeting.getEvent();
-            if (event.getStartTime() > todayBegin && event.isConfirmed()){
+            String status = EventUtil.getUserInvitee(event,getContext()).getStatus();
+            if (event.getStartTime() > todayBegin
+                    && event.isConfirmed()
+                    && TextUtils.equals(status, Invitee.STATUS_ACCEPTED)){
 
                 comingResult.add(meeting);
             }

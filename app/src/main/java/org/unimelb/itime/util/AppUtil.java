@@ -3,11 +3,13 @@ package org.unimelb.itime.util;
 import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 
 import org.unimelb.itime.R;
 import org.unimelb.itime.base.C;
+import org.unimelb.itime.service.RemoteService;
 
 import java.util.List;
 import java.util.TimeZone;
@@ -20,9 +22,6 @@ public class AppUtil {
 
     private static ProgressDialog pgBar;
 
-//    public static SharedPreferences getSharedPreferences(Context ctx){
-//        return ctx.getSharedPreferences(C.sp.DEFAULT, Context.MODE_PRIVATE);
-//    }
 
     /**
      * Added by Qiushuo Huang
@@ -221,5 +220,15 @@ public class AppUtil {
                 Build.TAGS.length()%10 + Build.TYPE.length()%10 +
                 Build.USER.length()%10 ; //13 digits
         return id;
+    }
+
+    public static void logOut(Context context){
+        context.stopService(new Intent(context, RemoteService.class));
+        Intent intent = context.getPackageManager()
+                .getLaunchIntentForPackage(context.getPackageName() );
+        intent .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
     }
 }

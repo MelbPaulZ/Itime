@@ -5,6 +5,7 @@
     <!--dialog string-->
 
     <string name="dialog_ok">OK</string>
+    <string name="dialog_restart">Restart</string>
     <string name="dialog_leave">Leave</string>
     <string name="dialog_done">Done</string>
     <string name="dialog_cancel">Cancel</string>
@@ -478,8 +479,6 @@
     <string name="setting_male">Male</string>
     <string name="setting_female">Female</string>
     <string name="setting_undefined">Undefined</string>
-    <string name="setting_Undefined">Undefined</string>
-    <string name="setting_calendar_preference">Calendar Preferences</string>
     <string name="setting_calendars">Calendars</string>
     <string name="setting_language">Language</string>
     <string name="setting_default_calendar">Default Calendar</string>
@@ -536,11 +535,10 @@
     <!-- Example General settings -->
     <string name = "help_center">Help Center</string>
     <string name = "report_a_problem">Report a Problem</string>
-    <string name="pref_header_general">General</string>
     <string name="new_event">New Event</string>
-
-    <string name="hour">Try searching for keywords</string>
+    <string name="search_hint">Try searching for keywords</string>
     <string name="label_hours">hrs</string>
     <string name="label_min">min</string>
+    <string name="language_changed_restart">Language has been changed, please restart the app.</string>
 
 </resources>

@@ -46,8 +46,6 @@ public class SettingLanguageFragment extends ItimeBaseFragment<TaskBasedMvpView<
         toolbarViewModel = new ToolbarViewModel<>(this);
         toolbarViewModel.setLeftIcon(getResources().getDrawable(R.drawable.icon_nav_close));
         toolbarViewModel.setTitle(getString(R.string.setting_language));
-        toolbarViewModel.setRightText(getString(R.string.setting_save));
-        toolbarViewModel.setRightEnable(true);
 
         contentVM = new SettingLanguageViewModel(getPresenter());
         binding.setToolbarVM(toolbarViewModel);
@@ -76,7 +74,5 @@ public class SettingLanguageFragment extends ItimeBaseFragment<TaskBasedMvpView<
 
     @Override
     public void onNext() {
-        showToast("todo: change to another language");
-        getActivity().finish();
     }
 }
